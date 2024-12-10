@@ -1,0 +1,11 @@
+﻿namespace Defra.UI.Tests.Pages.AP.SignificantFeaturesPage
+{
+    public interface ISignificantFeaturesPage
+    {
+        bool IsNextPageLoaded(string pageTitle);
+        string SelectSignificantFeaturesOption(string featuresOption);
+        void ClickContinueButton();
+        bool IsError(string errorMessage);
+        void EnterSignificantFeatures(string significantFeatures);
+    }
+}

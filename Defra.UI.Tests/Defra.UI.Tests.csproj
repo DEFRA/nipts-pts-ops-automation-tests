@@ -1,0 +1,195 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Feature\Regression\**" />
+    <EmbeddedResource Remove="Feature\Regression\**" />
+    <None Remove="Feature\Regression\**" />
+    <SpecFlowFeatureFiles Remove="Feature\Regression\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\Regression\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\Users\AP\DEV\Users.json" />
+    <None Remove="Data\Users\AP\PRE\Users.json" />
+    <None Remove="Data\Users\AP\TST\Users.json" />
+    <None Remove="Data\Users\CP\DEV\Users.json" />
+    <None Remove="Data\Users\CP\PRE\Users.json" />
+    <None Remove="Data\Users\CP\TST\Users.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\E2E\DogAndCat - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\IDCOMS\IdcomsRegression - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\UAT\SUS\CompleteRegistration.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\Update Microchip Information - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Update\Update Pet Details - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Validations - Copy (2).feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Validations - Copy (3).feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Validations - Copy.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Users\AP\DEV\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\AP\PRE\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\AP\TST\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\CP\DEV\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\CP\PRE\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\CP\TST\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
+    <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.5.0" />
+    <PackageReference Include="Defra.Ui.Automation.Framework" Version="2.0.7" />
+    <PackageReference Include="Dynamitey" Version="3.0.3" />
+    <PackageReference Include="MailinatorApiClient" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageReference Include="Selenium.Axe" Version="4.0.18" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="*" />
+    <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />	  
+    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.9.74" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="SpecFlow" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.ExternalData" Version="3.9.74" />
+    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
+	<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Capgemini.PowerApps.SpecFlowBindings\Capgemini.PowerApps.SpecFlowBindings.csproj" />
+    <ProjectReference Include="..\Defra.Trade.MSD365.SpecFlowBindings\Defra.Trade.MSD365.SpecFlowBindings.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CI_appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="power-apps-bindings.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Update="docker-compose-grid.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Update="power-apps-bindings.yml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+	<None Update="TestExecution.json">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+    <None Update="testrun_30.runsettings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="testrun_3.runsettings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Update="testrun_10.runsettings">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Update="testrun.runsettings">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Feature\AP\E2E\Ferret.feature.cs">
+      <DependentUpon>Ferret.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\IDCOMS\IdcomsRegressionE2E.feature.cs">
+      <DependentUpon>IdcomsRegressionE2E.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\UAT\SUS\DataPreparation.feature.cs">
+      <DependentUpon>DataPreparation.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Update\Update Pet Owner Details.feature.cs">
+      <DependentUpon>Update Pet Owner Details.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Update\Update Pet Details.feature.cs">
+      <DependentUpon>Update Pet Details.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Update\Update Microchip Information.feature.cs">
+      <Visible>true</Visible>
+      <DependentUpon>Update Microchip Information.feature</DependentUpon>
+      <DesignTime>true</DesignTime>
+      <AutoGen>true</AutoGen>
+    </Compile>
+    <Compile Update="Feature\AP\Validations\Pet Details Validations.feature.cs">
+      <DependentUpon>Pet Details Validations.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Validations\Pet Owner Details Validations.feature.cs">
+      <DependentUpon>Pet Owner Details Validations.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Validations\Microchip Information Validations.feature.cs">
+      <DependentUpon>Microchip Information Validations.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Feature\AP\E2E\Ferret.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\IDCOMS\IdcomsRegressionE2E.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\UAT\SUS\DataPreparation.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Update\Update Pet Owner Details.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Update\Update Pet Details.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Update\Update Microchip Information.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Validations\Pet Details Validations.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Validations\Pet Owner Details Validations.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Validations\Microchip Information Validations.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+  </ItemGroup>
+	
+
+
+</Project>
