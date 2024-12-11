@@ -54,7 +54,8 @@ Scenario Outline: Create PETS Travel Document By PostCode Address User
 
 Scenario Outline: Create PETS Travel Document By Manually Address User
 	Then I should navigate to Lifelong pet travel documents page
-	When I click Apply for a document button
+	When I click Additional Cookies button
+	And I click Apply for a document button
 	Then I should navigate to the Pets Owner details correct page
 	When I selected the radio button '<PetsOwnerDetails>' option and continue
 	Then I should navigate to Pets Owner full name page

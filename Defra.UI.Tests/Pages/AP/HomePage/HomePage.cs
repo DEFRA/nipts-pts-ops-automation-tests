@@ -1,10 +1,7 @@
 ﻿using BoDi;
-using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using System.Collections.ObjectModel;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Defra.UI.Tests.Pages.AP.HomePage
 {
@@ -34,6 +31,8 @@ namespace Defra.UI.Tests.Pages.AP.HomePage
         private IReadOnlyCollection<IWebElement> tableHeaderRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/th"), true);
         private IReadOnlyCollection<IWebElement> tableActionRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/td[4]//a"), true);
         public IWebElement lnkManageAccount => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Manage account']"));
+        private IWebElement btnAddtionalCoockies => _driver.WaitForElement(By.XPath("//button[normalize-space(text()) ='Accept additional cookies']"));
+        private IWebElement btnHideCoockies => _driver.WaitForElement(By.XPath("//button[normalize-space(text()) ='Hide cookie message']"));
 
         #endregion
 
@@ -47,6 +46,12 @@ namespace Defra.UI.Tests.Pages.AP.HomePage
         public void ClickFeedbackLink()
         {
             FeedbackLink.Click();
+        }
+
+        public void ClickHideCoockies()
+        {
+            btnAddtionalCoockies.Click();
+            btnHideCoockies.Click();
         }
 
         public void ClickGethelpLink()

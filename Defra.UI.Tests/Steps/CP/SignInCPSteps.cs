@@ -31,6 +31,7 @@ namespace Defra.UI.Tests.Steps.CP
         {
             var url = urlBuilder.Default().BuildCom();
             _driver?.Navigate().GoToUrl(url);
+            Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver, false);
         }
 
         [When(@"I click signin button on port checker application")]

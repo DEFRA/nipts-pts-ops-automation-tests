@@ -1,6 +1,6 @@
 ﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.SummaryPage;
 using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Pages.AP.SummaryPage;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;

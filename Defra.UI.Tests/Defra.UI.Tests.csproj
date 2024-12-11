@@ -25,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Accessibility\DogAndCat.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\E2E\DogAndCat - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\CP\Accessibility\AP_Accessibility.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\IDCOMS\IdcomsRegression - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\UAT\SUS\CompleteRegistration.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\Update Microchip Information - Copy.feature.cs" />
@@ -59,6 +61,7 @@
   <ItemGroup>
     <PackageReference Include="Azure.Identity" Version="1.12.0" />
     <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.5.0" />
+    <PackageReference Include="Cognizant.WCAG.Compliance.Checker" Version="4.0.0" />
     <PackageReference Include="Defra.Ui.Automation.Framework" Version="2.0.7" />
     <PackageReference Include="Dynamitey" Version="3.0.3" />
     <PackageReference Include="MailinatorApiClient" Version="1.0.3" />
@@ -67,7 +70,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-    <PackageReference Include="Selenium.Axe" Version="4.0.18" />
+    <PackageReference Include="Selenium.Axe" Version="4.0.20" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="*" />
     <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />	  
     <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.9.74" />
@@ -119,8 +122,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Feature\AP\Accessibility\AP_Accessibility.feature.cs">
+      <DependentUpon>AP_Accessibility.feature</DependentUpon>
+    </Compile>
     <Compile Update="Feature\AP\E2E\Ferret.feature.cs">
       <DependentUpon>Ferret.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\Accessibility\CP_Accessibility.feature.cs">
+      <DependentUpon>CP_Accessibility.feature</DependentUpon>
     </Compile>
     <Compile Update="Feature\IDCOMS\IdcomsRegressionE2E.feature.cs">
       <DependentUpon>IdcomsRegressionE2E.feature</DependentUpon>
@@ -152,7 +161,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Feature\AP\Accessibility\AP_Accessibility.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Feature\AP\E2E\Ferret.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\CP\Accessibility\CP_Accessibility.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>

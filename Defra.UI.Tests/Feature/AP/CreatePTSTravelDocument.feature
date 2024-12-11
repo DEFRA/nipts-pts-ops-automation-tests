@@ -11,7 +11,8 @@ Background:
 	
 Scenario Outline: Create PETS Travel Document By Registered User for Dog and Cat
 	Then I should navigate to Lifelong pet travel documents page
-	When I click Apply for a document button
+	When I click Additional Cookies button
+	And I click Apply for a document button
 	Then I should navigate to the Pets Owner details correct page
 	When I selected the radio button '<PetsOwnerDetails>' option and continue
 	Then I should navigate to the Is your pet microchipped page
