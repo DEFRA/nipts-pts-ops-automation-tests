@@ -45,9 +45,10 @@ parameters:
 resources:
   repositories:
     - repository: niptsopsprovingrepo
-      type: git
+      type: github
       name: DEFRA/nipts-pts-ops-automation-tests
       ref: $(Build.SourceBranch)
+      endpoint: DEFRA
 
 
 stages:
