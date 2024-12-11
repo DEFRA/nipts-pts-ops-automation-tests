@@ -41,29 +41,18 @@ parameters:
     displayName: Enable Accessibility Testing
     type: string
     default: 'false'
-  
-schedules:
-- cron: "0 05 * * Mon,Tue,Wed,Thu,Fri"
-  displayName: Daily midnight build
-  branches:
-    include:
-    - dev
-    exclude:
-    - feature/*
-    - task/*
-    - master
 
 resources:
   repositories:
-    - repository: PetsAutomationRepo
+    - repository: niptsopsprovingrepo
       type: git
-      name: DEFRA-PET-TRAVEL/Defra.PTS.AutomationTests
+      name: DEFRA/nipts-pts-ops-automation-tests
       ref: $(Build.SourceBranch)
 
 
 stages:
   
-  - stage: PETS_CP_E2E
+  - stage: PETS_OPS_CP_E2E
     displayName: PETS Compliance Portal E2E
 
     variables:
@@ -73,7 +62,7 @@ stages:
     
     - template: run-test-template.yml
       parameters:
-        jobName: PETS_CP_E2E
+        jobName: PETS_OPS_CP_E2E
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: ${{parameters.seleniumGrid}}  
@@ -94,9 +83,9 @@ stages:
         branchName: $(Build.SourceBranch)
         SeleniumGrid: ${{parameters.seleniumGrid}}
         dependsOn:
-        - PETS_CP_E2E
+        - PETS_OPS_CP_E2E
         projects:
-        - PETS_CP_E2E
+        - PETS_OPS_CP_E2E
 
 
 
