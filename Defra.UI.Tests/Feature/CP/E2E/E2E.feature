@@ -50,7 +50,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	And I can see the unique application reference number
 	When I have clicked the View all your lifelong pet travel documents link
 	Then I should redirected to Apply for a pet travel document page
-	And I should see the application in 'AWAITING VERIFICATION' status
+	And I should see the application in 'Pending' status
 	When I have clicked the View hyperlink from home page
 	Then The submitted application should be displayed in summary view
 	When I Login to Dynamics application
@@ -124,7 +124,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I can see the unique application reference number
 	When I have clicked the View all your lifelong pet travel documents link
 	Then I should redirected to Apply for a pet travel document page
-	And I should see the application in 'AWAITING VERIFICATION' status
+	And I should see the application in 'Pending' status
 	When I have clicked the View hyperlink from home page
 	Then The submitted application should be displayed in summary view
 	When I Login to Dynamics application
@@ -198,7 +198,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I can see the unique application reference number
 	When I have clicked the View all your lifelong pet travel documents link
 	Then I should redirected to Apply for a pet travel document page
-	And I should see the application in 'AWAITING VERIFICATION' status
+	And I should see the application in 'Pending' status
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
@@ -270,7 +270,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I can see the unique application reference number
 	When I have clicked the View all your lifelong pet travel documents link
 	Then I should redirected to Apply for a pet travel document page
-	And I should see the application in 'AWAITING VERIFICATION' status
+	And I should see the application in 'Pending' status
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
@@ -339,7 +339,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And I can see the unique application reference number
 	When I have clicked the View all your lifelong pet travel documents link
 	Then I should redirected to Apply for a pet travel document page
-	And I should see the application in 'AWAITING VERIFICATION' status
+	And I should see the application in 'Pending' status
 	When I have clicked the View hyperlink from home page
 	Then The submitted application should be displayed in summary view
 	When I Login to Dynamics application
@@ -519,7 +519,7 @@ Examples:
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by microchip number |
 
 @CPRegression
-Scenario Outline: Check PETS Travel Document details By Reference number - status in AWAITING VERIFICATION
+Scenario Outline: Check PETS Travel Document details By Reference number - status in Pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the Is your pet microchipped page
@@ -583,7 +583,7 @@ Examples:
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number |
 
 @CPRegression
-Scenario Outline: Check PETS Travel Document details By Microchip number - status in AWAITING VERIFICATION
+Scenario Outline: Check PETS Travel Document details By Microchip number - status in Pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the Is your pet microchipped page
