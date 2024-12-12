@@ -22,7 +22,7 @@ namespace Defra.UI.Tests.Pages.AP.PetOwnerAddressPage
         private IWebElement btnFindAddress => _driver.WaitForElement(By.XPath("//button[@type='submit']"));
         private IWebElement txtPostCode => _driver.WaitForElement(By.Id("Postcode"), true);
         private IWebElement drpAddress => _driver.WaitForElement(By.CssSelector("#Address"));
-        private IWebElement lnkEnterAddress => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Enter the address manually']"));
+        private IWebElement lnkEnterAddress => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='I cannot find the address in the list']"));
         private IWebElement txtAddressLineOne => _driver.WaitForElement(By.Id("AddressLineOne"));
         private IWebElement txtAddressLineTwo => _driver.WaitForElement(By.Id("AddressLineTwo"));
         private IWebElement txtTownOrCity => _driver.WaitForElement(By.Id("TownOrCity"));
@@ -66,7 +66,7 @@ namespace Defra.UI.Tests.Pages.AP.PetOwnerAddressPage
             return drpAddress.Displayed;
         }
 
-        public void ClickEnterAddressManuallyLink()
+        public void ClickICannotFindTheAddressInTheListLink()
         {
             lnkEnterAddress.Click();
         }

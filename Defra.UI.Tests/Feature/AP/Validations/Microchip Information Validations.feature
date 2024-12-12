@@ -27,8 +27,8 @@ Scenario Outline: Verify microchipped date should not allows future date
 	And I should not be redirected to Is your pet a dog, cat or ferret? page
 
 Examples:
-	| FullName |  Are your details correct | MicrochipOption | MicrochipNumber |
-	| PetCat's |  Yes                      | Yes             | 123456789123485 |
+	| FullName | Are your details correct | MicrochipOption | MicrochipNumber |
+	| PetCat's | Yes                      | Yes             | 123456789123485 |
 
 Scenario Outline: Verify microchipped date should not allows older than 34 years
 	Then I have selected '<Are your details correct>' option
@@ -42,10 +42,9 @@ Scenario Outline: Verify microchipped date should not allows older than 34 years
 	When I click Continue button from When was your pet microchipped page
 	Then I should not be redirected to Is your pet a dog, cat or ferret? page
 	And I should see an error message "Enter a date that is less than 34 years ago" in pets microchipped or last scanned page
-
 Examples:
-	| FullName |  Are your details correct | MicrochipOption | MicrochipNumber |
-	| PetCat's |  Yes                      | Yes             | 123456789123485 |
+	| FullName | Are your details correct | MicrochipOption | MicrochipNumber |
+	| PetCat's | Yes                      | Yes             | 123456789123485 |
 
 Scenario Outline: Verify microchipped page validations without selection and should not moves to next page
 	Then I have selected '<Are your details correct>' option
@@ -56,8 +55,8 @@ Scenario Outline: Verify microchipped page validations without selection and sho
 	Then I should see an error message '<ErrorMessage>' in microchipped page
 	And I should not be redirected to When was your pet microchipped or last scanned? page
 Examples:
-	| FullName |  Are your details correct | MicrochipOption | MicrochipNumber | ErrorMessage                        |
-	| Pet Dog  |  Yes                      |                 |                 | Tell us if your pet is microchipped |
+	| FullName | Are your details correct | MicrochipOption | MicrochipNumber | ErrorMessage                       |
+	| Pet Dog  | Yes                      |                 |                 | Select if your pet is microchipped |
 
 Scenario Outline: Verify microchipped page validations and should not moves to next page
 	Then I have selected '<Are your details correct>' option
@@ -69,9 +68,9 @@ Scenario Outline: Verify microchipped page validations and should not moves to n
 	Then I should see an error message '<ErrorMessage>' in microchipped page
 	And I should not be redirected to When was your pet microchipped or last scanned? page
 Examples:
-	| FullName |  Are your details correct | MicrochipOption | MicrochipNumber | ErrorMessage                                 |
-	| Pet Dog  |  Yes                      | Yes             |                 | Enter your pet’s 15-digit microchip number   |
-	| Pet Dog  |  Yes                      | Yes             | abc123def456fgh |                                              |
+	| FullName | Are your details correct | MicrochipOption | MicrochipNumber | ErrorMessage                               |
+	| Pet Dog  | Yes                      | Yes             |                 | Enter your pet’s 15-digit microchip number |
+	| Pet Dog  | Yes                      | Yes             | abc123def456fgh |                                            |
 
 Scenario Outline: Verify microchip number should not allows less or more than 15 digits
 	Then I have selected '<Are your details correct>' option
@@ -84,9 +83,9 @@ Scenario Outline: Verify microchip number should not allows less or more than 15
 	And I should see an error message "Enter your pet’s 15-digit microchip number" in Is your pet microchipped page
 
 Examples:
-	| FullName |  Are your details correct | MicrochipOption | MicrochipNumber       |
-	| PetDog's |  Yes                      | Yes             | 1234567891			 |
-	| PetDog's |  Yes                      | Yes             | 1234567891234567      |
+	| FullName | Are your details correct | MicrochipOption | MicrochipNumber  |
+	| PetDog's | Yes                      | Yes             | 1234567891       |
+	| PetDog's | Yes                      | Yes             | 1234567891234567 |
 
 Scenario Outline: The date on the microchip should be a future date relative to the pets date of birth
 	Then I have selected '<Are your details correct>' option
@@ -117,6 +116,6 @@ Scenario Outline: The date on the microchip should be a future date relative to 
 	And I should see an error message "Enter a date that is before the pet’s microchip date" in pets date of birth page
 
 Examples:
-	| FullName |  Are your details correct | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         |
-	| PetDog's |  Yes                      | 02012345671 | Yes             | 123456789123458 | Dog | Dog     | Male   | Black         |
-	| PetCat's |  Yes                      | 07440345672 | Yes             | 123456789654322 | Cat | Cat     | Female | Tortoiseshell |
+	| FullName | Are your details correct | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         |
+	| PetDog's | Yes                      | 02012345671 | Yes             | 123456789123458 | Dog | Dog     | Male   | Black         |
+	| PetCat's | Yes                      | 07440345672 | Yes             | 123456789654322 | Cat | Cat     | Female | Tortoiseshell |
