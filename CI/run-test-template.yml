@@ -210,7 +210,7 @@ jobs:
                         break              
                     }              
             
-                    $testNames = $failedTests | ForEach-Object { $_.testName.Substring(0, $_.testName.IndexOf('(')) }
+                    $testNames = $failedTests | ForEach-Object { if ($_.testName.Length -gt 0) { $_.testName.Substring(0, $_.testName.IndexOf('(')) } }
                                         
                     $filter = ($testNames | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
   
