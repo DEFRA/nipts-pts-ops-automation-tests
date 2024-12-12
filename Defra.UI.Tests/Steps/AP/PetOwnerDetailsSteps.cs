@@ -102,7 +102,7 @@ namespace Defra.UI.Tests.Steps.AP
             petOwnerAddressPage?.ClickSearchButton();
         }
 
-        [When(@"I click the link I cannot find the address in the list")]
+        [When(@"I click the link Enter the address manually")]
         public void WhenIClickTheLinkEnterTheAddressManually()
         {
             petOwnerAddressPage?.ClickICannotFindTheAddressInTheListLink();

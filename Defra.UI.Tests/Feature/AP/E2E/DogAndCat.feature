@@ -161,7 +161,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter addr
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
