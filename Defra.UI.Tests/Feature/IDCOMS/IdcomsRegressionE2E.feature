@@ -70,7 +70,7 @@ Scenario Outline: Verify if a Caseworker can change the status of the case from 
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
@@ -136,7 +136,7 @@ Scenario Outline: Verify the email subject for Rejection email
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
@@ -193,7 +193,7 @@ Scenario Outline: Verify the email subject for revoked email
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
@@ -252,7 +252,7 @@ Scenario Outline: Verify the email subject for approved email
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
@@ -310,7 +310,7 @@ Scenario Outline: Verify the email subject of the confirmation email
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
@@ -364,7 +364,7 @@ Scenario Outline: Verify if a Caseworker flags an existing case for further inve
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
@@ -423,7 +423,7 @@ Scenario Outline: Verify the message banner at the top of the application page -
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
@@ -480,7 +480,7 @@ Scenario Outline: Verify if the caseworker can add notes to the case
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
@@ -540,7 +540,7 @@ Scenario Outline: Verify the error message when the caseworker Authorises an app
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
 	When I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
