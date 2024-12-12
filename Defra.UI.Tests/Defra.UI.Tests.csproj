@@ -95,6 +95,12 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="LocalPackages\cognizant.wcag.compliance.checker.4.0.0.nupkg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="LocalPackages\reports.html.4.0.0.nupkg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="power-apps-bindings.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
