@@ -206,6 +206,10 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Feature\AP\Accessibility\" />
+  </ItemGroup>
 	
 
 
