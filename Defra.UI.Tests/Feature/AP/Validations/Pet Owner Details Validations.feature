@@ -98,7 +98,7 @@ Scenario Outline: Verify enter address manually validations with all fields blan
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	And I click Continue button from What is your address page
 	Then I should see an error message '<ErrorMessages>' in What is your address page
 
@@ -113,7 +113,7 @@ Scenario Outline: Verify enter address manually validations with maximum limit c
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	Then I have provided address details as '<Address>' for each field
 	When I click Continue button from What is your address page
 	Then I should see an error message '<ErrorMessages>' in What is your address page
@@ -130,7 +130,7 @@ Scenario Outline: Verify enter address manually validations with invalid postcod
 	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
-	When I click the link I cannot find the address in the list
+	When I click the link Enter the address manually
 	Then I provided the postcode '<PostCode>'
 	When I click Continue button from What is your address page
 	Then I should see an error message '<ErrorMessages>' in What is your postcode page
