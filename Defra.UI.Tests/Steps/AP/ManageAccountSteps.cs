@@ -1,7 +1,5 @@
 ﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.HomePage;
-using Defra.UI.Tests.Pages.AP.ManageAccountPage;
-using Defra.UI.Tests.Pages.AP.PetOwnerDetailsPage;
+using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;

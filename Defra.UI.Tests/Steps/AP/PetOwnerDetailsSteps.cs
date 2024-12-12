@@ -1,8 +1,5 @@
 ﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.ApplicationSubmittedPage;
-using Defra.UI.Tests.Pages.AP.PetOwnerAddressPage;
-using Defra.UI.Tests.Pages.AP.PetOwnerNamePage;
-using Defra.UI.Tests.Pages.AP.PetOwnerPhoneNumberPage;
+using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;

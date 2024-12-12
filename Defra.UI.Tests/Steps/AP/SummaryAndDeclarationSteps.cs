@@ -1,8 +1,5 @@
 ﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.ApplicationDeclarationPage;
-using Defra.UI.Tests.Pages.AP.ChangeDetails;
-using Defra.UI.Tests.Pages.AP.HomePage;
-using Defra.UI.Tests.Pages.AP.SummaryPage;
+using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
 

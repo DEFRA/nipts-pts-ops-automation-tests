@@ -1,5 +1,5 @@
 ﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.SummaryPage;
+using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
