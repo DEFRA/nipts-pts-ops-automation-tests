@@ -5,30 +5,8 @@ using Defra.UI.Tests.Tools;
 using TechTalk.SpecFlow;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Pages;
-using Defra.UI.Tests.Pages.AP.ChangeDetails;
-using Defra.UI.Tests.Pages.AP.ApplicationSubmittedPage;
-using Defra.UI.Tests.Pages.AP.ApplicationDeclarationPage;
-using Defra.UI.Tests.Pages.AP.PetOwnerPhoneNumberPage;
-using Defra.UI.Tests.Pages.AP.PetOwnerAddressManuallyPage;
-using Defra.UI.Tests.Pages.AP.PetSexPage;
-using Defra.UI.Tests.Pages.AP.PetOwnerNamePage;
-using Defra.UI.Tests.Pages.AP.PetMicrochipPage;
-using Defra.UI.Tests.Pages.AP.SignificantFeaturesPage;
-using Defra.UI.Tests.Pages.AP.SummaryPage;
-using Defra.UI.Tests.Pages.AP.ManageAccountPage;
-using Defra.UI.Tests.Pages.AP.PetSpeciesPage;
-using Defra.UI.Tests.Pages.AP.PetDOBPage;
-using Defra.UI.Tests.Pages.AP.GetYourPetMicrochippedPage;
-using Defra.UI.Tests.Pages.AP.PetMicrochipDatePage;
-using Defra.UI.Tests.Pages.AP.PetOwnerPostCodePage;
-using Defra.UI.Tests.Pages.AP.PetColourPage;
-using Defra.UI.Tests.Pages.AP.SignInPage;
-using Defra.UI.Tests.Pages.AP.LandingPage;
-using Defra.UI.Tests.Pages.AP.PetNamePage;
-using Defra.UI.Tests.Pages.AP.PetOwnerAddressPage;
-using Defra.UI.Tests.Pages.AP.PetBreedPage;
-using Defra.UI.Tests.Pages.AP.HomePage;
-using Defra.UI.Tests.Pages.AP.PetOwnerDetailsPage;
+using Defra.UI.Tests.Pages.AP.Classes;
+using Defra.UI.Tests.Pages.AP.Interfaces;
 
 
 
