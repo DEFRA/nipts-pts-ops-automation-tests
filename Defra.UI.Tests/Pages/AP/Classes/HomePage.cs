@@ -42,6 +42,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool IsPageLoaded()
         {
+            Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver, false);
             return PageHeading.Text.Contains("Lifelong pet travel documents");
         }
 

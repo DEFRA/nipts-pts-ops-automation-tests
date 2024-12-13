@@ -21,7 +21,7 @@ Scenario: Port checker Change Route Checking Details from Search results page
 	And I click search by 'Search by microchip number' radio button
 	And I provided the Microchip number '123456789012345' of the application
 	When I click search button
-	Then I should see the application status in 'Awaiting verification'
+	Then I should see the application status in 'Pending'
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page

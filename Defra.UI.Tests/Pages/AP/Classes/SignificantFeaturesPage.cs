@@ -32,6 +32,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool IsNextPageLoaded(string pageTitle)
         {
+            Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver, false);
             return PageHeading.Text.Contains(pageTitle);
         }
 
