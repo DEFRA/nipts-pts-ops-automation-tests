@@ -1,11 +1,5 @@
 ﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.PetBreedPage;
-using Defra.UI.Tests.Pages.AP.PetColourPage;
-using Defra.UI.Tests.Pages.AP.PetDOBPage;
-using Defra.UI.Tests.Pages.AP.PetNamePage;
-using Defra.UI.Tests.Pages.AP.PetSexPage;
-using Defra.UI.Tests.Pages.AP.PetSpeciesPage;
-using Defra.UI.Tests.Pages.AP.SignificantFeaturesPage;
+using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using TechTalk.SpecFlow;

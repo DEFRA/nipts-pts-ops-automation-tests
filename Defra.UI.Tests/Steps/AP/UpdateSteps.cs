@@ -1,17 +1,5 @@
 ﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.ApplicationDeclarationPage;
-using Defra.UI.Tests.Pages.AP.PetBreedPage;
-using Defra.UI.Tests.Pages.AP.PetColourPage;
-using Defra.UI.Tests.Pages.AP.PetDOBPage;
-using Defra.UI.Tests.Pages.AP.PetMicrochipDatePage;
-using Defra.UI.Tests.Pages.AP.PetMicrochipPage;
-using Defra.UI.Tests.Pages.AP.PetNamePage;
-using Defra.UI.Tests.Pages.AP.PetOwnerAddressPage;
-using Defra.UI.Tests.Pages.AP.PetOwnerNamePage;
-using Defra.UI.Tests.Pages.AP.PetOwnerPhoneNumberPage;
-using Defra.UI.Tests.Pages.AP.PetSexPage;
-using Defra.UI.Tests.Pages.AP.PetSpeciesPage;
-using Defra.UI.Tests.Pages.AP.SignificantFeaturesPage;
+using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using TechTalk.SpecFlow;
 

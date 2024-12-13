@@ -3,7 +3,7 @@ using Capgemini.PowerApps.SpecFlowBindings;
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.HelperMethods;
-using Defra.UI.Tests.Pages.AP.SignInPage;
+using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using NUnit.Framework;
