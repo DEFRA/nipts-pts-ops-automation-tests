@@ -60,17 +60,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	And I have verified microchip details in summary page
 	And I have verified pet details in summary page
 	And I have verified pet owner details in summary page
-	When I Login to Dynamics application
-	And I opens the application
-	And I assign the application to myself
-	And I Pass the Microchip check
-	And I go back
-	And I 'Authorise' the application
-	Then the status is changed to 'Authorised'
-	And I click on Back button in Pets Application
-	And I should see the application in 'Approved' status
-
-Examples:
+	Examples:
 	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
 	| PetDog's  | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
 

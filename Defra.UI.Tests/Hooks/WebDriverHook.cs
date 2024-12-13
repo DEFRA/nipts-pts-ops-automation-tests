@@ -50,6 +50,8 @@ namespace Defra.UI.Tests.Hooks
                 PrintNodeInfo("http://localhost:4444/status");
             }
 
+            Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, Path.Combine($"{Environment.CurrentDirectory}", "Accessibility"), false);
+
             _objectContainer.RegisterInstanceAs(Driver);
         }
 
@@ -138,6 +140,13 @@ namespace Defra.UI.Tests.Hooks
                 AfterScenarioHooks.TestCleanup();                
             }
             catch { }
+        }
+
+
+        [AfterTestRun]
+        public static void AfterTestRun()
+        {
+            Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByCategory();
         }
     }
 }
