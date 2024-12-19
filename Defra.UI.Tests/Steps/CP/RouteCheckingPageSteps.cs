@@ -38,14 +38,14 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [Given(@"I have selected '([^']*)' radio option")]
-        [Then(@"I have selected '([^']*)' radio option")]
+        [Then(@"I have selected '(.*)' radio option")]
         public void ThenIHaveSelectedRadioOption(string transportType)
         {
             _routeCheckingPage?.SelectTransportationOption(transportType);
         }
 
         [Given(@"I select the '([^']*)' radio option")]
-        [Then(@"I select the '([^']*)' radio option")]
+        [Then(@"I select the '(.*)' radio option")]
         public void ThenISelectTheRadioOption(string routeOption)
         {
             _routeCheckingPage?.SelectFerryRouteOption(routeOption);
@@ -64,14 +64,14 @@ namespace Defra.UI.Tests.Steps.CP
             _routeCheckingPage?.SelectSaveAndContinue();
         }
 
-        [Then(@"I provide the '([^']*)' in the box")]
+        [Then(@"I provide the '(.*)' in the box")]
         public void ThenIProvideTheInTheBox(string routeFlightNumber)
         {
             _routeCheckingPage?.SelectFlightNumber(routeFlightNumber);
         }
 
 
-        [Then(@"I should see an error '([^']*)' in route checking page")]
+        [Then(@"I should see an error '(.*)' in route checking page")]
         public void ThenIShouldSeeAnErrorInRouteCheckingPage(string errorMessage)
         {
             if (!string.IsNullOrEmpty(errorMessage))
@@ -92,7 +92,7 @@ namespace Defra.UI.Tests.Steps.CP
             _routeCheckingPage?.SelectDropDownDepartureTimeMinuteOnly();
         }
 
-        [Then(@"I have selected '([^']*)''([^']*)''([^']*)'Date option")]
+        [Then(@"I have selected '(.*)''(.*)''(.*)'Date option")]
         public void ThenIHaveSelectedDateOption(string departureDay, string departureMonth, string departureYear)
         {
             _routeCheckingPage?.SelectScheduledDepartureDate(departureDay,departureMonth,departureYear);
