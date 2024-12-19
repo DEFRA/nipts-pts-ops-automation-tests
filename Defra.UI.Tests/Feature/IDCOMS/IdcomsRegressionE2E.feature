@@ -45,8 +45,6 @@ Scenario Outline: Verify if a Caseworker can change the status of the case from 
 	And I have selected an option as '<IsSignificantFeatures>' for significant features
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -105,8 +103,6 @@ Scenario Outline: Verify if a Caseworker can change the status of the case from 
 	And I have verified microchip details in declaration page
 	And I have verified pet details in declaration page
 	And I have verified pet owner details in declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -168,8 +164,6 @@ Scenario Outline: Verify the email subject for Rejection email
 	And I have selected an option as '<IsSignificantFeatures>' for significant features
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -225,8 +219,6 @@ Scenario Outline: Verify the email subject for revoked email
 	And I have selected an option as '<IsSignificantFeatures>' for significant features
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -284,8 +276,6 @@ Scenario Outline: Verify the email subject for approved email
 	And I have selected an option as '<IsSignificantFeatures>' for significant features
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -342,8 +332,6 @@ Scenario Outline: Verify the email subject of the confirmation email
 	And I have selected an option as '<IsSignificantFeatures>' for significant features
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -396,8 +384,6 @@ Scenario Outline: Verify if a Caseworker flags an existing case for further inve
 	And I have selected an option as '<IsSignificantFeatures>' for significant features
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -458,8 +444,6 @@ Scenario Outline: Verify the message banner at the top of the application page -
 	And I have selected an option as '<IsSignificantFeatures>' for significant features
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -515,8 +499,6 @@ Scenario Outline: Verify if the caseworker can add notes to the case
 	And I have selected an option as '<IsSignificantFeatures>' for significant features
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -575,8 +557,6 @@ Scenario Outline: Verify the error message when the caseworker Authorises an app
 	And I have verified microchip details in declaration page
 	And I have verified pet details in declaration page
 	And I have verified pet owner details in declaration page
-	And I have ticked the By sending this application, you confirm that you've given accurate and truthful information about your pet checkbox
-	And I have ticked the I agree to Defra's privacy policy checkbox
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
