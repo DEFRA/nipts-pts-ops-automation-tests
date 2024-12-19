@@ -1,8 +1,8 @@
-url: '#{{ IDCOMSUrl }}'
+url: https://defra-trade-plants-preprod.crm4.dynamics.com/main.aspx
 useProfiles: false
 browserOptions: 
   browserType: Chrome
 users: 
-  - username: '#{{ IDCOMSUser }}'
-    password: '#{{ IDCOMSPassword }}'
-    alias: '#{{ IDOMSUserAlias }}'
+  - username: Nagarajan.Subbiah@defra.gov.uk
+    password: UdithKrishna@04$
+    alias: Nagarajan Subbiah
