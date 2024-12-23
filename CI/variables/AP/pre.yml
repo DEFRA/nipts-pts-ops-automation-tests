@@ -1,0 +1,8 @@
+variables:
+ Environment: 'pre'
+ EnvAPLogin: 'SvTCNYNgeKxMi1tHEnPUw8HGs7P3O8XM'
+ FilterTestCategory : 'TestCategory=Regression|TestCategory=ChangeDetails|TestCategory=Validations' 
+ IDCOMSUrl: 'https://defra-trade-plants-preprod.crm4.dynamics.com'
+ IDCOMSUser: 'nagarajan.subbiah@defra.gov.uk'
+ IDOMSUserAlias: 'Nagarajan Subbiah'
+ SecretsFilter: 'PetsIDCOMSAutomation'

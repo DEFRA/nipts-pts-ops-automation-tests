@@ -1,0 +1,289 @@
+parameters:
+  - name: jobName
+    type: string
+  - name: environment
+    type: string
+  - name: branchName
+    type: string
+  - name: seleniumGrid
+    type: string
+  - name: deviceName
+    type: string
+  - name: bsOSVersion
+    type: string
+  - name: dependsOn
+    type: string
+  - name: workers
+    type: string
+  - name: bsBrowserVersion
+    type: string
+  - name: target
+    type: string
+  - name: isEmulationEnabled
+    type: string
+  - name: emulateDeviceInfo
+    type: string
+  - name: isAccessibilityTesting
+    type: string
+  - name: application
+    type: string
+
+jobs: 
+
+- job: ${{ parameters.jobName }}
+  displayName: ${{ parameters.jobName }}
+  timeoutInMinutes: 300
+
+  pool:
+    ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+      name: 'DEFRA-COMMON-ubuntu2004-SSV3'
+    ${{ if contains(parameters.seleniumGrid, 'browserstack') }}:
+      name: 'DEFRA-TRD'
+
+  variables:
+    - template: 'variables/${{parameters.application}}/global.yml'
+      parameters:
+        environment: ${{parameters.environment}}
+        workers: ${{parameters.workers}}
+        seleniumGrid: ${{parameters.seleniumGrid}}
+        deviceName: ${{parameters.deviceName}}
+        bsOSVersion: ${{parameters.bsOSVersion}}
+        bsBrowserVersion:  ${{parameters.bsBrowserVersion}}
+        target:  ${{parameters.target}}
+        isEmulationEnabled:  ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo:  ${{parameters.emulateDeviceInfo}}
+        isAccessibilityTesting:  ${{parameters.isAccessibilityTesting}}
+        idcomsPassword: '$(PetsIDCOMSAutomation)' 
+
+  steps:
+  
+    - ${{ if or( eq(parameters.environment, 'tst'), eq(parameters.environment, 'pre')) }}:
+        - task: AzureKeyVault@2
+          displayName: Get Secrets from TST Keyvault 
+          inputs:    
+            connectedServiceName: 'AZD-TRD-TST1'
+            keyvaultName: 'TSTTRDINFKV1001'
+            SecretsFilter: '$(SecretsFilter)'
+            RunAsPreJob: false
+
+        - powershell: echo "##vso[task.setvariable variable=PetsIDCOMSAutomation;isOutput=true]$(PetsIDCOMSAutomation)"
+          displayName: Set IDCOMS Secret to variable
+  
+    - task: DownloadBuildArtifacts@0
+      displayName: TestArtifact
+      inputs:
+        buildType: 'specific'
+        project: '023a3c95-20fd-49b4-b068-4706843ba0d7'
+        pipeline: '8452'
+        buildVersionToDownload: 'latestFromBranch'
+        branchName: ${{ parameters.branchName }}
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - task: CopyFiles@2
+      displayName: 'Copy Test Artifacts'
+      inputs:
+        SourceFolder: '$(System.ArtifactsDirectory)/drop'
+        TargetFolder: $(System.DefaultWorkingDirectory)
+        OverWrite: true
+        CleanTargetFolder: true
+    
+    - task: ExtractFiles@1
+      inputs:
+        archiveFilePatterns: '**/Defra.UI.Tests.zip'
+        destinationFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests'
+        cleanDestinationFolder: false
+        overwriteExistingFiles: true
+    
+    - task: replacetokens@3
+      displayName: Replace Tokens for appsettings
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests'
+        targetFiles: 'appsettings.json'
+        encoding: auto
+        writeBOM: true
+        escapeType: json
+        actionOnMissing: warn
+        keepToken: false
+        tokenPrefix: '#{{'
+        tokenSuffix: '}}'
+        useLegacyPattern: false
+        enableTelemetry: false
+
+    - powershell: |
+        $jsonString = Get-Content "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/appsettings.json" | Out-String
+        Write-Host $jsonString
+      displayName: 'Display appsettings.json'
+
+    - task: replacetokens@3
+      displayName: Replace Tokens for IDCOMS configuration file
+      inputs:
+        rootDirectory: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests'
+        targetFiles: 'power-apps-bindings.yml'
+        encoding: auto
+        writeBOM: true
+        escapeType: json
+        actionOnMissing: warn
+        keepToken: false
+        tokenPrefix: '#{{'
+        tokenSuffix: '}}'
+        useLegacyPattern: false
+        enableTelemetry: false
+
+    - powershell: |
+        $ymlString = Get-Content "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/power-apps-bindings.yml" | Out-String
+        Write-Host $ymlString
+      displayName: 'Display power-apps-bindings.yml'
+
+    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+      - powershell:
+          docker system prune -a --volumes --force
+        displayName: 'Stop and Clean all containers'
+
+    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+      - task: DockerCompose@0
+        displayName: Run a Docker Compose command
+        inputs:
+          action: Run a Docker Compose command
+          workingDirectory: $(System.DefaultWorkingDirectory)/Defra.UI.Tests
+          dockerComposeFile: $(System.DefaultWorkingDirectory)/Defra.UI.Tests/docker-compose-grid.yml 
+          projectName: defra-ui-tests
+          qualifyImageNames: true
+          dockerComposeCommand: up -d
+          #arguments: '--exit-code-from selenium-hub'
+
+    - powershell: |
+          Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCategory)" --logger:"trx;logfilename=${{ parameters.jobName }}_$(System.StageName).xml"
+      displayName: 'Execute Tests'
+      failOnStderr: true
+      ignoreLASTEXITCODE: true
+      continueOnError: true
+
+    - task: AzurePowerShell@5
+      displayName: 'Rerun failed tests'      
+      inputs:
+        azureSubscription: 'AZD-TRD-TST1'
+        ScriptType: 'InlineScript'
+        azurePowerShellVersion: 'LatestVersion'
+        pwsh: true
+        Inline: |
+    
+            $maxRetries = 3            
+            $trxFileName = "${{ parameters.jobName }}_$(System.StageName).xml"
+
+            function Get-FailedTests {
+                param ([string]$trxFilePath)
+               
+                [xml]$trx = Get-Content $trxFilePath               
+                $failedTests = $trx.TestRun.Results.UnitTestResult | Where-Object { $_.outcome -eq 'Failed' }            
+                return $failedTests 
+            }
+
+            function Get-LogFilePath {
+                param ([string]$logFileName)
+
+                $trxFullFilePath = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)" -Filter $logFileName -Recurse | Select-Object -First 1
+                if ($null -eq $trxFullFilePath) {
+                    Write-Error "trx file not found."
+                    exit 1
+                }
+                return $trxFullFilePath
+            }
+
+            function Rerun-FailedTests {
+                param ([string]$trxFileName, [int]$maxRetries)
+            
+                $retryCount = 0
+
+                $testDll = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
+                $settings= "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings"
+        
+                do {
+                    $trxFilePath = Get-LogFilePath -logFileName $trxFileName        
+                    $failedTests = Get-FailedTests -trxFilePath $trxFilePath
+
+                    if ($failedTests.Count -eq 0) 
+                    { 
+                        Write-Host "All tests passed."
+                        break              
+                    }              
+            
+                    $testNames = $failedTests | ForEach-Object { if ($_.testName.IndexOf('(') -gt 0) { $_.testName.Substring(0, $_.testName.IndexOf('(')) } else { $_.testName } }
+                    
+                    $filter = ($testNames | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
+  
+                    Write-Host "Failed Testcases are -> $filter"
+        
+                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;LogFileName=$trxFileName"
+            
+                    $retryCount++          
+
+                } while ($failedTests.Count -gt 0 -and $retryCount -lt $maxRetries)      
+             }
+
+             Rerun-FailedTests -trxFileName $trxFileName -maxRetries $maxRetries
+    
+    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+      - task: DockerCompose@0
+        displayName: Run a Docker Compose command
+        inputs:
+          action: Run a Docker Compose command
+          workingDirectory: $(System.DefaultWorkingDirectory)/Defra.UI.Tests
+          dockerComposeFile: $(System.DefaultWorkingDirectory)/Defra.UI.Tests/docker-compose-grid.yml 
+          projectName: defra-ui-tests
+          qualifyImageNames: true
+          dockerComposeCommand: down
+    
+    - powershell: |
+        Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
+        Get-Content -Path TestExecution.json
+      displayName: 'Display Test Exe Json'
+      failOnStderr: true
+      ignoreLASTEXITCODE: true
+      continueOnError: true
+
+    - powershell: |
+        Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
+        Rename-Item -Path "TestExecution.json" -NewName "TestExecution_${{ parameters.jobName }}.json"            
+        Get-Content -Path $(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestExecution_${{ parameters.jobName }}.json
+      displayName: 'Display TestExecution_${{ parameters.jobName }}.json'
+      failOnStderr: true
+      ignoreLASTEXITCODE: true
+      continueOnError: true
+      condition: always() # this step will always run, even if the pipeline is canceled
+
+    - task: PublishPipelineArtifact@0
+      displayName: 'Publish Json reports for Specflow'
+      inputs:
+          testResultsFiles: 'TestExecution_${{ parameters.jobName }}.json'
+          artifactName: TestExecution_${{ parameters.jobName }}
+          targetPath: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestExecution_${{ parameters.jobName }}.json'
+    
+    - task: PublishPipelineArtifact@0
+      displayName: 'Publish Screenshots'
+      inputs:
+          testResultsFiles: 'TestFailures*.png'
+          artifactName: ${{ parameters.jobName }}_$(System.StageName)
+          targetPath: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/'
+
+    - ${{ if contains(parameters.isAccessibilityTesting, 'true') }}:
+      - task: PublishPipelineArtifact@0
+        displayName: 'Publish Accessibility Reports'
+        inputs:
+          testResultsFiles: 'Accessibiliy_*.html'
+          artifactName: Accessibility_Report
+          targetPath: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/'
+
+    - task: PublishTestResults@2
+      displayName: 'Publish Test Results'
+      inputs:
+        testResultsFormat: VSTest
+        testResultsFiles: ${{ parameters.jobName }}_$(System.StageName).xml
+        searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/'
+        testRunTitle: ${{ parameters.jobName }}
+        failTaskOnFailedTests: true
+        continueOnError: true
+  
+    

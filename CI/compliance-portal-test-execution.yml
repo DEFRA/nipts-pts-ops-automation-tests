@@ -1,0 +1,92 @@
+trigger: none
+
+parameters:  
+  - name: environment
+    displayName: Environment
+    type: string
+    default: 'tst'
+  - name: workers
+    displayName: Number of Workers
+    type: string
+    default: '10'
+  - name: seleniumGrid
+    displayName: Selenium Grid URL
+    type: string
+    default: 'http://localhost:4444'
+  - name: deviceName
+    displayName: Device Name
+    type: string
+    default: 'Windows'
+  - name: bsOSVersion
+    displayName: BrowserStack OS Version
+    type: string
+    default: '11'
+  - name: bsBrowserVersion
+    displayName: BrowserStack Browser Version
+    type: string
+    default: 'latest'
+  - name: target
+    displayName: Target Browser
+    type: string
+    default: 'Chrome'
+  - name: isEmulationEnabled
+    displayName: Enable Emulation
+    type: string
+    default: 'false'
+  - name: emulateDeviceInfo
+    displayName: Emulated Device Info
+    type: string
+    default: 'iPhone 12 Pro'
+  - name: isAccessibilityTesting
+    displayName: Enable Accessibility Testing
+    type: string
+    default: 'false'
+
+resources:
+  repositories:
+    - repository: niptsopsprovingrepo
+      type: github
+      name: DEFRA/nipts-pts-ops-automation-tests
+      ref: $(Build.SourceBranch)
+      endpoint: DEFRA
+
+
+stages:
+  
+  - stage: PETS_OPS_CP_E2E
+    displayName: PETS Compliance Portal E2E
+
+    variables:
+      - template: 'variables/CP/${{parameters.environment}}.yml'
+
+    jobs:
+    
+    - template: run-test-template.yml
+      parameters:
+        jobName: PETS_OPS_CP_E2E
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: ${{parameters.deviceName}}
+        bsOSVersion: ${{parameters.bsOSVersion}}
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: 'latest'
+        target: ${{parameters.target}}
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        isAccessibilityTesting: ${{parameters.isAccessibilityTesting}}
+        application: 'CP'
+        dependsOn: ''
+
+    - template: generate-Specflow-Report.yml
+      parameters:
+        jobName: CreateSpecflowReport
+        branchName: $(Build.SourceBranch)
+        SeleniumGrid: ${{parameters.seleniumGrid}}
+        dependsOn:
+        - PETS_OPS_CP_E2E
+        projects:
+        - PETS_OPS_CP_E2E
+
+
+

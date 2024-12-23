@@ -1,0 +1,97 @@
+parameters:
+  - name: jobName
+    type: string
+  - name: branchName
+    type: string
+  - name: SeleniumGrid
+    type: string
+  - name: projects
+    type: object
+    default: {}
+  - name: dependsOn
+    type: object
+    default: {}
+  
+
+jobs: 
+
+- job: ${{ parameters.jobName }}
+  displayName: ${{ parameters.jobName }}
+  timeoutInMinutes: 300
+  dependsOn: '${{ parameters.dependsOn }}'
+  condition: always()
+
+  pool:
+    ${{ if contains(parameters.SeleniumGrid, 'localhost') }}:
+      name: 'DEFRA-COMMON-ubuntu2004-SSV3'
+    ${{ if contains(parameters.SeleniumGrid, 'browserstack') }}:
+      name: 'DEFRA-TRD'
+
+  steps:
+    
+    - task: DownloadBuildArtifacts@0
+      displayName: TestArtifact
+      inputs:
+        buildType: 'specific'
+        project: '023a3c95-20fd-49b4-b068-4706843ba0d7'
+        pipeline: '5692'
+        buildVersionToDownload: 'latestFromBranch'
+        branchName: ${{ parameters.branchName }}
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    - task: CopyFiles@2
+      displayName: 'Copy Test Artifacts'
+      inputs:
+        SourceFolder: '$(System.ArtifactsDirectory)/drop'
+        TargetFolder: $(System.DefaultWorkingDirectory)/zip
+        OverWrite: true
+        CleanTargetFolder: true
+    
+    - task: ExtractFiles@1
+      inputs:
+        archiveFilePatterns: '**/Defra.UI.Tests.zip'
+        destinationFolder: '$(System.DefaultWorkingDirectory)/zip/Defra.UI.Tests_Working'
+        cleanDestinationFolder: false
+        overwriteExistingFiles: true
+    
+    - ${{ each project in parameters.projects }}:
+      # Download an artifact named 'WebApp' to 'bin' in $(Build.SourcesDirectory)
+      - task: DownloadPipelineArtifact@2
+        inputs:
+          artifactName: 'TestExecution_${{ project }}'
+          targetPath: $(Build.SourcesDirectory)
+          condition: always()
+
+    - ${{ if contains(parameters.SeleniumGrid, 'localhost:') }}:
+      - powershell: |
+          dotnet tool update --global SpecFlow.Plus.LivingDoc.CLI
+          Set-Location -Path "$(Build.SourcesDirectory)"
+          ls -lrt
+          ~/.dotnet/tools/livingdoc feature-folder '$(Build.SourcesDirectory)/Defra.UI.Tests' -t $(Build.SourcesDirectory)/TestExecution*.json
+        displayName: 'Generate Living Doc Linux Agent'
+        failOnStderr: true
+        ignoreLASTEXITCODE: true
+        continueOnError: true
+        condition: always() # this step will always run, even if the pipeline is canceled
+
+    - ${{ if contains(parameters.SeleniumGrid, 'browserstack') }}:
+      - powershell: |
+          Set-Location -Path "$(Build.SourcesDirectory)"
+          dotnet tool update --global SpecFlow.Plus.LivingDoc.CLI
+          livingdoc test-assembly '$(System.DefaultWorkingDirectory)/zip/Defra.UI.Tests_Working/Defra.UI.Tests.dll' -t TestExecution*.json
+        displayName: 'Generate Living Doc Windows Agent'
+        failOnStderr: true
+        ignoreLASTEXITCODE: true
+        continueOnError: true
+        condition: always() # this step will always run, even if the pipeline is canceled
+    
+    - task: PublishPipelineArtifact@0
+      displayName: 'Publish Json reports for Specflow'
+      inputs:
+        testResultsFiles: 'LivingDoc.html'
+        artifactName: LIVING_DOC_HTML_${{ parameters.jobName }}_$(System.StageName)
+        targetPath: '$(Build.SourcesDirectory)/LivingDoc.html'
+
+
