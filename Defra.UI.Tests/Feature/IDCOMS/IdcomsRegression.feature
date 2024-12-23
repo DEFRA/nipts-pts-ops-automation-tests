@@ -7,7 +7,7 @@ Scenario: Verify if a Caseworker can assign an already assigned case to themselv
 	When I Login to Dynamics application
 	And I Switch to 'All PTD Applications'
 	And I open the first application
-	And I assign the application to 'Vishal Shukla' another user
+	And I assign the application to 'Shukla Vishal' another user
 	And I assign the application to myself
 
 Scenario: Verify if the Pet owner details are not editable
