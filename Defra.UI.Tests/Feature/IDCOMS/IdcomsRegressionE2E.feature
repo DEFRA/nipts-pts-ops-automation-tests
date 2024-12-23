@@ -505,7 +505,7 @@ Scenario Outline: Verify if the caseworker can add notes to the case
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to 'Vishal Shukla' another user
+	And I assign the application to 'Shukla Vishal' another user
 	And I assign the application to myself
 	When I add notes as 'Notes Title' and 'Notes Body'
 
