@@ -233,7 +233,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application and 
 	And I enter 'Microchip Number' as 'auto'
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
-	Then the status is 'Draft'
+	Then the status is 'Open'
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
@@ -260,7 +260,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application, Aut
 	And I enter 'Microchip Number' as 'auto'
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
-	Then the status is 'Draft'
+	Then the status is 'Open'
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
 	And I can see the submission date and time

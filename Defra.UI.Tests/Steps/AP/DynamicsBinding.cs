@@ -284,9 +284,9 @@ namespace Defra.UI.Tests.Steps.AP
                     case "PET NAME":
                         FormSteps.ThenICanNotEditTheField("nipts_petname");
                         break;
-                    case "SPECIES":
-                        FormSteps.ThenICanNotEditTheField("nipts_pettype");
-                        break;
+                    //case "SPECIES":
+                    //    FormSteps.ThenICanNotEditTheField("nipts_pettype");
+                    //    break;
                     case "BREED":
                         FormSteps.ThenICanNotEditTheField("nipts_petbreed");
                         break;

@@ -3547,7 +3547,7 @@ public class WebClient : BrowserPage, IDisposable
         {
             var fieldElement = driver.WaitUntilAvailable(By.XPath(AppElements.Xpath[AppReference.Entity.TextFieldContainer].Replace("[NAME]", field)));
             Field returnField;
-            if (fieldElement.Equals(null))
+            if (fieldElement is null)
             {
                 returnField = new Field(driver.FindElement(By.XPath("//div[@data-id=[NAME]-FieldSectionItemContainer']".Replace("[NAME]", field))));
             }
