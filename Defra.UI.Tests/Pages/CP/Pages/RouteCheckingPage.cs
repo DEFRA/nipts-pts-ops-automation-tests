@@ -1,9 +1,8 @@
 ﻿using BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Tools;
 using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using Defra.UI.Framework.Driver;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -39,6 +38,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool IsPageLoaded()
         {
+            Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+
             return pageHeading.Text.Contains("What route are you checking?");
         }
 

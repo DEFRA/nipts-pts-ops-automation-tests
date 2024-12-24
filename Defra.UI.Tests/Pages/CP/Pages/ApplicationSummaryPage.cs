@@ -26,6 +26,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool VerifyTheExpectedStatus(string status)
         {
+            Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             return _driver.WaitForElement(By.XPath($"(//h1[normalize-space()='{status}'])[1]")).Text.Trim().Equals(status);
         }
 

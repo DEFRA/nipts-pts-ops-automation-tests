@@ -29,6 +29,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool IsPageLoaded()
         {
+            Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             return pageHeading.Text.Contains("Report non-compliance");
         }
 

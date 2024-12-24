@@ -26,7 +26,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool IsPageLoaded()
        {
-          return pageHeading.Text.Contains("Checks");
+            Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+            return pageHeading.Text.Contains("Checks");
        }
 
        public void FooterSearchButton()

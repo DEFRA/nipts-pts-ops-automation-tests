@@ -33,6 +33,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool IsPageLoaded()
         {
             _driver.ChangePageView(50);
+            Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             return pageHeading.Text.Contains("Find a document");
         }
 

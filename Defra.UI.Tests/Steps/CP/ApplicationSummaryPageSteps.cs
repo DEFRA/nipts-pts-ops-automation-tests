@@ -22,18 +22,21 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [When(@"I should see the application status in '([^']*)'")]
+        [Then(@"I should see the application status in '([^']*)'")]
         public void ThenIShouldSeeTheApplicationStatusIn(string applicationStatus)
         {
             Assert.IsTrue(_applicationSummaryPage?.VerifyTheExpectedStatus(applicationStatus), "The submitted application is not in expected status");
         }
 
+        [Then(@"I select Pass radio button")]
         [When(@"I select Pass radio button")]
         public void WhenISelectPassRadioButton()
         {
             _applicationSummaryPage?.SelectPassRadioButton();
         }
 
-        [When(@"I select Fail radio button")]
+        [Then(@"I select Fail radio button")]
+        [When(@"I select Pass radio button")]
         public void WhenISelectFailRadioButton()
         {
             _applicationSummaryPage?.SelectFailRadioButton();
