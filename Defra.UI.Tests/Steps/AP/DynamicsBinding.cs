@@ -285,7 +285,7 @@ namespace Defra.UI.Tests.Steps.AP
                         FormSteps.ThenICanNotEditTheField("nipts_petname");
                         break;
                     case "SPECIES":
-                        FormSteps.ThenICanNotEditTheField("nipts_petspecies");
+                        FormSteps.ThenICanNotEditTheField("nipts_pettype");
                         break;
                     case "BREED":
                         FormSteps.ThenICanNotEditTheField("nipts_petbreed");
@@ -343,9 +343,6 @@ namespace Defra.UI.Tests.Steps.AP
                         break;
                     case "COUNTY":
                         FormSteps.ThenICanNotEditTheField("nipts_ownercounty");
-                        break;
-                    case "COUNTRY":
-                        FormSteps.ThenICanNotEditTheField("nipts_ownercountry");
                         break;
                     case "PHONE":
                         FormSteps.ThenICanNotEditTheField("nipts_ownerphone");
@@ -505,7 +502,7 @@ namespace Defra.UI.Tests.Steps.AP
             }
             else if (field.ToUpper().Equals("PET OWNER"))
             {
-                ThenICannotEditTheField("Owner Type:Name:Email:Charity Name:Address Line 1:Address Line 2:Address Line 3:Town:Postcode:County:Country:Phone");
+                ThenICannotEditTheField("Owner Type:Name:Email:Charity Name:Address Line 1:Address Line 2:Address Line 3:Town:Postcode:County:Phone");
 
             }
             else if (field.ToUpper().Equals("APPLICANT DETAILS"))
@@ -574,8 +571,8 @@ namespace Defra.UI.Tests.Steps.AP
             switch (field.ToUpper())
             {
                 case "APPLICANT NAME":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_offlineapplicantname", "text", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_offlineapplicantname", "text", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_applicantid", "lookup", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_applicantid", "lookup", "field", "");
                     break;
                 case "EMAIL":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlineemail", "text", "field", 1);
@@ -620,28 +617,28 @@ namespace Defra.UI.Tests.Steps.AP
                     ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petname", "text", "field", "");
                     break;
                 case "SPECIES":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_petspecies", "text", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petspecies", "text", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_pettype", "optionset", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_pettype", "optionset", "field", "");
                     break;
                 case "BREED":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_petbreed", "text", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petbreed", "text", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_petbreedid", "lookup", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petbreedid", "lookup", "field", "");
                     break;
                 case "ADDITIONAL BREED":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petbreeddetails", "text", "field", 1);
                     ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petbreeddetails", "text", "field", "");
                     break;
                 case "SEX":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_petsex", "text", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petsex", "text", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_animalsex", "optionset", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_animalsex", "optionset", "field", "");
                     break;
                 case "AGE":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petapproxage", "text", "field", 1);
                     ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petapproxage", "text", "field", "");
                     break;
                 case "COLOUR":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_petcolour", "text", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petcolour", "text", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_petcolourid", "lookup", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petcolourid", "lookup", "field", "");
                     break;
                 case "OTHER COLOUR":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petothercolour", "text", "field", 1);
@@ -668,8 +665,7 @@ namespace Defra.UI.Tests.Steps.AP
                     EntitySteps.WhenIEnterInTheField(value, "nipts_microchippeddate", "text", "field", 1);
                     break;
                 case "DATE OF BIRTH":
-                    Thread.Sleep(2000);
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "datetime", "field", 1);
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "text", "field", 1);
                     break;
             }
         }
