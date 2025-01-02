@@ -215,7 +215,7 @@ Scenario: Verify the Assisted Digital PTD Applications System Views
 	When I Login to Dynamics application
 	And I Switch to 'All Offline PTD Applications'
 	And I Switch to 'All Offline PTD Applications (DEARA)'
-	And I verify the system view
+	Then I verify the system view for the application 'All Offline PTD Applications (DEARA)'
 
 Scenario: Verify if the caseworker can create a new offline PTD application and Authorise it.
 	When I Login to Dynamics application

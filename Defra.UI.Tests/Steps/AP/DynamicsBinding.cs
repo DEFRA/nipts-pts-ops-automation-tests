@@ -394,6 +394,12 @@ namespace Defra.UI.Tests.Steps.AP
             GridSteps.WhenISwitchToTheViewInTheGrid(gridView);
         }
 
+        [Then("I verify the system view for the application '(.*)'")]
+        public void IVerifyTheSystemViewForTheApplication(string applicationName)
+        {
+            EntitySteps.IVerifyTheSystemViewForTheApplication(applicationName);
+        }
+
         [When("I open the first application")]
         public void WhenIOpenTheFirstRecord()
         {
