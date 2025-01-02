@@ -149,12 +149,13 @@ public class TimelineSteps : PowerAppsStepDefiner
             contacts.Select(c => new LookupItem { Name = Elements.ElementId[reference], Value = c }).ToArray(),
             true);
     }
-    
+
     public static bool TimelineRecordNotPresent()
     {
         ReadOnlyCollection<IWebElement> timelineRecordTitles = Driver.FindElements(By.XPath("//*[contains(@id,\"timeline_record_title\")]"));
         return timelineRecordTitles.Count == 0;
     }
+
     public static bool GetTimelineRecordTitle(string expectedTitle)
     {
         ReadOnlyCollection<IWebElement> TimelineRecordTitles = Driver.FindElements(By.XPath("//*[contains(@id,\"timeline_record_title\")]"));
@@ -163,22 +164,29 @@ public class TimelineSteps : PowerAppsStepDefiner
             var str = item.Text;
             if (item.Text.Equals(expectedTitle))
             {
-                 return true;
+                return true;
             }
         }
         return false;
     }
+
     public static bool GetTimelineRecordBody(string expectedTitle)
     {
-        //ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//*[contains(@id,\"timeline_record_title\")]/following::label[text()='View more']"));
-        ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//div[contains(text(),'APHA case ID:')]"));
+        ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//*[contains(@id,\"timeline_record_title\")]/following::label[text()='View more']"));
         foreach (IWebElement item in TimelineRecordViewMore)
         {
-            //ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//*[contains(@id,\"timeline_record_title\")]/following::label[text()='View more']"));
+            item.Click();
 
-            var str = item.Text;
-            if (item.Text.Contains(expectedTitle))
+            var iframeElement = Driver.FindElement(By.XPath("//iframe[contains(@title,'text')]"));
+
+            Driver.SwitchTo().Frame(iframeElement);
+
+            var descriptionElement = Driver.FindElement(By.XPath("//span[contains(text(),'Pet Travel Document')]"));
+
+            if (descriptionElement.Text.Contains(expectedTitle))
             {
+                Driver.SwitchTo().DefaultContent();
+
                 return true;
             }
         }

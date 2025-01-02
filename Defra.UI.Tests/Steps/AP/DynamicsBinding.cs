@@ -11,6 +11,7 @@ using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
 using Capgemini.PowerApps.SpecFlowBindings.Configuration;
 using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
 using FluentAssertions.Execution;
+using System.ServiceModel.Channels;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -185,6 +186,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("the status is changed to '(.*)'")]
         public void ThenTheStatusIsChangedTo(string status)
         {
+            CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
             FormSteps.ICanSeeAHeaderField("readonly", status);
         }
@@ -271,6 +273,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             CommandBarSteps.ThenICanNotSeeTheCommand(commandName);
         }
+
         [Then("I cannot edit the field '(.*)'")]
         public void ThenICannotEditTheField(string fieldNames)
         {
@@ -287,14 +290,17 @@ namespace Defra.UI.Tests.Steps.AP
                     //case "SPECIES":
                     //    FormSteps.ThenICanNotEditTheField("nipts_pettype");
                     //    break;
-                    case "BREED":
-                        FormSteps.ThenICanNotEditTheField("nipts_petbreed");
-                        break;
+                    //case "BREED":
+                    //    FormSteps.ThenICanNotEditTheField("nipts_petbreed");
+                    //    break;
                     case "ADDITIONAL BREED DETAILS":
                         FormSteps.ThenICanNotEditTheField("nipts_petbreeddetails");
                         break;
                     case "SEX":
                         FormSteps.ThenICanNotEditTheField("nipts_petsex");
+                        break;
+                    case "ANIMALSEX":
+                        FormSteps.ThenICanNotEditTheField("nipts_animalsex");
                         break;
                     case "DATE OF BIRTH":
                         FormSteps.ThenICanNotEditTheField("nipts_petdob");
@@ -304,6 +310,9 @@ namespace Defra.UI.Tests.Steps.AP
                         break;
                     case "COLOUR":
                         FormSteps.ThenICanNotEditTheField("nipts_petcolour");
+                        break;
+                    case "COLOURID":
+                        FormSteps.ThenICanNotEditTheField("nipts_petcolourid");
                         break;
                     case "OTHER COLOUR":
                         FormSteps.ThenICanNotEditTheField("nipts_petothercolour");
@@ -348,34 +357,31 @@ namespace Defra.UI.Tests.Steps.AP
                         FormSteps.ThenICanNotEditTheField("nipts_ownerphone");
                         break;
                     case "APPLICANT NAME":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlineapplicantname");
+                        FormSteps.ThenICanNotEditTheField("nipts_ownername"); //nipts_offlineapplicantname
                         break;
                     case "APPLICANT EMAIL":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlineemail");
+                        FormSteps.ThenICanNotEditTheField("nipts_owneremail"); //nipts_offlineemail
                         break;
                     case "APPLICANT ADDRESS LINE 1":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlineaddressline1");
+                        FormSteps.ThenICanNotEditTheField("nipts_owneraddressline1"); //nipts_offlineaddressline1
                         break;
                     case "APPLICANT ADDRESS LINE 2":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlineaddressline2");
+                        FormSteps.ThenICanNotEditTheField("nipts_owneraddressline2"); //nipts_offlineaddressline2
                         break;
                     case "APPLICANT ADDRESS LINE 3":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlineaddressline3");
+                        FormSteps.ThenICanNotEditTheField("nipts_owneraddressline3");//nipts_offlineaddressline3
                         break;
                     case "APPLICANT TOWN":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlinetown");
+                        FormSteps.ThenICanNotEditTheField("nipts_ownertown");//nipts_offlinetown
                         break;
                     case "APPLICANT POSTCODE":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlinepostcode");
+                        FormSteps.ThenICanNotEditTheField("nipts_ownerpostcode"); //nipts_offlinepostcode
                         break;
                     case "APPLICANT COUNTY":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlinecounty");
-                        break;
-                    case "APPLICANT COUNTRY":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlinecountry");
+                        FormSteps.ThenICanNotEditTheField("nipts_ownercounty"); //nipts_offlinecounty
                         break;
                     case "APPLICANT PHONE":
-                        FormSteps.ThenICanNotEditTheField("nipts_offlinephone");
+                        FormSteps.ThenICanNotEditTheField("nipts_ownerphone"); //nipts_offlinephone
                         break;
                     default:
                         break;
@@ -440,10 +446,13 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("I verify the copy of the '([^']*)' Email in Timeline")]
         public void ThenIVerifyTheCopyOfEmail(string timelineCopy)
         {
+            CommandSteps.ClickCommand("Refresh");
+
             if (timelineCopy.ToUpper().Equals("CONFIRMATION"))
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Received"));
             else if (timelineCopy.ToUpper().Equals("APPROVED"))
             {
+                CommandSteps.ClickCommand("Refresh");
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Decision"));
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("approved"));
             }
@@ -497,7 +506,28 @@ namespace Defra.UI.Tests.Steps.AP
             _driver.WaitForPageToLoad();
             if (field.ToUpper().Equals("PET"))
             {
-                ThenICannotEditTheField("Pet Name:Species:Breed:Additional Breed Details:Sex:Date of Birth:Approx Age:Colour:Other Colour:Unique Features:Microchip Number:Microchipped Date");
+                ThenICannotEditTheField("Pet Name:Species:Breed:AnimalSex:Date of Birth:Approx Age:Colourid:Unique Features:Microchip Number:Microchipped Date");
+
+            }
+            else if (field.ToUpper().Equals("PET OWNER"))
+            {
+                ThenICannotEditTheField("Owner Type:Name:Email:Charity Name:Address Line 1:Address Line 2:Address Line 3:Town:Postcode:County:Phone");
+
+            }
+            else if (field.ToUpper().Equals("APPLICANT DETAILS"))
+            {
+                ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant address line 3:Applicant Town:Applicant Postcode:Applicant County:Applicant Country:Applicant Phone");
+            }
+        }
+
+        [Then("I cannot edit '(.*)' Details for Pending Application")]
+        public void ThenICannotEditDetailsForPendingApplication(string field)
+        {
+            CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad();
+            if (field.ToUpper().Equals("PET"))
+            {
+                ThenICannotEditTheField("Pet Name:Species:Breed:Sex:Date of Birth:Approx Age:Colour:Unique Features:Microchip Number:Microchipped Date");
 
             }
             else if (field.ToUpper().Equals("PET OWNER"))
@@ -682,7 +712,7 @@ namespace Defra.UI.Tests.Steps.AP
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
             SharedSteps.WaitForScriptProcessing();
-            Thread.Sleep(2000);
+            Thread.Sleep(5000);
         }
 
         [Then(@"I see the Application Reference number generated")]

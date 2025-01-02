@@ -20,7 +20,7 @@ Scenario: Verify if the Pet details are not editable
 	When I Login to Dynamics application
 	And I filter with 'Status Reason' is 'Equals' to 'Pending' in PTS Application
 	And I open the first application
-	Then I cannot edit 'Pet' Details
+	Then I cannot edit 'Pet' Details for Pending Application
 
 Scenario: Verify Revoke Pending System View	
 	When I Login to Dynamics application
