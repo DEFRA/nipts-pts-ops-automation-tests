@@ -41,6 +41,7 @@ jobs:
       name: 'DEFRA-TRD'
 
   variables:
+    - group: 'NIPTSPREPROD'
     - template: 'variables/${{parameters.application}}/global.yml'
       parameters:
         environment: ${{parameters.environment}}
@@ -53,21 +54,9 @@ jobs:
         isEmulationEnabled:  ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo:  ${{parameters.emulateDeviceInfo}}
         isAccessibilityTesting:  ${{parameters.isAccessibilityTesting}}
-        idcomsPassword: '$(PetsIDCOMSAutomation)' 
+        idcomsPassword: '$(PetsIDCOMSCredential)' 
 
   steps:
-  
-    - ${{ if or( eq(parameters.environment, 'tst'), eq(parameters.environment, 'pre')) }}:
-        - task: AzureKeyVault@2
-          displayName: Get Secrets from TST Keyvault 
-          inputs:    
-            connectedServiceName: 'AZD-TRD-TST1'
-            keyvaultName: 'TSTTRDINFKV1001'
-            SecretsFilter: '$(SecretsFilter)'
-            RunAsPreJob: false
-
-        - powershell: echo "##vso[task.setvariable variable=PetsIDCOMSAutomation;isOutput=true]$(PetsIDCOMSAutomation)"
-          displayName: Set IDCOMS Secret to variable
   
     - task: DownloadBuildArtifacts@0
       displayName: TestArtifact
