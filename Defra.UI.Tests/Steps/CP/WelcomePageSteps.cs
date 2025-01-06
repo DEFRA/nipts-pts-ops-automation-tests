@@ -23,8 +23,8 @@ namespace Defra.UI.Tests.Steps.CP
             _objectContainer = container;
         }
 
-        [Then(@"I should navigate to Welcome page")]
-        public void ThenIShouldNavigateToWelcomePage()
+        [Then(@"I should navigate to Checks page")]
+        public void ThenIShouldNavigateToChecksPage()
         {
             Assert.True(_welcomePage?.IsPageLoaded(), "Checks page not loaded");
         }
