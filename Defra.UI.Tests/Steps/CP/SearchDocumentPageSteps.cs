@@ -72,7 +72,7 @@ namespace Defra.UI.Tests.Steps.CP
             _searchDocumentPage?.EnterPTDNumber(ptdNumber);
         }
 
-        [Then(@"I provided the Reference number '([^']*)' of the application")]
+        [Then(@"I provided the Reference number '(.*)' of the application")]
         public void ThenIProvidedTheReferenceNumberOfTheApplication(string referenceNumber)
         {
             _searchDocumentPage?.EnterApplicationNumber(referenceNumber);

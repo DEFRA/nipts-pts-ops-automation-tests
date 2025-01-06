@@ -10,12 +10,12 @@ Background:
 	Then I should redirected to the Sign in using Government Gateway page
 	
 
-Scenario: SignIn
+Scenario: Sign in button click validation
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checke page
 
-Scenario: SignOut
+Scenario: Sign out button click validation
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then click on signout button on CP and verify the signout message

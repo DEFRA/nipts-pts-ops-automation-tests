@@ -13,54 +13,45 @@ Background:
 	Then I should redirected to port route checke page
 
 	
-Scenario Outline: Port checker Clear documents number from PTD search box
-	Then I have selected '<Transportation>' radio option
-	And I select the '<FerryRoute>' radio option
+Scenario: Error message validation for search button click after clearing the given PTD number
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the '<PTDNumber>' of the application
+	And I provided the '12345' of the application
 	When I click clear search button
 	And I click search button
 	Then I should see an error message "Enter a PTD number" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | PTDNumber |
-	| Ferry          | Birkenhead to Belfast (Stena) | 12345     |
 
-	Scenario Outline: Port checker Clear documents number from Application reference search box
-	Then I have selected '<Transportation>' radio option
-	And I select the '<FerryRoute>' radio option
+Scenario: Error message validation for search button click after clearing the given application number
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Application Number '<ReferenceNumber>' of the application
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number 'QRWD9DZ' of the application
 	When I click clear search button
-	Then I click search by '<ApplicationRadio>' radio button
+	Then I click search by 'Search by application number' radio button
 	When I click search button
 	Then I should see an error message "Enter an application number" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | ReferenceNumber | ApplicationRadio			  |
-	| Ferry          | Birkenhead to Belfast (Stena) | QRWD9DZ	       | Search by application number |
 
-Scenario Outline: Port checker Clear documents number from Microchip search box
-	Then I have selected '<Transportation>' radio option
-	And I select the '<FerryRoute>' radio option
+Scenario: Error message validation for search button click after clearing the given microchip number
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Microchip number '<MicrochipNumber>' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '123456089012340' of the application
 	When I click clear search button
-	Then I click search by '<ApplicationRadio>' radio button
+	Then I click search by 'Search by microchip number' radio button
 	When I click search button
 	Then I should see an error message "Enter a microchip number" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | MicrochipNumber	| ApplicationRadio		     |
-	| Ferry          | Birkenhead to Belfast (Stena) | 123456089012340  | Search by microchip number |

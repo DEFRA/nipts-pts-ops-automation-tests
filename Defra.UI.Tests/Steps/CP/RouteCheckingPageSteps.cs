@@ -37,14 +37,13 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_routeCheckingPage?.IsSignedOut(), "Not able to sign out");
         }
 
-        [Given(@"I have selected '([^']*)' radio option")]
+        [Given(@"I have selected '(.*)' radio option")]
         [Then(@"I have selected '(.*)' radio option")]
         public void ThenIHaveSelectedRadioOption(string transportType)
         {
             _routeCheckingPage?.SelectTransportationOption(transportType);
         }
 
-        [Given(@"I select the '([^']*)' radio option")]
         [Then(@"I select the '(.*)' radio option")]
         public void ThenISelectTheRadioOption(string routeOption)
         {

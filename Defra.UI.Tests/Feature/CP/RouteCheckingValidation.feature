@@ -12,347 +12,272 @@ Background:
 	Then I should redirected to port route checke page
 	
 
-Scenario Outline: Verify validation text for not selection checking a ferry or a flight​
-	Then I have selected '<Transportation>' radio option
+Scenario: Error message validation for no selection of ferry or flight route
+	Then I have selected '' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should see an error '<ErrorMessage>' in route checking page
-Examples:
-	| Transportation | ErrorMessage                                   |
-	|                | Select if you are checking a ferry or a flight |
+	Then I should see an error 'Select if you are checking a ferry or a flight' in route checking page
 
-Scenario Outline: Verify validation text for not selection checking a ferry options
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for no selection of ferry route
+	Then I have selected 'Ferry' radio option
+	Then I select the '' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
 	Then I should see an error message "Select the ferry you are checking" in route checking page
-Examples:
-	| Transportation | FerryRoute |
-	| Ferry  	     |			  |
 
-Scenario Outline: Verify validation text for empty text box checking a flight
-	Then I have selected '<Transportation>' radio option
-	Then I provide the '<Flight number>' in the box
+Scenario: Error message validation for no flight number provided in the flight route
+	Then I have selected 'Flight' radio option
+	Then I provide the '' in the box
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should see an error message "Enter the flight number you are checking" in route checking page
-Examples:
-	| Transportation | Flight number |
-	| Flight         |               |		  
-	
-Scenario Outline: Verify validation text for special character text box checking a flight
-	Then I have selected '<Transportation>' radio option
-	Then I provide the '<FlightNumber>' in the box
+	Then I should see an error message "Enter the flight number you are checking" in route checking page	  
+
+Scenario: Home page validation for flight Number text box with special character
+	Then I have selected 'Flight' radio option
+	Then I provide the '$$£@lk' in the box
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
-Examples:
-	| Transportation | FlightNumber |
-	| Flight         | $$£@lk       |
+	Then I should navigate to Checks page
 
-	Scenario Outline: Verify validation text for not selection Schedule Departure Date
-	Then I have selected '<Transportation>' radio option
-	Then I have selected '<ScheduledDepartureDay>''<ScheduledDepartureMonth>''<ScheduledDepartureYear>'Date option
-	Then I provide the '<Flight number>' in the box
+Scenario: Error message validation for no scheduled departure date details
+	Then I have selected 'Flight' radio option
+	Then I provide the '1234' in the box
+	Then I have selected ''''''Date option
 	And  I have provided Scheduled departure time
 	When I click save and continue button from route checke page
 	Then I should see an error message "Enter the scheduled departure date, for example 27 3 2024" in route checking page
-Examples:
-	| ScheduledDepartureDay | ScheduledDepartureMonth | ScheduledDepartureYear | Transportation | Flight number |
-	|                       |                         |                        | Flight         | 1234          |
 
-Scenario Outline: Verify validation text special characters for  Schedule Departure Date
-	Then I have selected '<Transportation>' radio option
-	Then I have selected '<ScheduledDepartureDay>''<ScheduledDepartureMonth>''<ScheduledDepartureYear>'Date option
-	Then I provide the '<Flight number>' in the box
+Scenario: Error message validation for scheduled departure date with special character
+	Then I have selected 'Flight' radio option
+	Then I provide the '1234' in the box
+	Then I have selected '@@''@@''@@'Date option
 	And  I have provided Scheduled departure time
 	When I click save and continue button from route checke page
 	Then I should see an error message "Enter the date in the correct format, for example 27 3 2024" in route checking page
-Examples:
-	| ScheduledDepartureDay | ScheduledDepartureMonth | ScheduledDepartureYear | Transportation | Flight number |
-	| @@                    |  @@                     | @@                     | Flight         | 1234          |
 
-Scenario Outline: Verify validation text  for date field when user left any one of the columnin empty and more values on other column for  Schedule Departure Date
-	Then I have selected '<Transportation>' radio option
-	Then I have selected '<ScheduledDepartureDay>''<ScheduledDepartureMonth>''<ScheduledDepartureYear>'Date option
-	Then I provide the '<Flight number>' in the box
+Scenario: Error message validation for any one empty box in scheduled departure date
+	Then I have selected 'Flight' radio option
+	Then I provide the '1234' in the box
+	Then I have selected '''01''29876987'Date option
 	And  I have provided Scheduled departure time
 	When I click save and continue button from route checke page
 	Then I should see an error message "Enter the date in the correct format, for example 27 3 2024" in route checking page
-Examples:
-	| ScheduledDepartureDay | ScheduledDepartureMonth | ScheduledDepartureYear | Transportation | Flight number |
-	|                       |  01                     | 29876987               | Flight         | 1234          |
 
-Scenario Outline: Verify validation text for blank Schedule Departure Time
-	Then I have selected '<Transportation>' radio option
-	Then I have selected '<ScheduledDepartureDay>''<ScheduledDepartureMonth>''<ScheduledDepartureYear>'Date option
-	Then I provide the '<Flight number>' in the box
+Scenario: Error message validation for no scheduled departure time details
+	Then I have selected 'Flight' radio option
+	Then I provide the '1234' in the box
+	Then I have selected '19''10''2024'Date option
 	When I click save and continue button from route checke page
 	Then I should see an error message "Enter the scheduled departure time, for example 15:30" in route checking page
-Examples:
-	| ScheduledDepartureDay | ScheduledDepartureMonth | ScheduledDepartureYear | Transportation | Flight number |
-	| 19                    | 10                      | 2024                   | Flight         | 1234          |
 
-Scenario Outline: Verify validation text for blank hour field and enter value in minutes field Schedule Departure Time
-	Then I have selected '<Transportation>' radio option
-	Then I provide the '<Flight number>' in the box
+Scenario: Error message validation for only hour details provided in the scheduled departure time
+	Then I have selected 'Flight' radio option
+	Then I provide the '1234' in the box
 	And  I have provided Scheduled departure time in hours field only
 	When I click save and continue button from route checke page
 	Then I should see an error message "Enter the scheduled departure time, for example 15:30" in route checking page
-Examples:
-	| ScheduledDepartureDay | ScheduledDepartureMonth | ScheduledDepartureYear | Transportation | Flight number |
-	| 19                    | 10                      | 2024                   | Flight         | 1234          |
 
-Scenario Outline: Verify validation text for blank PTD Number
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for no PTD number detail
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the '<PTDNumber>' of the application
+	And I provided the '' of the application
 	When I click search button
 	Then I should see an error message "Enter a PTD number" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | PTDNumber |
-	| Ferry          | Birkenhead to Belfast (Stena) |           |
 
-Scenario Outline: Verify validation of less than 6 PTD Number format
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for entering less than 6 characters PTD Number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the '<PTDNumber>' of the application
+	And I provided the '12345' of the application
 	When I click search button
 	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | PTDNumber |
-	| Ferry          | Birkenhead to Belfast (Stena) | 12345	 |
 
-Scenario Outline: Verify validation of more than 6 PTD Number format
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for entering more than 6 characters PTD Number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the '<PTDNumber>' of the application
+	And I provided the '1234567' of the application
 	When I click search button
 	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | PTDNumber |
-	| Ferry          | Birkenhead to Belfast (Stena) | 1234567   |
 
-Scenario Outline: Verify validation provide invalid 6 PTD Number format and navigate to Document not found page 
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Document not found page validation for invalid PTD number 
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the '<PTDNumber>' of the application
+	And I provided the '123456' of the application
 	When I click search button
 	Then I should navigate to Document not found page
-Examples:
-	| Transportation | FerryRoute                    | PTDNumber |
-	| Ferry          | Birkenhead to Belfast (Stena) | 123456    |
 
-Scenario Outline: Verify validation of special characters with PTD number
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for application number text box with characters other than 0-9 and A-F (not including the hyphen)
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the '<PTDNumber>' of the application
+	And I provided the '@@@@@$$&' of the application
 	When I click search button
 	Then I should see an error message "Enter 6 characters after 'GB826', using only the letters A to F and numbers" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | PTDNumber |
-	| Ferry          | Birkenhead to Belfast (Stena) | @@@@@$$&  |
 
-Scenario Outline: Verify validation for blank Application Number
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for no text in application number text box
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Application Number '<ReferenceNumber>' of the application
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number '' of the application
 	When I click search button
 	Then I should see an error message "Enter an application number" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | ReferenceNumber | ApplicationRadio			  |
-	| Ferry          | Birkenhead to Belfast (Stena) |			       | Search by application number |
 
-Scenario Outline: Verify validation of Wrong Application Number format
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for entering more or less than 8 characters application number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Application Number '<ReferenceNumber>' of the application
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number 'QRWD9DZ' of the application
 	When I click search button
 	Then I should see an error message "Enter 8 characters" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | ReferenceNumber | ApplicationRadio			  |
-	| Ferry          | Birkenhead to Belfast (Stena) | QRWD9DZ		   | Search by application number |
 
-Scenario Outline: Verify validation of special characters with Application number
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for application number with special character
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Application Number '<ReferenceNumber>' of the application
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number '@@@@@$$&' of the application
 	When I click search button
 	Then I should see an error message "Enter 8 characters, using only letters and numbers" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | ReferenceNumber | ApplicationRadio			  |
-	| Ferry          | Birkenhead to Belfast (Stena) | @@@@@$$&		   | Search by application number |
 
-Scenario Outline: Verify validation with correct format invalid application number and navigate to Document not found page
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Document not found page validation for invalid application number
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Application Number '<ReferenceNumber>' of the application
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number 'QRWD9DZQ' of the application
 	When I click search button
 	Then I should navigate to Document not found page
-Examples:
-	| Transportation | FerryRoute                    | ReferenceNumber | ApplicationRadio			  |
-	| Ferry          | Birkenhead to Belfast (Stena) | QRWD9DZQ		   | Search by application number |
 
-Scenario Outline: Verify validation for blank Microchip number
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for no text in microchip number text box
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Microchip number '<MicrochipNumber>' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '' of the application
 	When I click search button
 	Then I should see an error message "Enter a microchip number" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | MicrochipNumber | ApplicationRadio		    |
-	| Ferry          | Birkenhead to Belfast (Stena) |				   | Search by microchip number |
 
-Scenario Outline: Verify validation for special characters Microchip number
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for microchip number with special character
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Microchip number '<MicrochipNumber>' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '@@@@@$$&' of the application
 	When I click search button
 	Then I should see an error message "Enter a 15-digit number, using only numbers" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | MicrochipNumber | ApplicationRadio		    |
-	| Ferry          | Birkenhead to Belfast (Stena) | @@@@@$$&		   | Search by microchip number |
 
-Scenario Outline: Verify validation for more than 15 Microchip number
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for providing more than 15 microchip number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Microchip number '<MicrochipNumber>' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '1234560890123405' of the application
 	When I click search button
 	Then I should see an error message "Enter a 15-digit number, using only numbers" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | MicrochipNumber  | ApplicationRadio		    |
-	| Ferry          | Birkenhead to Belfast (Stena) | 1234560890123405 | Search by microchip number |
-
 	
-Scenario Outline: Verify validation for less than 15 Microchip number
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for providing less than 15 microchip number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Microchip number '<MicrochipNumber>' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '12345608901234' of the application
 	When I click search button
 	Then I should see an error message "Enter a 15-digit number, using only numbers" in Find a document page
-Examples:
-	| Transportation | FerryRoute                    | MicrochipNumber | ApplicationRadio		    |
-	| Ferry          | Birkenhead to Belfast (Stena) | 12345608901234  | Search by microchip number |
-
 	
-Scenario Outline: Verify validation for invalid 15 Microchip number and and navigate to Document not found page  
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Document not found page validation for invalid microchip number  
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Microchip number '<MicrochipNumber>' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '123456089012340' of the application
 	When I click search button
 	Then I should navigate to Document not found page
-Examples:
-	| Transportation | FerryRoute                    | MicrochipNumber	| ApplicationRadio		     |
-	| Ferry          | Birkenhead to Belfast (Stena) | 123456089012340  | Search by microchip number |
 
-Scenario Outline: Verify validation for not selecting radio button on Application status page
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for no selection of radio button in application status page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by '<ApplicationRadio>' radio button
-	And I provided the Microchip number '<MicrochipNumber>' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '123456789012345' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
 	When I click save and continue button from application status page
 	Then I should see an error message "Select an option" in application status page
-	
-Examples:
-	| Transportation | FerryRoute                    | MicrochipNumber | ApplicationRadio           | 
-	| Ferry          | Birkenhead to Belfast (Stena) | 123456789012345 | Search by microchip number | 
 
-Scenario Outline: Verify validation for not selecting type of passenger on Report non-compliance page
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+Scenario: Error message validation for no selection of type of passenger on report non-compliance page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
 	When I click save and continue button from route checke page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the '<PTDNumber>' of the application
+	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
 	And I select Fail radio button
@@ -360,7 +285,3 @@ Scenario Outline: Verify validation for not selecting type of passenger on Repor
 	Then I should navigate to Report non-compliance page
 	When I click Report non-compliance button from Report non-compliance page
 	Then I should see an error message "Select a type of passenger" in Report non-compliance page
-	
-Examples:
-	| Transportation | FerryRoute                    | PTDNumber |
-	| Ferry          | Birkenhead to Belfast (Stena) | E6361B    |
