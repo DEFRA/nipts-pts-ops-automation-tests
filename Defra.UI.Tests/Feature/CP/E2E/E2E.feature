@@ -70,11 +70,11 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -143,11 +143,11 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -215,11 +215,11 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -284,11 +284,11 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -358,11 +358,11 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -431,11 +431,11 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -501,11 +501,11 @@ Examples:
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -565,11 +565,11 @@ Scenario Outline: Check PETS Travel Document details By Reference number - statu
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -629,11 +629,11 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
 	Then I navigate to Find a document page

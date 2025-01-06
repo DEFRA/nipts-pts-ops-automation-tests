@@ -25,7 +25,7 @@ namespace Defra.UI.Tests.Steps.CP
             _objectContainer = container;
         }
 
-        [Then(@"I should redirected to port route checke page")]
+        [Then(@"I should redirected to port route checker page")]
         public void ThenIShouldRedirectedToPortRouteCheckePage()
         {
             Assert.True(_routeCheckingPage?.IsPageLoaded(), "Port route checker Application page not loaded");
@@ -57,7 +57,7 @@ namespace Defra.UI.Tests.Steps.CP
             _routeCheckingPage?.SelectDropDownDepartureTime();
         }
 
-        [When(@"I click save and continue button from route checke page")]
+        [When(@"I click save and continue button from route checker page")]
         public void WhenIClickSaveAndContinueButtonFromRouteCheckePage()
         {
             _routeCheckingPage?.SelectSaveAndContinue();
