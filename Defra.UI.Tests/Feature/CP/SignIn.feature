@@ -13,7 +13,7 @@ Background:
 Scenario: Sign in button click validation
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 
 Scenario: Sign out button click validation
 	When I have provided the CP credentials and signin

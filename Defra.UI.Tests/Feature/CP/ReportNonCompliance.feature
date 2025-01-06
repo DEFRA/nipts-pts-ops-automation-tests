@@ -9,13 +9,13 @@ Background:
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 
 Scenario: PTD details drop down link validation in Report non compliance page - Approved status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -32,7 +32,7 @@ Scenario: PTD details drop down link validation in Report non compliance page - 
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -50,7 +50,7 @@ Scenario: PTD details drop down link validation in Report non compliance page - 
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -66,7 +66,7 @@ Scenario: PTD details drop down link validation in Report non compliance page - 
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -82,7 +82,7 @@ Scenario Outline: Passenger details section radio buttons verification in Report
 	Then I have selected '<Transportation>' radio option
 	Then I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page

@@ -9,13 +9,13 @@ Background:
 	Then I should redirected to the Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
-	Then I should redirected to port route checke page
+	Then I should redirected to port route checker page
 
 Scenario: Pass outcome validation for approved application found by PTD number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -30,7 +30,7 @@ Scenario: Fail outcome validation for Awaiting verification status application f
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Cairnryan to Larne (P&O)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -45,7 +45,7 @@ Scenario: Pass outcome validation for approved application found by application 
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -61,7 +61,7 @@ Scenario: Fail outcome validation for Awaiting verification status application f
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -77,7 +77,7 @@ Scenario: Pass outcome validation for approved application found by microchip nu
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
@@ -93,7 +93,7 @@ Scenario: Fail outcome validation for Awaiting verification status application f
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
-	When I click save and continue button from route checke page
+	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
