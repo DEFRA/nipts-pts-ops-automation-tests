@@ -40,6 +40,9 @@ namespace Defra.UI.Tests.Steps.AP
             if (referenceNumber != null)
                 GridSteps.WhenISearchForInTheGrid(referenceNumber);
             GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(0);
+            _driver.WaitForPageToLoad();
+            _scenarioContext.Add("PTDReferenceNumber", FormSteps.GetValueOfField("nipts_documentreference"));
+
         }
 
         [When("I assign the application to myself")]
