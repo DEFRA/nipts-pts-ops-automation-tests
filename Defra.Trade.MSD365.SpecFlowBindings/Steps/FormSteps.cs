@@ -751,8 +751,7 @@ public class FormSteps : PowerAppsStepDefiner
     }
     public static object GetValueOfField(String fieldName)
     {
-        //GetFieldValue(fieldName).ToString().Should().Be(val, $"Field name {fieldName}");
-        return GetFieldValue(fieldName);
+       return GetFieldValue(fieldName);
     }
 
     private static EntityReference GetOwner()
