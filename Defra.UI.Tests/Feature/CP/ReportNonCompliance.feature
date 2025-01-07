@@ -1,7 +1,7 @@
 ﻿@CPRegression
 Feature: Report Non Compliance
 
-As a PTS port checker I want ot Check application and Route Details
+Port checker Checks application and Route Details
 
 Background: 
 	Given that I navigate to the port checker application
@@ -11,7 +11,7 @@ Background:
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
 
-Scenario: PTD details drop down link validation in Report non compliance page - Approved status
+Scenario: Verify PTD details drop down link in Report non compliance page - Approved status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
@@ -28,7 +28,7 @@ Scenario: PTD details drop down link validation in Report non compliance page - 
 	And I click Pet Travel Document details link dropdown
 	And I Verify status 'Approved' on Report non-compliance page
 
-Scenario: PTD details drop down link validation in Report non compliance page - Awaiting verification status
+Scenario: Verify PTD details drop down link in Report non compliance page - Awaiting verification status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
@@ -46,7 +46,7 @@ Scenario: PTD details drop down link validation in Report non compliance page - 
 	And I click Pet Travel Document details link dropdown
 	And I Verify status 'Awaiting verification' on Report non-compliance page
 
-Scenario: PTD details drop down link validation in Report non compliance page - Revoked status
+Scenario: Verify PTD details drop down link in Report non compliance page - Revoked status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
@@ -62,7 +62,7 @@ Scenario: PTD details drop down link validation in Report non compliance page - 
 	And I click Pet Travel Document details link dropdown
 	And I Verify status 'Revoked' on Report non-compliance page
 	
-Scenario: PTD details drop down link validation in Report non compliance page - Unsuccessful status
+Scenario: Verify PTD details drop down link in Report non compliance page - Unsuccessful status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
@@ -78,7 +78,7 @@ Scenario: PTD details drop down link validation in Report non compliance page - 
 	And I click Pet Travel Document details link dropdown
 	And I Verify status 'Unsuccessful' on Report non-compliance page
 
-Scenario Outline: Passenger details section radio buttons verification in Report non-compliance page
+Scenario Outline: Verify passenger details section radio buttons in Report non-compliance page
 	Then I have selected '<Transportation>' radio option
 	Then I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
