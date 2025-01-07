@@ -1,6 +1,6 @@
-﻿Feature: E2ECP
+﻿Feature: E2E Scenarios
 
-As a PTS port checker I want ot check pet travel document applications Status details
+Port checker checks pet travel document applications Status details for end to end scenarios
 
 Background:
 	Given I navigate to PETS a travel document URL
