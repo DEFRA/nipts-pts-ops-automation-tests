@@ -104,3 +104,18 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
+
+Scenario: Verify the error message for no selection of radio button in application status page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '561365613656136' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	When I click save and continue button from application status page
+	Then I should see an error message "Select an option" in application status page
