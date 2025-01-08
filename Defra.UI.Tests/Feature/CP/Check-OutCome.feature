@@ -1,7 +1,7 @@
 ﻿@CPRegression
-Feature: CP E2E Pass Fail
+Feature: Check Outcome
 
-As a PTS port checker I want ot Change Route Checking Details from all pages
+Port checker validates the check outcome for pass or fail
 
 Background: 
 	Given that I navigate to the port checker application
@@ -11,7 +11,7 @@ Background:
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
 
-Scenario: Pass outcome validation for approved application found by PTD number
+Scenario: Validate pass outcome for approved application found by PTD number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
@@ -26,7 +26,7 @@ Scenario: Pass outcome validation for approved application found by PTD number
 	When I click save and continue button from application status page
 	Then I navigate to Find a document page
 
-Scenario: Fail outcome validation for Awaiting verification status application found by PTD number
+Scenario: Validate fail outcome for Awaiting verification status application found by PTD number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Cairnryan to Larne (P&O)' radio option
 	And I have provided Scheduled departure time
@@ -41,7 +41,7 @@ Scenario: Fail outcome validation for Awaiting verification status application f
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 
-Scenario: Pass outcome validation for approved application found by application number
+Scenario: Validate pass outcome for approved application found by application number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
@@ -57,7 +57,7 @@ Scenario: Pass outcome validation for approved application found by application 
 	When I click save and continue button from application status page
 	Then I navigate to Find a document page
 
-Scenario: Fail outcome validation for Awaiting verification status application found by application number
+Scenario: Validate fail outcome for Awaiting verification status application found by application number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
@@ -73,7 +73,7 @@ Scenario: Fail outcome validation for Awaiting verification status application f
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 
-Scenario: Pass outcome validation for approved application found by microchip number
+Scenario: Validate pass outcome for approved application found by microchip number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time
@@ -89,7 +89,7 @@ Scenario: Pass outcome validation for approved application found by microchip nu
 	When I click save and continue button from application status page
 	Then I navigate to Find a document page
 
-Scenario: Fail outcome validation for Awaiting verification status application found by microchip number
+Scenario: Validate fail outcome for Awaiting verification status application found by microchip number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time

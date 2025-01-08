@@ -35,7 +35,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I provided the PTD number of the application")]
         public void ThenIProvidedThePTDNumberOfTheApplication()
         {
-            var ptdNumber = _scenarioContext.Get<string>("PTDNumber");
+            var ptdNumber = _scenarioContext.Get<string>("PTDReferenceNumber");
             var ptdNumber1= ptdNumber.Substring(5);
             _searchDocumentPage?.EnterPTDNumber(ptdNumber1);
         }
