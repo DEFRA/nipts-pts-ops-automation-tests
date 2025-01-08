@@ -73,7 +73,7 @@ namespace Defra.UI.Tests.Steps.AP
             FormSteps.ICanSeeAHeaderField("readonly", microchipStatus);
         }
 
-        [When("I {string:status} the Evidence check")]
+        [When("I {string} the Evidence check")]
         public void WhenIPassOrFailTheEvidenceCheck(string status)
         {
             EntitySteps.ISelectTab("Verification Checks");
@@ -91,7 +91,7 @@ namespace Defra.UI.Tests.Steps.AP
             FormSteps.ICanSeeAHeaderField("readonly", status);
         }
 
-        [When("I "Fail" the Microchip check with '(.*)' reason")]
+        [When("I {string} the Microchip check with '(.*)' reason")]
         public void WhenIFailTheMicrochipCheckWithOtherReason(string reason)
         {
             EntitySteps.ISelectTab("Verification Checks");
