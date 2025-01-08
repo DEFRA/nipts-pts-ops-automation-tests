@@ -4,7 +4,7 @@ using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.CP
 {

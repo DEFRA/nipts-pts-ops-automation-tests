@@ -169,7 +169,7 @@ Scenario Outline: Print PETS Travel Document Dog and Cat - Approved
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -231,7 +231,7 @@ Scenario Outline: Print PETS Travel Document Ferret - Approved
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'

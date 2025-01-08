@@ -165,7 +165,7 @@ Scenario: Verify the Microchip Check ‘Other Reason’ field mandatory
 	And I Switch to 'Open - Unassigned PTD Applications'
 	And I open the first application
 	And I assign the application to myself
-	And I Fail the Microchip check with 'Other' reason
+	And I "Fail" the Microchip check with 'Other' reason
 	Then I verify the 'Other' Fail reason
 
 Scenario: Verify if a Caseworker can filter the cases with pending status
@@ -237,7 +237,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application and 
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
-	When I Pass the Microchip check
+	When I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -264,7 +264,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application, Aut
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
-	When I Pass the Microchip check
+	When I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'	
@@ -294,7 +294,7 @@ Scenario: Verify the Duplicate Microchip Notification for offline PTD applicatio
 	And I Click on Save
 	Then the status is 'Open'
 	And I do see Duplicate Microchip Notification
-	When I Fail the Microchip check
+	When I "Fail" the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
 	Then the status is changed to 'Rejected'
@@ -365,7 +365,7 @@ Scenario: Offline PTD Application should not be editable in Revoke Pending Statu
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
-	When I Pass the Microchip check
+	When I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'

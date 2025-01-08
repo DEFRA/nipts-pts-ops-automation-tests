@@ -11,7 +11,7 @@ using Capgemini.PowerApps.SpecFlowBindings;
 using Defra.Trade.Plants.SpecFlowBindings.Context;
 using Defra.Trade.Plants.SpecFlowBindings.Extensions;
 using Polly;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 public class UpdateDataSteps : PowerAppsStepDefiner

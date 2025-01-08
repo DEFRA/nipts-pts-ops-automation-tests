@@ -2,7 +2,7 @@
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -57,7 +57,7 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.True(petMicrochipPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }
 
-        [Then(@"I should not be redirected to When was your pet microchipped or last scanned\? page")]
+        [Then(@"I should not be redirected to When was your pet microchipped or last scanned? page")]
         public void ThenIShouldNotBeRedirectedToWhenWasYourPetMicrochippedOrLastScannedPage()
         {
             var pageTitle = $"Is your pet microchipped";
@@ -70,7 +70,7 @@ namespace Defra.UI.Tests.Steps.AP
             petMicrochipDatePage?.EnterDateMonthYear(DateTime.Now.AddDays(10));
         }
 
-        [Then(@"I should not be redirected to Is your pet a dog, cat or ferret\? page")]
+        [Then(@"I should not be redirected to Is your pet a dog, cat or ferret? page")]
         public void ThenIShouldNotBeRedirectedToIsYourPetADogCatOrFerretPage()
         {
             var pageTitle = $"When was your pet microchipped or last scanned?";

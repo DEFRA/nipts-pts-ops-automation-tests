@@ -6,7 +6,7 @@ using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
 using Capgemini.PowerApps.SpecFlowBindings.Configuration;
 using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
@@ -52,43 +52,43 @@ namespace Defra.UI.Tests.Steps.AP
             Trade.Plants.SpecFlowBindings.Steps.DialogSteps.WhenIAssignToMeOnTheAssignDialog();
         }
 
-        [When("I (Pass|Fail) the Microchip check")]
-        public void WhenIPassOrFailTheMicrochipCheck(string MicrochipStatus)
+        [When("I {string} the Microchip check")]
+        public void WhenIPassOrFailTheMicrochipCheck(string microchipStatus)
         {
             EntitySteps.ISelectTab("Verification Checks");
             SharedSteps.WaitForScriptProcessing();
             GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(0);
             SharedSteps.WaitForScriptProcessing();
-            if (MicrochipStatus == "Fail")
+            if (microchipStatus == "Fail")
             {
                 EntitySteps.WhenIEnterInTheField("Nil Return", "nipts_failreason", "optionset", "field", 1);
             }
-            CommandSteps.ClickCommand(MicrochipStatus);
+            CommandSteps.ClickCommand(microchipStatus);
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
-            FormSteps.ICanSeeAHeaderField("readonly", MicrochipStatus);
+            FormSteps.ICanSeeAHeaderField("readonly", microchipStatus);
         }
 
-        [When("I (Pass|Fail) the Evidence check")]
-        public void WhenIPassOrFailTheEvidenceCheck(string Status)
+        [When("I {string:status} the Evidence check")]
+        public void WhenIPassOrFailTheEvidenceCheck(string status)
         {
             EntitySteps.ISelectTab("Verification Checks");
             SharedSteps.WaitForScriptProcessing();
             GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(1);
             SharedSteps.WaitForScriptProcessing();
-            if (Status == "Fail")
+            if (status == "Fail")
             {
                 EntitySteps.WhenIEnterInTheField("Nil Return", "nipts_failreason", "optionset", "field", 1);
             }
-            CommandSteps.ClickCommand(Status);
+            CommandSteps.ClickCommand(status);
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
-            FormSteps.ICanSeeAHeaderField("readonly", Status);
+            FormSteps.ICanSeeAHeaderField("readonly", status);
         }
 
-        [When("I Fail the Microchip check with '(.*)' reason")]
+        [When("I "Fail" the Microchip check with '(.*)' reason")]
         public void WhenIFailTheMicrochipCheckWithOtherReason(string reason)
         {
             EntitySteps.ISelectTab("Verification Checks");

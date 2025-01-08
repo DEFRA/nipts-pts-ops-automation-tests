@@ -19,7 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 public class FormSteps : PowerAppsStepDefiner
@@ -85,7 +85,7 @@ public class FormSteps : PowerAppsStepDefiner
     {
         fields = fields ?? throw new ArgumentNullException(nameof(fields));
 
-        foreach (TableRow row in fields.Rows)
+        foreach (DataTableRow row in fields.Rows)
         {
             var field = ControlHelper.GetControlField(FormHelper.GetFormContext(Driver), row["Field"], row["Type"], row["Location"], Driver);
             field.Value.Should().Be(row["Value"]);

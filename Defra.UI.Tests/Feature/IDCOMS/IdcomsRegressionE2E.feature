@@ -171,7 +171,7 @@ Scenario Outline: Verify the email subject for Rejection email
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Fail the Microchip check
+	And I "Fail" the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
 	Then I verify the copy of the 'REJECTION' Email in Timeline
@@ -226,7 +226,7 @@ Scenario Outline: Verify the email subject for revoked email
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	And I assign the application to myself
@@ -284,7 +284,7 @@ Scenario Outline: Verify the email subject for approved email
 	And I opens the application
 	And I assign the application to 'Shukla Vishal' another user
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then I verify the copy of the 'APPROVED' Email in Timeline
@@ -568,7 +568,7 @@ Scenario Outline: Verify the error message when the caseworker Authorises an app
 	And I opens the application
 	And I assign the application to myself
 	Then I do see Duplicate Microchip Notification
-	When I Pass the Microchip check
+	When I "Pass" the Microchip check
 	And I go back
 	Then I See an error 'Another Authorised application exists with this microchip number' when Authorising the application
 

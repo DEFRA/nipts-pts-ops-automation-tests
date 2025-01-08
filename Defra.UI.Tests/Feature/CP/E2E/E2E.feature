@@ -56,7 +56,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -130,7 +130,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -203,7 +203,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -275,7 +275,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Fail the Microchip check
+	And I "Fail" the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid Application'
 	Then the status is changed to 'Rejected'
@@ -345,7 +345,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -419,7 +419,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I "Pass" the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -492,7 +492,7 @@ Examples:
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Fail the Microchip check
+	And I "Fail" the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid Application'
 	Then the status is changed to 'Rejected'

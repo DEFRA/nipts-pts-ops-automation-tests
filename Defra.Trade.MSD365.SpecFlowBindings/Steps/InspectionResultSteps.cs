@@ -12,7 +12,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Steps relating the processing of inspection results.

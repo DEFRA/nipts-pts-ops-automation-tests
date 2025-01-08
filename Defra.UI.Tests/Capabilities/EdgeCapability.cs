@@ -1,7 +1,7 @@
 ﻿using Defra.UI.Tests.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Edge;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Capabilities
 {
