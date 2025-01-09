@@ -24,8 +24,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement btnFootPassengerRadio=> _driver.WaitForElementExists(By.CssSelector("#footPassenger"));
         private IWebElement bntVehicleRadio => _driver.WaitForElementExists(By.CssSelector("#vehiclePassenger"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
+        private IReadOnlyCollection<IWebElement> lblPetTravelDocumentDetails => _driver.FindElements(By.XPath("//span[@class='govuk-heading-s']"));
         private IWebElement lblPTDStatus => _driver.WaitForElementExists(By.XPath("//p[@class='govuk-body govuk-!-margin-bottom-0 pts-checker-check']"));
+        private IWebElement lblReasonsHeading => _driver.WaitForElement(By.XPath($"//h2[@class='govuk-fieldset__heading']"));
         private IWebElement lblReasonsHint => _driver.WaitForElementExists(By.Id("event-name-hint"));
+        private IWebElement lblTableName => _driver.WaitForElement(By.XPath($"//div[@class='govuk-summary-card__title-wrapper']/h2[normalize-space()='Pet Travel Document (PTD)']"));
         #endregion
 
         #region Methods
@@ -47,7 +50,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool CheckPetTravelDocumentDetailsSection(string status)
         {
-            var cnt = _driver.FindElements(By.XPath("//span[@class='govuk-heading-s']")).Count;
+            var cnt = lblPetTravelDocumentDetails.Count;
             if (cnt > 0)
             {
                 return lblPTDStatus.Text.Contains(status);
@@ -57,7 +60,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTheTableNameInPTDLink(string tableName)
         {
-            return _driver.WaitForElement(By.XPath($"//div[@class='govuk-summary-card__title-wrapper']/h2[normalize-space()='Pet Travel Document (PTD)']")).Text.Trim().Equals(tableName);
+            return lblTableName.Text.Trim().Equals(tableName);
         }
         public bool VerifyTheExpectedStatus(string status)
         {
@@ -65,7 +68,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         }
         public bool VerifyReasonsHeadingWithHint(string reasons, string hint)
         {
-            string reasonsHeading = _driver.WaitForElement(By.XPath($"//h2[@class='govuk-fieldset__heading']")).Text;
+            string reasonsHeading = lblReasonsHeading.Text;
             if(reasonsHeading.Equals(reasons) && lblReasonsHint.Text.Trim().Equals(hint))
             return true;
             else return false;
