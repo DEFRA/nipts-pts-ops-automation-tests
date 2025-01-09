@@ -8,5 +8,8 @@
         bool VerifyTheExpectedStatus(string status);
         void SelectTypeOfPassenger(string radioButtonValue);
         bool IsError(string errorMessage);
+        bool CheckPetTravelDocumentDetailsSection(string status);
+        bool VerifyTheTableNameInPTDLink(string tableName);
+        bool VerifyReasonsHeadingWithHint(string reasons, string hint);
     }
 }

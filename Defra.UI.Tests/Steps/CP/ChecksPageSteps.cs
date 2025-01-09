@@ -8,7 +8,7 @@ using TechTalk.SpecFlow;
 namespace Defra.UI.Tests.Steps.CP
 {
     [Binding]
-    public class WelcomePageSteps
+    public class ChecksPageSteps
     {
         private readonly IObjectContainer _objectContainer;
         private readonly ScenarioContext _scenarioContext;
@@ -17,7 +17,7 @@ namespace Defra.UI.Tests.Steps.CP
         private IWelcomePage? _welcomePage => _objectContainer.IsRegistered<IWelcomePage>() ? _objectContainer.Resolve<IWelcomePage>() : null;
         private IUserObject? UserObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
 
-        public WelcomePageSteps(ScenarioContext context, IObjectContainer container)
+        public ChecksPageSteps(ScenarioContext context, IObjectContainer container)
         {
             _scenarioContext = context;
             _objectContainer = container;
