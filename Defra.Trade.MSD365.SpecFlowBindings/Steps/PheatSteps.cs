@@ -17,7 +17,7 @@ using OpenQA.Selenium;
 using Polly;
 using System;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Steps relating to pheats authorisation.

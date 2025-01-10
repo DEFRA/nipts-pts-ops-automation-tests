@@ -14,7 +14,7 @@ using Microsoft.Dynamics365.UIAutomation.Browser;
 using Microsoft.Xrm.Sdk;
 using OpenQA.Selenium;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Binding for steps related to application processing.

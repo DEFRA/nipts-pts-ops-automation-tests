@@ -6,7 +6,7 @@ namespace Defra.Trade.Plants.SpecFlowBindings.Steps;
 
 using Capgemini.PowerApps.SpecFlowBindings;
 using Defra.Trade.Plants.SpecFlowBindings.Helpers;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Steps relating to the plants inspection results grid.

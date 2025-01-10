@@ -2,7 +2,7 @@
 
 using Capgemini.PowerApps.SpecFlowBindings;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Temporary hooks related to fixing broken EasyRepro selectors.

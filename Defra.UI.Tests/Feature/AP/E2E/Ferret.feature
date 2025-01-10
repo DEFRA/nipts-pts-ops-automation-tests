@@ -61,9 +61,9 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	When I Login to Dynamics application
 	When I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I 'Pass' the Microchip check
 	And I go back
-	And I Pass the Evidence check
+	And I 'Pass' the Evidence check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -132,7 +132,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Fail the Microchip check
+	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
 	Then the status is changed to 'Rejected'
@@ -212,7 +212,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter addr
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'

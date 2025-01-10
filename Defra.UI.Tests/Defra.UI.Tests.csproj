@@ -67,15 +67,13 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageReference Include="Reqnroll" Version="2.2.1" />
+    <PackageReference Include="Reqnroll.NUnit" Version="2.2.1" />
     <PackageReference Include="Selenium.Axe" Version="4.0.18" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="*" />
-    <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />	  
-    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.9.74" />
+    <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="SpecFlow" Version="3.9.74" />
-    <PackageReference Include="SpecFlow.ExternalData" Version="3.9.74" />
-    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
 	<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 
   </ItemGroup>
@@ -119,12 +117,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Feature\AP\E2E\Ferret.feature.cs">
-      <DependentUpon>Ferret.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Feature\CP\Check-OutCome.feature.cs">
-      <DependentUpon>Check-Outcome.feature</DependentUpon>
-    </Compile>
     <Compile Update="Feature\IDCOMS\IdcomsRegressionE2E.feature.cs">
       <DependentUpon>IdcomsRegressionE2E.feature</DependentUpon>
     </Compile>

@@ -17,7 +17,7 @@ using OpenQA.Selenium.Support.UI;
 using Polly;
 using System;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 public class PopupSteps : PowerAppsStepDefiner

@@ -5,7 +5,7 @@ namespace Defra.Trade.Plants.SpecFlowBindings.Steps;
 using Capgemini.PowerApps.SpecFlowBindings;
 using FluentAssertions;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 public class InspectionSamplesSummarySteps : PowerAppsStepDefiner

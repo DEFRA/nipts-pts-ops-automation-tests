@@ -10,7 +10,7 @@ using Defra.Trade.Plants.SpecFlowBindings.Context;
 using Defra.Trade.Plants.SpecFlowBindings.Helpers;
 using FluentAssertions;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Steps relating to pest processing.

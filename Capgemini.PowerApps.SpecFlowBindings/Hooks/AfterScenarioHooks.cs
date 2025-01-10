@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 using System;
 using System.IO;
 using System.Reflection;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// After scenario hooks.

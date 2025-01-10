@@ -6,7 +6,7 @@ using Dynamitey.DynamicObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using System.Runtime.Intrinsics.X86;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
 
 namespace Defra.UI.Tests.Steps.CP

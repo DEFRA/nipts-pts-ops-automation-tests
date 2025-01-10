@@ -2,7 +2,7 @@
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -46,7 +46,7 @@ namespace Defra.UI.Tests.Steps.AP
             petSpeciesPage?.ClickContinueButton();
         }
 
-        [Then(@"I should redirected to the What breed is your '([^']*)'\? page")]
+        [Then(@"I should redirected to the What breed is your {string}? page")]
         public void ThenIShouldRedirectedToTheWhatBreedIsYourPage(string petType)
         {
             if (!petType.ToLower().Equals("ferret"))
@@ -131,7 +131,7 @@ namespace Defra.UI.Tests.Steps.AP
             _scenarioContext.Add("DateOfBirth", dateOfBirth);
         }
 
-        [When(@"I click on continue button from Do you know your pet's date of birth\? page")]
+        [When(@"I click on continue button from Do you know your pet's date of birth? page")]
         public void WhenIClickOnContinueButtonFromDoYouKnowYourPetsDateOfBirthPage()
         {
             petDOBPage?.ClickContinueButton();
