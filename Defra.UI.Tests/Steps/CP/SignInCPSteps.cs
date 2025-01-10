@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Data.Users;
+﻿using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
@@ -10,26 +9,25 @@ namespace Defra.UI.Tests.Steps.CP
     [Binding]
     public class SignInCPSteps
     {
-        private readonly IObjectContainer _objectContainer;
-        private readonly ScenarioContext _scenarioContext;
+        private readonly IWebDriver _driver;
 
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IUrlBuilder? urlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
-        private ISignInCPPage? _signInCPPage => _objectContainer.IsRegistered<ISignInCPPage>() ? _objectContainer.Resolve<ISignInCPPage>() : null;
-        private IRouteCheckingPage? _routeCheckingPage => _objectContainer.IsRegistered<IRouteCheckingPage>() ? _objectContainer.Resolve<IRouteCheckingPage>() : null;
-        private IUserObject? UserObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
+        private IUrlBuilder? _urlBuilder;
+        private ISignInCPPage? _signInCPPage;
+        private IUserObject? _userObject;
 
-        public SignInCPSteps(ScenarioContext context, IObjectContainer container)
+        public SignInCPSteps(IWebDriver driver, IUrlBuilder urlBuilder, ISignInCPPage signInCPPage, IUserObject userObject)
         {
-            _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _urlBuilder = urlBuilder;
+            _signInCPPage = signInCPPage;
+            _userObject = userObject;
         }
 
         [When(@"I navigate to the port checker application")]
         [Given(@"that I navigate to the port checker application")]
         public void GivenThatINavigateToThePortCheckerApplication()
         {
-            var url = urlBuilder.Default().BuildCom();
+            var url = _urlBuilder.Default().BuildCom();
             _driver?.Navigate().GoToUrl(url);
         }
 
@@ -49,7 +47,7 @@ namespace Defra.UI.Tests.Steps.CP
         [When(@"I have provided the CP credentials and signin")]
         public void WhenIHaveProvidedTheCPCredentialsAndSignin()
         {
-            var jsonData = UserObject?.GetUser("CP");
+            var jsonData = _userObject?.GetUser("CP");
             var userObject = new User
             {
                 UserName = jsonData.UserName,

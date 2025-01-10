@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿
 using Defra.UI.Tests.Contracts;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
@@ -9,15 +9,15 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class SummaryPage : ISummaryPage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public SummaryPage(IObjectContainer container)
+        public SummaryPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl']"), true);
         private IReadOnlyCollection<IWebElement> divDocumentIssueDetails => _driver.WaitForElements(By.XPath("//div[@id='document-issued-card']//dl/div"));
         private IReadOnlyCollection<IWebElement> divDocumentIssue => _driver.WaitForElements(By.XPath("//div[@id='document-issued-card']//dl/div"));

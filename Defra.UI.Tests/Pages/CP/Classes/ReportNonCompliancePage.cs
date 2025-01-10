@@ -1,23 +1,21 @@
-﻿using BoDi;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
-using Defra.UI.Tests.Pages.CP.Interfaces;
 using OpenQA.Selenium;
-using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
     public class ReportNonCompliancePage : IReportNonCompliancePage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public ReportNonCompliancePage (IObjectContainer container)
+        public ReportNonCompliancePage (IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Report non-compliance']"));
         private IWebElement btnReportNonCompliance => _driver.WaitForElement(By.XPath("//button[normalize-space()='Report non-compliance']"));
         private IWebElement lnkPetTravelDocumentDetails => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet Travel Document details']"));

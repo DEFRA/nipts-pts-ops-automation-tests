@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -9,26 +8,26 @@ namespace Defra.UI.Tests.Steps.AP
     [Binding]
     public class PetSexPageSteps
     {
-        private readonly IObjectContainer _objectContainer;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IPetSexPage? PetSexPage => _objectContainer.IsRegistered<IPetSexPage>() ? _objectContainer.Resolve<IPetSexPage>() : null;
-        public PetSexPageSteps(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        private readonly IPetSexPage _petSexPage;
+        public PetSexPageSteps(IWebDriver driver, IPetSexPage petSexPage)
         {
-            _objectContainer = container;
+            _driver = driver;
+            _petSexPage = petSexPage;
         }
 
         [Then(@"I should navigate to the What sex is your pet page")]
         public void ThenIShouldNavigateToTheWhatSexIsYourPetPage()
         {
             var pageTitle = "What sex is your pet?";
-            Assert.IsTrue(PetSexPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsTrue(_petSexPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [When(@"I have selected the radio button as '([^']*)' for sex option and continue")]
         public void WhenIHaveSelectedTheRadioButtonAsForSexOptionAndContinue(string sexType)
         {
-            PetSexPage?.SelectPetsSexOption(sexType);
-            PetSexPage?.ClickContinueButton();
+            _petSexPage?.SelectPetsSexOption(sexType);
+            _petSexPage?.ClickContinueButton();
         }
     }
 }

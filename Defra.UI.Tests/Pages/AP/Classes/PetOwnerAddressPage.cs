@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
@@ -11,14 +11,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
     public class PetOwnerAddressPage : IPetOwnerAddressPage
     {
-        private readonly IObjectContainer _objectContainer;
-        public PetOwnerAddressPage(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        public PetOwnerAddressPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@for='Postcode']"), true);
         private IWebElement btnFindAddress => _driver.WaitForElement(By.XPath("//button[@type='submit']"));
         private IWebElement txtPostCode => _driver.WaitForElement(By.Id("Postcode"), true);

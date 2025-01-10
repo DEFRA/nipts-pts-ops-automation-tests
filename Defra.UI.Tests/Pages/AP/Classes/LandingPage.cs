@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
@@ -8,7 +7,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class LandingPage : ILandingPage
     {
-        private IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
+
+        public LandingPage(IWebDriver driver)
+        {
+            _driver = driver;
+        }
 
         #region Page Objects
 
@@ -20,12 +24,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         #endregion Page Objects
 
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-
-        public LandingPage(IObjectContainer container)
-        {
-            _objectContainer = container;
-        }
 
         #region Page Methods
 

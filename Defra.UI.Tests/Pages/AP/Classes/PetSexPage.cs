@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
@@ -8,14 +8,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class PetSexPage : IPetSexPage
     {
-        private readonly IObjectContainer _objectContainer;
-        public PetSexPage(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        public PetSexPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         public IWebElement PageHeading => _driver.WaitForElement(By.ClassName("govuk-fieldset__heading"), true);
         public IWebElement rdoFemale => _driver.WaitForElementExists(By.CssSelector("#Female"), true);
         public IWebElement rdoMale => _driver.WaitForElementExists(By.CssSelector("#Male"), true);

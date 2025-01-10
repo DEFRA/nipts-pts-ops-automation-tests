@@ -1,25 +1,23 @@
-﻿using BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Tools;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
-using Defra.UI.Tests.Configuration;
-using Defra.UI.Framework.Driver;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
     public class SignInCPPage : ISignInCPPage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public SignInCPPage(IObjectContainer container)
+        public SignInCPPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement btnSignIn => _driver.WaitForElement(By.XPath("//a[contains(text(),'Sign in')]"));
         private By signInConfirmBy => By.XPath("//h1[contains(@class,'govuk-heading-xl')]");
         private IWebElement UserId => _driver.FindElement(By.CssSelector("#user_id"));

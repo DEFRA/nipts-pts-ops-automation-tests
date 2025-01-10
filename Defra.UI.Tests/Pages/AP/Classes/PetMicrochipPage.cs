@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
@@ -9,14 +9,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class PetMicrochipPage : IPetMicrochipPage
     {
-        private readonly IObjectContainer _objectContainer;
-        public PetMicrochipPage(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        public PetMicrochipPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-fieldset__heading']"), true);
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[@type='submit']"), true);
         private IWebElement rdoYes => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[@for='MicrochippedYes']"));

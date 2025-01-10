@@ -1,20 +1,18 @@
-﻿using BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
-using SeleniumExtras.WaitHelpers;
-using Defra.UI.Framework.Driver;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+using SeleniumExtras.WaitHelpers;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class SignInPage : ISignInPage
     {
-        private string Platform => ConfigSetup.BaseConfiguration.TestConfiguration.Platform;
-        private IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
+        public SignInPage(IWebDriver driver)
+        {
+            _driver = driver;
+        }
 
         #region Page Objects
         private IWebElement StartNew => _driver.WaitForElement(By.Id("button-rbIndexSave"));
@@ -36,12 +34,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement SigninError => _driver.WaitForElement(By.XPath("//h1[text() = 'Please sign in again']"));
         #endregion
 
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
 
-        public SignInPage(IObjectContainer container)
-        {
-            _objectContainer = container;
-        }
 
         public bool IsPageLoaded()
         {

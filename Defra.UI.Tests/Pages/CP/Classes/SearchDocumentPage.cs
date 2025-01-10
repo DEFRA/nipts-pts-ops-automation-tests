@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 
@@ -8,15 +7,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
     public class SearchDocumentPage : ISearchDocumentPage
     {
 
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public SearchDocumentPage(IObjectContainer container)
+        public SearchDocumentPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"));
         private IWebElement btnSearch => _driver.WaitForElement(By.XPath("//button[normalize-space()='Search']"));
         private IWebElement btnClearSearch => _driver.WaitForElement(By.XPath("//a[@id='clearSearchButton']"));

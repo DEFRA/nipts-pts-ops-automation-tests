@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿
 using Defra.UI.Tests.Contracts;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
@@ -9,14 +9,13 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class ChangeDetailsPage : IChangeDetailsPage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public ChangeDetailsPage(IObjectContainer container)
+        public ChangeDetailsPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-fieldset__heading']"), true);
         private IWebElement rdoYes => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[@for='Yes']"));
         private IWebElement rdoNo => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[@for='No']"));

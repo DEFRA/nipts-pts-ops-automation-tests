@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -9,26 +8,26 @@ namespace Defra.UI.Tests.Steps.AP
     [Binding]
     public class PetOwnerNamePageSteps
     {
-        private readonly IObjectContainer _objectContainer;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IPetOwnerNamePage? PetOwnerNamePage => _objectContainer.IsRegistered<IPetOwnerNamePage>() ? _objectContainer.Resolve<IPetOwnerNamePage>() : null;
-        public PetOwnerNamePageSteps(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        private readonly IPetOwnerNamePage _petOwnerNamePage;
+        public PetOwnerNamePageSteps(IWebDriver driver, IPetOwnerNamePage petOwnerNamePage)
         {
-            _objectContainer = container;
+            _driver = driver;
+            _petOwnerNamePage = petOwnerNamePage;
         }
 
         [Then(@"I should navigate to Pets Owner full name page")]
         public void ThenIShouldNavigateToPetsOwnerFullNamePage()
         {
             var pageTitle = $"What is your full name?";
-            Assert.IsTrue(PetOwnerNamePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsTrue(_petOwnerNamePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [When(@"I provided '([^']*)' and continue")]
         public void WhenIProvidedAndContinue(string userName)
         {
-            PetOwnerNamePage?.EnterPetOwnerName(userName);
-            PetOwnerNamePage?.ClickContinueButton();
+            _petOwnerNamePage?.EnterPetOwnerName(userName);
+            _petOwnerNamePage?.ClickContinueButton();
         }
     }
 }

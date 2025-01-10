@@ -1,21 +1,18 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
-using Dynamitey.DynamicObjects;
 using OpenQA.Selenium;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class ApplicationSubmissionPage : IApplicationSubmissionPage
     {
-        private readonly IObjectContainer _objectContainer;
-        public ApplicationSubmissionPage(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        public ApplicationSubmissionPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         public IWebElement PageHeading => _driver.WaitForElement(By.ClassName("govuk-panel__title"), true);
         private IWebElement lblUniqueReferenceNumber => _driver.WaitForElement(By.XPath("//div[@class='govuk-panel__body']/strong"));
         private IWebElement lnkApplyForAnother => _driver.WaitForElement(By.XPath("//a[contains(text(),'Apply for another')]"));

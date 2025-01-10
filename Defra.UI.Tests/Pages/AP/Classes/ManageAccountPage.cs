@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
@@ -9,15 +8,15 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class ManageAccountPage : IManageAccountPage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public ManageAccountPage(IObjectContainer container)
+        public ManageAccountPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         public IWebElement lnkManageYourAccount => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='manage your account']"), true);
         public IWebElement lnkUpdateDetails => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Update details']"));
         public IWebElement lnkChangePersonalInformation => _driver.WaitForElement(By.XPath("//*[normalize-space(text()) ='Personal Information']/following::a[1]"));

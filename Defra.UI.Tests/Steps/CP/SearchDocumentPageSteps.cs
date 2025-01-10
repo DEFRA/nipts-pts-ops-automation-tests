@@ -1,6 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -11,19 +9,15 @@ namespace Defra.UI.Tests.Steps.CP
     [Binding]
     public class SearchDocumentPageSteps
     {
-
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
+        private readonly ISearchDocumentPage _searchDocumentPage;
 
-        private ISummaryPage? summaryPage => _objectContainer.IsRegistered<ISummaryPage>() ? _objectContainer.Resolve<ISummaryPage>() : null;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private ISearchDocumentPage? _searchDocumentPage => _objectContainer.IsRegistered<ISearchDocumentPage>() ? _objectContainer.Resolve<ISearchDocumentPage>() : null;
-        private IReportNonCompliancePage? _reportNonCompliancePage => _objectContainer.IsRegistered<IReportNonCompliancePage>() ? _objectContainer.Resolve<IReportNonCompliancePage>() : null;
-
-        public SearchDocumentPageSteps (ScenarioContext context, IObjectContainer container)
+        public SearchDocumentPageSteps (ScenarioContext context, IWebDriver driver, ISearchDocumentPage searchDocumentPage)
         {
             _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _searchDocumentPage = searchDocumentPage;
         }
 
         [Then(@"I navigate to Find a document page")]

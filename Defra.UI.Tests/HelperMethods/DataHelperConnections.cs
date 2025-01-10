@@ -1,6 +1,4 @@
-﻿using BoDi;
-using System;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 
 namespace Defra.UI.Tests.HelperMethods
@@ -12,10 +10,8 @@ namespace Defra.UI.Tests.HelperMethods
 
     public class DataHelperConnections : IDataHelperConnections
     {
-        private IObjectContainer _objectContainer;
-        public DataHelperConnections(IObjectContainer objectContainer)
+        public DataHelperConnections()
         {
-            _objectContainer = objectContainer;
         }
 
         private readonly object _lock = new object();

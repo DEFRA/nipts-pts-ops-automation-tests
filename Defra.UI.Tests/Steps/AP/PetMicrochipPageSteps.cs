@@ -1,19 +1,20 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using Reqnroll;
-
 
 namespace Defra.UI.Tests.Steps.AP
 {
     [Binding]
     public class PetMicrochipPageSteps
     {
-        private readonly IObjectContainer _objectContainer;
-        private IPetMicrochipPage? _petMicrochipPage => _objectContainer.IsRegistered<IPetMicrochipPage>() ? _objectContainer.Resolve<IPetMicrochipPage>() : null;
-        public PetMicrochipPageSteps(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        private readonly IPetMicrochipPage? _petMicrochipPage;
+
+        public PetMicrochipPageSteps(IWebDriver driver, IPetMicrochipPage petMicrochipPage)
         {
-            _objectContainer = container;
+            _driver = driver;
+            _petMicrochipPage = petMicrochipPage;
         }
 
         [Then(@"I should navigate to the Is your pet microchipped page")]

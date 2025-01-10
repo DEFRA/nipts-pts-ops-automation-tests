@@ -1,11 +1,7 @@
-﻿using BoDi;
-using Capgemini.PowerApps.SpecFlowBindings;
-using Defra.UI.Tests.Configuration;
+﻿using Capgemini.PowerApps.SpecFlowBindings;
 using Defra.UI.Tests.Data.Users;
-using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
-using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -15,44 +11,40 @@ namespace Defra.UI.Tests.Steps.AP
     [Binding]
     public class SigninSteps
     {
-        private readonly object _lock = new object();
-        private readonly IObjectContainer _objectContainer;
-        private readonly ScenarioContext _scenarioContext;
+        private readonly IWebDriver _driver;
 
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
+        private readonly ISignInPage? _signin;
+        private readonly IUserObject? _userObject;
+        private readonly IUrlBuilder? _urlBuilder;
+    
 
-        private ISignInPage? Signin => _objectContainer.IsRegistered<ISignInPage>() ? _objectContainer.Resolve<ISignInPage>() : null;
-        private IUserObject? UserObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
-        private IUrlBuilder? UrlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
-        private IFetchKeyVault? FetchKeyVault => _objectContainer.IsRegistered<IFetchKeyVault>() ? _objectContainer.Resolve<IFetchKeyVault>() : null;
-        private IDataHelperConnections? dataHelperConnections => _objectContainer.IsRegistered<IDataHelperConnections>() ? _objectContainer.Resolve<IDataHelperConnections>() : null;
-
-        public SigninSteps(ScenarioContext context, IObjectContainer container)
+        public SigninSteps(IWebDriver driver, ISignInPage signInPage, IUserObject userObject, IUrlBuilder urlBuilder)
         {
-            _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _signin = signInPage;
+            _userObject = userObject;
+            _urlBuilder = urlBuilder;
         }
 
         [Given(@"that I navigate to the DEFRA application")]
         public void GivenThatINavigateToTheDEFRAApplication()
         {
-            string url = UrlBuilder.Default().BuildApp();
+            string url = _urlBuilder.Default().BuildApp();
             _driver?.Navigate().GoToUrl(url);
         }
 
         [Then(@"sign in with valid credentials with logininfo")]
         public void ThenSignInWithValidCredentialsWithLogininfo()
         {
-            var user = UserObject?.GetUser("AP");
-            _objectContainer.RegisterInstanceAs(user);
-            Assert.True(Signin?.IsSignedIn(user?.UserName, user?.Credential), "Not able to sign in");
+            var user = _userObject?.GetUser("AP");
+            Assert.True(_signin?.IsSignedIn(user?.UserName, user?.Credential), "Not able to sign in");
         }
 
         [When(@"click on signout button and verify the signout message")]
         [Then(@"click on signout button and verify the signout message")]
         public void ThenClickOnSignoutButtonAndVerifyTheSignoutMessage()
         {
-            Assert.True(Signin?.IsSignedOut(), "Not able to sign out");
+            Assert.True(_signin?.IsSignedOut(), "Not able to sign out");
         }
 
         [When(@"I Login to Dynamics application")]

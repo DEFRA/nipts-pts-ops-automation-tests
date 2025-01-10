@@ -1,6 +1,6 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
+using OpenQA.Selenium;
 using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.AP
@@ -8,24 +8,30 @@ namespace Defra.UI.Tests.Steps.AP
     [Binding]
     public class SummaryAndDeclarationSteps
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
 
-        private ISummaryPage? summaryPage => _objectContainer.IsRegistered<ISummaryPage>() ? _objectContainer.Resolve<ISummaryPage>() : null;
-        private IApplicationDeclarationPage? declarationPage => _objectContainer.IsRegistered<IApplicationDeclarationPage>() ? _objectContainer.Resolve<IApplicationDeclarationPage>() : null;
-        private IChangeDetailsPage? changeDetailsPage => _objectContainer.IsRegistered<IChangeDetailsPage>() ? _objectContainer.Resolve<IChangeDetailsPage>() : null;
-        private IHomePage? homePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
-        public SummaryAndDeclarationSteps(ScenarioContext context, IObjectContainer container)
+        private readonly ISummaryPage _summaryPage;
+        private readonly IApplicationDeclarationPage _declarationPage;
+        private readonly IChangeDetailsPage _changeDetailsPage;
+        private readonly IHomePage _homePage;
+
+        public SummaryAndDeclarationSteps(ScenarioContext context, IWebDriver driver, ISummaryPage summaryPage, IApplicationDeclarationPage applicationDeclarationPage, IChangeDetailsPage changeDetailsPage,
+           IHomePage homePage )
         {
             _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _summaryPage = summaryPage;
+            _declarationPage = applicationDeclarationPage;
+            _changeDetailsPage = changeDetailsPage;
+            _homePage = homePage;
         }
 
         [Then(@"The submitted application should be displayed in summary view")]
         public void ThenTheSubmittedApplicationShouldBeDisplayedInSummaryView()
         {
             var pageTitle = "Your application summary";
-            Assert.IsTrue(declarationPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsTrue(_declarationPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [Then(@"I have verified microchip details in declaration page")]
@@ -49,20 +55,20 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I have ticked the I agree to the declaration checkbox")]
         public void ThenIHaveTickedTheIAgreeToTheDeclarationCheckbox()
         {
-            declarationPage?.TickAgreedToDeclaration();
+            _declarationPage?.TickAgreedToDeclaration();
         }
 
         [When(@"I click Accept and Send button from Declaration page")]
         public void WhenIClickAcceptAndSendButtonFromDeclarationPage()
         {
-            declarationPage?.ClickSendApplicationButton();
+            _declarationPage?.ClickSendApplicationButton();
         }
 
         [Then(@"I should redirected to the Check your answers and sign the declaration page")]
         public void ThenIShouldRedirectedToTheCheckYourAnswersAndSignTheDeclarationPage()
         {
             var pageTitle = "Check your answers and sign the declaration";
-            Assert.IsTrue(declarationPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsTrue(_declarationPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [Then(@"I have verified microchip details in summary page")]
@@ -80,13 +86,13 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I click download link in summary page")]
         public void ThenIClickDownloadLinkInSummaryPage()
         {
-            summaryPage?.ClickPDFDownloadLink();
+            _summaryPage?.ClickPDFDownloadLink();
         }
 
         [Then(@"I click print link in summary page")]
         public void ThenIClickPrintLinkInSummaryPage()
         {
-            Assert.IsTrue(summaryPage?.ClickPrintdLink(), "Print window not opened successfully");
+            Assert.IsTrue(_summaryPage?.ClickPrintdLink(), "Print window not opened successfully");
         }
 
         [Then(@"I have verified pet owner details in summary page")]
@@ -99,32 +105,32 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIShouldRedirectedToTheAreYourDetailsCorrectPage()
         {
             var pageTitle = "Are your details correct?";
-            Assert.IsTrue(changeDetailsPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsTrue(_changeDetailsPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [Then(@"I have selected '([^']*)' option")]
         public void ThenIHaveSelectedOption(string option)
         {
-            changeDetailsPage?.SelectOption(option);
+            _changeDetailsPage?.SelectOption(option);
             _scenarioContext.Add("AreDetailsCorrect", option);
         }
 
         [When(@"I click on continue button from Are your details correct page")]
         public void WhenIClickOnContinueButtonFromAreYourDetailsCorrectPage()
         {
-            changeDetailsPage?.ClickContinueButton();
+            _changeDetailsPage?.ClickContinueButton();
         }
 
         [When(@"I captured Application PTD number")]
         public void WhenICapturedApplicationPTDNumber()
         {
-            var summary = summaryPage?.GetSummaryDetails();
+            var summary = _summaryPage?.GetSummaryDetails();
             _scenarioContext.Add("PTDNumber", summary.PTDNumber);
         }
 
         private void VerifyMicrodhipInformation(bool isSummaryPage = true)
         {
-            var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
+            var summary = isSummaryPage ? _summaryPage?.GetSummaryDetails() : _declarationPage?.GetSummaryDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
 
             var microchipNumber = _scenarioContext.Get<string>("MicrochipNumber");
@@ -137,7 +143,7 @@ namespace Defra.UI.Tests.Steps.AP
 
         private void VerifyPetsDetails(bool isSummaryPage = true)
         {
-            var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
+            var summary = isSummaryPage ? _summaryPage?.GetSummaryDetails() : _declarationPage?.GetSummaryDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
 
             var petName = _scenarioContext.Get<string>("PetName");
@@ -166,8 +172,8 @@ namespace Defra.UI.Tests.Steps.AP
 
         private void VerifyPetOwnerDetails(bool isSummaryPage = true)
         {
-            var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
-            var registeredUserDetails = changeDetailsPage?.GetRegisteredUserDetails();
+            var summary = isSummaryPage ? _summaryPage?.GetSummaryDetails() : _declarationPage?.GetSummaryDetails();
+            var registeredUserDetails = _changeDetailsPage?.GetRegisteredUserDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
             string[] address;
             var email = registeredUserDetails?.Email;
@@ -213,7 +219,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIShouldNotSeeTheApplicationInTheDashboard()
         {
             var petName = _scenarioContext.Get<string>("PetName");
-            Assert.IsTrue(homePage?.VerifyTheApplicationIsNotAvailable(petName), $"The application is available in Dashboard!");
+            Assert.IsTrue(_homePage?.VerifyTheApplicationIsNotAvailable(petName), $"The application is available in Dashboard!");
         }
     }
 }

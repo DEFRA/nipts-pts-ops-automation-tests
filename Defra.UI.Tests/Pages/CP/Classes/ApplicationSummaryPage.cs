@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 
@@ -8,15 +7,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 {
     public class ApplicationSummaryPage : IApplicationSummaryPage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public ApplicationSummaryPage(IObjectContainer container)
+        public ApplicationSummaryPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement rdoPass => _driver.WaitForElement(By.XPath("//label[normalize-space()='Pass']"));
         private IWebElement rdoFail => _driver.WaitForElement(By.XPath("//label[normalize-space()='Fail or referred to SPS']"));
         private IWebElement btnSaveAndContinue => _driver.WaitForElement(By.XPath("//*[@id='saveAndContinue']"));

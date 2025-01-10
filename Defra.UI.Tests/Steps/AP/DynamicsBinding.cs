@@ -1,32 +1,29 @@
-﻿using BoDi;
+﻿using Capgemini.PowerApps.SpecFlowBindings.Configuration;
 using Capgemini.PowerApps.SpecFlowBindings.Steps;
 using Defra.Trade.Plants.SpecFlowBindings.Steps;
-using FluentAssertions;
 using Defra.UI.Tests.Tools;
+using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
-using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
-using Capgemini.PowerApps.SpecFlowBindings.Configuration;
-using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
-using FluentAssertions.Execution;
 using System.ServiceModel.Channels;
+using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
 
 namespace Defra.UI.Tests.Steps.AP
 {
     [Binding]
     public class DynamicsBinding
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
 
         public object SpecFlowBindingsSteps { get; private set; }
 
-        public DynamicsBinding(IObjectContainer container, ScenarioContext scenarioContext)
+        public DynamicsBinding(ScenarioContext scenarioContext, IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
             _scenarioContext = scenarioContext;
         }
 

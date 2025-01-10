@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 
@@ -7,15 +6,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 {
     public class DocumentNotFoundPage : IDocumentNotFoundPage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public DocumentNotFoundPage(IObjectContainer container)
+        public DocumentNotFoundPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"));
         #endregion
 

@@ -10,7 +10,7 @@ namespace Defra.UI.Tests.Capabilities
 
         private readonly ScenarioContext _scenarioContext;
 
-        public EdgeCapability(BaseConfiguration baseConfiguration, ScenarioContext context)
+        public EdgeCapability(ScenarioContext context)
         {
             _scenarioContext = context;
         }

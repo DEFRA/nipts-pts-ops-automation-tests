@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -9,26 +8,26 @@ namespace Defra.UI.Tests.Steps.AP
     [Binding]
     public class PetNamePageSteps
     {
-        private readonly IObjectContainer _objectContainer;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IPetNamePage? PetNamePage => _objectContainer.IsRegistered<IPetNamePage>() ? _objectContainer.Resolve<IPetNamePage>() : null;
-        public PetNamePageSteps(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        private readonly IPetNamePage _petNamePage;
+        public PetNamePageSteps(IWebDriver driver, IPetNamePage petNamePage)
         {
-            _objectContainer = container;
+            _driver = driver;
+            _petNamePage = petNamePage;
         }
 
         [Then(@"I should navigate to the What is your pet's name page")]
         public void ThenIShouldNavigateToTheWhatIsYourPetsNamePage()
         {
             var pageTitle = "What is your pet's name?";
-            Assert.IsTrue(PetNamePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsTrue(_petNamePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [Then(@"I have provided the Pets name as '([^']*)' and continue")]
         public void ThenIHaveProvidedThePetsNameAsAndContinue(string petName)
         {
-            PetNamePage?.EnterPetsName(petName);
-            PetNamePage?.ClickContinueButton();
+            _petNamePage?.EnterPetsName(petName);
+            _petNamePage?.ClickContinueButton();
         }
     }
 }

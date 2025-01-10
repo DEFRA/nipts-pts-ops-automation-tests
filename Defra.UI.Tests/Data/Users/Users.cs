@@ -1,6 +1,6 @@
-﻿using BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
+using OpenQA.Selenium;
 using System.Reflection;
 
 namespace Defra.UI.Tests.Data.Users
@@ -12,7 +12,6 @@ namespace Defra.UI.Tests.Data.Users
         public string LoginInfo { get; set; }
         public string Environment { get; set; }
         public bool HomePage { get; set; }
-
     }
     
     public interface IUserObject
@@ -22,11 +21,7 @@ namespace Defra.UI.Tests.Data.Users
 
     internal class UserObject : IUserObject
     {
-        private readonly IObjectContainer _objectContainer;
-
-        public UserObject(IObjectContainer objectContainer) => _objectContainer = objectContainer;
         private readonly object _lock = new object();
-
 
         public User GetUser(string application)
         {

@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -9,16 +8,16 @@ namespace Defra.UI.Tests.Steps.CP
     [Binding]
     public class DocumentNotFoundPageSteps
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IDocumentNotFoundPage? _documentNotFoundPage => _objectContainer.IsRegistered<IDocumentNotFoundPage>() ? _objectContainer.Resolve<IDocumentNotFoundPage>() : null;
+        private readonly IDocumentNotFoundPage _documentNotFoundPage;
        
 
-        public DocumentNotFoundPageSteps(ScenarioContext context, IObjectContainer container)
+        public DocumentNotFoundPageSteps(ScenarioContext context, IWebDriver driver, IDocumentNotFoundPage documentNotFoundPage)
         {
             _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _documentNotFoundPage = documentNotFoundPage;
         }
 
         [Then(@"I should navigate to Document not found page")]

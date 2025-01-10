@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿
 using Defra.UI.Tests.Configuration;
 
 namespace Defra.UI.Tests.Tools
@@ -13,16 +13,16 @@ namespace Defra.UI.Tests.Tools
 
     public class UrlBuilder : IUrlBuilder
     {
-        private IObjectContainer _objectContainer;
-        public UrlBuilder(IObjectContainer objectContainer)
+        public UrlBuilder()
         {
-            _objectContainer = objectContainer;
             segments = new List<string>();
         }
+
         private IList<string> segments;
         private bool hasTrailingSlash;
         private string BaseApplicationUrl = null;
         private string BaseComplianceUrl = null;
+
         public UrlBuilder Add(string segment)
         {
             if (segment == null)

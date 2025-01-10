@@ -1,9 +1,7 @@
-﻿using BoDi;
-using Capgemini.PowerApps.SpecFlowBindings.Hooks;
+﻿using Capgemini.PowerApps.SpecFlowBindings.Hooks;
 using Defra.UI.Framework.Object;
-using Defra.UI.Tests.Capabilities;
 using Defra.UI.Tests.Configuration;
-using Defra.UI.Tests.HelperMethods;
+using Microsoft.Extensions.DependencyInjection;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using Reqnroll;
@@ -12,43 +10,30 @@ using System.Reflection;
 
 namespace Defra.UI.Tests.Hooks
 {
-    [Binding]
-    public class WebDriverHook
+    public class WebDriverHook : TestDependencies
     {
-        public IWebDriver Driver { get; set; }
-        private static string Target => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.Target;
-        private static string SeleniumGrid => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.SeleniumGrid;
-
+        public static IWebDriver? Driver { get; set; }
         private ScenarioContext _scenarioContext;
-        private readonly object _lock = new object();
-
-        private readonly IObjectContainer _objectContainer;
         private readonly IReqnrollOutputHelper _reqnrollOutputHelper;
-        private IFetchCodeFromEmail FetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
 
-        public WebDriverHook(ScenarioContext context, ObjectContainer container,
-            IReqnrollOutputHelper reqnrollOutputHelper)
+        public WebDriverHook(ScenarioContext context, IReqnrollOutputHelper reqnrollOutputHelper)
         {
             _scenarioContext = context;
-            _objectContainer = container;
             _reqnrollOutputHelper = reqnrollOutputHelper;
         }
 
-        [BeforeScenario(Order = (int)HookRunOrder.WebDriver)]
-        public void BeforeTestScenario()
+        [BeforeScenario(Order = (int)HookRunOrder.Capability)]
+        public static void SetupWebDriver()
         {
-            Logger.Debug("Starting set Capability");
+            var serivceProvider = Services.BuildServiceProvider();
+            Driver = serivceProvider.GetRequiredService<IWebDriver>();
 
-            var site = new Site();
-            site.With(GetDriverOptions());
-            Driver = site.WebDriver.Driver;            
+            Logger.Debug("Starting set Capability");
 
             if (ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.IsDebug)
             {
                 PrintNodeInfo("http://localhost:4444/status");
             }
-
-            _objectContainer.RegisterInstanceAs(Driver);
         }
 
         [AfterScenario]
@@ -61,13 +46,13 @@ namespace Defra.UI.Tests.Hooks
                 {
                     takeScreenShot = true;
                     var error = _scenarioContext.TestError;
-                    Logger.LogMessage("An error ocurred:" + error.Message);
+                    Logger.LogMessage("An error occurred:" + error.Message);
                     Logger.Debug("It was of type:" + error.GetType().Name);
                 }
             }
             catch (Exception ex)
             {
-                Logger.Debug("Not able to take screenshot" + ex.Message);
+                Logger.Debug("Not able to take screenshot: " + ex.Message);
             }
             finally
             {
@@ -100,12 +85,7 @@ namespace Defra.UI.Tests.Hooks
             Logger.Debug($"SCREENSHOT {fileName} ");
         }
 
-        private DriverOptions GetDriverOptions()
-        {
-            return _objectContainer.Resolve<IDriverOptions>().GetDriverOptions();
-        }
-
-        public void PrintNodeInfo(string gridIpAddress)
+        private static void PrintNodeInfo(string gridIpAddress)
         {
             string endpoint = string.Empty;
             try
@@ -133,9 +113,10 @@ namespace Defra.UI.Tests.Hooks
             {
                 Driver.Quit();
                 Driver.Dispose();
-                AfterScenarioHooks.TestCleanup();                
+                AfterScenarioHooks.TestCleanup();
             }
             catch { }
         }
+
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Defra.UI.Tests.Configuration;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using Reqnroll;
 
@@ -11,7 +10,7 @@ namespace Defra.UI.Tests.Capabilities
 
         private readonly ScenarioContext _scenarioContext;
 
-        public FirefoxCapability(BaseConfiguration baseConfiguration, ScenarioContext context)
+        public FirefoxCapability(ScenarioContext context)
         {
             _scenarioContext = context;
         }

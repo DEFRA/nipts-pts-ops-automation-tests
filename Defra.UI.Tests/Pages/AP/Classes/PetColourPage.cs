@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
@@ -8,14 +8,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class PetColourPage : IPetColourPage
     {
-        private readonly IObjectContainer _objectContainer;
-        public PetColourPage(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        public PetColourPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         public IWebElement PetColourPageHeading => _driver.WaitForElement(By.ClassName("govuk-fieldset__heading"), true);
         private IWebElement PetColourOtherRadioButton => _driver.WaitForElement(By.CssSelector("#PetColourOther"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));

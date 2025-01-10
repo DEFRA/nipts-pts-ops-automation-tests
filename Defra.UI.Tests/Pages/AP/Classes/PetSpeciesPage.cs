@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.HelperMethods;
+﻿using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
@@ -8,14 +7,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class PetSpeciesPage : IPetSpeciesPage
     {
-        private readonly IObjectContainer _objectContainer;
-        public PetSpeciesPage(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        public PetSpeciesPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         public IWebElement PageHeading => _driver.WaitForElement(By.ClassName("govuk-fieldset__heading"), true);
         private IWebElement DogRadioButton => _driver.WaitForElementExists(By.CssSelector("#Dog"));
         private IWebElement CatRadioButton => _driver.WaitForElementExists(By.CssSelector("#Cat"));

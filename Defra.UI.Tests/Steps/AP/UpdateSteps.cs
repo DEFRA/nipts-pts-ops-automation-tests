@@ -1,6 +1,6 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
 using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.AP
@@ -8,39 +8,54 @@ namespace Defra.UI.Tests.Steps.AP
     [Binding]
     public class UpdateSteps
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
 
-        private IPetMicrochipPage? petMicrochipPage => _objectContainer.IsRegistered<IPetMicrochipPage>() ? _objectContainer.Resolve<IPetMicrochipPage>() : null;
-        private IPetMicrochipDatePage? petMicrochipDatePage => _objectContainer.IsRegistered<IPetMicrochipDatePage>() ? _objectContainer.Resolve<IPetMicrochipDatePage>() : null;
-        private IPetSpeciesPage? petsCategoryPage => _objectContainer.IsRegistered<IPetSpeciesPage>() ? _objectContainer.Resolve<IPetSpeciesPage>() : null;
-        private IPetBreedPage? breedPage => _objectContainer.IsRegistered<IPetBreedPage>() ? _objectContainer.Resolve<IPetBreedPage>() : null;
-        private IPetNamePage? petNamePage => _objectContainer.IsRegistered<IPetNamePage>() ? _objectContainer.Resolve<IPetNamePage>() : null;
-        private IPetSexPage? petSexPage => _objectContainer.IsRegistered<IPetSexPage>() ? _objectContainer.Resolve<IPetSexPage>() : null;
-        private IPetDOBPage? petsDOBPage => _objectContainer.IsRegistered<IPetDOBPage>() ? _objectContainer.Resolve<IPetDOBPage>() : null;
-        private IPetColourPage? petColourPage => _objectContainer.IsRegistered<IPetColourPage>() ? _objectContainer.Resolve<IPetColourPage>() : null;
-        private ISignificantFeaturesPage? significantFeaturesPage => _objectContainer.IsRegistered<ISignificantFeaturesPage>() ? _objectContainer.Resolve<ISignificantFeaturesPage>() : null;
-        private IPetOwnerNamePage? petOwnerNamePage => _objectContainer.IsRegistered<IPetOwnerNamePage>() ? _objectContainer.Resolve<IPetOwnerNamePage>() : null;
-        private IPetOwnerAddressPage? petOwnerAddressPage => _objectContainer.IsRegistered<IPetOwnerAddressPage>() ? _objectContainer.Resolve<IPetOwnerAddressPage>() : null;
-        private IPetOwnerPhoneNumberPage? petOwnerPhoneNumberPage => _objectContainer.IsRegistered<IPetOwnerPhoneNumberPage>() ? _objectContainer.Resolve<IPetOwnerPhoneNumberPage>() : null;
-        private IApplicationDeclarationPage? declarationPage => _objectContainer.IsRegistered<IApplicationDeclarationPage>() ? _objectContainer.Resolve<IApplicationDeclarationPage>() : null;
+        private readonly IPetMicrochipPage _petMicrochipPage;
+        private readonly IPetMicrochipDatePage _petMicrochipDatePage;
+        private readonly IPetSpeciesPage _petsCategoryPage;
+        private readonly IPetBreedPage _breedPage;
+        private readonly IPetNamePage _petNamePage;
+        private readonly IPetSexPage _petSexPage;
+        private readonly IPetDOBPage _petsDOBPage;
+        private readonly IPetColourPage _petColourPage;
+        private readonly ISignificantFeaturesPage _significantFeaturesPage;
+        private readonly IPetOwnerNamePage _petOwnerNamePage;
+        private readonly IPetOwnerAddressPage _petOwnerAddressPage;
+        private readonly IPetOwnerPhoneNumberPage _petOwnerPhoneNumberPage;
+        private readonly IApplicationDeclarationPage _applicationDeclarationPage;
 
-        public UpdateSteps(ScenarioContext context, IObjectContainer container)
+        public UpdateSteps(ScenarioContext context, IWebDriver driver, IPetMicrochipPage petMicrochipPage, IPetMicrochipDatePage petMicrochipDatePage, IPetSpeciesPage petSpeciesPage,
+            IPetBreedPage petBreedPage, IPetNamePage petNamePage, IPetSexPage petSexPage, IPetDOBPage petDOBPage, IPetColourPage petColourPage, ISignificantFeaturesPage significantFeaturesPage,
+            IPetOwnerNamePage petOwnerNamePage, IPetOwnerAddressPage petOwnerAddressPage, IPetOwnerPhoneNumberPage petOwnerPhoneNumberPage, IApplicationDeclarationPage applicationDeclarationPage)
         {
             _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _petMicrochipPage = petMicrochipPage;
+            _petMicrochipDatePage = petMicrochipDatePage;
+            _petsCategoryPage = petSpeciesPage;
+            _breedPage = petBreedPage;
+            _petNamePage = petNamePage;
+            _petSexPage = petSexPage;
+            _petsDOBPage = petDOBPage;
+            _petColourPage = petColourPage;
+            _significantFeaturesPage = significantFeaturesPage;
+            _petOwnerNamePage = petOwnerNamePage;
+            _petOwnerAddressPage = petOwnerAddressPage;
+            _petOwnerPhoneNumberPage = petOwnerPhoneNumberPage;
+            _applicationDeclarationPage = applicationDeclarationPage;
         }
 
         [Then(@"I have clicked the change option for the '(.*)' from Microchip information section")]
         public void ThenIHaveClickedChangeOptionForTheFieldFromMicrochipInformationSection(string fieldName)
         {
-            declarationPage?.ClickMicrochipChangeLink(fieldName);
+            _applicationDeclarationPage?.ClickMicrochipChangeLink(fieldName);
         }
 
         [Then(@"I have modified the microchip number with the value of '(.*)'")]
         public void ThenIHaveModifiedTheMicrochipNumberWithTheValueOf(string updatedMicrochipNumber)
         {
-            petMicrochipPage?.UpdateMicrochipNumber(updatedMicrochipNumber);
+            _petMicrochipPage?.UpdateMicrochipNumber(updatedMicrochipNumber);
             _scenarioContext.Remove("MicrochipNumber");
             _scenarioContext.Add("MicrochipNumber", updatedMicrochipNumber);
         }
@@ -48,15 +63,15 @@ namespace Defra.UI.Tests.Steps.AP
         [When(@"I click continue button from microchip number till reaching declaration page")]
         public void WhenIClickContinueButtonFromMicrochipNumberTillDeclarationPage()
         {
-            petMicrochipPage?.ClickContinueButton();
-            petMicrochipDatePage?.ClickContinueButton();
-            petsCategoryPage?.ClickContinueButton();
+            _petMicrochipPage?.ClickContinueButton();
+            _petMicrochipDatePage?.ClickContinueButton();
+            _petsCategoryPage?.ClickContinueButton();
             ClickContinueButtonBreedPage();
-            petNamePage?.ClickContinueButton();
-            petSexPage?.ClickContinueButton();
-            petsDOBPage?.ClickContinueButton();
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _petNamePage?.ClickContinueButton();
+            _petSexPage?.ClickContinueButton();
+            _petsDOBPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         [Then(@"I have modified the microchip scanned date by adding '(.*)' days")]
@@ -66,43 +81,43 @@ namespace Defra.UI.Tests.Steps.AP
             var date = Utils.ConvertToDate(microchippedDateString).AddDays(daysToAdd);
             _scenarioContext.Remove("MicrochippedDate");
 
-            var microchippedDate = petMicrochipDatePage?.EnterDateMonthYear(date);
+            var microchippedDate = _petMicrochipDatePage?.EnterDateMonthYear(date);
             _scenarioContext.Add("MicrochippedDate", microchippedDate);
         }
 
         [When("I click continue button from microchip scanned date till reaching declaration page")]
         public void WhenIClickContinueButtonFromMicrochipScannedDateTillReachingDeclarationPage()
         {
-            petMicrochipDatePage?.ClickContinueButton();
-            petsCategoryPage?.ClickContinueButton();
+            _petMicrochipDatePage?.ClickContinueButton();
+            _petsCategoryPage?.ClickContinueButton();
             ClickContinueButtonBreedPage();
-            petNamePage?.ClickContinueButton();
-            petSexPage?.ClickContinueButton();
-            petsDOBPage?.ClickContinueButton();
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _petNamePage?.ClickContinueButton();
+            _petSexPage?.ClickContinueButton();
+            _petsDOBPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         [When(@"I click on continue button from What is your pet's name page till reaching declaration page")]
         public void WhenIClickOnContinueButtonFromWhatIsYourPetsNamePageTillReachingDeclarationPage()
         {
-            petNamePage?.ClickContinueButton();
-            petSexPage?.ClickContinueButton();
-            petsDOBPage?.ClickContinueButton();
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _petNamePage?.ClickContinueButton();
+            _petSexPage?.ClickContinueButton();
+            _petsDOBPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         [Then(@"I have clicked the change option for the '(.*)' from Pet details section")]
         public void ThenIHaveClickedTheChangeOptionForTheFromPetDetailsSection(string fieldName)
         {
-            declarationPage?.ClickPetDetailsChangeLink(fieldName);
+            _applicationDeclarationPage?.ClickPetDetailsChangeLink(fieldName);
         }
 
         [Then(@"I have clicked the change option for Ferret '(.*)' from Pet details section")]
         public void ThenIHaveClickedTheChangeOptionForFerrerFromPetDetailsSection(string fieldName)
         {
-            declarationPage?.ClickPetDetailsChangeForFerretLink(fieldName);
+            _applicationDeclarationPage?.ClickPetDetailsChangeForFerretLink(fieldName);
         }
 
 
@@ -111,7 +126,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             _scenarioContext.Remove("PetName");
             var petFullName = $"{petName} {Utils.GenerateRandomName()}";
-            petNamePage?.EnterPetsName(petFullName);
+            _petNamePage?.EnterPetsName(petFullName);
             _scenarioContext.Add("PetName", petFullName);
         }
 
@@ -119,67 +134,67 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIHaveModifiedTheSpeciesTypeAs(string speciesType)
         {
             _scenarioContext.Remove("PetType");
-            petsCategoryPage?.SelectSpecies(speciesType);
+            _petsCategoryPage?.SelectSpecies(speciesType);
             _scenarioContext.Add("PetType", speciesType);
         }
 
         [When(@"I click continue button from Is your pet a dog, cat or ferret page till reaching declaration page along with modification of colour '(.*)' and breed (.*)")]
         public void WhenIClickContinueButtonFromIsYourPetADogCatOrFerretPageTillReachingDeclarationPageAlongWithModificationOfColourAndBreed(string color, int breedIndex)
         {
-            petsCategoryPage?.ClickContinueButton();
+            _petsCategoryPage?.ClickContinueButton();
 
             _scenarioContext.Remove("Breed");
-            var breed = breedPage?.SelectPetsBreed(breedIndex);
+            var breed = _breedPage?.SelectPetsBreed(breedIndex);
             _scenarioContext.Add("Breed", breed);
 
-            breedPage?.ClickContinueButton();
-            petNamePage?.ClickContinueButton();
-            petSexPage?.ClickContinueButton();
-            petsDOBPage?.ClickContinueButton();
+            _breedPage?.ClickContinueButton();
+            _petNamePage?.ClickContinueButton();
+            _petSexPage?.ClickContinueButton();
+            _petsDOBPage?.ClickContinueButton();
 
             _scenarioContext.Remove("Color");
-            petColourPage?.SelectColorOption(color);
+            _petColourPage?.SelectColorOption(color);
             _scenarioContext.Add("Color", color);
 
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         [Then(@"I have modified the pets breed with the index value of '(.*)'")]
         public void ThenIHaveModifiedThePetsBreedWithTheIndexValueOf(int breedIndex)
         {
             _scenarioContext.Remove("Breed");
-            var breed = breedPage?.SelectPetsBreed(breedIndex);
+            var breed = _breedPage?.SelectPetsBreed(breedIndex);
             _scenarioContext.Add("Breed", breed);
         }
 
         [When(@"I click continue button from What breed is your dog page till reaching declaration page")]
         public void WhenIClickContinueButtonFromWhatBreedIsYourDogPageTillReachingDeclarationPage()
         {
-            breedPage?.ClickContinueButton();
-            petNamePage?.ClickContinueButton();
-            petSexPage?.ClickContinueButton();
-            petsDOBPage?.ClickContinueButton();
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _breedPage?.ClickContinueButton();
+            _petNamePage?.ClickContinueButton();
+            _petSexPage?.ClickContinueButton();
+            _petsDOBPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         [Then(@"I have modified the pets sex as '(.*)'")]
         public void ThenIHaveModifiedThePetSexAs(string sex)
         {
             _scenarioContext.Remove("Sex");
-            petSexPage?.SelectPetsSexOption(sex);
+            _petSexPage?.SelectPetsSexOption(sex);
             _scenarioContext.Add("Sex", sex);
         }
 
         [When(@"I click on continue button from What sex is your pet page till reaching declaration page")]
         public void WhenIClickOnContinueButtonFromWhatSexIsYourPetPageTillReachingDeclarationPage()
         {
-            petSexPage?.ClickContinueButton();
-            petsDOBPage?.ClickContinueButton();
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _petSexPage?.ClickContinueButton();
+            _petsDOBPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         [Then(@"I have modified the pets date of birth by adding '(.*)' days")]
@@ -189,86 +204,86 @@ namespace Defra.UI.Tests.Steps.AP
             var date = Utils.ConvertToDate(dateOfBirth).AddDays(daysToAdd);
             _scenarioContext.Remove("DateOfBirth");
 
-            var dateOfBirthDate = petsDOBPage?.EnterDateMonthYear(date);
+            var dateOfBirthDate = _petsDOBPage?.EnterDateMonthYear(date);
             _scenarioContext.Add("DateOfBirth", dateOfBirthDate);
         }
 
         [When("I click on continue button from What is your pet's date of birth page till reaching declaration page")]
         public void WhenIClickContinueButtonFromWhatIsYourPetsDateOfBirthPageTillReachingDeclarationPage()
         {
-            petsDOBPage?.ClickContinueButton();
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _petsDOBPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         [Then(@"I have modified the pets colour as '(.*)'")]
         public void ThenIHaveModifiedThePetsColourAs(string color)
         {
             _scenarioContext.Remove("Color");
-            petColourPage?.SelectColorOption(color);
+            _petColourPage?.SelectColorOption(color);
             _scenarioContext.Add("Color", color);
         }
 
         [When("I click on continue button from What is the main colour of your pet page till reaching declaration page")]
         public void WhenIClickContinueButtonFromWhatIsTheMainColorOfYourPetPageTillReachingDeclarationPage()
         {
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         [Then(@"I have modified the pets significant feature as '(.*)'")]
         public void ThenIHaveModifiedTheSignificantFeaturesAs(string hasUniqueFeatures)
         {
             _scenarioContext.Remove("SignificantFeatures");
-            var significantFeature = significantFeaturesPage?.SelectSignificantFeaturesOption(hasUniqueFeatures);
+            var significantFeature = _significantFeaturesPage?.SelectSignificantFeaturesOption(hasUniqueFeatures);
             _scenarioContext.Add("SignificantFeatures", significantFeature);
         }
 
         [Then(@"I have clicked the change option for the '(.*)' from Pet owner details section")]
         public void ThenIHaveClickedTheChangeOptionForTheFromPetOwnerDetailsSection(string fieldName)
         {
-            declarationPage?.ClickPetOwnerChangeLink(fieldName);
+            _applicationDeclarationPage?.ClickPetOwnerChangeLink(fieldName);
         }
 
         [Then(@"I have modified the pet owner name with the value of '(.*)'")]
         public void ThenIHaveModifiedThePetOwnerNameWithTheValueOf(string petOwnerName)
         {
             _scenarioContext.Remove("FullName");
-            petOwnerNamePage?.EnterPetOwnerName(petOwnerName);
+            _petOwnerNamePage?.EnterPetOwnerName(petOwnerName);
             _scenarioContext.Add("FullName", petOwnerName);
         }
 
         [When(@"I click continue button from pet owner name page till reaching declaration page")]
         public void WhenIClickContinueButtonFromPetOwnerNamePageTillDeclarationPage()
         {
-            petOwnerNamePage?.ClickContinueButton();
+            _petOwnerNamePage?.ClickContinueButton();
         }
 
         [Then(@"I have modified the pet owner phone number with the value of '(.*)'")]
         public void ThenIHaveModifiedThePetOwnerPhoneNumberWithTheValueOf(string phoneNumber)
         {
             _scenarioContext.Remove("PhoneNumber");
-            petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
+            _petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
             _scenarioContext.Add("PhoneNumber", phoneNumber);
         }
 
         [When(@"I click continue button from postcode search page till reaching declaration page")]
         public void WhenIClickContinueButtonFromPostCodeSearchPageTillDeclarationPage()
         {
-            petOwnerAddressPage?.ClickContinueButton();
+            _petOwnerAddressPage?.ClickContinueButton();
 
             var phoneNumber = _scenarioContext.Get<string>("PhoneNumber");
-            petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
-            petOwnerPhoneNumberPage?.ClickContinueButton();
-            petMicrochipPage?.ClickContinueButton();
-            petMicrochipDatePage?.ClickContinueButton();
-            petsCategoryPage?.ClickContinueButton();
+            _petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
+            _petOwnerPhoneNumberPage?.ClickContinueButton();
+            _petMicrochipPage?.ClickContinueButton();
+            _petMicrochipDatePage?.ClickContinueButton();
+            _petsCategoryPage?.ClickContinueButton();
             ClickContinueButtonBreedPage();
-            petNamePage?.ClickContinueButton();
-            petSexPage?.ClickContinueButton();
-            petsDOBPage?.ClickContinueButton();
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _petNamePage?.ClickContinueButton();
+            _petSexPage?.ClickContinueButton();
+            _petsDOBPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         [Then(@"I have modified the pet owner postcode and address with the value of '(.*)' and phone number '(.*)'")]
@@ -276,7 +291,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             _scenarioContext.Remove("Postcode");
             _scenarioContext.Remove("Address");
-            petOwnerAddressPage?.EnterPostCode(postCode);
+            _petOwnerAddressPage?.EnterPostCode(postCode);
             _scenarioContext.Add("Postcode", postCode);
 
             if (_scenarioContext.ContainsKey("PhoneNumber"))
@@ -290,16 +305,16 @@ namespace Defra.UI.Tests.Steps.AP
         [When(@"I click continue button from What is your phone number page till reaching declaration page")]
         public void WhenIClickContinueButtonFromWhatIsYourPhoneNumberPageTillReachingDeclarationPage()
         {
-            petOwnerPhoneNumberPage?.ClickContinueButton();
-            petMicrochipPage?.ClickContinueButton();
-            petMicrochipDatePage?.ClickContinueButton();
-            petsCategoryPage?.ClickContinueButton();
+            _petOwnerPhoneNumberPage?.ClickContinueButton();
+            _petMicrochipPage?.ClickContinueButton();
+            _petMicrochipDatePage?.ClickContinueButton();
+            _petsCategoryPage?.ClickContinueButton();
             ClickContinueButtonBreedPage();
-            petNamePage?.ClickContinueButton();
-            petSexPage?.ClickContinueButton();
-            petsDOBPage?.ClickContinueButton();
-            petColourPage?.ClickContinueButton();
-            significantFeaturesPage?.ClickContinueButton();
+            _petNamePage?.ClickContinueButton();
+            _petSexPage?.ClickContinueButton();
+            _petsDOBPage?.ClickContinueButton();
+            _petColourPage?.ClickContinueButton();
+            _significantFeaturesPage?.ClickContinueButton();
         }
 
         private void ClickContinueButtonBreedPage()
@@ -308,7 +323,7 @@ namespace Defra.UI.Tests.Steps.AP
 
             if (!petsSelected.ToUpper().Equals("FERRET"))
             {
-                breedPage?.ClickContinueButton();
+                _breedPage?.ClickContinueButton();
             }
         }
     }

@@ -1,24 +1,22 @@
-﻿using BoDi;
-using Defra.UI.Tests.HelperMethods;
+﻿using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
-using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class SignificantFeaturesPage : ISignificantFeaturesPage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public SignificantFeaturesPage(IObjectContainer container)
+        public SignificantFeaturesPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
 
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         public IWebElement PageHeading => _driver.WaitForElementExists(By.ClassName("govuk-fieldset__heading"), true);
         private IWebElement SignificantFeaturesRadioButtonYes => _driver.WaitForElementExists(By.CssSelector("#HasUniqueFeatureYes"), true);
         private IWebElement SignificantFeaturesRadioButtonNo => _driver.WaitForElementExists(By.CssSelector("#HasUniqueFeatureNo"), true);

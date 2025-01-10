@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -10,26 +9,27 @@ namespace Defra.UI.Tests.Steps.AP
     public class PetCategoryPageSteps
     {
 
-        private readonly IObjectContainer _objectContainer;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IPetSpeciesPage? PetCategoryPage => _objectContainer.IsRegistered<IPetSpeciesPage>() ? _objectContainer.Resolve<IPetSpeciesPage>() : null;
-        public PetCategoryPageSteps(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        private readonly IPetSpeciesPage _petSpeciesPage;
+      
+        public PetCategoryPageSteps(IWebDriver driver, IPetSpeciesPage petSpeciesPage)
         {
-            _objectContainer = container;
+            _driver = driver;
+            _petSpeciesPage = petSpeciesPage;
         }
 
         [Then(@"I should navigate to the Is your pet a cat, dog or ferret page")]
         public void ThenIShouldNavigateToTheIsYourPetACatDogOrFerretPage()
         {
             var pageTitle = "Is your pet a dog, cat or ferret?";
-            Assert.IsTrue(PetCategoryPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsTrue(_petSpeciesPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [Then(@"I have selected radio button as '([^']*)' and continue")]
         public void ThenIHaveSelectedRadioButtonAsAndContinue(string petsType)
         {
-            PetCategoryPage?.SelectSpecies(petsType);
-            PetCategoryPage?.ClickContinueButton();
+            _petSpeciesPage?.SelectSpecies(petsType);
+            _petSpeciesPage?.ClickContinueButton();
         }
     }
 }

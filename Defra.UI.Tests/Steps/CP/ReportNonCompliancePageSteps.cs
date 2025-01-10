@@ -1,7 +1,5 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Interfaces;
-using Defra.UI.Tests.Pages.CP.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -13,17 +11,17 @@ namespace Defra.UI.Tests.Steps.CP
     public class ReportNonCompliancePageSteps
     {
 
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
+        private readonly ISummaryPage _summaryPage;
+        private readonly IReportNonCompliancePage _reportNonCompliancePage;
 
-        private ISummaryPage? summaryPage => _objectContainer.IsRegistered<ISummaryPage>() ? _objectContainer.Resolve<ISummaryPage>() : null;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IReportNonCompliancePage? _reportNonCompliancePage => _objectContainer.IsRegistered<IReportNonCompliancePage>() ? _objectContainer.Resolve<IReportNonCompliancePage>() : null;
-
-        public ReportNonCompliancePageSteps(ScenarioContext context, IObjectContainer container)
+        public ReportNonCompliancePageSteps(ScenarioContext context, IWebDriver driver, ISummaryPage summaryPage, IReportNonCompliancePage reportNonCompliancePage)
         {
             _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _summaryPage = summaryPage;
+            _reportNonCompliancePage = reportNonCompliancePage;
         }
 
         [Then(@"I should navigate to Report non-compliance page")]

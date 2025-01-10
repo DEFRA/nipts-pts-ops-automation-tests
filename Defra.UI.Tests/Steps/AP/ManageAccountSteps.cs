@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -10,55 +9,58 @@ namespace Defra.UI.Tests.Steps.AP
     [Binding]
     public class ManageAccountSteps
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IManageAccountPage? ManageAccountPage => _objectContainer.IsRegistered<IManageAccountPage>() ? _objectContainer.Resolve<IManageAccountPage>() : null;
-        private IHomePage? homePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
-        private IPetOwnerDetailsPage? PetOwnerDetailsPage => _objectContainer.IsRegistered<IPetOwnerDetailsPage>() ? _objectContainer.Resolve<IPetOwnerDetailsPage>() : null;
+        private readonly IManageAccountPage _manageAccountPage;
+        private readonly IHomePage _homePage;
+        private readonly IPetOwnerDetailsPage _petOwnerDetailsPage;
 
-        public ManageAccountSteps(ScenarioContext context, IObjectContainer container)
+        public ManageAccountSteps(ScenarioContext context, IWebDriver driver, IManageAccountPage manageAccountPage, IHomePage homePage, IPetOwnerDetailsPage petOwnerDetailsPage)
         {
             _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _manageAccountPage = manageAccountPage;
+            _homePage = homePage;
+            _petOwnerDetailsPage = petOwnerDetailsPage;
+
         }
 
         [Then(@"I click on Manage your account")]
         public void ThenIClickOnManageYourAccount()
         {
-            ManageAccountPage?.ClickOnManageYourAccountLink();
+            _manageAccountPage?.ClickOnManageYourAccountLink();
         }
 
         [Then(@"I click on Update Details link")]
         public void ThenIClickOnUpdateDetails()
         {
-            ManageAccountPage?.ClickOnUpdatedetailsLink();
+            _manageAccountPage?.ClickOnUpdatedetailsLink();
         }
 
         [Then(@"I click on Change Personal Information link")]
         public void ThenIClickOnChangePersonalInformationLink()
         {
-            ManageAccountPage?.ClickOnChangePersonalInformationLink();
+            _manageAccountPage?.ClickOnChangePersonalInformationLink();
         }
 
         [Then(@"I click on Change Personal Address link")]
         public void ThenIClickOnChangePersonalAddressLink()
         {
-            ManageAccountPage?.ClickOnChangePersonalAddressLink();
+            _manageAccountPage?.ClickOnChangePersonalAddressLink();
         }
 
         [Then(@"I enter updated Phone number")]
         public void ThenIEnterUpdatedPhoneNumber()
         {
             var updatedPhoneNumber = Utils.GenerateRandomUKPhonenumber();
-            ManageAccountPage?.EnterPhoneNumber(updatedPhoneNumber);
+            _manageAccountPage?.EnterPhoneNumber(updatedPhoneNumber);
             _scenarioContext.Add("PhoneNumber", updatedPhoneNumber);
         }
 
         [Then(@"I click Continue")]
         public void ThenIClickContinue()
         {
-            ManageAccountPage?.ClickContinue();
+            _manageAccountPage?.ClickContinue();
             _driver?.Wait(15); //wait is applied for the personal details updates to be reflected in pets application
         }
 
@@ -66,20 +68,20 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I click on Back button")]
         public void ThenIClickOnBackButton()
         {
-            ManageAccountPage?.ClickBackButton();
+            _manageAccountPage?.ClickBackButton();
         }
 
         [Then(@"I go back to Pets application")]
         public void ThenIGoBackToPetsApplication()
         {
-            ManageAccountPage?.ClickPetsLink();
+            _manageAccountPage?.ClickPetsLink();
         }
 
         [Then(@"I enter updated First Name")]
         public void ThenIEnterUpdatedFirstName()
         {
             var firstName = "Updated";
-            _scenarioContext.Add("OriginalFirstName", ManageAccountPage?.EnterFirstName(firstName));
+            _scenarioContext.Add("OriginalFirstName", _manageAccountPage?.EnterFirstName(firstName));
 
             _scenarioContext.Add("FirstName", firstName);
         }
@@ -89,27 +91,27 @@ namespace Defra.UI.Tests.Steps.AP
         {
             var lastName = "User";
             _scenarioContext.Add("LastName", lastName);
-            _scenarioContext.Add("OriginalLastName", ManageAccountPage?.EnterLastName(lastName));
+            _scenarioContext.Add("OriginalLastName", _manageAccountPage?.EnterLastName(lastName));
         }
 
         [Then(@"I revert the Pet Owner Name to the Original Name")]
         public void ThenIRevertThePetOwnerNameToTheOriginalName()
         {
-            ManageAccountPage?.EnterFirstName(_scenarioContext.Get<string>("OriginalFirstName"));
-            ManageAccountPage?.EnterLastName(_scenarioContext.Get<string>("OriginalLastName"));
+            _manageAccountPage?.EnterFirstName(_scenarioContext.Get<string>("OriginalFirstName"));
+            _manageAccountPage?.EnterLastName(_scenarioContext.Get<string>("OriginalLastName"));
             ThenIClickContinue();
             ThenIClickOnBackButton();
             ThenIGoBackToPetsApplication();
-            homePage?.ClickApplyForPetTravelDocument();
+            _homePage?.ClickApplyForPetTravelDocument();
             string petOwnerName = _scenarioContext.Get<string>("OriginalFirstName") + " " + _scenarioContext.Get<string>("OriginalLastName");
-            Assert.IsTrue(PetOwnerDetailsPage?.VerifyUpdatedName(petOwnerName));
+            Assert.IsTrue(_petOwnerDetailsPage?.VerifyUpdatedName(petOwnerName));
 
         }
 
         [Then(@"I click on Search for my address by UK Postcode link")]
         public void ThenIClickOnSearchForMyAddressByUKPostcodeLink()
         {
-            _scenarioContext.Add("ExistingPostcode", ManageAccountPage?.ClickOnSearchUKPostcodeLink());
+            _scenarioContext.Add("ExistingPostcode", _manageAccountPage?.ClickOnSearchUKPostcodeLink());
         }
 
         [Then(@"I enter the valid ([^']*) Postcode")]
@@ -118,25 +120,24 @@ namespace Defra.UI.Tests.Steps.AP
             string[] PostCode = postcode.Split(',');
             if (!PostCode[0].Equals(_scenarioContext.Get<string>("ExistingPostcode")))
             {
-                ManageAccountPage?.EnterTheValidPostcode(PostCode[0]);
+                _manageAccountPage?.EnterTheValidPostcode(PostCode[0]);
             }
             else
             {
-                ManageAccountPage?.EnterTheValidPostcode(PostCode[1]);
+                _manageAccountPage?.EnterTheValidPostcode(PostCode[1]);
             }
         }
 
         [Then(@"I click find address button")]
         public void ThenIClickFindAddressButton()
         {
-            ManageAccountPage?.ClickFindAddressButton();
+            _manageAccountPage?.ClickFindAddressButton();
         }
 
         [Then(@"I select the address")]
         public void ThenISelectTheAddress()
         {
-            _scenarioContext.Add("SelectedAddress", ManageAccountPage?.SelectTheAddress());
+            _scenarioContext.Add("SelectedAddress", _manageAccountPage?.SelectTheAddress());
         }
-
     }
 }

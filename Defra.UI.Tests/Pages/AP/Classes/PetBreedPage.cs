@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.HelperMethods;
+﻿using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
@@ -8,14 +7,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class PetBreedPage : IPetBreedPage
     {
-        private readonly IObjectContainer _objectContainer;
-        public PetBreedPage(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        public PetBreedPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         public IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-fieldset__heading')]"), true);
         public IWebElement drpBreedType => _driver.WaitForElementExists(By.XPath("//*[@id='BreedId']"));
         private IWebElement txtBreed => _driver.WaitForElement(By.Name("BreedName"));

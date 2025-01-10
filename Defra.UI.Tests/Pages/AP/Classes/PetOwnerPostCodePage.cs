@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
@@ -7,14 +7,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class PetOwnerPostCodePage : IPetOwnerPostCodePage
     {
-        private readonly IObjectContainer _objectContainer;
-        public PetOwnerPostCodePage(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        public PetOwnerPostCodePage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement PetOwnerPostCodePageHeading => _driver.WaitForElement(By.Id("documents"), true);
         private IWebElement PostCodeTextBox => _driver.WaitForElement(By.CssSelector("#Postcode"));
         private IWebElement FindAddressButton => _driver.WaitForElement(By.CssSelector(".govuk-button"));

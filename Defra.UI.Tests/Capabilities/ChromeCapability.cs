@@ -11,7 +11,7 @@ namespace Defra.UI.Tests.Capabilities
 
         private static ScenarioContext _scenarioContext;
 
-        public ChromeCapability(BaseConfiguration baseConfiguration, ScenarioContext context)
+        public ChromeCapability(ScenarioContext context)
         {
             _scenarioContext = context;
         }

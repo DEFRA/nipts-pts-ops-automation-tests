@@ -1,25 +1,20 @@
-﻿using BoDi;
-using Defra.UI.Framework.Driver;
-using Defra.UI.Tests.Contracts;
+﻿using Defra.UI.Tests.Contracts;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using Reqnroll;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
-    public class ApplicationDeclarationPage : IApplicationDeclarationPage
+    public class _applicationDeclarationPage : IApplicationDeclarationPage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public ApplicationDeclarationPage(IObjectContainer container)
+        public _applicationDeclarationPage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         public IWebElement PageHeading => _driver.WaitForElement(By.ClassName("govuk-heading-xl"), true);
         private IWebElement btnSendApplication => _driver.WaitForElementExists(By.Id("submitButton"));
         private IWebElement chkAgreesToDeclaration => _driver.WaitForElementExists(By.XPath("//input[@id='AgreedToDeclaration']"));

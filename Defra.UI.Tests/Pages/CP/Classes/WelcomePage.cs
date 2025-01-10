@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 
@@ -8,15 +7,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
     public class WelcomePage : IWelcomePage
     {
 
-       private readonly IObjectContainer _objectContainer;
+       private readonly IWebDriver _driver;
 
-       public WelcomePage(IObjectContainer container)
+       public WelcomePage(IWebDriver driver)
        {
-          _objectContainer = container;
+          _driver = driver;
        }
 
        #region Page objects
-       private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+       
        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(text(),'Checks')]"));
        private IWebElement iconSearch => _driver.WaitForElement(By.XPath("//a[@href='/checker/document-search']//*[name()='svg']"));
        private IWebElement iconHome => _driver.WaitForElement(By.XPath("//span[normalize-space()='Home']"));

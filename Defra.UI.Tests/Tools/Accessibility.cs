@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using OpenQA.Selenium;
 using Selenium.Axe;
 using System.Reflection;
@@ -11,14 +10,14 @@ namespace Defra.UI.Tests.Tools
         public void CreateAccessibilityReport(string pageName);
 
     }
+
     public class Accessibility : IAccessibility 
     {
-        private readonly IObjectContainer _objectContainer;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
+        private readonly IWebDriver _driver;
 
-        public Accessibility(IObjectContainer container)
+        public Accessibility(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         public void CreateAccessibilityReport(string pageName)

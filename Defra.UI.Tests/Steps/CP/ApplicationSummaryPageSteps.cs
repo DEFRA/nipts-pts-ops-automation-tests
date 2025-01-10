@@ -1,5 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -9,16 +8,16 @@ namespace Defra.UI.Tests.Steps.CP
     [Binding]
     public class ApplicationSummaryPageSteps
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
         private readonly ScenarioContext _scenarioContext;
 
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IApplicationSummaryPage? _applicationSummaryPage => _objectContainer.IsRegistered<IApplicationSummaryPage>() ? _objectContainer.Resolve<IApplicationSummaryPage>() : null;
+        private IApplicationSummaryPage? _applicationSummaryPage;
 
-        public ApplicationSummaryPageSteps (ScenarioContext context, IObjectContainer container)
+        public ApplicationSummaryPageSteps (ScenarioContext context,IWebDriver driver, IApplicationSummaryPage applicationSummaryPage)
         {
             _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _applicationSummaryPage = applicationSummaryPage;
         }
 
         [When(@"I should see the application status in '([^']*)'")]

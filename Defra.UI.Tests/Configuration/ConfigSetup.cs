@@ -1,16 +1,13 @@
 ﻿using Defra.UI.Framework.Configuration;
 using Microsoft.Extensions.Configuration;
-using Reqnroll;
 using TestExecutionContext = NUnit.Framework.Internal.TestExecutionContext;
 
 namespace Defra.UI.Tests.Configuration
 {
-    [Binding]
     public class ConfigSetup
     {
         public static BaseConfiguration BaseConfiguration { get; private set; }
-
-        [BeforeTestRun(Order = (int)HookRunOrder.Configuration)]
+        
         public static void SetupProjectConfig()
         {
             BaseConfiguration = LoadConfigurationFromAppSettings();

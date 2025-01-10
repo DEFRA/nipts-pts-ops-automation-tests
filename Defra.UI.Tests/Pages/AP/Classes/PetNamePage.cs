@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
@@ -8,15 +8,15 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 {
     public class PetNamePage : IPetNamePage
     {
-        private readonly IObjectContainer _objectContainer;
-        public PetNamePage(IObjectContainer container)
+        private readonly IWebDriver _driver;
+        public PetNamePage(IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
 
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         public IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@for='PetName']"), true);
         private IWebElement txtPetsName => _driver.WaitForElement(By.Id("PetName"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));

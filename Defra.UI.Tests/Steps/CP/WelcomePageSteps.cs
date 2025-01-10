@@ -1,6 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Data.Users;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -10,17 +8,13 @@ namespace Defra.UI.Tests.Steps.CP
     [Binding]
     public class WelcomePageSteps
     {
-        private readonly IObjectContainer _objectContainer;
-        private readonly ScenarioContext _scenarioContext;
+        private readonly IWebDriver _driver;
+        private readonly IWelcomePage _welcomePage;
 
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IWelcomePage? _welcomePage => _objectContainer.IsRegistered<IWelcomePage>() ? _objectContainer.Resolve<IWelcomePage>() : null;
-        private IUserObject? UserObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
-
-        public WelcomePageSteps(ScenarioContext context, IObjectContainer container)
+        public WelcomePageSteps(IWebDriver driver, IWelcomePage welcomePage)
         {
-            _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _welcomePage = welcomePage;
         }
 
         [Then(@"I should navigate to Checks page")]

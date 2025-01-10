@@ -1,7 +1,4 @@
-﻿using BoDi;
-using Defra.UI.Tests.Data.Users;
-using Defra.UI.Tests.Pages.CP.Interfaces;
-using Defra.UI.Tests.Tools;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -11,18 +8,13 @@ namespace Defra.UI.Tests.Steps.CP
     [Binding]
     public class RouteCheckingPageSteps
     {
-        private readonly IObjectContainer _objectContainer;
-        private readonly ScenarioContext _scenarioContext;
+        private readonly IWebDriver _driver;
+        private readonly IRouteCheckingPage _routeCheckingPage;
 
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IUrlBuilder? urlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
-        private IRouteCheckingPage? _routeCheckingPage => _objectContainer.IsRegistered<IRouteCheckingPage>() ? _objectContainer.Resolve<IRouteCheckingPage>() : null;
-        private IUserObject? UserObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
-
-        public RouteCheckingPageSteps (ScenarioContext context, IObjectContainer container)
+        public RouteCheckingPageSteps (IWebDriver driver, IRouteCheckingPage routeCheckingPage)
         {
-            _scenarioContext = context;
-            _objectContainer = container;
+            _driver = driver;
+            _routeCheckingPage = routeCheckingPage;
         }
 
         [Then(@"I should redirected to port route checker page")]

@@ -1,23 +1,21 @@
-﻿using BoDi;
-using OpenQA.Selenium;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using Defra.UI.Framework.Driver;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
     public class RouteCheckingPage : IRouteCheckingPage
     {
-        private readonly IObjectContainer _objectContainer;
+        private readonly IWebDriver _driver;
 
-        public RouteCheckingPage (IObjectContainer container)
+        public RouteCheckingPage (IWebDriver driver)
         {
-            _objectContainer = container;
+            _driver = driver;
         }
 
         #region Page objects
-        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        
         private IWebElement signOutPageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl']"));
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"));
         private IWebElement signOutBy => _driver.WaitForElement(By.XPath("//a[@href='/signout']//*[name()='svg']"));
