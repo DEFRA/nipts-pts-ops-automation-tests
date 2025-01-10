@@ -10,11 +10,13 @@ using System.Reflection;
 
 namespace Defra.UI.Tests.Hooks
 {
-    public class WebDriverHook : TestDependencies
+    [Binding]
+    public class WebDriverHook
     {
         public static IWebDriver? Driver { get; set; }
-        private ScenarioContext _scenarioContext;
-        private readonly IReqnrollOutputHelper _reqnrollOutputHelper;
+        private static ScenarioContext _scenarioContext;
+        private static IReqnrollOutputHelper _reqnrollOutputHelper;
+        private static IServiceScope _serviceScope;
 
         public WebDriverHook(ScenarioContext context, IReqnrollOutputHelper reqnrollOutputHelper)
         {
@@ -25,7 +27,8 @@ namespace Defra.UI.Tests.Hooks
         [BeforeScenario(Order = (int)HookRunOrder.Capability)]
         public static void SetupWebDriver()
         {
-            var serivceProvider = Services.BuildServiceProvider();
+            var serivceProvider = TestDependencies.Services.BuildServiceProvider();
+
             Driver = serivceProvider.GetRequiredService<IWebDriver>();
 
             Logger.Debug("Starting set Capability");
@@ -37,7 +40,7 @@ namespace Defra.UI.Tests.Hooks
         }
 
         [AfterScenario]
-        public void AfterScenario()
+        public static void AfterScenario()
         {
             bool takeScreenShot = false;
             try
@@ -65,7 +68,7 @@ namespace Defra.UI.Tests.Hooks
             }
         }
 
-        private void AttachScreenShotToXmlReport()
+        private static void AttachScreenShotToXmlReport()
         {
             string filePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             filePath = Path.Combine(filePath, "TestResults");
@@ -107,10 +110,10 @@ namespace Defra.UI.Tests.Hooks
             }
         }
 
-        private void CloseBrowsers()
+        private static void CloseBrowsers()
         {
-            try
-            {
+
+            try { 
                 Driver.Quit();
                 Driver.Dispose();
                 AfterScenarioHooks.TestCleanup();

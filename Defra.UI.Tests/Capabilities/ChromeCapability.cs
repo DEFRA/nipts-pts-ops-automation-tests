@@ -1,5 +1,4 @@
-﻿
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Reqnroll;
@@ -8,15 +7,14 @@ namespace Defra.UI.Tests.Capabilities
 {
     public class ChromeCapability : IDriverOptions
     {
-
-        private static ScenarioContext _scenarioContext;
+        private readonly ScenarioContext _scenarioContext;
 
         public ChromeCapability(ScenarioContext context)
         {
             _scenarioContext = context;
         }
 
-        private static ChromeOptions GetChromeOptions(List<string> arguments)
+        private ChromeOptions GetChromeOptions(List<string> arguments)
         {
             var chromeOptions = new ChromeOptions();
             chromeOptions.AddArgument("--diable-inforbars");
