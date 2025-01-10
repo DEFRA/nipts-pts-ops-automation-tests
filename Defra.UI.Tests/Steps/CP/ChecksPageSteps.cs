@@ -46,5 +46,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _welcomePage?.FooterHomeIcon();
         }
+
+        [When(@"I Click on Back button")]
+        public void WhenIClickOnBackButton()
+        {
+            _welcomePage?.ClickBackButton();
+        }
     }
 }

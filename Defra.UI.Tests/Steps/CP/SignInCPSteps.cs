@@ -2,6 +2,7 @@
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
 
@@ -31,6 +32,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             var url = urlBuilder.Default().BuildCom();
             _driver?.Navigate().GoToUrl(url);
+        }
+        [Then(@"I Verify the Access Start Page Content")]
+        public void ThenIVerifyTheAccessStartPageContent()
+        {
+            Assert.True(_signInCPPage?.VerifyHeadings("Check a pet travelling from Great Britain to Northern Ireland", "Pet Travel Scheme"), "Incorrect Heading is displayed in the Access Page");
         }
 
         [When(@"I click signin button on port checker application")]

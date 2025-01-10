@@ -44,6 +44,7 @@ namespace Defra.UI.Tests.Steps.CP
             _routeCheckingPage?.SelectTransportationOption(transportType);
         }
 
+        [Then(@"I select the '([^']*)' radio option")]
         [Then(@"I select the '(.*)' radio option")]
         public void ThenISelectTheRadioOption(string routeOption)
         {

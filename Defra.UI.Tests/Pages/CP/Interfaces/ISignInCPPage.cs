@@ -5,5 +5,6 @@
         void ClickSignInButton();
         bool IsSignedIn(string userName, string password);
         void EnterPassword();
+        bool VerifyHeadings(string heading, string subHeading);
     }
 }
