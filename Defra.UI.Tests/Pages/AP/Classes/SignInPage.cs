@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using OpenQA.Selenium;
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Tools;

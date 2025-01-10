@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Configuration;
 
 namespace Defra.UI.Tests.Tools

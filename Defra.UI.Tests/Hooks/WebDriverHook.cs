@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Capgemini.PowerApps.SpecFlowBindings.Hooks;
 using Defra.UI.Framework.Object;
 using Defra.UI.Tests.Capabilities;
