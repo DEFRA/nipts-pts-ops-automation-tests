@@ -123,15 +123,15 @@
     <Compile Update="Feature\UAT\SUS\DataPreparation.feature.cs">
       <DependentUpon>DataPreparation.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\AP\Update\Update Pet Owner Details.feature.cs">
-      <DependentUpon>Update Pet Owner Details.feature</DependentUpon>
+    <Compile Update="Feature\AP\Update\UpdatePetOwnerDetails.feature.cs">
+      <DependentUpon>UpdatePetOwnerDetails.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\AP\Update\Update Pet Details.feature.cs">
-      <DependentUpon>Update Pet Details.feature</DependentUpon>
+    <Compile Update="Feature\AP\Update\UpdatePetDetails.feature.cs">
+      <DependentUpon>UpdatePetDetails.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\AP\Update\Update Microchip Information.feature.cs">
+    <Compile Update="Feature\AP\Update\UpdateMicrochipInformation.feature.cs">
       <Visible>true</Visible>
-      <DependentUpon>Update Microchip Information.feature</DependentUpon>
+      <DependentUpon>UpdateMicrochipInformation.feature</DependentUpon>
       <DesignTime>true</DesignTime>
       <AutoGen>true</AutoGen>
     </Compile>
