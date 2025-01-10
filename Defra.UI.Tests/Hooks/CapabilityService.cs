@@ -5,7 +5,7 @@ using Reqnroll;
 
 namespace Defra.UI.Tests.Hooks
 {
-    public class BrowserService
+    public class CapabilityService
     {
         public static IServiceCollection SetupBrowserDependencies(IServiceCollection services)
         {

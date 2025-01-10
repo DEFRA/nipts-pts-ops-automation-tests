@@ -19,7 +19,7 @@ namespace Defra.UI.Tests.Hooks
             services.AddSingleton<BaseConfiguration, BaseConfiguration>();
             services.AddSingleton<IScenarioContext, ScenarioContext>();
 
-            services = BrowserService.SetupBrowserDependencies(services);
+            services = CapabilityService.SetupBrowserDependencies(services);
             services = WebDriverService.SetupDriverDependencies(services);
             services = PageServices.SetupPageDependencies(services);
 
