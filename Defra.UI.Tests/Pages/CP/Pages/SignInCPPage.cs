@@ -34,9 +34,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyHeadings(string heading, string subHeading)
         {
             String applicationTitle = lblTitle.Text;
-            //String[] headings = applicationTitle.Replace("\r\n", "*").Split('*');
             String[] headings = applicationTitle.Replace("\r\n", "*").Split('*',2);
-            //String.Join(headings[1], " ");
             String MainHeading = headings[1].Replace("*", " ");
             if (headings[0].Equals(subHeading) && MainHeading.Equals(heading))
             {
