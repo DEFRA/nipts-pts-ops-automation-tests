@@ -11,7 +11,7 @@ namespace Defra.UI.Tests.Steps.CP
         private readonly IWebDriver _driver;
         private readonly IWelcomePage _welcomePage;
 
-        public WelcomePageSteps(IWebDriver driver, IWelcomePage welcomePage)
+        public ChecksPageSteps(IWebDriver driver, IWelcomePage welcomePage)
         {
             _driver = driver;
             _welcomePage = welcomePage;
