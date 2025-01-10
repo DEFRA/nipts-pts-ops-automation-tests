@@ -3,6 +3,7 @@ using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -42,6 +43,12 @@ namespace Defra.UI.Tests.Steps.CP
             _reportNonCompliancePage?.ClickPetTravelDocumentDetailsLnk();
         }
 
+        [Then(@"I should see a table name as '([^']*)'")]
+        public void ThenIShouldSeeATableNameAs(string tableName)
+        {
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheTableNameInPTDLink(tableName), "Pet Travel Document (PTD)");
+        }
+
         [Then(@"I Verify status '([^']*)' on Report non-compliance page")]
         public void ThenIVerifyStatusOnReportNon_CompliancePage(string applicationStatus)
         {
@@ -58,6 +65,24 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeAnErrorMessageInReportNon_CompliancePage(string errorMessage)
         {
             Assert.True(_reportNonCompliancePage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
+        }
+
+        [Then(@"I should not see the Pet Travel Document section for '([^']*)' status")]
+        public void ThenIShouldNotSeeThePetTravelDocumentSectionForStatus(string status)
+        {
+            Assert.False(_reportNonCompliancePage?.CheckPetTravelDocumentDetailsSection(status), "Pet Travel Document Section does not exists as expected");
+        }
+
+        [Then(@"I should see the Pet Travel Document section with status '([^']*)'")]
+        public void ThenIShouldSeeThePetTravelDocumentSectionWithStatus(string status)
+        {
+            Assert.True(_reportNonCompliancePage?.CheckPetTravelDocumentDetailsSection(status), "Pet Travel Document Section does not exists as expected");
+        }
+
+        [Then(@"I should see the '([^']*)' heading with hint '([^']*)'")]
+        public void ThenIShouldSeeTheHeadingWithHint(string reasons,string hint)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons,hint), "Reasons Heading and Hint exists as expected");
         }
     }
 }

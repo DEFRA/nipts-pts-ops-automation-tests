@@ -6,7 +6,7 @@ using Reqnroll;
 namespace Defra.UI.Tests.Steps.CP
 {
     [Binding]
-    public class WelcomePageSteps
+    public class ChecksPageSteps
     {
         private readonly IWebDriver _driver;
         private readonly IWelcomePage _welcomePage;
