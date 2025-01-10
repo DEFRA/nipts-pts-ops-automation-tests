@@ -27,9 +27,24 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement SignIn => _driver.WaitForElement(By.Id("continue"));
         private IWebElement txtLoging => _driver.WaitForElement(By.XPath("//input[@id='password']"));
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[normalize-space()='Continue']"));
+        private IWebElement lblTitle => _driver.WaitForElement(By.XPath("//h1"));
         #endregion
 
         #region Methods
+        public bool VerifyHeadings(string heading, string subHeading)
+        {
+            String applicationTitle = lblTitle.Text;
+            //String[] headings = applicationTitle.Replace("\r\n", "*").Split('*');
+            String[] headings = applicationTitle.Replace("\r\n", "*").Split('*',2);
+            //String.Join(headings[1], " ");
+            String MainHeading = headings[1].Replace("*", " ");
+            if (headings[0].Equals(subHeading) && MainHeading.Equals(heading))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void ClickSignInButton()
         {
             btnSignIn.Click();

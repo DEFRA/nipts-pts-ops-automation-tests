@@ -23,6 +23,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lnkPetTravelDocumentDetails => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet Travel Document details']"));
         private IWebElement btnFootPassengerRadio=> _driver.WaitForElementExists(By.CssSelector("#footPassenger"));
         private IWebElement bntVehicleRadio => _driver.WaitForElementExists(By.CssSelector("#vehiclePassenger"));
+        private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[1]"));
+        private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[2]"));
+        private IWebElement chkGBOutcome3 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[3]"));
+        private IWebElement chkSPSOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[1]"));
+        private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[2]"));
+        private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.XPath("//textarea[@name='spsOutcomeDetails']"));
+        private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome']"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         private IReadOnlyCollection<IWebElement> lblPetTravelDocumentDetails => _driver.FindElements(By.XPath("//span[@class='govuk-heading-s']"));
         private IWebElement lblPTDStatus => _driver.WaitForElementExists(By.XPath("//p[@class='govuk-body govuk-!-margin-bottom-0 pts-checker-check']"));
@@ -106,6 +113,34 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 }
             }
             return false;
+        }
+
+        public bool VerifyGBOutcomeCheckboxes(string checkboxValues)
+        {
+            String[] GBOutcomeCheckbox = checkboxValues.Split('|');
+            if (GBOutcomeCheckbox[0].Equals(chkGBOutcome1.Text)&& GBOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && GBOutcomeCheckbox[2].Equals(chkGBOutcome3.Text))
+            {
+                return true;
+            }
+            return false;
+        }
+        
+        public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
+        {
+            String[] SPSOutcomeCheckbox = checkboxValues.Split('|');
+            if (SPSOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text)&& SPSOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text))
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool VerifyDetailsOfOutcome()
+        {
+            return lblDetailsOfOutcome.Text.Contains("Details of outcome");
+        }
+        public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(String maxLength)
+        {
+            return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
         }
         #endregion
     }

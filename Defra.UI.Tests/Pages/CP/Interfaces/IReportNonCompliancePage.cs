@@ -11,5 +11,9 @@
         bool CheckPetTravelDocumentDetailsSection(string status);
         bool VerifyTheTableNameInPTDLink(string tableName);
         bool VerifyReasonsHeadingWithHint(string reasons, string hint);
+        bool VerifyGBOutcomeCheckboxes(string checkboxValues);
+        bool VerifySPSOutcomeCheckboxes(string checkboxValues);
+        bool VerifyDetailsOfOutcome();
+        bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength);
     }
 }
