@@ -23,7 +23,9 @@ namespace Defra.UI.Tests.Hooks
             services = WebDriverService.SetupDriverDependencies(services);
             services = PageServices.SetupPageDependencies(services);
 
-            return Services = services;
+            Services = services;
+
+            return services;
         }
     }
 }
