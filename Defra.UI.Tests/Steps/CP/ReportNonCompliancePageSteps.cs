@@ -88,5 +88,29 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons,hint), "Reasons Heading and Hint exists as expected");
         }
+
+        [Then(@"I verify the GB Outcome '(.*)' checkboxes")]
+        public void ThenIVerifyTheGBOutcomeCheckboxes(String checkboxValues)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues),"The GB Outcome checkbox values are not correct");
+        }
+        
+        [Then(@"I verify the SPS Outcome '(.*)' options")]
+        public void ThenIVerifyTheSPSOutcomeOptions(String checkboxValues)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifySPSOutcomeCheckboxes(checkboxValues),"The SPS Outcome checkbox values are not correct");
+        }
+        
+        [Then(@"I verify the Details of Outcome label")]
+        public void ThenIVerifyTheDetailsOfOutcome()
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyDetailsOfOutcome(),"The Details of Outcome label is incorrect");
+        }
+
+        [Then(@"I verify the Details of Outcome textarea maximum length is '(.*)'")]
+        public void ThenIVerifyTheDetailsOfOutcomeTextareaMaxLength(String maxLength)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyMaxLengthOfDetailsOfOutcomeTextarea(maxLength), "The Details of Outcome textarea maxlength is not "+ maxLength);
+        }
     }
 }

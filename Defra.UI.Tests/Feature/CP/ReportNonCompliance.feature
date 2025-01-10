@@ -213,3 +213,49 @@ Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful |
 	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Revoked      |
+
+
+Scenario Outline: Verify GB and SPS Outcome in Report non compliance page - Awaiting Verification and Approved
+	Then I have selected 'Ferry' radio option
+	Then I select the '<FerryRoute>' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '<ApplicationNumber>' of the application
+	When I click search button
+	And I should see the application status in '<Status>'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
+	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options
+	And I verify the Details of Outcome label
+	And I verify the Details of Outcome textarea maximum length is '500'
+Examples:
+	| ApplicationNumber | FerryRoute                    | Status                |
+	| 4574B2            | Birkenhead to Belfast (Stena) | Approved              |
+	| 8E375B            | Loch Ryan to Belfast (Stena)  | Awaiting verification |
+
+Scenario Outline: Verify GB and SPS Outcome in Report non compliance page - Unsuccessful and Revoked
+	Then I have selected 'Ferry' radio option
+	Then I select the '<FerryRoute>' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '<ApplicationNumber>' of the application
+	When I click search button
+	And I should see the application status in '<Status>'
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
+	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options
+	And I verify the Details of Outcome label
+	And I verify the Details of Outcome textarea maximum length is '500'
+Examples:
+	| ApplicationNumber | FerryRoute                   | Status       |
+	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful |
+	| A6AD63            | Loch Ryan to Belfast (Stena) | Revoked      |

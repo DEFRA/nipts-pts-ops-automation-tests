@@ -227,6 +227,8 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I provided the Reference number of the application
 	When I click search button
 	And I should see the application status in 'Revoked'
+	And I Click on Back button
+	Then I navigate to Find a document page
 
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               |  ApplicationRadio             |
