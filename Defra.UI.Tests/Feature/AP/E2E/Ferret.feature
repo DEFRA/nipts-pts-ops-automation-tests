@@ -63,7 +63,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	And I assign the application to myself
 	And I "Pass" the Microchip check
 	And I go back
-	And I Pass the Evidence check
+	And I "Pass" the Evidence check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
