@@ -1,0 +1,278 @@
+﻿@CPRegression
+Feature: Search Documents Validations
+
+Port checker validates Search documents and Change Route details
+
+
+Background: 
+	Given that I navigate to the port checker application
+	And I click signin button on port checker application
+	Then I should redirected to the Sign in using Government Gateway page
+	When I have provided the CP credentials and signin
+	And I have provided the password for prototype research page
+	Then I should redirected to port route checker page
+
+	
+Scenario: Verify the error message for search button click after clearing the given PTD number
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '12345' of the application
+	When I click clear search button
+	And I click search button
+	Then I should see an error message "Enter a PTD number" in Find a document page
+
+Scenario: Verify the error message for search button click after clearing the given application number
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number 'QRWD9DZ' of the application
+	When I click clear search button
+	Then I click search by 'Search by application number' radio button
+	When I click search button
+	Then I should see an error message "Enter an application number" in Find a document page
+
+Scenario: Verify the error message for search button click after clearing the given microchip number
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '123456089012340' of the application
+	When I click clear search button
+	Then I click search by 'Search by microchip number' radio button
+	When I click search button
+	Then I should see an error message "Enter a microchip number" in Find a document page
+
+Scenario: Verify invalid PTD number navigates to Document not found page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '613465' of the application
+	When I click search button
+	Then I should navigate to Document not found page
+
+Scenario: Verify invalid application number navigates to Document not found page 
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number 'AD6789QE' of the application
+	When I click search button
+	Then I should navigate to Document not found page
+
+Scenario: Verify invalid microchip number navigates to Document not found page 
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '666661111134343' of the application
+	When I click search button
+	Then I should navigate to Document not found page
+
+Scenario: Verify the navigation for change link click in header from Checks page
+	And I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	And I click change link from headers
+	And I should redirected to port route checker page
+
+Scenario: Verify the navigation for change link click in header from search page
+	And I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click change link from headers
+	And I should redirected to port route checker page
+
+Scenario: Verify the navigation for change link click in header from search results page verification
+	And I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '561365613656136' of the application
+	When I click search button
+	Then I click change link from headers
+	And I should redirected to port route checker page
+
+Scenario: Validate home page navigation by clicking home icon in the footer
+	And I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	And I click search button from footer
+	Then I navigate to Find a document page
+	When I click footer home icon
+	Then I should navigate to Checks page
+
+Scenario: Verify the error message if no PTD number detail given
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '' of the application
+	When I click search button
+	Then I should see an error message "Enter a PTD number" in Find a document page
+
+Scenario: Verify the error message if entering less than 6 characters PTD Number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the 'AD763' of the application
+	When I click search button
+	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
+
+Scenario: Verify the error message if entering more than 6 characters PTD Number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the 'AD387641' of the application
+	When I click search button
+	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
+
+Scenario: Verify the error message if application number text box have characters other than 0-9 and A-F (not including the hyphen)
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '*%£$&{}@' of the application
+	When I click search button
+	Then I should see an error message "Enter 6 characters after 'GB826', using only the letters A to F and numbers" in Find a document page
+
+Scenario: Verify the error message if no text provided in application number text box
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number '' of the application
+	When I click search button
+	Then I should see an error message "Enter an application number" in Find a document page
+
+Scenario: Verify the error message if entering more or less than 8 characters application number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number 'AD128E' of the application
+	When I click search button
+	Then I should see an error message "Enter 8 characters" in Find a document page
+
+Scenario: Verify the error message if application number provided with special character
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number '£$&^@{}' of the application
+	When I click search button
+	Then I should see an error message "Enter 8 characters, using only letters and numbers" in Find a document page
+
+Scenario: Verify the error message if no text provided in microchip number text box
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '' of the application
+	When I click search button
+	Then I should see an error message "Enter a microchip number" in Find a document page
+
+Scenario: Verify the error message if special character provided in microchip number text box
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '£$&^@{}' of the application
+	When I click search button
+	Then I should see an error message "Enter a 15-digit number, using only numbers" in Find a document page
+
+Scenario: Verify the error message if entering more than 15 microchip number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '89765897651234567' of the application
+	When I click search button
+	Then I should see an error message "Enter a 15-digit number, using only numbers" in Find a document page
+	
+Scenario: Verify the error message if entering less than 15 microchip number format
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '98761234' of the application
+	When I click search button
+	Then I should see an error message "Enter a 15-digit number, using only numbers" in Find a document page

@@ -259,6 +259,12 @@ public class EntitySteps : PowerAppsStepDefiner
         XrmApp.Entity.GetValue(field).Values.Should().Equal(expectedValue);
     }
 
+    [Then("I verify the system view for the application '(.*)'")]
+    public static void IVerifyTheSystemViewForTheApplication(string applicationTitle)
+    {
+        Driver.FindElement(By.XPath($"//span[text()='{applicationTitle}']")).IsVisible();
+    }
+
     /// <summary>
     /// Asserts that a value is shown in a lookup field.
     /// </summary>

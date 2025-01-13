@@ -749,6 +749,10 @@ public class FormSteps : PowerAppsStepDefiner
 
         return Driver.ExecuteScript(script);
     }
+    public static object GetValueOfField(String fieldName)
+    {
+       return GetFieldValue(fieldName);
+    }
 
     private static EntityReference GetOwner()
     {

@@ -8,7 +8,7 @@ using TechTalk.SpecFlow;
 namespace Defra.UI.Tests.Steps.CP
 {
     [Binding]
-    public class WelcomePageSteps
+    public class ChecksPageSteps
     {
         private readonly IObjectContainer _objectContainer;
         private readonly ScenarioContext _scenarioContext;
@@ -17,14 +17,14 @@ namespace Defra.UI.Tests.Steps.CP
         private IWelcomePage? _welcomePage => _objectContainer.IsRegistered<IWelcomePage>() ? _objectContainer.Resolve<IWelcomePage>() : null;
         private IUserObject? UserObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
 
-        public WelcomePageSteps(ScenarioContext context, IObjectContainer container)
+        public ChecksPageSteps(ScenarioContext context, IObjectContainer container)
         {
             _scenarioContext = context;
             _objectContainer = container;
         }
 
-        [Then(@"I should navigate to Welcome page")]
-        public void ThenIShouldNavigateToWelcomePage()
+        [Then(@"I should navigate to Checks page")]
+        public void ThenIShouldNavigateToChecksPage()
         {
             Assert.True(_welcomePage?.IsPageLoaded(), "Checks page not loaded");
         }
@@ -45,6 +45,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void WhenIClickFooterHomeIcon()
         {
             _welcomePage?.FooterHomeIcon();
+        }
+
+        [When(@"I Click on Back button")]
+        public void WhenIClickOnBackButton()
+        {
+            _welcomePage?.ClickBackButton();
         }
     }
 }

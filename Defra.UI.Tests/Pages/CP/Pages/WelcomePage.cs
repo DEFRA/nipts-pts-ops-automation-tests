@@ -21,6 +21,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
        private IWebElement iconSearch => _driver.WaitForElement(By.XPath("//a[@href='/checker/document-search']//*[name()='svg']"));
        private IWebElement iconHome => _driver.WaitForElement(By.XPath("//span[normalize-space()='Home']"));
        private IWebElement lnkHeadersChange => _driver.WaitForElement(By.XPath("//a[normalize-space()='Change']"));
+       private IWebElement btnBack => _driver.WaitForElement(By.XPath("//a[text()='Back']"));
        #endregion
 
         #region Methods
@@ -42,6 +43,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public void FooterHomeIcon()
         {
             iconHome.Click();
+        }
+
+        public void ClickBackButton()
+        {
+            btnBack.Click();
         }
         #endregion
     }

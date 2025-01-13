@@ -638,7 +638,7 @@ public static class AppElements
 
         //Dialogs
         { "AssignDialog_ToggleField" , "//label[contains(@data-id,'rdoMe_id.fieldControl-checkbox-inner-first')]" },
-        { "AssignDialog_UserTeamLookupResults" , "//ul[contains(@data-id,'systemuserview_id.fieldControl-LookupResultsDropdown_systemuserview_id_tab')]" },
+        { "AssignDialog_UserTeamLookupResults" , "//ul[contains(@data-id,'systemuserview_id.fieldControl-LookupResultsPopup_systemuserview_id_tab')]" },
         { "AssignDialog_OKButton" , "//button[contains(@data-id, 'ok_id')]" },
         { "CloseOpportunityDialog_OKButton" , "//button[contains(@data-id, 'ok_id')]" },
         { "CloseOpportunityDialog_CancelButton" , "//button[contains(@data-id, 'cancel_id')]" },

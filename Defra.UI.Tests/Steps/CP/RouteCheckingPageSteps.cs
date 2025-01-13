@@ -25,7 +25,7 @@ namespace Defra.UI.Tests.Steps.CP
             _objectContainer = container;
         }
 
-        [Then(@"I should redirected to port route checke page")]
+        [Then(@"I should redirected to port route checker page")]
         public void ThenIShouldRedirectedToPortRouteCheckePage()
         {
             Assert.True(_routeCheckingPage?.IsPageLoaded(), "Port route checker Application page not loaded");
@@ -37,15 +37,15 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_routeCheckingPage?.IsSignedOut(), "Not able to sign out");
         }
 
-        [Given(@"I have selected '([^']*)' radio option")]
-        [Then(@"I have selected '([^']*)' radio option")]
+        [Given(@"I have selected '(.*)' radio option")]
+        [Then(@"I have selected '(.*)' radio option")]
         public void ThenIHaveSelectedRadioOption(string transportType)
         {
             _routeCheckingPage?.SelectTransportationOption(transportType);
         }
 
-        [Given(@"I select the '([^']*)' radio option")]
         [Then(@"I select the '([^']*)' radio option")]
+        [Then(@"I select the '(.*)' radio option")]
         public void ThenISelectTheRadioOption(string routeOption)
         {
             _routeCheckingPage?.SelectFerryRouteOption(routeOption);
@@ -58,20 +58,20 @@ namespace Defra.UI.Tests.Steps.CP
             _routeCheckingPage?.SelectDropDownDepartureTime();
         }
 
-        [When(@"I click save and continue button from route checke page")]
+        [When(@"I click save and continue button from route checker page")]
         public void WhenIClickSaveAndContinueButtonFromRouteCheckePage()
         {
             _routeCheckingPage?.SelectSaveAndContinue();
         }
 
-        [Then(@"I provide the '([^']*)' in the box")]
+        [Then(@"I provide the '(.*)' in the box")]
         public void ThenIProvideTheInTheBox(string routeFlightNumber)
         {
             _routeCheckingPage?.SelectFlightNumber(routeFlightNumber);
         }
 
 
-        [Then(@"I should see an error '([^']*)' in route checking page")]
+        [Then(@"I should see an error '(.*)' in route checking page")]
         public void ThenIShouldSeeAnErrorInRouteCheckingPage(string errorMessage)
         {
             if (!string.IsNullOrEmpty(errorMessage))
@@ -92,7 +92,7 @@ namespace Defra.UI.Tests.Steps.CP
             _routeCheckingPage?.SelectDropDownDepartureTimeMinuteOnly();
         }
 
-        [Then(@"I have selected '([^']*)''([^']*)''([^']*)'Date option")]
+        [Then(@"I have selected '(.*)''(.*)''(.*)'Date option")]
         public void ThenIHaveSelectedDateOption(string departureDay, string departureMonth, string departureYear)
         {
             _routeCheckingPage?.SelectScheduledDepartureDate(departureDay,departureMonth,departureYear);

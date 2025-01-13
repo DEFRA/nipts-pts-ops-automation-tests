@@ -2,9 +2,12 @@
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Pages;
+using Dynamitey.DynamicObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using System.Runtime.Intrinsics.X86;
 using TechTalk.SpecFlow;
+using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -44,6 +47,12 @@ namespace Defra.UI.Tests.Steps.CP
             _reportNonCompliancePage?.ClickPetTravelDocumentDetailsLnk();
         }
 
+        [Then(@"I should see a table name as '([^']*)'")]
+        public void ThenIShouldSeeATableNameAs(string tableName)
+        {
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheTableNameInPTDLink(tableName), "Pet Travel Document (PTD)");
+        }
+
         [Then(@"I Verify status '([^']*)' on Report non-compliance page")]
         public void ThenIVerifyStatusOnReportNon_CompliancePage(string applicationStatus)
         {
@@ -60,6 +69,48 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeAnErrorMessageInReportNon_CompliancePage(string errorMessage)
         {
             Assert.True(_reportNonCompliancePage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
+        }
+
+        [Then(@"I should not see the Pet Travel Document section for '([^']*)' status")]
+        public void ThenIShouldNotSeeThePetTravelDocumentSectionForStatus(string status)
+        {
+            Assert.False(_reportNonCompliancePage?.CheckPetTravelDocumentDetailsSection(status), "Pet Travel Document Section does not exists as expected");
+        }
+
+        [Then(@"I should see the Pet Travel Document section with status '([^']*)'")]
+        public void ThenIShouldSeeThePetTravelDocumentSectionWithStatus(string status)
+        {
+            Assert.True(_reportNonCompliancePage?.CheckPetTravelDocumentDetailsSection(status), "Pet Travel Document Section does not exists as expected");
+        }
+
+        [Then(@"I should see the '([^']*)' heading with hint '([^']*)'")]
+        public void ThenIShouldSeeTheHeadingWithHint(string reasons,string hint)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons,hint), "Reasons Heading and Hint exists as expected");
+        }
+
+        [Then(@"I verify the GB Outcome '(.*)' checkboxes")]
+        public void ThenIVerifyTheGBOutcomeCheckboxes(String checkboxValues)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues),"The GB Outcome checkbox values are not correct");
+        }
+        
+        [Then(@"I verify the SPS Outcome '(.*)' options")]
+        public void ThenIVerifyTheSPSOutcomeOptions(String checkboxValues)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifySPSOutcomeCheckboxes(checkboxValues),"The SPS Outcome checkbox values are not correct");
+        }
+        
+        [Then(@"I verify the Details of Outcome label")]
+        public void ThenIVerifyTheDetailsOfOutcome()
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyDetailsOfOutcome(),"The Details of Outcome label is incorrect");
+        }
+
+        [Then(@"I verify the Details of Outcome textarea maximum length is '(.*)'")]
+        public void ThenIVerifyTheDetailsOfOutcomeTextareaMaxLength(String maxLength)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyMaxLengthOfDetailsOfOutcomeTextarea(maxLength), "The Details of Outcome textarea maxlength is not "+ maxLength);
         }
     }
 }
