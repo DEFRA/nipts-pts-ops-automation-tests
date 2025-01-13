@@ -235,7 +235,7 @@ namespace Defra.UI.Tests.Steps.AP
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterevoked", "datetime", "field", "");
         }
 
-        [Then("I (do|dont) see Duplicate Microchip Notification")]
+        [Then("I {string} see Duplicate Microchip Notification")]
         public void ThenISeeDuplicateMicroChipNotification(string doOrDont)
         {
             if (doOrDont.ToUpper().Equals("DO"))
