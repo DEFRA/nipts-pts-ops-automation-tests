@@ -1,8 +1,8 @@
-url: 'https://defra-trade-plants-preprod.crm4.dynamics.com/'
+url: '#{{ IDCOMSUrl }}'
 useProfiles: false
 browserOptions: 
   browserType: Chrome
 users: 
-  - username: 'Vinotha.Thiyagarajan@defra.gov.uk'
-    password: 'Towardsjoy@27'
-    alias: 'Vinotha'
+  - username: '#{{ IDCOMSUser }}'
+    password: '#{{ IDCOMSPassword }}'
+    alias: '#{{ IDOMSUserAlias }}'
