@@ -14,21 +14,21 @@ Background:
 
 Scenario: Verify the error message if no selection of ferry or flight route
 	Then I have selected '' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10''30'
 	When I click save and continue button from route checker page
 	Then I should see an error 'Select if you are checking a ferry or a flight' in route checking page
 
 Scenario: Verify the error message if no selection of ferry route
 	Then I have selected 'Ferry' radio option
 	Then I select the '' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10''30'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Select the ferry you are checking" in route checking page
 
 Scenario: Verify the error message if no flight number provided in the flight route
 	Then I have selected 'Flight' radio option
 	Then I provide the '' in the box
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10''30'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the flight number you are checking" in route checking page
 
@@ -36,7 +36,7 @@ Scenario: Verify home page for flight Number text box with special character
 	Then I have selected 'Flight' radio option
 	When I see the subheading 'Flight number' with a text box
 	Then I provide the 'a-z$&*' in the box
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10''30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 
@@ -44,7 +44,7 @@ Scenario: Verify error message for no scheduled departure date details provided
 	Then I have selected 'Flight' radio option
 	Then I provide the 'AF296Q' in the box
 	Then I have selected ''''''Date option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10''30'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the scheduled departure date, for example 27 3 2024" in route checking page
 
@@ -52,7 +52,7 @@ Scenario: Verify error message for scheduled departure date with special charact
 	Then I have selected 'Flight' radio option
 	Then I provide the 'AF296Q' in the box
 	Then I have selected '£$''*&''%^'Date option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10''30'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the date in the correct format, for example 27 3 2024" in route checking page
 
@@ -60,7 +60,7 @@ Scenario: Verify error message for any one empty box in scheduled departure date
 	Then I have selected 'Flight' radio option
 	Then I provide the 'AF296Q' in the box
 	Then I have selected '07''''19992'Date option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10''30'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the date in the correct format, for example 27 3 2024" in route checking page
 
@@ -97,6 +97,10 @@ Scenario: Verify selected departure time displays in home page
 	Then I have selected 'Flight' radio option
 	Then I provide the 'AF296Q' in the box
 	Then I have selected '07''07''1992'Date option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10''30'
 	When I click save and continue button from route checker page
 	Then I should see departure time on top of the home page
+
+Scenario: Verify the scheduled departure date and date hint
+	Then I should see a subsection 'Scheduled departure date'
+	And I should see hint 'For example, 27 3 2024' under the subheading

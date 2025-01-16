@@ -6,7 +6,7 @@
         bool IsSignedOut();
         void SelectTransportationOption(string option);
         void SelectFerryRouteOption(string routeOption);
-        void SelectDropDownDepartureTime();
+        void SelectDropDownDepartureTime(string hour, string minutes);
         void SelectSaveAndContinue();
         bool IsError(string errorMessage);
         void SelectFlightNumber(string routeFlight);
@@ -20,5 +20,7 @@
         bool CheckFooter();
         bool CheckDepartureTimeOnHomePage();
         bool FlightNumberSection(string routeFlight);
+        bool CheckDateSubheading(string dateSubHeading);
+        bool CheckHintOfDateSubheading(string hint);
     }
 }

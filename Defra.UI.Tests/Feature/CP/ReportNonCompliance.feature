@@ -14,7 +14,7 @@ Background:
 Scenario: Verify PTD details drop down link in Report non compliance page - Approved status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '02''30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -32,7 +32,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Appr
 Scenario: Verify PTD details drop down link in Report non compliance page - Awaiting verification status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '08''30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -50,7 +50,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Awai
 Scenario: Verify PTD details drop down link in Report non compliance page - Revoked status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '02''50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -68,7 +68,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Revo
 Scenario: Verify PTD details drop down link in Report non compliance page - Unsuccessful status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '02''30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -85,7 +85,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Unsu
 Scenario: Verify the error message for no selection of type of passenger in Report non-compliance page
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '12''30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -102,7 +102,7 @@ Scenario: Verify the error message for no selection of type of passenger in Repo
 Scenario Outline: Verify passenger details section radio buttons in Report non-compliance page
 	Then I have selected '<Transportation>' radio option
 	Then I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14''30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -125,7 +125,7 @@ Examples:
 Scenario: Verify Pet Travel Document section in Report non compliance page - Approved status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '16''30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -143,7 +143,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - App
 Scenario: Verify Pet Travel Document section in Report non compliance page - Awaiting verification status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '13''30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -161,7 +161,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - Awa
 Scenario: Verify Pet Travel Document section in Report non compliance page
 	Then I have selected '<Transportation>' radio option
 	Then I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '02''20'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -183,7 +183,7 @@ Examples:
 Scenario: Verify Reasons heading with hint in Report non compliance page - Awaiting verification status
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '02''10'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -199,7 +199,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page - Await
 Scenario: Verify Reasons heading with hint in Report non compliance page
 	Then I have selected '<Transportation>' radio option
 	Then I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '12''10'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -220,7 +220,7 @@ Examples:
 Scenario Outline: Verify GB and SPS Outcome in Report non compliance page - Awaiting Verification and Approved
 	Then I have selected 'Ferry' radio option
 	Then I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '12''40'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -243,7 +243,7 @@ Examples:
 Scenario Outline: Verify GB and SPS Outcome in Report non compliance page - Unsuccessful and Revoked
 	Then I have selected 'Ferry' radio option
 	Then I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '11''30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer

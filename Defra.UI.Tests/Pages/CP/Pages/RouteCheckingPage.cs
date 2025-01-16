@@ -40,6 +40,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblDeparture => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']//b[2]"));
         private IWebElement txtDateAndTime => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']/p"));
         private IWebElement lblSailingOrFlightSubheading => _driver.WaitForElement(By.XPath("//*[@id='sailingForm']/div[1]/fieldset/legend/h2"));
+        private IWebElement lblScheduledDepartureDate => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Scheduled departure date']"));
+        private IWebElement txtHintScheduledDepartureDate => _driver.WaitForElement(By.XPath("//*[@id='departure-date-hint']"));
         #endregion
         public string departDay;
         public string departMonth;
@@ -98,35 +100,35 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
         }
 
-        public void SelectDropDownDepartureTime()
+        public void SelectDropDownDepartureTime(string hour, string minute)
         {       
             SelectElement selectHour = new SelectElement(hourDropdown);
             var hourOptions = hourDropdown.FindElements(By.XPath("//*[@id='sailingHour']/option")).Select(o => o.Text).ToList();
             hourOptions.Remove("");
             foreach (var option in hourOptions)
             {
-                if (!(int.TryParse(option, out var hour) && hour >= 0 && hour <= 23))
+                if (!(int.TryParse(option, out var hourValue) && hourValue >= 0 && hourValue <= 23))
                 {
                     Console.WriteLine($"Invalid hour found:" + option);
                     break;
                 }
             }
-            selectHour.SelectByValue("10");
-            departHour = "10";
+            selectHour.SelectByValue(hour);
+            departHour = hour;
 
             SelectElement selectMinute = new SelectElement(minuteDropdown);
             var minuteOptions = minuteDropdown.FindElements(By.XPath("//*[@id='sailingMinutes']/option")).Select(o => o.Text).ToList();
             minuteOptions.Remove("");
             foreach (var option in minuteOptions)
             {
-                if (!(int.TryParse(option, out var minute) && minute >= 0 && minute <= 59))
+                if (!(int.TryParse(option, out var minuteValue) && minuteValue >= 0 && minuteValue <= 59))
                 {
                     Console.WriteLine($"Invalid Minute found:" + option);
                     break;
                 }
             }
-            selectMinute.SelectByValue("30");
-            departMinute = "30";
+            selectMinute.SelectByValue(minute);
+            departMinute = minute;
         }
 
         public void SelectSaveAndContinue()
@@ -238,6 +240,20 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             {
                 return true;
             }
+            return false;
+        }
+
+        public bool CheckDateSubheading(string DateSubHeading)
+        {
+            if (lblScheduledDepartureDate.Displayed)
+                return true;
+            return false;
+        }
+
+        public bool CheckHintOfDateSubheading(string hint)
+        {
+            if (txtHintScheduledDepartureDate.Displayed)
+                return true;
             return false;
         }
         #endregion
