@@ -55,7 +55,8 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Revo
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the 'A6AD63' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '398934673434237' of the application
 	When I click search button
 	And I should see the application status in 'Revoked'
 	When I click save and continue button from application status page
@@ -72,7 +73,8 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Unsu
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the '9EFC9F' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '987659871298713' of the application
 	When I click search button
 	And I should see the application status in 'Unsuccessful'
 	When I click save and continue button from application status page

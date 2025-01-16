@@ -12,5 +12,13 @@
         void SelectFlightNumber(string routeFlight);
         void SelectScheduledDepartureDate(string departureDay, string departureMonth, string departureYear);
         void SelectDropDownDepartureTimeMinuteOnly();
+        bool CheckRouteSubheading(string subHeading);
+        bool CheckRouteOptionsSelection();
+        bool CheckFerryRouteSubheading(string subHeading);
+        bool CheckFerryRouteOptionsSelection();
+        bool IsTestEnvironmentPrototypePageLoaded();
+        bool CheckFooter();
+        bool CheckDepartureTimeOnHomePage();
+        bool FlightNumberSection(string routeFlight);
     }
 }
