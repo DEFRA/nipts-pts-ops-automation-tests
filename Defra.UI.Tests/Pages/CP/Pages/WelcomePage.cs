@@ -48,9 +48,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool IsBackButtonDisplayed()
         {
-            if (btnBack.IsVisible())
-                return true;
-            else return false;
+            return btnBack.IsVisible();
         }
 
         public void ClickBackButton()

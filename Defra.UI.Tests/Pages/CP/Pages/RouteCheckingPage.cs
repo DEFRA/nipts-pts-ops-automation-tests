@@ -39,15 +39,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement pageFooter => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']/ul"));
         private IWebElement lblDeparture => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']//b[2]"));
         private IWebElement txtDateAndTime => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']/p"));
-        private IWebElement lblSailingOrFlightSubheading => _driver.WaitForElement(By.XPath("//*[@id='sailingForm']/div[1]/fieldset/legend/h2"));
+        private IWebElement lblSailingOrFlightSubheading => _driver.WaitForElement(By.XPath("//h2[text()='Are you checking a sailing or a flight?']"));
         private IWebElement lblScheduledDepartureDate => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Scheduled departure date']"));
         private IWebElement txtHintScheduledDepartureDate => _driver.WaitForElement(By.XPath("//*[@id='departure-date-hint']"));
+        private IWebElement lblScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='time-group']//b"));
+        private IWebElement txtHintScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='sailingHourHint']"));
         #endregion
-        public string departDay;
-        public string departMonth;
-        public string departYear;
-        public string departHour;
-        public string departMinute;
 
         #region Methods
         public bool IsPageLoaded()
@@ -100,8 +97,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
         }
 
-        public void SelectDropDownDepartureTime(string hour, string minute)
-        {       
+        public void SelectDropDownDepartureTime(string departTime)
+        {
+            var time = departTime;
+            dynamic[] rows = departTime.Split(":");
+            dynamic hour = rows[0];
+            dynamic minute = rows[1];
+
             SelectElement selectHour = new SelectElement(hourDropdown);
             var hourOptions = hourDropdown.FindElements(By.XPath("//*[@id='sailingHour']/option")).Select(o => o.Text).ToList();
             hourOptions.Remove("");
@@ -114,7 +116,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 }
             }
             selectHour.SelectByValue(hour);
-            departHour = hour;
 
             SelectElement selectMinute = new SelectElement(minuteDropdown);
             var minuteOptions = minuteDropdown.FindElements(By.XPath("//*[@id='sailingMinutes']/option")).Select(o => o.Text).ToList();
@@ -128,7 +129,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 }
             }
             selectMinute.SelectByValue(minute);
-            departMinute = minute;
         }
 
         public void SelectSaveAndContinue()
@@ -138,9 +138,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool FlightNumberSection(string routeFlight)
         {
-            if(lblFlightNumber.Displayed && txtBoxFlightNumber.Displayed)
-                return true;
-            else return false;
+            return lblFlightNumber.Displayed && txtBoxFlightNumber.Displayed;
         }
         public void SelectFlightNumber(string routeFlight)
         {
@@ -165,96 +163,69 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             txtScheduleDepartureDay.Clear();
             txtScheduleDepartureDay.SendKeys(departureDay);
-            departDay = departureDay;
             txtScheduleDepartureMonth.Clear();
             txtScheduleDepartureMonth.SendKeys(departureMonth);
-            departMonth = departureMonth;
             txtScheduleDepartureYear.Clear();
             txtScheduleDepartureYear.SendKeys(departureYear);
-            departYear = departureYear;
         }
-
         public void SelectDropDownDepartureTimeMinuteOnly()
         {
-
             SelectElement selectMinute = new SelectElement(minuteDropdown);
             selectMinute.SelectByValue("30");
         }
         public bool CheckFerryRouteSubheading(string subHeading)
         {
-            if(lblRouteSubheading.Displayed && rdoBirkenhead.Displayed && rdoCairnryan.Displayed && rdoLochRyan.Displayed)
-            {
-                return true;
-            }
-            return false;
+            return lblRouteSubheading.Displayed && rdoBirkenhead.Displayed && rdoCairnryan.Displayed && rdoLochRyan.Displayed;
         }
-
         public bool CheckFerryRouteOptionsSelection()
         {
-            if (!rdoBirkenhead.Selected && !rdoCairnryan.Selected && !rdoLochRyan.Selected)
-            {
-                return true;
-            }
-            return false;
+            return !rdoBirkenhead.Selected && !rdoCairnryan.Selected && !rdoLochRyan.Selected;
         }
-
         public bool IsTestEnvironmentPrototypePageLoaded()
         {
             return pageHeading.Text.Contains("This is a test environment");
         }
-
         public bool CheckFooter()
         {
             return !pageFooter.Displayed;
         }
-
-        public bool CheckDepartureTimeOnHomePage()
+        public bool CheckDepartureTimeOnHomePage(string departureDay, string departureMonth, string departureYear, string departureTime)
         {
-            string header = txtDateAndTime.Text;
-            string[] rows = header.Split("Departure:");
-            string displayedDate = rows[1].Substring(1,10);
-            string displayedTime = rows[1].Substring(12, 5);
+            var header = txtDateAndTime.Text;
+            dynamic[] rows = header.Split("Departure:");
+            dynamic displayedDate = rows[1].Substring(1,10);
+            dynamic displayedTime = rows[1].Substring(12,5);
+            
+            var givenDate = departureDay + "/" + departureMonth + "/" + departureYear;
+            dynamic[] hourAndMinute = departureTime.Split(":");
+            var givenTime = hourAndMinute[0] + ":" + hourAndMinute[1];
 
-            string givenDate = departDay + "/" + departMonth + "/" + departYear;
-            string givenTime = departHour + ":" + departMinute;
-
-            if (lblDeparture.Text.Equals("Departure:") && displayedDate.Equals(givenDate) && displayedTime.Equals(givenTime))
-            {
-                return true;
-            }
-            else return false;
+            return lblDeparture.Text.Equals("Departure:") && displayedDate.Equals(givenDate) && displayedTime.Equals(givenTime);
         }
-
         public bool CheckRouteSubheading(string subHeading)
         {
-            if (lblSailingOrFlightSubheading.Displayed && rdoFerry.Displayed && rdoFlight.Displayed)
-            {
-                return true;
-            }
-            return false;
+            return lblSailingOrFlightSubheading.Displayed && rdoFerry.Displayed && rdoFlight.Displayed;
         }
-
         public bool CheckRouteOptionsSelection()
         {
-            if (!rdoFerry.Selected && !rdoFlight.Selected)
-            {
-                return true;
-            }
-            return false;
+            return !rdoFerry.Selected && !rdoFlight.Selected;
         }
-
-        public bool CheckDateSubheading(string DateSubHeading)
+        public bool CheckDateSubheading(string dateSubHeading)
         {
-            if (lblScheduledDepartureDate.Displayed)
-                return true;
-            return false;
+            return lblScheduledDepartureDate.Text.Equals(dateSubHeading);
         }
-
         public bool CheckHintOfDateSubheading(string hint)
         {
-            if (txtHintScheduledDepartureDate.Displayed)
-                return true;
-            return false;
+            return txtHintScheduledDepartureDate.Text.Equals(hint);
+        }
+        public bool CheckTimeSubheading(string timeSubHeading)
+        {
+            return lblScheduledDepartureTime.Text.Equals(timeSubHeading);
+        }
+        public bool CheckHintOfTimeSubheading(string hint)
+        {
+            var timeHint = txtHintScheduledDepartureTime.Text.Replace("\r\n", "");
+            return timeHint.Equals(hint);
         }
         #endregion
     }

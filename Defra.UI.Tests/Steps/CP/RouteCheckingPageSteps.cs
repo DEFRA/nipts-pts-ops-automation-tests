@@ -51,11 +51,11 @@ namespace Defra.UI.Tests.Steps.CP
             _routeCheckingPage?.SelectFerryRouteOption(routeOption);
         }
 
-        [Given(@"I have provided Scheduled departure time '(.*)''(.*)'")]
-        [Then(@"I have provided Scheduled departure time '(.*)''(.*)'")]
-        public void ThenIHaveProvidedScheduledDepartureTime(string hour, string minute)
+        [Given(@"I have provided Scheduled departure time '([^']*)'")]
+        [Then(@"I have provided Scheduled departure time '([^']*)'")]
+        public void ThenIHaveProvidedScheduledDepartureTime(string departTime)
         {
-            _routeCheckingPage?.SelectDropDownDepartureTime(hour, minute);
+            _routeCheckingPage?.SelectDropDownDepartureTime(departTime);
         }
 
         [When(@"I click save and continue button from route checker page")]
@@ -133,10 +133,10 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_routeCheckingPage?.IsTestEnvironmentPrototypePageLoaded(), "Navigated to test environment prototype page");
         }
 
-        [Then(@"I should see departure time on top of the home page")]
-        public void ThenIShouldSeeDepartureTimeOnTopOfTheHomePage()
+        [Then(@"I should see departure date '(.*)''(.*)''(.*)' and time '([^']*)' on top of the home page")]
+        public void ThenIShouldSeeDepartureDateAndTimeOnTopOfTheHomePage(string departureDay, string departureMonth, string departureYear, string departureTime)
         {
-            Assert.True(_routeCheckingPage?.CheckDepartureTimeOnHomePage(), "Selected Depature time displays in home page");
+            Assert.True(_routeCheckingPage?.CheckDepartureTimeOnHomePage(departureDay, departureMonth, departureYear, departureTime), "Given Depature time displays in home page");
         }
 
         [Then(@"I should see the subheading '([^']*)' along with 2 route options")]
@@ -157,16 +157,28 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_routeCheckingPage?.FlightNumberSection(routeFlight), "Flight number subheading along with text box is visible");
         }
 
-        [Then(@"I should see a subsection '([^']*)'")]
-        public void ThenIShouldSeeASubSection(string dateSubHeading)
+        [Then(@"I should see date subsection '([^']*)'")]
+        public void ThenIShouldSeeDateSubSection(string dateSubHeading)
         {
             Assert.True(_routeCheckingPage?.CheckDateSubheading(dateSubHeading), "Scheduled departure date subheading is displayed");
         }
 
-        [Then(@"I should see hint '([^']*)' under the subheading")]
-        public void ThenIShouldSeeHintUnderTheSubHeading(string hint)
+        [Then(@"I should see hint '([^']*)' under the date subheading")]
+        public void ThenIShouldSeeHintUnderTheDateSubHeading(string hint)
         {
             Assert.True(_routeCheckingPage?.CheckHintOfDateSubheading(hint), "A hint under Scheduled departure date subheading is displayed");
+        }
+
+        [Then(@"I should see time subsection '([^']*)'")]
+        public void ThenIShouldSeeTimeSubSection(string timeSubHeading)
+        {
+            Assert.True(_routeCheckingPage?.CheckTimeSubheading(timeSubHeading), "Scheduled departure time subheading is displayed");
+        }
+
+        [Then(@"I should see hint '([^']*)' under the time subheading")]
+        public void ThenIShouldSeeHintUnderTheTimeSubHeading(string hint)
+        {
+            Assert.True(_routeCheckingPage?.CheckHintOfTimeSubheading(hint), "A hint under Scheduled departure time subheading is displayed");
         }
     }
 }

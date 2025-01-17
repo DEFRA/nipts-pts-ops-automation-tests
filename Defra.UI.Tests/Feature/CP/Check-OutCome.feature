@@ -14,7 +14,7 @@ Background:
 Scenario: Validate pass outcome for approved application found by PTD number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '10''30'
+	And I have provided Scheduled departure time '10:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -29,7 +29,7 @@ Scenario: Validate pass outcome for approved application found by PTD number
 Scenario: Validate fail outcome for Awaiting verification status application found by PTD number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Cairnryan to Larne (P&O)' radio option
-	And I have provided Scheduled departure time '10''30'
+	And I have provided Scheduled departure time '10:20'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -44,7 +44,7 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 Scenario: Validate pass outcome for approved application found by application number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '10''30'
+	And I have provided Scheduled departure time '11:15'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -60,7 +60,7 @@ Scenario: Validate pass outcome for approved application found by application nu
 Scenario: Validate fail outcome for Awaiting verification status application found by application number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '10''30'
+	And I have provided Scheduled departure time '11:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -76,7 +76,7 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 Scenario: Validate pass outcome for approved application found by microchip number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '10''30'
+	And I have provided Scheduled departure time '11:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -92,7 +92,7 @@ Scenario: Validate pass outcome for approved application found by microchip numb
 Scenario: Validate fail outcome for Awaiting verification status application found by microchip number
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '10''30'
+	And I have provided Scheduled departure time '12:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -108,7 +108,7 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 Scenario: Verify the error message for no selection of radio button in application status page
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '10''30'
+	And I have provided Scheduled departure time '14:00'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer

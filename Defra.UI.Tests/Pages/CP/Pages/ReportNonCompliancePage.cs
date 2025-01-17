@@ -76,9 +76,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyReasonsHeadingWithHint(string reasons, string hint)
         {
             string reasonsHeading = lblReasonsHeading.Text;
-            if(reasonsHeading.Equals(reasons) && lblReasonsHint.Text.Trim().Equals(hint))
-            return true;
-            else return false;
+            return reasonsHeading.Equals(reasons) && lblReasonsHint.Text.Trim().Equals(hint);
         }
 
         public void SelectTypeOfPassenger(string radioButtonValue)
