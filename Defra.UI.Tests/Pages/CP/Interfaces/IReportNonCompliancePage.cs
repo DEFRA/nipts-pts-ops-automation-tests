@@ -15,5 +15,7 @@
         bool VerifySPSOutcomeCheckboxes(string checkboxValues);
         bool VerifyDetailsOfOutcome();
         bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength);
+        bool VerifyGBCheckboxesAreNotChecked();
+        bool VerifySPSCheckboxesAreNotChecked();
     }
 }

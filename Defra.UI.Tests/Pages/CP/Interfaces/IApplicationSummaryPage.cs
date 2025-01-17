@@ -7,5 +7,7 @@
        void SelectFailRadioButton();
        void SelectSaveAndContinue();
        bool IsError(string errorMessage);
+       bool VerifyTheBannerColor(string color);
+        bool VerifyReferenceNumberTable(string Status);
     }
 }

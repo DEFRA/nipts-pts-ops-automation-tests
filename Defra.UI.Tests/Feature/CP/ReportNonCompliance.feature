@@ -215,7 +215,7 @@ Examples:
 	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Revoked      |
 
 
-Scenario Outline: Verify GB and SPS Outcome in Report non compliance page - Awaiting Verification and Approved
+Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 	Then I have selected 'Ferry' radio option
 	Then I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
@@ -232,13 +232,14 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page - Awai
 	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
 	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options
 	And I verify the Details of Outcome label
+	And I Verify the GB and SPS Outcomes are not selected
 	And I verify the Details of Outcome textarea maximum length is '500'
 Examples:
 	| ApplicationNumber | FerryRoute                    | Status                |
 	| 4574B2            | Birkenhead to Belfast (Stena) | Approved              |
 	| 8E375B            | Loch Ryan to Belfast (Stena)  | Awaiting verification |
 
-Scenario Outline: Verify GB and SPS Outcome in Report non compliance page - Unsuccessful and Revoked
+Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for unsuccessful applications
 	Then I have selected 'Ferry' radio option
 	Then I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time
@@ -259,3 +260,18 @@ Examples:
 	| ApplicationNumber | FerryRoute                   | Status       |
 	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful |
 	| A6AD63            | Loch Ryan to Belfast (Stena) | Revoked      |
+
+Scenario: Verify the Details of outcome textarea accepts only 500 characters
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '9EFC9F' of the application
+	When I click search button
+	And I should see the application status in 'Unsuccessful'
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I verify the Details of Outcome textarea maximum length is '500'

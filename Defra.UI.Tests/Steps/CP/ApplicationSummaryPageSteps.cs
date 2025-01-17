@@ -50,5 +50,17 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_applicationSummaryPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }
+
+        [Then(@"I see the '(.*)' color banner")]
+        public void ThenISeeTheColorBanner(String Color)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyTheBannerColor(Color), $"The Banner {Color} is not as expected");
+        }
+
+        [Then(@"I verify the Reference number table for '([^']*)' application")]
+        public void ThenIVerifyTheReferenceNumberTableForApplication(String Status)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyReferenceNumberTable(Status));
+        }
     }
 }

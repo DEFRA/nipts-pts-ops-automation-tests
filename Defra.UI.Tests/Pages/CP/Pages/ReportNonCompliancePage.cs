@@ -3,6 +3,7 @@ using Defra.UI.Tests.Tools;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using OpenQA.Selenium;
 using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -133,6 +134,24 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 return true;
             }
             return false;
+        }
+
+        public bool VerifySPSCheckboxesAreNotChecked()
+        {
+            if(chkSPSOutcome2.HasAttribute("Checked") && chkSPSOutcome1.HasAttribute("Checked"))
+            {
+                return false;
+            }
+            return true;
+        }       
+        public bool VerifyGBCheckboxesAreNotChecked()
+        {
+            if (chkGBOutcome1.HasAttribute("Checked") && chkGBOutcome2.HasAttribute("Checked") &&chkGBOutcome3.HasAttribute("Checked"))
+            {
+                return false;
+            }
+            return true;
+            
         }
         public bool VerifyDetailsOfOutcome()
         {
