@@ -6,6 +6,7 @@
         void FooterSearchButton();
         void HeadersChangeLink();
         void FooterHomeIcon();
+        bool IsBackButtonDisplayed();
         void ClickBackButton();
     }
 }

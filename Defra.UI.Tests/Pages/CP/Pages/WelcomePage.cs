@@ -1,6 +1,7 @@
 ﻿using BoDi;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -43,6 +44,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public void FooterHomeIcon()
         {
             iconHome.Click();
+        }
+
+        public bool IsBackButtonDisplayed()
+        {
+            return btnBack.IsVisible();
         }
 
         public void ClickBackButton()
