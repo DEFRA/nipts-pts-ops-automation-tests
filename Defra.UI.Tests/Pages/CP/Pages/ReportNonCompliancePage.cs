@@ -119,39 +119,22 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyGBOutcomeCheckboxes(string checkboxValues)
         {
             String[] GBOutcomeCheckbox = checkboxValues.Split('|');
-            if (GBOutcomeCheckbox[0].Equals(chkGBOutcome1.Text)&& GBOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && GBOutcomeCheckbox[2].Equals(chkGBOutcome3.Text))
-            {
-                return true;
-            }
-            return false;
+            return (GBOutcomeCheckbox[0].Equals(chkGBOutcome1.Text)&& GBOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && GBOutcomeCheckbox[2].Equals(chkGBOutcome3.Text))
         }
         
         public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
         {
             String[] SPSOutcomeCheckbox = checkboxValues.Split('|');
-            if (SPSOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text)&& SPSOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text))
-            {
-                return true;
-            }
-            return false;
+            return (SPSOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text)&& SPSOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text))
         }
 
         public bool VerifySPSCheckboxesAreNotChecked()
         {
-            if(chkSPSOutcome2.HasAttribute("Checked") && chkSPSOutcome1.HasAttribute("Checked"))
-            {
-                return false;
-            }
-            return true;
+            return (chkSPSOutcome2.HasAttribute("Checked") && chkSPSOutcome1.HasAttribute("Checked"));
         }       
         public bool VerifyGBCheckboxesAreNotChecked()
         {
-            if (chkGBOutcome1.HasAttribute("Checked") && chkGBOutcome2.HasAttribute("Checked") &&chkGBOutcome3.HasAttribute("Checked"))
-            {
-                return false;
-            }
-            return true;
-            
+            return (chkGBOutcome1.HasAttribute("Checked") && chkGBOutcome2.HasAttribute("Checked") && chkGBOutcome3.HasAttribute("Checked"));
         }
         public bool VerifyDetailsOfOutcome()
         {

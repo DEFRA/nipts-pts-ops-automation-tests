@@ -90,17 +90,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             bool value = false;
             if (Status.Equals("Unsuccessful") || Status.Equals("Awaiting verification"))
             {
-                if(lblDocCardHeading.Text.Equals("Reference number") && lblRefNumber.Text.Equals("Application reference number") && lblDate.Text.Equals("Date"))
-                {
-                    value = true;
-                }
+                return (lblDocCardHeading.Text.Equals("Reference number") && lblRefNumber.Text.Equals("Application reference number") && lblDate.Text.Equals("Date"))
             }
             else if (Status.Equals("Approved") || Status.Equals("Revoked"))
             {
-                if (lblDocCardHeading.Text.Equals("Issued") && lblRefNumber.Text.Equals("PTD number") && lblDate.Text.Equals("Date"))
-                {
-                    value = true;
-                }
+                return (lblDocCardHeading.Text.Equals("Issued") && lblRefNumber.Text.Equals("PTD number") && lblDate.Text.Equals("Date"))
             }
             return value;
         }
