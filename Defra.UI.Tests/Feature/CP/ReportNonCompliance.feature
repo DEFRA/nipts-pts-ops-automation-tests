@@ -26,7 +26,9 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Appr
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	Then I should see a table name as 'Pet Travel Document (PTD)'
+	Then I should see a table name for approved and revoked status as 'Pet Travel Document (PTD)'
+	And I Verify the PTD number '4574B2'
+	Then I verify the date of issuance '24/12/2024' 
 	And I Verify status 'Approved' on Report non-compliance page
 
 Scenario: Verify PTD details drop down link in Report non compliance page - Awaiting verification status
@@ -45,6 +47,9 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Awai
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
+	Then I should see a table name as 'Application Details'
+	And I Verify the reference number 'XC7I93AF'
+	Then I verify the date of issuance '13/12/2024'
 	And I Verify status 'Awaiting verification' on Report non-compliance page
 
 Scenario: Verify PTD details drop down link in Report non compliance page - Revoked status
@@ -62,7 +67,9 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Revo
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	Then I should see a table name as 'Pet Travel Document (PTD)'
+	Then I should see a table name for approved and revoked status as 'Pet Travel Document (PTD)'
+	And I Verify the PTD number 'AB517A'
+	Then I verify the date of issuance '25/10/2024' 
 	And I Verify status 'Revoked' on Report non-compliance page
 	
 Scenario: Verify PTD details drop down link in Report non compliance page - Unsuccessful status
@@ -80,6 +87,9 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Unsu
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
+	Then I should see a table name as 'Application Details'
+	And I Verify the reference number '0CI5N6V6'
+	Then I verify the date of issuance '14/11/2024'
 	And I Verify status 'Unsuccessful' on Report non-compliance page
 
 Scenario: Verify the error message for no selection of type of passenger in Report non-compliance page
@@ -261,3 +271,31 @@ Examples:
 	| ApplicationNumber | FerryRoute                   | Status       |
 	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful |
 	| A6AD63            | Loch Ryan to Belfast (Stena) | Revoked      |
+
+Scenario: Verify the navigation by clicking search and home icon from Report non compliance page
+	And I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time '16:20'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '987659898798764' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '987659898798764' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I click footer home icon
+	Then I should navigate to Checks page
+

@@ -53,6 +53,30 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.IsTrue(_reportNonCompliancePage?.VerifyTheTableNameInPTDLink(tableName), "Pet Travel Document (PTD)");
         }
 
+        [Then(@"I should see a table name for approved and revoked status as '([^']*)'")]
+        public void ThenIShouldSeeATableNameForApprovedAndRevokedStatusAs(string tableName)
+        {
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTableNameForApprovedAndRevokedInPTDLink(tableName), "Application Details");
+        }
+
+        [Then(@"I Verify the PTD number '([^']*)'")]
+        public void ThenIVerifyThePTDNumber(string ptdNumber)
+        {
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyThePTDNumber(ptdNumber), "The PTD number is displayed");
+        }
+
+        [Then(@"I verify the date of issuance '([^']*)'")]
+        public void ThenIVerifyTheDateOfIssuance(string dateOfIssuance)
+        {
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheDateOfIssuance(dateOfIssuance), "The date of issuance is displayed");
+        }
+
+        [Then(@"I Verify the reference number '([^']*)'")]
+        public void ThenIVerifyTheReferenceNumber(string refereneNumber)
+        {
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheReferenceNumber(refereneNumber), "The reference number is displayed");
+        }
+
         [Then(@"I Verify status '([^']*)' on Report non-compliance page")]
         public void ThenIVerifyStatusOnReportNon_CompliancePage(string applicationStatus)
         {

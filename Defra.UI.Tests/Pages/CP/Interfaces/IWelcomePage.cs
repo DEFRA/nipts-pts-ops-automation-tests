@@ -8,5 +8,7 @@
         void FooterHomeIcon();
         bool IsBackButtonDisplayed();
         void ClickBackButton();
+        bool CheckFooter();
+        bool IsHeaderChangeLinkDisplayed();
     }
 }

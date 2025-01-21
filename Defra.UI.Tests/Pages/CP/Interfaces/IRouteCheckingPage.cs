@@ -11,18 +11,19 @@
         bool IsError(string errorMessage);
         void SelectFlightNumber(string routeFlight);
         void SelectScheduledDepartureDate(string departureDay, string departureMonth, string departureYear);
-        void SelectDropDownDepartureTimeMinuteOnly();
+        void SelectDropDownDepartureTimeHourOnly(string hour);
         bool CheckRouteSubheading(string subHeading);
         bool CheckRouteOptionsSelection();
         bool CheckFerryRouteSubheading(string subHeading);
         bool CheckFerryRouteOptionsSelection();
         bool IsTestEnvironmentPrototypePageLoaded();
-        bool CheckFooter();
         bool CheckDepartureTimeOnHomePage(string departureDay, string departureMonth, string departureYear, string departureTime);
         bool FlightNumberSection(string routeFlight);
         bool CheckDateSubheading(string dateSubHeading);
         bool CheckHintOfDateSubheading(string hint);
         bool CheckTimeSubheading(string timeSubHeading);
         bool CheckHintOfTimeSubheading(string hint);
+        bool CheckCurrentDatePrepopulation();
+        bool CheckRouteDetailOnHomePageHeader(string route);
     }
 }

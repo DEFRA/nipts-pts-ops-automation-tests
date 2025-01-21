@@ -85,10 +85,10 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_routeCheckingPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }
         
-        [Then(@"I have provided Scheduled departure time in hours field only")]
-        public void ThenIHaveProvidedScheduledDepartureTimeInHoursFieldOnly()
+        [Then(@"I have provided Scheduled departure hour '(.*)' in hours field only")]
+        public void ThenIHaveProvidedScheduledDepartureHourInHoursFieldOnly(string hour)
         {
-            _routeCheckingPage?.SelectDropDownDepartureTimeMinuteOnly();
+            _routeCheckingPage?.SelectDropDownDepartureTimeHourOnly(hour);
         }
 
         [Then(@"I have selected '(.*)''(.*)''(.*)'Date option")]
@@ -112,7 +112,21 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should not see the footer of the page")]
         public void ThenIShouldNotSeeTheFooterOfThePage()
         {
-            Assert.True(_routeCheckingPage?.CheckFooter(), "Footer of the page is not visible");
+            Assert.False(_welcomePage?.CheckFooter(), "Footer of the page is not visible");
+        }
+
+        [Then(@"I should see the footer of the page")]
+        public void ThenIShouldSeeTheFooterOfThePage()
+        {
+            Assert.True(_welcomePage?.CheckFooter(), "Footer of the page is visible");
+        }
+
+        [Then(@"I should see the header of the page with route '([^']*)' date '(.*)''(.*)''(.*)' and time '([^']*)'")]
+        public void ThenIShouldSeeTheHeaderOfThePageWithRouteDateAndTime(string route, string departureDay, string departureMonth, string departureYear, string departureTime)
+        {
+            Assert.True(_routeCheckingPage?.CheckRouteDetailOnHomePageHeader(route), "Given route displayed properly on the header");
+            Assert.True(_routeCheckingPage?.CheckDepartureTimeOnHomePage(departureDay, departureMonth, departureYear, departureTime), "Departure date and time are displayed properly on the header");
+            Assert.True(_welcomePage?.IsHeaderChangeLinkDisplayed(),"Change link is displayed on the header");
         }
 
         [Then(@"I should see back link in the top left of route checking page")]
@@ -161,6 +175,7 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeDateSubSection(string dateSubHeading)
         {
             Assert.True(_routeCheckingPage?.CheckDateSubheading(dateSubHeading), "Scheduled departure date subheading is displayed");
+            Assert.True(_routeCheckingPage?.CheckCurrentDatePrepopulation(), "Scheduled departure date is prepopulated with current date");
         }
 
         [Then(@"I should see hint '([^']*)' under the date subheading")]

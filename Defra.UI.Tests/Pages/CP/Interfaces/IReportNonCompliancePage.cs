@@ -15,5 +15,9 @@
         bool VerifySPSOutcomeCheckboxes(string checkboxValues);
         bool VerifyDetailsOfOutcome();
         bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength);
+        bool VerifyThePTDNumber(string ptdNumber);
+        bool VerifyTheDateOfIssuance(string dateOfIssuance);
+        bool VerifyTheReferenceNumber(string refereneNumber);
+        bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName);
     }
 }
