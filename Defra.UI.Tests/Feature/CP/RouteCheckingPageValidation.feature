@@ -74,7 +74,7 @@ Scenario: Verify the error message if no selection of scheduled departure time d
 Scenario: Verify the error message if only hour details provided in the scheduled departure time
 	Then I have selected 'Flight' radio option
 	Then I provide the 'AF296Q' in the box
-	And I have provided Scheduled departure time in hours field only
+	And I have provided Scheduled departure hour '11' in hours field only
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the scheduled departure time, for example 15:30" in route checking page
 
@@ -101,7 +101,7 @@ Scenario: Verify selected departure time displays in home page
 	When I click save and continue button from route checker page
 	Then I should see departure date '07''07''1992' and time '18:30' on top of the home page
 
-Scenario: Verify the scheduled departure date and date hint
+Scenario: Verify the scheduled departure date, date hint and current date pre-population
 	Then I should see date subsection 'Scheduled departure date'
 	And I should see hint 'For example, 27 3 2024' under the date subheading
 

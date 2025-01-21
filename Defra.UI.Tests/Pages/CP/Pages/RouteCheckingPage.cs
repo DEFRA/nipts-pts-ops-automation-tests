@@ -36,9 +36,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtScheduleDepartureMonth => _driver.WaitForElement(By.Id("departureDateMonth"));
         private IWebElement txtScheduleDepartureYear => _driver.WaitForElement(By.Id("departureDateYear"));
         private IWebElement lblRouteSubheading => _driver.WaitForElement(By.XPath("//*[@id='ferry-form']//h2"));
-        private IWebElement pageFooter => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']/ul"));
         private IWebElement lblDeparture => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']//b[2]"));
-        private IWebElement txtDateAndTime => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']/p"));
+        private IWebElement txtHeader => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']/p"));
         private IWebElement lblSailingOrFlightSubheading => _driver.WaitForElement(By.XPath("//h2[text()='Are you checking a sailing or a flight?']"));
         private IWebElement lblScheduledDepartureDate => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Scheduled departure date']"));
         private IWebElement txtHintScheduledDepartureDate => _driver.WaitForElement(By.XPath("//*[@id='departure-date-hint']"));
@@ -168,10 +167,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             txtScheduleDepartureYear.Clear();
             txtScheduleDepartureYear.SendKeys(departureYear);
         }
-        public void SelectDropDownDepartureTimeMinuteOnly()
+        public void SelectDropDownDepartureTimeHourOnly(string hour)
         {
-            SelectElement selectMinute = new SelectElement(minuteDropdown);
-            selectMinute.SelectByValue("30");
+            SelectElement selectHour = new SelectElement(hourDropdown);
+            selectHour.SelectByValue(hour);
         }
         public bool CheckFerryRouteSubheading(string subHeading)
         {
@@ -185,13 +184,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             return pageHeading.Text.Contains("This is a test environment");
         }
-        public bool CheckFooter()
-        {
-            return !pageFooter.Displayed;
-        }
         public bool CheckDepartureTimeOnHomePage(string departureDay, string departureMonth, string departureYear, string departureTime)
         {
-            var header = txtDateAndTime.Text;
+            var header = txtHeader.Text;
             dynamic[] rows = header.Split("Departure:");
             dynamic displayedDate = rows[1].Substring(1,10);
             dynamic displayedTime = rows[1].Substring(12,5);
@@ -226,6 +221,23 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             var timeHint = txtHintScheduledDepartureTime.Text.Replace("\r\n", "");
             return timeHint.Equals(hint);
+        }
+        public bool CheckCurrentDatePrepopulation()
+        {
+            var existingDate = txtScheduleDepartureDay.GetAttribute("value") + "/" + txtScheduleDepartureMonth.GetAttribute("value") + "/" + txtScheduleDepartureYear.GetAttribute("value");
+            
+            DateTime dateAndTime = DateTime.Today;
+            var currentDate = dateAndTime.ToString("dd/MM/yyyy");
+            return existingDate.Equals(currentDate);
+        }
+        public bool CheckRouteDetailOnHomePageHeader(string route)
+        {
+            var header = txtHeader.Text;
+            dynamic[] rows = header.Split("Departure:");
+            dynamic displayedRoute = rows[0].Trim();
+
+            var givenRoute = "Route: " + route;
+            return displayedRoute.Equals(givenRoute);
         }
         #endregion
     }
