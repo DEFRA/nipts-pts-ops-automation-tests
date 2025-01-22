@@ -4,7 +4,7 @@ parameters:
   - name: environment
     displayName: Environment
     type: string
-    default: 'tst'
+    default: 'pre'
   - name: workers
     displayName: Number of Workers
     type: string
