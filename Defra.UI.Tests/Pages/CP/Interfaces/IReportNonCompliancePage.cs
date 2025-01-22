@@ -17,5 +17,9 @@
         bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength);
         bool VerifyGBCheckboxesAreNotChecked();
         bool VerifySPSCheckboxesAreNotChecked();
+        bool VerifyThePTDNumber(string ptdNumber);
+        bool VerifyTheDateOfIssuance(string dateOfIssuance);
+        bool VerifyTheReferenceNumber(string refereneNumber);
+        bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName);
     }
 }
