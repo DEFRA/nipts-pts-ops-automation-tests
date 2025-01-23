@@ -166,14 +166,14 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyGBOutcomeCheckboxes(string checkboxValues)
         {
-            String[] GBOutcomeCheckbox = checkboxValues.Split('|');
-            return (GBOutcomeCheckbox[0].Equals(chkGBOutcome1.Text)&& GBOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && GBOutcomeCheckbox[2].Equals(chkGBOutcome3.Text))
+            var gbOutcomeCheckbox = checkboxValues.Split('|');
+            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text));
         }
         
         public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
         {
-            String[] SPSOutcomeCheckbox = checkboxValues.Split('|');
-            return (SPSOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text)&& SPSOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text))
+            var spsOutcomeCheckbox = checkboxValues.Split('|');
+            return (spsOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text) && spsOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text));
         }
 
         public bool VerifySPSCheckboxesAreNotChecked()

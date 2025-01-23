@@ -16,7 +16,7 @@ steps:
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
     inputs:
-      command: restore
+      command: 'restore'
       projects: '**/Defra.UI.Tests.csproj'
       feedsToUse: 'config'
       includeNuGetOrg: true
@@ -28,7 +28,7 @@ steps:
       command: publish
       publishWebProjects: false
       projects: '**/Defra.UI.Tests.csproj'
-      arguments: --no-restore --configuration $(BuildConfiguration) -o "$(Build.ArtifactStagingDirectory)"
+      arguments: --no-restore --configuration $(BuildConfiguration) -o $(Build.ArtifactStagingDirectory)
   
   - task: PublishBuildArtifacts@1
     inputs:
