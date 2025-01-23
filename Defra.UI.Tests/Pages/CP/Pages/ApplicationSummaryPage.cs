@@ -63,20 +63,20 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return false;
         }
 
-        public bool VerifyTheBannerColor(String Color)
+        public bool VerifyTheBannerColor(string color)
         {
-            string[] ActualColor = colorBanner.GetAttribute("style").Split('#', 2);
+            var actualColor = colorBanner.GetAttribute("style").Split('#', 2);
             bool value;
-            switch (Color)
+            switch (color)
             {
                 case "Amber":
-                    value = ActualColor.Contains("background-color: rgb(181, 136, 64);");  
+                    value = actualColor.Contains("background-color: rgb(181, 136, 64);");  
                     break;
                 case "Red":
-                   value = ActualColor.Contains("background-color: rgb(212, 53, 28);");
+                   value = actualColor.Contains("background-color: rgb(212, 53, 28);");
                     break;
                 case "Green":
-                    value = ActualColor.Contains("");
+                    value = actualColor.Contains("");
                     break;
                 default:
                     value = false;
@@ -85,16 +85,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return value;
         }
 
-        public bool VerifyReferenceNumberTable(String Status)
+        public bool VerifyReferenceNumberTable(string status)
         {
             bool value = false;
-            if (Status.Equals("Unsuccessful") || Status.Equals("Awaiting verification"))
+            if (status.Equals("Unsuccessful") || status.Equals("Awaiting verification"))
             {
-                return (lblDocCardHeading.Text.Equals("Reference number") && lblRefNumber.Text.Equals("Application reference number") && lblDate.Text.Equals("Date"))
+                return (lblDocCardHeading.Text.Equals("Reference number") && lblRefNumber.Text.Equals("Application reference number") && lblDate.Text.Equals("Date"));
             }
-            else if (Status.Equals("Approved") || Status.Equals("Revoked"))
+            else if (status.Equals("Approved") || status.Equals("Revoked"))
             {
-                return (lblDocCardHeading.Text.Equals("Issued") && lblRefNumber.Text.Equals("PTD number") && lblDate.Text.Equals("Date"))
+                return (lblDocCardHeading.Text.Equals("Issued") && lblRefNumber.Text.Equals("PTD number") && lblDate.Text.Equals("Date"));
             }
             return value;
         }
