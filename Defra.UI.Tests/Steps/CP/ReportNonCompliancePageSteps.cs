@@ -118,6 +118,13 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues),"The GB Outcome checkbox values are not correct");
         }
+
+        [Then(@"I Verify the GB and SPS Outcomes are not selected")]
+        public void ThenIVerifyGBAndSPSOutcomesAreNotSelected()
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyGBCheckboxesAreNotChecked());
+            Assert.True(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
+        }
         
         [Then(@"I verify the SPS Outcome '(.*)' options")]
         public void ThenIVerifyTheSPSOutcomeOptions(String checkboxValues)
