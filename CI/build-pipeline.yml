@@ -20,7 +20,6 @@ steps:
       version: '8.x'
       performMultiLevelLookup: true
       includePreviewVersions: true
-      installationPath: $(Agent.ToolsDirectory)/dotnet
 
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
