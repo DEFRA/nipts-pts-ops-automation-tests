@@ -20,7 +20,7 @@ steps:
       projects: '**/Defra.UI.Tests.csproj'
       feedsToUse: 'config'
       includeNuGetOrg: true
-      nugetConfigPath: 'Defra.UI.Tests.csproj/nuget.config'
+      nugetConfigPath: 'nuget.config'
   
   - task: DotNetCoreCLI@2
     displayName: publish for $(BuildConfiguration)
