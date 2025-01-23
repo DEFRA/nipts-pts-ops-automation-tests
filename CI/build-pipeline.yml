@@ -13,14 +13,6 @@ variables:
 
 steps:
 
-  - task: UseDotNet@2
-    displayName: 'Use .NET SDK 8.x'
-    inputs:
-      packageType: 'sdk'
-      version: '8.x'
-      performMultiLevelLookup: true
-      includePreviewVersions: true
-
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
     inputs:
@@ -36,7 +28,7 @@ steps:
       command: publish
       publishWebProjects: false
       projects: '**/Defra.UI.Tests.csproj'
-      arguments: --no-restore --configuration $(BuildConfiguration) -o '$(Build.ArtifactStagingDirectory)'
+      arguments: '--no-restore --configuration $(BuildConfiguration) -o "$(Build.ArtifactStagingDirectory)"'
   
   - task: PublishBuildArtifacts@1
     inputs:
