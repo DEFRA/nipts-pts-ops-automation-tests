@@ -56,7 +56,7 @@ Scenario Outline: Modify PETS Name By Registered User with details correct - Fer
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for Ferret 'Name' from Pet details section
 	And I have modified the pet name as '<UpdatedName>'
-	When I click on continue button from What is your pet's name page till reaching declaration page
+	When I click on continue button from What is your pet's name page
 	Then I have verified pet details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -159,7 +159,7 @@ Scenario Outline: Modify breed of the pet By Registered User with details correc
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Breed' from Pet details section
 	And I have modified the pets breed with the index value of '<UpdatedBreedIndex>'
-	When I click continue button from What breed is your dog page till reaching declaration page
+	When I click on continue button from What is your pet's breed page
 	Then I have verified microchip details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -220,7 +220,7 @@ Scenario Outline: Modify PETS Sex By Registered User with details correct - Ferr
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for Ferret 'Sex' from Pet details section
 	And I have modified the pets sex as '<UpdatedSex>'
-	When I click on continue button from What sex is your pet page till reaching declaration page
+	When I click on continue button from What sex is your pet page
 	Then I have verified pet details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -280,7 +280,7 @@ Scenario Outline: Modify PETS date of birth By Registered User with details corr
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for Ferret 'Date of birth' from Pet details section
 	And I have modified the pets date of birth by adding '-5' days
-	When I click on continue button from What is your pet's date of birth page till reaching declaration page
+	When I click on continue button from Do you know your pet's date of birth? page
 	Then I have verified pet details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -340,7 +340,7 @@ Scenario Outline: Modify PETS colour By Registered User with details correct - F
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for Ferret 'Colour' from Pet details section
 	And I have modified the pets colour as '<UpdatedColor>'
-	When I click on continue button from What is the main colour of your pet page till reaching declaration page
+	When I click on continue button from What is the main colour of your pet page
 	Then I have verified pet details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -464,7 +464,7 @@ Scenario Outline: Modify PETS colour By Registered User with details correct
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Colour' from Pet details section
 	And I have modified the pets colour as '<UpdatedColor>'
-	When I click on continue button from What is the main colour of your pet page till reaching declaration page
+	When I click on continue button from What is the main colour of your pet page
 	Then I have verified pet details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -528,7 +528,7 @@ Scenario Outline: Modify PETS date of birth By Registered User with details corr
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Date of birth' from Pet details section
 	And I have modified the pets date of birth by adding '-5' days
-	When I click on continue button from What is your pet's date of birth page till reaching declaration page
+	When I click on continue button from Do you know your pet's date of birth? page
 	Then I have verified pet details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -592,7 +592,7 @@ Scenario Outline: Modify PETS Sex By Registered User with details correct
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Sex' from Pet details section
 	And I have modified the pets sex as '<UpdatedSex>'
-	When I click on continue button from What sex is your pet page till reaching declaration page
+	When I click on continue button from What sex is your pet page
 	Then I have verified pet details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -656,7 +656,7 @@ Scenario Outline: Modify PETS Name By Registered User with details correct
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Name' from Pet details section
 	And I have modified the pet name as '<UpdatedName>'
-	When I click on continue button from What is your pet's name page till reaching declaration page
+	When I click on continue button from What is your pet's name page
 	Then I have verified pet details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page

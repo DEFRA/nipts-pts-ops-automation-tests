@@ -47,7 +47,7 @@ Scenario Outline: Modify PETS Microchip number By Registered User with details c
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Microchip number' from Microchip information section
 	And I have modified the microchip number with the value of '<UpdatedMicrochipNumber>'
-	When I click continue button from microchip number till reaching declaration page
+	When I click Continue button from microchipped page
 	Then I have verified microchip details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -99,7 +99,7 @@ Scenario Outline: Modify PETS Microchip scanned date By Registered User with det
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Implant or scan date' from Microchip information section
 	And I have modified the microchip scanned date by adding '-5' days
-	When I click continue button from microchip scanned date till reaching declaration page
+	When I click Continue button from When was your pet microchipped page
 	Then I have verified microchip details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -148,7 +148,7 @@ Scenario Outline: Modify PETS Microchip scanned date By Registered User with det
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Implant or scan date' from Microchip information section
 	And I have modified the microchip scanned date by adding '-5' days
-	When I click continue button from microchip scanned date till reaching declaration page
+	When I click Continue button from When was your pet microchipped page
 	Then I have verified microchip details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
@@ -196,7 +196,7 @@ Scenario Outline: Modify PETS Microchip number By Registered User with details c
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Microchip number' from Microchip information section
 	And I have modified the microchip number with the value of '<UpdatedMicrochipNumber>'
-	When I click continue button from microchip number till reaching declaration page
+	When I click Continue button from microchipped page
 	Then I have verified microchip details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
