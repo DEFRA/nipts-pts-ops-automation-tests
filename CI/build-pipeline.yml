@@ -28,7 +28,7 @@ steps:
       command: publish
       publishWebProjects: false
       projects: '**/Defra.UI.Tests.csproj'
-      arguments: --no-restore --configuration $(BuildConfiguration) -o "$(Build.ArtifactStagingDirectory)"
+      arguments: --no-restore --configuration $(BuildConfiguration) -o '$(Build.ArtifactStagingDirectory)'
   
   - task: PublishBuildArtifacts@1
     inputs:
