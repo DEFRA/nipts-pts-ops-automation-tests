@@ -13,6 +13,15 @@ variables:
 
 steps:
 
+  - task: UseDotNet@2
+    displayName: 'Use .NET SDK 8.x'
+    inputs:
+      packageType: 'sdk'
+      version: '8.x'
+      performMultiLevelLookup: true
+      includePreviewVersions: true
+      installationPath: $(Agent.ToolsDirectory)/dotnet
+
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
     inputs:
