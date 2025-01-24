@@ -16,7 +16,7 @@ Background:
 Scenario: Verify the error message for search button click after clearing the given PTD number
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '08:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -29,7 +29,7 @@ Scenario: Verify the error message for search button click after clearing the gi
 Scenario: Verify the error message for search button click after clearing the given application number
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -44,7 +44,7 @@ Scenario: Verify the error message for search button click after clearing the gi
 Scenario: Verify the error message for search button click after clearing the given microchip number
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '12:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -59,7 +59,7 @@ Scenario: Verify the error message for search button click after clearing the gi
 Scenario: Verify invalid PTD number navigates to Document not found page
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '11:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -71,7 +71,7 @@ Scenario: Verify invalid PTD number navigates to Document not found page
 Scenario: Verify invalid application number navigates to Document not found page 
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '05:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -84,7 +84,7 @@ Scenario: Verify invalid application number navigates to Document not found page
 Scenario: Verify invalid microchip number navigates to Document not found page 
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '07:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -97,7 +97,7 @@ Scenario: Verify invalid microchip number navigates to Document not found page
 Scenario: Verify the navigation for change link click in header from Checks page
 	And I have selected 'Ferry' radio option
 	And I select the 'Cairnryan to Larne (P&O)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '09:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	And I click change link from headers
@@ -106,7 +106,7 @@ Scenario: Verify the navigation for change link click in header from Checks page
 Scenario: Verify the navigation for change link click in header from search page
 	And I have selected 'Ferry' radio option
 	And I select the 'Cairnryan to Larne (P&O)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14:20'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -117,7 +117,7 @@ Scenario: Verify the navigation for change link click in header from search page
 Scenario: Verify the navigation for change link click in header from search results page verification
 	And I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '12:20'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -128,20 +128,107 @@ Scenario: Verify the navigation for change link click in header from search resu
 	Then I click change link from headers
 	And I should redirected to port route checker page
 
-Scenario: Validate home page navigation by clicking home icon in the footer
+Scenario: Verify the navigation for change link click in header from report non-compliance page verification
+	And I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '15:40'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '561365613656136' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	Then I click change link from headers
+	And I should redirected to port route checker page
+
+Scenario: Verify the footer display from all pages
+	And I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '12:20'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	And I should see the footer of the page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '987659898798764' of the application
+	Then I should see the footer of the page
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	Then I should see the footer of the page
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I should see the footer of the page
+
+Scenario: Verify the header display from all pages
 	And I have selected 'Ferry' radio option
 	And I select the 'Cairnryan to Larne (P&O)' radio option
-	And I have provided Scheduled departure time
+	Then I have selected '02''07''1992'Date option
+	And I have provided Scheduled departure time '15:30'
 	When I click save and continue button from route checker page
-	And I click search button from footer
+	Then I should navigate to Checks page
+	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' and time '15:30'
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '987659898798764' of the application
+	Then I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' and time '15:30'
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	Then I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' and time '15:30'
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' and time '15:30'
+
+Scenario: Verify home page navigation by clicking home icon in the footer from all pages
+	And I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time '11:20'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click footer home icon
+	Then I should navigate to Checks page
+	When I click search button from footer
 	Then I navigate to Find a document page
 	When I click footer home icon
 	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '987659898798764' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	When I click footer home icon
+	Then I should navigate to Checks page
+
+Scenario: Verify search page navigation by clicking search icon in the footer from all pages
+	And I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time '11:20'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '987659898798764' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	When I click search button from footer
+	Then I navigate to Find a document page
 
 Scenario: Verify the error message if no PTD number detail given
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14:50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -153,7 +240,7 @@ Scenario: Verify the error message if no PTD number detail given
 Scenario: Verify the error message if entering less than 6 characters PTD Number format
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '12:50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -165,7 +252,7 @@ Scenario: Verify the error message if entering less than 6 characters PTD Number
 Scenario: Verify the error message if entering more than 6 characters PTD Number format
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14:50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -177,7 +264,7 @@ Scenario: Verify the error message if entering more than 6 characters PTD Number
 Scenario: Verify the error message if application number text box have characters other than 0-9 and A-F (not including the hyphen)
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '11:50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -189,7 +276,7 @@ Scenario: Verify the error message if application number text box have character
 Scenario: Verify the error message if no text provided in application number text box
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14:50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -202,7 +289,7 @@ Scenario: Verify the error message if no text provided in application number tex
 Scenario: Verify the error message if entering more or less than 8 characters application number format
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '12:00'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -215,7 +302,7 @@ Scenario: Verify the error message if entering more or less than 8 characters ap
 Scenario: Verify the error message if application number provided with special character
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14:00'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -228,7 +315,7 @@ Scenario: Verify the error message if application number provided with special c
 Scenario: Verify the error message if no text provided in microchip number text box
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '11:10'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -241,7 +328,7 @@ Scenario: Verify the error message if no text provided in microchip number text 
 Scenario: Verify the error message if special character provided in microchip number text box
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '12:10'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -254,7 +341,7 @@ Scenario: Verify the error message if special character provided in microchip nu
 Scenario: Verify the error message if entering more than 15 microchip number format
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '22:50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -267,7 +354,7 @@ Scenario: Verify the error message if entering more than 15 microchip number for
 Scenario: Verify the error message if entering less than 15 microchip number format
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '23:50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer

@@ -32,7 +32,11 @@ namespace Defra.UI.Tests.Steps.AP
         {
             var url = urlBuilder.Default().BuildApp();
             _driver?.Navigate().GoToUrl(url);
-            Assert.True(landingPage?.IsPageLoaded("This is for testing use only"), "Application page not loaded");
+
+            var environment = ConfigSetup.BaseConfiguration.TestConfiguration.Environment;
+            var title = environment.ToUpper().Equals("PRE") ? "This is for testing use only" : "Private beta testing login";
+
+            Assert.True(landingPage?.IsPageLoaded(title), "Application page not loaded");
         }
 
         [Given(@"I have provided the password for Landing page")]
