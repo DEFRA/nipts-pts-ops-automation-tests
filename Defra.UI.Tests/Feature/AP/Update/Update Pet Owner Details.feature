@@ -47,7 +47,7 @@ Scenario Outline: Modify Name of the pet owner By Registered User with details c
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Name' from Pet owner details section
 	And I have modified the pet owner name with the value of '<UpdatedFullName>'
-	When I click continue button from pet owner name page till reaching declaration page
+	When I click continue button from pet owner name page
 	Then I have verified microchip details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
