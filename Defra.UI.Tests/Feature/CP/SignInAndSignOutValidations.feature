@@ -3,8 +3,7 @@ Feature: SignIn And SignOut Validations
 
 Port checker login and logout from Checker Portal Application
 
-
-Background: 
+Background:
 	Given that I navigate to the port checker application
 	And I click signin button on port checker application
 	Then I should redirected to the Sign in using Government Gateway page
