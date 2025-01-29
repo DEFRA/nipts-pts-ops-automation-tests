@@ -244,7 +244,7 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
 	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options
 	And I verify the Details of Outcome label
-	#And I Verify the GB and SPS Outcomes are not selected
+	And I Verify the GB and SPS Outcomes are not selected
 	And I verify the Details of Outcome textarea maximum length is '500'
 Examples:
 	| ApplicationNumber | FerryRoute                    | Status                |
