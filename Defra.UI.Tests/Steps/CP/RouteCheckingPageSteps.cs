@@ -44,12 +44,19 @@ namespace Defra.UI.Tests.Steps.CP
             _routeCheckingPage?.SelectTransportationOption(transportType);
         }
 
+        [Given("I select the '([^']*)' radio option")]
         [Then(@"I select the '([^']*)' radio option")]
-        [Then(@"I select the '(.*)' radio option")]
-        public void ThenISelectTheRadioOption(string routeOption)
+        public void GivenISelectTheRadioOption(string routeOption)
         {
             _routeCheckingPage?.SelectFerryRouteOption(routeOption);
         }
+
+        //[Then(@"I select the '([^']*)' radio option")]
+        //[Then(@"I select the '(.*)' radio option")]
+        //public void ThenISelectTheRadioOption(string routeOption)
+        //{
+        //    _routeCheckingPage?.SelectFerryRouteOption(routeOption);
+        //}
 
         [Given(@"I have provided Scheduled departure time '([^']*)'")]
         [Then(@"I have provided Scheduled departure time '([^']*)'")]
