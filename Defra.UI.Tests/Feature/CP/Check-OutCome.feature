@@ -109,7 +109,7 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 
 Scenario: Verify the error message for no selection of radio button in application status page
 	Then I have selected 'Ferry' radio option
-	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '14:00'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -125,7 +125,7 @@ Scenario: Verify the error message for no selection of radio button in applicati
 Scenario: Verify the application status and color banner
 	Then I have selected '<Transportation>' radio option
 	Then I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14:00'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -143,7 +143,7 @@ Examples:
 Scenario: Verify the Reference number table 
 	Then I have selected '<Transportation>' radio option
 	Then I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14:00'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
