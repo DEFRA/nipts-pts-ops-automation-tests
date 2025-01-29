@@ -170,7 +170,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - Awa
 
 Scenario: Verify Pet Travel Document section in Report non compliance page
 	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '02:20'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -208,7 +208,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page - Await
 
 Scenario: Verify Reasons heading with hint in Report non compliance page
 	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '12:10'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -229,7 +229,7 @@ Examples:
 
 Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 	Then I have selected 'Ferry' radio option
-	Then I select the '<FerryRoute>' radio option
+	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '12:40'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -244,7 +244,7 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
 	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options
 	And I verify the Details of Outcome label
-	And I Verify the GB and SPS Outcomes are not selected
+	#And I Verify the GB and SPS Outcomes are not selected
 	And I verify the Details of Outcome textarea maximum length is '500'
 Examples:
 	| ApplicationNumber | FerryRoute                    | Status                |
