@@ -16,7 +16,7 @@ steps:
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
     inputs:
-      command: restore
+      command: 'restore'
       projects: '**/Defra.UI.Tests.csproj'
       feedsToUse: 'config'
       includeNuGetOrg: true

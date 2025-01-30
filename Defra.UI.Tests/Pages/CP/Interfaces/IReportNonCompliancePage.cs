@@ -19,5 +19,7 @@
         bool VerifyTheDateOfIssuance(string dateOfIssuance);
         bool VerifyTheReferenceNumber(string refereneNumber);
         bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName);
+        bool VerifyGBCheckboxesAreNotChecked();
+        bool VerifySPSCheckboxesAreNotChecked();
     }
 }

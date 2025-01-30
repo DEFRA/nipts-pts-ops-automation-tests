@@ -114,13 +114,20 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [Then(@"I verify the GB Outcome '(.*)' checkboxes")]
-        public void ThenIVerifyTheGBOutcomeCheckboxes(String checkboxValues)
+        public void ThenIVerifyTheGBOutcomeCheckboxes(string checkboxValues)
         {
             Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues),"The GB Outcome checkbox values are not correct");
         }
+
+        [Then(@"I Verify the GB and SPS Outcomes are not selected")]
+        public void ThenIVerifyGBAndSPSOutcomesAreNotSelected()
+        {
+            Assert.False(_reportNonCompliancePage?.VerifyGBCheckboxesAreNotChecked());
+            Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
+        }
         
         [Then(@"I verify the SPS Outcome '(.*)' options")]
-        public void ThenIVerifyTheSPSOutcomeOptions(String checkboxValues)
+        public void ThenIVerifyTheSPSOutcomeOptions(string checkboxValues)
         {
             Assert.True(_reportNonCompliancePage?.VerifySPSOutcomeCheckboxes(checkboxValues),"The SPS Outcome checkbox values are not correct");
         }
@@ -132,7 +139,7 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [Then(@"I verify the Details of Outcome textarea maximum length is '(.*)'")]
-        public void ThenIVerifyTheDetailsOfOutcomeTextareaMaxLength(String maxLength)
+        public void ThenIVerifyTheDetailsOfOutcomeTextareaMaxLength(string maxLength)
         {
             Assert.True(_reportNonCompliancePage?.VerifyMaxLengthOfDetailsOfOutcomeTextarea(maxLength), "The Details of Outcome textarea maxlength is not "+ maxLength);
         }

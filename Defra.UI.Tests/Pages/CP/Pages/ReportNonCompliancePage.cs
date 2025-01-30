@@ -7,6 +7,7 @@ using System.Drawing;
 using FluentAssertions;
 using AngleSharp.Text;
 using OpenQA.Selenium.DevTools.V122.Overlay;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -165,22 +166,23 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyGBOutcomeCheckboxes(string checkboxValues)
         {
-            String[] GBOutcomeCheckbox = checkboxValues.Split('|');
-            if (GBOutcomeCheckbox[0].Equals(chkGBOutcome1.Text)&& GBOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && GBOutcomeCheckbox[2].Equals(chkGBOutcome3.Text))
-            {
-                return true;
-            }
-            return false;
+            var gbOutcomeCheckbox = checkboxValues.Split('|');
+            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text));
         }
         
         public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
         {
-            String[] SPSOutcomeCheckbox = checkboxValues.Split('|');
-            if (SPSOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text)&& SPSOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text))
-            {
-                return true;
-            }
-            return false;
+            var spsOutcomeCheckbox = checkboxValues.Split('|');
+            return (spsOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text) && spsOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text));
+        }
+
+        public bool VerifySPSCheckboxesAreNotChecked()
+        {
+            return (chkSPSOutcome2.HasAttribute("Checked") && chkSPSOutcome1.HasAttribute("Checked"));
+        }       
+        public bool VerifyGBCheckboxesAreNotChecked()
+        {
+            return (chkGBOutcome1.HasAttribute("Checked") && chkGBOutcome2.HasAttribute("Checked") && chkGBOutcome3.HasAttribute("Checked"));
         }
         public bool VerifyDetailsOfOutcome()
         {

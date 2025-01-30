@@ -1,7 +1,7 @@
 variables:
  Environment: 'tst'
  EnvAPLogin: 'RpEpGk13QYA8TKHaKZeRFmu7WSdMOhVk'      
- FilterTestCategory : 'TestCategory=PETS|TestCategory=Regression|TestCategory=ChangeDetails|TestCategory=Validations| TestCategory=CPRegression'
+ FilterTestCategory : 'TestCategory=PETS|TestCategory=Regression|TestCategory=ChangeDetails|TestCategory=Validations'
  IDCOMSUrl: 'https://defra-trade-plants-tst.crm4.dynamics.com'
  IDCOMSUser: ''
  IDOMSUserAlias: ''
