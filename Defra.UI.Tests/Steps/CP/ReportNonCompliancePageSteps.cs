@@ -143,5 +143,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_reportNonCompliancePage?.VerifyMaxLengthOfDetailsOfOutcomeTextarea(maxLength), "The Details of Outcome textarea maxlength is not "+ maxLength);
         }
+
+        [Then(@"I verify any relavant comments section")]
+        public void ThenIVerifyAnyRelavantCommentsSection()
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyAnyRelavantCommentsTextarea("Any relevant comments", "This could be more information about the checks or any risks you've identified. Do not include personal or sensitive information.", "500"));
+        }
     }
 }
