@@ -173,7 +173,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - Awa
 
 Scenario: Verify Pet Travel Document section in Report non compliance page
 	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '02:20'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -211,7 +211,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page - Await
 
 Scenario: Verify Reasons and Any Relavant comments heading with hint in Report non compliance page
 	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
+	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '12:10'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -233,7 +233,7 @@ Examples:
 
 Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 	Then I have selected 'Ferry' radio option
-	Then I select the '<FerryRoute>' radio option
+	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '12:40'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
