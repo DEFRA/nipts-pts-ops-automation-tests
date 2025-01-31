@@ -35,6 +35,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[2]"));
         private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.XPath("//textarea[@name='spsOutcomeDetails']"));
         private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome']"));
+        private IWebElement lblAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']"));
+        private IWebElement lblAnyRelavantCommentsHint => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]"));
+        private IWebElement TxtAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]/following::textarea[1]"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         private IReadOnlyCollection<IWebElement> lblPetTravelDocumentDetails => _driver.FindElements(By.XPath("//span[@class='govuk-heading-s']"));
         private IWebElement lblPTDStatus => _driver.WaitForElementExists(By.XPath("//p[@class='govuk-body govuk-!-margin-bottom-0 pts-checker-check']"));
@@ -191,6 +194,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(String maxLength)
         {
             return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
+        }
+
+        public bool VerifyAnyRelavantCommentsTextarea(String heading, String hint, String maxLength)
+        {
+            return lblAnyRelavantComments.Text.Contains(heading) && lblAnyRelavantCommentsHint.Text.Contains(hint) && TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
         }
         #endregion
     }

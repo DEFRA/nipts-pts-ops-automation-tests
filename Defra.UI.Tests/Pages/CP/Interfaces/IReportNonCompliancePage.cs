@@ -21,5 +21,6 @@
         bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName);
         bool VerifyGBCheckboxesAreNotChecked();
         bool VerifySPSCheckboxesAreNotChecked();
+        bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength);
     }
 }
