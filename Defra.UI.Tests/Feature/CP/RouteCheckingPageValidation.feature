@@ -1,4 +1,4 @@
-﻿@CPRegression
+﻿@CPRegression @CPCrossBrowser
 Feature: Route Checking Page Validation
 
 Validating the negative scenarios for Route Checking Information

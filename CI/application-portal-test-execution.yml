@@ -37,10 +37,6 @@ parameters:
     displayName: Emulated Device Info
     type: string
     default: 'iPhone 12 Pro'
-  - name: isAccessibilityTesting
-    displayName: Enable Accessibility Testing
-    type: string
-    default: 'false'
 
 resources:
   repositories:
@@ -73,7 +69,6 @@ stages:
         target: ${{parameters.target}}
         isEmulationEnabled: ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
-        isAccessibilityTesting: ${{parameters.isAccessibilityTesting}}
         application: 'AP'
         dependsOn: ''
 
