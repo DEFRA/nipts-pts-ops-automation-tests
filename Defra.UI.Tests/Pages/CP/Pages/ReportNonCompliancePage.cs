@@ -8,6 +8,7 @@ using FluentAssertions;
 using AngleSharp.Text;
 using OpenQA.Selenium.DevTools.V122.Overlay;
 using Microsoft.Dynamics365.UIAutomation.Browser;
+using Defra.UI.Framework.Driver;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -46,6 +47,23 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtValueDate => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//*[contains(text(),'Date')]/following-sibling::dd"));
         private IWebElement txtValueStatus => _driver.WaitForElement(By.XPath("//*[contains(text(),'Status')]/following-sibling::dd/strong"));
         private IWebElement txtValuePTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]/following-sibling::dd"));
+        private IWebElement lblPassengerDetails => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h2[2]"));
+        private IWebElement lblTypeOfPassenger => _driver.WaitForElement(By.XPath("//*[@id='passengerFormGroup']//h3"));
+        private IWebElement lblVisualCheck => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Visual check']"));
+        private IWebElement lnkPetDetailsFromPTD => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet details from PTD']"));
+        private IWebElement lblVisualCheckCheckBox => _driver.WaitForElement(By.XPath("//label[normalize-space()='Pet does not match the PTD']"));
+        private IWebElement lblVisualCheckTableName => _driver.WaitForElement(By.XPath("//*[@id='document-pet-card']//h2"));
+        private IWebElement lblVisualCheckTableSpecies => _driver.WaitForElement(By.XPath("//*[contains(text(),'Species')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableBreed => _driver.WaitForElement(By.XPath("//*[contains(text(),'Breed')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableSex => _driver.WaitForElement(By.XPath("//*[contains(text(),'Sex')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableDateOfBirth => _driver.WaitForElement(By.XPath("//*[contains(text(),'Date of birth')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableColour => _driver.WaitForElement(By.XPath("//*[contains(text(),'Colour')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableSignificantFeature => _driver.WaitForElement(By.XPath("//*[contains(text(),'Significant feature')]/following-sibling::dd"));
+        private IWebElement lblOtherIssues => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']"));
+        private IWebElement lblOtherIssuesOption1 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[1]"));
+        private IWebElement lblOtherIssuesOption2 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[2]"));
+        private IWebElement lblOtherIssuesOption3 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[3]"));
+        private IWebElement lblOtherReasonHint => _driver.WaitForElement(By.Id("somethingRadio-item-hint"));
         #endregion
 
         #region Methods
@@ -191,6 +209,55 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(String maxLength)
         {
             return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
+        }
+        public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)
+        {
+            return lblPassengerDetails.Text.Contains(sectionName) && lblTypeOfPassenger.Text.Contains(subHeading);
+        }
+        public bool VerifyVisualCheckSubheading(string subHeading)
+        {
+            return lblVisualCheck.Text.Contains(subHeading);
+        }
+        public bool VerifyPetDetailsFromPTDLink(string linkName)
+        {
+            _driver.ExecuteScript("arguments[0].scrollIntoView();", lnkPetDetailsFromPTD);
+            lnkPetDetailsFromPTD.Click();
+            return lnkPetDetailsFromPTD.Text.Contains(linkName);
+        }
+        public bool VerifyPetDoesNotMatchThePTDCheckBox(string checkBoxValue)
+        {
+            return lblVisualCheckCheckBox.Text.Contains(checkBoxValue);
+        }
+        public bool VerifyVisualCheckTableName(string tableName)
+        {
+            return lblVisualCheckTableName.Text.Contains(tableName);
+        }
+        public bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature)
+        {
+            return lblVisualCheckTableSpecies.Text.Contains(species) && lblVisualCheckTableBreed.Text.Contains(breed)
+                && lblVisualCheckTableSex.Text.Contains(sex) && lblVisualCheckTableDateOfBirth.Text.Contains(dob)
+                && lblVisualCheckTableColour.Text.Contains(colour) && lblVisualCheckTableSignificantFeature.Text.Contains(significantFeature);
+        }
+        public bool VerifyOtherIssuesSubheading(string subHeading)
+        {
+            return lblOtherIssues.Text.Contains(subHeading);
+        }
+        public bool VerifyOtherIssuesCheckboxes(string checkboxOptions)
+        {
+            var otherIssuesCheckbox = checkboxOptions.Split('|');
+            return otherIssuesCheckbox[0].Equals(lblOtherIssuesOption1.Text) 
+                && otherIssuesCheckbox[1].Equals(lblOtherIssuesOption2.Text) 
+                && otherIssuesCheckbox[2].Equals(lblOtherIssuesOption3.Text);
+        }
+        public bool VerifyOtherReasonOptionHint(string hint)
+        {
+            return lblOtherReasonHint.Text.Contains(hint);
+        }
+        public bool VerifyOtherIssuesCheckboxesAreNotChecked()
+        {
+            return lblOtherIssuesOption1.HasAttribute("Checked") 
+                && lblOtherIssuesOption2.HasAttribute("Checked") 
+                && lblOtherIssuesOption3.HasAttribute("Checked");
         }
         #endregion
     }

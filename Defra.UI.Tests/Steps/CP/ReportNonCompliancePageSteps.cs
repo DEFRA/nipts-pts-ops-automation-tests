@@ -8,6 +8,7 @@ using OpenQA.Selenium;
 using System.Runtime.Intrinsics.X86;
 using TechTalk.SpecFlow;
 using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -62,19 +63,19 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I Verify the PTD number '([^']*)'")]
         public void ThenIVerifyThePTDNumber(string ptdNumber)
         {
-            Assert.IsTrue(_reportNonCompliancePage?.VerifyThePTDNumber(ptdNumber), "The PTD number is displayed");
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyThePTDNumber(ptdNumber), "The PTD number is not displayed");
         }
 
         [Then(@"I verify the date of issuance '([^']*)'")]
         public void ThenIVerifyTheDateOfIssuance(string dateOfIssuance)
         {
-            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheDateOfIssuance(dateOfIssuance), "The date of issuance is displayed");
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheDateOfIssuance(dateOfIssuance), "The date of issuance is not displayed");
         }
 
         [Then(@"I Verify the reference number '([^']*)'")]
         public void ThenIVerifyTheReferenceNumber(string refereneNumber)
         {
-            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheReferenceNumber(refereneNumber), "The reference number is displayed");
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheReferenceNumber(refereneNumber), "The reference number is not displayed");
         }
 
         [Then(@"I Verify status '([^']*)' on Report non-compliance page")]
@@ -110,7 +111,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should see the '([^']*)' heading with hint '([^']*)'")]
         public void ThenIShouldSeeTheHeadingWithHint(string reasons,string hint)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons,hint), "Reasons Heading and Hint exists as expected");
+            Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons,hint), "Reasons Heading and Hint does not exists as expected");
         }
 
         [Then(@"I verify the GB Outcome '(.*)' checkboxes")]
@@ -142,6 +143,58 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIVerifyTheDetailsOfOutcomeTextareaMaxLength(string maxLength)
         {
             Assert.True(_reportNonCompliancePage?.VerifyMaxLengthOfDetailsOfOutcomeTextarea(maxLength), "The Details of Outcome textarea maxlength is not "+ maxLength);
+        }
+
+        [Then(@"I should see '([^']*)' subheading under '([^']*)' section")]
+        public void ThenIShouldSeeSubheadingUnderSection(string subHeading, string sectionName)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerSubheading(subHeading, sectionName), "Type of passenger subheading under Passenger details section is not displayed properly");
+        }
+
+        [Then(@"I should see the '([^']*)' subheading")]
+        public void ThenIShouldSeeTheSubheading(string subHeading)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyVisualCheckSubheading(subHeading), "Visual check subheading is not displayed");
+        }
+        [Then(@"I should click '([^']*)' link next to the subheading")]
+        public void ThenIShouldClickLinkNextToTheSubheading(string linkName)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyPetDetailsFromPTDLink(linkName), "Pet details from PTD link is not displayed");
+        }
+        [Then(@"I should see a checkbox '([^']*)' is not selected")]
+        public void ThenIShouldSeeACheckboxIsNotSelected(string checkBoxValue)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyPetDoesNotMatchThePTDCheckBox(checkBoxValue), "Pet does not match the PTD check box is not displayed or selected by default");
+        }
+        [Then(@"I should see a table '([^']*)'")]
+        public void ThenIShouldSeeATable(string tableName)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyVisualCheckTableName(tableName), "Visual check table name is not displayed properly");
+        }
+        [Then(@"I should see Species '([^']*)' Breed '([^']*)' Sex '([^']*)' Date of birth '([^']*)' Colour '([^']*)' and Significant features '([^']*)' in the table")]
+        public void ThenIShouldSeeSpeciesBreedSexDateOfBirthColourSignificantFeaturesInTheTable(string species, string breed, string sex, string dob, string colour, string significantFeature)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyVisualCheckTableFields(species, breed, sex, dob, colour, significantFeature), "Field values in Visual check table are not displayed properly");
+        }
+        [Then(@"I should see the '([^']*)' subheading in visual check section")]
+        public void ThenIShouldSeeTheSubheadingInVisualCheckSection(string subHeading)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyOtherIssuesSubheading(subHeading), "Other issues subheading in Visual check section is not displayed");
+        }
+        [Then(@"I verify the other issues '(.*)' checkboxes")]
+        public void ThenIVerifyTheOtherIssuesCheckboxes(string checkboxOptions)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyOtherIssuesCheckboxes(checkboxOptions), "The other issues in Visual check section checkbox values are not correct");
+        }
+        [Then(@"I should see a hint '([^']*)' next to Other reason option")]
+        public void ThenIShouldSeeAHintNextToOtherReasonOption(string hint)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyOtherReasonOptionHint(hint), "Other reason checkbox hint is not displayed");
+        }
+        [Then(@"I should see no checkboxes are selected in other issues section")]
+        public void ThenIShouldSeeNoCheckBoxesAreSelectedInOtherIssuesSection()
+        {
+            Assert.False(_reportNonCompliancePage?.VerifyOtherIssuesCheckboxesAreNotChecked());
         }
     }
 }

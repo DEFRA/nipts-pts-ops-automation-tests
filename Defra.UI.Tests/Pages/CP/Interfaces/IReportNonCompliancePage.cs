@@ -21,5 +21,15 @@
         bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName);
         bool VerifyGBCheckboxesAreNotChecked();
         bool VerifySPSCheckboxesAreNotChecked();
+        bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName);
+        bool VerifyVisualCheckSubheading(string subHeading);
+        bool VerifyPetDetailsFromPTDLink(string linkName);
+        bool VerifyPetDoesNotMatchThePTDCheckBox(string checkboxValue);
+        bool VerifyVisualCheckTableName(string tableName);
+        bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature);
+        bool VerifyOtherIssuesSubheading(string subHeading);
+        bool VerifyOtherIssuesCheckboxes(string checkboxOptions);
+        bool VerifyOtherReasonOptionHint(string hint);
+        bool VerifyOtherIssuesCheckboxesAreNotChecked();
     }
 }

@@ -123,6 +123,7 @@ Scenario Outline: Verify passenger details section radio buttons in Report non-c
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
+	Then I should see 'Type of passenger' subheading under 'Passenger details' section
 	And I click '<TypeOfPassenger>' in Passenger details
 	When I click Report non-compliance button from Report non-compliance page
 	Then I should navigate to Checks page
@@ -314,3 +315,76 @@ Scenario: Verify the Details of outcome textarea accepts only 500 characters
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I verify the Details of Outcome textarea maximum length is '500'
+
+Scenario: Verify Visual check subheading and pet details from PTD dropdown in Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	Then I should see the 'Visual check' subheading 
+	And I should click 'Pet details from PTD' link next to the subheading
+
+Scenario: Verify the check box in Visual check section of Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	Then I should see the 'Visual check' subheading 
+	And I should see a checkbox 'Pet does not match the PTD' is not selected
+
+Scenario: Verify Other issues check boxes in Visual check section of Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	Then I should see the 'Visual check' subheading 
+	And I should see the 'Other issues' subheading in visual check section
+	Then I verify the other issues 'Potential commercial movement|Authorised traveller but no confirmation|Other reason' checkboxes
+	And I should see a hint 'This could be about the PTD or any risks identified.' next to Other reason option
+	Then I should see no checkboxes are selected in other issues section
+
+Scenario: Verify Visual check Pet details from PTD dropdown table in Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	Then I should see the 'Visual check' subheading 
+	And I should click 'Pet details from PTD' link next to the subheading
+	Then I should see a table 'Pet details from PTD or application'
+	And I should see Species 'Dog' Breed 'Afghan Hound' Sex 'Male' Date of birth '07/10/2018' Colour 'Brown, tan or chocolate' and Significant features 'No' in the table
