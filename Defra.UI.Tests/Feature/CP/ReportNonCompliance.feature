@@ -123,6 +123,9 @@ Scenario Outline: Verify passenger details section radio buttons in Report non-c
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
+	When I Click on Back button
+	And I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
 	Then I should see 'Type of passenger' subheading under 'Passenger details' section
 	And I click '<TypeOfPassenger>' in Passenger details
 	When I click Report non-compliance button from Report non-compliance page
@@ -207,7 +210,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page - Await
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Reasons' heading with hint 'Select all that apply.'
 
-Scenario: Verify Reasons heading with hint in Report non compliance page
+Scenario: Verify Reasons and Any Relavant comments heading with hint in Report non compliance page
 	Then I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '12:10'
@@ -221,6 +224,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Reasons' heading with hint 'Select all that apply.'
+	And I verify any relavant comments section
 
 Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |

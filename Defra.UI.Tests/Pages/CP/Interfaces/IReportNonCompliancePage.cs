@@ -21,6 +21,7 @@
         bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName);
         bool VerifyGBCheckboxesAreNotChecked();
         bool VerifySPSCheckboxesAreNotChecked();
+        bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength);
         bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName);
         bool VerifyVisualCheckSubheading(string subHeading);
         bool VerifyPetDetailsFromPTDLink(string linkName);
