@@ -139,26 +139,3 @@ Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful |
 	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Revoked      |
-
-Scenario: Verify the Reference number table 
-	Then I have selected '<Transportation>' radio option
-	Then I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time '14:00'
-	When I click save and continue button from route checker page
-	Then I should navigate to Checks page
-	When I click search button from footer
-	Then I navigate to Find a document page
-	And I provided the '<PTDNumber>' of the application
-	When I click search button
-	And I should see the application status in '<Status>'
-	Then I verify the Reference number table for '<Status>' application
-
-Examples:
-	| Transportation | FerryRoute                    | PTDNumber | Status				 |
-	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful			 |
-	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Awaiting verification |
-	| Ferry          | Birkenhead to Belfast (Stena) | 457380    | Revoked				 |
-	| Ferry          | Birkenhead to Belfast (Stena) | 586B06    | Approved				 |
-
-
-
