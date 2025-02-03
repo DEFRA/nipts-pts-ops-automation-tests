@@ -117,7 +117,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 return (lblDocCardHeading.Text.Equals("Issued") && lblRefNumber.Text.Equals("PTD number") && lblDate.Text.Equals("Date"));
             }
             return value;
-        }public bool VerifyIssuingAuthorityTable(string status)
+        }
+        
+        public bool VerifyIssuingAuthorityTable(string status)
         {
             if (status.Equals("Approved") || status.Equals("Unsuccessful") || status.Equals("Revoked"))
             {
@@ -133,13 +135,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             return lblMCInfo.Text.Equals("Microchip information") && lblMCNumber.Text.Equals("Microchip number") && lblMCImplantDate.Text.Equals("Implant or scan date");
         }
+
         public bool VerifyPetDetailsTable(string species)
         {
             if(species.Equals("Ferret"))
-                return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features");
+                return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features") && _driver.FindElements(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Breed']")).Count.Equals(0);
             else
-                return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features");
-        } // && lblBreed.Text.Equals("Breed")
+                return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblBreed.Text.Equals("Breed") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features");
+        } 
+
         public bool VerifyPetOwnerDetailsTable()
         {
             return lblPetOwnerDetails.Text.Equals("Pet owner details") && lblName.Text.Equals("Name") && lblEmail.Text.Equals("Email") && lblAddress.Text.Equals("Address") && lblPhoneNumber.Text.Equals("Phone number");
