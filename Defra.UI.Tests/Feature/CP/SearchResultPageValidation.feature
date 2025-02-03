@@ -9,7 +9,7 @@ Background:
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
 
-Scenario: Verify the application summary tables in search result page 
+Scenario Outline: Verify the application summary tables in search result page 
 	Then I have selected '<Transportation>' radio option
 	Then I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '14:00'
