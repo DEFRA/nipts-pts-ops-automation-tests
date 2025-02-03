@@ -62,5 +62,29 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_applicationSummaryPage?.VerifyReferenceNumberTable(Status));
         }
+        
+        [Then(@"I verify the Issuing Authority table for '([^']*)' application")]
+        public void ThenIVerifyTheIssuingAuthorityTable(String Status)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyIssuingAuthorityTable(Status));
+        }
+
+        [Then(@"I verify the Microchip Information table in Search result page")]
+        public void ThenIVerifyTheMCInfoTable()
+        {
+            Assert.True(_applicationSummaryPage?.VerifyMicrochipInformationTable());
+        }
+
+        [Then(@"I verify the Pet Details table for '(.*)' in Search result page")]
+        public void ThenIVerifyThePetDetailsTable(String Species)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyPetDetailsTable(Species));
+        }
+
+        [Then(@"I verify the Pet Owner Details table in Search result page")]
+        public void ThenIVerifyThePetOwnerDetailsTable()
+        {
+            Assert.True(_applicationSummaryPage?.VerifyPetOwnerDetailsTable());
+        }
     }
 }
