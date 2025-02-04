@@ -16,7 +16,6 @@ namespace Defra.UI.Tests.Configuration
         public bool IsEmulationEnabled { get; set; }
         public string EmulateDeviceInfo { get; set; }
         public string BSBrowserVersion { get; set; }
-        public bool IsAccessibilityTesting { get; set; }
         public string EnvAPLogin { get; set; }
         public string EnvCPLogin { get; set; }
     }

@@ -10,7 +10,7 @@ Background:
 	Then I should redirected to the Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 	
-Scenario Outline: Create PETS Travel Document for PETS with or without Significante Features
+Scenario Outline: Create PETS Travel Document for PETS with or without Significant Features
 	Then I should navigate to Lifelong pet travel documents page
 	When I click Apply for a document button
 	Then I should navigate to the Pets Owner details correct page

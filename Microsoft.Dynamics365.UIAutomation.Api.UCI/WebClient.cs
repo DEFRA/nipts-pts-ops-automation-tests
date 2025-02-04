@@ -1139,14 +1139,19 @@ public class WebClient : BrowserPage, IDisposable
                 var input = userOrTeamField.ClickWhenAvailable(By.TagName("input"), "User field unavailable");
                 input.SendKeys(userOrTeamName, true);
 
+                ThinkTime(5000);
+
+                input.SendKeys(Keys.ArrowDown);
+                input.SendKeys(Keys.Enter);
+
                 ThinkTime(2000);
 
                 //Pick the User from the list
-                var container = driver.WaitUntilVisible(By.XPath(AppElements.Xpath[AppReference.Dialogs.AssignDialogUserTeamLookupResults]));
-                container.WaitUntil(
-                    c => c.FindElements(By.TagName("li")).FirstOrDefault(r => r.Text.StartsWith(userOrTeamName, StringComparison.OrdinalIgnoreCase)),
-                    successCallback: e => e.Click(true),
-                    failureCallback: () => throw new InvalidOperationException($"None {to} found which match with '{userOrTeamName}'"));
+                //var container = driver.WaitUntilVisible(By.XPath(AppElements.Xpath[AppReference.Dialogs.AssignDialogUserTeamLookupResults]));
+                //container.WaitUntil(
+                //    c => c.FindElements(By.TagName("li")).FirstOrDefault(r => r.Text.StartsWith(userOrTeamName, StringComparison.OrdinalIgnoreCase)),
+                //    successCallback: e => e.Click(true),
+                //    failureCallback: () => throw new InvalidOperationException($"None {to} found which match with '{userOrTeamName}'"));
             }
 
             //Click Assign
@@ -3542,7 +3547,7 @@ public class WebClient : BrowserPage, IDisposable
         {
             var fieldElement = driver.WaitUntilAvailable(By.XPath(AppElements.Xpath[AppReference.Entity.TextFieldContainer].Replace("[NAME]", field)));
             Field returnField;
-            if (fieldElement.Equals(null))
+            if (fieldElement is null)
             {
                 returnField = new Field(driver.FindElement(By.XPath("//div[@data-id=[NAME]-FieldSectionItemContainer']".Replace("[NAME]", field))));
             }

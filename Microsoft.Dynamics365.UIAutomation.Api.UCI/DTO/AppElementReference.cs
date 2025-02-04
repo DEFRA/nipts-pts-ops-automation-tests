@@ -435,8 +435,7 @@ public static class AppElements
         { "Grid_FilterByAll"       , "//*[@id=\"All_link\"]"},
         { "Grid_RowsContainerCheckbox"  ,   "//div[@role='checkbox']" },
         { "Grid_RowsContainer"       , "//div[contains(@role,'grid')]"},
-        //{ "Grid_Rows"           , "//div[@ref='centerContainer']//div[@role='rowgroup']//div[contains(@role,'row')]"},
-        { "Grid_Rows"           , "//div[@class='ag-center-cols-clipper']//div[@role='rowgroup']//div[contains(@role,'row')]"},
+        { "Grid_Rows"           , "//div[@class='ag-center-cols-viewport']//div[@role='rowgroup']//div[contains(@role,'row')]"},
         { "Grid_Row"           , "//div[@data-id='entity_control-pcf_grid_control_container']//div[@ref='centerContainer']//div[@role='rowgroup']//div[@row-index=\'[INDEX]\']"},
         { "Grid_LastRow"           , "//div[@data-id='entity_control-pcf_grid_control_container']//div[@ref='centerContainer']//div[@role='rowgroup']//div[contains(@class, 'ag last-row')]"},
         { "Grid_Control", "//div[contains(@data-lp-id, 'MscrmControls.Grid.PCFGridControl')]" },
@@ -638,7 +637,7 @@ public static class AppElements
 
         //Dialogs
         { "AssignDialog_ToggleField" , "//label[contains(@data-id,'rdoMe_id.fieldControl-checkbox-inner-first')]" },
-        { "AssignDialog_UserTeamLookupResults" , "//ul[contains(@data-id,'systemuserview_id.fieldControl-LookupResultsDropdown_systemuserview_id_tab')]" },
+        { "AssignDialog_UserTeamLookupResults" , "//ul[contains(@data-id,'systemuserview_id.fieldControl-LookupResultsPopup_systemuserview_id_tab')]" },
         { "AssignDialog_OKButton" , "//button[contains(@data-id, 'ok_id')]" },
         { "CloseOpportunityDialog_OKButton" , "//button[contains(@data-id, 'ok_id')]" },
         { "CloseOpportunityDialog_CancelButton" , "//button[contains(@data-id, 'cancel_id')]" },

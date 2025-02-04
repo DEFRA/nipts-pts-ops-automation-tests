@@ -1,10 +1,9 @@
 ﻿using BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Tools;
-using Defra.UI.Tests.Pages.CP.Interfaces;
-using SeleniumExtras.WaitHelpers;
 using Defra.UI.Tests.Configuration;
-using Defra.UI.Framework.Driver;
+using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
+using SeleniumExtras.WaitHelpers;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -27,9 +26,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement SignIn => _driver.WaitForElement(By.Id("continue"));
         private IWebElement txtLoging => _driver.WaitForElement(By.XPath("//input[@id='password']"));
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[normalize-space()='Continue']"));
+        private IWebElement lblTitle => _driver.WaitForElement(By.XPath("//h1"));
         #endregion
 
         #region Methods
+        public bool VerifyHeadings(string heading, string subHeading)
+        {
+            var applicationTitle = lblTitle.Text;
+            var headings = applicationTitle.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            var mainHeading = $"{headings[1]} {headings[2]}";
+
+            return headings[0].Equals(subHeading) && mainHeading.Equals(heading);
+        }
+
         public void ClickSignInButton()
         {
             btnSignIn.Click();

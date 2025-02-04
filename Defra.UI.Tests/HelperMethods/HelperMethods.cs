@@ -60,11 +60,11 @@ namespace Defra.UI.Tests.HelperMethods
             IWebElement? continueLabel = null;
             try
             {
-                continueLabel = driver.WaitForElement(By.XPath("//button[normalize-space(text())='Continue']"), true);
+                continueLabel = driver.FindElement(By.XPath("//button[normalize-space(text())='Continue']"));
             }
             catch
             {
-                continueLabel = driver.FindElement(By.ClassName("//button[normalize-space(text())='Continue']"));
+                continueLabel = driver.WaitForElement(By.XPath("//button[normalize-space(text())='Continue']"), true);
             }
 
             continueLabel.Click();

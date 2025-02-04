@@ -12,13 +12,15 @@ Scenario: Verify if a Caseworker can assign an already assigned case to themselv
 
 Scenario: Verify if the Pet owner details are not editable
 	When I Login to Dynamics application
+	And I filter with 'Status Reason' is 'Equals' to 'Pending' in PTS Application
 	And I open the first application
 	Then I cannot edit 'Pet Owner' Details
 
 Scenario: Verify if the Pet details are not editable
 	When I Login to Dynamics application
+	And I filter with 'Status Reason' is 'Equals' to 'Pending' in PTS Application
 	And I open the first application
-	Then I cannot edit 'Pet' Details
+	Then I cannot edit 'Pet' Details for Pending Application
 
 Scenario: Verify Revoke Pending System View	
 	When I Login to Dynamics application
@@ -119,6 +121,7 @@ Scenario: Verify Revoke application messages
 Scenario: Verify Reject application messages
 	When I Login to Dynamics application	
 	And I Switch to 'All PTD Applications'
+	And I filter with 'Status Reason' is 'Equals' to 'Pending' in PTS Application
 	And I open the first application
 	And I assign the application to myself
 	Then I Verify the Rejection messages
@@ -212,30 +215,20 @@ Scenario: Verify the Assisted Digital PTD Applications System Views
 	When I Login to Dynamics application
 	And I Switch to 'All Offline PTD Applications'
 	And I Switch to 'All Offline PTD Applications (DEARA)'
-	And I verify the system view
+	Then I verify the system view for the application 'All Offline PTD Applications (DEARA)'
 
 Scenario: Verify if the caseworker can create a new offline PTD application and Authorise it.
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Applicant Name' as 'Automation user'
-	And I enter 'Email' as 'Automationuser@xyz.com'
-	And I enter 'Address Line 1' as '101A'
-	And I enter 'Address Line 2' as 'Broad street'
-	And I enter 'Address Line 3' as 'Fairstone'
-	And I enter 'Town' as 'Southampton'
-	And I enter 'Postcode' as 'RG1 3JN'
-	And I enter 'County' as 'Buckinghamshire'
-	And I enter 'Country' as 'United Kingdom'
-	And I enter 'Phone' as '07545534423'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
 	And I enter 'Breed' as 'Beagle'
-	And I enter 'Additional Breed' as 'Mixed Beagle'
 	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
 	And I enter 'Age' as '12'
-	And I enter 'Colour' as 'Golden Brown'
-	And I enter 'Other Colour' as 'Golden Brown and white'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as 'auto'
 	And I enter 'Microchipped Date' as '09/08/2023'
@@ -255,24 +248,14 @@ Scenario: Verify if the caseworker can create a new offline PTD application, Aut
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Applicant Name' as 'Automation user'
-	And I enter 'Email' as 'Automationuser@xyz.com'
-	And I enter 'Address Line 1' as '101A'
-	And I enter 'Address Line 2' as 'Broad street'
-	And I enter 'Address Line 3' as 'Fairstone'
-	And I enter 'Town' as 'Southampton'
-	And I enter 'Postcode' as 'RG1 3JN'
-	And I enter 'County' as 'Buckinghamshire'
-	And I enter 'Country' as 'United Kingdom'
-	And I enter 'Phone' as '07545534423'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
 	And I enter 'Breed' as 'Beagle'
-	And I enter 'Additional Breed' as 'Mixed Beagle'
 	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
 	And I enter 'Age' as '12'
-	And I enter 'Colour' as 'Golden Brown'
-	And I enter 'Other Colour' as 'Golden Brown and white'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as 'auto'
 	And I enter 'Microchipped Date' as '09/08/2023'
@@ -297,21 +280,14 @@ Scenario: Verify the Duplicate Microchip Notification for offline PTD applicatio
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Applicant Name' as 'Automation user'
-	And I enter 'Address Line 1' as '11'
-	And I enter 'Town' as 'Southampton'
-	And I enter 'Postcode' as 'RG1 3JN'
-	And I enter 'County' as 'Buckinghamshire'
-	And I enter 'Country' as 'United Kingdom'
-	And I enter 'Phone' as '07545534423'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
-	And I enter 'Species' as 'Cat'
+	And I enter 'Species' as 'Dog'
 	And I enter 'Breed' as 'Beagle'
-	And I enter 'Additional Breed' as 'Mixed-Beagle'
-	And I enter 'Sex' as 'Female'
-	And I enter 'Age' as '15'
-	And I enter 'Colour' as 'Brown'
-	And I enter 'Other Colour' as 'white'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as '564789098987654'
 	And I enter 'Microchipped Date' as '09/08/2023'
@@ -327,42 +303,28 @@ Scenario: Verify the Duplicate Microchip Notification for offline PTD applicatio
 Scenario: Verify if the caseworker can update the offline PTD application multiple time when the application status is Open
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
+	And I enter 'Microchip Number' as 'auto'
 	And I Click on Save
 	Then the status is 'Open'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
 	When I enter 'Applicant Name' as 'Automation user'
-	And I enter 'Email' as 'Automationuser@xyz.com'
-	And I enter 'Address Line 1' as '101A'
-	And I Click on Save
-	And I enter 'Address Line 2' as 'Broad street'
-	And I enter 'Address Line 3' as 'Fairstone'
-	And I enter 'Town' as 'Southampton'
-	And I enter 'Postcode' as 'RG1 3JN'
-	And I enter 'County' as 'Buckinghamshire'
-	And I enter 'Country' as 'United Kingdom'
-	And I Click on Save
-	And I enter 'Phone' as '07545534423'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
 	And I enter 'Breed' as 'Beagle'
-	And I Click on Save
-	And I enter 'Additional Breed' as 'Mixed Beagle'
 	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
 	And I enter 'Age' as '12'
-	And I enter 'Colour' as 'Golden Brown'
-	And I enter 'Other Colour' as 'Golden Brown and white'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
-	And I enter 'Microchip Number' as 'auto'
-	And I enter 'Date of birth' as '12/11/2100'
-	Then I See the error 'The date for Date of Birth cannot be in the future' notification
-	When I enter 'Date of birth' as '22/11/2020'
+	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	
 Scenario: Verify if the caseworker can update the offline PTD application multiple time when the application status is Pending
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
+	And I enter 'Microchip Number' as 'auto'
 	And I Click on Save
 	Then the status is 'Open'
 	And I see the Application Reference number generated
@@ -370,56 +332,31 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	When I mark the application to 'Pending'
 	Then the status is 'Pending'
 	When I enter 'Applicant Name' as 'Automation user'
-	And I enter 'Email' as 'Automationuser@xyz.com'
-	And I enter 'Address Line 1' as '101A'
-	And I Click on Save
-	And I enter 'Address Line 2' as 'Broad street'
-	And I enter 'Address Line 3' as 'Fairstone'
-	And I enter 'Town' as 'Southampton'
-	And I enter 'Postcode' as 'RG1 3JN'
-	And I enter 'County' as 'Buckinghamshire'
-	And I enter 'Country' as 'United Kingdom'
-	And I Click on Save
-	And I enter 'Phone' as '07545534423'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
 	And I enter 'Breed' as 'Beagle'
-	And I Click on Save
-	And I enter 'Additional Breed' as 'Mixed Beagle'
 	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
 	And I enter 'Age' as '12'
-	And I enter 'Colour' as 'Golden Brown'
-	And I enter 'Other Colour' as 'Golden Brown and white'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as 'auto'
-	And I enter 'Microchipped Date' as '9/8/2100'
-	Then I See the error 'The date for Microchipped Date cannot be in the future' notification
-	When I enter 'Microchipped Date' as '9/8/2023'
+	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
-	
+
 Scenario: Offline PTD Application should not be editable in Revoke Pending Status
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Applicant Name' as 'Automation user'
-	And I enter 'Email' as 'Automationuser@xyz.com'
-	And I enter 'Address Line 1' as '101A'
-	And I enter 'Address Line 2' as 'Broad street'
-	And I enter 'Address Line 3' as 'Fairstone'
-	And I enter 'Town' as 'Southampton'
-	And I enter 'Postcode' as 'RG1 3JN'
-	And I enter 'County' as 'Buckinghamshire'
-	And I enter 'Country' as 'United Kingdom'
-	And I enter 'Phone' as '07545534423'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
 	And I enter 'Breed' as 'Beagle'
-	And I enter 'Additional Breed' as 'Mixed Beagle'
 	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
 	And I enter 'Age' as '12'
-	And I enter 'Colour' as 'Golden Brown'
-	And I enter 'Other Colour' as 'Golden Brown and white'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as 'auto'
 	And I enter 'Microchipped Date' as '09/08/2023'

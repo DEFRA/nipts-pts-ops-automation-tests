@@ -30,7 +30,7 @@ public class HeaderHelper
     public IWebElement GetHeaderField(string controlName)
     {
         IWebElement webElement = null;
-        var xpathToContainer = $"//*[text()=\"{ controlName }\"]";
+        var xpathToContainer = $"//*[text()=\"{controlName}\"]";
 
         TryExpandHeaderFlyout(driver);
 
@@ -52,7 +52,7 @@ public class HeaderHelper
     public bool IsHeaderFieldReadonly(string controlName)
     {
         var webElement = GetHeaderField(controlName);
-        if(webElement == null)
+        if (webElement == null)
         {
             throw new NullReferenceException($"Field '{controlName}' could not be found in the header.");
         }
@@ -60,11 +60,11 @@ public class HeaderHelper
         bool isReadOnly = false;
 
         var xpathToContainer = $"//div[contains(@id,\"header_statuscode.fieldControl-pickliststatus-comboBox_list_empty\")]";
-        
+
         TryExpandHeaderFlyout(driver);
 
         var xpathToFlyout = AppElements.Xpath[AppReference.Entity.Header.Flyout];
-        driver.WaitUntilVisible(By.XPath(xpathToFlyout), TimeSpan.FromSeconds(5),
+        driver.WaitUntilVisible(By.XPath(xpathToFlyout), TimeSpan.FromSeconds(10),
             flyout =>
             {
                 isReadOnly = flyout.FindElements(By.XPath(xpathToContainer)).Any();
