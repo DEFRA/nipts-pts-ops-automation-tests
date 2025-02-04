@@ -54,7 +54,7 @@ stages:
   - stage: Windows_Chrome_latest
     displayName: Windows_Chrome_latest    
     variables:
-        - template: 'variables/${{ parameters.environment }}.yml'
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
   
     jobs:
     - template: run-test-template.yml

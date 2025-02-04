@@ -54,7 +54,7 @@ stages:
   - stage: OSX_Sequoia_Safari
     displayName: Sequoia_Safari
     variables:
-        - template: 'variables/${{ parameters.environment }}.yml'
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
   
     jobs:
     - template: run-test-template.yml
