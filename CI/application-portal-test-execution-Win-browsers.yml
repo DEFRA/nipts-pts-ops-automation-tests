@@ -7,7 +7,7 @@ parameters:
     default: 'refs/heads/dev'
   - name: environment
     type: string
-    default: 'tst'
+    default: 'pre'
   - name: workers
     displayName: Number of Workers
     type: string
@@ -43,10 +43,11 @@ parameters:
 
 resources:
   repositories:
-    - repository: PetsAutomationRepo
-      type: git
-      name: DEFRA-PET-TRAVEL/Defra.PTS.AutomationTests
+    - repository: niptsopsprovingrepo
+      type: github
+      name: DEFRA/nipts-pts-ops-automation-tests
       ref: $(Build.SourceBranch)
+      endpoint: DEFRA
 
 stages:
   
