@@ -58,7 +58,7 @@ jobs:
     - name: FilterTestCases
       ${{ if eq(parameters.filterTestCases, '') }}:
         value: $(FilterTestCategory)
-      else:
+      ${{ else }}:
         value: ${{parameters.filterTestCases}}
   steps:
   
