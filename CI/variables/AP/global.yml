@@ -17,8 +17,6 @@ parameters:
     type: string
   - name: emulateDeviceInfo
     type: string
-  - name: isAccessibilityTesting
-    type: string
   - name: idcomsPassword
     type: string
 
@@ -34,5 +32,4 @@ variables:
   Target: ${{ parameters.target }}
   IsEmulationEnabled: ${{ parameters.isEmulationEnabled }}
   EmulateDeviceInfo: ${{ parameters.emulateDeviceInfo }}  
-  IsAccessibilityTesting:  ${{ parameters.isAccessibilityTesting }}
   IDCOMSPassword: ${{ parameters.idcomsPassword }}

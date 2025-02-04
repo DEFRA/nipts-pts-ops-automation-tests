@@ -33,6 +33,7 @@ namespace Defra.UI.Tests.Steps.CP
             var url = urlBuilder.Default().BuildCom();
             _driver?.Navigate().GoToUrl(url);
         }
+
         [Then(@"I Verify the Access Start Page Content")]
         public void ThenIVerifyTheAccessStartPageContent()
         {

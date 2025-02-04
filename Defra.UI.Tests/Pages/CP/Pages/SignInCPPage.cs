@@ -2,9 +2,9 @@
 using OpenQA.Selenium;
 using Defra.UI.Tests.Tools;
 using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
-using Defra.UI.Tests.Configuration;
-using Defra.UI.Framework.Driver;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -33,14 +33,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool VerifyHeadings(string heading, string subHeading)
         {
-            String applicationTitle = lblTitle.Text;
-            String[] headings = applicationTitle.Replace("\r\n", "*").Split('*',2);
-            String MainHeading = headings[1].Replace("*", " ");
-            if (headings[0].Equals(subHeading) && MainHeading.Equals(heading))
-            {
-                return true;
-            }
-            return false;
+            var applicationTitle = lblTitle.Text;
+            var headings = applicationTitle.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            var mainHeading = $"{headings[1]} {headings[2]}";
+
+            return headings[0].Equals(subHeading) && mainHeading.Equals(heading);
         }
 
         public void ClickSignInButton()

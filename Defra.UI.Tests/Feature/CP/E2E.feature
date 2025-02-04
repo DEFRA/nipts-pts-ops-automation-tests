@@ -12,6 +12,7 @@ Background:
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page
 
+@CPRegression
 Scenario Outline: Check PETS Travel Document details By PTD number - status in Approved
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -73,7 +74,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '17:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -146,7 +147,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '11:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -154,7 +155,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I click search by '<ApplicationRadio>' radio button
 	And I provided the Reference number of the application
 	When I click search button
-	And I should see the application status in 'Approved'
+	And I should see the application status in 'Approved'	
 	
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               |  ApplicationRadio             |
@@ -218,7 +219,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '17:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -292,7 +293,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in R
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -360,7 +361,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '14:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Welcome page
 	When I click search button from footer
@@ -429,7 +430,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in U
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '16:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -502,7 +503,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '01:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -575,7 +576,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -645,7 +646,7 @@ Examples:
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '21:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -709,7 +710,7 @@ Scenario Outline: Check PETS Travel Document details By Reference number - statu
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '12:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -774,7 +775,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '11:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -787,7 +788,7 @@ Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio			    |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number |
 
-@CPRegression
+
 Scenario Outline: Check PETS Travel Document details By Microchip number - status in Pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -837,7 +838,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then I should redirected to port route checker page
 	And I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time
+	And I have provided Scheduled departure time '10:50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer

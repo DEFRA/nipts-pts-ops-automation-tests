@@ -1,0 +1,8 @@
+variables:
+ Environment: 'tst'
+ EnvCPLogin: 'RpEpGk13QYA8TKHaKZeRFmu7WSdMOhVk'      
+ FilterTestCategory : 'TestCategory=CPRegression'
+ IDCOMSUrl: 'https://defra-trade-plants-tst.crm4.dynamics.com'
+ IDCOMSUser: ''
+ IDOMSUserAlias: ''
+ SecretsFilter: 'PetsIDCOMSAutomation'
