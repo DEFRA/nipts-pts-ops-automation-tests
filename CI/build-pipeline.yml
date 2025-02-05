@@ -13,12 +13,9 @@ variables:
 
 steps:
 
-  - task: Cache@2
-    displayName: 'Clear Cache'
-    inputs:
-      key: 'nuget | "$(Agent.OS)" | **/packages.lock.json,!**/bin/**,!**/obj/**'
-      path: '$(Pipeline.Workspace)/.nuget/packages'
-      cacheHitVar: 'CACHE_RESTORED' 
+  - script: |
+        dotnet nuget locals all --clear
+    displayName: 'Clear NuGet Cache'
 
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
