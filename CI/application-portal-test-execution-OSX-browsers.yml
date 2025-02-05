@@ -72,7 +72,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'AP'
-        filterTestCases: 'APCrossBrowser'
+        filterTestCases: 'TestCategory=APCrossBrowser'
 
   - stage: OSX_Sonama_Safari
     displayName: Sonama_Safari
@@ -94,7 +94,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'AP'
-        filterTestCases: 'APCrossBrowser'
+        filterTestCases: 'TestCategory=APCrossBrowser'
 
   - stage: OSX_Sonama_Firefox
     displayName: Sonama_Firefox
@@ -116,7 +116,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'AP'
-        filterTestCases: 'APCrossBrowser'
+        filterTestCases: 'TestCategory=APCrossBrowser'
 
   - stage: OSX_Sonama_Chrome
     displayName: Sonama_Chrome
@@ -138,4 +138,4 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'AP'
-        filterTestCases: 'APCrossBrowser'
+        filterTestCases: 'TestCategory=APCrossBrowser'

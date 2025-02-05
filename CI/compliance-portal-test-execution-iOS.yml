@@ -55,7 +55,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPhoneXS_Safari
     displayName: iPhoneXS_Safari
@@ -77,7 +77,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPhoneXR_Chromium
     displayName: iPhoneXR_Chromium
@@ -99,7 +99,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPhone11_Chromium
     displayName: iPhone11_Chromium
@@ -121,7 +121,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPhone15_Safari
     displayName: iPhone15_Safari
@@ -143,7 +143,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPhone15_Chromium
     displayName: iPhone15_Chromium
@@ -165,7 +165,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPhone14_Safari
     displayName: iPhone14_Safari
@@ -187,7 +187,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPhone14_Chromium
     displayName: iPhone14_Chromium
@@ -209,7 +209,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPad12_Safari
     displayName: iPad12_Safari
@@ -231,7 +231,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPad12_Chromium
     displayName: iPad12_Chromium
@@ -253,4 +253,4 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
