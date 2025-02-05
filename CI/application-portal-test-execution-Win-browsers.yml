@@ -72,7 +72,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         application: 'AP'
         dependsOn: ''
-        filterTestCases: 'APCrossBrowser'
+        filterTestCases: 'TestCategory=APCrossBrowser'
 
   - stage: Windows_Edge
     displayName: Windows_Edge
@@ -94,7 +94,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         application: 'AP'
         dependsOn: ''
-        filterTestCases: 'APCrossBrowser'
+        filterTestCases: 'TestCategory=APCrossBrowser'
 
   - stage: Windows_Firefox
     displayName: Windows_Firefox
@@ -116,4 +116,4 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         application: 'AP'
         dependsOn: ''
-        filterTestCases: 'APCrossBrowser'
+        filterTestCases: 'TestCategory=APCrossBrowser'

@@ -55,7 +55,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: Android_SamsungGalaxyS23_SamsungInternet
     displayName: SamsungGalaxyS23_SamsungInternet
@@ -77,7 +77,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: Android_SamsungGalaxyTabS9_Chrome
     displayName: SamsungGalaxyTabS9_Chrome
@@ -99,7 +99,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: Android_SamsungGalaxyTabS9_SamsungInternet
     displayName: SamsungGalaxyTabS9_SamsungInternet
@@ -121,7 +121,7 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: Android_OnePlus11R_Chrome
     displayName: OnePlus11R_Chrome
@@ -143,4 +143,4 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowser'

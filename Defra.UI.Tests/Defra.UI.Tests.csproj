@@ -25,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Accessibility\DogAndCat.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\E2E\DogAndCat - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\CP\Accessibility\Check-OutCome.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\IDCOMS\IdcomsRegression - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\UAT\SUS\CompleteRegistration.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\Update Microchip Information - Copy.feature.cs" />
@@ -119,8 +121,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Feature\AP\Accessibility\APAccessibility.feature.cs">
+      <DependentUpon>APAccessibility.feature</DependentUpon>
+    </Compile>
     <Compile Update="Feature\AP\E2E\Ferret.feature.cs">
       <DependentUpon>Ferret.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\Accessibility\CPAccessibility.feature.cs">
+      <DependentUpon>CPAccessibility.feature</DependentUpon>
     </Compile>
     <Compile Update="Feature\CP\Check-OutCome.feature.cs">
       <DependentUpon>Check-Outcome.feature</DependentUpon>
@@ -155,7 +163,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Feature\AP\Accessibility\APAccessibility.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Feature\AP\E2E\Ferret.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\CP\Accessibility\CPAccessibility.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
