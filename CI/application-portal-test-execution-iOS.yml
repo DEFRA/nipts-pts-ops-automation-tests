@@ -1,0 +1,256 @@
+trigger: none
+
+parameters:
+  - name: branchName
+    displayName: Branch Name
+    type: string
+    default: 'refs/heads/dev'
+  - name: environment
+    type: string
+    default: 'pre'
+  - name: workers
+    displayName: Number of Workers
+    type: string
+    default: '10'
+  - name: seleniumGrid
+    displayName: Selenium Grid URL
+    type: string
+    default: 'https://hub.browserstack.com/wd/hub/'
+  - name: isEmulationEnabled
+    displayName: Enable Emulation
+    type: string
+    default: 'false'
+  - name: emulateDeviceInfo
+    displayName: Emulated Device Info
+    type: string
+    default: 'iPhone 12 Pro'
+
+resources:
+  repositories:
+    - repository: niptsopsprovingrepo
+      type: github
+      name: DEFRA/nipts-pts-ops-automation-tests
+      ref: $(Build.SourceBranch)
+      endpoint: DEFRA
+
+stages:
+  
+  - stage: iOS_iPhoneXR_Safari
+    displayName: iPhoneXR_Safari
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPhoneXR_Safari
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPhone XR'
+        bsOSVersion: '15'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '15.1'
+        target: 'safari'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
+
+  - stage: iOS_iPhoneXS_Safari
+    displayName: iPhoneXS_Safari
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPhoneXS_Safari
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPhone XS'
+        bsOSVersion: '12'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '12.1'
+        target: 'safari'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
+
+  - stage: iOS_iPhoneXR_Chromium
+    displayName: iPhoneXR_Chromium
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPhoneXR_Chromium
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPhone XR'
+        bsOSVersion: '15'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '15.1'
+        target: 'chromium'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
+
+  - stage: iOS_iPhone11_Chromium
+    displayName: iPhone11_Chromium
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPhone11_Chromium
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPhone XR'
+        bsOSVersion: '14'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '14.1'
+        target: 'chromium'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
+
+  - stage: iOS_iPhone15_Safari
+    displayName: iPhone15_Safari
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPhone15_Safari
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPhone 15'
+        bsOSVersion: '17'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '17.1'
+        target: 'safari'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
+
+  - stage: iOS_iPhone15_Chromium
+    displayName: iPhone15_Chromium
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPhone15_Chromium
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPhone 15'
+        bsOSVersion: '17'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '17.1'
+        target: 'chromium'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
+
+  - stage: iOS_iPhone14_Safari
+    displayName: iPhone14_Safari
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPhone14_Safari
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPhone 14'
+        bsOSVersion: '18'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '18.1'
+        target: 'safari'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
+
+  - stage: iOS_iPhone14_Chromium
+    displayName: iPhone14_Chromium
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPhone14_Chromium
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPhone 14'
+        bsOSVersion: '18'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '18.1'
+        target: 'chromium'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
+
+  - stage: iOS_iPad12_Safari
+    displayName: iPad12_Safari
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPad12_Safari
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPad Pro 12.9 2022'
+        bsOSVersion: '16'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '16.1'
+        target: 'safari'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
+
+  - stage: iOS_iPad12_Chromium
+    displayName: iPad12_Chromium
+    variables:
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPad12_Chromium
+        environment: ${{ parameters.environment}}
+        branchName: ${{ parameters.branchName}}
+        seleniumGrid: ${{parameters.seleniumGrid}}  
+        deviceName: 'iPad Pro 12.9 2022'
+        bsOSVersion: '16'
+        workers:  ${{parameters.workers}}
+        bsBrowserVersion: '16.1'
+        target: 'chromium'
+        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
+        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'APCrossBrowser'
