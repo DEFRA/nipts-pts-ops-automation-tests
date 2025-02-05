@@ -4,8 +4,6 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using System.Collections.ObjectModel;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -42,6 +40,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool IsPageLoaded()
         {
+            if(ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+            }
+
             return PageHeading.Text.Contains("Lifelong pet travel documents");
         }
 

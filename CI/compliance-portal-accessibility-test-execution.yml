@@ -39,3 +39,4 @@ stages:
         dependsOn: ''
         application: 'AP'
         filterTestCases: 'TestCategory=CPAccessibility'
+        isAccessibilityEnabled: true
