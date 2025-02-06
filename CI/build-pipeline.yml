@@ -15,20 +15,14 @@ steps:
 
 
   - script: |
-      echo "##vso[task.logissue type=error]Required: AzurePipelines.Agent.FilePathMapping.AgentIndex"
-      $baseDir = "$(Build.SourceDirectory)"
-      $files = Get-ChildItem -Path $baseDir -Recurse -File
-      $folders = Get-ChildItem -Path $baseDir -Recurse -Directory
+      echo "Listing all files and folders in Build.SourceDirectory"
+      base_dir="$(Build.SourceDirectory)"
  
-      Write-Host "Files:"
-      foreach ($file in $files) {
-        Write-Host $file.FullName
-      }
+      echo "Files:"
+      find "$base_dir" -type f
  
-      Write-Host "Folders:"
-      foreach ($folder in $folders) {
-        Write-Host $folder.FullName
-      }
+      echo "Folders:"
+      find "$base_dir" -type d
 
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
