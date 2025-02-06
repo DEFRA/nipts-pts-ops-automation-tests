@@ -29,14 +29,11 @@ namespace Defra.UI.Tests.Hooks
         [BeforeScenario(Order = (int)HookRunOrder.Pages)]
         public void BeforeScenario()
         {
-            BindAllPages();
+              BindAllPages();
         }
 
         private void BindAllPages()
         {
-            //Accessibility Testing
-            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<Accessibility, IAccessibility>());
-
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<UserObject, IUserObject>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<UrlBuilder, IUrlBuilder>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<SignInPage, ISignInPage>());

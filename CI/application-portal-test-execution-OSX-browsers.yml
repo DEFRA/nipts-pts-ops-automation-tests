@@ -7,7 +7,7 @@ parameters:
     default: 'refs/heads/dev'
   - name: environment
     type: string
-    default: 'tst'
+    default: 'pre'
   - name: workers
     displayName: Number of Workers
     type: string
@@ -19,19 +19,19 @@ parameters:
   - name: deviceName
     displayName: Device Name
     type: string
-    default: 'Windows'
+    default: 'OS X'
   - name: bsOSVersion
     displayName: BrowserStack OS Version
     type: string
-    default: '11'
+    default: 'Sonoma'
   - name: bsBrowserVersion
     displayName: BrowserStack Browser Version
     type: string
-    default: 'latest'
+    default: '17.3'
   - name: target
     displayName: Target Browser
     type: string
-    default: 'Chrome'
+    default: 'Safari'
   - name: isEmulationEnabled
     displayName: Enable Emulation
     type: string
@@ -43,90 +43,99 @@ parameters:
 
 resources:
   repositories:
-    - repository: PetsAutomationRepo
-      type: git
-      name: DEFRA-PET-TRAVEL/Defra.PTS.AutomationTests
+    - repository: niptsopsprovingrepo
+      type: github
+      name: DEFRA/nipts-pts-ops-automation-tests
       ref: $(Build.SourceBranch)
+      endpoint: DEFRA
 
 stages:
   
-  - stage: Windows_Chrome_latest
-    displayName: Windows_Chrome_latest    
+  - stage: OSX_Sequoia_Safari
+    displayName: Sequoia_Safari
     variables:
-        - template: 'variables/${{ parameters.Environment }}.yml'
+        - template: 'variables/AP/${{ parameters.environment }}.yml'
   
     jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: Windows_Chrome_latest
+        jobName: Sequoia_Safari
         environment: ${{ parameters.environment}}
         branchName: ${{ parameters.branchName}}
         seleniumGrid: ${{parameters.seleniumGrid}}  
-        deviceName: ${{parameters.deviceName}}
-        bsOSVersion: ${{parameters.bsOSVersion}}
+        deviceName: 'OS X'
+        bsOSVersion: 'Sequoia'
         workers:  ${{parameters.workers}}
-        bsBrowserVersion: 'latest'
-        target: 'Chrome'
+        bsBrowserVersion: '18.1'
+        target: 'Safari'
         isEmulationEnabled: ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'TestCategory=APCrossBrowser'
 
-  - stage: Windows_Edge
-    displayName: Windows_Edge
+  - stage: OSX_Sonama_Safari
+    displayName: Sonama_Safari
     condition: always()
     jobs:
         
     - template: run-test-template.yml
       parameters:
-        jobName: Windows_Edge
+        jobName: Sonama_Safari
         environment: ${{ parameters.environment}}
         branchName: ${{ parameters.branchName}}
         seleniumGrid: ${{parameters.seleniumGrid}}  
-        deviceName: ${{parameters.deviceName}}
-        bsOSVersion: ${{parameters.bsOSVersion}}
+        deviceName: 'OS X'
+        bsOSVersion: 'Sonoma'
         workers:  ${{parameters.workers}}
-        bsBrowserVersion: 'latest'
-        target: 'Edge'
+        bsBrowserVersion: '17.3'
+        target: 'Safari'
         isEmulationEnabled: ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'TestCategory=APCrossBrowser'
 
-  - stage: Windows_Firefox
-    displayName: Windows_Firefox
+  - stage: OSX_Sonama_Firefox
+    displayName: Sonama_Firefox
     condition: always()
     jobs:
         
     - template: run-test-template.yml
       parameters:
-        jobName: Windows_Firefox
+        jobName: Sonama_Firefox
         environment: ${{ parameters.environment}}
         branchName: ${{ parameters.branchName}}
         seleniumGrid: ${{parameters.seleniumGrid}}  
-        deviceName: ${{parameters.deviceName}}
-        bsOSVersion: ${{parameters.bsOSVersion}}
+        deviceName: 'OS X'
+        bsOSVersion: 'Sonoma'
         workers:  ${{parameters.workers}}
         bsBrowserVersion: 'latest'
         target: 'Firefox'
         isEmulationEnabled: ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'TestCategory=APCrossBrowser'
 
-  - stage: OSX_Safari_latest
-    displayName: OSX_Safari_latest
+  - stage: OSX_Sonama_Chrome
+    displayName: Sonama_Chrome
     condition: always()
     jobs:
-    
+        
     - template: run-test-template.yml
       parameters:
-        jobName: OSX_Safari_latest
+        jobName: Sonama_Chrome
         environment: ${{ parameters.environment}}
         branchName: ${{ parameters.branchName}}
         seleniumGrid: ${{parameters.seleniumGrid}}  
-        deviceName: ${{parameters.deviceName}}
-        bsOSVersion: ${{parameters.bsOSVersion}}
+        deviceName: 'OS X'
+        bsOSVersion: 'Sonoma'
         workers:  ${{parameters.workers}}
         bsBrowserVersion: 'latest'
-        target: 'Safari'
+        target: 'Chrome'
         isEmulationEnabled: ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'TestCategory=APCrossBrowser'

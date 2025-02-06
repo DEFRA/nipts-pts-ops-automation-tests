@@ -1,4 +1,4 @@
-﻿@CPRegression
+﻿@CPRegression @CPCrossBrowser
 Feature: Check Outcome
 
 Port checker validates the check outcome for pass or fail

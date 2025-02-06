@@ -1,4 +1,5 @@
 ﻿using BoDi;
+using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
@@ -35,6 +36,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool IsPageLoaded()
         {
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+            }
+
             _driver.ChangePageView(50);
             return pageHeading.Text.Contains("Find a document");
         }
