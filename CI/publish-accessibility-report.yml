@@ -16,8 +16,7 @@ jobs:
             New-Item -ItemType Directory -Path $destinationPath }      
 
           Get-ChildItem -Path $sourcePath -Filter "*.html" -Recurse | ForEach-Object { 
-               if($_.FullName -ne "$destinationPath\$_.FullName") {
-                Copy-Item -Path $_.FullName -Destination $destinationPath -Force } }
+                Copy-Item -Path $_.FullName -Destination $destinationPath -Force }
       
     - task: PublishBuildArtifacts@1 
       displayName: 'Publish Artifact: report-files'
