@@ -40,3 +40,7 @@ stages:
         application: 'AP'
         filterTestCases: 'TestCategory=CPAccessibility'
         isAccessibilityEnabled: true
+
+    - template: publish-accessibility-report.yml
+      parameters:
+        dependsOn: 'Accessibility_Run_Chrome'

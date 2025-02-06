@@ -42,4 +42,5 @@ stages:
         isAccessibilityEnabled: true
 
     - template: publish-accessibility-report.yml
-      dependsOn: Accessibility_Run_Chrome
+      parameters:
+        dependsOn: 'Accessibility_Run_Chrome'
