@@ -54,7 +54,7 @@ namespace Defra.UI.Tests.Hooks
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
             {
                 var reportPath = Path.Combine($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}", "Accessibility");
-                Console.Write(reportPath);
+                Console.WriteLine(reportPath);
                 Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, reportPath, false);
             }
         }
