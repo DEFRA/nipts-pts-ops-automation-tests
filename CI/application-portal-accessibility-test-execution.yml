@@ -28,7 +28,7 @@ stages:
         jobName: Accessibility_Run_Chrome
         environment: 'pre'
         branchName: ${{ parameters.branchName}}
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        seleniumGrid: 'http://localhost:4444' 
         deviceName: 'Windows'
         bsOSVersion: '11'
         workers:  '10'
