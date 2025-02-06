@@ -102,7 +102,7 @@ Scenario: Verify selected departure time displays in home page
 	Then I should see departure date '07''07''1992' and time '18:30' on top of the home page
 
 Scenario: Verify the scheduled departure date, date hint and current date pre-population
-	Then I should see date subsection 'Scheduled departure date'
+	Then I should see date subsection 'Scheduled departure date' with the current date pre-population
 	And I should see hint 'For example, 27 3 2024' under the date subheading
 
 Scenario: Verify the scheduled departure time and time hint

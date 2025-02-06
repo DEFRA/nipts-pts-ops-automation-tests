@@ -351,8 +351,8 @@ Scenario: Verify the check box in Visual check section of Report non compliance 
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	Then I should see the 'Visual check' subheading 
-	And I should see a checkbox 'Pet does not match the PTD' is not selected
+	And I should see the 'Visual check' subheading 
+	Then I should see a checkbox 'Pet does not match the PTD' is not selected
 
 Scenario: Verify Other issues check boxes in Visual check section of Report non compliance page
 	Then I have selected 'Ferry' radio option
@@ -368,11 +368,11 @@ Scenario: Verify Other issues check boxes in Visual check section of Report non 
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	Then I should see the 'Visual check' subheading 
-	And I should see the 'Other issues' subheading in visual check section
-	Then I verify the other issues 'Potential commercial movement|Authorised traveller but no confirmation|Other reason' checkboxes
-	And I should see a hint 'This could be about the PTD or any risks identified.' next to Other reason option
-	Then I should see no checkboxes are selected in other issues section
+	And I should see the 'Visual check' subheading 
+	Then I should see the 'Other issues' subheading in visual check section
+	And I verify the other issues 'Potential commercial movement|Authorised traveller but no confirmation|Other reason' checkboxes
+	Then I should see a hint 'This could be about the PTD or any risks identified.' next to Other reason option
+	And I should see no checkboxes are selected in other issues section
 
 Scenario: Verify Visual check Pet details from PTD dropdown table in Report non compliance page
 	Then I have selected 'Ferry' radio option
@@ -388,7 +388,45 @@ Scenario: Verify Visual check Pet details from PTD dropdown table in Report non 
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	Then I should see the 'Visual check' subheading 
-	And I should click 'Pet details from PTD' link next to the subheading
-	Then I should see a table 'Pet details from PTD or application'
-	And I should see Species 'Dog' Breed 'Afghan Hound' Sex 'Male' Date of birth '07/10/2018' Colour 'Brown, tan or chocolate' and Significant features 'No' in the table
+	And I should see the 'Visual check' subheading 
+	Then I should click 'Pet details from PTD' link next to the subheading
+	And I should see a table 'Pet details from PTD or application'
+	Then I should see Species 'Dog' Breed 'Afghan Hound' Sex 'Male' Date of birth '07/10/2018' Colour 'Brown, tan or chocolate' and Significant features 'No' in the table
+
+Scenario: Verify Pet owner details section in Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I should see the 'Pet owner details' subheading 
+	Then I should see a table 'Pet owner details'
+	And I should see Name 'Watson Kate' and Email 'Vinotha.Thiyagarajan+5@cognizant.com' of Pet owner
+	Then I should see Address '4 JACK FLETCHER CLOSE,LINCOLN,LN4 1FF' and Phone number '07897897895' of Pet owner
+
+Scenario: Verify the Report non compliance is successfully submitted message
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '02:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+    And I provided the '9EFC9F' of the application
+	When I click search button
+	And I should see the application status in 'Unsuccessful'
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I should see 'Type of passenger' subheading under 'Passenger details' section
+	Then I click 'Vehicle' in Passenger details
+	When I click Report non-compliance button from Report non-compliance page
+	Then I should navigate to Checks page
+	And I should see a message 'Information has been successfully submitted' in Checks page

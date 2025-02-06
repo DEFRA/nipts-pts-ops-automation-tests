@@ -160,7 +160,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should see the '([^']*)' subheading")]
         public void ThenIShouldSeeTheSubheading(string subHeading)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyVisualCheckSubheading(subHeading), "Visual check subheading is not displayed");
+            Assert.True(_reportNonCompliancePage?.VerifyVCAndPetOwnerDetailSubheading(subHeading), "Visual check or Pet owner details subheading is not displayed");
         }
         [Then(@"I should click '([^']*)' link next to the subheading")]
         public void ThenIShouldClickLinkNextToTheSubheading(string linkName)
@@ -175,7 +175,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should see a table '([^']*)'")]
         public void ThenIShouldSeeATable(string tableName)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyVisualCheckTableName(tableName), "Visual check table name is not displayed properly");
+            Assert.True(_reportNonCompliancePage?.VerifyVCAndPetOwnerDetailTableName(tableName), "Visual check or Pet owner details table name is not displayed properly");
         }
         [Then(@"I should see Species '([^']*)' Breed '([^']*)' Sex '([^']*)' Date of birth '([^']*)' Colour '([^']*)' and Significant features '([^']*)' in the table")]
         public void ThenIShouldSeeSpeciesBreedSexDateOfBirthColourSignificantFeaturesInTheTable(string species, string breed, string sex, string dob, string colour, string significantFeature)
@@ -201,6 +201,21 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeNoCheckBoxesAreSelectedInOtherIssuesSection()
         {
             Assert.False(_reportNonCompliancePage?.VerifyOtherIssuesCheckboxesAreNotChecked());
+        }
+        [Then(@"I should see Name '([^']*)' and Email '([^']*)' of Pet owner")]
+        public void ThenIShouldSeeNameAndEmailOfPetOwner(string name, string email)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyNameAndEmailOfPetOwner(name,email));
+        }
+        [Then(@"I should see Address '([^']*)' and Phone number '([^']*)' of Pet owner")]
+        public void ThenIShouldSeeAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyAddressAndPhoneNumberOfPetOwner(address, phoneNumber));
+        }
+        [Then(@"I should see a message '([^']*)' in Checks page")]
+        public void ThenIShouldSeeAMessageInChecksPage(string submittedMessage)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyInfoSubmittedMessage(submittedMessage));
         }
     }
 }

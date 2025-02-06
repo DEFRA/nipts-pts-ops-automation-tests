@@ -10,5 +10,10 @@
       void SearchButton();
       void ClearSearchButton();
       bool IsError(string errorMessage);
+      bool VerifyAlreadyEnteredPTDNumber(string alreadyEnteredPTDNumber);
+      bool VerifyAlreadyEnteredApplicationNumber(string alreadyEnteredApplicationNumber);
+      bool VerifyAlreadyEnteredMicrochipNumber(string alreadyEnteredMicrochipNumber);
+      bool VerifyYouCannotAccessPage(string errorPageHeading);
+      void VerifyGoBackToPreviousPageLink();
     }
 }

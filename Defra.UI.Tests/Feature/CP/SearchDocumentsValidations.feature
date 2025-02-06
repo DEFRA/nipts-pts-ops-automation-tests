@@ -173,19 +173,19 @@ Scenario: Verify the header display from all pages
 	And I have provided Scheduled departure time '15:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
-	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' and time '15:30'
+	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' time '15:30' and change link
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by microchip number' radio button
 	And I provided the Microchip number '987659898798764' of the application
-	Then I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' and time '15:30'
+	Then I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' time '15:30' and change link
 	When I click search button
 	And I should see the application status in 'Approved'
 	And I select Fail radio button
-	Then I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' and time '15:30'
+	Then I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' time '15:30' and change link
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' and time '15:30'
+	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '02''07''1992' time '15:30' and change link
 
 Scenario: Verify home page navigation by clicking home icon in the footer from all pages
 	And I have selected 'Ferry' radio option
@@ -363,3 +363,60 @@ Scenario: Verify the error message if entering less than 15 microchip number for
 	And I provided the Microchip number '98761234' of the application
 	When I click search button
 	Then I should see an error message "Enter a 15-digit number, using only numbers" in Find a document page
+
+Scenario: Verify the data entered remains in the text box of Find a document page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '23:50'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '4574B2' of the application
+	Then I click search by 'Search by application number' radio button
+	And I provided the Application Number 'ZRWD8KG6' of the application
+	Then I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '987659898798764' of the application
+	Then I click search by 'Search by PTD number' radio button
+	And I should see the already entered PTD number '4574B2' in the text box
+	Then I click search by 'Search by application number' radio button
+	And I should see the already entered application number 'ZRWD8KG6' in the text box
+	Then I click search by 'Search by microchip number' radio button
+	And I should see the already entered microchip number '987659898798764' in the text box
+
+Scenario: Verify change link click in header from Checks page and back button from homepage
+	And I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	Then I have selected '04''02''2025'Date option
+	And I have provided Scheduled departure time '09:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	And I click change link from headers
+	And I should redirected to port route checker page
+	Then I should see no route options selected by default
+	And I should see no departure time is populated by default
+	Then I should see date subsection 'Scheduled departure date' with the current date pre-population
+	And I click back link
+	Then I should navigate to Checks page
+	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '04''02''2025' time '09:45' and change link
+
+Scenario: Verify the input hyphen only to application number text box navigates to 403 error page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '05:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number ''-'' of the application
+	When I click search button
+	Then I should navigate to 'You cannot access this page or perform this action' error page
+	And I click back link
+	Then I navigate to Find a document page
+	And I should see the already entered application number ''-'' in the text box
+	When I click search button
+	Then I should navigate to 'You cannot access this page or perform this action' error page
+	When I click go back to the previous page link
+	Then I navigate to Find a document page
+	And I should see the already entered application number ''-'' in the text box	 

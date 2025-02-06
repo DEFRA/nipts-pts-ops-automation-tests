@@ -8,6 +8,8 @@
        void SelectSaveAndContinue();
        bool IsError(string errorMessage);
        bool VerifyTheBannerColor(string color);
-        bool VerifyReferenceNumberTable(string Status);
+       bool VerifyReferenceNumberTable(string Status);
+       bool VerifyChecksSection(string heading, string subHeading, string checkpoints);
+       bool VerifyChecksSectionRadioButtons();
     }
 }
