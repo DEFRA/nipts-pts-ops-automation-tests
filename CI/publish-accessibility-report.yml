@@ -1,6 +1,6 @@
 jobs: 
 
-- job: Publish-Accessibility-Report
+- job: Publish_Accessibility_Report
   displayName: Publish Accessibility Report
 
   steps:
