@@ -40,3 +40,5 @@ stages:
         application: 'AP'
         filterTestCases: 'TestCategory=APAccessibility'
         isAccessibilityEnabled: true
+
+    - template: publish-accessibility-report.yml
