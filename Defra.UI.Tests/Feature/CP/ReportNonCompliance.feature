@@ -86,7 +86,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Unsu
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	Then I should see a table name as 'Application Details'
+	Then I should see a table name as 'Application details'
 	And I Verify the reference number '0CI5N6V6'
 	Then I verify the date of issuance '14/11/2024'
 	And I Verify status 'Unsuccessful' on Report non-compliance page
@@ -129,6 +129,7 @@ Scenario Outline: Verify passenger details section radio buttons in Report non-c
 	Then I should see 'Type of passenger' subheading under 'Passenger details' section
 	And I click '<TypeOfPassenger>' in Passenger details
 	When I click 'Passenger says they will not travel' GB Outcome
+	And I Select the 'Cannot find microchip' Microchip Checkbox
 	When I click Report non-compliance button from Report non-compliance page
 	Then I should navigate to Checks page
 	
@@ -425,14 +426,15 @@ Scenario Outline: Verify the error message for Microchip number textbox in Repor
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click 'Vehicle' in Passenger details
+	When I click 'Passenger says they will not travel' GB Outcome
 	When I Select the 'Microchip number does not match the PTD' Microchip Checkbox
 	And I enter the Microchip number in '<MicrochipNumber>' in Report non-compliance page
 	And I click Report non-compliance button from Report non-compliance page
-	Then I should see an error message "Enter a microchip number" in Report non-compliance page
+	Then I should see an error message '<ErrorMessage>' in Report non-compliance page
 Examples:
-	| ErrorMessage                                | MicrochipNumber   |
-	| Enter a microchip number                    |					  |
-	| Enter a 15-digit number, using only numbers | 19890989834567823 |
-	| Enter a 15-digit number, using only numbers | 1233356			  |
-	| Enter a 15-digit number, using only numbers | TestingMC		  |
-	| Enter a 15-digit number, using only numbers | "£%$^&<>		  |
+	| ErrorMessage                                            | MicrochipNumber   |
+	| Enter the 15-digit microchip number                     |                   |
+	| Enter the 15-digit microchip number, using only numbers | 19890989834567823 |
+	| Enter the 15-digit microchip number, using only numbers | 1233356           |
+	| Enter the 15-digit microchip number, using only numbers | TestingMC         |
+	| Enter the 15-digit microchip number, using only numbers | "£%$^&<>          |
