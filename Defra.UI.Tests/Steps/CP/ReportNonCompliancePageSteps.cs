@@ -226,6 +226,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void WhenISelectTheMCCheckbox(string MCCheckbox)
         {
             _reportNonCompliancePage?.ClickOnMCCheckbox(MCCheckbox);
+        } 
+        
+        [When(@"When I click '(.*)' GB Outcome")]
+        public void WhenISelectGBOutcome(string GBOutcome)
+        {
+            _reportNonCompliancePage?.ClickGBOutcomeCheckbox(GBOutcome);
         }
     }
 }

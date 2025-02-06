@@ -129,6 +129,7 @@ Scenario Outline: Verify passenger details section radio buttons in Report non-c
 	Then I should navigate to Report non-compliance page
 	Then I should see 'Type of passenger' subheading under 'Passenger details' section
 	And I click '<TypeOfPassenger>' in Passenger details
+	When I click 'Passenger says they will not travel' GB Outcome
 	When I click Report non-compliance button from Report non-compliance page
 	Then I should navigate to Checks page
 	

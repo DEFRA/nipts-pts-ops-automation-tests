@@ -36,5 +36,6 @@
         bool VerifyMCDetailsPTDTableWithValues(string MCDetails);
         void ClickOnMCCheckbox(string MCCheckbox);
         void EnterMCNumber(string mCNumber);
+        void ClickGBOutcomeCheckbox(string gBOutcome);
     }
 }

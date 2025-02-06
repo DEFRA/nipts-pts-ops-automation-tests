@@ -200,6 +200,22 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var gbOutcomeCheckbox = checkboxValues.Split('|');
             return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text));
         }
+
+        public void ClickGBOutcomeCheckbox(string GBOutcome)
+        {
+            if (GBOutcome.Equals("Passenger referred to DAERA/SPS at NI port"))
+            {
+                chkGBOutcome1.Click();
+            }
+            else if (GBOutcome.Equals("Passenger advised not to travel"))
+            {
+                chkGBOutcome2.Click();
+            }
+            else if (GBOutcome.Equals("Passenger says they will not travel"))
+            {
+                chkGBOutcome3.Click();
+            }
+        }
         
         public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
         {
