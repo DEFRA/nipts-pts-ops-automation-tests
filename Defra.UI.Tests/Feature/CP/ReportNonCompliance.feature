@@ -43,7 +43,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Awai
 	And I provided the Microchip number '236782367823678' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	And I select Fail radio button
+	#And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
@@ -124,6 +124,7 @@ Scenario Outline: Verify passenger details section radio buttons in Report non-c
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Click on Back button
+	And I should see the application status in 'Approved'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	Then I should see 'Type of passenger' subheading under 'Passenger details' section
@@ -165,7 +166,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - Awa
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	And I select Fail radio button
+	#And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
@@ -205,7 +206,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page - Await
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	And I select Fail radio button
+	#And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Reasons' heading with hint 'Select all that apply.'
@@ -407,6 +408,54 @@ Scenario: Verify Pet owner details section in Report non compliance page
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
+	Then I should see the 'Visual check' subheading 
+	And I should click 'Pet details from PTD' link next to the subheading
+	Then I should see a table 'Pet details from PTD or application'
+	And I should see Species 'Dog' Breed 'Afghan Hound' Sex 'Male' Date of birth '07/10/2018' Colour 'Brown, tan or chocolate' and Significant features 'No' in the table
+
+Scenario: Verify the Microchip section in Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the 'D6BE7C' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I Verify the Microchip section
+	And I expand and verify Microchip details '240125100121131|24/01/2022' from PTD table
+
+Scenario Outline: Verify the error message for Microchip number textbox in Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the 'D6BE7C' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I click 'Vehicle' in Passenger details
+	When I Select the 'Microchip number does not match the PTD' Microchip Checkbox
+	And I enter the Microchip number in '<MicrochipNumber>' in Report non-compliance page
+	And I click Report non-compliance button from Report non-compliance page
+	Then I should see an error message "Enter a microchip number" in Report non-compliance page
+Examples:
+	| ErrorMessage                                | MicrochipNumber   |
+	| Enter a microchip number                    |					  |
+	| Enter a 15-digit number, using only numbers | 19890989834567823 |
+	| Enter a 15-digit number, using only numbers | 1233356			  |
+	| Enter a 15-digit number, using only numbers | TestingMC		  |
+	| Enter a 15-digit number, using only numbers | "£%$^&<>		  |
 	And I should see the 'Pet owner details' subheading 
 	Then I should see a table 'Pet owner details'
 	And I should see Name 'Watson Kate' and Email 'Vinotha.Thiyagarajan+5@cognizant.com' of Pet owner

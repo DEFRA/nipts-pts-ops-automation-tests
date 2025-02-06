@@ -32,6 +32,10 @@
         bool VerifyOtherIssuesCheckboxes(string checkboxOptions);
         bool VerifyOtherReasonOptionHint(string hint);
         bool VerifyOtherIssuesCheckboxesAreNotChecked();
+        bool VerifyMicrochipSection();
+        bool VerifyMCDetailsPTDTableWithValues(string MCDetails);
+        void ClickOnMCCheckbox(string MCCheckbox);
+        void EnterMCNumber(string mCNumber);
         bool VerifyNameAndEmailOfPetOwner(string name, string email);
         bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber);
         bool VerifyInfoSubmittedMessage(string submittedMessage);

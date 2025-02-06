@@ -102,6 +102,12 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_searchDocumentPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }
 
+        [Then(@"I see the values are deleted")]
+        public void ThenISeeTheValuesAreCleared()
+        {
+            Assert.True(_searchDocumentPage?.VerifyTheValuesAreCleared(), $"The Values in Search page is not cleared");
+        }
+
         [Then(@"I should see the already entered PTD number '(.*)' in the text box")]
         public void ThenIShouldSeeTheAlreadyEnteredPTDNumberInTheTextBox(string alreadyEnteredPTDNumber)
         {

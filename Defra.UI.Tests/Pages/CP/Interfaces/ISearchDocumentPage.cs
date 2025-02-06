@@ -10,6 +10,7 @@
       void SearchButton();
       void ClearSearchButton();
       bool IsError(string errorMessage);
+        bool VerifyTheValuesAreCleared();
       bool VerifyAlreadyEnteredPTDNumber(string alreadyEnteredPTDNumber);
       bool VerifyAlreadyEnteredApplicationNumber(string alreadyEnteredApplicationNumber);
       bool VerifyAlreadyEnteredMicrochipNumber(string alreadyEnteredMicrochipNumber);

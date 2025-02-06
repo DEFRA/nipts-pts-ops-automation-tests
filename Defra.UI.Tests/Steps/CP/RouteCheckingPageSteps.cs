@@ -145,7 +145,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I click back link")]
         public void ThenIClickBackLink()
         {
-            _welcomePage.ClickBackButton();
+            _welcomePage?.ClickBackButton();
         }
 
         [Then(@"I should navigate to test environment prototype page")]

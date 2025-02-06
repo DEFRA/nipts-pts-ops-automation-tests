@@ -87,6 +87,34 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_applicationSummaryPage?.VerifyPetOwnerDetailsTable());
         }
+
+        [Then(@"I verify the Reference number table values '([^']*)' for '([^']*)' application")]
+        public void ThenIVerifyRefNumTableValues(string values, string status)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyRefNumTableValues(values, status),
+                        $"The Reference number table values are not matching");
+        }
+        
+        [Then(@"I verify the Microchip table values '([^']*)' for '([^']*)' application")]
+        public void ThenIVerifyMCTableValues(string values, string status)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyMCTableValues(values, status),
+                        $"The Microchip table values are not matching");
+        } 
+        
+        [Then(@"I verify the Pet Details table values '([^']*)' for the species '(.*)'")]
+        public void ThenIVerifyPetDetailsTableValues(string Values, string Species)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyPetDetailsValues(Values, Species),
+                        $"The Pet Details table values are not matching");
+        }
+        
+        [Then(@"I verify the Pet Owner Details table values '([^']*)' for the application")]
+        public void ThenIVerifyPetOwnerDetailsTableValues(string Values)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyPetOwnerDetailsValues(Values),
+                        $"The Pet Owner Details table values are not matching");
+        }
         [Then(@"I verify '([^']*)' section with '([^']*)' subheading and '([^']*)' check points")]
         public void ThenIverifySectionWithSubHeadingAndCheckPoints(string heading, string subHeading, string checkpoints)
         {

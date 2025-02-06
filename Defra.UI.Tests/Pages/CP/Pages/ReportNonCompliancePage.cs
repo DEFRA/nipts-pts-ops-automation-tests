@@ -62,6 +62,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblOtherIssuesOption2 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[2]"));
         private IWebElement lblOtherIssuesOption3 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[3]"));
         private IWebElement lblOtherReasonHint => _driver.WaitForElement(By.Id("somethingRadio-item-hint"));
+        private IWebElement lblMCHeader => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Microchip']"));
+        private IWebElement lblMCDetailsLink => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']"));
+        private IWebElement lblMCCheckbox1 => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']/following::label[1]"));
+        private IWebElement lblMCCheckbox2 => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']/following::label[3]"));
+        private IWebElement lblMCNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Microchip number')]"));
+        private IWebElement lblMCNumberValue => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Microchip number')]/following-sibling::dd"));
+        private IWebElement lblMCImplantOrScanDate => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Implant or scan date')]"));
+        private IWebElement lblMCImplantOrScanDateValue => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Implant or scan date')]/following-sibling::dd"));
+        private IWebElement lblMCNumberNotFoundInScan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Microchip number found in scan']"));
+        private IWebElement txtMCNumberNotFoundInScan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Microchip number found in scan']/following::input[1]"));
         private IWebElement lblPetOwnerDetailsSubHeading => _driver.WaitForElement(By.XPath("//h2[@class='govuk-heading-l govuk-!-margin-top-9']"));
         private IWebElement lblPetOwnerDetailsTableName => _driver.WaitForElement(By.XPath("//*[@id='document-owner-card']//h2"));
         private IWebElement lblPetOwnerName => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Name')]/following-sibling::dd"));
@@ -216,14 +226,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             return lblDetailsOfOutcome.Text.Contains("Details of outcome");
         }
-        public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(String maxLength)
+        public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength)
         {
             return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
         }
 
-        public bool VerifyAnyRelavantCommentsTextarea(String heading, String hint, String maxLength)
+        public bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength)
         {
-            return lblAnyRelavantComments.Text.Contains(heading) && lblAnyRelavantCommentsHint.Text.Contains(hint) && TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
+            return lblAnyRelavantComments.Text.Contains(heading)
+                   && lblAnyRelavantCommentsHint.Text.Contains(hint)
+                   && TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
         }
         public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)
         {
@@ -278,6 +290,41 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 && lblOtherIssuesOption2.HasAttribute("Checked") 
                 && lblOtherIssuesOption3.HasAttribute("Checked");
         }
+
+        public bool VerifyMicrochipSection()
+        {
+            return lblMCHeader.Text.Contains("Microchip")
+                   && lblMCCheckbox1.Text.Contains("Microchip number does not match the PTD")
+                   && lblMCCheckbox2.Text.Contains("Cannot find microchip")
+                   && lblMCDetailsLink.Text.Contains("Microchip details from PTD");
+        }
+
+        public bool VerifyMCDetailsPTDTableWithValues(string MCDetails)
+        {
+            _driver.ExecuteScript("arguments[0].scrollIntoView();", lblMCDetailsLink);
+            lblMCDetailsLink.Click();
+            string[] MCNumberAndDate = MCDetails.Split('|');
+            return lblMCNumber.Text.Equals("Microchip number") && lblMCImplantOrScanDate.Text.Equals("Implant or scan date") && lblMCNumberValue.Text.Equals(MCNumberAndDate[0]) && lblMCImplantOrScanDateValue.Text.Equals(MCNumberAndDate[1]);
+        }
+
+        public void ClickOnMCCheckbox(string MCCheckbox)
+        {
+            if (MCCheckbox.Equals("Microchip number does not match the PTD"))
+            {
+                lblMCCheckbox1.Click();
+            } 
+            else if (MCCheckbox.Equals("Cannot find microchip"))
+            {
+                lblMCCheckbox2.Click();
+            }
+        }
+
+        public void EnterMCNumber(string MCNumber)
+        {
+            lblMCNumberNotFoundInScan.Text.Equals("Microchip number found in scan");
+            txtMCNumberNotFoundInScan.Clear();
+            txtMCNumberNotFoundInScan.SendKeys(MCNumber);
+        }       
         public bool VerifyNameAndEmailOfPetOwner(string name, string email)
         {
             return lblPetOwnerName.Text.Contains(name)
