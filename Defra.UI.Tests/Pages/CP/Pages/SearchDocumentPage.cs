@@ -26,8 +26,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtApplicationNumberSearchBox => _driver.WaitForElement(By.XPath("//input[@id='applicationNumberSearch']"));
         private IWebElement txtMicrochipNumberSearchBox => _driver.WaitForElement(By.XPath("//input[@id='microchipNumber']"));
         private IWebElement expectedText => _driver.WaitForElement(By.XPath("//div[@class='ons-panel__body']"));
-        private IWebElement rdoApplicatioNumbere => _driver.WaitForElement(By.XPath("//label[normalize-space()='Search by application number']"));
-        private IWebElement rdoMicrochipNumbere => _driver.WaitForElement(By.XPath("//label[normalize-space()='Search by microchip number']"));
+        private IWebElement rdoApplicationNumber => _driver.WaitForElement(By.XPath("//label[normalize-space()='Search by application number']"));
+        private IWebElement rdoMicrochipNumber => _driver.WaitForElement(By.XPath("//label[normalize-space()='Search by microchip number']"));
         private IWebElement rdoSearchByPTDNumber => _driver.WaitForElement(By.XPath("//input[@id = 'documentSearch-1']"));
         private IWebElement rdoSearchByAppNumber => _driver.WaitForElement(By.XPath("//input[@id = 'documentSearch-2']"));
         private IWebElement rdoSearchByMCNumber => _driver.WaitForElement(By.XPath("//input[@id = 'documentSearch-3']"));
@@ -68,9 +68,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             else if (radioButtonValue == "Search by PTD number")
             {
-                if (!rdoPTDNumber.Selected)
+                if (!rdoSearchByPTDNumber.Selected)
                 {
-                    rdoPTDNumber.Click();
+                    rdoSearchByPTDNumber.Click();
                 }
             }
         }

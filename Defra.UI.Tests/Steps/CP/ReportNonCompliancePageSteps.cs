@@ -162,41 +162,49 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_reportNonCompliancePage?.VerifyVCAndPetOwnerDetailSubheading(subHeading), "Visual check or Pet owner details subheading is not displayed");
         }
+
         [Then(@"I should click '([^']*)' link next to the subheading")]
         public void ThenIShouldClickLinkNextToTheSubheading(string linkName)
         {
             Assert.True(_reportNonCompliancePage?.VerifyPetDetailsFromPTDLink(linkName), "Pet details from PTD link is not displayed");
         }
+
         [Then(@"I should see a checkbox '([^']*)' is not selected")]
         public void ThenIShouldSeeACheckboxIsNotSelected(string checkBoxValue)
         {
             Assert.True(_reportNonCompliancePage?.VerifyPetDoesNotMatchThePTDCheckBox(checkBoxValue), "Pet does not match the PTD check box is not displayed or selected by default");
         }
+
         [Then(@"I should see a table '([^']*)'")]
         public void ThenIShouldSeeATable(string tableName)
         {
             Assert.True(_reportNonCompliancePage?.VerifyVCAndPetOwnerDetailTableName(tableName), "Visual check or Pet owner details table name is not displayed properly");
         }
+
         [Then(@"I should see Species '([^']*)' Breed '([^']*)' Sex '([^']*)' Date of birth '([^']*)' Colour '([^']*)' and Significant features '([^']*)' in the table")]
         public void ThenIShouldSeeSpeciesBreedSexDateOfBirthColourSignificantFeaturesInTheTable(string species, string breed, string sex, string dob, string colour, string significantFeature)
         {
             Assert.True(_reportNonCompliancePage?.VerifyVisualCheckTableFields(species, breed, sex, dob, colour, significantFeature), "Field values in Visual check table are not displayed properly");
         }
+
         [Then(@"I should see the '([^']*)' subheading in visual check section")]
         public void ThenIShouldSeeTheSubheadingInVisualCheckSection(string subHeading)
         {
             Assert.True(_reportNonCompliancePage?.VerifyOtherIssuesSubheading(subHeading), "Other issues subheading in Visual check section is not displayed");
         }
+
         [Then(@"I verify the other issues '(.*)' checkboxes")]
         public void ThenIVerifyTheOtherIssuesCheckboxes(string checkboxOptions)
         {
             Assert.True(_reportNonCompliancePage?.VerifyOtherIssuesCheckboxes(checkboxOptions), "The other issues in Visual check section checkbox values are not correct");
         }
+
         [Then(@"I should see a hint '([^']*)' next to Other reason option")]
         public void ThenIShouldSeeAHintNextToOtherReasonOption(string hint)
         {
             Assert.True(_reportNonCompliancePage?.VerifyOtherReasonOptionHint(hint), "Other reason checkbox hint is not displayed");
         }
+
         [Then(@"I should see no checkboxes are selected in other issues section")]
         public void ThenIShouldSeeNoCheckBoxesAreSelectedInOtherIssuesSection()
         {
@@ -227,16 +235,19 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _reportNonCompliancePage?.ClickOnMCCheckbox(MCCheckbox);
         }
+
         [Then(@"I should see Name '([^']*)' and Email '([^']*)' of Pet owner")]
         public void ThenIShouldSeeNameAndEmailOfPetOwner(string name, string email)
         {
             Assert.True(_reportNonCompliancePage?.VerifyNameAndEmailOfPetOwner(name,email));
         }
+
         [Then(@"I should see Address '([^']*)' and Phone number '([^']*)' of Pet owner")]
         public void ThenIShouldSeeAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber)
         {
             Assert.True(_reportNonCompliancePage?.VerifyAddressAndPhoneNumberOfPetOwner(address, phoneNumber));
         }
+
         [Then(@"I should see a message '([^']*)' in Checks page")]
         public void ThenIShouldSeeAMessageInChecksPage(string submittedMessage)
         {

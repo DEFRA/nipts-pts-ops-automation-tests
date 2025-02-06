@@ -227,7 +227,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     //&& lblAddressValue.Text.Equals(value[2])
                     && lblPhoneNumberValue.Text.Equals(value[3]);
         }
-            #endregion
+
         public bool VerifyChecksSection(string heading, string subHeading, string checkpoints)
         {
             var checkpointLabel = checkpoints.Split('|');
@@ -235,6 +235,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 && checkpointLabel[0].Equals(lblCheckpoint1.Text) && checkpointLabel[1].Equals(lblCheckpoint2.Text)
                 && checkpointLabel[2].Equals(lblCheckpoint3.Text) && checkpointLabel[3].Equals(lblCheckpoint4.Text);
         }
+
         public bool VerifyChecksSectionRadioButtons()
         {
             ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblChecks);

@@ -202,6 +202,7 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_routeCheckingPage?.CheckHintOfTimeSubheading(hint), "No hint under Scheduled departure time subheading is displayed");
         }
+
         [Then(@"I should see no departure time is populated by default")]
         public void ThenIShouldSeeNoDepartureTimeIsPopulatedByDefault()
         {

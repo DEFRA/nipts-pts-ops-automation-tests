@@ -408,10 +408,10 @@ Scenario: Verify Pet owner details section in Report non compliance page
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	Then I should see the 'Visual check' subheading 
-	And I should click 'Pet details from PTD' link next to the subheading
-	Then I should see a table 'Pet details from PTD or application'
-	And I should see Species 'Dog' Breed 'Afghan Hound' Sex 'Male' Date of birth '07/10/2018' Colour 'Brown, tan or chocolate' and Significant features 'No' in the table
+	And I should see the 'Pet owner details' subheading 
+	Then I should see a table 'Pet owner details'
+	And I should see Name 'Watson Kate' and Email 'Vinotha.Thiyagarajan+5@cognizant.com' of Pet owner
+	Then I should see Address '4 JACK FLETCHER CLOSE,LINCOLN,LN4 1FF' and Phone number '07897897895' of Pet owner
 
 Scenario: Verify the Microchip section in Report non compliance page
 	Then I have selected 'Ferry' radio option
@@ -456,10 +456,7 @@ Examples:
 	| Enter a 15-digit number, using only numbers | 1233356			  |
 	| Enter a 15-digit number, using only numbers | TestingMC		  |
 	| Enter a 15-digit number, using only numbers | "£%$^&<>		  |
-	And I should see the 'Pet owner details' subheading 
-	Then I should see a table 'Pet owner details'
-	And I should see Name 'Watson Kate' and Email 'Vinotha.Thiyagarajan+5@cognizant.com' of Pet owner
-	Then I should see Address '4 JACK FLETCHER CLOSE,LINCOLN,LN4 1FF' and Phone number '07897897895' of Pet owner
+	
 
 Scenario: Verify the Report non compliance is successfully submitted message
 	Then I have selected 'Ferry' radio option
