@@ -13,18 +13,15 @@ variables:
 
 steps:
 
-  - script: |
-        dotnet nuget locals all --clear
-    displayName: 'Clear NuGet Cache'
-
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
     inputs:
       command: 'restore'
+      noCache: true
       projects: '**/Defra.UI.Tests.csproj'
       feedsToUse: 'config'
       includeNuGetOrg: true
-      nugetConfigPath: 'nuget.config'
+      nugetConfigPath: $(Build.SourcesDirectory)/nipts-pts-ops-automation-tests/Defra.UI.Tests/NuGet.Config
   
   - task: DotNetCoreCLI@2
     displayName: publish for $(BuildConfiguration)
