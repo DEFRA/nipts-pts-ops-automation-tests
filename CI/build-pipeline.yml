@@ -14,17 +14,9 @@ variables:
 steps:
 
 
-  - task: PowerShell@2
-    inputs:
-      targetType: 'inline'
-      script: |
-        Write-Host "Listing all files and folders in Build.SourceDirectory"
-        $baseDir = "$(Build.SourceDirectory)"
-        Write-Host "Files:"
-        Get-ChildItem -Path $baseDir -Recurse -File | ForEach-Object { Write-Host $_.FullName }
-        Write-Host "Folders:"
-        Get-ChildItem -Path $baseDir -Recurse -Directory | ForEach-Object { Write-Host $_.FullName }
-    displayName: 'List all files and folders in Build.SourceDirectory'
+  - script: |
+      echo "Agent OS: $(Agent.OS)"
+    displayName: 'Check Agent OS'
  
 
   - task: DotNetCoreCLI@2
