@@ -14,15 +14,18 @@ variables:
 steps:
 
 
-  - script: |
-      echo "Listing all files and folders in Build.SourceDirectory"
-      base_dir="$(Build.SourceDirectory)"
+  - task: PowerShell@2
+    inputs:
+      targetType: 'inline'
+      script: |
+        Write-Host "Listing all files and folders in Build.SourceDirectory"
+        $baseDir = "$(Build.SourceDirectory)"
+        Write-Host "Files:"
+        Get-ChildItem -Path $baseDir -Recurse -File | ForEach-Object { Write-Host $_.FullName }
+        Write-Host "Folders:"
+        Get-ChildItem -Path $baseDir -Recurse -Directory | ForEach-Object { Write-Host $_.FullName }
+    displayName: 'List all files and folders in Build.SourceDirectory'
  
-      echo "Files:"
-      find "$base_dir" -type f
- 
-      echo "Folders:"
-      find "$base_dir" -type d
 
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
