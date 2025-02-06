@@ -53,7 +53,7 @@ namespace Defra.UI.Tests.Hooks
 
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
             {
-                Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, Path.Combine($"{Environment.CurrentDirectory}", "Accessibility"), false);
+                Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, Path.Combine($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}", "Accessibility"), false);
             }
         }
 
