@@ -83,6 +83,12 @@ namespace Defra.UI.Tests.Hooks
                 }
 
                 CloseBrowsers();
+
+                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+                {
+                    Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByCategory();
+                    Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByGuideline();
+                }
             }
         }
 
@@ -142,16 +148,6 @@ namespace Defra.UI.Tests.Hooks
                 AfterScenarioHooks.TestCleanup();
             }
             catch { }
-        }
-
-        [AfterTestRun]
-        public static void AfterTestRun()
-        {
-            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
-            {
-                Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByCategory();
-                Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByGuideline();
-            }
         }
     }
 }
