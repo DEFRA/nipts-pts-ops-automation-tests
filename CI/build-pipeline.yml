@@ -13,6 +13,23 @@ variables:
 
 steps:
 
+
+  - script: |
+      echo "##vso[task.logissue type=error]Required: AzurePipelines.Agent.FilePathMapping.AgentIndex"
+      $baseDir = "$(Build.SourceDirectory)"
+      $files = Get-ChildItem -Path $baseDir -Recurse -File
+      $folders = Get-ChildItem -Path $baseDir -Recurse -Directory
+ 
+      Write-Host "Files:"
+      foreach ($file in $files) {
+        Write-Host $file.FullName
+      }
+ 
+      Write-Host "Folders:"
+      foreach ($folder in $folders) {
+        Write-Host $folder.FullName
+      }
+
   - task: DotNetCoreCLI@2
     displayName: Restore for $(BuildConfiguration)
     inputs:
