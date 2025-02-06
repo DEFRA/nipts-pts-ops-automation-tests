@@ -43,7 +43,6 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Awai
 	And I provided the Microchip number '236782367823678' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	#And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
@@ -167,7 +166,6 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - Awa
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	#And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
@@ -207,7 +205,6 @@ Scenario: Verify Reasons heading with hint in Report non compliance page - Await
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	#And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Reasons' heading with hint 'Select all that apply.'
@@ -256,8 +253,7 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 Examples:
 	| ApplicationNumber | FerryRoute                    | Status                |
 	| 4574B2            | Birkenhead to Belfast (Stena) | Approved              |
-	| 8E375B            | Loch Ryan to Belfast (Stena)  | Awaiting verification |
-
+	
 Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for unsuccessful applications
 	Then I have selected 'Ferry' radio option
 	And I select the '<FerryRoute>' radio option
@@ -276,9 +272,11 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for un
 	And I verify the Details of Outcome label
 	And I verify the Details of Outcome textarea maximum length is '500'
 Examples:
-	| ApplicationNumber | FerryRoute                   | Status       |
-	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful |
-	| A6AD63            | Loch Ryan to Belfast (Stena) | Revoked      |
+	| ApplicationNumber | FerryRoute                   | Status                |
+	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful          |
+	| A6AD63            | Loch Ryan to Belfast (Stena) | Revoked               |
+	| 8E375B            | Loch Ryan to Belfast (Stena) | Awaiting verification |
+
 
 Scenario: Verify the navigation by clicking search and home icon from Report non compliance page
 	And I have selected 'Ferry' radio option
