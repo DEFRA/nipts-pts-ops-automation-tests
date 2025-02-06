@@ -4,14 +4,6 @@ using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
-using System.Drawing;
-using FluentAssertions;
-using AngleSharp.Text;
-using OpenQA.Selenium.DevTools.V122.Overlay;
-using Microsoft.Dynamics365.UIAutomation.Browser;
-using Defra.UI.Framework.Driver;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
