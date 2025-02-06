@@ -19,7 +19,7 @@ steps:
       targetType: 'inline'
       script: |
         Write-Host "Listing all files and folders in Build.SourceDirectory"
-        $baseDir = $(Build.SourcesDirectory)
+        $baseDir = "$(Build.SourcesDirectory)"
         Write-Host "Files:"
         Get-ChildItem -Path $baseDir -Recurse -File | ForEach-Object { Write-Host $_.FullName }
         Write-Host "Folders:"
