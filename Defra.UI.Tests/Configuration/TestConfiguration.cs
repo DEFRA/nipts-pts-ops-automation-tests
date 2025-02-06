@@ -18,5 +18,6 @@ namespace Defra.UI.Tests.Configuration
         public string BSBrowserVersion { get; set; }
         public string EnvAPLogin { get; set; }
         public string EnvCPLogin { get; set; }
+        public bool IsAccessibilityEnabled { get; set; }
     }
 }

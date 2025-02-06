@@ -1,6 +1,8 @@
 ﻿using BoDi;
-using Defra.UI.Tests.Tools;
+using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Tools;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
 using System.Drawing;
@@ -83,6 +85,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool IsPageLoaded()
         {
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver,true);
+            }
+
             return pageHeading.Text.Contains("Report non-compliance");
         }
 
