@@ -459,7 +459,7 @@ Examples:
 	| Enter a 15-digit number, using only numbers | "£%$^&<>		  |
 	
 
-Scenario: Verify the Report non compliance is successfully submitted message
+Scenario: Verify the success message after submitting the Report non compliance
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '02:30'
@@ -477,9 +477,3 @@ Scenario: Verify the Report non compliance is successfully submitted message
 	When I click Report non-compliance button from Report non-compliance page
 	Then I should navigate to Checks page
 	And I should see a message 'Information has been successfully submitted' in Checks page
-	| ErrorMessage                                            | MicrochipNumber   |
-	| Enter the 15-digit microchip number                     |                   |
-	| Enter the 15-digit microchip number, using only numbers | 19890989834567823 |
-	| Enter the 15-digit microchip number, using only numbers | 1233356           |
-	| Enter the 15-digit microchip number, using only numbers | TestingMC         |
-	| Enter the 15-digit microchip number, using only numbers | "£%$^&<>          |
