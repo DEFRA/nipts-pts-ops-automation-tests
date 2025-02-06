@@ -32,5 +32,9 @@
         bool VerifyOtherIssuesCheckboxes(string checkboxOptions);
         bool VerifyOtherReasonOptionHint(string hint);
         bool VerifyOtherIssuesCheckboxesAreNotChecked();
+        bool VerifyMicrochipSection();
+        bool VerifyMCDetailsPTDTableWithValues(string MCDetails);
+        void ClickOnMCCheckbox(string MCCheckbox);
+        void EnterMCNumber(string mCNumber);
     }
 }
