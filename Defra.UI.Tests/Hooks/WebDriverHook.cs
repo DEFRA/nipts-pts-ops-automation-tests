@@ -1,6 +1,5 @@
 ﻿using BoDi;
 using Capgemini.PowerApps.SpecFlowBindings.Hooks;
-using Defra.UI.Framework.Driver;
 using Defra.UI.Framework.Object;
 using Defra.UI.Tests.Capabilities;
 using Defra.UI.Tests.Configuration;
@@ -17,7 +16,7 @@ namespace Defra.UI.Tests.Hooks
     [Binding]
     public class WebDriverHook
     {
-        public static IWebDriver Driver { get; set; }
+        public IWebDriver Driver { get; set; }
         private static string Target => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.Target;
         private static string SeleniumGrid => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.SeleniumGrid;
 
@@ -51,6 +50,11 @@ namespace Defra.UI.Tests.Hooks
             }
 
             _objectContainer.RegisterInstanceAs(Driver);
+
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, Path.Combine($"{Environment.CurrentDirectory}", "Accessibility"), false);
+            }
         }
 
         [AfterScenario]
@@ -79,6 +83,12 @@ namespace Defra.UI.Tests.Hooks
                 }
 
                 CloseBrowsers();
+
+                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+                {
+                    Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByCategory();
+                    Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByGuideline();
+                }
             }
         }
 
@@ -138,25 +148,6 @@ namespace Defra.UI.Tests.Hooks
                 AfterScenarioHooks.TestCleanup();
             }
             catch { }
-        }
-
-        [BeforeTestRun]
-        public static void BeforeTestRun()
-        {
-            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
-            {
-                Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, Path.Combine($"{Environment.CurrentDirectory}", "Accessibility"), false);
-            }
-        }
-
-        [AfterTestRun]
-        public static void AfterTestRun()
-        {
-            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
-            {
-                Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByCategory();
-                Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByGuideline();
-            }
         }
     }
 }

@@ -28,7 +28,7 @@ stages:
         jobName: Windows_Chrome_latest
         environment: 'pre'
         branchName: ${{ parameters.branchName}}
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        seleniumGrid: 'http://localhost:4444' 
         deviceName: 'Windows'
         bsOSVersion: '11'
         workers:  '10'
@@ -40,3 +40,7 @@ stages:
         application: 'AP'
         filterTestCases: 'TestCategory=CPAccessibility'
         isAccessibilityEnabled: true
+
+    - template: publish-accessibility-report.yml
+      parameters:
+        dependsOn: 'Accessibility_Run_Chrome'
