@@ -20,10 +20,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Report non-compliance']"));
-        private IWebElement btnReportNonCompliance => _driver.WaitForElement(By.XPath("//button[normalize-space()='Report non-compliance']"));
+        private IWebElement btnReportNonCompliance => _driver.WaitForElement(By.XPath("//button[normalize-space()='Save outcome']"));
         private IWebElement lnkPetTravelDocumentDetails => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet Travel Document details']"));
-        private IWebElement btnFootPassengerRadio=> _driver.WaitForElementExists(By.CssSelector("#footPassenger"));
+        private IWebElement btnFootPassengerRadio=> _driver.WaitForElementExists(By.CssSelector("#passengerType"));
         private IWebElement bntVehicleRadio => _driver.WaitForElementExists(By.CssSelector("#vehiclePassenger"));
+        private IWebElement bntAirlineRadio => _driver.WaitForElementExists(By.CssSelector("#airlinePassenger"));
         private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[1]"));
         private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[2]"));
         private IWebElement chkGBOutcome3 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[3]"));
@@ -40,8 +41,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblReasonsHeading => _driver.WaitForElement(By.XPath("//h2[@class='govuk-fieldset__heading']"));
         private IWebElement lblReasonsHint => _driver.WaitForElementExists(By.Id("event-name-hint"));
         private IWebElement lblTableNamePTD => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//h2[normalize-space()='Pet Travel Document (PTD)']"));
-        private IWebElement lblTableNameApplicationDetails => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//h2[normalize-space()='Application Details']"));
-        private IWebElement txtValueReferenceNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'Reference number')]/following-sibling::dd"));
+        private IWebElement lblTableNameApplicationDetails => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//h2[normalize-space()='Application details']"));
+        private IWebElement txtValueReferenceNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'Application reference number')]/following-sibling::dd"));
         private IWebElement txtValueDate => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//*[contains(text(),'Date')]/following-sibling::dd"));
         private IWebElement txtValueStatus => _driver.WaitForElement(By.XPath("//*[contains(text(),'Status')]/following-sibling::dd/strong"));
         private IWebElement txtValuePTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]/following-sibling::dd"));
@@ -199,6 +200,25 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             var gbOutcomeCheckbox = checkboxValues.Split('|');
             return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text));
+        }
+
+        public void ClickGBOutcomeCheckbox(string GBOutcome)
+        {
+            if (GBOutcome.Equals("Passenger referred to DAERA/SPS at NI port"))
+            {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome1);
+                chkGBOutcome1.Click();
+            }
+            else if (GBOutcome.Equals("Passenger advised not to travel"))
+            {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome2);
+                chkGBOutcome2.Click();
+            }
+            else if (GBOutcome.Equals("Passenger says they will not travel"))
+            {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome3);
+                chkGBOutcome3.Click();
+            }
         }
         
         public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
