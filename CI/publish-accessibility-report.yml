@@ -1,7 +1,12 @@
+parameters:
+  dependsOn: ''
+
 jobs: 
 
 - job: Publish_Accessibility_Report
   displayName: Publish Accessibility Report
+  dependsOn: '${{ parameters.dependsOn }}'
+  condition: always()
 
   steps:
   

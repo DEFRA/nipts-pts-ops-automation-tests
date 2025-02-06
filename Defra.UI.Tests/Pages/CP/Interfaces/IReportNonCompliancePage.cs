@@ -36,6 +36,7 @@
         bool VerifyMCDetailsPTDTableWithValues(string MCDetails);
         void ClickOnMCCheckbox(string MCCheckbox);
         void EnterMCNumber(string mCNumber);
+        void ClickGBOutcomeCheckbox(string gBOutcome);
         bool VerifyNameAndEmailOfPetOwner(string name, string email);
         bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber);
         bool VerifyInfoSubmittedMessage(string submittedMessage);

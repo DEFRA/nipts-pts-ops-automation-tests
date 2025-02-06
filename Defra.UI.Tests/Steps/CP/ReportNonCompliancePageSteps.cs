@@ -90,6 +90,7 @@ namespace Defra.UI.Tests.Steps.CP
             _reportNonCompliancePage?.SelectTypeOfPassenger(passengerType);
         }
 
+        [Then(@"I should see an error message '([^']*)' in Report non-compliance page")]
         [Then(@"I should see an error message ""([^""]*)"" in Report non-compliance page")]
         public void ThenIShouldSeeAnErrorMessageInReportNon_CompliancePage(string errorMessage)
         {
@@ -234,6 +235,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void WhenISelectTheMCCheckbox(string MCCheckbox)
         {
             _reportNonCompliancePage?.ClickOnMCCheckbox(MCCheckbox);
+        } 
+        
+        [When(@"I click '(.*)' GB Outcome")]
+        public void WhenISelectGBOutcome(string GBOutcome)
+        {
+            _reportNonCompliancePage?.ClickGBOutcomeCheckbox(GBOutcome);
         }
 
         [Then(@"I should see Name '([^']*)' and Email '([^']*)' of Pet owner")]

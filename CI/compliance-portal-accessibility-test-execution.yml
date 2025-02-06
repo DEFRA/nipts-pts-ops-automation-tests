@@ -5,6 +5,10 @@ parameters:
     displayName: Branch Name
     type: string
     default: 'refs/heads/dev'
+  - name: seleniumGrid
+    displayName: Selenium Grid URL
+    type: string
+    default: 'http://localhost:4444'
 
 resources:
   repositories:
@@ -28,7 +32,7 @@ stages:
         jobName: Windows_Chrome_latest
         environment: 'pre'
         branchName: ${{ parameters.branchName}}
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        seleniumGrid: ${{parameters.seleniumGrid}}
         deviceName: 'Windows'
         bsOSVersion: '11'
         workers:  '10'
@@ -37,6 +41,10 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: ''
         dependsOn: ''
-        application: 'AP'
+        application: 'CP'
         filterTestCases: 'TestCategory=CPAccessibility'
         isAccessibilityEnabled: true
+
+    - template: publish-accessibility-report.yml
+      parameters:
+        dependsOn: 'Accessibility_Run_Chrome'

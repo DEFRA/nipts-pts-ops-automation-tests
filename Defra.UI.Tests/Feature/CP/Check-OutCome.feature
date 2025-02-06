@@ -37,7 +37,6 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	#And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 
@@ -70,7 +69,6 @@ Scenario: Validate fail outcome for Awaiting verification status with color bann
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
 	Then I see the 'Amber' color banner
-	#When I select Fail radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 
@@ -103,7 +101,6 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 	And I provided the Microchip number '236782367823678' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	#And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 
