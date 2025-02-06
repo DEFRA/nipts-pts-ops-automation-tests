@@ -202,5 +202,30 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.False(_reportNonCompliancePage?.VerifyOtherIssuesCheckboxesAreNotChecked());
         }
+
+        [Then(@"I Verify the Microchip section")]
+        public void ThenISeeMicrochipSection()
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyMicrochipSection(), $"The Microchip section is not as expected");
+        }
+
+        [Then(@"I expand and verify Microchip details '(.*)' from PTD table")]
+        public void ThenIExpandAndVerifyMicrochipDetailsFromPTDTable(string MCDetails)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyMCDetailsPTDTableWithValues(MCDetails),
+                        $"The Microchip details from PTD table is not as expected");
+        }
+
+        [When(@"I enter the Microchip number in '(.*)' in Report non-compliance page")]
+        public void WhenIEnterMCNumber(string MCNumber)
+        {
+            _reportNonCompliancePage?.EnterMCNumber(MCNumber);
+        }
+
+        [When(@"I Select the '(.*)' Microchip Checkbox")]
+        public void WhenISelectTheMCCheckbox(string MCCheckbox)
+        {
+            _reportNonCompliancePage?.ClickOnMCCheckbox(MCCheckbox);
+        }
     }
 }

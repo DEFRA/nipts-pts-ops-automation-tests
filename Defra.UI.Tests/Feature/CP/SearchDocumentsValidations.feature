@@ -67,6 +67,9 @@ Scenario: Verify invalid PTD number navigates to Document not found page
 	And I provided the '613465' of the application
 	When I click search button
 	Then I should navigate to Document not found page
+	And I Verify the message for 'GB826613465' in Document Not Found Page
+	And I click back link
+	And I navigate to Find a document page
 
 Scenario: Verify invalid application number navigates to Document not found page 
 	Then I have selected 'Ferry' radio option
@@ -80,6 +83,10 @@ Scenario: Verify invalid application number navigates to Document not found page
 	And I provided the Application Number 'AD6789QE' of the application
 	When I click search button
 	Then I should navigate to Document not found page
+	And I Verify the message for 'AD6789QE' in Document Not Found Page
+	And I click on go back to search link
+	And I navigate to Find a document page
+	And I see the values are deleted
 
 Scenario: Verify invalid microchip number navigates to Document not found page 
 	Then I have selected 'Ferry' radio option
@@ -93,6 +100,11 @@ Scenario: Verify invalid microchip number navigates to Document not found page
 	And I provided the Microchip number '666661111134343' of the application
 	When I click search button
 	Then I should navigate to Document not found page
+	And I Verify the message for '666661111134343' in Document Not Found Page
+	And I click on go back to search link
+	And I navigate to Find a document page
+	And I see the values are deleted
+
 
 Scenario: Verify the navigation for change link click in header from Checks page
 	And I have selected 'Ferry' radio option
@@ -363,3 +375,15 @@ Scenario: Verify the error message if entering less than 15 microchip number for
 	And I provided the Microchip number '98761234' of the application
 	When I click search button
 	Then I should see an error message "Enter a 15-digit number, using only numbers" in Find a document page
+
+Scenario: Verify the Clear search functionality in Find a Document page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '08:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '12345' of the application
+	When I click clear search button
+	Then I see the values are deleted
