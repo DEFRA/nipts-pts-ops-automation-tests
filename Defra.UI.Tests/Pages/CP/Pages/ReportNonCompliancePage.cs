@@ -73,6 +73,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblMCImplantOrScanDateValue => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Implant or scan date')]/following-sibling::dd"));
         private IWebElement lblMCNumberNotFoundInScan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Microchip number found in scan']"));
         private IWebElement txtMCNumberNotFoundInScan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Microchip number found in scan']/following::input[1]"));
+        private IWebElement lblPetOwnerDetailsSubHeading => _driver.WaitForElement(By.XPath("//h2[@class='govuk-heading-l govuk-!-margin-top-9']"));
+        private IWebElement lblPetOwnerDetailsTableName => _driver.WaitForElement(By.XPath("//*[@id='document-owner-card']//h2"));
+        private IWebElement lblPetOwnerName => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Name')]/following-sibling::dd"));
+        private IWebElement lblPetOwnerEmail => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Email')]/following-sibling::dd"));
+        private IWebElement lblPetOwnerAddress => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Address')]/following-sibling::dd"));
+        private IWebElement lblPetOwnerPhoneNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Phone number')]/following-sibling::dd"));
+        private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"));      
         #endregion
 
         #region Methods
@@ -254,9 +261,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             return lblPassengerDetails.Text.Contains(sectionName) && lblTypeOfPassenger.Text.Contains(subHeading);
         }
-        public bool VerifyVisualCheckSubheading(string subHeading)
+        public bool VerifyVCAndPetOwnerDetailSubheading(string subHeading)
         {
-            return lblVisualCheck.Text.Contains(subHeading);
+            if(subHeading.Equals("Visual check"))
+                return lblVisualCheck.Text.Contains(subHeading);
+            return lblPetOwnerDetailsSubHeading.Text.Contains(subHeading);
         }
         public bool VerifyPetDetailsFromPTDLink(string linkName)
         {
@@ -268,9 +277,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             return lblVisualCheckCheckBox.Text.Contains(checkBoxValue);
         }
-        public bool VerifyVisualCheckTableName(string tableName)
+        public bool VerifyVCAndPetOwnerDetailTableName(string tableName)
         {
-            return lblVisualCheckTableName.Text.Contains(tableName);
+            if (tableName.Equals("Pet details from PTD or application"))
+                return lblVisualCheckTableName.Text.Contains(tableName);
+            return lblPetOwnerDetailsTableName.Text.Contains(tableName);
         }
         public bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature)
         {
@@ -334,6 +345,23 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             txtMCNumberNotFoundInScan.Clear();
             txtMCNumberNotFoundInScan.SendKeys(MCNumber);
         }       
+        public bool VerifyNameAndEmailOfPetOwner(string name, string email)
+        {
+            return lblPetOwnerName.Text.Contains(name)
+                && lblPetOwnerEmail.Text.Contains(email);
+        }
+        public bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber)
+        {
+            var addressReplaceNewLine = lblPetOwnerAddress.Text.ReplaceLineEndings("\n");
+            var addressDetail = addressReplaceNewLine.Replace('\n', ',');
+
+            return addressDetail.Contains(address)
+                && lblPetOwnerPhoneNumber.Text.Contains(phoneNumber);
+        }
+        public bool VerifyInfoSubmittedMessage(string submittedMessage)
+        {
+            return lblInfoSubmittedMessage.Text.Contains(submittedMessage);
+        }
         #endregion
     }
 }

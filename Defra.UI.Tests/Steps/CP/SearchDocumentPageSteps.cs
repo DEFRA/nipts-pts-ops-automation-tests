@@ -107,5 +107,34 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_searchDocumentPage?.VerifyTheValuesAreCleared(), $"The Values in Search page is not cleared");
         }
+
+        [Then(@"I should see the already entered PTD number '(.*)' in the text box")]
+        public void ThenIShouldSeeTheAlreadyEnteredPTDNumberInTheTextBox(string alreadyEnteredPTDNumber)
+        {
+            Assert.True(_searchDocumentPage?.VerifyAlreadyEnteredPTDNumber(alreadyEnteredPTDNumber), "There is no PTD number exists in the text box");
+        }
+        [Then(@"I should see the already entered application number '(.*)' in the text box")]
+        public void ThenIShouldSeeTheAlreadyEnteredApplicationNumberInTheTextBox(string alreadyEnteredApplicationNumber)
+        {
+            Assert.True(_searchDocumentPage?.VerifyAlreadyEnteredApplicationNumber(alreadyEnteredApplicationNumber), "There is no Application number exists in the text box");
+        }
+
+        [Then(@"I should see the already entered microchip number '(.*)' in the text box")]
+        public void ThenIShouldSeeTheAlreadyEnteredMicrochipNumberInTheTextBox(string alreadyEnteredMicrochipNumber)
+        {
+            Assert.True(_searchDocumentPage?.VerifyAlreadyEnteredMicrochipNumber(alreadyEnteredMicrochipNumber), "There is no Microchip number exists in the text box");
+        }
+
+        [Then(@"I should navigate to '(.*)' error page")]
+        public void ThenIShouldNavigateToErrorPage(string errorPageHeading)
+        {
+            Assert.True(_searchDocumentPage?.VerifyYouCannotAccessPage(errorPageHeading), "You cannot access this page or perform this action page is not loaded");
+        }
+
+        [When(@"I click go back to the previous page link")]
+        public void WhenIClickGoBackToThePreviousLink()
+        {
+            _searchDocumentPage?.VerifyGoBackToPreviousPageLink();
+        }
     }
 }
