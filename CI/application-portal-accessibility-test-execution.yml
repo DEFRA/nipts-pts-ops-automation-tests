@@ -8,7 +8,7 @@ parameters:
   - name: seleniumGrid
     displayName: Selenium Grid URL
     type: string
-    default: 'http://localhost:4444'
+    default: 'https://hub.browserstack.com/wd/hub/'
 
 resources:
   repositories:
