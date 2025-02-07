@@ -113,10 +113,17 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_searchDocumentPage?.VerifyAlreadyEnteredPTDNumber(alreadyEnteredPTDNumber), "There is no PTD number exists in the text box");
         }
+
         [Then(@"I should see the already entered application number '(.*)' in the text box")]
         public void ThenIShouldSeeTheAlreadyEnteredApplicationNumberInTheTextBox(string alreadyEnteredApplicationNumber)
         {
             Assert.True(_searchDocumentPage?.VerifyAlreadyEnteredApplicationNumber(alreadyEnteredApplicationNumber), "There is no Application number exists in the text box");
+        }
+
+        [When("I select Search by PTD number radio button and then selected the Search by application number radio button")]
+        public void WhenISelectSearchByPTDNumberRadioButtonAndThenSelectedTheSearchByApplicationNumberRadioButton()
+        {
+            _searchDocumentPage?.SelectAndSwapToApplicationNumberRadioButton();
         }
 
         [Then(@"I should see the already entered microchip number '(.*)' in the text box")]

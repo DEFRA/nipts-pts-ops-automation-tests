@@ -7,7 +7,7 @@ Background:
 	Given that I navigate to the DEFRA application
 	And I have provided the password for Landing page
 	When I click Continue button from Landing page
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the AP Sign in using Government Gateway page
 
 Scenario: Sign in button click validation
 	Then sign in with valid credentials with logininfo

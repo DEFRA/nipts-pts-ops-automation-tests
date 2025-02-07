@@ -26,6 +26,12 @@ namespace Defra.UI.Tests.Steps.CP
             _objectContainer = container;
         }
 
+        [Then(@"I should redirected to the CP Sign in using Government Gateway page")]
+        public void ThenIShouldRedirectedToTheCPSignInUsingGovernmentGatewayPage()
+        {
+            Assert.True(_signInCPPage?.IsPageLoaded(), "Application page not loaded");
+        }
+
         [When(@"I navigate to the port checker application")]
         [Given(@"that I navigate to the port checker application")]
         public void GivenThatINavigateToThePortCheckerApplication()

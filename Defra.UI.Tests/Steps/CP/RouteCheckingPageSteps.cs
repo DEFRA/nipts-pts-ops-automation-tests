@@ -104,6 +104,13 @@ namespace Defra.UI.Tests.Steps.CP
             _routeCheckingPage?.SelectScheduledDepartureDate(departureDay,departureMonth,departureYear);
         }
 
+        [Then("I have selected current date '(.*)' Date option")]
+        public void ThenIHaveSelectedCurrentDateDateOption(int pastDay)
+        {
+            var pastDate = DateTime.Now.AddDays(pastDay);
+            _routeCheckingPage?.SelectScheduledDepartureDate(pastDate.Day.ToString(), pastDate.Month.ToString(), pastDate.Year.ToString());
+        }
+
         [Then(@"I should see the subheading '([^']*)' along with 3 route options")]
         public void ThenIShouldSeeTheSubheadingAlongWith3RouteOptions(string subHeading)
         {
@@ -136,6 +143,17 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_welcomePage?.IsHeaderChangeLinkDisplayed(),"Change link is not displayed on the header");
         }
 
+        [Then("I should see the header of the page with route '([^']*)' date current date '([^']*)' time '([^']*)' and change link")]
+        public void ThenIShouldSeeTheHeaderOfThePageWithRouteDateCurrentDateTimeAndChangeLink(string route, int pastDay, string departureTime)
+        { 
+            var pastDate = DateTime.Now.AddDays(pastDay);
+
+            Assert.True(_routeCheckingPage?.CheckRouteDetailOnHomePageHeader(route), "Given route is not displayed properly on the header");
+            Assert.True(_routeCheckingPage?.CheckDepartureTimeOnHomePage(pastDate.Day.ToString(), pastDate.Month.ToString(), pastDate.Year.ToString(), departureTime), "Departure date and time are not displayed properly on the header");
+            Assert.True(_welcomePage?.IsHeaderChangeLinkDisplayed(), "Change link is not displayed on the header");
+        }
+
+
         [Then(@"I should see back link in the top left of route checking page")]
         public void ThenIShouldSeeBackLinkInTheTopLeftOfRouteCheckingPage()
         {
@@ -154,10 +172,11 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_routeCheckingPage?.IsTestEnvironmentPrototypePageLoaded(), "Navigation to test environment prototype page is not happened");
         }
 
-        [Then(@"I should see departure date '(.*)''(.*)''(.*)' and time '([^']*)' on top of the home page")]
-        public void ThenIShouldSeeDepartureDateAndTimeOnTopOfTheHomePage(string departureDay, string departureMonth, string departureYear, string departureTime)
+        [Then("I should see departure date current date '(.*)' and time '(.*)' on top of the home page")]
+        public void ThenIShouldSeeDepartureDateCurrentDateAndTimeOnTopOfTheHomePage(int pastDay, string departureTime)
         {
-            Assert.True(_routeCheckingPage?.CheckDepartureTimeOnHomePage(departureDay, departureMonth, departureYear, departureTime), "Given Depature time is not displayed in the home page");
+            var pastDate = DateTime.Now.AddDays(pastDay);
+            Assert.True(_routeCheckingPage?.CheckDepartureTimeOnHomePage(pastDate.Day.ToString(), pastDate.Month.ToString(), pastDate.Year.ToString(), departureTime), "Given Depature time is not displayed in the home page");
         }
 
         [Then(@"I should see the subheading '([^']*)' along with 2 route options")]

@@ -2,7 +2,6 @@
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
-using Dynamitey;
 using OpenQA.Selenium;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -74,7 +73,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 }
             }
         }
-        public void EnterPTDNumber(string ptdNumber1) 
+        public void EnterPTDNumber(string ptdNumber1)
         {
             txtPTDSearchBox.SendKeys(ptdNumber1);
         }
@@ -114,7 +113,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTheValuesAreCleared()
         {
-            return rdoSearchByPTDNumber.GetAttribute("aria-expanded").Equals("true") && txtPTDSearchBox.Text.Equals("") && rdoSearchByAppNumber.GetAttribute("aria-expanded").Equals("false") && rdoSearchByMCNumber.GetAttribute("aria-expanded").Equals("false");
+            return rdoSearchByPTDNumber.GetAttribute("aria-expanded") is null && txtPTDSearchBox.Text.Equals(string.Empty) && rdoSearchByAppNumber.GetAttribute("aria-expanded") is null && rdoSearchByMCNumber.GetAttribute("aria-expanded") is null;
         }
         public bool VerifyAlreadyEnteredPTDNumber(string alreadyEnteredPTDNumber)
         {
@@ -135,6 +134,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public void VerifyGoBackToPreviousPageLink()
         {
             lnkGobackToPrevPage.Click();
+        }
+
+        public void SelectAndSwapToApplicationNumberRadioButton()
+        {
+            rdoSearchByPTDNumber.Click();
+            rdoSearchByAppNumber.Click();
         }
         #endregion
     }
