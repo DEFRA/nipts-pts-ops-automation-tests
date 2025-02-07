@@ -29,7 +29,7 @@ Scenario: Verify the error message if no flight number provided in the flight ro
 	Then I provide the '' in the box
 	And I have provided Scheduled departure time '10:40'
 	When I click save and continue button from route checker page
-	Then I should see an error message "Enter the flight number you are checking" in route checking page
+	Then I should see an error message "Enter the flight number. For example, RK 103" in route checking page
 
 Scenario: Verify home page for flight Number text box with special character
 	Then I have selected 'Flight' radio option
@@ -78,7 +78,7 @@ Scenario: Verify the error message if only hour details provided in the schedule
 	Then I should see an error message "Enter the scheduled departure time, for example 15:30" in route checking page
 
 Scenario: Verify sailing or flight option and no route options selected under that subheading by default
-	Then I should see the subheading 'Are you checking a sailing or a flight?' along with 2 route options
+	Then I should see the subheading 'Are you checking a ferry or flight?' along with 2 route options
 	And I should see no route options selected by default
 
 Scenario: Verify the Ferry route subheading and no route options selected under Ferry by default
@@ -101,9 +101,9 @@ Scenario: Verify selected departure time displays in home page
 	Then I should see departure date '07''07''1992' and time '18:30' on top of the home page
 
 Scenario: Verify the scheduled departure date, date hint and current date pre-population
-	Then I should see date subsection 'Scheduled departure date'
+	Then I should see date subsection 'Scheduled departure date' with the current date pre-population
 	And I should see hint 'For example, 27 3 2024' under the date subheading
 
 Scenario: Verify the scheduled departure time and time hint
 	Then I should see time subsection 'Scheduled departure time'
-	And I should see hint 'Use the 24-hour clock - for example, 15:30.For midday, use 12:00. For midnight, use 23:59.' under the time subheading
+	And I should see hint 'Use the 24-hour clock - for example, 15:30.' under the time subheading

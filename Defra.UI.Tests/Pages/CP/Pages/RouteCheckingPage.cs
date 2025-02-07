@@ -245,6 +245,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var givenRoute = "Route: " + route;
             return displayedRoute.Equals(givenRoute);
         }
+        public bool CheckNoPrepopulatedDepartureTime()
+        {
+            return hourDropdown.GetAttribute("value").Equals("") && minuteDropdown.GetAttribute("value").Equals("");
+        }
         #endregion
     }
 }

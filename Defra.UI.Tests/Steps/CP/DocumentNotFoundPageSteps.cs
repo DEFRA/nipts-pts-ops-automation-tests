@@ -26,5 +26,18 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_documentNotFoundPage?.IsPageLoaded(), "Document not found page not loaded");
         }
+
+        [Then(@"I Verify the message for '(.*)' in Document Not Found Page")]
+        public void TheIVerifyTheDocumentNotFoundPage(string applicationNumber)
+        {
+            Assert.True(_documentNotFoundPage?.VerifyMessage(applicationNumber));
+            Assert.True(_documentNotFoundPage?.VerifyGoBackLink());
+        }
+
+        [Then(@"I click on go back to search link")]
+        public void ThenIClickOnGoBackToSearchLink()
+        {
+            _documentNotFoundPage?.ClickGoBackToSearchLink();
+        }
     }
 }

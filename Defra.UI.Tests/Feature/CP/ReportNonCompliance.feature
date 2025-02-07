@@ -43,7 +43,6 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Awai
 	And I provided the Microchip number '236782367823678' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
@@ -87,7 +86,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Unsu
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	Then I should see a table name as 'Application Details'
+	Then I should see a table name as 'Application details'
 	And I Verify the reference number '0CI5N6V6'
 	Then I verify the date of issuance '14/11/2024'
 	And I Verify status 'Unsuccessful' on Report non-compliance page
@@ -124,10 +123,13 @@ Scenario Outline: Verify passenger details section radio buttons in Report non-c
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Click on Back button
+	And I should see the application status in 'Approved'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	Then I should see 'Type of passenger' subheading under 'Passenger details' section
 	And I click '<TypeOfPassenger>' in Passenger details
+	When I click 'Passenger says they will not travel' GB Outcome
+	And I Select the 'Cannot find microchip' Microchip Checkbox
 	When I click Report non-compliance button from Report non-compliance page
 	Then I should navigate to Checks page
 	
@@ -165,7 +167,6 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - Awa
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
@@ -205,7 +206,6 @@ Scenario: Verify Reasons heading with hint in Report non compliance page - Await
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
-	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Reasons' heading with hint 'Select all that apply.'
@@ -254,8 +254,7 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 Examples:
 	| ApplicationNumber | FerryRoute                    | Status                |
 	| 4574B2            | Birkenhead to Belfast (Stena) | Approved              |
-	| 8E375B            | Loch Ryan to Belfast (Stena)  | Awaiting verification |
-
+	
 Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for unsuccessful applications
 	Then I have selected 'Ferry' radio option
 	And I select the '<FerryRoute>' radio option
@@ -274,9 +273,11 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for un
 	And I verify the Details of Outcome label
 	And I verify the Details of Outcome textarea maximum length is '500'
 Examples:
-	| ApplicationNumber | FerryRoute                   | Status       |
-	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful |
-	| A6AD63            | Loch Ryan to Belfast (Stena) | Revoked      |
+	| ApplicationNumber | FerryRoute                   | Status                |
+	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful          |
+	| A6AD63            | Loch Ryan to Belfast (Stena) | Revoked               |
+	| 8E375B            | Loch Ryan to Belfast (Stena) | Awaiting verification |
+
 
 Scenario: Verify the navigation by clicking search and home icon from Report non compliance page
 	And I have selected 'Ferry' radio option
@@ -351,8 +352,8 @@ Scenario: Verify the check box in Visual check section of Report non compliance 
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	Then I should see the 'Visual check' subheading 
-	And I should see a checkbox 'Pet does not match the PTD' is not selected
+	And I should see the 'Visual check' subheading 
+	Then I should see a checkbox 'Pet does not match the PTD' is not selected
 
 Scenario: Verify Other issues check boxes in Visual check section of Report non compliance page
 	Then I have selected 'Ferry' radio option
@@ -368,11 +369,11 @@ Scenario: Verify Other issues check boxes in Visual check section of Report non 
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	Then I should see the 'Visual check' subheading 
-	And I should see the 'Other issues' subheading in visual check section
-	Then I verify the other issues 'Potential commercial movement|Authorised traveller but no confirmation|Other reason' checkboxes
-	And I should see a hint 'This could be about the PTD or any risks identified.' next to Other reason option
-	Then I should see no checkboxes are selected in other issues section
+	And I should see the 'Visual check' subheading 
+	Then I should see the 'Other issues' subheading in visual check section
+	And I verify the other issues 'Potential commercial movement|Authorised traveller but no confirmation|Other reason' checkboxes
+	Then I should see a hint 'This could be about the PTD or any risks identified.' next to Other reason option
+	And I should see no checkboxes are selected in other issues section
 
 Scenario: Verify Visual check Pet details from PTD dropdown table in Report non compliance page
 	Then I have selected 'Ferry' radio option
@@ -388,7 +389,91 @@ Scenario: Verify Visual check Pet details from PTD dropdown table in Report non 
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	Then I should see the 'Visual check' subheading 
-	And I should click 'Pet details from PTD' link next to the subheading
-	Then I should see a table 'Pet details from PTD or application'
-	And I should see Species 'Dog' Breed 'Afghan Hound' Sex 'Male' Date of birth '07/10/2018' Colour 'Brown, tan or chocolate' and Significant features 'No' in the table
+	And I should see the 'Visual check' subheading 
+	Then I should click 'Pet details from PTD' link next to the subheading
+	And I should see a table 'Pet details from PTD or application'
+	Then I should see Species 'Dog' Breed 'Afghan Hound' Sex 'Male' Date of birth '07/10/2018' Colour 'Brown, tan or chocolate' and Significant features 'No' in the table
+
+Scenario: Verify Pet owner details section in Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I should see the 'Pet owner details' subheading 
+	Then I should see a table 'Pet owner details'
+	And I should see Name 'Watson Kate' and Email 'Vinotha.Thiyagarajan+5@cognizant.com' of Pet owner
+	Then I should see Address '4 JACK FLETCHER CLOSE,LINCOLN,LN4 1FF' and Phone number '07897897895' of Pet owner
+
+Scenario: Verify the Microchip section in Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the 'D6BE7C' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I Verify the Microchip section
+	And I expand and verify Microchip details '240125100121131|24/01/2022' from PTD table
+
+Scenario Outline: Verify the error message for Microchip number textbox in Report non compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '16:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I provided the 'D6BE7C' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I click 'Vehicle' in Passenger details
+	When I click 'Passenger says they will not travel' GB Outcome
+	When I Select the 'Microchip number does not match the PTD' Microchip Checkbox
+	And I enter the Microchip number in '<MicrochipNumber>' in Report non-compliance page
+	And I click Report non-compliance button from Report non-compliance page
+	Then I should see an error message '<ErrorMessage>' in Report non-compliance page
+Examples:
+	| ErrorMessage                                | MicrochipNumber   |
+	| Enter a microchip number                    |					  |
+	| Enter a 15-digit number, using only numbers | 19890989834567823 |
+	| Enter a 15-digit number, using only numbers | 1233356			  |
+	| Enter a 15-digit number, using only numbers | TestingMC		  |
+	| Enter a 15-digit number, using only numbers | "£%$^&<>		  |
+	
+
+Scenario: Verify the success message after submitting the Report non compliance
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '02:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+    And I provided the '9EFC9F' of the application
+	When I click search button
+	And I should see the application status in 'Unsuccessful'
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I should see 'Type of passenger' subheading under 'Passenger details' section
+	Then I click 'Vehicle' in Passenger details
+	When I click Report non-compliance button from Report non-compliance page
+	Then I should navigate to Checks page
+	And I should see a message 'Information has been successfully submitted' in Checks page
