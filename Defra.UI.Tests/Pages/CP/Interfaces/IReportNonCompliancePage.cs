@@ -40,5 +40,6 @@
         bool VerifyNameAndEmailOfPetOwner(string name, string email);
         bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber);
         bool VerifyInfoSubmittedMessage(string submittedMessage);
+        void ClickSaveOutComeButton();
     }
 }

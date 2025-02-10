@@ -1,14 +1,9 @@
 ﻿using BoDi;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Interfaces;
-using Defra.UI.Tests.Pages.CP.Pages;
-using Dynamitey.DynamicObjects;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using System.Runtime.Intrinsics.X86;
 using TechTalk.SpecFlow;
-using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -34,6 +29,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldNavigateToReportNon_CompliancePage()
         {
             Assert.IsTrue(_reportNonCompliancePage?.IsPageLoaded(), "Report non-compliance page not loaded ");
+        }
+
+        [When("I click Save outcome button from non-compliance page")]
+        public void WhenIClickSaveOutcomeButtonFromNon_CompliancePage()
+        {
+            _reportNonCompliancePage?.ClickSaveOutComeButton();
         }
 
         [When(@"I click Report non-compliance button from Report non-compliance page")]

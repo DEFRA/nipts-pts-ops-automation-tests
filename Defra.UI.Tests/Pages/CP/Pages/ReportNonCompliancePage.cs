@@ -80,6 +80,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPetOwnerAddress => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Address')]/following-sibling::dd"));
         private IWebElement lblPetOwnerPhoneNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Phone number')]/following-sibling::dd"));
         private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"));
+        private IWebElement bntSaveOutCome=> _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
         #endregion
 
         #region Methods
@@ -335,14 +336,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return lblMCNumber.Text.Equals("Microchip number") && lblMCImplantOrScanDate.Text.Equals("Implant or scan date") && lblMCNumberValue.Text.Equals(MCNumberAndDate[0]) && lblMCImplantOrScanDateValue.Text.Equals(MCNumberAndDate[1]);
         }
 
-        public void ClickOnMCCheckbox(string MCCheckbox)
+        public void ClickOnMCCheckbox(string mcCheckbox)
         {
-            if (MCCheckbox.Equals("Microchip number does not match the PTD"))
+            if (mcCheckbox.Equals("Microchip number does not match the PTD"))
             {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblMCCheckbox1);
                 lblMCCheckbox1.Click();
             }
-            else if (MCCheckbox.Equals("Cannot find microchip"))
+            else if (mcCheckbox.Equals("Cannot find microchip"))
             {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblMCCheckbox2);
                 lblMCCheckbox2.Click();
             }
         }
@@ -358,6 +361,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return lblPetOwnerName.Text.Contains(name)
                 && lblPetOwnerEmail.Text.Contains(email);
         }
+
         public bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber)
         {
             var addressReplaceNewLine = lblPetOwnerAddress.Text.ReplaceLineEndings("\n");
@@ -366,10 +370,18 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return addressDetail.Contains(address)
                 && lblPetOwnerPhoneNumber.Text.Contains(phoneNumber);
         }
+
         public bool VerifyInfoSubmittedMessage(string submittedMessage)
         {
             return lblInfoSubmittedMessage.Text.Contains(submittedMessage);
         }
+
+        public void ClickSaveOutComeButton()
+        {
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", bntSaveOutCome);
+            bntSaveOutCome.Click();
+        }
+
         #endregion
     }
 }

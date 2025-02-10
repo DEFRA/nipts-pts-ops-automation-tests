@@ -278,7 +278,7 @@ Scenario: Verify the error message if application number text box have character
 	Then I navigate to Find a document page
 	And I provided the '*%£$&{}@' of the application
 	When I click search button
-	Then I should see an error message "Enter 6 characters after 'GB826', using only the letters A to F and numbers" in Find a document page
+	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
 
 Scenario: Verify the error message if no text provided in application number text box
 	Then I have selected 'Ferry' radio option
