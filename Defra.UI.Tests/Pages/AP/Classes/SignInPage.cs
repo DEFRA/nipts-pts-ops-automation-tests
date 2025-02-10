@@ -1,13 +1,10 @@
 ﻿using BoDi;
-using OpenQA.Selenium;
 using Defra.UI.Tests.Configuration;
-using Defra.UI.Tests.Tools;
-using SeleniumExtras.WaitHelpers;
-using Defra.UI.Framework.Driver;
-using OpenQA.Selenium.Support.UI;
-using System.Xml.Linq;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {

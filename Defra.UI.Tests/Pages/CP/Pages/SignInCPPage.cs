@@ -27,6 +27,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtLoging => _driver.WaitForElement(By.XPath("//input[@id='password']"));
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[normalize-space()='Continue']"));
         private IWebElement lblTitle => _driver.WaitForElement(By.XPath("//h1"));
+        private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl'] | //h1[@class='govuk-heading-l'] | //h1[@class='govuk-fieldset__heading']"), true);
         #endregion
 
         #region Methods
@@ -37,6 +38,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var mainHeading = $"{headings[1]} {headings[2]}";
 
             return headings[0].Equals(subHeading) && mainHeading.Equals(heading);
+        }
+
+        public bool IsPageLoaded()
+        {
+            return PageHeading.Text.Contains("Sign in using Government Gateway");
         }
 
         public void ClickSignInButton()

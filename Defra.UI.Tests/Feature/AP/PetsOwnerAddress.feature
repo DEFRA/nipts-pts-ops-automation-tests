@@ -7,7 +7,7 @@ Background:
 	Given that I navigate to the DEFRA application
 	And I have provided the password for Landing page
 	When I click Continue button from Landing page
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 
 Scenario Outline: Create PETS Travel Document By PostCode Address User

@@ -6,7 +6,7 @@ Port checker Checks application and Route Details
 Background:
 	Given that I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -27,7 +27,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Appr
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
 	Then I should see a table name for approved and revoked status as 'Pet Travel Document (PTD)'
-	And I Verify the PTD number '4574B2'
+	And I Verify the PTD number '457 4B2'
 	Then I verify the date of issuance '24/12/2024'
 	And I Verify status 'Approved' on Report non-compliance page
 
@@ -67,7 +67,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Revo
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
 	Then I should see a table name for approved and revoked status as 'Pet Travel Document (PTD)'
-	And I Verify the PTD number 'AB517A'
+	And I Verify the PTD number 'AB5 17A'
 	Then I verify the date of issuance '25/10/2024'
 	And I Verify status 'Revoked' on Report non-compliance page
 	
@@ -252,8 +252,8 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 	And I Verify the GB and SPS Outcomes are not selected
 	And I verify the Details of Outcome textarea maximum length is '500'
 Examples:
-	| ApplicationNumber | FerryRoute                    | Status                |
-	| 4574B2            | Birkenhead to Belfast (Stena) | Approved              |
+	| ApplicationNumber | FerryRoute                    | Status   |
+	| 4574B2            | Birkenhead to Belfast (Stena) | Approved |
 	
 Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for unsuccessful applications
 	Then I have selected 'Ferry' radio option
@@ -335,7 +335,7 @@ Scenario: Verify Visual check subheading and pet details from PTD dropdown in Re
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	Then I should see the 'Visual check' subheading 
+	Then I should see the 'Visual check' subheading
 	And I should click 'Pet details from PTD' link next to the subheading
 
 Scenario: Verify the check box in Visual check section of Report non compliance page
@@ -352,7 +352,7 @@ Scenario: Verify the check box in Visual check section of Report non compliance 
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I should see the 'Visual check' subheading 
+	And I should see the 'Visual check' subheading
 	Then I should see a checkbox 'Pet does not match the PTD' is not selected
 
 Scenario: Verify Other issues check boxes in Visual check section of Report non compliance page
@@ -369,10 +369,10 @@ Scenario: Verify Other issues check boxes in Visual check section of Report non 
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I should see the 'Visual check' subheading 
+	And I should see the 'Visual check' subheading
 	Then I should see the 'Other issues' subheading in visual check section
 	And I verify the other issues 'Potential commercial movement|Authorised traveller but no confirmation|Other reason' checkboxes
-	Then I should see a hint 'This could be about the PTD or any risks identified.' next to Other reason option
+	Then I should see a hint 'This could be about the PTD and any risks identified.' next to Other reason option
 	And I should see no checkboxes are selected in other issues section
 
 Scenario: Verify Visual check Pet details from PTD dropdown table in Report non compliance page
@@ -389,7 +389,7 @@ Scenario: Verify Visual check Pet details from PTD dropdown table in Report non 
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I should see the 'Visual check' subheading 
+	And I should see the 'Visual check' subheading
 	Then I should click 'Pet details from PTD' link next to the subheading
 	And I should see a table 'Pet details from PTD or application'
 	Then I should see Species 'Dog' Breed 'Afghan Hound' Sex 'Male' Date of birth '07/10/2018' Colour 'Brown, tan or chocolate' and Significant features 'No' in the table
@@ -408,7 +408,7 @@ Scenario: Verify Pet owner details section in Report non compliance page
 	And I select Fail radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I should see the 'Pet owner details' subheading 
+	And I should see the 'Pet owner details' subheading
 	Then I should see a table 'Pet owner details'
 	And I should see Name 'Watson Kate' and Email 'Vinotha.Thiyagarajan+5@cognizant.com' of Pet owner
 	Then I should see Address '4 JACK FLETCHER CLOSE,LINCOLN,LN4 1FF' and Phone number '07897897895' of Pet owner
@@ -451,12 +451,12 @@ Scenario Outline: Verify the error message for Microchip number textbox in Repor
 	And I click Report non-compliance button from Report non-compliance page
 	Then I should see an error message '<ErrorMessage>' in Report non-compliance page
 Examples:
-	| ErrorMessage                                | MicrochipNumber   |
-	| Enter a microchip number                    |					  |
-	| Enter a 15-digit number, using only numbers | 19890989834567823 |
-	| Enter a 15-digit number, using only numbers | 1233356			  |
-	| Enter a 15-digit number, using only numbers | TestingMC		  |
-	| Enter a 15-digit number, using only numbers | "£%$^&<>		  |
+	| ErrorMessage                                            | MicrochipNumber   |
+	| Enter the 15-digit microchip number                     |                   |
+	| Enter the 15-digit microchip number, using only numbers | 19890989834567823 |
+	| Enter the 15-digit microchip number, using only numbers | 1233356           |
+	| Enter the 15-digit microchip number, using only numbers | TestingMC         |
+	| Enter the 15-digit microchip number, using only numbers | "£%$^&<>          |
 	
 
 Scenario: Verify the success message after submitting the Report non compliance
@@ -467,7 +467,7 @@ Scenario: Verify the success message after submitting the Report non compliance
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-    And I provided the '9EFC9F' of the application
+	And I provided the '9EFC9F' of the application
 	When I click search button
 	And I should see the application status in 'Unsuccessful'
 	When I click save and continue button from application status page
