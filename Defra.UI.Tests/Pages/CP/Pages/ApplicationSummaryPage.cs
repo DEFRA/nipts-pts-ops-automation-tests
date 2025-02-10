@@ -64,7 +64,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblIssuingAuthorityNameAndAddressValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Name and address of competent authority']/following-sibling::dd"));
         private IWebElement lblIssuingAuthoritySign => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Signed on behalf of the competent authority (APHA)']"));
         private IWebElement lblIssuingAuthoritySignValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Signed on behalf of the competent authority (APHA)']/following-sibling::dd"));
-
         private IWebElement lblChecks => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//h1"));
         private IWebElement lblCheckSubheading => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//p"));
         private IWebElement lblCheckpoint1 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[1]"));

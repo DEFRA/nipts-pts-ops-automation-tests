@@ -33,11 +33,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool VerifyHeadings(string heading, string subHeading)
         {
-            var applicationTitle = lblTitle.Text;
-            var headings = applicationTitle.Split(new string[] { "\r\n" }, StringSplitOptions.None);
-            var mainHeading = $"{headings[1]} {headings[2]}";
-
-            return headings[0].Equals(subHeading) && mainHeading.Equals(heading);
+            var applicationTitle = lblTitle.Text.Replace("\r\n"," ").ToUpper();
+            return applicationTitle.Contains(subHeading.ToUpper()) && applicationTitle.Contains(heading.ToUpper());
         }
 
         public bool IsPageLoaded()

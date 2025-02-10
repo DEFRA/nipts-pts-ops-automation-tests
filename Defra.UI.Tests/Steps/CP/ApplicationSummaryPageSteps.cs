@@ -41,6 +41,7 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [When(@"I click save and continue button from application status page")]
+        [When(@"I continue button from application status page")]
         public void WhenIClickSaveAndContinueButtonFromApplicationStatusPage()
         {
             _applicationSummaryPage?.SelectSaveAndContinue();

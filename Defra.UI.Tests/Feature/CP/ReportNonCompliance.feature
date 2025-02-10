@@ -46,7 +46,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Awai
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	Then I should see a table name as 'Application Details'
+	Then I should see a table name as 'Application details'
 	And I Verify the reference number 'XC7I93AF'
 	Then I verify the date of issuance '13/12/2024'
 	And I Verify status 'Awaiting verification' on Report non-compliance page
@@ -106,7 +106,7 @@ Scenario: Verify the error message for no selection of type of passenger in Repo
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I click Report non-compliance button from Report non-compliance page
-	Then I should see an error message "Select a type of passenger" in Report non-compliance page
+	Then I should see an error message "Select the type of passenger" in Report non-compliance page
 
 Scenario Outline: Verify passenger details section radio buttons in Report non-compliance page
 	Then I have selected '<Transportation>' radio option
@@ -446,7 +446,7 @@ Scenario Outline: Verify the error message for Microchip number textbox in Repor
 	Then I should navigate to Report non-compliance page
 	And I click 'Vehicle' in Passenger details
 	When I click 'Passenger says they will not travel' GB Outcome
-	When I Select the 'Microchip number does not match the PTD' Microchip Checkbox
+	And I Select the 'Microchip number does not match the PTD' Microchip Checkbox
 	And I enter the Microchip number in '<MicrochipNumber>' in Report non-compliance page
 	And I click Report non-compliance button from Report non-compliance page
 	Then I should see an error message '<ErrorMessage>' in Report non-compliance page
@@ -470,10 +470,9 @@ Scenario: Verify the success message after submitting the Report non compliance
 	And I provided the '9EFC9F' of the application
 	When I click search button
 	And I should see the application status in 'Unsuccessful'
-	When I click save and continue button from application status page
-	Then I should navigate to Report non-compliance page
-	And I should see 'Type of passenger' subheading under 'Passenger details' section
+	And I click save and continue button from application status page
+	And I Select the 'Cannot find microchip' Microchip Checkbox
+	And I click 'Passenger says they will not travel' GB Outcome
 	Then I click 'Vehicle' in Passenger details
-	When I click Report non-compliance button from Report non-compliance page
-	Then I should navigate to Checks page
-	And I should see a message 'Information has been successfully submitted' in Checks page
+	When I click Save outcome button from non-compliance page
+	Then I should see a message 'Information has been successfully submitted' in Checks page
