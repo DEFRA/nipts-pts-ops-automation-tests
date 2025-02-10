@@ -1,6 +1,10 @@
 trigger: none
 
-parameters:  
+parameters:
+  - name: branchName
+    displayName: Branch Name
+    type: string
+    default: 'refs/heads/dev'
   - name: environment
     displayName: Environment
     type: string
