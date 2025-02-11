@@ -4,10 +4,9 @@ trigger:
       - '*'
 
 parameters:
-  - name: branchName
-    displayName: Branch Name
+  - name: environment
     type: string
-    default: 'refs/heads/dev'
+    default: 'pre'
   - name: seleniumGrid
     displayName: Selenium Grid URL
     type: string
@@ -25,16 +24,14 @@ stages:
   
   - stage: Accessibility_Run
     displayName: CP Accessibility Test Execution
-    
     variables:
-        - template: 'variables/CP/pre.yml'
-    
+        - template: 'variables/CP/${{ parameters.environment }}.yml'
     jobs:
     - template: run-test-template.yml
       parameters:
         jobName: Accessibility_Run_Chrome
-        environment: 'pre'
-        branchName: ${{ parameters.branchName}}
+        environment: ${{ parameters.environment }}
+        branchName: $(Build.SourceBranch)
         seleniumGrid: ${{parameters.seleniumGrid}}
         deviceName: 'Windows'
         bsOSVersion: '11'
