@@ -24,7 +24,7 @@ Scenario: Validate pass outcome for approved application found by PTD number
 	And I should see the application status in 'Approved'
 	And I select Pass radio button
 	When I click save and continue button from application status page
-	Then I navigate to Find a document page
+	Then I should navigate to Checks page
 
 Scenario: Validate fail outcome for Awaiting verification status application found by PTD number
 	Then I have selected 'Ferry' radio option
