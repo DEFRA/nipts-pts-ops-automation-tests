@@ -7,7 +7,17 @@
        void SelectFailRadioButton();
        void SelectSaveAndContinue();
        bool IsError(string errorMessage);
-       bool VerifyTheBannerColor(string color);
-        bool VerifyReferenceNumberTable(string Status);
+        bool VerifyReferenceNumberTable(string status);
+        bool VerifyTheBannerColor(string color);
+        bool VerifyMicrochipInformationTable();
+        bool VerifyPetDetailsTable(string species);
+        bool VerifyPetOwnerDetailsTable();
+        bool VerifyIssuingAuthorityTable(string status);
+        bool VerifyChecksSection(string heading, string subHeading, string checkpoints);
+        bool VerifyChecksSectionRadioButtons();
+        bool VerifyRefNumTableValues(string values, string status);
+        bool VerifyMCTableValues(string values, string status);
+        bool VerifyPetDetailsValues(string values, string species);
+        bool VerifyPetOwnerDetailsValues(string values);
     }
 }

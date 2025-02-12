@@ -1,11 +1,9 @@
 ﻿using BoDi;
-using Defra.UI.Framework.Driver;
+using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Contracts;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Interactions;
-using TechTalk.SpecFlow;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -37,6 +35,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         #region Methods
         public bool IsNextPageLoaded(string pageTitle)
         {
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+            }
+
             return PageHeading.Text.Contains(pageTitle);
         }
 

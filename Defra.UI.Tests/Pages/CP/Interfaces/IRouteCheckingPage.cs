@@ -25,5 +25,6 @@
         bool CheckHintOfTimeSubheading(string hint);
         bool CheckCurrentDatePrepopulation();
         bool CheckRouteDetailOnHomePageHeader(string route);
+        bool CheckNoPrepopulatedDepartureTime();
     }
 }

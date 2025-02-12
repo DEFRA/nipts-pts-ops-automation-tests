@@ -6,12 +6,13 @@ Background:
 	Given I navigate to PETS a travel document URL
 	And I have provided the password for Landing page
 	When I click Continue button from Landing page
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page
 
+@CPRegression
 Scenario Outline: Check PETS Travel Document details By PTD number - status in Approved
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -67,7 +68,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	And  click on signout button and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -140,7 +141,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And click on signout button and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -212,7 +213,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then the status is changed to 'Revoked'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -286,7 +287,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in R
 	Then the status is changed to 'Revoked'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -354,7 +355,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then the status is changed to 'Rejected'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -362,7 +363,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '14:30'
 	When I click save and continue button from route checker page
-	Then I should navigate to Welcome page
+	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by '<ApplicationRadio>' radio button
@@ -423,7 +424,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in U
 	Then the status is changed to 'Rejected'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -496,7 +497,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And click on signout button and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -569,7 +570,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then the status is changed to 'Revoked'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -639,7 +640,7 @@ Examples:
 	Then the status is changed to 'Rejected'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -703,7 +704,7 @@ Scenario Outline: Check PETS Travel Document details By Reference number - statu
 	Then click on signout button and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -768,7 +769,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	And I opens the application
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -787,7 +788,7 @@ Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio			    |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number |
 
-@CPRegression
+
 Scenario Outline: Check PETS Travel Document details By Microchip number - status in Pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -831,7 +832,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then click on signout button and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page

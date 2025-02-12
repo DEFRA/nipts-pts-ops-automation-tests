@@ -1,10 +1,9 @@
 ﻿using BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Tools;
-using Defra.UI.Tests.Pages.CP.Interfaces;
-using SeleniumExtras.WaitHelpers;
 using Defra.UI.Tests.Configuration;
-using Defra.UI.Framework.Driver;
+using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
+using SeleniumExtras.WaitHelpers;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -28,19 +27,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtLoging => _driver.WaitForElement(By.XPath("//input[@id='password']"));
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[normalize-space()='Continue']"));
         private IWebElement lblTitle => _driver.WaitForElement(By.XPath("//h1"));
+        private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl'] | //h1[@class='govuk-heading-l'] | //h1[@class='govuk-fieldset__heading']"), true);
         #endregion
 
         #region Methods
         public bool VerifyHeadings(string heading, string subHeading)
         {
-            String applicationTitle = lblTitle.Text;
-            String[] headings = applicationTitle.Replace("\r\n", "*").Split('*',2);
-            String MainHeading = headings[1].Replace("*", " ");
-            if (headings[0].Equals(subHeading) && MainHeading.Equals(heading))
-            {
-                return true;
-            }
-            return false;
+            var applicationTitle = lblTitle.Text.Replace("\r\n"," ").ToUpper();
+            return applicationTitle.Contains(subHeading.ToUpper()) && applicationTitle.Contains(heading.ToUpper());
+        }
+
+        public bool IsPageLoaded()
+        {
+            return PageHeading.Text.Contains("Sign in using Government Gateway");
         }
 
         public void ClickSignInButton()

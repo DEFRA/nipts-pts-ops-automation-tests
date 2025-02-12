@@ -23,10 +23,14 @@ parameters:
     type: string
   - name: emulateDeviceInfo
     type: string
-  - name: isAccessibilityTesting
-    type: string
   - name: application
     type: string
+  - name: filterTestCases
+    type: string
+    default: ''
+  - name: isAccessibilityEnabled
+    type: boolean
+    default: false
 
 jobs: 
 
@@ -53,9 +57,13 @@ jobs:
         target:  ${{parameters.target}}
         isEmulationEnabled:  ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo:  ${{parameters.emulateDeviceInfo}}
-        isAccessibilityTesting:  ${{parameters.isAccessibilityTesting}}
-        idcomsPassword: '$(PetsIDCOMSCredential)' 
-
+        idcomsPassword: '$(PetsIDCOMSCredential)'
+        isAccessibilityEnabled: ${{parameters.isAccessibilityEnabled}}
+    - name: FilterTestCases
+      ${{ if eq(parameters.filterTestCases, '') }}:
+        value: $(FilterTestCategory)
+      ${{ else }}:
+        value: ${{parameters.filterTestCases}}
   steps:
   
     - task: DownloadBuildArtifacts@0
@@ -144,7 +152,7 @@ jobs:
 
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
-          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCategory)" --logger:"trx;logfilename=${{ parameters.jobName }}_$(System.StageName).xml"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_$(System.StageName).xml"
       displayName: 'Execute Tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
@@ -256,14 +264,6 @@ jobs:
           testResultsFiles: 'TestFailures*.png'
           artifactName: ${{ parameters.jobName }}_$(System.StageName)
           targetPath: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/'
-
-    - ${{ if contains(parameters.isAccessibilityTesting, 'true') }}:
-      - task: PublishPipelineArtifact@0
-        displayName: 'Publish Accessibility Reports'
-        inputs:
-          testResultsFiles: 'Accessibiliy_*.html'
-          artifactName: Accessibility_Report
-          targetPath: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/'
 
     - task: PublishTestResults@2
       displayName: 'Publish Test Results'

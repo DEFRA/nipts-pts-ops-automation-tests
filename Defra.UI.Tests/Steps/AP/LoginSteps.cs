@@ -52,8 +52,8 @@ namespace Defra.UI.Tests.Steps.AP
             landingPage?.ClickContinueButton();
         }
 
-        [Then(@"I should redirected to the Sign in using Government Gateway page")]
-        public void ThenIShouldRedirectedToTheSignInUsingGovernmentGatewayPage()
+        [Then(@"I should redirected to the AP Sign in using Government Gateway page")]
+        public void ThenIShouldRedirectedToTheAPSignInUsingGovernmentGatewayPage()
         {
             Assert.True(signin?.IsPageLoaded(), "Application page not loaded");
         }
