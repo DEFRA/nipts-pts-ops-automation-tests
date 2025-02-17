@@ -20,7 +20,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement signOutPageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl']"));
-        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"));
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"),true);
         private IWebElement signOutBy => _driver.WaitForElement(By.XPath("//a[@href='/signout']//*[name()='svg']"));
         private IWebElement rdoFerry => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[normalize-space()='Ferry']"));
         private IWebElement rdoFlight => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[normalize-space()='Flight']"));
@@ -66,14 +66,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectTransportationOption(string radioButtonValue)
         {
-            _driver.ChangePageView(50);
-
             if (radioButtonValue == "Ferry")
             {
 
                 if (!rdoFerry.Selected)
                 {
-                    rdoFerry.Click();
+                    rdoFerry.Click(_driver);
                 }
             }
             else if (radioButtonValue == "Flight")
@@ -81,7 +79,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
                 if (!rdoFlight.Selected)
                 {
-                    rdoFlight.Click();
+                    rdoFlight.Click(_driver);
                 }
             }
         }
@@ -91,13 +89,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             switch (routeOption)
             {
                 case "Birkenhead to Belfast (Stena)":
-                    rdoBirkenhead.Click();
+                    rdoBirkenhead.Click(_driver);
                     break;
                 case "Cairnryan to Larne (P&O)":
-                    rdoCairnryan.Click();
+                    rdoCairnryan.Click(_driver);
                     break;
                 case "Loch Ryan to Belfast (Stena)":
-                    rdoLochRyan.Click();
+                    rdoLochRyan.Click(_driver);
                     break;
             }
         }
@@ -109,7 +107,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             dynamic hour = rows[0];
             dynamic minute = rows[1];
 
-            SelectElement selectHour = new SelectElement(hourDropdown);
+            var selectHour = new SelectElement(hourDropdown);
             var hourOptions = hourDropdown.FindElements(By.XPath("//*[@id='sailingHour']/option")).Select(o => o.Text).ToList();
             hourOptions.Remove("");
             foreach (var option in hourOptions)
@@ -120,9 +118,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     break;
                 }
             }
+
             selectHour.SelectByValue(hour);
 
-            SelectElement selectMinute = new SelectElement(minuteDropdown);
+            var selectMinute = new SelectElement(minuteDropdown);
             var minuteOptions = minuteDropdown.FindElements(By.XPath("//*[@id='sailingMinutes']/option")).Select(o => o.Text).ToList();
             minuteOptions.Remove("");
             foreach (var option in minuteOptions)
@@ -138,7 +137,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectSaveAndContinue()
         {
-            btnSaveAndContinue.Click();
+            btnSaveAndContinue.Click(_driver);
         }
 
         public bool FlightNumberSection(string routeFlight)
@@ -177,7 +176,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectDropDownDepartureTimeHourOnly(string hour)
         {
-            SelectElement selectHour = new SelectElement(hourDropdown);
+            var selectHour = new SelectElement(hourDropdown);
             selectHour.SelectByValue(hour);
         }
 

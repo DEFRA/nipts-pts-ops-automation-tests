@@ -457,6 +457,12 @@ namespace Defra.UI.Tests.Steps.AP
         {
             CommandSteps.ClickCommand("Refresh");
 
+            SharedSteps.WaitSeconds(60);
+
+            CommandSteps.ClickCommand("Refresh");
+
+            SharedSteps.WaitSeconds(60);
+
             if (timelineCopy.ToUpper().Equals("CONFIRMATION"))
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Received"));
             else if (timelineCopy.ToUpper().Equals("APPROVED"))
