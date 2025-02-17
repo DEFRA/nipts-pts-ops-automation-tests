@@ -56,7 +56,7 @@ namespace Defra.UI.Tests.Steps.AP
             }
         }
 
-        [Then(@"I have selected (.*) as breed index from breed dropdownlist")]
+        [Then(@"I have selected {int} as breed index from breed dropdownlist")]
         public void ThenIHaveSelectedAsBreedIndexFromBreedDropdownlist(int breedIndex)
         {
             var breed = breedPage?.SelectPetsBreed(breedIndex);

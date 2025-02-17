@@ -5,6 +5,7 @@ using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Defra.UI.Tests.Configuration;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -33,7 +34,7 @@ namespace Defra.UI.Tests.Steps.AP
             _driver?.Navigate().GoToUrl(url);
 
             var environment = ConfigSetup.BaseConfiguration.TestConfiguration.Environment;
-            var title = environment.ToUpper().Equals("PRE") ? "This is for testing use only" : "Private beta testing login";
+            var title = environment.ToUpper().Equals("PRE") ? "Private beta testing login" : "Private beta testing login";
 
             Assert.True(landingPage?.IsPageLoaded(title), "Application page not loaded");
         }

@@ -6,6 +6,7 @@ using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using Reqnroll;
+using Defra.UI.Tests.Configuration;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {

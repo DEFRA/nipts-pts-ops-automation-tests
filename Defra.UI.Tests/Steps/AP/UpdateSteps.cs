@@ -104,11 +104,11 @@ namespace Defra.UI.Tests.Steps.AP
             petColourPage?.ClickContinueButton();
         }
 
-        [Then(@"I have modified the pets breed with the index value of '(.*)'")]
+        [Then("I have modified the pets breed with the index value of {string}")]
         public void ThenIHaveModifiedThePetsBreedWithTheIndexValueOf(int breedIndex)
         {
             _scenarioContext.Remove("Breed");
-            var breed = breedPage?.SelectPetsBreed(breedIndex);
+            var breed = breedPage?.SelectPetsBreed(breedIndex,true);
             _scenarioContext.Add("Breed", breed);
         }
 
