@@ -11,7 +11,7 @@ using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using System;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Steps for generic Dynamics functions used across the solution.

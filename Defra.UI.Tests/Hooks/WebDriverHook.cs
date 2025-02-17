@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Capgemini.PowerApps.SpecFlowBindings.Hooks;
 using Defra.UI.Framework.Object;
 using Defra.UI.Tests.Capabilities;
@@ -6,10 +6,9 @@ using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.HelperMethods;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
+using Reqnroll;
 using System.Net.Http.Headers;
 using System.Reflection;
-using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Infrastructure;
 
 namespace Defra.UI.Tests.Hooks
 {
@@ -24,15 +23,15 @@ namespace Defra.UI.Tests.Hooks
         private readonly object _lock = new object();
 
         private readonly IObjectContainer _objectContainer;
-        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+        private readonly IReqnrollOutputHelper _reqnrollOutputHelper;
         private IFetchCodeFromEmail FetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
 
         public WebDriverHook(ScenarioContext context, ObjectContainer container,
-            ISpecFlowOutputHelper specFlowOutputHelper)
+            IReqnrollOutputHelper reqnrollOutputHelper)
         {
             _scenarioContext = context;
             _objectContainer = container;
-            _specFlowOutputHelper = specFlowOutputHelper;
+            _reqnrollOutputHelper = reqnrollOutputHelper;
         }
 
         [BeforeScenario(Order = (int)HookRunOrder.WebDriver)]
@@ -110,7 +109,7 @@ namespace Defra.UI.Tests.Hooks
 
             ((ITakesScreenshot)Driver).GetScreenshot().SaveAsFile(fileName);
 
-            _specFlowOutputHelper.AddAttachment(fileName);
+            _reqnrollOutputHelper.AddAttachment(fileName);
             Logger.Debug($"SCREENSHOT {fileName} ");
         }
 

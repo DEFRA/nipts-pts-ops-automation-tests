@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;

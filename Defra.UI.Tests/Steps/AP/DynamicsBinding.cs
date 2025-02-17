@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Capgemini.PowerApps.SpecFlowBindings.Steps;
 using Defra.Trade.Plants.SpecFlowBindings.Steps;
 using FluentAssertions;
@@ -6,7 +6,7 @@ using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
 using Capgemini.PowerApps.SpecFlowBindings.Configuration;
 using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
@@ -55,7 +55,7 @@ namespace Defra.UI.Tests.Steps.AP
             Trade.Plants.SpecFlowBindings.Steps.DialogSteps.WhenIAssignToMeOnTheAssignDialog();
         }
 
-        [When("I (Pass|Fail) the Microchip check")]
+        [When("I {string} the Microchip check")]
         public void WhenIPassOrFailTheMicrochipCheck(string MicrochipStatus)
         {
             EntitySteps.ISelectTab("Verification Checks");
@@ -73,7 +73,7 @@ namespace Defra.UI.Tests.Steps.AP
             FormSteps.ICanSeeAHeaderField("readonly", MicrochipStatus);
         }
 
-        [When("I (Pass|Fail) the Evidence check")]
+        [When("I {string} the Evidence check")]
         public void WhenIPassOrFailTheEvidenceCheck(string Status)
         {
             EntitySteps.ISelectTab("Verification Checks");
@@ -235,7 +235,7 @@ namespace Defra.UI.Tests.Steps.AP
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterevoked", "datetime", "field", "");
         }
 
-        [Then("I (do|dont) see Duplicate Microchip Notification")]
+        [Then("I {string} see Duplicate Microchip Notification")]
         public void ThenISeeDuplicateMicroChipNotification(string doOrDont)
         {
             if (doOrDont.ToUpper().Equals("DO"))

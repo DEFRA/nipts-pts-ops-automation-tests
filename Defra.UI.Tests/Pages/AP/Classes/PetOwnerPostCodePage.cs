@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
@@ -17,7 +17,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement PetOwnerPostCodePageHeading => _driver.WaitForElement(By.Id("documents"), true);
         private IWebElement PostCodeTextBox => _driver.WaitForElement(By.CssSelector("#Postcode"));
-        private IWebElement FindAddressButton => _driver.WaitForElement(By.CssSelector(".govuk-button"));
+        private IWebElement FindAddressButton => _driver.WaitForElement(By.XPath("//button[normalize-space(text()) ='Find address']"));
         private IWebElement ManuallyAddressLink => _driver.WaitForElement(By.XPath("//*[@id='main-content']/div/div/p/a"));
         #endregion
 

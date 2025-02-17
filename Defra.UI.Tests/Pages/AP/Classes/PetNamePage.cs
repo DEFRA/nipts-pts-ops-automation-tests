@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
@@ -18,7 +18,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         #region Page objects
 
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        public IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@for='PetName']"), true);
+        public IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1/label[@for='PetName']"), true);
         private IWebElement txtPetsName => _driver.WaitForElement(By.Id("PetName"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
 

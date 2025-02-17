@@ -15,7 +15,7 @@ using OpenQA.Selenium.Interactions;
 using Polly;
 using System;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 public class DeclarationSteps : PowerAppsStepDefiner

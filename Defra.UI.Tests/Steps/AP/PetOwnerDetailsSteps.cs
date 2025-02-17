@@ -1,8 +1,8 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -49,13 +49,13 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.True(petOwnerAddressPage?.IsNextPageLoaded("What is your postcode?"), "Application page not loaded");
         }
 
-        [Then(@"I should redirected to What is the pet keeper's postcode\?")]
+        [Then(@"I should redirected to What is the pet keeper's postcode?")]
         public void ThenIShouldRedirectedToWhatIsThePetKeepersPostcode()
         {
             Assert.True(petOwnerAddressPage?.IsNextPageLoaded("What is the pet keeper's postcode?"), "Application page not loaded");
         }
 
-        [When(@"I click Continue button from What is the pet keeper's postcode\?")]
+        [When(@"I click Continue button from What is the pet keeper's postcode?")]
         public void WhenIClickContinueButtonFromWhatIsThePetKeepersPostcode()
         {
             petOwnerAddressPage?.ClickContinueButton();

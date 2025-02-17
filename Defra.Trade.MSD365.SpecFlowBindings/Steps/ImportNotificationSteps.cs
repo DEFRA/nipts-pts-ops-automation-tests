@@ -11,7 +11,6 @@ using Defra.Trade.Plants.SpecFlowBindings.Context;
 using Defra.Trade.Plants.SpecFlowBindings.Extensions;
 using Defra.Trade.Plants.SpecFlowBindings.Helpers;
 using Defra.Trade.Plants.SpecFlowBindings.Tables;
-using Defra.Trade.Plants.Specs.Steps;
 using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using Microsoft.Dynamics365.UIAutomation.Browser;
@@ -19,14 +18,11 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using OpenQA.Selenium;
 using Polly;
+using Reqnroll;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
-using System.Threading;
-using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Assist;
 
 [Binding]
 public class ImportNotificationSteps : PowerAppsStepDefiner
