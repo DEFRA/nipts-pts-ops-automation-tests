@@ -75,3 +75,4 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         application: 'CP'
         dependsOn: ''
+

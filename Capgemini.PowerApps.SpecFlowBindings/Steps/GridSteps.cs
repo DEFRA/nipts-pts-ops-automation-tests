@@ -4,7 +4,7 @@ using Capgemini.PowerApps.SpecFlowBindings.Extensions;
 using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using System;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Step bindings related to grids.

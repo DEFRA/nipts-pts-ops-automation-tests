@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 public class EditableGridSteps : PowerAppsStepDefiner

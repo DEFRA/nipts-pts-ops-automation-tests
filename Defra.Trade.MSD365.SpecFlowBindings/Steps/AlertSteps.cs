@@ -9,7 +9,7 @@ using FluentAssertions;
 using OpenQA.Selenium;
 using System;
 using System.Threading;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Steps for Alert related functionality and assertions.

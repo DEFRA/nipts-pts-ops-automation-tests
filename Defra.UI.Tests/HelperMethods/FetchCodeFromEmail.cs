@@ -2,7 +2,7 @@
 using mailinator_csharp_client.Models.Messages.Requests;
 using mailinator_csharp_client.Models.Responses;
 using mailinator_csharp_client;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using Defra.UI.Framework.Object;
 
 namespace Defra.UI.Tests.HelperMethods

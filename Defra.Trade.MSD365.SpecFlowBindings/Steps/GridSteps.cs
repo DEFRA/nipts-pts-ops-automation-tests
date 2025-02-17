@@ -23,7 +23,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 public class GridSteps : PowerAppsStepDefiner

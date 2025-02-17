@@ -1,9 +1,11 @@
-﻿using BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Reqnroll.BoDi;
+using OpenQA.Selenium;
+using Defra.UI.Tests.Tools;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using Defra.UI.Tests.Configuration;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -57,7 +59,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void EnterPassword()
         {
-            Thread.Sleep(1000);
+            _driver.Wait(1);
             txtLoging.SendKeys(ConfigSetup.BaseConfiguration.TestConfiguration.EnvCPLogin);
             btnContinue.Click();
         }

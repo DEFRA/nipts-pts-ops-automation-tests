@@ -1,7 +1,7 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -67,7 +67,7 @@ namespace Defra.UI.Tests.Steps.AP
             petMicrochipPage?.ClickContinueButton();
         }
 
-        [Then(@"I should redirected to When was your pet microchipped or last scanned\? page")]
+        [Then(@"I should redirected to When was your pet microchipped or last scanned? page")]
         public void ThenIShouldRedirectedToWhenWasYourPetMicrochippedOrLastScannedPage()
         {
             var pageTitle = "When was your pet microchipped or last scanned?";

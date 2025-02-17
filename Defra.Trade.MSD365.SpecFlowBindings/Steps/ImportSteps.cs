@@ -4,7 +4,6 @@ using Capgemini.PowerApps.SpecFlowBindings;
 using Capgemini.PowerApps.SpecFlowBindings.Steps;
 using Defra.Trade.Plants.Model;
 using Defra.Trade.Plants.SpecFlowBindings.Context;
-using Defra.Trade.Plants.SpecFlowBindings.Extensions;
 using Defra.Trade.Plants.SpecFlowBindings.Helpers;
 using Defra.Trade.Plants.SpecFlowBindings.Tables;
 using Defra.Trade.Plants.Specs.Steps;
@@ -13,12 +12,11 @@ using Microsoft.Dynamics365.UIAutomation.Browser;
 using Microsoft.Xrm.Sdk;
 using OpenQA.Selenium;
 using Polly;
+using Reqnroll;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Assist;
 
 [Binding]
 public class ImportSteps : PowerAppsStepDefiner
