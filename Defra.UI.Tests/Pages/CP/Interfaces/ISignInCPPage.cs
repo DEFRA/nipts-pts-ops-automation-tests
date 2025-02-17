@@ -2,6 +2,7 @@
 {
     public interface ISignInCPPage
     {
+        bool IsPageLoaded();
         void ClickSignInButton();
         bool IsSignedIn(string userName, string password);
         void EnterPassword();

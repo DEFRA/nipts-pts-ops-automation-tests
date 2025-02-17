@@ -28,6 +28,9 @@ parameters:
   - name: filterTestCases
     type: string
     default: ''
+  - name: isAccessibilityEnabled
+    type: boolean
+    default: false
 
 jobs: 
 
@@ -55,10 +58,11 @@ jobs:
         isEmulationEnabled:  ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo:  ${{parameters.emulateDeviceInfo}}
         idcomsPassword: '$(PetsIDCOMSCredential)'
+        isAccessibilityEnabled: ${{parameters.isAccessibilityEnabled}}
     - name: FilterTestCases
       ${{ if eq(parameters.filterTestCases, '') }}:
         value: $(FilterTestCategory)
-      else:
+      ${{ else }}:
         value: ${{parameters.filterTestCases}}
   steps:
   
