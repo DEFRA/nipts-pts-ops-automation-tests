@@ -41,7 +41,7 @@ namespace Defra.UI.Tests.Hooks
 
             var site = new Site();
             site.With(GetDriverOptions());
-            Driver = site.WebDriver.Driver;            
+            Driver = site.WebDriver.Driver;
 
             if (ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.IsDebug)
             {
@@ -49,6 +49,13 @@ namespace Defra.UI.Tests.Hooks
             }
 
             _objectContainer.RegisterInstanceAs(Driver);
+
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                var reportPath = Path.Combine($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}", "Accessibility");
+                Console.WriteLine(reportPath);
+                Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, reportPath, false);
+            }
         }
 
         [AfterScenario]
@@ -77,6 +84,12 @@ namespace Defra.UI.Tests.Hooks
                 }
 
                 CloseBrowsers();
+
+                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+                {
+                    Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByCategory();
+                    Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByGuideline();
+                }
             }
         }
 
@@ -133,7 +146,7 @@ namespace Defra.UI.Tests.Hooks
             {
                 Driver.Quit();
                 Driver.Dispose();
-                AfterScenarioHooks.TestCleanup();                
+                AfterScenarioHooks.TestCleanup();
             }
             catch { }
         }

@@ -1,4 +1,5 @@
 ﻿using Reqnroll.BoDi;
+using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
@@ -32,6 +33,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool IsNextPageLoaded(string pageTitle)
         {
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+            }
+
             return PageHeading.Text.Contains(pageTitle);
         }
 

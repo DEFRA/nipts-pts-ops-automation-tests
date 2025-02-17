@@ -1,0 +1,33 @@
+parameters:
+  dependsOn: ''
+
+jobs: 
+
+- job: Publish_Accessibility_Report
+  displayName: Publish Accessibility Report
+  dependsOn: '${{ parameters.dependsOn }}'
+  condition: always()
+
+  steps:
+  
+    - task: PowerShell@2
+      displayName:  'Copy Accessibility report to Default Directory'
+      inputs:
+        targetType: 'inline'
+        script: |
+         $sourcePath= "$(System.DefaultWorkingDirectory)"
+         $destinationPath = "$sourcePath\reports"
+         if( -not (Test-Path -Path $destinationPath) ) {
+            New-Item -ItemType Directory -Path $destinationPath }      
+
+          Get-ChildItem -Path $sourcePath -Filter "*.html" -Recurse | ForEach-Object { 
+                Copy-Item -Path $_.FullName -Destination $destinationPath -Force }
+      
+    - task: PublishBuildArtifacts@1 
+      displayName: 'Publish Artifact: report-files'
+      inputs: 
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/reports'
+        ArtifactName: 'report-files' 
+        publishLocation: 'Container'
+  
+    

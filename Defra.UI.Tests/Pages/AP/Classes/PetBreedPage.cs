@@ -27,6 +27,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         #region Methods
         public bool IsNextPageLoaded(string pageTitle)
         {
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+            }
+
             return PageHeading.Text.Contains(pageTitle);
         }
 

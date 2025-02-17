@@ -1,0 +1,132 @@
+trigger:
+  branches:
+    exclude:
+      - '*'
+
+parameters:
+  - name: environment
+    type: string
+    default: 'pre'
+
+resources:
+  repositories:
+    - repository: niptsopsprovingrepo
+      type: github
+      name: DEFRA/nipts-pts-ops-automation-tests
+      ref: $(Build.SourceBranch)
+      endpoint: DEFRA
+
+variables:
+    - template: 'variables/AP/${{ parameters.environment }}.yml'
+
+stages:
+  
+  - stage: Android_SamsungGalaxyS23_Chrome
+    displayName: SamsungGalaxyS23_Chrome
+    condition: always()
+
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: SamsungGalaxyS23_Chrome
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        deviceName: 'Samsung Galaxy S23'
+        bsOSVersion: '13.0'
+        workers:  '10'
+        bsBrowserVersion: '13.0'
+        target: 'chrome'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'TestCategory=APCrossBrowser'
+
+  - stage: Android_SamsungGalaxyS23_SamsungInternet
+    displayName: SamsungGalaxyS23_SamsungInternet
+    condition: always()
+
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: SamsungGalaxyS23_SamsungInternet
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        deviceName: 'Samsung Galaxy S23'
+        bsOSVersion: '13.0'
+        workers:  '10'
+        bsBrowserVersion: '13.0'
+        target: 'samsung'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'TestCategory=APCrossBrowser'
+
+  - stage: Android_SamsungGalaxyTabS9_Chrome
+    displayName: SamsungGalaxyTabS9_Chrome
+    condition: always()
+
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: SamsungGalaxyTabS9_Chrome
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        deviceName: 'Samsung Galaxy Tab S9'
+        bsOSVersion: '13.0'
+        workers:  '10'
+        bsBrowserVersion: '13.0'
+        target: 'chrome'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'TestCategory=APCrossBrowser'
+
+  - stage: Android_SamsungGalaxyTabS9_SamsungInternet
+    displayName: SamsungGalaxyTabS9_SamsungInternet
+    condition: always()
+
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: SamsungGalaxyTabS9_SamsungInternet
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        deviceName: 'Samsung Galaxy Tab S9'
+        bsOSVersion: '13.0'
+        workers:  '10'
+        bsBrowserVersion: '13.0'
+        target: 'samsung'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'TestCategory=APCrossBrowser'
+
+  - stage: Android_OnePlus11R_Chrome
+    displayName: OnePlus11R_Chrome
+    condition: always()
+
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: OnePlus11R_Chrome
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        deviceName: 'OnePlus 11R'
+        bsOSVersion: '13.0'
+        workers:  '10'
+        bsBrowserVersion: '13.0'
+        target: 'chrome'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
+        dependsOn: ''
+        application: 'AP'
+        filterTestCases: 'TestCategory=APCrossBrowser'

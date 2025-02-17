@@ -1,5 +1,5 @@
-﻿@APCrossBrowser
-Feature: E2E Dog and Cat
+﻿@APAccessibility
+Feature: Application Portal Accessibility Automation
 
 Create a PETS travel document for the travel from Great Britain to Northern Ireland
 
@@ -61,9 +61,8 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	And I have verified pet details in summary page
 	And I have verified pet owner details in summary page
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
-	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
+	| PetDog's  | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
 
 Scenario Outline: Create PETS Travel Document By Registered User with details not correct
 	Then I have selected '<Are your details correct>' option
@@ -90,6 +89,9 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	Then I should redirected to the Is your pet a cat, dog or ferret page
 	And I have selected an option as '<Pet>' for pet
 	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What breed is your '<Pet>'? page
+	And I have selected 1 as breed index from breed dropdownlist
+	When I click on continue button from What is your pet's breed page
 	Then I should redirected to the What is your pet's name page
 	And I provided the Pets name as '<PetName>'
 	When I click on continue button from What is your pet's name page
@@ -120,7 +122,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	Then The submitted application should be displayed in summary view
 	And I have verified microchip details in summary page
 	And I have verified pet details in summary page
-	And I have verified pet owner details in summary page	
+	And I have verified pet owner details in summary page
 Examples:
-	| FullName    |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
-	| PetFerret's |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
+	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetCat's |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |

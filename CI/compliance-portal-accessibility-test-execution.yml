@@ -1,0 +1,50 @@
+trigger:
+  branches:
+    exclude:
+      - '*'
+
+parameters:
+  - name: environment
+    type: string
+    default: 'pre'
+  - name: seleniumGrid
+    displayName: Selenium Grid URL
+    type: string
+    default: 'https://hub.browserstack.com/wd/hub/'
+
+resources:
+  repositories:
+    - repository: niptsopsprovingrepo
+      type: github
+      name: DEFRA/nipts-pts-ops-automation-tests
+      ref: $(Build.SourceBranch)
+      endpoint: DEFRA
+
+stages:
+  
+  - stage: Accessibility_Run
+    displayName: CP Accessibility Test Execution
+    variables:
+        - template: 'variables/CP/${{ parameters.environment }}.yml'
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: Accessibility_Run_Chrome
+        environment: ${{ parameters.environment }}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: ${{parameters.seleniumGrid}}
+        deviceName: 'Windows'
+        bsOSVersion: '11'
+        workers:  '10'
+        bsBrowserVersion: 'latest'
+        target: 'Chrome'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: ''
+        dependsOn: ''
+        application: 'CP'
+        filterTestCases: 'TestCategory=CPAccessibility'
+        isAccessibilityEnabled: true
+
+    - template: publish-accessibility-report.yml
+      parameters:
+        dependsOn: 'Accessibility_Run_Chrome'
