@@ -93,7 +93,7 @@ namespace Defra.UI.Tests.Steps.AP
 
             _scenarioContext.Remove("Breed");
             var breed = breedPage?.SelectPetsBreed(breedIndex);
-            _scenarioContext.Add("Breed", breed);
+            _scenarioContext.Add("Breed", breed?.Replace("\r\n", string.Empty));
 
             breedPage?.ClickContinueButton();
             
@@ -109,7 +109,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             _scenarioContext.Remove("Breed");
             var breed = breedPage?.SelectPetsBreed(breedIndex,true);
-            _scenarioContext.Add("Breed", breed);
+            _scenarioContext.Add("Breed", breed?.Replace("\r\n", string.Empty));
         }
 
         [Then(@"I have modified the pets sex as '(.*)'")]
@@ -201,16 +201,6 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenIClickContinueButtonFromWhatIsYourPhoneNumberPage()
         {
             petOwnerPhoneNumberPage?.ClickContinueButton();
-        }
-
-        private void ClickContinueButtonBreedPage()
-        {
-            var petsSelected = _scenarioContext.Get<string>("PetType");
-
-            if (!petsSelected.ToUpper().Equals("FERRET"))
-            {
-                breedPage?.ClickContinueButton();
-            }
         }
     }
 }
