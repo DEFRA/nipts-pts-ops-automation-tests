@@ -1,10 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Tools;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -81,7 +80,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPetOwnerAddress => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Address')]/following-sibling::dd"));
         private IWebElement lblPetOwnerPhoneNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Phone number')]/following-sibling::dd"));
         private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"));
-        private IWebElement bntSaveOutCome=> _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
+        private IWebElement bntSaveOutCome => _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
         #endregion
 
         #region Methods
@@ -97,17 +96,18 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectReportNonComplianceButton()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnReportNonCompliance);
-            btnReportNonCompliance.Click();
+            btnReportNonCompliance.Click(_driver);
         }
 
         public void ClickPetTravelDocumentDetailsLnk()
         {
-            lnkPetTravelDocumentDetails.Click();
+            lnkPetTravelDocumentDetails.Click(_driver);
         }
 
         public bool CheckPetTravelDocumentDetailsSection(string status)
         {
+            lblPTDStatus.ScrollIntoView(_driver);
+
             var cnt = lblPetTravelDocumentDetails.Count;
             if (cnt > 0)
             {
@@ -118,14 +118,17 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTheTableNameInPTDLink(string tableName)
         {
+            lblTableNameApplicationDetails.ScrollIntoView(_driver);
             return lblTableNameApplicationDetails.Text.Trim().Equals(tableName);
         }
         public bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName)
         {
+            lblTableNamePTD.ScrollIntoView(_driver);
             return lblTableNamePTD.Text.Trim().Equals(tableName);
         }
         public bool VerifyTheExpectedStatus(string applicationStatus)
         {
+            txtValueStatus.ScrollIntoView(_driver);
             var bgColor = txtValueStatus.GetCssValue("background-color");
             dynamic[] rgbValues = bgColor.Replace("rgba(", "").Replace(")", "").Split(',');
             int r = int.Parse(rgbValues[0]);
@@ -154,41 +157,41 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         }
         public bool VerifyThePTDNumber(string ptdNumber)
         {
-            var ptd = txtValuePTDNumber.Text;
+            txtValuePTDNumber.ScrollIntoView(_driver);
             return txtValuePTDNumber.Text.Trim().Equals($"GB826 {ptdNumber}");
         }
         public bool VerifyTheDateOfIssuance(string dateOfIssuance)
         {
+            txtValueDate.ScrollIntoView(_driver);
             return txtValueDate.Text.Trim().Equals(dateOfIssuance);
         }
         public bool VerifyTheReferenceNumber(string referenceNumber)
         {
+            txtValueReferenceNumber.ScrollIntoView(_driver);
             return txtValueReferenceNumber.Text.Trim().Equals(referenceNumber);
         }
         public bool VerifyReasonsHeadingWithHint(string reasons, string hint)
         {
+            lblReasonsHeading.ScrollIntoView(_driver);
             string reasonsHeading = lblReasonsHeading.Text;
             return reasonsHeading.Equals(reasons) && lblReasonsHint.Text.Trim().Equals(hint);
         }
 
         public void SelectTypeOfPassenger(string radioButtonValue)
         {
-
             if (radioButtonValue.Equals("Foot passenger"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnFootPassengerRadio);
-                btnFootPassengerRadio.Click();
+                btnFootPassengerRadio.Click(_driver);
             }
             else
             {
                 try
                 {
-                    ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", bntVehicleRadio);
-                    bntVehicleRadio.Click();
+                    bntVehicleRadio.Click(_driver);
                 }
                 catch
                 {
-                    bntVehicleRadio.FindElement(By.CssSelector("#vehiclePassenger")).Click();
+                    bntVehicleRadio.FindElement(By.CssSelector("#vehiclePassenger")).Click(_driver);
                 }
             }
         }
@@ -207,6 +210,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyGBOutcomeCheckboxes(string checkboxValues)
         {
+            chkGBOutcome1.ScrollIntoView(_driver);
             var gbOutcomeCheckbox = checkboxValues.Split('|');
             return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text));
         }
@@ -215,46 +219,52 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (GBOutcome.Equals("Passenger referred to DAERA/SPS at NI port"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome1);
-                chkGBOutcome1.Click();
+                chkGBOutcome1.Click(_driver);
             }
             else if (GBOutcome.Equals("Passenger advised not to travel"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome2);
-                chkGBOutcome2.Click();
+                chkGBOutcome2.Click(_driver);
             }
             else if (GBOutcome.Equals("Passenger says they will not travel"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome3);
-                chkGBOutcome3.Click();
+                chkGBOutcome3.Click(_driver);
             }
         }
 
         public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
         {
+            chkSPSOutcome1.ScrollIntoView(_driver);
             var spsOutcomeCheckbox = checkboxValues.Split('|');
             return (spsOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text) && spsOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text));
         }
 
         public bool VerifySPSCheckboxesAreNotChecked()
         {
+            chkSPSOutcome1.ScrollIntoView(_driver);
             return (chkSPSOutcome2.HasAttribute("Checked") && chkSPSOutcome1.HasAttribute("Checked"));
         }
+
         public bool VerifyGBCheckboxesAreNotChecked()
         {
+            chkGBOutcome1.ScrollIntoView(_driver);
             return (chkGBOutcome1.HasAttribute("Checked") && chkGBOutcome2.HasAttribute("Checked") && chkGBOutcome3.HasAttribute("Checked"));
         }
+
         public bool VerifyDetailsOfOutcome()
         {
+            lblDetailsOfOutcome.ScrollIntoView(_driver);
             return lblDetailsOfOutcome.Text.Contains("Details of outcome");
         }
+
         public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength)
         {
+            txtareaSPSOutcome.ScrollIntoView(_driver);
             return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
         }
 
         public bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength)
         {
+            lblAnyRelavantComments.ScrollIntoView(_driver);
             return lblAnyRelavantComments.Text.Contains(heading)
                    && lblAnyRelavantCommentsHint.Text.Contains(hint)
                    && TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
@@ -262,11 +272,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)
         {
+            lblPassengerDetails.ScrollIntoView(_driver);
             return lblPassengerDetails.Text.Contains(sectionName) && lblTypeOfPassenger.Text.Contains(subHeading);
         }
 
         public bool VerifyVCAndPetOwnerDetailSubheading(string subHeading)
         {
+            lblVisualCheck.ScrollIntoView(_driver);
             if (subHeading.Equals("Visual check"))
                 return lblVisualCheck.Text.Contains(subHeading);
             return lblPetOwnerDetailsSubHeading.Text.Contains(subHeading);
@@ -274,23 +286,25 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyPetDetailsFromPTDLink(string linkName)
         {
-            _driver.ExecuteScript("arguments[0].scrollIntoView();", lnkPetDetailsFromPTD);
-            lnkPetDetailsFromPTD.Click();
+            lnkPetDetailsFromPTD.Click(_driver);
             return lnkPetDetailsFromPTD.Text.Contains(linkName);
         }
 
         public bool VerifyPetDoesNotMatchThePTDCheckBox(string checkBoxValue)
         {
+            lblVisualCheckCheckBox.ScrollIntoView(_driver);
             return lblVisualCheckCheckBox.Text.Contains(checkBoxValue);
         }
 
         public bool VerifyVCAndPetOwnerDetailTableName(string tableName)
         {
+            lblVisualCheckTableName.ScrollIntoView(_driver);
             return tableName.ToUpper().Equals("PET DETAILS FROM PTD OR APPLICATION") ? lblVisualCheckTableName.Text.ToUpper().Contains(tableName.ToUpper()) : lblPetOwnerDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper());
         }
 
         public bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature)
         {
+            lblVisualCheckTableSpecies.ScrollIntoView(_driver);
             return lblVisualCheckTableSpecies.Text.Contains(species) && lblVisualCheckTableBreed.Text.Contains(breed)
                 && lblVisualCheckTableSex.Text.Contains(sex) && lblVisualCheckTableDateOfBirth.Text.Contains(dob)
                 && lblVisualCheckTableColour.Text.Contains(colour) && lblVisualCheckTableSignificantFeature.Text.Contains(significantFeature);
@@ -298,12 +312,14 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyOtherIssuesSubheading(string subHeading)
         {
+            lblOtherIssues.ScrollIntoView(_driver);
             return lblOtherIssues.Text.Contains(subHeading);
         }
 
         public bool VerifyOtherIssuesCheckboxes(string checkboxOptions)
         {
             var otherIssuesCheckbox = checkboxOptions.Split('|');
+            lblOtherIssuesOption1.ScrollIntoView(_driver);
             return otherIssuesCheckbox[0].Equals(lblOtherIssuesOption1.Text)
                 && otherIssuesCheckbox[1].Equals(lblOtherIssuesOption2.Text)
                 && otherIssuesCheckbox[2].Equals(lblOtherIssuesOption3.Text);
@@ -311,11 +327,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyOtherReasonOptionHint(string hint)
         {
+            lblOtherReasonHint.ScrollIntoView(_driver);
             return lblOtherReasonHint.Text.ToLower().Contains(hint.ToLower());
         }
 
         public bool VerifyOtherIssuesCheckboxesAreNotChecked()
         {
+            lblOtherIssuesOption1.ScrollIntoView(_driver);
             return lblOtherIssuesOption1.HasAttribute("Checked")
                 && lblOtherIssuesOption2.HasAttribute("Checked")
                 && lblOtherIssuesOption3.HasAttribute("Checked");
@@ -323,6 +341,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyMicrochipSection()
         {
+            lblMCHeader.ScrollIntoView(_driver);
             return lblMCHeader.Text.Contains("Microchip")
                    && lblMCCheckbox1.Text.Contains("Microchip number does not match the PTD")
                    && lblMCCheckbox2.Text.Contains("Cannot find microchip")
@@ -331,9 +350,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyMCDetailsPTDTableWithValues(string MCDetails)
         {
-            _driver.ExecuteScript("arguments[0].scrollIntoView();", lblMCDetailsLink);
-            lblMCDetailsLink.Click();
             string[] MCNumberAndDate = MCDetails.Split('|');
+            lblMCDetailsLink.Click(_driver);
+
+            lblMCNumber.ScrollIntoView(_driver);
             return lblMCNumber.Text.Equals("Microchip number") && lblMCImplantOrScanDate.Text.Equals("Implant or scan date") && lblMCNumberValue.Text.Equals(MCNumberAndDate[0]) && lblMCImplantOrScanDateValue.Text.Equals(MCNumberAndDate[1]);
         }
 
@@ -341,30 +361,32 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (mcCheckbox.Equals("Microchip number does not match the PTD"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblMCCheckbox1);
-                lblMCCheckbox1.Click();
+                lblMCCheckbox1.Click(_driver);
             }
             else if (mcCheckbox.Equals("Cannot find microchip"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblMCCheckbox2);
-                lblMCCheckbox2.Click();
+                lblMCCheckbox2.Click(_driver);
             }
         }
 
         public void EnterMCNumber(string MCNumber)
         {
+            lblMCNumberNotFoundInScan.ScrollIntoView(_driver);
             lblMCNumberNotFoundInScan.Text.Equals("Microchip number found in scan");
+            txtMCNumberNotFoundInScan.ScrollIntoView(_driver);
             txtMCNumberNotFoundInScan.Clear();
             txtMCNumberNotFoundInScan.SendKeys(MCNumber);
         }
         public bool VerifyNameAndEmailOfPetOwner(string name, string email)
         {
+            lblPetOwnerName.ScrollIntoView(_driver);
             return lblPetOwnerName.Text.Contains(name)
                 && lblPetOwnerEmail.Text.Contains(email);
         }
 
         public bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber)
         {
+            lblPetOwnerAddress.ScrollIntoView(_driver);
             var addressReplaceNewLine = lblPetOwnerAddress.Text.ReplaceLineEndings("\n");
             var addressDetail = addressReplaceNewLine.Replace('\n', ',');
 
@@ -374,13 +396,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyInfoSubmittedMessage(string submittedMessage)
         {
+            lblInfoSubmittedMessage.ScrollIntoView(_driver);
             return lblInfoSubmittedMessage.Text.Contains(submittedMessage);
         }
 
         public void ClickSaveOutComeButton()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", bntSaveOutCome);
-            bntSaveOutCome.Click();
+            bntSaveOutCome.Click(_driver);
         }
 
         #endregion

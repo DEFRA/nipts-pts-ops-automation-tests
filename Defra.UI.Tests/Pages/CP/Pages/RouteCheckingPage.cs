@@ -1,10 +1,9 @@
-﻿using Reqnroll.BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Tools;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using Defra.UI.Framework.Driver;
-using Defra.UI.Tests.Configuration;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -59,21 +58,18 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool IsSignedOut()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", signOutBy);
-            signOutBy.Click();
+            signOutBy.Click(_driver);
             return true;
         }
 
         public void SelectTransportationOption(string radioButtonValue)
         {
-            _driver.ChangePageView(50);
-
             if (radioButtonValue == "Ferry")
             {
 
                 if (!rdoFerry.Selected)
                 {
-                    rdoFerry.Click();
+                    rdoFerry.Click(_driver);
                 }
             }
             else if (radioButtonValue == "Flight")
@@ -81,7 +77,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
                 if (!rdoFlight.Selected)
                 {
-                    rdoFlight.Click();
+                    rdoFlight.Click(_driver);
                 }
             }
         }
@@ -91,13 +87,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             switch (routeOption)
             {
                 case "Birkenhead to Belfast (Stena)":
-                    rdoBirkenhead.Click();
+                    rdoBirkenhead.Click(_driver);
                     break;
                 case "Cairnryan to Larne (P&O)":
-                    rdoCairnryan.Click();
+                    rdoCairnryan.Click(_driver);
                     break;
                 case "Loch Ryan to Belfast (Stena)":
-                    rdoLochRyan.Click();
+                    rdoLochRyan.Click(_driver);
                     break;
             }
         }
@@ -109,7 +105,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             dynamic hour = rows[0];
             dynamic minute = rows[1];
 
-            SelectElement selectHour = new SelectElement(hourDropdown);
+            hourDropdown.ScrollIntoView(_driver);
+
+            var selectHour = new SelectElement(hourDropdown);
             var hourOptions = hourDropdown.FindElements(By.XPath("//*[@id='sailingHour']/option")).Select(o => o.Text).ToList();
             hourOptions.Remove("");
             foreach (var option in hourOptions)
@@ -122,7 +120,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             selectHour.SelectByValue(hour);
 
-            SelectElement selectMinute = new SelectElement(minuteDropdown);
+            var selectMinute = new SelectElement(minuteDropdown);
             var minuteOptions = minuteDropdown.FindElements(By.XPath("//*[@id='sailingMinutes']/option")).Select(o => o.Text).ToList();
             minuteOptions.Remove("");
             foreach (var option in minuteOptions)
@@ -138,16 +136,18 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectSaveAndContinue()
         {
-            btnSaveAndContinue.Click();
+            btnSaveAndContinue.Click(_driver);
         }
 
         public bool FlightNumberSection(string routeFlight)
         {
+            lblFlightNumber.ScrollIntoView(_driver);
             return lblFlightNumber.Displayed && txtBoxFlightNumber.Displayed;
         }
 
         public void SelectFlightNumber(string routeFlight)
         {
+            txtBoxFlightNumber.ScrollIntoView(_driver);
             txtBoxFlightNumber.Clear();
             txtBoxFlightNumber.SendKeys(routeFlight);
         }
@@ -167,6 +167,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectScheduledDepartureDate(string departureDay, string departureMonth, string departureYear)
         {
+            txtScheduleDepartureDay.ScrollIntoView(_driver);
             txtScheduleDepartureDay.Clear();
             txtScheduleDepartureDay.SendKeys(departureDay);
             txtScheduleDepartureMonth.Clear();
@@ -177,22 +178,26 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectDropDownDepartureTimeHourOnly(string hour)
         {
-            SelectElement selectHour = new SelectElement(hourDropdown);
+            hourDropdown.ScrollIntoView(_driver);
+            var selectHour = new SelectElement(hourDropdown);
             selectHour.SelectByValue(hour);
         }
 
         public bool CheckFerryRouteSubheading(string subHeading)
         {
+            lblRouteSubheading.ScrollIntoView(_driver);
             return lblRouteSubheading.Displayed && rdoBirkenhead.Displayed && rdoCairnryan.Displayed && rdoLochRyan.Displayed;
         }
 
         public bool CheckFerryRouteOptionsSelection()
         {
+            rdoBirkenhead.ScrollIntoView(_driver);
             return !rdoBirkenhead.Selected && !rdoCairnryan.Selected && !rdoLochRyan.Selected;
         }
 
         public bool IsTestEnvironmentPrototypePageLoaded()
         {
+            pageHeading.ScrollIntoView(_driver);
             return pageHeading.Text.Contains("This is a test environment");
         }
 
@@ -204,43 +209,50 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             dynamic displayedTime = rows[1].Substring(12, 5);
 
             var givenDate = $"{ParseNumber(departureDay)}/{ParseNumber(departureMonth)}/{departureYear}";
-            
+            lblDeparture.ScrollIntoView(_driver);
             return lblDeparture.Text.Equals("Departure:") && displayedDate.Equals(givenDate) && displayedTime.Equals(departureTime);
         }
 
         public bool CheckRouteSubheading(string subHeading)
         {
+            lblSailingOrFlightSubheading.ScrollIntoView(_driver);
             return lblSailingOrFlightSubheading.Displayed && rdoFerry.Displayed && rdoFlight.Displayed;
         }
 
         public bool CheckRouteOptionsSelection()
         {
+            rdoFerry.ScrollIntoView(_driver);
             return !rdoFerry.Selected && !rdoFlight.Selected;
         }
 
         public bool CheckDateSubheading(string dateSubHeading)
         {
+            lblScheduledDepartureDate.ScrollIntoView(_driver);
             return lblScheduledDepartureDate.Text.Equals(dateSubHeading);
         }
 
         public bool CheckHintOfDateSubheading(string hint)
         {
+            txtHintScheduledDepartureDate.ScrollIntoView(_driver);
             return txtHintScheduledDepartureDate.Text.Equals(hint);
         }
 
         public bool CheckTimeSubheading(string timeSubHeading)
         {
+            lblScheduledDepartureTime.ScrollIntoView(_driver);
             return lblScheduledDepartureTime.Text.Equals(timeSubHeading);
         }
 
         public bool CheckHintOfTimeSubheading(string hint)
         {
+            txtHintScheduledDepartureTime.ScrollIntoView(_driver);
             var timeHint = txtHintScheduledDepartureTime.Text.Replace("\r\n", "");
             return timeHint.Equals(hint);
         }
 
         public bool CheckCurrentDatePrepopulation()
         {
+            txtScheduleDepartureDay.ScrollIntoView(_driver);
             var existingDate = txtScheduleDepartureDay.GetAttribute("value") + "/" + txtScheduleDepartureMonth.GetAttribute("value") + "/" + txtScheduleDepartureYear.GetAttribute("value");
 
             DateTime dateAndTime = DateTime.Today;
@@ -260,6 +272,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool CheckNoPrepopulatedDepartureTime()
         {
+            hourDropdown.ScrollIntoView(_driver);
             return hourDropdown.GetAttribute("value").Equals("") && minuteDropdown.GetAttribute("value").Equals("");
         }
 
