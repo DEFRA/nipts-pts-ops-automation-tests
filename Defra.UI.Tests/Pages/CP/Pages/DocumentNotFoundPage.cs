@@ -30,17 +30,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyMessage(string appNumber)
         {
+            lblmessage.ScrollIntoView(_driver);
             return lblmessage.Text.Contains(appNumber + " has not been found.");
         }
 
         public bool VerifyGoBackLink()
         {
+            lblmessage.ScrollIntoView(_driver);
             return lnkGoBackToSearchText.Text.Contains("Go back to search.");
         }
 
         public void ClickGoBackToSearchLink()
         {
-            lnkGoBackToSearch.Click();
+            lnkGoBackToSearch.Click(_driver);
         }
         #endregion
     }

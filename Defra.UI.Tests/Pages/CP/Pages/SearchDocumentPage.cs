@@ -1,8 +1,8 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -43,59 +43,59 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             }
 
-            _driver.ChangePageView(50);
             return pageHeading.Text.Contains("Find a document");
         }
 
         public void SelectSearchRadioOption(string radioButtonValue)
         {
-            _driver.ChangePageView(50);
-
             if (radioButtonValue == "Search by application number")
             {
                 if (!rdoApplicationNumber.Selected)
                 {
-                    rdoApplicationNumber.Click();
+                    rdoApplicationNumber.Click(_driver);
                 }
             }
             else if (radioButtonValue == "Search by microchip number")
             {
                 if (!rdoMicrochipNumber.Selected)
                 {
-                    rdoMicrochipNumber.Click();
+                    rdoMicrochipNumber.Click(_driver);
                 }
             }
             else if (radioButtonValue == "Search by PTD number")
             {
                 if (!rdoSearchByPTDNumber.Selected)
                 {
-                    rdoSearchByPTDNumber.Click();
+                    rdoSearchByPTDNumber.Click(_driver);
                 }
             }
         }
         public void EnterPTDNumber(string ptdNumber1)
         {
+            txtPTDSearchBox.ScrollIntoView(_driver);
             txtPTDSearchBox.SendKeys(ptdNumber1);
         }
 
         public void EnterMicrochipNumber(string microchipNumber)
         {
+            txtMicrochipNumberSearchBox.ScrollIntoView(_driver);
             txtMicrochipNumberSearchBox.SendKeys(microchipNumber);
         }
 
         public void EnterApplicationNumber(string applicationNumber)
         {
+            txtApplicationNumberSearchBox.ScrollIntoView(_driver);
             txtApplicationNumberSearchBox.SendKeys(applicationNumber);
         }
 
         public void SearchButton()
         {
-            btnSearch.Click();
+            btnSearch.Click(_driver);
         }
 
         public void ClearSearchButton()
         {
-            btnClearSearch.Click();
+            btnClearSearch.Click(_driver);
         }
 
         public bool IsError(string errorMessage)
@@ -113,33 +113,38 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTheValuesAreCleared()
         {
+            rdoSearchByPTDNumber.ScrollIntoView(_driver);
             return rdoSearchByPTDNumber.GetAttribute("aria-expanded") is null && txtPTDSearchBox.Text.Equals(string.Empty) && rdoSearchByAppNumber.GetAttribute("aria-expanded") is null && rdoSearchByMCNumber.GetAttribute("aria-expanded") is null;
         }
         public bool VerifyAlreadyEnteredPTDNumber(string alreadyEnteredPTDNumber)
         {
+            txtPTDSearchBox.ScrollIntoView(_driver);
             return txtPTDSearchBox.GetAttribute("value").Contains(alreadyEnteredPTDNumber);
         }
         public bool VerifyAlreadyEnteredApplicationNumber(string alreadyEnteredApplicationNumber)
         {
+            txtApplicationNumberSearchBox.ScrollIntoView(_driver);
             return txtApplicationNumberSearchBox.GetAttribute("value").Contains(alreadyEnteredApplicationNumber);
         }
         public bool VerifyAlreadyEnteredMicrochipNumber(string alreadyEnteredMicrochipNumber)
         {
+            txtMicrochipNumberSearchBox.ScrollIntoView(_driver);
             return txtMicrochipNumberSearchBox.GetAttribute("value").Contains(alreadyEnteredMicrochipNumber);
         }
         public bool VerifyYouCannotAccessPage(string errorPageHeading)
         {
+            lblYouCannotAccessPageHeading.ScrollIntoView(_driver);
             return lblYouCannotAccessPageHeading.Text.Contains(errorPageHeading);
         }
         public void VerifyGoBackToPreviousPageLink()
         {
-            lnkGobackToPrevPage.Click();
+            lnkGobackToPrevPage.Click(_driver);
         }
 
         public void SelectAndSwapToApplicationNumberRadioButton()
         {
-            rdoSearchByPTDNumber.Click();
-            rdoSearchByAppNumber.Click();
+            rdoSearchByPTDNumber.Click(_driver);
+            rdoSearchByAppNumber.Click(_driver);
         }
         #endregion
     }

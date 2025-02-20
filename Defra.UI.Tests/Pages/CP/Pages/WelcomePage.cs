@@ -40,35 +40,40 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void FooterSearchButton()
         {
-            iconSearch.Click();
+            iconSearch.Click(_driver);
         }
 
         public void HeadersChangeLink()
         {
-            lnkHeadersChange.Click();
+            lnkHeadersChange.Click(_driver);
         }
 
         public bool IsHeaderChangeLinkDisplayed()
         {
+            lnkHeadersChange.ScrollIntoView(_driver);
             return lnkHeadersChange.Displayed;
         }
 
         public void FooterHomeIcon()
         {
-            iconHome.Click();
+            iconHome.Click(_driver);
         }
+
         public bool CheckFooter()
         {
+            pageFooter.ScrollIntoView(_driver);
             return pageFooter.Displayed && iconHome.Displayed && iconSearch.Displayed;
         }
+
         public bool IsBackButtonDisplayed()
         {
+            btnBack.ScrollIntoView(_driver);
             return btnBack.IsVisible();
         }
 
         public void ClickBackButton()
         {
-            btnBack.Click();
+            btnBack.Click(_driver);
         }
         #endregion
     }
