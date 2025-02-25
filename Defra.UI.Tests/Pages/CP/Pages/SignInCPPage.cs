@@ -1,11 +1,9 @@
-﻿using Reqnroll.BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Tools;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 using SeleniumExtras.WaitHelpers;
-using Defra.UI.Tests.Configuration;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -21,11 +19,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        private IWebElement btnSignIn => _driver.WaitForElement(By.XPath("//a[contains(text(),'Sign in')]"));
+        private IWebElement lnkSignIn => _driver.WaitForElement(By.XPath("//a[contains(text(),'Sign in')]"));
+        private IWebElement btnSignIn => _driver.WaitForElement(By.Id("continue"), true);
         private By signInConfirmBy => By.XPath("//h1[contains(@class,'govuk-heading-xl')]");
         private IWebElement UserId => _driver.FindElement(By.CssSelector("#user_id"));
         private IWebElement Password => _driver.FindElement(By.CssSelector("#password"));
-        private IWebElement SignIn => _driver.WaitForElement(By.Id("continue"));
         private IWebElement txtLoging => _driver.WaitForElement(By.XPath("//input[@id='password']"));
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[normalize-space()='Continue']"));
         private IWebElement lblTitle => _driver.WaitForElement(By.XPath("//h1"));
@@ -35,7 +33,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool VerifyHeadings(string heading, string subHeading)
         {
-            var applicationTitle = lblTitle.Text.Replace("\r\n"," ").ToUpper();
+            var applicationTitle = lblTitle.Text.Replace("\r\n", " ").ToUpper();
             return applicationTitle.Contains(subHeading.ToUpper()) && applicationTitle.Contains(heading.ToUpper());
         }
 
@@ -46,15 +44,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void ClickSignInButton()
         {
-            btnSignIn.Click();
+            lnkSignIn.Click();
         }
 
-        public bool IsSignedIn(string userName, string password)
+        public void SignIn(string userName, string password)
         {
             UserId.SendKeys(userName);
             Password.SendKeys(password);
-            _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn)).Click();
-            return _driver.WaitForElement(signInConfirmBy).Enabled;
+            _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(btnSignIn)).Click();
+            _driver.WaitForElement(signInConfirmBy);
         }
 
         public void EnterPassword()
@@ -63,6 +61,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             txtLoging.SendKeys(ConfigSetup.BaseConfiguration.TestConfiguration.EnvCPLogin);
             btnContinue.Click();
         }
+
         #endregion
     }
 }
