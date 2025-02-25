@@ -69,7 +69,7 @@ namespace Defra.UI.Tests.Steps.CP
                 Credential = jsonData.Credential
             };
 
-            _signInCPPage?.IsSignedIn(userObject.UserName, userObject.Credential);
+            _signInCPPage?.SignIn(userObject.UserName, userObject.Credential);
         }
     }
 }

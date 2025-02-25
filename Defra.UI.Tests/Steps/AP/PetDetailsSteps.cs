@@ -60,14 +60,14 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIHaveSelectedAsBreedIndexFromBreedDropdownlist(int breedIndex)
         {
             var breed = breedPage?.SelectPetsBreed(breedIndex);
-            _scenarioContext.Add("Breed", breed);
+            _scenarioContext.Add("Breed", breed?.Replace("\r\n",string.Empty));
         }
 
         [Then(@"I have provided freetext breed as '([^']*)'")]
         public void ThenIHaveProvidedFreetextBreedAs(string breed)
         {
             breedPage?.EnterFreeTextBreed(breed);
-            _scenarioContext.Add("Breed", breed);
+            _scenarioContext.Add("Breed", breed?.Replace("\r\n", string.Empty));
         }
 
         [When(@"I click on continue button from What is your pet's breed page")]

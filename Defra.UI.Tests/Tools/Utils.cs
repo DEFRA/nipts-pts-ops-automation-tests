@@ -49,5 +49,16 @@ namespace Defra.UI.Tests.Tools
 
             driver.Wait(2);
         }
+
+        public static void Click(this IWebElement elemnt, IWebDriver driver)
+        {
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", elemnt);
+            elemnt.Click();
+        }
+
+        public static void ScrollToElement(this IWebElement elemnt, IWebDriver driver)
+        {
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", elemnt);
+        }
     }
 }

@@ -1,10 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
-using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -78,7 +77,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
             {
-                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver,true);
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver, true);
             }
 
             return _driver.WaitForElement(By.XPath($"(//h1[normalize-space()='{status}'])[1]")).Text.Trim().Equals(status);
@@ -86,18 +85,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectPassRadioButton()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", rdoPass);
-            rdoPass.Click();
+            rdoPass.Click(_driver);
         }
         public void SelectFailRadioButton()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", rdoFail);
-            rdoFail.Click();
+            rdoFail.Click(_driver);
         }
         public void SelectSaveAndContinue()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnSaveAndContinue);
-            btnSaveAndContinue.Click();
+            btnSaveAndContinue.Click(_driver);
         }
 
         public bool IsError(string errorMessage)
@@ -114,14 +110,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTheBannerColor(string color)
         {
-            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
-            string bgColor = (string)js.ExecuteScript("return window.getComputedStyle(arguments[0]).backgroundColor;", colorBanner);
+            var bgColor = (string)((IJavaScriptExecutor)_driver).ExecuteScript("return window.getComputedStyle(arguments[0]).backgroundColor;", colorBanner);
             var actualColor = colorBanner.GetAttribute("style").Split('#', 2);
+
             bool value;
+
             switch (color)
             {
                 case "Amber":
-                    value = actualColor.Contains("background-color: rgb(181, 136, 64);");  
+                    value = actualColor.Contains("background-color: rgb(181, 136, 64);");
                     break;
                 case "Red":
                     value = actualColor.Contains("background-color: rgb(212, 53, 28);");
@@ -132,13 +129,14 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 default:
                     value = false;
                     break;
-            }                 
+            }
             return value;
         }
 
         public bool VerifyReferenceNumberTable(string status)
         {
             bool value = false;
+            lblDocCardHeading.ScrollIntoView(_driver);
             if (status.Equals("Unsuccessful") || status.Equals("Awaiting verification"))
             {
                 return (lblDocCardHeading.Text.Equals("Reference number") && lblRefNumber.Text.Equals("Application reference number") && lblDate.Text.Equals("Date"));
@@ -149,11 +147,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             return value;
         }
-        
+
         public bool VerifyIssuingAuthorityTable(string status)
         {
             if (status.Equals("Approved") || status.Equals("Unsuccessful") || status.Equals("Revoked"))
             {
+                lblIssuingAuthority.ScrollIntoView(_driver);
                 return (lblIssuingAuthority.Text.Equals("Issuing authority") && lblIssuingAuthorityNameAndAddress.Text.Equals("Name and address of competent authority") && lblIssuingAuthoritySign.Text.Equals("Signed on behalf of the competent authority (APHA)") && lblIssuingAuthorityNameAndAddressValue.Text.Equals("Animal and Plant Health Agency\r\nPet Travel Section\r\nEden Bridge House\r\nLowther Street\r\nCarlisle\r\nCA3 8DX") && lblIssuingAuthoritySignValue.Text.Equals("John Smith (APHA) (Signed digitally)"));
             }
             else if (status.Equals("Awaiting verification"))
@@ -165,35 +164,39 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyMicrochipInformationTable()
         {
+            lblMCInfo.ScrollIntoView(_driver);
             return lblMCInfo.Text.Equals("Microchip information") && lblMCNumber.Text.Equals("Microchip number") && lblMCImplantDate.Text.Equals("Implant or scan date");
         }
 
         public bool VerifyPetDetailsTable(string species)
         {
-            if(species.Equals("Ferret"))
+            lblPetDetails.ScrollIntoView(_driver);
+
+            if (species.Equals("Ferret"))
                 return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features") && _driver.FindElements(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Breed']")).Count.Equals(0);
             else
                 return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblBreed.Text.Equals("Breed") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features");
-        } 
+        }
 
         public bool VerifyPetOwnerDetailsTable()
         {
+            lblPetOwnerDetails.ScrollToElement(_driver);
             return lblPetOwnerDetails.Text.Equals("Pet owner details") && lblName.Text.Equals("Name") && lblEmail.Text.Equals("Email") && lblAddress.Text.Equals("Address") && lblPhoneNumber.Text.Equals("Phone number");
         }
 
-        public bool VerifyRefNumTableValues(string values , string status)
+        public bool VerifyRefNumTableValues(string values, string status)
         {
             string[] value = values.Split('^');
             return lblRefNumberValue.Text.Equals(value[0]) && lblDateValue.Text.Equals(value[1]);
         }
 
-        public bool VerifyMCTableValues(string values , string status)
+        public bool VerifyMCTableValues(string values, string status)
         {
             string[] value = values.Split('^');
             return lblMCNumberValue.Text.Equals(value[0]) && lblMCImplantDateValue.Text.Equals(value[1]);
-        } 
-        
-        public bool VerifyPetDetailsValues(string Values , string Species)
+        }
+
+        public bool VerifyPetDetailsValues(string Values, string Species)
         {
             string[] value = Values.Split('^');
             if (Species.ToUpper().Equals("FERRET"))
@@ -205,7 +208,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     && lblColorValue.Text.Equals(value[4])
                     && lblSignificantFeatureValue.Text.Equals(value[5]);
             }
-            else if(Species.ToUpper().Equals("DOG") || Species.ToUpper().Equals("CAT"))
+            else if (Species.ToUpper().Equals("DOG") || Species.ToUpper().Equals("CAT"))
             {
                 return lblPetNameValue.Text.Equals(value[0])
                     && lblSpeciesValue.Text.Equals(value[1])
@@ -237,7 +240,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyChecksSectionRadioButtons()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblChecks);
+            lblChecks.ScrollToElement(_driver);
             return rdobuttons.Count == 0;
         }
         #endregion
