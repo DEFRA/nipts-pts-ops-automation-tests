@@ -1,8 +1,9 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
+using static System.Collections.Specialized.BitVector32;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -40,6 +41,7 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [When(@"I click save and continue button from application status page")]
+        [When(@"I continue button from application status page")]
         public void WhenIClickSaveAndContinueButtonFromApplicationStatusPage()
         {
             _applicationSummaryPage?.SelectSaveAndContinue();
@@ -113,6 +115,18 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_applicationSummaryPage?.VerifyPetOwnerDetailsValues(Values),
                         $"The Pet Owner Details table values are not matching");
+        }
+
+        [Then(@"I verify '([^']*)' section with '([^']*)' subheading and '([^']*)' check points")]
+        public void ThenIverifySectionWithSubHeadingAndCheckPoints(string heading, string subHeading, string checkpoints)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyChecksSection(heading, subHeading, checkpoints));
+        }
+
+        [Then(@"I should not see any radio button options in Checks section")]
+        public void ThenIShouldNotSeeAnyRadioButtonOptionsInChecksSection()
+        {
+            Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtons());
         }
     }
 }

@@ -16,7 +16,7 @@ using Polly;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Lab Sample Diagnosis API steps.

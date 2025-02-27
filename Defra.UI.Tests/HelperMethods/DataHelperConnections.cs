@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using System;
 using System.Data;
 using System.Data.SqlClient;

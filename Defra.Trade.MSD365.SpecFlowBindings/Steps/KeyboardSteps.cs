@@ -2,7 +2,7 @@
 
 using Capgemini.PowerApps.SpecFlowBindings;
 using OpenQA.Selenium.Interactions;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Contains a number of useful steps to perform keyboard actions on the browser.

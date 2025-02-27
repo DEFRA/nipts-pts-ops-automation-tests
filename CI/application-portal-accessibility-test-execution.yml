@@ -1,14 +1,16 @@
-trigger: none
+trigger:
+  branches:
+    exclude:
+      - '*'
 
 parameters:
-  - name: branchName
-    displayName: Branch Name
+  - name: environment
     type: string
-    default: 'refs/heads/dev'
+    default: 'pre'
   - name: seleniumGrid
     displayName: Selenium Grid URL
     type: string
-    default: 'http://localhost:4444'
+    default: 'https://hub.browserstack.com/wd/hub/'
 
 resources:
   repositories:
@@ -18,20 +20,20 @@ resources:
       ref: $(Build.SourceBranch)
       endpoint: DEFRA
 
+variables:
+  - template: 'variables/AP/${{ parameters.environment }}.yml'
+
 stages:
   
   - stage: Accessibility_Run
     displayName: AP Accessibility Test Execution
-    
-    variables:
-        - template: 'variables/AP/pre.yml'
-    
+
     jobs:
     - template: run-test-template.yml
       parameters:
         jobName: Accessibility_Run_Chrome
-        environment: 'pre'
-        branchName: ${{ parameters.branchName}}
+        environment: ${{ parameters.environment }}
+        branchName: $(Build.SourceBranch)
         seleniumGrid: ${{parameters.seleniumGrid}}
         deviceName: 'Windows'
         bsOSVersion: '11'

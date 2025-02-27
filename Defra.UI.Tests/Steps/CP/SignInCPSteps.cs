@@ -1,10 +1,10 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -24,6 +24,12 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _scenarioContext = context;
             _objectContainer = container;
+        }
+
+        [Then(@"I should redirected to the CP Sign in using Government Gateway page")]
+        public void ThenIShouldRedirectedToTheCPSignInUsingGovernmentGatewayPage()
+        {
+            Assert.True(_signInCPPage?.IsPageLoaded(), "Application page not loaded");
         }
 
         [When(@"I navigate to the port checker application")]
@@ -63,7 +69,7 @@ namespace Defra.UI.Tests.Steps.CP
                 Credential = jsonData.Credential
             };
 
-            _signInCPPage?.IsSignedIn(userObject.UserName, userObject.Credential);
+            _signInCPPage?.SignIn(userObject.UserName, userObject.Credential);
         }
     }
 }

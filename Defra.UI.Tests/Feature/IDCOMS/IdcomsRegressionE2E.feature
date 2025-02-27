@@ -7,7 +7,7 @@ Background:
 	Given I navigate to PETS a travel document URL
 	And I have provided the password for Landing page
 	When I click Continue button from Landing page
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
 	When I click Create a new pet travel document button
@@ -114,7 +114,7 @@ Scenario Outline: Verify if a Caseworker can change the status of the case from 
 	And I opens the application
 	And I assign the application to myself
 	When I add notes as 'Notes Title' and 'Notes Body'
-	Then I dont see Duplicate Microchip Notification
+	Then I 'dont' see Duplicate Microchip Notification
 	Then the status is 'Open'
 	When I mark the application to 'Pending'
 	Then the status is 'Pending'
@@ -171,7 +171,7 @@ Scenario Outline: Verify the email subject for Rejection email
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Fail the Microchip check
+	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
 	Then I verify the copy of the 'REJECTION' Email in Timeline
@@ -226,7 +226,7 @@ Scenario Outline: Verify the email subject for revoked email
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	And I assign the application to myself
@@ -284,7 +284,7 @@ Scenario Outline: Verify the email subject for approved email
 	And I opens the application
 	And I assign the application to 'Shukla Vishal' another user
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then I verify the copy of the 'APPROVED' Email in Timeline
@@ -451,7 +451,7 @@ Scenario Outline: Verify the message banner at the top of the application page -
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	Then I do see Duplicate Microchip Notification
+	Then I 'do' see Duplicate Microchip Notification
 
 Examples:
 	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
@@ -567,8 +567,8 @@ Scenario Outline: Verify the error message when the caseworker Authorises an app
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	Then I do see Duplicate Microchip Notification
-	When I Pass the Microchip check
+	Then I 'do' see Duplicate Microchip Notification
+	When I 'Pass' the Microchip check
 	And I go back
 	Then I See an error 'Another Authorised application exists with this microchip number' when Authorising the application
 

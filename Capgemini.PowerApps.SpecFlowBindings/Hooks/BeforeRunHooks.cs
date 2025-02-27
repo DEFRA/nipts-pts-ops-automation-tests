@@ -1,7 +1,7 @@
 ﻿using Capgemini.PowerApps.SpecFlowBindings.Configuration;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using Microsoft.Dynamics365.UIAutomation.Browser;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Capgemini.PowerApps.SpecFlowBindings.Hooks;
 

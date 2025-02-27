@@ -8,7 +8,7 @@ using Microsoft.Xrm.Sdk.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Hook for deactivating existing inspector profiles before a test, and activating them after a test.

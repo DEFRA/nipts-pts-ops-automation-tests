@@ -16,7 +16,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Time Recording reusable steps.

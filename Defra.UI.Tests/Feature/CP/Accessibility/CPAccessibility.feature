@@ -6,7 +6,7 @@ Port checker validates the check outcome for pass or fail
 Background: 
 	Given that I navigate to the port checker application
 	And I click signin button on port checker application
-	Then I should redirected to the Sign in using Government Gateway page
+	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
@@ -24,7 +24,7 @@ Scenario: Validate pass outcome for approved application found by PTD number
 	And I should see the application status in 'Approved'
 	And I select Pass radio button
 	When I click save and continue button from application status page
-	Then I navigate to Find a document page
+	Then I should navigate to Checks page
 
 Scenario: Validate fail outcome for Awaiting verification status application found by PTD number
 	Then I have selected 'Ferry' radio option

@@ -1,45 +1,13 @@
-trigger: none
+trigger:
+  branches:
+    exclude:
+      - '*'
 
 parameters:
-  - name: branchName
-    displayName: Branch Name
-    type: string
-    default: 'refs/heads/dev'
   - name: environment
+    displayName: Environment
     type: string
     default: 'pre'
-  - name: workers
-    displayName: Number of Workers
-    type: string
-    default: '10'
-  - name: seleniumGrid
-    displayName: Selenium Grid URL
-    type: string
-    default: 'http://localhost:4444'
-  - name: deviceName
-    displayName: Device Name
-    type: string
-    default: 'Windows'
-  - name: bsOSVersion
-    displayName: BrowserStack OS Version
-    type: string
-    default: '11'
-  - name: bsBrowserVersion
-    displayName: BrowserStack Browser Version
-    type: string
-    default: 'latest'
-  - name: target
-    displayName: Target Browser
-    type: string
-    default: 'Chrome'
-  - name: isEmulationEnabled
-    displayName: Enable Emulation
-    type: string
-    default: 'false'
-  - name: emulateDeviceInfo
-    displayName: Emulated Device Info
-    type: string
-    default: 'iPhone 12 Pro'
 
 resources:
   repositories:
@@ -49,27 +17,28 @@ resources:
       ref: $(Build.SourceBranch)
       endpoint: DEFRA
 
+variables:
+  - template: 'variables/AP/${{ parameters.environment }}.yml'
+
 stages:
   
   - stage: Windows_Chrome_latest
     displayName: Windows_Chrome_latest    
-    variables:
-        - template: 'variables/AP/${{ parameters.environment }}.yml'
   
     jobs:
     - template: run-test-template.yml
       parameters:
         jobName: Windows_Chrome_latest
         environment: ${{ parameters.environment}}
-        branchName: ${{ parameters.branchName}}
-        seleniumGrid: ${{parameters.seleniumGrid}}  
-        deviceName: ${{parameters.deviceName}}
-        bsOSVersion: ${{parameters.bsOSVersion}}
-        workers:  ${{parameters.workers}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'http://localhost:4444'
+        deviceName: 'Windows'
+        bsOSVersion: '11'
+        workers:  '10'
         bsBrowserVersion: 'latest'
         target: 'Chrome'
-        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
-        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
         dependsOn: ''
         filterTestCases: 'TestCategory=APCrossBrowser'
@@ -83,15 +52,15 @@ stages:
       parameters:
         jobName: Windows_Edge
         environment: ${{ parameters.environment}}
-        branchName: ${{ parameters.branchName}}
-        seleniumGrid: ${{parameters.seleniumGrid}}  
-        deviceName: ${{parameters.deviceName}}
-        bsOSVersion: ${{parameters.bsOSVersion}}
-        workers:  ${{parameters.workers}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'http://localhost:4444'
+        deviceName: 'Windows'
+        bsOSVersion: '11'
+        workers:  '10'
         bsBrowserVersion: 'latest'
         target: 'Edge'
-        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
-        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
         dependsOn: ''
         filterTestCases: 'TestCategory=APCrossBrowser'
@@ -105,15 +74,15 @@ stages:
       parameters:
         jobName: Windows_Firefox
         environment: ${{ parameters.environment}}
-        branchName: ${{ parameters.branchName}}
-        seleniumGrid: ${{parameters.seleniumGrid}}  
-        deviceName: ${{parameters.deviceName}}
-        bsOSVersion: ${{parameters.bsOSVersion}}
-        workers:  ${{parameters.workers}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'http://localhost:4444'
+        deviceName: 'Windows'
+        bsOSVersion: '11'
+        workers:  '10'
         bsBrowserVersion: 'latest'
         target: 'Firefox'
-        isEmulationEnabled: ${{parameters.isEmulationEnabled}}
-        emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
         dependsOn: ''
         filterTestCases: 'TestCategory=APCrossBrowser'

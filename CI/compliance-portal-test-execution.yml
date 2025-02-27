@@ -1,4 +1,7 @@
-trigger: none
+trigger:
+  branches:
+    exclude:
+      - '*'
 
 parameters:  
   - name: environment
@@ -72,3 +75,4 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         application: 'CP'
         dependsOn: ''
+

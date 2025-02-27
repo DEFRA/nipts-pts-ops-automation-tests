@@ -15,7 +15,7 @@ using OpenQA.Selenium.Support.UI;
 using Polly;
 using System;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Steps for interacting with button ribbons in Dynamics.

@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using OpenQA.Selenium;
 using Defra.UI.Tests.Tools;
 using Defra.UI.Tests.Pages.CP.Interfaces;
@@ -12,7 +12,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
     {
         private readonly IObjectContainer _objectContainer;
 
-        public RouteCheckingPage (IObjectContainer container)
+        public RouteCheckingPage(IObjectContainer container)
         {
             _objectContainer = container;
         }
@@ -22,8 +22,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement signOutPageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl']"));
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"));
         private IWebElement signOutBy => _driver.WaitForElement(By.XPath("//a[@href='/signout']//*[name()='svg']"));
-        private IWebElement rdoFerry => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[@for='routeOption']"));
-        private IWebElement rdoFlight => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[@for='routeOption-2']"));
+        private IWebElement rdoFerry => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[normalize-space()='Ferry']"));
+        private IWebElement rdoFlight => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[normalize-space()='Flight']"));
         private IWebElement rdoBirkenhead => _driver.WaitForElement(By.XPath("//label[normalize-space()='Birkenhead to Belfast (Stena)']"));
         private IWebElement rdoCairnryan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Cairnryan to Larne (P&O)']"));
         private IWebElement rdoLochRyan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Loch Ryan to Belfast (Stena)']"));
@@ -39,7 +39,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblRouteSubheading => _driver.WaitForElement(By.XPath("//*[@id='ferry-form']//h2"));
         private IWebElement lblDeparture => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']//b[2]"));
         private IWebElement txtHeader => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']/p"));
-        private IWebElement lblSailingOrFlightSubheading => _driver.WaitForElement(By.XPath("//h2[text()='Are you checking a sailing or a flight?']"));
+        private IWebElement lblSailingOrFlightSubheading => _driver.WaitForElement(By.XPath("//h2[text()='Are you checking a ferry or a flight?']"));
         private IWebElement lblScheduledDepartureDate => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Scheduled departure date']"));
         private IWebElement txtHintScheduledDepartureDate => _driver.WaitForElement(By.XPath("//*[@id='departure-date-hint']"));
         private IWebElement lblScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='time-group']//b"));
@@ -61,16 +61,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", signOutBy);
             signOutBy.Click();
-            return true; 
+            return true;
         }
 
         public void SelectTransportationOption(string radioButtonValue)
         {
             _driver.ChangePageView(50);
-            
+
             if (radioButtonValue == "Ferry")
             {
-                
+
                 if (!rdoFerry.Selected)
                 {
                     rdoFerry.Click();
@@ -78,7 +78,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             else if (radioButtonValue == "Flight")
             {
-                
+
                 if (!rdoFlight.Selected)
                 {
                     rdoFlight.Click();
@@ -145,6 +145,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             return lblFlightNumber.Displayed && txtBoxFlightNumber.Displayed;
         }
+
         public void SelectFlightNumber(string routeFlight)
         {
             txtBoxFlightNumber.Clear();
@@ -164,7 +165,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return false;
         }
 
-        public void SelectScheduledDepartureDate(string departureDay,string departureMonth,string departureYear)
+        public void SelectScheduledDepartureDate(string departureDay, string departureMonth, string departureYear)
         {
             txtScheduleDepartureDay.Clear();
             txtScheduleDepartureDay.SendKeys(departureDay);
@@ -173,69 +174,80 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             txtScheduleDepartureYear.Clear();
             txtScheduleDepartureYear.SendKeys(departureYear);
         }
+
         public void SelectDropDownDepartureTimeHourOnly(string hour)
         {
             SelectElement selectHour = new SelectElement(hourDropdown);
             selectHour.SelectByValue(hour);
         }
+
         public bool CheckFerryRouteSubheading(string subHeading)
         {
             return lblRouteSubheading.Displayed && rdoBirkenhead.Displayed && rdoCairnryan.Displayed && rdoLochRyan.Displayed;
         }
+
         public bool CheckFerryRouteOptionsSelection()
         {
             return !rdoBirkenhead.Selected && !rdoCairnryan.Selected && !rdoLochRyan.Selected;
         }
+
         public bool IsTestEnvironmentPrototypePageLoaded()
         {
             return pageHeading.Text.Contains("This is a test environment");
         }
+
         public bool CheckDepartureTimeOnHomePage(string departureDay, string departureMonth, string departureYear, string departureTime)
         {
             var header = txtHeader.Text;
             dynamic[] rows = header.Split("Departure:");
-            dynamic displayedDate = rows[1].Substring(1,10);
-            dynamic displayedTime = rows[1].Substring(12,5);
-            
-            var givenDate = departureDay + "/" + departureMonth + "/" + departureYear;
-            dynamic[] hourAndMinute = departureTime.Split(":");
-            var givenTime = hourAndMinute[0] + ":" + hourAndMinute[1];
+            dynamic displayedDate = rows[1].Substring(1, 10);
+            dynamic displayedTime = rows[1].Substring(12, 5);
 
-            return lblDeparture.Text.Equals("Departure:") && displayedDate.Equals(givenDate) && displayedTime.Equals(givenTime);
+            var givenDate = $"{ParseNumber(departureDay)}/{ParseNumber(departureMonth)}/{departureYear}";
+            
+            return lblDeparture.Text.Equals("Departure:") && displayedDate.Equals(givenDate) && displayedTime.Equals(departureTime);
         }
+
         public bool CheckRouteSubheading(string subHeading)
         {
             return lblSailingOrFlightSubheading.Displayed && rdoFerry.Displayed && rdoFlight.Displayed;
         }
+
         public bool CheckRouteOptionsSelection()
         {
             return !rdoFerry.Selected && !rdoFlight.Selected;
         }
+
         public bool CheckDateSubheading(string dateSubHeading)
         {
             return lblScheduledDepartureDate.Text.Equals(dateSubHeading);
         }
+
         public bool CheckHintOfDateSubheading(string hint)
         {
             return txtHintScheduledDepartureDate.Text.Equals(hint);
         }
+
         public bool CheckTimeSubheading(string timeSubHeading)
         {
             return lblScheduledDepartureTime.Text.Equals(timeSubHeading);
         }
+
         public bool CheckHintOfTimeSubheading(string hint)
         {
             var timeHint = txtHintScheduledDepartureTime.Text.Replace("\r\n", "");
             return timeHint.Equals(hint);
         }
+
         public bool CheckCurrentDatePrepopulation()
         {
             var existingDate = txtScheduleDepartureDay.GetAttribute("value") + "/" + txtScheduleDepartureMonth.GetAttribute("value") + "/" + txtScheduleDepartureYear.GetAttribute("value");
-            
+
             DateTime dateAndTime = DateTime.Today;
             var currentDate = dateAndTime.ToString("dd/MM/yyyy");
             return existingDate.Equals(currentDate);
         }
+
         public bool CheckRouteDetailOnHomePageHeader(string route)
         {
             var header = txtHeader.Text;
@@ -245,6 +257,17 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var givenRoute = "Route: " + route;
             return displayedRoute.Equals(givenRoute);
         }
+
+        public bool CheckNoPrepopulatedDepartureTime()
+        {
+            return hourDropdown.GetAttribute("value").Equals("") && minuteDropdown.GetAttribute("value").Equals("");
+        }
+
+        private string ParseNumber(string number)
+        {
+            return number.Length > 1 ? number : $"0{number}";
+        }
+
         #endregion
     }
 }

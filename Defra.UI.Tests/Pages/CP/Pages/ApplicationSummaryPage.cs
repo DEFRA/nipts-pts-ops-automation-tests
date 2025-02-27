@@ -1,8 +1,9 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Xrm.Sdk.Metadata;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 
 
@@ -63,7 +64,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblIssuingAuthorityNameAndAddressValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Name and address of competent authority']/following-sibling::dd"));
         private IWebElement lblIssuingAuthoritySign => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Signed on behalf of the competent authority (APHA)']"));
         private IWebElement lblIssuingAuthoritySignValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Signed on behalf of the competent authority (APHA)']/following-sibling::dd"));
-
+        private IWebElement lblChecks => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//h1"));
+        private IWebElement lblCheckSubheading => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//p"));
+        private IWebElement lblCheckpoint1 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[1]"));
+        private IWebElement lblCheckpoint2 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[2]"));
+        private IWebElement lblCheckpoint3 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[3]"));
+        private IWebElement lblCheckpoint4 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[4]"));
+        private IReadOnlyCollection<IWebElement> rdobuttons => _driver.FindElements(By.CssSelector("input[type='radio']"));
         #endregion
 
         #region Methods
@@ -87,7 +94,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", rdoFail);
             rdoFail.Click();
         }
-
         public void SelectSaveAndContinue()
         {
             ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnSaveAndContinue);
@@ -108,6 +114,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTheBannerColor(string color)
         {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)_driver;
+            string bgColor = (string)js.ExecuteScript("return window.getComputedStyle(arguments[0]).backgroundColor;", colorBanner);
             var actualColor = colorBanner.GetAttribute("style").Split('#', 2);
             bool value;
             switch (color)
@@ -116,10 +124,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     value = actualColor.Contains("background-color: rgb(181, 136, 64);");  
                     break;
                 case "Red":
-                   value = actualColor.Contains("background-color: rgb(212, 53, 28);");
+                    value = actualColor.Contains("background-color: rgb(212, 53, 28);");
                     break;
                 case "Green":
-                    value = actualColor.Contains("");
+                    value = bgColor.Contains("rgb(0, 112, 60)");
                     break;
                 default:
                     value = false;
@@ -218,6 +226,20 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     //&& lblAddressValue.Text.Equals(value[2])
                     && lblPhoneNumberValue.Text.Equals(value[3]);
         }
-            #endregion
+
+        public bool VerifyChecksSection(string heading, string subHeading, string checkpoints)
+        {
+            var checkpointLabel = checkpoints.Split('|');
+            return lblChecks.Text.Equals(heading) && lblCheckSubheading.Text.Equals(subHeading + ":")
+                && checkpointLabel[0].Equals(lblCheckpoint1.Text) && checkpointLabel[1].Equals(lblCheckpoint2.Text)
+                && checkpointLabel[2].Equals(lblCheckpoint3.Text) && checkpointLabel[3].Equals(lblCheckpoint4.Text);
+        }
+
+        public bool VerifyChecksSectionRadioButtons()
+        {
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblChecks);
+            return rdobuttons.Count == 0;
+        }
+        #endregion
     }
 }
