@@ -1128,7 +1128,7 @@ public class WebClient : BrowserPage, IDisposable
 
             if (to == Dialogs.AssignTo.Me)
             {
-                SetValue(new OptionSet { Name = Elements.ElementId[Reference.Dialogs.Assign.AssignToId], Value = "Me" }, FormContextType.Dialog);
+                //SetValue(new OptionSet { Name = Elements.ElementId[Reference.Dialogs.Assign.AssignToId], Value = "Me" }, FormContextType.Dialog);
             }
             else
             {
