@@ -245,6 +245,9 @@ public class ControlHelper
             case "optionset":
                 field.Value = GetOptionSetValue(control, location == "header field" ? $"header_{fieldName}" : fieldName);
                 break;
+            case "buttonset":
+                field.Value = GetButtonSetValue(control, location == "header field" ? $"header_{fieldName}" : fieldName);
+                break;
             case "statecode":
                 field.Value = GetStateCode(control, location == "header field" ? $"header_{fieldName}" : fieldName);
                 break;
@@ -429,6 +432,12 @@ public class ControlHelper
     {
         var optionset = new SelectElement(element.FindElement(By.XPath($".//select[@data-id = '{fieldName}.fieldControl-option-set-select']")));
         return optionset.SelectedOption.Text;
+    }
+
+    private static string GetButtonSetValue(IWebElement element, string fieldName)
+    {
+        var buttonset = element.FindElement(By.XPath($".//button[@data-id = '{fieldName}.fieldControl-option-set-select']"));
+        return buttonset.Text;
     }
 
     private static string GetStateCode(IWebElement element, string fieldName)

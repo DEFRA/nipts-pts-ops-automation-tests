@@ -93,6 +93,9 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="driver.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="power-apps-bindings.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -2761,6 +2761,31 @@ public class WebClient : BrowserPage, IDisposable
         });
     }
 
+    /// <summary>
+    /// Set Value
+    /// </summary>
+    /// <param name="field">The field</param>
+    /// <param name="value">The value</param>
+    /// <example>xrmApp.Entity.SetValue("firstname", "Test");</example>
+    internal BrowserCommandResult<bool> SetValueButtonList(string field, string value, FormContextType formContextType = FormContextType.Entity)
+    {
+        return Execute(GetOptions("Set Value"), driver =>
+        {
+            IWebElement fieldContainer = null;
+            fieldContainer = ValidateFormContext(driver, formContextType, field, fieldContainer);
+
+            IWebElement input;
+            bool found = fieldContainer.TryFindElement(By.TagName("button"), out input);
+
+            if (!found)
+                throw new NoSuchElementException($"Field with name {field} does not exist.");
+
+            SelectButtonValue(driver, input, value);
+
+            return true;
+        });
+    }
+
     private void SetInputValue(IWebDriver driver, IWebElement input, string value, TimeSpan? thinktime = null)
     {
         // Repeat set value if expected value is not set
@@ -2773,6 +2798,26 @@ public class WebClient : BrowserPage, IDisposable
             input.SendKeys(Keys.Control + "a");
             input.SendKeys(Keys.Backspace);
             input.SendKeys(value);
+            driver.WaitForTransaction();
+        },
+            d => input.GetAttribute("value").IsValueEqualsTo(value),
+            TimeSpan.FromSeconds(9), 3,
+            failureCallback: () => throw new InvalidOperationException($"Timeout after 10 seconds. Expected: {value}. Actual: {input.GetAttribute("value")}")
+        );
+
+        driver.WaitForTransaction();
+    }
+
+    private void SelectButtonValue(IWebDriver driver, IWebElement input, string value, TimeSpan? thinktime = null)
+    {
+        // Repeat set value if expected value is not set
+        // Do this to ensure that the static placeholder '---' is removed 
+        driver.RepeatUntil(() =>
+        {
+            input.Click();
+            input.SendKeys(Keys.ArrowDown);
+            input.SendKeys(value);
+            input.SendKeys(Keys.Enter);
             driver.WaitForTransaction();
         },
             d => input.GetAttribute("value").IsValueEqualsTo(value),

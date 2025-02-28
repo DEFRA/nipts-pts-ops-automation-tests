@@ -1,17 +1,15 @@
-﻿using Reqnroll.BoDi;
+﻿using Capgemini.PowerApps.SpecFlowBindings.Configuration;
 using Capgemini.PowerApps.SpecFlowBindings.Steps;
 using Defra.Trade.Plants.SpecFlowBindings.Steps;
-using FluentAssertions;
 using Defra.UI.Tests.Tools;
+using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
-using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
-using Capgemini.PowerApps.SpecFlowBindings.Configuration;
-using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
-using FluentAssertions.Execution;
+using Reqnroll.BoDi;
 using System.ServiceModel.Channels;
+using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -397,12 +395,6 @@ namespace Defra.UI.Tests.Steps.AP
             GridSteps.WhenISwitchToTheViewInTheGrid(gridView);
         }
 
-        [Then("I verify the system view for the application '(.*)'")]
-        public void IVerifyTheSystemViewForTheApplication(string applicationName)
-        {
-            EntitySteps.IVerifyTheSystemViewForTheApplication(applicationName);
-        }
-
         [When("I open the first application")]
         public void WhenIOpenTheFirstRecord()
         {
@@ -422,7 +414,7 @@ namespace Defra.UI.Tests.Steps.AP
         }
 
         [When("I open the '(.*)' application")]
-        [When("I open the '([^']*)' application")]
+        [When("I open the '{string}' application")]
         public void WhenIOpenTheGivenApplication(string applicationNumber)
         {
             GridSteps.WhenISearchForInTheGrid(applicationNumber);
@@ -654,16 +646,16 @@ namespace Defra.UI.Tests.Steps.AP
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlinephone", "text", "field", 1);
                     break;
                 case "OWNER TYPE":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_ownertype", "optionset", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_ownertype", "optionset", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_ownertype", "buttonset", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_ownertype", "buttonset", "field", "");
                     break;
                 case "PET NAME":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petname", "text", "field", 1);
                     ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petname", "text", "field", "");
                     break;
                 case "SPECIES":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_pettype", "optionset", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_pettype", "optionset", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_pettype", "buttonset", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_pettype", "buttonset", "field", "");
                     break;
                 case "BREED":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petbreedid", "lookup", "field", 1);
@@ -674,8 +666,8 @@ namespace Defra.UI.Tests.Steps.AP
                     ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petbreeddetails", "text", "field", "");
                     break;
                 case "SEX":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_animalsex", "optionset", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_animalsex", "optionset", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_animalsex", "buttonset", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_animalsex", "buttonset", "field", "");
                     break;
                 case "AGE":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petapproxage", "text", "field", 1);

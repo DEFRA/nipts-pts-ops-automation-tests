@@ -48,7 +48,7 @@ public class AfterScenarioHooks : PowerAppsStepDefiner
     /// <summary>
     /// Takes a screenshot of the browser when a test fails.
     /// </summary>
-    [AfterScenario(Order = 0)]
+    //[AfterScenario(Order = 0)]
     public void ScreenshotFailedScenario()
     {
         if (this.scenarioContext.ScenarioExecutionStatus == ScenarioExecutionStatus.TestError && Client.BrowserInitiated)
