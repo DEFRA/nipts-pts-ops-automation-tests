@@ -126,9 +126,9 @@ namespace Defra.UI.Tests.Steps.AP
             ThenTheStatusIsChangedTo("Revoke Pending");
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
-            EntitySteps.WhenIEnterInTheField("Other", "nipts_reasonforrevocation", "optionset", "field");
+            EntitySteps.WhenIEnterInTheField("Other", "nipts_reasonforrevocation", "buttonset", "field");
             EntitySteps.WhenIEnterInTheField("Other Reason", "nipts_otherrevocationreason", "text", "field");
-            EntitySteps.WhenIEnterInTheField("Owner Left GB", "nipts_reasonforrevocation", "optionset", "field");
+            EntitySteps.WhenIEnterInTheField("Other", "nipts_reasonforrevocation", "buttonset", "field");
             _driver.WaitForPageToLoad();
             EntitySteps.ThenICanNotSeeTheField("nipts_otherrevocationreason");
         }
@@ -208,14 +208,14 @@ namespace Defra.UI.Tests.Steps.AP
             if (reason.ToUpper().StartsWith("OTHER"))
             {
                 string[] OtherReason = reason.Split(':');
-                EntitySteps.WhenIEnterInTheField(OtherReason[0], "nipts_reasonforrevocation", "optionset", "field");
+                EntitySteps.WhenIEnterInTheField(OtherReason[0], "nipts_reasonforrevocation", "buttonset", "field");
                 EntitySteps.WhenIEnterInTheField(OtherReason[1], "nipts_otherrevocationreason", "text", "field");
                 RevokeandVerifyTheRevocationFields(OtherReason[0]);
                 ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(OtherReason[1], "nipts_otherrevocationreason", "text", "field", "");
             }
             else
             {
-                EntitySteps.WhenIEnterInTheField(reason, "nipts_reasonforrevocation", "optionset", "field", 1);
+                EntitySteps.WhenIEnterInTheField(reason, "nipts_reasonforrevocation", "buttonset", "field", 1);
                 EntitySteps.ThenICanNotSeeTheField("nipts_otherrevocationreason");
                 RevokeandVerifyTheRevocationFields(reason);
             }
@@ -227,9 +227,9 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
-            EntitySteps.WhenIEnterInTheField("Owner Left GB", "nipts_reasonforrevocation", "optionset", "field", 2);
+            EntitySteps.WhenIEnterInTheField(reason, "nipts_reasonforrevocation", "buttonset", "field", 2);
 
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrevocation", "optionset", "field", "");
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrevocation", "buttonset", "field", "");
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterevoked", "datetime", "field", "");
         }
 
@@ -518,12 +518,12 @@ namespace Defra.UI.Tests.Steps.AP
             }
             else if (field.ToUpper().Equals("PET OWNER"))
             {
-                ThenICannotEditTheField("Owner Type:Name:Email:Charity Name:Address Line 1:Address Line 2:Address Line 3:Town:Postcode:County:Phone");
+                ThenICannotEditTheField("Owner Type:Name:Email:Charity Name:Address Line 1:Address Line 2:Town:Postcode:County:Phone");
 
             }
             else if (field.ToUpper().Equals("APPLICANT DETAILS"))
             {
-                ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant address line 3:Applicant Town:Applicant Postcode:Applicant County:Applicant Country:Applicant Phone");
+                ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant Town:Applicant Postcode:Applicant County:Applicant Country:Applicant Phone");
             }
         }
 

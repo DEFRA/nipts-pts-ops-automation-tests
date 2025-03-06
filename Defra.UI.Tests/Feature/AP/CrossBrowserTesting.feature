@@ -1,5 +1,5 @@
 ﻿@APCrossBrowser
-Feature: E2E Dog and Cat
+Feature: Cross Browser Testing
 
 Create a PETS travel document for the travel from Great Britain to Northern Ireland
 
