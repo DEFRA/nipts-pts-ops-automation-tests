@@ -43,33 +43,30 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             }
 
-            _driver.ChangePageView(50);
             return pageHeading.Text.Contains("Find a document");
         }
 
         public void SelectSearchRadioOption(string radioButtonValue)
         {
-            _driver.ChangePageView(50);
-
             if (radioButtonValue == "Search by application number")
             {
                 if (!rdoApplicationNumber.Selected)
                 {
-                    rdoApplicationNumber.Click();
+                    rdoApplicationNumber.Click(_driver);
                 }
             }
             else if (radioButtonValue == "Search by microchip number")
             {
                 if (!rdoMicrochipNumber.Selected)
                 {
-                    rdoMicrochipNumber.Click();
+                    rdoMicrochipNumber.Click(_driver);
                 }
             }
             else if (radioButtonValue == "Search by PTD number")
             {
                 if (!rdoSearchByPTDNumber.Selected)
                 {
-                    rdoSearchByPTDNumber.Click();
+                    rdoSearchByPTDNumber.Click(_driver);
                 }
             }
         }
@@ -90,12 +87,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SearchButton()
         {
-            btnSearch.Click();
+            btnSearch.Click(_driver);
         }
 
         public void ClearSearchButton()
         {
-            btnClearSearch.Click();
+            btnClearSearch.Click(_driver);
         }
 
         public bool IsError(string errorMessage)
@@ -133,13 +130,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         }
         public void VerifyGoBackToPreviousPageLink()
         {
-            lnkGobackToPrevPage.Click();
+            lnkGobackToPrevPage.Click(_driver);
         }
 
         public void SelectAndSwapToApplicationNumberRadioButton()
         {
-            rdoSearchByPTDNumber.Click();
-            rdoSearchByAppNumber.Click();
+            rdoSearchByPTDNumber.Click(_driver);
+            rdoSearchByAppNumber.Click(_driver);
         }
         #endregion
     }

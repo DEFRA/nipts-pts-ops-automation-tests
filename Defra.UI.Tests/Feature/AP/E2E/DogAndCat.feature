@@ -143,7 +143,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
 	When I assign the application to myself
-	And I 'Revoke' the application with reason 'Owner Left GB'
+	And I 'Revoke' the application with reason 'Owner Deceased'
 	Then the status is changed to 'Revoked'
 	And I click on Back button in Pets Application
 	And I should not see the application in the Dashboard

@@ -59,7 +59,7 @@ public class HeaderHelper
 
         bool isReadOnly = false;
 
-        var xpathToContainer = $"//div[contains(@id,\"header_statuscode.fieldControl-pickliststatus-comboBox_list_empty\")]";
+        var xpathToContainer = $"//div[contains(@id,\"header_statuscode.fieldControl-pcf-container-id\")]";
 
         TryExpandHeaderFlyout(driver);
 

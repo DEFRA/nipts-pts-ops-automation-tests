@@ -514,6 +514,15 @@ where T : Element
     }
 
     /// <summary>
+    /// Sets the value of a picklist or status field.
+    /// </summary>
+    /// <param name="option">The option you want to set.</param>
+    public void SetValue(string field,string value, int index = 0)
+    {
+        _client.SetValueButtonList(field, value,FormContextType.Entity);
+    }
+
+    /// <summary>
     /// Sets the value of a Boolean Item.
     /// </summary>
     /// <param name="option">The boolean field name.</param>

@@ -72,7 +72,7 @@ public class EntitySteps : PowerAppsStepDefiner
         Driver.FindElement(By.XPath("html")).Click();
 
         Driver.WaitForTransaction();
-    }     
+    }
 
     /// <summary>
     /// Sets the values of the fields in the table on the form.
@@ -530,6 +530,12 @@ public class EntitySteps : PowerAppsStepDefiner
                     Name = fieldName,
                     Value = fieldValue,
                 }, index);
+                break;
+            case "buttonset":
+                XrmApp.Entity.SetValue(
+                    fieldName,
+                    fieldValue,
+                 index);
                 break;
             case "boolean":
                 XrmApp.Entity.SetValue(new BooleanItem()

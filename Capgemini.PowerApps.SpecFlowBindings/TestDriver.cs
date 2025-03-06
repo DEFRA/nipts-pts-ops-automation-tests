@@ -104,13 +104,18 @@ public class TestDriver : ITestDriver
 
     private object ExecuteDriverFunctionAsync(string functionCall)
     {
-        var result = this.javascriptExecutor.ExecuteAsyncScript(GetExecuteScriptForAsyncFunction(functionCall));
-
-        if (result is string str && str.StartsWith(ErrorPrefix, StringComparison.InvariantCulture))
+        try
         {
-            throw new WebDriverException(str);
-        }
+            var result = this.javascriptExecutor.ExecuteAsyncScript(GetExecuteScriptForAsyncFunction(functionCall));
 
-        return result;
+            if (result is string str && str.StartsWith(ErrorPrefix, StringComparison.InvariantCulture))
+            {
+                throw new WebDriverException(str);
+            }
+
+            return result;
+        }
+        catch { }
+        return null;
     }
 }

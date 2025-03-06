@@ -30,6 +30,12 @@ namespace Defra.UI.Tests.Tools
             }
         }
 
+        public static void Click(this IWebElement elemnt, IWebDriver driver)
+        {
+            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", elemnt);
+            elemnt.Click();
+        }
+
         public static IReadOnlyCollection<IWebElement> WaitForElements(this IWebDriver driver, By elementBy, bool forceWait = false)
         {
             try
