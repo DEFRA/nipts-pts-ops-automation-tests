@@ -62,7 +62,7 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             if (MicrochipStatus == "Fail")
             {
-                EntitySteps.WhenIEnterInTheField("Nil Return", "nipts_failreason", "optionset", "field", 1);
+                EntitySteps.WhenIEnterInTheField("Nil Return", "nipts_failreason", "buttonset", "field", 1);
             }
             CommandSteps.ClickCommand(MicrochipStatus);
             SharedSteps.WaitForScriptProcessing();
@@ -180,7 +180,7 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             SharedSteps.WaitForScriptProcessing();
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrejection", "text", "field", "");
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterejected", "datetime", "field", "");
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterejected", "inputdatetime", "field", "");
         }
 
         [Then("the status is '(.*)'")]
@@ -227,10 +227,10 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
-            EntitySteps.WhenIEnterInTheField(reason, "nipts_reasonforrevocation", "buttonset", "field", 2);
+            //EntitySteps.WhenIEnterInTheField(reason, "nipts_reasonforrevocation", "buttonset", "field", 2);
 
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrevocation", "buttonset", "field", "");
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterevoked", "datetime", "field", "");
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrevocation", "input", "field", "");
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterevoked", "inputdatetime", "field", "");
         }
 
         [Then("I {string} see Duplicate Microchip Notification")]
