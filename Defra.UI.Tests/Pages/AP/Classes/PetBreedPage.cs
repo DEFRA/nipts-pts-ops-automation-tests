@@ -41,12 +41,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             _driver.Wait(2);
             drpBreedType.Click();
 
-            if(isUpdate)
+            if (isUpdate)
             {
-                drpBreedType.Clear();
+                drpBreedType.SendKeys(Keys.Backspace);
             }
-            
-            var selectedBreed = _driver.FindElement(By.Id($"BreedId__option--{breedIndex}"));
+
+            var selectedBreed = _driver.WaitForElement(By.Id($"BreedId__option--{breedIndex}"));
 
             var selectedBread = selectedBreed.Text;
             selectedBreed.Click();
