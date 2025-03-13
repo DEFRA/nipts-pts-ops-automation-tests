@@ -193,7 +193,7 @@ public class Timeline : Element
     {
         _client.OpenAndClickPopoutMenu(Reference.Timeline.Popout, Reference.Timeline.PopoutNote, 4000);
         _client.SetValue(Reference.Timeline.NoteTitle, title, "input");
-        _client.SetValue(Reference.Timeline.NoteText, note, "iframe");
+        _client.SetValue(Reference.Timeline.NoteText, note, "div");
         _client.ClickButton(Elements.Xpath[Reference.Timeline.NoteAdd]);
     }
 

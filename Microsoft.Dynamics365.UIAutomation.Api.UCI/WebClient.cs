@@ -1608,7 +1608,7 @@ public class WebClient : BrowserPage, IDisposable
             return true;
         });
     }
-    
+
 
     internal BrowserCommandResult<bool> ClearSearch(int thinkTime = Constants.DefaultThinkTime)
     {
@@ -3056,7 +3056,7 @@ public class WebClient : BrowserPage, IDisposable
         }
 
         var name = control.Name;
-       
+
         throw new InvalidOperationException($"ButtonSet Field: '{name}' does not exist");
     }
 
@@ -3637,8 +3637,8 @@ public class WebClient : BrowserPage, IDisposable
             else
             {
                 returnField = new Field(fieldElement);
-            }           
-            
+            }
+
             returnField.Name = field;
 
             IWebElement fieldLabel = null;
@@ -5289,7 +5289,6 @@ TimeSpan.FromSeconds(5),
 
                 return true;
             }
-
             throw new InvalidOperationException($"Field: {fieldName} with tagname {expectedTagName} Does not exist");
         });
     }
@@ -5899,7 +5898,7 @@ TimeSpan.FromSeconds(5),
             driver.FindElement(By.XPath("//span[text()='" + operators + "']")).Click();
             if (driver.FindElements(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindAddDropdown])).Count == 2)
                 driver.FindElement(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindValue])).SendKeys(value);
-            else if(!value.Equals(""))
+            else if (!value.Equals(""))
             {
                 driver.FindElement(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindValue])).Click();
                 driver.FindElement(By.XPath("//label[text()='" + value + "']")).Click();

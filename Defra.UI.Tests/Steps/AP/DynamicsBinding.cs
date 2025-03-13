@@ -89,16 +89,16 @@ namespace Defra.UI.Tests.Steps.AP
             FormSteps.ICanSeeAHeaderField("readonly", Status);
         }
 
-        [When("I Fail the Microchip check with '(.*)' reason")]
-        public void WhenIFailTheMicrochipCheckWithOtherReason(string reason)
+        [When("I {string} the Microchip check with {string} reason")]
+        public void WhenIFailTheMicrochipCheckWithOtherReason(string status, string reason)
         {
             EntitySteps.ISelectTab("Verification Checks");
             SharedSteps.WaitForScriptProcessing();
             GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(0);
             SharedSteps.WaitForScriptProcessing();
-            EntitySteps.WhenIEnterInTheField(reason, "nipts_failreason", "optionset", "field");
+            EntitySteps.WhenIEnterInTheField(reason, "nipts_failreason", "buttonset", "field");
             EntitySteps.WhenIEnterInTheField("Other", "nipts_otherreason", "text", "field");
-            CommandSteps.ClickCommand("Fail");
+            CommandSteps.ClickCommand(status);
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
@@ -136,7 +136,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("I verify the '(.*)' Fail reason")]
         public void ThenIVerifyTheFailReason(string reason)
         {
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_failreason", "optionset", "field", "");
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_failreason", "input", "field", "");
         }
 
         [When("I go back")]
@@ -237,9 +237,13 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenISeeDuplicateMicroChipNotification(string doOrDont)
         {
             if (doOrDont.ToUpper().Equals("DO"))
+            {
                 EntitySteps.ThenICanSeeAnInfoFormNotificationStating("Duplicate Microchip Number Identified.");
+            }
             else if (doOrDont.ToUpper().Equals("DONT"))
+            {
                 EntitySteps.ThenICannotSeeAnInfoFormNotificationStating("Duplicate Microchip Number Identified.");
+            }
         }
 
         [When("I assign the application to '(.*)' another user")]
@@ -449,29 +453,32 @@ namespace Defra.UI.Tests.Steps.AP
         {
             CommandSteps.ClickCommand("Refresh");
 
-            SharedSteps.WaitSeconds(60);
+            SharedSteps.WaitSeconds(5);
 
             CommandSteps.ClickCommand("Refresh");
 
-            SharedSteps.WaitSeconds(60);
+            SharedSteps.WaitSeconds(5);
 
             if (timelineCopy.ToUpper().Equals("CONFIRMATION"))
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Received"));
+            {
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document application received"));
+            }
             else if (timelineCopy.ToUpper().Equals("APPROVED"))
             {
                 CommandSteps.ClickCommand("Refresh");
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Decision"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document approved"));
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("approved"));
             }
             else if (timelineCopy.ToUpper().Equals("REJECTION"))
             {
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Decision"));
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("rejected"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document application unsuccessful"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("unsuccessful"));
             }
             else if (timelineCopy.ToUpper().Equals("REVOCATION"))
             {
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Decision"));
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("revoked"));
+                CommandSteps.ClickCommand("Refresh");
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document cancelled"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("cancelled"));
             }
         }
 
