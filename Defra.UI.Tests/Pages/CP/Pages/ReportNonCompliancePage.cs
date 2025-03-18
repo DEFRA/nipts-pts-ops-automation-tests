@@ -1,10 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Tools;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -176,19 +175,17 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
             if (radioButtonValue.Equals("Foot passenger"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnFootPassengerRadio);
-                btnFootPassengerRadio.Click();
+               btnFootPassengerRadio.ScrollAndClick(_driver);
             }
             else
             {
                 try
                 {
-                    ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", bntVehicleRadio);
-                    bntVehicleRadio.Click();
+                    bntVehicleRadio.ScrollAndClick(_driver);
                 }
                 catch
                 {
-                    bntVehicleRadio.FindElement(By.CssSelector("#vehiclePassenger")).Click();
+                    bntVehicleRadio.ScrollAndClick(_driver);
                 }
             }
         }
@@ -215,18 +212,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (GBOutcome.Equals("Passenger referred to DAERA/SPS at NI port"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome1);
-                chkGBOutcome1.Click();
+                chkGBOutcome1.ScrollAndClick(_driver);
             }
             else if (GBOutcome.Equals("Passenger advised not to travel"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome2);
-                chkGBOutcome2.Click();
+                chkGBOutcome2.ScrollAndClick(_driver);
             }
             else if (GBOutcome.Equals("Passenger says they will not travel"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome3);
-                chkGBOutcome3.Click();
+                chkGBOutcome3.ScrollAndClick(_driver);
             }
         }
 
@@ -341,13 +335,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (mcCheckbox.Equals("Microchip number does not match the PTD"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblMCCheckbox1);
-                lblMCCheckbox1.Click();
+                lblMCCheckbox1.ScrollAndClick(_driver);
             }
             else if (mcCheckbox.Equals("Cannot find microchip"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblMCCheckbox2);
-                lblMCCheckbox2.Click();
+                lblMCCheckbox2.ScrollAndClick(_driver);
             }
         }
 
@@ -379,8 +371,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void ClickSaveOutComeButton()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", bntSaveOutCome);
-            bntSaveOutCome.Click();
+            bntSaveOutCome.ScrollAndClick(_driver);
         }
 
         #endregion

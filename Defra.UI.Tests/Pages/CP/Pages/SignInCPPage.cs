@@ -1,6 +1,7 @@
 ﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
 using SeleniumExtras.WaitHelpers;
@@ -57,7 +58,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void EnterPassword()
         {
-            _driver.Wait(1);
+            if(_driver.IsVisible(By.Id("continue")))
+            {
+                btnSignIn.Click();
+            }
+
+            _driver.Wait(2);
             txtLoging.SendKeys(ConfigSetup.BaseConfiguration.TestConfiguration.EnvCPLogin);
             btnContinue.Click();
         }
