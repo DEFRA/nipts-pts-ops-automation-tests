@@ -3256,7 +3256,7 @@ public class WebClient : BrowserPage, IDisposable
     private bool TrySetValue(IWebDriver driver, ISearchContext container, DateTimeControl control, FormContextType formContext)
     {
         TrySetDateValue(driver, container, control, formContext);
-        TrySetTime(driver, container, control, formContext);
+        //TrySetTime(driver, container, control, formContext);
 
         if (formContext == FormContextType.Header)
         {
@@ -3359,7 +3359,10 @@ public class WebClient : BrowserPage, IDisposable
                 if (date != null)
                 {
                     dateField.SendKeys(date);
-                    dateField.SendKeys(Keys.Tab);
+                    Thread.Sleep(2000);
+                    dateField.SendKeys(Keys.Enter);
+                    Thread.Sleep(2000);
+                    dateField.SendKeys(Keys.Enter);
                 }
             },
             d => dateField.GetAttribute("value").IsValueEqualsTo(date),

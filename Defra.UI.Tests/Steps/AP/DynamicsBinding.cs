@@ -451,13 +451,10 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("I verify the copy of the '([^']*)' Email in Timeline")]
         public void ThenIVerifyTheCopyOfEmail(string timelineCopy)
         {
+            SharedSteps.WaitSeconds(10);
             CommandSteps.ClickCommand("Refresh");
 
-            SharedSteps.WaitSeconds(5);
-
-            CommandSteps.ClickCommand("Refresh");
-
-            SharedSteps.WaitSeconds(5);
+            SharedSteps.WaitForScriptProcessing();
 
             if (timelineCopy.ToUpper().Equals("CONFIRMATION"))
             {
@@ -465,7 +462,6 @@ namespace Defra.UI.Tests.Steps.AP
             }
             else if (timelineCopy.ToUpper().Equals("APPROVED"))
             {
-                CommandSteps.ClickCommand("Refresh");
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document approved"));
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("approved"));
             }
@@ -476,7 +472,6 @@ namespace Defra.UI.Tests.Steps.AP
             }
             else if (timelineCopy.ToUpper().Equals("REVOCATION"))
             {
-                CommandSteps.ClickCommand("Refresh");
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document cancelled"));
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("cancelled"));
             }

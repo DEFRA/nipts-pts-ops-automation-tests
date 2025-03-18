@@ -231,7 +231,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application and 
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as 'auto'
-	And I enter 'Microchipped Date' as '09/08/2023'
+	#And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	Then the status is 'Open'
 	And the Record Owner By 'current user'
@@ -258,7 +258,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application, Aut
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as 'auto'
-	And I enter 'Microchipped Date' as '09/08/2023'
+	#And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	Then the status is 'Open'
 	And the Record Owner By 'current user'
@@ -290,7 +290,7 @@ Scenario: Verify the Duplicate Microchip Notification for offline PTD applicatio
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as '564789098987654'
-	And I enter 'Microchipped Date' as '09/08/2023'
+	#And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	Then the status is 'Open'
 	And I 'do' see Duplicate Microchip Notification
@@ -318,7 +318,7 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Age' as '12'
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
-	And I enter 'Microchipped Date' as '09/08/2023'
+	#And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	
 Scenario: Verify if the caseworker can update the offline PTD application multiple time when the application status is Pending
