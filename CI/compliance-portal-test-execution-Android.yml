@@ -1,7 +1,4 @@
-trigger:
-  branches:
-    exclude:
-      - '*'
+trigger: none
 
 parameters:
   - name: environment
@@ -41,7 +38,7 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowserv2'
 
   - stage: Android_SamsungGalaxyS23_SamsungInternet
     displayName: SamsungGalaxyS23_SamsungInternet
@@ -63,7 +60,7 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowserv2'
 
   - stage: Android_SamsungGalaxyTabS9_Chrome
     displayName: SamsungGalaxyTabS9_Chrome
@@ -85,7 +82,7 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowserv2'
 
   - stage: Android_SamsungGalaxyTabS9_SamsungInternet
     displayName: SamsungGalaxyTabS9_SamsungInternet
@@ -107,7 +104,7 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowserv2'
 
   - stage: Android_OnePlus11R_Chrome
     displayName: OnePlus11R_Chrome
@@ -129,4 +126,4 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowserv2'
