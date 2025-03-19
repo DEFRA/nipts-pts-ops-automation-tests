@@ -105,7 +105,9 @@ Scenario: Verify the error message for no selection of type of passenger in Repo
 	And I select Fail radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	When I click Report non-compliance button from Report non-compliance page
+	And I should see 'Type of passenger' subheading under 'Passenger details' section
+	When I should see 'Ferry foot passenger' 'Vehicle on ferry' 'Airline' radio buttons not selected by default
+	And I click Report non-compliance button from Report non-compliance page
 	Then I should see an error message "Select the type of passenger" in Report non-compliance page
 
 Scenario: Verify Pet Travel Document section in Report non compliance page - Approved status

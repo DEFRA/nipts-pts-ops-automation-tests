@@ -31,13 +31,17 @@ Scenario: Verify the error message if no flight number provided in the flight ro
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the flight number. For example, RK 103" in route checking page
 
-Scenario: Verify home page for flight Number text box with special character
+Scenario Outline: Verify home page for flight Number text box with special character or more than 8 characters
 	Then I have selected 'Flight' radio option
 	When I see the subheading 'Flight number' with a text box
-	Then I provide the 'a-z$&*' in the box
+	Then I provide the '<FlightNumber>' in the box
 	And I have provided Scheduled departure time '10:50'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the flight number using up to 8 letters and numbers (for example, RK 103)" in route checking page
+	Examples:
+	| FlightNumber |
+	| a-z$&*       |
+	| 1234 5678    |
 
 Scenario: Verify error message for no scheduled departure date details provided
 	Then I have selected 'Flight' radio option
