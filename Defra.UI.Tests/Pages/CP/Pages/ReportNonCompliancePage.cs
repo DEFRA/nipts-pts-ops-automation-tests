@@ -22,12 +22,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Report non-compliance']"));
         private IWebElement btnReportNonCompliance => _driver.WaitForElement(By.XPath("//button[normalize-space()='Save outcome']"));
         private IWebElement lnkPetTravelDocumentDetails => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet Travel Document details']"));
-        private IWebElement btnFootPassengerRadio => _driver.WaitForElementExists(By.CssSelector("#passengerType"));
-        private IWebElement bntVehicleRadio => _driver.WaitForElementExists(By.CssSelector("#vehiclePassenger"));
-        private IWebElement bntAirlineRadio => _driver.WaitForElementExists(By.CssSelector("#airlinePassenger"));
-        private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[1]"));
-        private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[2]"));
-        private IWebElement chkGBOutcome3 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[3]"));
+        private IWebElement btnFootPassengerRadio => _driver.WaitForElementExists(By.XPath("//*[@id='passengerType']/following-sibling::label"));
+        private IWebElement btnVehicleRadio => _driver.WaitForElementExists(By.XPath("//*[@id='vehiclePassenger']/following-sibling::label"));
+        private IWebElement btnAirlineRadio => _driver.WaitForElementExists(By.XPath("//*[@id='airlinePassenger']/following-sibling::label"));
+        private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger referred to DAERA/SPS at NI port']"));
+        private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger advised not to travel']"));
+        private IWebElement chkGBOutcome3 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger says they will not travel']"));
         private IWebElement chkSPSOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[1]"));
         private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[2]"));
         private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.XPath("//textarea[@name='spsOutcomeDetails']"));
@@ -64,6 +64,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblOtherIssuesOption3 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[3]"));
         private IWebElement lblOtherReasonHint => _driver.WaitForElement(By.Id("somethingRadio-item-hint"));
         private IWebElement lblMCHeader => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Microchip']"));
+        private IWebElement lblMCTableHeading => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Microchip information from PTD or Application']"));
         private IWebElement lblMCDetailsLink => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']"));
         private IWebElement lblMCCheckbox1 => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']/following::label[1]"));
         private IWebElement lblMCCheckbox2 => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']/following::label[3]"));
@@ -80,7 +81,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPetOwnerAddress => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Address')]/following-sibling::dd"));
         private IWebElement lblPetOwnerPhoneNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Phone number')]/following-sibling::dd"));
         private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"));
-        private IWebElement bntSaveOutCome=> _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
+        private IWebElement btnSaveOutCome=> _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
         #endregion
 
         #region Methods
@@ -173,20 +174,25 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public void SelectTypeOfPassenger(string radioButtonValue)
         {
 
-            if (radioButtonValue.Equals("Foot passenger"))
+            if (radioButtonValue.Equals("Ferry foot passenger"))
             {
                btnFootPassengerRadio.ScrollAndClick(_driver);
             }
-            else
+            else if (radioButtonValue.Equals("Vehicle on ferry"))
             {
                 try
                 {
-                    bntVehicleRadio.ScrollAndClick(_driver);
+                    btnVehicleRadio.ScrollAndClick(_driver);
                 }
                 catch
                 {
-                    bntVehicleRadio.ScrollAndClick(_driver);
+                    btnVehicleRadio.ScrollAndClick(_driver);
                 }
+            }
+            else
+            {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnAirlineRadio);
+                btnAirlineRadio.Click();
             }
         }
 
@@ -320,7 +326,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return lblMCHeader.Text.Contains("Microchip")
                    && lblMCCheckbox1.Text.Contains("Microchip number does not match the PTD")
                    && lblMCCheckbox2.Text.Contains("Cannot find microchip")
-                   && lblMCDetailsLink.Text.Contains("Microchip details from PTD");
+                   && lblMCDetailsLink.Text.Contains("Microchip details from PTD")
+                   && !lblMCCheckbox1.Selected
+                   && !lblMCCheckbox2.Selected;
         }
 
         public bool VerifyMCDetailsPTDTableWithValues(string MCDetails)
@@ -328,7 +336,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             _driver.ExecuteScript("arguments[0].scrollIntoView();", lblMCDetailsLink);
             lblMCDetailsLink.Click();
             string[] MCNumberAndDate = MCDetails.Split('|');
-            return lblMCNumber.Text.Equals("Microchip number") && lblMCImplantOrScanDate.Text.Equals("Implant or scan date") && lblMCNumberValue.Text.Equals(MCNumberAndDate[0]) && lblMCImplantOrScanDateValue.Text.Equals(MCNumberAndDate[1]);
+            return lblMCTableHeading.Text.Equals("Microchip information from PTD or Application") 
+                && lblMCNumber.Text.Equals("Microchip number") 
+                && lblMCImplantOrScanDate.Text.Equals("Implant or scan date") 
+                && lblMCNumberValue.Text.Equals(MCNumberAndDate[0]) 
+                && lblMCImplantOrScanDateValue.Text.Equals(MCNumberAndDate[1]);
         }
 
         public void ClickOnMCCheckbox(string mcCheckbox)
@@ -371,9 +383,18 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void ClickSaveOutComeButton()
         {
-            bntSaveOutCome.ScrollAndClick(_driver);
+            btnSaveOutCome.ScrollAndClick(_driver);
         }
 
+        public bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline)
+        {
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnFootPassengerRadio);
+            return btnFootPassengerRadio.Text.Contains(ferryFootPassenger)
+                && btnVehicleRadio.Text.Contains(vehicleOnFerry)
+                && btnAirlineRadio.Text.Contains(airline)
+                && !btnFootPassengerRadio.Selected && !btnVehicleRadio.Selected
+                && !btnAirlineRadio.Selected;
+        }
         #endregion
     }
 }
