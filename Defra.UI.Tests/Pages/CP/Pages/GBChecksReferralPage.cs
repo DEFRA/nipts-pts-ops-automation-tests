@@ -24,7 +24,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Referred to SPS']"));
         private IWebElement gbCheckReportPageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='GB check report']"));
         private IWebElement viewLink => _driver.WaitForElement(By.XPath("//*[contains(text(),'View')]"));
+        private IReadOnlyCollection<IWebElement> viewLinkList => _driver.WaitForElements(By.XPath("//*[contains(text(),'View')]"));
         private IWebElement ptdOrReferenceNumber => _driver.WaitForElement(By.XPath("//*[@class='referred-form']/button"));
+        private IReadOnlyCollection<IWebElement> ptdOrReferenceNumberList => _driver.WaitForElements(By.XPath("//*[@class='referred-form']/button"));
         #endregion
 
         #region Methods
@@ -47,12 +49,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         }
 
         public void ClickViewLink()
-        {
-            IList<IWebElement> elements = (IList<IWebElement>)_driver.FindElements(By.XPath("//*[contains(text(),'View')]"));
-            if (elements.Count > 0)
+        { 
+            if (viewLinkList.Count > 0)
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", viewLink);
-                elements[0].Click();
+                viewLink.ScrollToElement(_driver);
+                viewLinkList.ElementAt(0).Click();
             }
             else
                 Console.WriteLine("No elements found");
@@ -60,11 +61,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void ClickPTDOrReferenceNumber()
         {
-            IList<IWebElement> elements = (IList<IWebElement>)_driver.FindElements(By.XPath("//*[@class='referred-form']/button"));
-            if (elements.Count > 0)
+            if (ptdOrReferenceNumberList.Count > 0)
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", ptdOrReferenceNumber);
-                elements[0].Click();
+                ptdOrReferenceNumber.ScrollToElement(_driver);
+                ptdOrReferenceNumberList.ElementAt(0).Click();
             }
         }
         #endregion

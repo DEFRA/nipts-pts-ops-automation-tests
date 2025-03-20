@@ -19,13 +19,14 @@ Scenario: Verify GB check report page title
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the 'A6AD63' of the application
+	And I click search by 'Search by application number' radio button
+	And I provided the Reference number '0CI5N6V6' of the application
 	When I click search button
-	And I should see the application status in 'Revoked'
+	And I should see the application status in 'Unsuccessful'
 	And I continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	When I click 'Passenger says they will not travel' GB Outcome
+	And I click 'Passenger says they will not travel' GB Outcome
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
