@@ -40,7 +40,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void ClickGoBackToSearchLink()
         {
-            lnkGoBackToSearch.Click();
+            lnkGoBackToSearch.Click(_driver);
         }
         #endregion
     }

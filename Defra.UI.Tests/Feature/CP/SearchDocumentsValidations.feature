@@ -19,6 +19,7 @@ Scenario: Verify the error message for search button click after clearing the gi
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '12345' of the application
 	When I click clear search button
 	And I click search button
@@ -62,6 +63,7 @@ Scenario: Verify invalid PTD number navigates to Document not found page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '613465' of the application
 	When I click search button
 	Then I should see an error message "An error occurred while processing your request" in Find a document page
@@ -240,6 +242,7 @@ Scenario: Verify the error message if no PTD number detail given
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '' of the application
 	When I click search button
 	Then I should see an error message "Enter a PTD number" in Find a document page
@@ -252,6 +255,7 @@ Scenario: Verify the error message if entering less than 6 characters PTD Number
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the 'AD763' of the application
 	When I click search button
 	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
@@ -276,6 +280,7 @@ Scenario: Verify the error message if application number text box have character
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '*%£$&{}@' of the application
 	When I click search button
 	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
@@ -405,7 +410,6 @@ Scenario: Verify change link click in header from Checks page and back button fr
 	Then I should see date subsection 'Scheduled departure date' with the current date pre-population
 	And I click back link
 	Then I should navigate to Checks page
-	#And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '04''02''2025' time '09:45' and change link
 	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date current date '-1' time '09:45' and change link
 
 Scenario: Verify the input hyphen only to application number text box navigates to 403 error page
@@ -439,6 +443,7 @@ Scenario: Verify the Clear search functionality in Find a Document page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '12345' of the application
 	When I click clear search button
 	Then I see the values are deleted

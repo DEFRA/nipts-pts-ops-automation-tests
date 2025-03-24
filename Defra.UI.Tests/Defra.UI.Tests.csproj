@@ -132,9 +132,6 @@
     <Compile Update="Feature\CP\Accessibility\CPAccessibility.feature.cs">
       <DependentUpon>CPAccessibility.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\CP\Check-OutCome.feature.cs">
-      <DependentUpon>Check-Outcome.feature</DependentUpon>
-    </Compile>
     <Compile Update="Feature\IDCOMS\IdcomsRegressionE2E.feature.cs">
       <DependentUpon>IdcomsRegressionE2E.feature</DependentUpon>
     </Compile>

@@ -59,7 +59,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool IsSignedOut()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", signOutBy);
             signOutBy.Click();
             return true;
         }
@@ -142,6 +141,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool FlightNumberSection(string routeFlight)
         {
+            lblFlightNumber.ScrollIntoView(_driver);
             return lblFlightNumber.Displayed && txtBoxFlightNumber.Displayed;
         }
 

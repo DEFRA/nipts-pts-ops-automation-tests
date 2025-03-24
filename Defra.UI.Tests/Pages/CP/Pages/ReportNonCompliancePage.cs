@@ -96,13 +96,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectReportNonComplianceButton()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnReportNonCompliance);
-            btnReportNonCompliance.Click();
+            btnReportNonCompliance.Click(_driver);
         }
 
         public void ClickPetTravelDocumentDetailsLnk()
         {
-            lnkPetTravelDocumentDetails.Click();
+            lnkPetTravelDocumentDetails.Click(_driver);
         }
 
         public bool CheckPetTravelDocumentDetailsSection(string status)
@@ -110,6 +109,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var cnt = lblPetTravelDocumentDetails.Count;
             if (cnt > 0)
             {
+                lblPTDStatus.ScrollIntoView(_driver);
                 return lblPTDStatus.Text.Contains(status);
             }
             return false;
@@ -117,10 +117,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTheTableNameInPTDLink(string tableName)
         {
+            lblTableNameApplicationDetails.ScrollIntoView(_driver);
             return lblTableNameApplicationDetails.Text.Trim().Equals(tableName);
         }
         public bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName)
         {
+            lblTableNamePTD.ScrollIntoView(_driver);
             return lblTableNamePTD.Text.Trim().Equals(tableName);
         }
         public bool VerifyTheExpectedStatus(string applicationStatus)
@@ -153,15 +155,17 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         }
         public bool VerifyThePTDNumber(string ptdNumber)
         {
-            var ptd = txtValuePTDNumber.Text;
+            txtValuePTDNumber.ScrollIntoView(_driver);
             return txtValuePTDNumber.Text.Trim().Equals($"GB826 {ptdNumber}");
         }
         public bool VerifyTheDateOfIssuance(string dateOfIssuance)
         {
+            txtValueDate.ScrollIntoView(_driver);
             return txtValueDate.Text.Trim().Equals(dateOfIssuance);
         }
         public bool VerifyTheReferenceNumber(string referenceNumber)
         {
+            txtValueReferenceNumber.ScrollIntoView(_driver);
             return txtValueReferenceNumber.Text.Trim().Equals(referenceNumber);
         }
         public bool VerifyReasonsHeadingWithHint(string reasons, string hint)
@@ -175,7 +179,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
             if (radioButtonValue.Equals("Foot passenger"))
             {
-               btnFootPassengerRadio.ScrollAndClick(_driver);
+                btnFootPassengerRadio.ScrollAndClick(_driver);
             }
             else
             {
@@ -227,28 +231,34 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
         {
             var spsOutcomeCheckbox = checkboxValues.Split('|');
+            chkSPSOutcome1.ScrollIntoView(_driver);
             return (spsOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text) && spsOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text));
         }
 
         public bool VerifySPSCheckboxesAreNotChecked()
         {
+            chkSPSOutcome2.ScrollIntoView(_driver);
             return (chkSPSOutcome2.HasAttribute("Checked") && chkSPSOutcome1.HasAttribute("Checked"));
         }
         public bool VerifyGBCheckboxesAreNotChecked()
         {
+            chkGBOutcome1.ScrollIntoView(_driver);
             return (chkGBOutcome1.HasAttribute("Checked") && chkGBOutcome2.HasAttribute("Checked") && chkGBOutcome3.HasAttribute("Checked"));
         }
         public bool VerifyDetailsOfOutcome()
         {
+            lblDetailsOfOutcome.ScrollIntoView(_driver);
             return lblDetailsOfOutcome.Text.Contains("Details of outcome");
         }
         public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength)
         {
+            txtareaSPSOutcome.ScrollIntoView(_driver);
             return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
         }
 
         public bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength)
         {
+            lblAnyRelavantComments.ScrollIntoView(_driver);
             return lblAnyRelavantComments.Text.Contains(heading)
                    && lblAnyRelavantCommentsHint.Text.Contains(hint)
                    && TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
@@ -256,20 +266,25 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)
         {
+            lblPassengerDetails.ScrollIntoView(_driver);
             return lblPassengerDetails.Text.Contains(sectionName) && lblTypeOfPassenger.Text.Contains(subHeading);
         }
 
         public bool VerifyVCAndPetOwnerDetailSubheading(string subHeading)
         {
+           
             if (subHeading.Equals("Visual check"))
+            {
+                lblVisualCheck.ScrollIntoView(_driver);
                 return lblVisualCheck.Text.Contains(subHeading);
+            }
+            lblPetOwnerDetailsSubHeading.ScrollIntoView(_driver);
             return lblPetOwnerDetailsSubHeading.Text.Contains(subHeading);
         }
 
         public bool VerifyPetDetailsFromPTDLink(string linkName)
         {
-            _driver.ExecuteScript("arguments[0].scrollIntoView();", lnkPetDetailsFromPTD);
-            lnkPetDetailsFromPTD.Click();
+            lnkPetDetailsFromPTD.Click(_driver);
             return lnkPetDetailsFromPTD.Text.Contains(linkName);
         }
 
@@ -305,11 +320,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyOtherReasonOptionHint(string hint)
         {
+            lblOtherReasonHint.ScrollIntoView(_driver);
             return lblOtherReasonHint.Text.ToLower().Contains(hint.ToLower());
         }
 
         public bool VerifyOtherIssuesCheckboxesAreNotChecked()
         {
+            lblOtherIssuesOption1.ScrollIntoView(_driver);
             return lblOtherIssuesOption1.HasAttribute("Checked")
                 && lblOtherIssuesOption2.HasAttribute("Checked")
                 && lblOtherIssuesOption3.HasAttribute("Checked");
@@ -317,6 +334,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyMicrochipSection()
         {
+            lblMCHeader.ScrollIntoView(_driver);
             return lblMCHeader.Text.Contains("Microchip")
                    && lblMCCheckbox1.Text.Contains("Microchip number does not match the PTD")
                    && lblMCCheckbox2.Text.Contains("Cannot find microchip")
@@ -325,8 +343,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyMCDetailsPTDTableWithValues(string MCDetails)
         {
-            _driver.ExecuteScript("arguments[0].scrollIntoView();", lblMCDetailsLink);
-            lblMCDetailsLink.Click();
+            lblMCDetailsLink.Click(_driver);
             string[] MCNumberAndDate = MCDetails.Split('|');
             return lblMCNumber.Text.Equals("Microchip number") && lblMCImplantOrScanDate.Text.Equals("Implant or scan date") && lblMCNumberValue.Text.Equals(MCNumberAndDate[0]) && lblMCImplantOrScanDateValue.Text.Equals(MCNumberAndDate[1]);
         }
@@ -345,18 +362,21 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void EnterMCNumber(string MCNumber)
         {
+            lblMCNumberNotFoundInScan.ScrollIntoView(_driver);
             lblMCNumberNotFoundInScan.Text.Equals("Microchip number found in scan");
             txtMCNumberNotFoundInScan.Clear();
             txtMCNumberNotFoundInScan.SendKeys(MCNumber);
         }
         public bool VerifyNameAndEmailOfPetOwner(string name, string email)
         {
+            lblPetOwnerName.ScrollIntoView(_driver);
             return lblPetOwnerName.Text.Contains(name)
                 && lblPetOwnerEmail.Text.Contains(email);
         }
 
         public bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber)
         {
+            lblPetOwnerAddress.ScrollIntoView(_driver);
             var addressReplaceNewLine = lblPetOwnerAddress.Text.ReplaceLineEndings("\n");
             var addressDetail = addressReplaceNewLine.Replace('\n', ',');
 
@@ -366,6 +386,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyInfoSubmittedMessage(string submittedMessage)
         {
+            lblInfoSubmittedMessage.ScrollIntoView(_driver);
             return lblInfoSubmittedMessage.Text.Contains(submittedMessage);
         }
 
