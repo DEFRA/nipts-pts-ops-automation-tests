@@ -19,6 +19,7 @@ Scenario: Validate pass outcome for approved application found by PTD number
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -34,6 +35,7 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
@@ -48,6 +50,7 @@ Scenario: Verify the application status and color banner
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'

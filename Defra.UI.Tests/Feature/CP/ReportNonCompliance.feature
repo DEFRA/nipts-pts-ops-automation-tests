@@ -19,6 +19,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Appr
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -99,6 +100,7 @@ Scenario: Verify the error message for no selection of type of passenger in Repo
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -118,6 +120,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - App
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -136,6 +139,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - Awa
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
@@ -153,6 +157,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
@@ -175,6 +180,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page - Await
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '39AC94' of the application
 	When I click search button
 	And I should see the application status in 'Awaiting verification'
@@ -190,6 +196,7 @@ Scenario: Verify Reasons and Any Relavant comments heading with hint in Report n
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
@@ -212,6 +219,7 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '<ApplicationNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
@@ -235,6 +243,7 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for un
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '<ApplicationNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
@@ -447,6 +456,7 @@ Scenario Outline: Verify the success message after submitting the Report non com
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '<ApplicationNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
@@ -478,6 +488,7 @@ Scenario Outline: Verify passenger details section radio buttons in Report non-c
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in 'Approved'

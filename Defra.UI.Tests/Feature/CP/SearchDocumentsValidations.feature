@@ -268,6 +268,7 @@ Scenario: Verify the error message if entering more than 6 characters PTD Number
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the 'AD387641' of the application
 	When I click search button
 	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
@@ -384,6 +385,7 @@ Scenario: Verify the data entered remains in the text box of Find a document pag
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	Then I click search by 'Search by application number' radio button
 	And I provided the Application Number 'ZRWD8KG6' of the application

@@ -133,9 +133,6 @@
     <Compile Update="Feature\AP\E2E\Ferret.feature.cs">
       <DependentUpon>Ferret.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\CP\Accessibility\CPAccessibility.feature.cs">
-      <DependentUpon>CPAccessibility.feature</DependentUpon>
-    </Compile>
     <Compile Update="Feature\CP\GBChecksReferralPagesValidation.feature.cs">
       <DependentUpon>GBChecksReferralPagesValidation.feature</DependentUpon>
     </Compile>
