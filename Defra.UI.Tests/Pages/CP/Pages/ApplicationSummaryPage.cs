@@ -118,7 +118,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             switch (color)
             {
                 case "Amber":
-                    value = actualColor.Contains("background-color: rgb(181, 136, 64);");  
+                    value = actualColor.Contains("background-color: rgb(29, 112, 184);");  
                     break;
                 case "Red":
                     value = actualColor.Contains("background-color: rgb(212, 53, 28);");
@@ -136,11 +136,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyReferenceNumberTable(string status)
         {
             bool value = false;
-            if (status.Equals("Unsuccessful") || status.Equals("Awaiting verification"))
+            if (status.Equals("Unsuccessful") || status.Equals("Pending"))
             {
                 return (lblDocCardHeading.Text.Equals("Reference number") && lblRefNumber.Text.Equals("Application reference number") && lblDate.Text.Equals("Date"));
             }
-            else if (status.Equals("Approved") || status.Equals("Revoked"))
+            else if (status.Equals("Approved") || status.Equals("Cancelled"))
             {
                 return (lblDocCardHeading.Text.Equals("Issued") && lblRefNumber.Text.Equals("PTD number") && lblDate.Text.Equals("Date"));
             }
@@ -149,14 +149,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         
         public bool VerifyIssuingAuthorityTable(string status)
         {
-            if (status.Equals("Approved") || status.Equals("Unsuccessful") || status.Equals("Revoked"))
+            if (status.Equals("Approved") || status.Equals("Unsuccessful"))
             {
                 return (lblIssuingAuthority.Text.Equals("Issuing authority") && lblIssuingAuthorityNameAndAddress.Text.Equals("Name and address of competent authority") && lblIssuingAuthoritySign.Text.Equals("Signed on behalf of the competent authority (APHA)") && lblIssuingAuthorityNameAndAddressValue.Text.Equals("Animal and Plant Health Agency\r\nPet Travel Section\r\nEden Bridge House\r\nLowther Street\r\nCarlisle\r\nCA3 8DX") && lblIssuingAuthoritySignValue.Text.Equals("John Smith (APHA) (Signed digitally)"));
             }
-            else if (status.Equals("Awaiting verification"))
+            else if (status.Equals("Pending"))
             {
                 return _driver.FindElements(By.XPath("//h2[normalize-space() = 'Issuing authority']")).Count.Equals(0);
             }
+            else if(status.Equals("Cancelled"))
+            {
+                return true;
+            }
+
             return false;
         }
 

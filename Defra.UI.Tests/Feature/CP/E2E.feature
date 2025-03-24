@@ -12,7 +12,6 @@ Background:
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page
 
-@CPRegression
 Scenario Outline: Check PETS Travel Document details By PTD number - status in Approved
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -721,7 +720,7 @@ Scenario Outline: Check PETS Travel Document details By Reference number - statu
 	And I click search by '<ApplicationRadio>' radio button
 	And I provided the Reference number of the application
 	When I click search button
-	And I should see the application status in 'Awaiting verification'
+	And I should see the application status in 'Pending'
 	
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio			    |

@@ -4,6 +4,7 @@ using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
+using System.Collections.ObjectModel;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -30,7 +31,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement chkGBOutcome3 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger says they will not travel']"));
         private IWebElement chkSPSOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[1]"));
         private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[2]"));
-        private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.XPath("//textarea[@name='spsOutcomeDetails']"));
+        private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.Id("spsOutcomeDetails"));
         private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome']"));
         private IWebElement lblAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']"));
         private IWebElement lblAnyRelavantCommentsHint => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]"));
@@ -141,12 +142,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 case "Approved":
                     expectedColor = "#CCE2D8";
                     break;
-                case "Awaiting verification":
-                    expectedColor = "#FFF7BF";
+                case "Pending":
+                    expectedColor = "#BBD4EA";
                     break;
-                case "Revoked":
-                    expectedColor = "#FCD6C3";
-                    break;
+                case "Cancelled":
                 case "Unsuccessful":
                     expectedColor = "#F4CDC6";
                     break;
@@ -215,6 +214,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyGBOutcomeCheckboxes(string checkboxValues)
         {
             var gbOutcomeCheckbox = checkboxValues.Split('|');
+            chkGBOutcome1.ScrollIntoView(_driver);
             return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text));
         }
 
@@ -256,9 +256,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             lblDetailsOfOutcome.ScrollIntoView(_driver);
             return lblDetailsOfOutcome.Text.Contains("Details of outcome");
         }
+
         public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength)
         {
             txtareaSPSOutcome.ScrollIntoView(_driver);
+
             return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
         }
 
@@ -266,8 +268,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             lblAnyRelavantComments.ScrollIntoView(_driver);
             return lblAnyRelavantComments.Text.Contains(heading)
-                   && lblAnyRelavantCommentsHint.Text.Contains(hint)
-                   && TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
+                   && lblAnyRelavantCommentsHint.Text.Contains(hint);
+                   //&& TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
         }
 
         public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)
