@@ -25,8 +25,8 @@ namespace Defra.UI.Tests.Steps.CP
             _objectContainer = container;
         }
 
-        [When(@"I click View link in Fail Referred to SPS row with count more than 0")]
-        public void WhenIClickViewLinkInFailReferredToSPSRowWithCountMoreThan0()
+        [When(@"I click View link in Fail Referred to SPS row with count more than {int}")]
+        public void WhenIClickViewLinkInFailReferredToSPSRowWithCountMoreThanNumber(int number)
         {
             _gbChecksReferralPage?.ClickViewLink();
         }
