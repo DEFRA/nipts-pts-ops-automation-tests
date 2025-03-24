@@ -27,7 +27,7 @@ Scenario: Validate pass outcome for approved application found by PTD number
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
 
-Scenario: Validate fail outcome for Awaiting verification status application found by PTD number
+Scenario: Validate fail outcome for Pending status application found by PTD number
 	Then I have selected 'Ferry' radio option
 	And I select the 'Cairnryan to Larne (P&O)' radio option
 	And I have provided Scheduled departure time '10:20'
@@ -38,7 +38,7 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 	And I click search by 'Search by PTD number' radio button
 	And I provided the '39AC94' of the application
 	When I click search button
-	And I should see the application status in 'Awaiting verification'
+	And I should see the application status in 'Pending'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 
@@ -58,7 +58,7 @@ Scenario: Validate pass outcome for approved application found by application nu
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
 
-Scenario: Validate fail outcome for Awaiting verification status with color banner application found by application number
+Scenario: Validate fail outcome for Pending status with color banner application found by application number
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '11:30'
@@ -69,7 +69,7 @@ Scenario: Validate fail outcome for Awaiting verification status with color bann
 	And I click search by 'Search by application number' radio button
 	And I provided the Reference number '1R4QRIL3' of the application
 	When I click search button
-	And I should see the application status in 'Awaiting verification'
+	And I should see the application status in 'Pending'
 	Then I see the 'Amber' color banner
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
@@ -91,7 +91,7 @@ Scenario: Validate pass outcome and color banner for approved application found 
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
 
-Scenario: Validate fail outcome for Awaiting verification status application found by microchip number
+Scenario: Validate fail outcome for Pending status application found by microchip number
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '12:30'
@@ -102,7 +102,7 @@ Scenario: Validate fail outcome for Awaiting verification status application fou
 	And I click search by 'Search by microchip number' radio button
 	And I provided the Microchip number '236782367823678' of the application
 	When I click search button
-	And I should see the application status in 'Awaiting verification'
+	And I should see the application status in 'Pending'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 
@@ -137,7 +137,7 @@ Scenario: Verify the application status and color banner
 Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful |
-	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Revoked      |
+	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Cancelled    |
 
 Scenario: Verify the Reference number table
 	Then I have selected '<Transportation>' radio option
@@ -153,11 +153,11 @@ Scenario: Verify the Reference number table
 	And I should see the application status in '<Status>'
 	Then I verify the Reference number table for '<Status>' application
 Examples:
-	| Transportation | FerryRoute                    | PTDNumber | Status                |
-	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful          |
-	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Awaiting verification |
-	| Ferry          | Birkenhead to Belfast (Stena) | 457380    | Revoked               |
-	| Ferry          | Birkenhead to Belfast (Stena) | 586B06    | Approved              |
+	| Transportation | FerryRoute                    | PTDNumber | Status       |
+	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful |
+	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Pending      |
+	| Ferry          | Birkenhead to Belfast (Stena) | 457380    | Cancelled    |
+	| Ferry          | Birkenhead to Belfast (Stena) | 586B06    | Approved     |
 
 Scenario: Verify the Checks section and radio buttons in application summary page
 	Then I have selected '<Transportation>' radio option
@@ -176,7 +176,7 @@ Scenario: Verify the Checks section and radio buttons in application summary pag
 Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful |
-	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Revoked      |
+	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Cancelled    |
 
 
 

@@ -31,8 +31,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement rdoSearchByAppNumber => _driver.WaitForElement(By.Id("documentSearch-2-label"));
         private IWebElement rdoSearchByMCNumber => _driver.WaitForElement(By.Id("documentSearch-3-label"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
-        private IWebElement lblYouCannotAccessPageHeading => _driver.WaitForElement(By.Id("dialog-title-notsignedin"));
+        private IWebElement lblYouCannotAccessPageHeading => _driver.WaitForElement(By.XPath("//h1[contains(normalize-space(),'You cannot access this page')]"));
         private IWebElement lnkGobackToPrevPage => _driver.WaitForElement(By.XPath("//a[contains(.,'go back to the previous page')]"));
+        private IWebElement lblHeaderTitle => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-!-margin-bottom-4')]"));
         #endregion
 
         #region Methods
@@ -108,26 +109,36 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return false;
         }
 
+        public bool IsErrorTitle(string errorMessage)
+        {
+            return lblHeaderTitle.Text.Contains(errorMessage);
+        }
+
         public bool VerifyTheValuesAreCleared()
         {
             return rdoSearchByPTDNumber.GetAttribute("aria-expanded") is null && txtPTDSearchBox.Text.Equals(string.Empty) && rdoSearchByAppNumber.GetAttribute("aria-expanded") is null && rdoSearchByMCNumber.GetAttribute("aria-expanded") is null;
         }
+
         public bool VerifyAlreadyEnteredPTDNumber(string alreadyEnteredPTDNumber)
         {
             return txtPTDSearchBox.GetAttribute("value").Contains(alreadyEnteredPTDNumber);
         }
+
         public bool VerifyAlreadyEnteredApplicationNumber(string alreadyEnteredApplicationNumber)
         {
             return txtApplicationNumberSearchBox.GetAttribute("value").Contains(alreadyEnteredApplicationNumber);
         }
+
         public bool VerifyAlreadyEnteredMicrochipNumber(string alreadyEnteredMicrochipNumber)
         {
             return txtMicrochipNumberSearchBox.GetAttribute("value").Contains(alreadyEnteredMicrochipNumber);
         }
+
         public bool VerifyYouCannotAccessPage(string errorPageHeading)
         {
             return lblYouCannotAccessPageHeading.Text.Contains(errorPageHeading);
         }
+
         public void VerifyGoBackToPreviousPageLink()
         {
             lnkGobackToPrevPage.Click(_driver);

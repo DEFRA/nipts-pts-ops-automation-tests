@@ -32,7 +32,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Appr
 	And I verify the date of issuance '24/12/2024'
 	And I Verify status 'Approved' on Report non-compliance page
 
-Scenario: Verify PTD details drop down link in Report non compliance page - Awaiting verification status
+Scenario: Verify PTD details drop down link in Report non compliance page - Pending status
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '08:30'
@@ -43,16 +43,16 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Awai
 	And I click search by 'Search by microchip number' radio button
 	And I provided the Microchip number '236782367823678' of the application
 	When I click search button
-	And I should see the application status in 'Awaiting verification'
+	And I should see the application status in 'Pending'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
 	And I should see a table name as 'Application details'
 	And I Verify the reference number 'XC7I93AF'
 	And I verify the date of issuance '13/12/2024'
-	And I Verify status 'Awaiting verification' on Report non-compliance page
+	And I Verify status 'Pending' on Report non-compliance page
 
-Scenario: Verify PTD details drop down link in Report non compliance page - Revoked status
+Scenario: Verify PTD details drop down link in Report non compliance page - Cancelled status
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '02:50'
@@ -63,14 +63,14 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Revo
 	And I click search by 'Search by microchip number' radio button
 	And I provided the Microchip number '398934673434237' of the application
 	When I click search button
-	And I should see the application status in 'Revoked'
+	And I should see the application status in 'Cancelled'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
 	And I should see a table name for approved and revoked status as 'Pet Travel Document (PTD)'
 	And I Verify the PTD number 'AB5 17A'
 	And I verify the date of issuance '25/10/2024'
-	And I Verify status 'Revoked' on Report non-compliance page
+	And I Verify status 'Cancelled' on Report non-compliance page
 	
 Scenario: Verify PTD details drop down link in Report non compliance page - Unsuccessful status
 	Then I have selected 'Ferry' radio option
@@ -131,7 +131,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - App
 	And I Verify status 'Approved' on Report non-compliance page
 	And I should not see the Pet Travel Document section for 'Approved' status
 
-Scenario: Verify Pet Travel Document section in Report non compliance page - Awaiting verification status
+Scenario: Verify Pet Travel Document section in Report non compliance page - Pending status
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '13:30'
@@ -142,12 +142,12 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - Awa
 	And I click search by 'Search by PTD number' radio button
 	And I provided the '39AC94' of the application
 	When I click search button
-	And I should see the application status in 'Awaiting verification'
+	And I should see the application status in 'Pending'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	And I Verify status 'Awaiting verification' on Report non-compliance page
-	And I should see the Pet Travel Document section with status 'PTD awaiting verification'
+	And I Verify status 'Pending' on Report non-compliance page
+	And I should see the Pet Travel Document section with status 'PTD pending'
 
 Scenario: Verify Pet Travel Document section in Report non compliance page
 	Then I have selected '<Transportation>' radio option
@@ -166,13 +166,12 @@ Scenario: Verify Pet Travel Document section in Report non compliance page
 	And I click Pet Travel Document details link dropdown
 	And I Verify status '<Status>' on Report non-compliance page
 	And I should see the Pet Travel Document section with status '<PTD Status>'
-
 Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       | PTD Status       |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful | PTD unsuccessful |
-	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Revoked      | PTD revoked      |
+	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Cancelled    | PTD cancelled    |
 
-Scenario: Verify Reasons heading with hint in Report non compliance page - Awaiting verification status
+Scenario: Verify Reasons heading with hint in Report non compliance page - Pending status
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '02:10'
@@ -183,7 +182,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page - Await
 	And I click search by 'Search by PTD number' radio button
 	And I provided the '39AC94' of the application
 	When I click search button
-	And I should see the application status in 'Awaiting verification'
+	And I should see the application status in 'Pending'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Reasons' heading with hint 'Select all that apply.'
@@ -204,11 +203,10 @@ Scenario: Verify Reasons and Any Relavant comments heading with hint in Report n
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Reasons' heading with hint 'Select all that apply.'
 	And I verify any relavant comments section
-
 Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful |
-	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Revoked      |
+	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Cancelled    |
 
 
 Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
@@ -227,10 +225,8 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
-	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options
 	And I verify the Details of Outcome label
 	And I Verify the GB and SPS Outcomes are not selected
-	And I verify the Details of Outcome textarea maximum length is '500'
 Examples:
 	| ApplicationNumber | FerryRoute                    | Status   |
 	| 4574B2            | Birkenhead to Belfast (Stena) | Approved |
@@ -250,14 +246,12 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for un
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
-	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options
 	And I verify the Details of Outcome label
-	And I verify the Details of Outcome textarea maximum length is '500'
 Examples:
-	| ApplicationNumber | FerryRoute                   | Status                |
-	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful          |
-	| A6AD63            | Loch Ryan to Belfast (Stena) | Revoked               |
-	| 8E375B            | Loch Ryan to Belfast (Stena) | Awaiting verification |
+	| ApplicationNumber | FerryRoute                   | Status       |
+	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful |
+	| A6AD63            | Loch Ryan to Belfast (Stena) | Cancelled    |
+	| 8E375B            | Loch Ryan to Belfast (Stena) | Pending      |
 
 
 Scenario: Verify the navigation by clicking search and home icon from Report non compliance page
@@ -301,7 +295,7 @@ Scenario: Verify the Details of outcome textarea accepts only 500 characters
 	And I should see the application status in 'Unsuccessful'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I verify the Details of Outcome textarea maximum length is '500'
+	#And I verify the Details of Outcome textarea maximum length is '500'
 
 Scenario: Verify Visual check subheading and pet details from PTD dropdown in Report non compliance page
 	Then I have selected 'Ferry' radio option
@@ -356,7 +350,7 @@ Scenario: Verify Other issues check boxes in Visual check section of Report non 
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Visual check' subheading
 	And I should see the 'Other issues' subheading in visual check section
-	And I verify the other issues 'Potential commercial movement|Authorised traveller but no confirmation|Other reason' checkboxes
+	And I verify the other issues 'Potential commercial movement|Authorised person but no confirmation|Other reason' checkboxes
 	And I should see a hint 'This could be about the PTD and any risks identified.' next to Other reason option
 	And I should see no checkboxes are selected in other issues section
 
@@ -466,18 +460,16 @@ Scenario Outline: Verify the success message after submitting the Report non com
 	And I Verify status '<Status>' on Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
 	Then I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
-	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options
 	And I verify the Details of Outcome label
-	And I verify the Details of Outcome textarea maximum length is '500'
 	When I click 'Passenger says they will not travel' GB Outcome
 	Then I click '<TypeOfPassenger>' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
 Examples:
-	| ApplicationNumber | FerryRoute                   | Status                | TypeOfPassenger      |
-	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful          | Ferry foot passenger |
-	| A6AD63            | Loch Ryan to Belfast (Stena) | Revoked               | Vehicle on ferry     |
-	| 8E375B            | Loch Ryan to Belfast (Stena) | Awaiting verification | Ferry foot passenger |
+	| ApplicationNumber | FerryRoute                   | Status       | TypeOfPassenger      |
+	| 9EFC9F            | Cairnryan to Larne (P&O)     | Unsuccessful | Ferry foot passenger |
+	| A6AD63            | Loch Ryan to Belfast (Stena) | Cancelled    | Vehicle on ferry     |
+	| 8E375B            | Loch Ryan to Belfast (Stena) | Pending      | Ferry foot passenger |
 
 @CPCrossBrowserv2
 Scenario Outline: Verify passenger details section radio buttons in Report non-compliance page

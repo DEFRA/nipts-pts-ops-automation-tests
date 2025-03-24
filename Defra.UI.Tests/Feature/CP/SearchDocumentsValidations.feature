@@ -22,7 +22,8 @@ Scenario: Verify the error message for search button click after clearing the gi
 	And I click search by 'Search by PTD number' radio button
 	And I provided the '12345' of the application
 	When I click clear search button
-	And I click search button
+	Then I click search by 'Search by PTD number' radio button
+	When I click search button
 	Then I should see an error message "Enter a PTD number" in Find a document page
 
 Scenario: Verify the error message for search button click after clearing the given application number
@@ -66,7 +67,7 @@ Scenario: Verify invalid PTD number navigates to Document not found page
 	And I click search by 'Search by PTD number' radio button
 	And I provided the '613465' of the application
 	When I click search button
-	Then I should see an error message "An error occurred while processing your request" in Find a document page
+	Then I should see "Document not found" an error message in Find a document page
 
 Scenario: Verify invalid application number navigates to Document not found page 
 	Then I have selected 'Ferry' radio option
@@ -424,12 +425,6 @@ Scenario: Verify the input hyphen only to application number text box navigates 
 	Then I navigate to Find a document page
 	And I click search by 'Search by application number' radio button
 	And I provided the Application Number ''-'' of the application
-	When I click search button
-	Then I should navigate to 'You cannot access this page or perform this action' error page
-	And I click back link
-	Then I navigate to Find a document page
-	When I select Search by PTD number radio button and then selected the Search by application number radio button
-	Then I should see the already entered application number ''-'' in the text box
 	When I click search button
 	Then I should navigate to 'You cannot access this page or perform this action' error page
 	When I click go back to the previous page link

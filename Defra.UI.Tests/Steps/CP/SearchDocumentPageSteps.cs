@@ -102,6 +102,12 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_searchDocumentPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }
 
+        [Then("I should see {string} an error message in Find a document page")]
+        public void ThenIShouldSeeAnHeaderErrorMessageInFindADocumentPage(string errorMessage)
+        {
+            Assert.True(_searchDocumentPage?.IsErrorTitle(errorMessage), $"There is no error message found with - {errorMessage}");
+        }
+
         [Then(@"I see the values are deleted")]
         public void ThenISeeTheValuesAreCleared()
         {

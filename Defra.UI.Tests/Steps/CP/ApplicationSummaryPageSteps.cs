@@ -1,9 +1,8 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
-using static System.Collections.Specialized.BitVector32;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -54,21 +53,15 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [Then(@"I see the '(.*)' color banner")]
-        public void ThenISeeTheColorBanner(String Color)
+        public void ThenISeeTheColorBanner(string Color)
         {
             Assert.True(_applicationSummaryPage?.VerifyTheBannerColor(Color), $"The Banner {Color} is not as expected");
         }
 
         [Then(@"I verify the Reference number table for '([^']*)' application")]
-        public void ThenIVerifyTheReferenceNumberTableForApplication(String Status)
+        public void ThenIVerifyTheReferenceNumberTableForApplication(string status)
         {
-            Assert.True(_applicationSummaryPage?.VerifyReferenceNumberTable(Status));
-        }
-        
-        [Then(@"I verify the Issuing Authority table for '([^']*)' application")]
-        public void ThenIVerifyTheIssuingAuthorityTable(String Status)
-        {
-            Assert.True(_applicationSummaryPage?.VerifyIssuingAuthorityTable(Status));
+            Assert.True(_applicationSummaryPage?.VerifyReferenceNumberTable(status));
         }
 
         [Then(@"I verify the Microchip Information table in Search result page")]
@@ -78,7 +71,7 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [Then(@"I verify the Pet Details table for '(.*)' in Search result page")]
-        public void ThenIVerifyThePetDetailsTable(String Species)
+        public void ThenIVerifyThePetDetailsTable(string Species)
         {
             Assert.True(_applicationSummaryPage?.VerifyPetDetailsTable(Species));
         }

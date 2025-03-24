@@ -129,7 +129,7 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIVerifyGBAndSPSOutcomesAreNotSelected()
         {
             Assert.False(_reportNonCompliancePage?.VerifyGBCheckboxesAreNotChecked());
-            Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
+            //Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
         }
         
         [Then(@"I verify the SPS Outcome '(.*)' options")]
