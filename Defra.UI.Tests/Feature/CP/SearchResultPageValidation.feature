@@ -17,6 +17,7 @@ Scenario Outline: Verify the application summary tables in search result page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
@@ -41,6 +42,7 @@ Scenario Outline: Verify the application summary tables values in search result 
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'

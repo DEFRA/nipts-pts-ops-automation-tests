@@ -286,6 +286,7 @@ Scenario: Verify the Details of outcome textarea accepts only 500 characters
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '9EFC9F' of the application
 	When I click search button
 	And I should see the application status in 'Unsuccessful'
@@ -301,6 +302,7 @@ Scenario: Verify Visual check subheading and pet details from PTD dropdown in Re
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -318,6 +320,7 @@ Scenario: Verify the check box in Visual check section of Report non compliance 
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -335,6 +338,7 @@ Scenario: Verify Other issues check boxes in Visual check section of Report non 
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -355,6 +359,7 @@ Scenario: Verify Visual check Pet details from PTD dropdown table in Report non 
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -374,6 +379,7 @@ Scenario: Verify Pet owner details section in Report non compliance page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -393,6 +399,7 @@ Scenario: Verify the Microchip section in Report non compliance page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the 'D6BE7C' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
@@ -410,6 +417,7 @@ Scenario Outline: Verify the error message for Microchip number textbox in Repor
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the 'D6BE7C' of the application
 	When I click search button
 	And I should see the application status in 'Approved'

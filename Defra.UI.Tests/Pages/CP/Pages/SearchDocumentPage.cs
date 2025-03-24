@@ -27,9 +27,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement expectedText => _driver.WaitForElement(By.XPath("//div[@class='ons-panel__body']"));
         private IWebElement rdoApplicationNumber => _driver.WaitForElement(By.XPath("//label[normalize-space()='Search by application number']"));
         private IWebElement rdoMicrochipNumber => _driver.WaitForElement(By.XPath("//label[normalize-space()='Search by microchip number']"));
-        private IWebElement rdoSearchByPTDNumber => _driver.WaitForElement(By.XPath("//input[@id = 'documentSearch-1']"));
-        private IWebElement rdoSearchByAppNumber => _driver.WaitForElement(By.XPath("//input[@id = 'documentSearch-2']"));
-        private IWebElement rdoSearchByMCNumber => _driver.WaitForElement(By.XPath("//input[@id = 'documentSearch-3']"));
+        private IWebElement rdoSearchByPTDNumber => _driver.WaitForElement(By.Id("documentSearch-1-label"));
+        private IWebElement rdoSearchByAppNumber => _driver.WaitForElement(By.Id("documentSearch-2-label"));
+        private IWebElement rdoSearchByMCNumber => _driver.WaitForElement(By.Id("documentSearch-3-label"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         private IWebElement lblYouCannotAccessPageHeading => _driver.WaitForElement(By.Id("dialog-title-notsignedin"));
         private IWebElement lnkGobackToPrevPage => _driver.WaitForElement(By.XPath("//a[contains(.,'go back to the previous page')]"));
