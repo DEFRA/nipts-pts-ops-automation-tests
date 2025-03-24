@@ -264,5 +264,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_reportNonCompliancePage?.VerifyInfoSubmittedMessage(submittedMessage));
         }
+
+        [When(@"I should see '([^']*)' '([^']*)' '([^']*)' radio buttons not selected by default")]
+        public void ThenIShouldSeeRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerRadioButtons(ferryFootPassenger, vehicleOnFerry, airline));
+        }
     }
 }

@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\Check-OutCome - Copy.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Accessibility\DogAndCat.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\E2E\DogAndCat - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\CP\Accessibility\Check-OutCome.feature.cs" />
@@ -132,6 +136,12 @@
     <Compile Update="Feature\CP\Accessibility\CPAccessibility.feature.cs">
       <DependentUpon>CPAccessibility.feature</DependentUpon>
     </Compile>
+    <Compile Update="Feature\CP\GBChecksReferralPagesValidation.feature.cs">
+      <DependentUpon>GBChecksReferralPagesValidation.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\Check-OutCome.feature.cs">
+      <DependentUpon>Check-Outcome.feature</DependentUpon>
+    </Compile>
     <Compile Update="Feature\IDCOMS\IdcomsRegressionE2E.feature.cs">
       <DependentUpon>IdcomsRegressionE2E.feature</DependentUpon>
     </Compile>
@@ -159,6 +169,13 @@
     <Compile Update="Feature\AP\Validations\Microchip Information Validations.feature.cs">
       <DependentUpon>Microchip Information Validations.feature</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ReqnrollFeatureFiles Update="Feature\CP\GBChecksReferralPagesValidation.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
   </ItemGroup>
 
   <ItemGroup>

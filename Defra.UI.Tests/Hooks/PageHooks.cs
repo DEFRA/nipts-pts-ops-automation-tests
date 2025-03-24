@@ -69,6 +69,7 @@ namespace Defra.UI.Tests.Hooks
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ApplicationSummaryPage, IApplicationSummaryPage>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ReportNonCompliancePage, IReportNonCompliancePage>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<DocumentNotFoundPage, IDocumentNotFoundPage>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<GBChecksReferralPage, IGBChecksReferralPage>());
 
         }
 
