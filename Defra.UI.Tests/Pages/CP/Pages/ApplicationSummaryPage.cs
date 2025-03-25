@@ -81,7 +81,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver,true);
             }
 
-            return _driver.WaitForElement(By.XPath($"(//h1[normalize-space()='{status}'])[1]")).Text.Trim().Equals(status);
+            return _driver.WaitForElement(By.XPath($"(//h1[normalize-space()='{status}'])[1]"),true).Text.Trim().Equals(status);
         }
 
         public void SelectPassRadioButton()

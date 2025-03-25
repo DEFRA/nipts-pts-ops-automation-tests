@@ -20,7 +20,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Report non-compliance']"));
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Report non-compliance']"), true);
         private IWebElement btnReportNonCompliance => _driver.WaitForElement(By.XPath("//button[normalize-space()='Save outcome']"));
         private IWebElement lnkPetTravelDocumentDetails => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet Travel Document details']"));
         private IWebElement btnFootPassengerRadio => _driver.WaitForElementExists(By.XPath("//*[@id='passengerType']/following-sibling::label"));
@@ -81,7 +81,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPetOwnerEmail => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Email')]/following-sibling::dd"));
         private IWebElement lblPetOwnerAddress => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Address')]/following-sibling::dd"));
         private IWebElement lblPetOwnerPhoneNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Phone number')]/following-sibling::dd"));
-        private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"));
+        private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"), true);
         private IWebElement btnSaveOutCome=> _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
         #endregion
 

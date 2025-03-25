@@ -1,5 +1,4 @@
-﻿using Defra.UI.Framework.Driver;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
