@@ -167,13 +167,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyMicrochipInformationTable()
         {
-            lblMCInfo.ScrollIntoView(_driver);
+            lblMCInfo.ScrollToElement(_driver);
             return lblMCInfo.Text.Equals("Microchip information") && lblMCNumber.Text.Equals("Microchip number") && lblMCImplantDate.Text.Equals("Implant or scan date");
         }
 
         public bool VerifyPetDetailsTable(string species)
         {
-            lblPetDetails.ScrollIntoView(_driver);
+            lblPetDetails.ScrollToElement(_driver);
 
             if (species.Equals("Ferret"))
                 return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features") && _driver.FindElements(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Breed']")).Count.Equals(0);
@@ -183,21 +183,21 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyPetOwnerDetailsTable()
         {
-            lblPetOwnerDetails.ScrollIntoView(_driver);
+            lblPetOwnerDetails.ScrollToElement(_driver);
             return lblPetOwnerDetails.Text.Equals("Pet owner details") && lblName.Text.Equals("Name") && lblEmail.Text.Equals("Email") && lblAddress.Text.Equals("Address") && lblPhoneNumber.Text.Equals("Phone number");
         }
 
         public bool VerifyRefNumTableValues(string values , string status)
         {
             string[] value = values.Split('^');
-            lblRefNumberValue.ScrollIntoView(_driver);
+            lblRefNumberValue.ScrollToElement(_driver);
             return lblRefNumberValue.Text.Equals(value[0]) && lblDateValue.Text.Equals(value[1]);
         }
 
         public bool VerifyMCTableValues(string values , string status)
         {
             string[] value = values.Split('^');
-            lblMCNumberValue.ScrollIntoView(_driver);
+            lblMCNumberValue.ScrollToElement(_driver);
             return lblMCNumberValue.Text.Equals(value[0]) && lblMCImplantDateValue.Text.Equals(value[1]);
         } 
         
@@ -205,7 +205,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             string[] value = values.Split('^');
 
-            lblPetNameValue.ScrollIntoView(_driver);
+            lblPetNameValue.ScrollToElement(_driver);
 
             if (species.ToUpper().Equals("FERRET"))
             {
@@ -248,7 +248,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyChecksSectionRadioButtons()
         {
-            lblChecks.ScrollIntoView(_driver);
+            lblChecks.ScrollToElement(_driver);
             return rdobuttons.Count == 0;
         }
         #endregion

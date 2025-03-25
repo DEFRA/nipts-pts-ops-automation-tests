@@ -20,7 +20,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement signOutPageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl']"));
-        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"),true);
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), true);
         private IWebElement signOutBy => _driver.WaitForElement(By.XPath("//a[@href='/signout']//*[name()='svg']"));
         private IWebElement rdoFerry => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[normalize-space()='Ferry']"));
         private IWebElement rdoFlight => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[normalize-space()='Flight']"));
@@ -67,19 +67,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (radioButtonValue == "Ferry")
             {
-
-                if (!rdoFerry.Selected)
-                {
-                    rdoFerry.Click(_driver);
-                }
+                rdoFerry.Click(_driver);
             }
             else if (radioButtonValue == "Flight")
             {
-
-                if (!rdoFlight.Selected)
-                {
-                    rdoFlight.Click(_driver);
-                }
+                rdoFlight.Click(_driver);
             }
         }
 
@@ -141,7 +133,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool FlightNumberSection(string routeFlight)
         {
-            lblFlightNumber.ScrollIntoView(_driver);
+            lblFlightNumber.ScrollToElement(_driver);
             return lblFlightNumber.Displayed && txtBoxFlightNumber.Displayed;
         }
 
@@ -203,7 +195,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             dynamic displayedTime = rows[1].Substring(12, 5);
 
             var givenDate = $"{ParseNumber(departureDay)}/{ParseNumber(departureMonth)}/{departureYear}";
-            
+
             return lblDeparture.Text.Equals("Departure:") && displayedDate.Equals(givenDate) && displayedTime.Equals(departureTime);
         }
 
