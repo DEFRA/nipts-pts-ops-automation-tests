@@ -25,7 +25,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private By signInConfirmBy => By.XPath("//h1[contains(@class,'govuk-heading-xl')]");
         private IWebElement UserId => _driver.FindElement(By.CssSelector("#user_id"));
         private IWebElement Password => _driver.FindElement(By.CssSelector("#password"));
-        private IWebElement txtLoging => _driver.WaitForElement(By.XPath("//input[@id='password']"));
+        private IWebElement txtLoging => _driver.WaitForElement(By.XPath("//input[@id='password']"),true);
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[normalize-space()='Continue']"));
         private IWebElement lblTitle => _driver.WaitForElement(By.XPath("//h1"));
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl'] | //h1[@class='govuk-heading-l'] | //h1[@class='govuk-fieldset__heading']"), true);
