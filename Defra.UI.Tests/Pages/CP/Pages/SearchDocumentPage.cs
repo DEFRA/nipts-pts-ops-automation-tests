@@ -51,24 +51,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (radioButtonValue == "Search by application number")
             {
-                if (!rdoApplicationNumber.Selected)
-                {
-                    rdoApplicationNumber.Click(_driver);
-                }
+                rdoApplicationNumber.Click(_driver);
             }
             else if (radioButtonValue == "Search by microchip number")
             {
-                if (!rdoMicrochipNumber.Selected)
-                {
-                    rdoMicrochipNumber.Click(_driver);
-                }
+                rdoMicrochipNumber.Click(_driver);
             }
             else if (radioButtonValue == "Search by PTD number")
             {
-                if (!rdoSearchByPTDNumber.Selected)
-                {
-                    rdoSearchByPTDNumber.Click(_driver);
-                }
+                rdoSearchByPTDNumber.Click(_driver);
             }
         }
         public void EnterPTDNumber(string ptdNumber1)

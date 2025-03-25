@@ -105,25 +105,3 @@ stages:
         dependsOn: ''
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowserv2'
-
-  - stage: Android_OnePlus11R_Chrome
-    displayName: OnePlus11R_Chrome
-    condition: always()
-
-    jobs:
-    - template: run-test-template.yml
-      parameters:
-        jobName: OnePlus11R_Chrome
-        environment: ${{ parameters.environment}}
-        branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'OnePlus 11R'
-        bsOSVersion: '13.0'
-        workers:  '10'
-        bsBrowserVersion: '13.0'
-        target: 'chrome'
-        isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
-        dependsOn: ''
-        application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserv2'
