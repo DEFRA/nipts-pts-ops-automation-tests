@@ -65,6 +65,7 @@ Examples:
 	| PetDog's |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | 132456789123451        | Dog | Dog     | Male   | Black | Yes                   |
 	| PetCat's |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | 132456789123451        | Cat | Cat     | Male   | Black | Yes                   |
 
+@APCrossBrowser
 Scenario Outline: Modify PETS Microchip scanned date By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page

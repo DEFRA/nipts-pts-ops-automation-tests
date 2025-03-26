@@ -10,6 +10,7 @@ Background:
 	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 
+@APCrossBrowser
 Scenario Outline: Create PETS Travel Document By PostCode Address User
 	Then I should navigate to Lifelong pet travel documents page
 	When I click Apply for a document button
