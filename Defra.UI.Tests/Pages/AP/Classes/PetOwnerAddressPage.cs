@@ -19,7 +19,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@for='Postcode']"), true);
+        private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1/label[contains(@class,'govuk-label--xl')]"), true);
         private IWebElement btnFindAddress => _driver.WaitForElement(By.XPath("//button[@type='submit']"));
         private IWebElement txtPostCode => _driver.WaitForElement(By.Id("Postcode"), true);
         private IWebElement drpAddress => _driver.WaitForElement(By.CssSelector("#Address"));
