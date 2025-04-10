@@ -19,11 +19,17 @@ namespace Defra.UI.Tests.Tools
                 { Thread.Sleep(TimeSpan.FromSeconds(6)); }
 
                 WebDriverWait driverWait = new WebDriverWait(driver, TimeSpan.FromSeconds(GlobalWaits));
-                return driverWait.Until(ExpectedConditions.ElementIsVisible(elementBy));
+                var element = driverWait.Until(ExpectedConditions.ElementIsVisible(elementBy));
+
+                element.ScrollToElement(driver);
+
+                return element;
             }
             catch (Exception ex)
             {
-                return driver.FindElement(elementBy);
+                var element = driver.FindElement(elementBy);
+                element.ScrollToElement(driver);
+                return element;
 
                 throw new ElementNotVisibleException("Element is not visible", ex);
             }
