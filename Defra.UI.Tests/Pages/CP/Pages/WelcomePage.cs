@@ -25,6 +25,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lnkHeadersChange => _driver.WaitForElement(By.XPath("//a[normalize-space()='Change']"));
         private IWebElement btnBack => _driver.WaitForElement(By.XPath("//a[text()='Back']"));
         private IWebElement pageFooter => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']/ul"));
+        private IWebElement lblConfirmationBox => _driver.WaitForElement(By.XPath("//div[normalize-space(.) = 'Information has been successfully submitted']"));
         #endregion
 
         #region Methods
@@ -69,6 +70,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public void ClickBackButton()
         {
             btnBack.Click();
+        }
+
+        public bool IsConfirmationBoxDisplayed()
+        {
+            return lblConfirmationBox.IsVisible();
         }
         #endregion
     }

@@ -191,7 +191,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             string[] value = values.Split('^');
             lblRefNumberValue.ScrollToElement(_driver);
-            return lblRefNumberValue.Text.Equals(value[0]) && lblDateValue.Text.Equals(value[1]);
+            if (status.Equals("Unsuccessful") || status.Equals("Pending"))
+            {
+                return lblRefNumberValue.Text.Equals(value[0]) && lblDateValue.Text.Equals(value[1]);
+            }
+            else if (status.Equals("Approved") || status.Equals("Cancelled"))
+            {
+                return lblRefNumberValue.Text.Equals("GB826 "+value[0]) && lblDateValue.Text.Equals(value[1]);
+            }
+            return false;
         }
 
         public bool VerifyMCTableValues(string values , string status)

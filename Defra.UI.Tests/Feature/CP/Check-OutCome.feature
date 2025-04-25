@@ -26,6 +26,7 @@ Scenario: Validate pass outcome for approved application found by PTD number
 	And I select Pass radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
+	Then The Confirmation box is displayed in Checks page
 
 Scenario: Validate fail outcome for Pending status application found by PTD number
 	Then I have selected 'Ferry' radio option
