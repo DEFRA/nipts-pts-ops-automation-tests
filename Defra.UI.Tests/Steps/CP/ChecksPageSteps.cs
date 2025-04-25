@@ -4,6 +4,7 @@ using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Defra.UI.Tests.Tools;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -51,6 +52,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void WhenIClickOnBackButton()
         {
             _welcomePage?.ClickBackButton();
+        }
+
+        [Then(@"The Confirmation box is displayed in Checks page")]
+        public void VerifyConfirmationBoxIsDisplayed()
+        {
+            Assert.True(_welcomePage?.IsConfirmationBoxDisplayed(), "Confirmation Box is not Displayed");
         }
     }
 }
