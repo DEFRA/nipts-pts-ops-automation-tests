@@ -19,5 +19,6 @@
         bool VerifyMCTableValues(string values, string status);
         bool VerifyPetDetailsValues(string values, string species);
         bool VerifyPetOwnerDetailsValues(string values);
+        bool VerifyChecksSectionRadioButtonsWithHints(string radiobuttons, string hint);
     }
 }

@@ -46,8 +46,61 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should navigate to GB check report page")]
         public void ThenIShouldNavigateToGBCheckReportPage()
         {
-            Assert.IsTrue(_gbChecksReferralPage?.IsGBCheckReportPageLoaded(), "GB check report page not loaded ");
+            Assert.IsTrue(_gbChecksReferralPage?.IsGBCheckReportPageLoaded(), "GB check report page not loaded");
         }
 
+        [Then(@"I should see '([^']*)' and '([^']*)' subheadings")]
+        public void ThenIShouldSeeAndSubheadings(string subHeading1, string subHeading2)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckReportPageSubheadings(subHeading1, subHeading2), "GB check report page subheadings are not correct");
+        }
+
+        [Then(@"I should see '([^']*)' as Check outcome")]
+        public void ThenIShouldSeeAsCheckOutcome(string checkOutcome)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckOutcome(checkOutcome), "Check outcome in GB check report page is not correct");
+        }
+
+        [Then(@"I should see '([^']*)' as Reason for referral")]
+        public void ThenIShouldSeeAsReasonForReferral(string referralReason)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.ReasonForReferral(referralReason), "Reason for referral in GB check report page is not correct");
+        }
+
+        [Then(@"I should see '([^']*)' as Microchip number found in scan")]
+        public void ThenIShouldSeeAsMicrochipNumberFoundInScan(string mcNumber)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.MCNumberFoundInScan(mcNumber), "Microchip number found in scan in GB check report page is not correct");
+        }
+
+        [Then(@"I should see '([^']*)' as Additional comments")]
+        public void ThenIShouldSeeAsAdditionalComments(string additionalComments)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.AdditionalComments(additionalComments), "Additional comments in GB check report page is not correct");
+        }
+
+        [Then(@"I should see '([^']*)' as GB checker name")]
+        public void ThenIShouldSeeAsGBCheckerName(string gbChecker)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.GBChecker(gbChecker), "GB Checker's name in GB check report page is not correct");
+        }
+
+        [Then(@"I should see '([^']*)' as Route")]
+        public void ThenIShouldSeeAsRoute(string route)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.RouteInGBCheckPage(route), "Route in GB check report page is not correct");
+        }
+
+        [Then(@"I should see current date as Scheduled departure date")]
+        public void ThenIShouldSeeCurrentDateAsScheduledDepartureDate()
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.ScheduledDepartDate(), "Scheduled departure date in GB check report page is not correct");
+        }
+
+        [Then(@"I should see '([^']*)' as Scheduled departure time")]
+        public void ThenIShouldSeeAsScheduledDepartureTime(string departTime)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.ScheduledDepartTime(departTime), "Scheduled departure time in GB check report page is not correct");
+        }
     }
 }

@@ -178,6 +178,21 @@ Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful |
 	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Cancelled    |
+	| Ferry          | Birkenhead to Belfast (Stena) | 39AC94    | Pending      |
+
+Scenario: Verify the radio buttons label and hint in application summary page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '14:00'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '586B06' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	Then I verify Checks section with radio buttons 'Pass|Fail or referred to SPS' and hint 'Passes all checks.|Fails at least one check.'
 
 
 

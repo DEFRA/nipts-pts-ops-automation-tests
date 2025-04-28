@@ -121,5 +121,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtons());
         }
+
+        [Then(@"I verify Checks section with radio buttons '([^']*)' and hint '([^']*)'")]
+        public void ThenIverifyChecksSectionWithRadioButtonsAndHint(string radiobuttons, string hint)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtonsWithHints(radiobuttons, hint));
+        }
     }
 }

@@ -71,6 +71,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblCheckpoint3 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[3]"));
         private IWebElement lblCheckpoint4 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[4]"));
         private IReadOnlyCollection<IWebElement> rdobuttons => _driver.FindElements(By.CssSelector("input[type='radio']"));
+        private IWebElement lblPassRadioButtonHint => _driver.WaitForElement(By.XPath("//*[@id='pass-hint']"));
+        private IWebElement lblFailRadioButtonHint => _driver.WaitForElement(By.XPath("//*[@id='fail-hint']"));
+        private IWebElement lblErrorTitle => _driver.WaitForElement(By.XPath("//*[@id='error-summary-title']"));
         #endregion
 
         #region Methods
@@ -101,7 +104,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             foreach (var element in lblErrorMessages)
             {
-                if (element.Text.Contains(errorMessage))
+                if (element.Text.Contains(errorMessage) && lblErrorTitle.Text.Contains("There is a problem"))
                 {
                     return true;
                 }
@@ -258,6 +261,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             lblChecks.ScrollToElement(_driver);
             return rdobuttons.Count == 0;
+        }
+
+        public bool VerifyChecksSectionRadioButtonsWithHints(string radiobuttons, string hint)
+        {
+            lblChecks.ScrollToElement(_driver);
+            var radiobuttonsLabel = radiobuttons.Split('|');
+            var hintLabel = hint.Split('|');
+            return radiobuttonsLabel[0].Equals(rdoPass.Text) && radiobuttonsLabel[1].Equals(rdoFail.Text)
+                && hintLabel[0].Equals(lblPassRadioButtonHint.Text) && hintLabel[1].Equals(lblFailRadioButtonHint.Text);
         }
         #endregion
     }
