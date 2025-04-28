@@ -82,6 +82,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	And I provided the PTD number of the application
 	When I click search button
 	And I should see the application status in 'Approved'
+
 	
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    |
