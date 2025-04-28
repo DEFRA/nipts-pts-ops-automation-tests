@@ -7,6 +7,7 @@ using Defra.UI.Framework.Driver;
 using Defra.UI.Tests.Configuration;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using AngleSharp.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -27,6 +28,24 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IReadOnlyCollection<IWebElement> viewLinkList => _driver.WaitForElements(By.XPath("//*[contains(text(),'View')]"));
         private IWebElement ptdOrReferenceNumber => _driver.WaitForElement(By.XPath("//*[@class='referred-form']/button"));
         private IReadOnlyCollection<IWebElement> ptdOrReferenceNumberList => _driver.WaitForElements(By.XPath("//*[@class='referred-form']/button"));
+        private IWebElement lblOutcome => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Outcome']"));
+        private IWebElement lblCheckdetails => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Check details']"));
+        private IWebElement lblCheckOutcome => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Check outcome']"));
+        private IWebElement lblCheckOutcomeValue => _driver.WaitForElement(By.XPath("//h2[text()='Outcome']//following::p[1]"));
+        private IWebElement lblReasonForReferral => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Reason for referral']"));
+        private IWebElement lblReasonForReferralValue => _driver.WaitForElement(By.XPath("//dt[text()='Reason for referral']//following::p[1]"));
+        private IWebElement lblMcNumberFoundInScan => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Microchip number found in scan']"));
+        private IWebElement lblMcNumberFoundInScanValue => _driver.WaitForElement(By.XPath("//dt[text()='Microchip number found in scan']//following::p[1]"));
+        private IWebElement lblAdditionalComments => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Additional comments']"));
+        private IWebElement lblAdditionalCommentsValue => _driver.WaitForElement(By.XPath("//dt[text()='Additional comments']//following::p[1]"));
+        private IWebElement lblGBCheckerName => _driver.WaitForElement(By.XPath("//dt[normalize-space()='GB checker’s name']"));
+        private IWebElement lblGBCheckerNameValue => _driver.WaitForElement(By.XPath("//dt[text()='GB checker’s name']//following::dd[1]"));
+        private IWebElement lblRoute => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Route']"));
+        private IWebElement lblRouteValue => _driver.WaitForElement(By.XPath("//dt[text()='Route']//following::dd[1]"));
+        private IWebElement lblDepartDate => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Scheduled departure date']"));
+        private IWebElement lblDepartDateValue => _driver.WaitForElement(By.XPath("//dt[text()='Scheduled departure date']//following::p[1]"));
+        private IWebElement lblDepartTime => _driver.WaitForElement(By.XPath("(//dt[normalize-space()='Scheduled departure time'])"));
+        private IWebElement lblDepartTimeValue => _driver.WaitForElement(By.XPath("//dt[text()='Scheduled departure time']//following::p[1]"));
         #endregion
 
         #region Methods
@@ -65,7 +84,63 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             {
                 ptdOrReferenceNumber.ScrollToElement(_driver);
                 ptdOrReferenceNumberList.ElementAt(0).Click();
-            }
+            }     
+        }
+
+        public bool CheckReportPageSubheadings(string subHeading1, string subHeading2)
+        {
+            return lblOutcome.Text.Trim().Equals(subHeading1)
+                && lblCheckdetails.Text.Trim().Equals(subHeading2);
+        }
+
+        public bool CheckOutcome(string checkOutcome)
+        {
+            return lblCheckOutcome.Text.Trim().Equals("Check outcome")
+            && lblCheckOutcomeValue.Text.Trim().Equals(checkOutcome);
+        }
+
+        public bool ReasonForReferral(string referralReason)
+        {
+            return lblReasonForReferral.Text.Trim().Equals("Reason for referral")
+            && lblReasonForReferralValue.Text.Trim().Equals(referralReason);
+        }
+
+        public bool MCNumberFoundInScan(string mcNumber)
+        {
+            return lblMcNumberFoundInScan.Text.Trim().Equals("Microchip number found in scan")
+            && lblMcNumberFoundInScanValue.Text.Trim().Equals(mcNumber);
+        }
+
+        public bool AdditionalComments(string additionalComments)
+        {
+            return lblAdditionalComments.Text.Trim().Equals("Additional comments")
+            && lblAdditionalCommentsValue.Text.Trim().Equals(additionalComments);
+        }
+
+        public bool GBChecker(string gbChecker)
+        {
+            return lblGBCheckerName.Text.Trim().Equals("GB checker’s name")
+            && lblGBCheckerNameValue.Text.Equals(gbChecker);
+        }
+
+        public bool RouteInGBCheckPage(string route)
+        {
+            return lblRoute.Text.Trim().Equals("Route")
+            && lblRouteValue.Text.Trim().Equals(route);
+        }
+
+        public bool ScheduledDepartDate()
+        {
+            DateTime dateAndTime = DateTime.Today;
+            var currentDate = dateAndTime.ToString("dd/MM/yyyy");
+            return lblDepartDate.Text.Trim().Equals("Scheduled departure date")
+            && lblDepartDateValue.Text.Trim().Equals(currentDate);
+        }
+
+        public bool ScheduledDepartTime(string departTime)
+        {
+            return lblDepartTime.Text.Trim().Equals("Scheduled departure time")
+            && lblDepartTimeValue.Text.Trim().Equals(departTime);
         }
         #endregion
     }
