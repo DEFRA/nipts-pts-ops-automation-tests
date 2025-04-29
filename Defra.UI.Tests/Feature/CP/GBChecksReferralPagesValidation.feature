@@ -71,7 +71,7 @@ Scenario: Verify Outcome table in GB check report page
 Scenario: Verify Check details table in GB check report page
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '23:56'
+	And I have provided Scheduled departure time '23:58'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -96,4 +96,14 @@ Scenario: Verify Check details table in GB check report page
 	Then I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Birkenhead to Belfast (Stena)' as Route
 	Then I should see current date as Scheduled departure date
-	And I should see '23:56' as Scheduled departure time
+	And I should see '23:58' as Scheduled departure time
+
+Scenario: Verify PTD Number format in Referred to SPS page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '23:58'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click View link in Fail Referred to SPS row with count more than 0
+	Then I should navigate to Referred to SPS page
+	And I should see all the PTD numbers should be in correct format and starts with 'GB826'

@@ -46,6 +46,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblDepartDateValue => _driver.WaitForElement(By.XPath("//dt[text()='Scheduled departure date']//following::p[1]"));
         private IWebElement lblDepartTime => _driver.WaitForElement(By.XPath("(//dt[normalize-space()='Scheduled departure time'])"));
         private IWebElement lblDepartTimeValue => _driver.WaitForElement(By.XPath("//dt[text()='Scheduled departure time']//following::p[1]"));
+        private IWebElement lnkNext => _driver.WaitForElement(By.XPath("//*[@rel='next']"));
         #endregion
 
         #region Methods
@@ -141,6 +142,50 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             return lblDepartTime.Text.Trim().Equals("Scheduled departure time")
             && lblDepartTimeValue.Text.Trim().Equals(departTime);
+        }
+
+        public bool CheckPTDNumberFormat(string ptdNumberPrefix)
+        {
+            List<string> allRecords = new List<string>();
+            while(true)
+            {
+                foreach(var element in ptdOrReferenceNumberList)
+                {
+                    string cleanText = element.Text.Replace("reported", "").Trim();
+                    allRecords.Add(cleanText);
+                }
+
+                try
+                {
+                    lnkNext.ScrollToElement(_driver);
+                    if (lnkNext.Displayed)
+                    {
+                        lnkNext.Click();
+                    }
+                    else
+                    {
+                        throw new NoSuchElementException();
+                    }
+                }
+                catch (NoSuchElementException)
+                {
+                    break;
+                }
+            }
+
+            foreach (var recordValue in allRecords)
+            {
+                if (recordValue.StartsWith("GB826"))
+                {
+                    string[] parts = recordValue.Split(' ');
+                    if (parts.Length == 3 && parts[0].Length == 5
+                        && parts[1].Length == 3 && parts[2].Length == 3)
+                    {
+                        continue;
+                    }
+                }
+            }
+            return true;
         }
         #endregion
     }

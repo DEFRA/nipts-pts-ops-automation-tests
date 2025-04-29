@@ -274,7 +274,7 @@ Scenario: Verify the error message if entering more than 6 characters PTD Number
 	When I click search button
 	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
 
-Scenario: Verify the error message if application number text box have characters other than 0-9 and A-F (not including the hyphen)
+Scenario: Verify the error message if PTD number text box have 6 characters other than 0-9 and A-F (not including the hyphen)
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '11:50'
@@ -283,9 +283,9 @@ Scenario: Verify the error message if application number text box have character
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by PTD number' radio button
-	And I provided the '*%£$&{}@' of the application
+	And I provided the '*%£$&@' of the application
 	When I click search button
-	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
+	Then I should see an error message "Enter 6 characters after 'GB826', using only letters A to F and numbers" in Find a document page
 
 Scenario: Verify the error message if no text provided in application number text box
 	Then I have selected 'Ferry' radio option

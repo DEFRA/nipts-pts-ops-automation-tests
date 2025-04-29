@@ -351,7 +351,7 @@ Scenario: Verify Other issues check boxes in Visual check section of Report non 
 	And I should see the 'Visual check' subheading
 	And I should see the 'Other issues' subheading in visual check section
 	And I verify the other issues 'Potential commercial movement|Authorised person but no confirmation|Other reason' checkboxes
-	And I should see a hint 'This could be about the PTD and any risks identified.' next to Other reason option
+	And I should see a hint "Enter the reason in the 'Any relevant comments' section, this could be about the PTD and any risks identified." next to Other reason option
 	And I should see no checkboxes are selected in other issues section
 
 Scenario: Verify Visual check Pet details from PTD dropdown table in Report non compliance page
@@ -501,3 +501,24 @@ Examples:
 	| Transportation | FerryRoute                    | PTDNumber | TypeOfPassenger      |
 	| Ferry          | Birkenhead to Belfast (Stena) | 4574B2    | Ferry foot passenger |
 	| Ferry          | Birkenhead to Belfast (Stena) | 4574B2    | Vehicle on ferry     |
+
+Scenario: Verify the error message for no selection in reason section in Report non-compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '12:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I should see no checkboxes are selected in microchip section
+	Then I should see a checkbox 'Pet does not match the PTD' is not selected
+	And I should see no checkboxes are selected in other issues section
+	When I click Report non-compliance button from Report non-compliance page
+	Then I should see an error message "Select at least one reason for non-compliance" in Report non-compliance page

@@ -17,5 +17,6 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
         bool RouteInGBCheckPage(string route);
         bool ScheduledDepartDate();
         bool ScheduledDepartTime(string departTime);
+        bool CheckPTDNumberFormat(string ptdNumberPrefix);
     }
 }

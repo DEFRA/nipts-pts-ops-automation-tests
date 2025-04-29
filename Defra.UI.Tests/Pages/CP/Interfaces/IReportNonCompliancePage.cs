@@ -42,5 +42,6 @@
         bool VerifyInfoSubmittedMessage(string submittedMessage);
         void ClickSaveOutComeButton();
         bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline);
+        bool VerifyMicrochipCheckboxesAreChecked();
     }
 }
