@@ -102,5 +102,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.IsTrue(_gbChecksReferralPage?.ScheduledDepartTime(departTime), "Scheduled departure time in GB check report page is not correct");
         }
+
+        [Then(@"I should see all the PTD numbers should be in correct format and starts with '([^']*)'")]
+        public void ThenIShouldSeeAllThePTDNumbersShouldBeInCorrectFormatAndStartsWith(string ptdNumberPrefix)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckPTDNumberFormat(ptdNumberPrefix), "PTD Number format in Referred to SPS page is not correct");
+        }
     }
 }

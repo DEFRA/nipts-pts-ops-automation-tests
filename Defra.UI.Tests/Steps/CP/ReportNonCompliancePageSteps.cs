@@ -204,7 +204,7 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyOtherIssuesCheckboxes(checkboxOptions), "The other issues in Visual check section checkbox values are not correct");
         }
 
-        [Then(@"I should see a hint '([^']*)' next to Other reason option")]
+        [Then(@"I should see a hint ""([^""]*)"" next to Other reason option")]
         public void ThenIShouldSeeAHintNextToOtherReasonOption(string hint)
         {
             Assert.True(_reportNonCompliancePage?.VerifyOtherReasonOptionHint(hint), "Other reason checkbox hint is not displayed");
@@ -269,6 +269,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline)
         {
             Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerRadioButtons(ferryFootPassenger, vehicleOnFerry, airline));
+        }
+
+        [Then(@"I should see no checkboxes are selected in microchip section")]
+        public void ThenIShouldSeeNoCheckboxesAreSelectedInMicrochipSection()
+        {
+            Assert.False(_reportNonCompliancePage?.VerifyMicrochipCheckboxesAreChecked());
         }
     }
 }

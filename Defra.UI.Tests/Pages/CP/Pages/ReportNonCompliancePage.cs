@@ -83,6 +83,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPetOwnerPhoneNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Phone number')]/following-sibling::dd"));
         private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"), true);
         private IWebElement btnSaveOutCome => _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
+        private IWebElement lblMicrochipOption1 => _driver.WaitForElement(By.XPath("//*[@id='missingReason']"));
+        private IWebElement lblMicrochipOption2 => _driver.WaitForElement(By.XPath("//*[@id='mcNotFound']"));
         #endregion
 
         #region Methods
@@ -417,6 +419,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 && btnAirlineRadio.Text.Contains(airline)
                 && !btnFootPassengerRadio.Selected && !btnVehicleRadio.Selected
                 && !btnAirlineRadio.Selected;
+        }
+
+        public bool VerifyMicrochipCheckboxesAreChecked()
+        {
+            lblMicrochipOption1.ScrollToElement(_driver);
+            return lblMicrochipOption1.HasAttribute("Checked")
+                && lblMicrochipOption2.HasAttribute("Checked");
         }
         #endregion
     }

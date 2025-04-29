@@ -259,6 +259,30 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return number.Length > 1 ? number : $"0{number}";
         }
 
+        public void CheckDepartBefore48OrAfter24Hrs(string departureDay, string departureMonth, string departureYear, string departureHour, string departureMinute, string timeCheck)
+        {
+            txtScheduleDepartureDay.Clear();
+            txtScheduleDepartureDay.SendKeys(departureDay);
+            txtScheduleDepartureMonth.Clear();
+            txtScheduleDepartureMonth.SendKeys(departureMonth);
+            txtScheduleDepartureYear.Clear();
+            txtScheduleDepartureYear.SendKeys(departureYear);
+            var selectHour = new SelectElement(hourDropdown);
+            selectHour.SelectByValue(departureHour);
+
+            if (timeCheck.Equals("48HoursAgo"))
+            {
+                var selectMinute = new SelectElement(minuteDropdown);
+                selectMinute.SelectByValue(departureMinute.ToString());
+            }
+            else if (timeCheck.Equals("After24Hours"))
+            {
+                int minuteAfter24Hours = int.Parse(departureMinute.ToString());
+                minuteAfter24Hours = (minuteAfter24Hours + 1) % 60;
+                var selectMinute = new SelectElement(minuteDropdown);
+                selectMinute.SelectByValue(minuteAfter24Hours.ToString("D2"));
+            }
+        }
         #endregion
     }
 }

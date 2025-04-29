@@ -227,5 +227,12 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_routeCheckingPage?.CheckNoPrepopulatedDepartureTime(), "Departure time is pre-populated by default");
         }
+
+        [Then("I have selected departure date as current date '(.*)' and departure time as current time to check '(.*)'")]
+        public void ThenIHaveSelectedDepartureDateAsCurrentDateAndDepartureTimeAsCurrentTime(int departuredate, string timeCheck)
+        {
+            var dateTimeTwoDaysAgo = DateTime.UtcNow.AddDays(departuredate);
+            _routeCheckingPage?.CheckDepartBefore48OrAfter24Hrs(dateTimeTwoDaysAgo.Day.ToString(), dateTimeTwoDaysAgo.Month.ToString(), dateTimeTwoDaysAgo.Year.ToString(), dateTimeTwoDaysAgo.Hour.ToString("D2"), dateTimeTwoDaysAgo.Minute.ToString("D2"), timeCheck);
+        }
     }
 }

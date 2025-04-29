@@ -26,5 +26,6 @@
         bool CheckCurrentDatePrepopulation();
         bool CheckRouteDetailOnHomePageHeader(string route);
         bool CheckNoPrepopulatedDepartureTime();
+        void CheckDepartBefore48OrAfter24Hrs(string departureDay, string departureMonth, string departureYear, string departureHour, string departureMinute, string timeCheck);
     }
 }
