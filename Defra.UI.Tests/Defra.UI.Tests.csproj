@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\Check-OutCome - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\ReportNonCompliance - Copy.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -133,11 +134,17 @@
     <Compile Update="Feature\AP\E2E\Ferret.feature.cs">
       <DependentUpon>Ferret.feature</DependentUpon>
     </Compile>
+    <Compile Update="Feature\CP\Check-OutCome-SPS.feature.cs">
+      <DependentUpon>Check-OutCome-SPS.feature</DependentUpon>
+    </Compile>
     <Compile Update="Feature\CP\GBChecksReferralPagesValidation.feature.cs">
       <DependentUpon>GBChecksReferralPagesValidation.feature</DependentUpon>
     </Compile>
     <Compile Update="Feature\CP\Check-OutCome.feature.cs">
       <DependentUpon>Check-Outcome.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\ReportNonCompliance-SPS.feature.cs">
+      <DependentUpon>ReportNonCompliance-SPS.feature</DependentUpon>
     </Compile>
     <Compile Update="Feature\IDCOMS\IdcomsRegressionE2E.feature.cs">
       <DependentUpon>IdcomsRegressionE2E.feature</DependentUpon>
@@ -169,7 +176,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ReqnrollFeatureFiles Update="Feature\CP\Check-OutCome-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
     <ReqnrollFeatureFiles Update="Feature\CP\GBChecksReferralPagesValidation.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\ReportNonCompliance-SPS.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>

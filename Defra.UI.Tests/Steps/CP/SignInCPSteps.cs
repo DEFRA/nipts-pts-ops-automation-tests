@@ -62,7 +62,20 @@ namespace Defra.UI.Tests.Steps.CP
         [When(@"I have provided the CP credentials and signin")]
         public void WhenIHaveProvidedTheCPCredentialsAndSignin()
         {
-            var jsonData = UserObject?.GetUser("CP");
+            var jsonData = UserObject?.GetUser("CP","GB");
+            var userObject = new User
+            {
+                UserName = jsonData.UserName,
+                Credential = jsonData.Credential
+            };
+
+            _signInCPPage?.SignIn(userObject.UserName, userObject.Credential);
+        }
+
+        [When(@"I have provided the CP SPS credentials and signin")]
+        public void WhenIHaveProvidedTheCPSPSCredentialsAndSignin()
+        {
+            var jsonData = UserObject?.GetUser("CP","SPS");
             var userObject = new User
             {
                 UserName = jsonData.UserName,

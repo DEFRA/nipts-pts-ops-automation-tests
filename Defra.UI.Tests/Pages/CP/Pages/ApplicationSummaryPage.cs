@@ -5,6 +5,7 @@ using Defra.UI.Tests.Tools;
 using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using Microsoft.Identity.Client;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -20,7 +21,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        private IWebElement lblTitle => _driver.WaitForElement(By.XPath("//h1[normalize-space(.)='Your application summary']"));
         private IWebElement rdoPass => _driver.WaitForElement(By.XPath("//label[normalize-space()='Pass']"));
+        private IWebElement rdobtnPass => _driver.WaitForElement(By.XPath("//input[@value='Pass']"));
         private IWebElement rdoFail => _driver.WaitForElement(By.XPath("//label[normalize-space()='Fail or referred to SPS']"));
         private IWebElement btnSaveAndContinue => _driver.WaitForElement(By.XPath("//*[@id='saveAndContinue']"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
@@ -89,7 +92,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectPassRadioButton()
         {
-            rdoPass.Click(_driver);
+            rdobtnPass.Click(_driver);
         }
         public void SelectFailRadioButton()
         {
@@ -257,10 +260,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 && checkpointLabel[2].Equals(lblCheckpoint3.Text) && checkpointLabel[3].Equals(lblCheckpoint4.Text);
         }
 
-        public bool VerifyChecksSectionRadioButtons()
+        public bool VerifyChecksSectionRadioButtonsNotPresent()
         {
             lblChecks.ScrollToElement(_driver);
             return rdobuttons.Count == 0;
+        }
+
+        public bool IsApplicationSummayPageLoaded(string pageTitle)
+        {
+            return lblTitle.Text.Contains(pageTitle);
         }
 
         public bool VerifyChecksSectionRadioButtonsWithHints(string radiobuttons, string hint)

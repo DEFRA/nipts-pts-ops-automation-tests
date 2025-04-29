@@ -193,6 +193,3 @@ Scenario: Verify the radio buttons label and hint in application summary page
 	When I click search button
 	And I should see the application status in 'Approved'
 	Then I verify Checks section with radio buttons 'Pass|Fail or referred to SPS' and hint 'Passes all checks.|Fails at least one check.'
-
-
-

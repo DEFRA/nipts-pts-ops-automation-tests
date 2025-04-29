@@ -103,6 +103,18 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.IsTrue(_gbChecksReferralPage?.ScheduledDepartTime(departTime), "Scheduled departure time in GB check report page is not correct");
         }
 
+        [When(@"I click on the application that is in checks Needed SPS Outcome")]
+        public void WhenIClickOnChecksNeededLink()
+        {
+            _gbChecksReferralPage?.ClickChecksNeeded();
+        }
+        
+        [When(@"I click Conduct a SPS check button")]
+        public void WhenIClickOnConductSPSCheclButton()
+        {
+            _gbChecksReferralPage?.ClickOnConductSPSCheckButton();
+        }
+
         [Then(@"I should see all the PTD numbers should be in correct format and starts with '([^']*)'")]
         public void ThenIShouldSeeAllThePTDNumbersShouldBeInCorrectFormatAndStartsWith(string ptdNumberPrefix)
         {

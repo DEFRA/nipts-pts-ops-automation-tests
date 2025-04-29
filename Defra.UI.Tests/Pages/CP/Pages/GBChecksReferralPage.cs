@@ -46,6 +46,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblDepartDateValue => _driver.WaitForElement(By.XPath("//dt[text()='Scheduled departure date']//following::p[1]"));
         private IWebElement lblDepartTime => _driver.WaitForElement(By.XPath("(//dt[normalize-space()='Scheduled departure time'])"));
         private IWebElement lblDepartTimeValue => _driver.WaitForElement(By.XPath("//dt[text()='Scheduled departure time']//following::p[1]"));
+        private IWebElement lnkPTDRefNumber => _driver.WaitForElement(By.XPath("(//strong[normalize-space(.)='Check needed'])[1]//ancestor::tr//following-sibling::button"));
+        private IWebElement btnConductSPSCheck => _driver.WaitForElement(By.XPath("//button[normalize-space(.)='Conduct an SPS check']"));
         private IWebElement lnkNext => _driver.WaitForElement(By.XPath("//*[@rel='next']"));
         #endregion
 
@@ -142,6 +144,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             return lblDepartTime.Text.Trim().Equals("Scheduled departure time")
             && lblDepartTimeValue.Text.Trim().Equals(departTime);
+        }
+
+        public void ClickChecksNeeded()
+        {
+            lnkPTDRefNumber.Click(_driver);
+        }
+        
+        public void ClickOnConductSPSCheckButton()
+        {
+            btnConductSPSCheck.Click(_driver);
         }
 
         public bool CheckPTDNumberFormat(string ptdNumberPrefix)
