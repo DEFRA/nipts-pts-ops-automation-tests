@@ -119,10 +119,10 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons,hint), "Reasons Heading and Hint does not exists as expected");
         }
 
-        [Then(@"I verify the GB Outcome '(.*)' checkboxes")]
-        public void ThenIVerifyTheGBOutcomeCheckboxes(string checkboxValues)
+        [Then(@"I verify the GB Outcome '(.*)' checkboxes under '(.*)'")]
+        public void ThenIVerifyTheGBOutcomeCheckboxes(string checkboxValues, string subHeading)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues),"The GB Outcome checkbox values are not correct");
+            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues,subHeading),"The GB Outcome checkbox values are not correct");
         }
 
         [Then(@"I Verify the GB and SPS Outcomes are not selected")]
@@ -132,10 +132,16 @@ namespace Defra.UI.Tests.Steps.CP
             //Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
         }
         
-        [Then(@"I verify the SPS Outcome '(.*)' options")]
-        public void ThenIVerifyTheSPSOutcomeOptions(string checkboxValues)
+        [Then(@"I Verify the SPS Outcomes are not selected")]
+        public void ThenIVerifySPSOutcomesAreNotSelected()
         {
-            Assert.True(_reportNonCompliancePage?.VerifySPSOutcomeCheckboxes(checkboxValues),"The SPS Outcome checkbox values are not correct");
+            Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
+        }
+        
+        [Then(@"I verify the SPS Outcome '(.*)' options under '(.*)'")]
+        public void ThenIVerifyTheSPSOutcomeOptions(string checkboxValues , string subHeading)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifySPSOutcomeCheckboxes(checkboxValues, subHeading),"The SPS Outcome checkbox values are not correct");
         }
         
         [Then(@"I verify the Details of Outcome label")]
@@ -245,6 +251,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void WhenISelectGBOutcome(string GBOutcome)
         {
             _reportNonCompliancePage?.ClickGBOutcomeCheckbox(GBOutcome);
+        }
+        
+        [When(@"I click '(.*)' in SPS Outcome")]
+        public void WhenISelectSPSOutcome(string SPSOutcome)
+        {
+            _reportNonCompliancePage?.ClickSPSOutcomeCheckbox(SPSOutcome);
         }
 
         [Then(@"I should see Name '([^']*)' and Email '([^']*)' of Pet owner")]

@@ -119,7 +119,14 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should not see any radio button options in Checks section")]
         public void ThenIShouldNotSeeAnyRadioButtonOptionsInChecksSection()
         {
-            Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtons());
+            Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtonsNotPresent());
+        }
+
+        [Then(@"The Application Summary is displayed for '(.*)' Application")]
+        public void ThenTheApplicationSummaryIsDisplayed(String Status)
+        {
+            var pageTitle = "Your application summary";
+            Assert.IsTrue(_applicationSummaryPage?.IsApplicationSummayPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [Then(@"I verify Checks section with radio buttons '([^']*)' and hint '([^']*)'")]

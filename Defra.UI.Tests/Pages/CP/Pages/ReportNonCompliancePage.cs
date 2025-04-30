@@ -26,11 +26,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement btnFootPassengerRadio => _driver.WaitForElementExists(By.XPath("//*[@id='passengerType']/following-sibling::label"));
         private IWebElement btnVehicleRadio => _driver.WaitForElementExists(By.XPath("//*[@id='vehiclePassenger']/following-sibling::label"));
         private IWebElement btnAirlineRadio => _driver.WaitForElementExists(By.XPath("//*[@id='airlinePassenger']/following-sibling::label"));
+        private IWebElement lblReportOutcome => _driver.WaitForElementExists(By.XPath("//h2[normalize-space(.)='Record outcome']"));
         private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger referred to DAERA/SPS at NI port']"));
         private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger advised not to travel']"));
         private IWebElement chkGBOutcome3 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger says they will not travel']"));
-        private IWebElement chkSPSOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[1]"));
-        private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[2]"));
+        private IWebElement chkSPSOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='Record outcome']//following::label[1]"));
+        private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='Record outcome']//following::label[2]"));
         private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.Id("spsOutcomeDetails"));
         private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome']"));
         private IWebElement lblAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']"));
@@ -213,11 +214,14 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return false;
         }
 
-        public bool VerifyGBOutcomeCheckboxes(string checkboxValues)
+        public bool VerifyGBOutcomeCheckboxes(string checkboxValues, string subHeading)
         {
             var gbOutcomeCheckbox = checkboxValues.Split('|');
             chkGBOutcome1.ScrollToElement(_driver);
-            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text));
+            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) 
+                && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) 
+                && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text) 
+                && lblReportOutcome.Text.Equals(subHeading));
         }
 
         public void ClickGBOutcomeCheckbox(string GBOutcome)
@@ -235,12 +239,24 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 chkGBOutcome3.ScrollAndClick(_driver);
             }
         }
+        
+        public void ClickSPSOutcomeCheckbox(string SPSOutcome)
+        {
+            if (SPSOutcome.Equals("Allowed"))
+            {
+                chkSPSOutcome1.ScrollAndClick(_driver);
+            }
+            else if (SPSOutcome.Equals("Not Allowed"))
+            {
+                chkSPSOutcome2.ScrollAndClick(_driver);
+            }
+        }
 
-        public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
+        public bool VerifySPSOutcomeCheckboxes(string checkboxValues, string subHeading)
         {
             var spsOutcomeCheckbox = checkboxValues.Split('|');
             chkSPSOutcome1.ScrollToElement(_driver);
-            return (spsOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text) && spsOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text));
+            return (spsOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text) && spsOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text) && lblReportOutcome.Text.Equals(subHeading));
         }
 
         public bool VerifySPSCheckboxesAreNotChecked()

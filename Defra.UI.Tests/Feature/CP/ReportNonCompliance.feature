@@ -209,7 +209,7 @@ Examples:
 	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Cancelled    |
 
 
-Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
+Scenario Outline: Verify GB Outcome in Report non compliance page
 	Then I have selected 'Ferry' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '12:40'
@@ -224,14 +224,14 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page
 	And I select Fail radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
+	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes under 'Record outcome'
 	And I verify the Details of Outcome label
 	And I Verify the GB and SPS Outcomes are not selected
 Examples:
 	| ApplicationNumber | FerryRoute                    | Status   |
 	| 4574B2            | Birkenhead to Belfast (Stena) | Approved |
 	
-Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for unsuccessful applications
+Scenario Outline: Verify GB Outcome in Report non compliance page for unsuccessful applications
 	Then I have selected 'Ferry' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '11:30'
@@ -245,7 +245,7 @@ Scenario Outline: Verify GB and SPS Outcome in Report non compliance page for un
 	And I should see the application status in '<Status>'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
+	And I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes under 'Record outcome'
 	And I verify the Details of Outcome label
 Examples:
 	| ApplicationNumber | FerryRoute                   | Status       |
@@ -459,7 +459,7 @@ Scenario Outline: Verify the success message after submitting the Report non com
 	And I click Pet Travel Document details link dropdown
 	And I Verify status '<Status>' on Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	Then I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes
+	Then I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes under 'Record outcome'
 	And I verify the Details of Outcome label
 	When I click 'Passenger says they will not travel' GB Outcome
 	Then I click '<TypeOfPassenger>' in Passenger details

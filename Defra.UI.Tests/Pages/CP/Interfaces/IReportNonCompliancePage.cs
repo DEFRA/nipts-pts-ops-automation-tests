@@ -11,8 +11,8 @@
         bool CheckPetTravelDocumentDetailsSection(string status);
         bool VerifyTheTableNameInPTDLink(string tableName);
         bool VerifyReasonsHeadingWithHint(string reasons, string hint);
-        bool VerifyGBOutcomeCheckboxes(string checkboxValues);
-        bool VerifySPSOutcomeCheckboxes(string checkboxValues);
+        bool VerifyGBOutcomeCheckboxes(string checkboxValues, string subHeading);
+        bool VerifySPSOutcomeCheckboxes(string checkboxValues, string subHeading);
         bool VerifyDetailsOfOutcome();
         bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength);
         bool VerifyThePTDNumber(string ptdNumber);
@@ -42,6 +42,7 @@
         bool VerifyInfoSubmittedMessage(string submittedMessage);
         void ClickSaveOutComeButton();
         bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline);
+        void ClickSPSOutcomeCheckbox(string sPSOutcome);
         bool VerifyMicrochipCheckboxesAreChecked();
     }
 }
