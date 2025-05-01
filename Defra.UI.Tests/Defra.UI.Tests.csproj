@@ -27,6 +27,7 @@
   <ItemGroup>
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\Check-OutCome - Copy.feature.cs" />
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\ReportNonCompliance - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\SearchDocumentsValidations - Copy.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -146,6 +147,9 @@
     <Compile Update="Feature\CP\ReportNonCompliance-SPS.feature.cs">
       <DependentUpon>ReportNonCompliance-SPS.feature</DependentUpon>
     </Compile>
+    <Compile Update="Feature\CP\SearchDocumentsValidations-SPS.feature.cs">
+      <DependentUpon>SearchDocumentsValidations-SPS.feature</DependentUpon>
+    </Compile>
     <Compile Update="Feature\IDCOMS\IdcomsRegressionE2E.feature.cs">
       <DependentUpon>IdcomsRegressionE2E.feature</DependentUpon>
     </Compile>
@@ -185,6 +189,10 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>
     <ReqnrollFeatureFiles Update="Feature\CP\ReportNonCompliance-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\SearchDocumentsValidations-SPS.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>

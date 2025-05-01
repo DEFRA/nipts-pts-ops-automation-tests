@@ -60,6 +60,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool IsSignedOut()
         {
             signOutBy.Click();
+            Thread.Sleep(3000);
             return true;
         }
 
