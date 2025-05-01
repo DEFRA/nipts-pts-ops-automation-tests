@@ -242,11 +242,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         
         public void ClickSPSOutcomeCheckbox(string SPSOutcome)
         {
-            if (SPSOutcome.Equals("Allowed"))
+            if (SPSOutcome.ToUpper().Equals("ALLOWED"))
             {
                 chkSPSOutcome1.ScrollAndClick(_driver);
             }
-            else if (SPSOutcome.Equals("Not Allowed"))
+            else if (SPSOutcome.ToUpper().Equals("NOT ALLOWED"))
             {
                 chkSPSOutcome2.ScrollAndClick(_driver);
             }

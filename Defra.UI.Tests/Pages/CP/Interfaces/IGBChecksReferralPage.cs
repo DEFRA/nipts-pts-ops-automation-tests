@@ -17,8 +17,10 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
         bool RouteInGBCheckPage(string route);
         bool ScheduledDepartDate();
         bool ScheduledDepartTime(string departTime);
-        void ClickChecksNeeded();
-        void ClickOnConductSPSCheckButton();
         bool CheckPTDNumberFormat(string ptdNumberPrefix);
+        bool ClickApplicationRef(string referenceNumber);
+        void ClickOnConductSPSCheckButton();
+        bool VerifyTravelStatus(string travelStatus, string travelStatus1);
+        bool VerifyBGColorforTravelStatus(string referenceNumber, string travelStatus, string color);
     }
 }

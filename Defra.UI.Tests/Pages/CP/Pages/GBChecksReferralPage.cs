@@ -8,6 +8,7 @@ using Defra.UI.Tests.Configuration;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using AngleSharp.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Microsoft.Dynamics365.UIAutomation.Api;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -146,9 +147,33 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             && lblDepartTimeValue.Text.Trim().Equals(departTime);
         }
 
-        public void ClickChecksNeeded()
+        public bool ClickApplicationRef(string referenceNumber)
         {
-            lnkPTDRefNumber.Click(_driver);
+            var hasNext = true;
+            while (hasNext)
+            {
+                if (_driver.WaitForElements(By.XPath("//button[@data-identifier='referred-" + referenceNumber + "']")).Count > 0)
+                {
+                    _driver.WaitForElement(By.XPath("//button[@data-identifier='referred-" + referenceNumber + "']")).Click(_driver);
+                    return true;
+                }
+                else
+                {
+                    try
+                    {
+                        lnkNext.ScrollToElement(_driver);
+                        if (lnkNext.Displayed)
+                        {
+                            lnkNext.Click();
+                        }
+                    }
+                    catch (NoSuchElementException)
+                    {
+                        hasNext = false;
+                    }
+                }
+            }
+            return false;
         }
         
         public void ClickOnConductSPSCheckButton()
@@ -198,6 +223,61 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 }
             }
             return true;
+        }
+
+        public bool VerifyTravelStatus(string referenceNumber, string travelStatus)
+        {
+            var hasNext = true;
+            while (hasNext)
+            {
+                if (_driver.WaitForElements(By.XPath("(//button[@data-identifier='referred-" + referenceNumber + "']//following::strong)[1]")).Count > 0)
+                {
+                    return _driver.WaitForElement(By.XPath("(//button[@data-identifier='referred-" + referenceNumber + "']//following::strong)[1]")).Text.ToUpper().Equals(travelStatus);
+                }
+                else
+                {
+                    try
+                    {
+                        lnkNext.ScrollToElement(_driver);
+                        if (lnkNext.Displayed)
+                        {
+                            lnkNext.Click();
+                        }
+                    }
+                    catch (NoSuchElementException)
+                    {
+                        hasNext = false;
+                    }
+                }
+            }
+            return false;
+        }
+        
+        public bool VerifyBGColorforTravelStatus(string referenceNumber, string travelStatus, string color)
+        {
+            var hasNext = true;
+            while (hasNext)
+            {
+                if (_driver.WaitForElements(By.XPath("(//button[@data-identifier='referred-" + referenceNumber + "']//following::strong)[1]")).Count > 0)
+                {
+                    return _driver.WaitForElement(By.XPath("(//button[@data-identifier='referred-" + referenceNumber + "']//following::strong)[1]")).GetAttribute("class").ToUpper().Contains(color);
+                }
+                else
+                {
+                    try
+                    {
+                        lnkNext.ScrollToElement(_driver);
+                        if (lnkNext.Displayed)
+                        {
+                            lnkNext.Click();
+                        }
+                    }
+                    catch (NoSuchElementException)
+                    {
+                    }
+                }
+            }
+            return false;
         }
         #endregion
     }

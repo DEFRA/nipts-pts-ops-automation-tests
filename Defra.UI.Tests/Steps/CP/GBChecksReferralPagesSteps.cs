@@ -5,6 +5,7 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
 using Defra.UI.Tests.Pages.CP.Pages;
+using System.Drawing;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -103,10 +104,49 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.IsTrue(_gbChecksReferralPage?.ScheduledDepartTime(departTime), "Scheduled departure time in GB check report page is not correct");
         }
 
-        [When(@"I click on the application that is in checks Needed SPS Outcome")]
-        public void WhenIClickOnChecksNeededLink()
+        [When(@"I click on the '(.*)' application that is in checks Needed SPS Outcome")]
+        public void WhenIClickOnChecksNeededLink(string ApplicationStatus)
         {
-            _gbChecksReferralPage?.ClickChecksNeeded();
+            if (ApplicationStatus.ToUpper().Equals("APPROVED") || ApplicationStatus.ToUpper().Equals("CANCELLED"))
+            {
+                var PTDreferenceNumber = _scenarioContext.Get<string>("PTDReferenceNumber");
+                Assert.IsTrue(_gbChecksReferralPage?.ClickApplicationRef(PTDreferenceNumber), "The reference number is not present or Not able to click on " + PTDreferenceNumber);
+            }
+            else
+            {
+                var referenceNumber = _scenarioContext.Get<string>("ReferenceNumber");
+                Assert.IsTrue(_gbChecksReferralPage?.ClickApplicationRef(referenceNumber), "The reference number is not present or Not able to click on " + referenceNumber);
+            }
+        }
+
+        [Then(@"The Background colour of '(.*)' in '(.*)' application is '(.*)'")]
+        public void ThenIVerifyBGColorOfTheStaus(string travelStatus, string ApplicationStatus, string color)
+        {
+            if (ApplicationStatus.ToUpper().Equals("APPROVED") || ApplicationStatus.ToUpper().Equals("CANCELLED"))
+            {
+                var PTDreferenceNumber = _scenarioContext.Get<string>("PTDReferenceNumber");
+                Assert.IsTrue(_gbChecksReferralPage?.VerifyBGColorforTravelStatus(PTDreferenceNumber, travelStatus, color.ToUpper()), "The Background color of the SPS Status is not matching");
+            }
+            else
+            {
+                var referenceNumber = _scenarioContext.Get<string>("ReferenceNumber");
+                Assert.IsTrue(_gbChecksReferralPage?.VerifyBGColorforTravelStatus(referenceNumber, travelStatus, color.ToUpper()), "The Background color of the SPS Status is not matching");
+            }
+        }
+
+        [Then(@"I verify the travel status for the '(.*)' application is '(.*)'")]
+        public void WhenIVerifyTheTravelStatus(String ApplicationStatus, string travelStatus)
+        {
+            if (ApplicationStatus.ToUpper().Equals("APPROVED") || ApplicationStatus.ToUpper().Equals("CANCELLED"))
+            {
+                var PTDreferenceNumber = _scenarioContext.Get<string>("PTDReferenceNumber");
+                Assert.IsTrue(_gbChecksReferralPage?.VerifyTravelStatus(PTDreferenceNumber, travelStatus.ToUpper()), "Travel Status is not set to " + travelStatus);
+            }
+            else
+            {
+                var referenceNumber = _scenarioContext.Get<string>("ReferenceNumber");
+                Assert.IsTrue(_gbChecksReferralPage?.VerifyTravelStatus(referenceNumber, travelStatus.ToUpper()), "Travel Status is not set to " + travelStatus);
+            }
         }
         
         [When(@"I click Conduct a SPS check button")]

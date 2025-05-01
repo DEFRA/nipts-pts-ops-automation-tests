@@ -1,4 +1,4 @@
-﻿@CPRegression @CPCrossBrowser
+﻿@CPRegression
 Feature: Check Outcome - SPS
 
 SPS Port checker validates the check outcome for pass or fail
