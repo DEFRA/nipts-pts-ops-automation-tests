@@ -18,5 +18,6 @@
         bool VerifyYouCannotAccessPage(string errorPageHeading);
         void VerifyGoBackToPreviousPageLink();
         void SelectAndSwapToApplicationNumberRadioButton();
+        void ClickBrowserBackButton();
     }
 }

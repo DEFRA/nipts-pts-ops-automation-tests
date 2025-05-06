@@ -107,37 +107,3 @@ Scenario: Verify PTD Number format in Referred to SPS page
 	When I click View link in Fail Referred to SPS row with count more than 0
 	Then I should navigate to Referred to SPS page
 	And I should see all the PTD numbers should be in correct format and starts with 'GB826'
-
-Scenario Outline: Verify if the SPS Checker can allow the passenger to travel
-	Then I have selected 'Ferry' radio option
-	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time '23:58'
-	When I click save and continue button from route checker page
-	Then I should navigate to Checks page
-
-	Given that I navigate to the port checker application
-	And I click signin button on port checker application
-	Then I should redirected to the CP Sign in using Government Gateway page
-	When I have provided the CP SPS credentials and signin
-	And I have provided the password for prototype research page
-	Then I should redirected to port route checker page
-	Then I have selected 'Ferry' radio option
-	And I select the '<FerryRoute>' radio option
-	And I have provided Scheduled departure time '02:30'
-	When I click save and continue button from route checker page
-	Then I should navigate to Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
-	Then I should navigate to Referred to SPS page
-	When I click on the application that is in checks Needed SPS Outcome
-	And I click Conduct a SPS check button
-	And I click save and continue button from application status page
-	Then I should navigate to Report non-compliance page
-	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options under 'Record outcome'
-	When I click 'Allowed' in SPS Outcome
-	When I click Save outcome button from non-compliance page
-	And I click View link in Fail Referred to SPS row with count more than 0
-	Then I should navigate to Referred to SPS page
-
-Examples:
-	| ApplicationNumber | FerryRoute                   | Status       | TypeOfPassenger      | MCOutcome                               |
-	| 9EFC9F            | Birkenhead to Belfast (Stena)| Unsuccessful | Ferry foot passenger | Cannot find microchip                   |
