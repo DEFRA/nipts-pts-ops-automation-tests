@@ -149,5 +149,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _searchDocumentPage?.VerifyGoBackToPreviousPageLink();
         }
+        
+        [When(@"I click browser back button")]
+        public void WhenIClickOnBrowserBackButton()
+        {
+            _searchDocumentPage?.ClickBrowserBackButton();
+        }
     }
 }

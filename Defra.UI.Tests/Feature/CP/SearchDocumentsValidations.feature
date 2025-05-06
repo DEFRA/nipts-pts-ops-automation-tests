@@ -427,7 +427,7 @@ Scenario: Verify the input hyphen only to application number text box navigates 
 	And I provided the Application Number ''-'' of the application
 	When I click search button
 	Then I should navigate to 'You cannot access this page or perform this action' error page
-	When I click go back to the previous page link
+	When I click browser back button
 	Then I navigate to Find a document page
 	When I select Search by PTD number radio button and then selected the Search by application number radio button
 	Then I should see the already entered application number ''-'' in the text box	 

@@ -3,6 +3,7 @@ using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using Defra.UI.Framework.Driver;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -139,6 +140,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             rdoSearchByPTDNumber.Click(_driver);
             rdoSearchByAppNumber.Click(_driver);
+        }
+
+        public void ClickBrowserBackButton()
+        {
+            _driver.Navigate().Back();
         }
         #endregion
     }
