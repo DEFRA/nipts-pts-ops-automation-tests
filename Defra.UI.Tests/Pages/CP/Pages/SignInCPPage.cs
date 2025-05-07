@@ -34,6 +34,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool VerifyHeadings(string heading, string subHeading)
         {
+            _driver.Wait(5);
             var applicationTitle = lblTitle.Text.Replace("\r\n", " ").ToUpper();
             return applicationTitle.Contains(subHeading.ToUpper()) && applicationTitle.Contains(heading.ToUpper());
         }
@@ -45,7 +46,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void ClickSignInButton()
         {
-            lnkSignIn.Click();
+            _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(lnkSignIn)).Click();
         }
 
         public void SignIn(string userName, string password)
