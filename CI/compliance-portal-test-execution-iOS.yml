@@ -38,7 +38,7 @@ stages:
         emulateDeviceInfo: 'iPad Pro 13 2024'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserv2'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPad13_Chromium
     displayName: iPad13_Chromium
@@ -60,7 +60,7 @@ stages:
         emulateDeviceInfo: 'iPad Pro 13 2024'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserv2'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPad12_Safari
     displayName: iPad12_Safari
@@ -82,7 +82,7 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserv2'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPad12_Chromium
     displayName: iPad12_Chromium
@@ -104,7 +104,7 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserv2'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPad10_Safari
     displayName: iPad10_Safari
@@ -125,7 +125,7 @@ stages:
         emulateDeviceInfo: 'iPad 10th'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserv2'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
   - stage: iOS_iPad10_Chromium
     displayName: iPad10_Chromium
@@ -146,4 +146,4 @@ stages:
         emulateDeviceInfo: 'iPad 10th'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserv2'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
