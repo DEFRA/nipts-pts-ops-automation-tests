@@ -1,4 +1,4 @@
-﻿@CPRegression @CPCrossBrowser
+﻿@CPRegression
 Feature: GB Checks Referral pages validation
 
 Referred to SPS and GB check report page validation

@@ -1,4 +1,4 @@
-﻿@CPRegression @CPCrossBrowser
+﻿@CPRegression
 Feature: Search Documents Validations
 
 Port checker validates Search documents and Change Route details

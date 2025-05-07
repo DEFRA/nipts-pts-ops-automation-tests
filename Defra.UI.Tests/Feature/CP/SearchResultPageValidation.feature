@@ -1,4 +1,4 @@
-﻿@CPRegression @CPCrossBrowser
+﻿@CPRegression @CPCrossBrowserv2
 Feature: Search Result Validation
 
 Background:

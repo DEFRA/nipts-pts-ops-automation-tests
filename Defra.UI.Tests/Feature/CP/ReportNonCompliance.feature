@@ -1,4 +1,4 @@
-﻿@CPRegression @CPCrossBrowser
+﻿@CPRegression
 Feature: Report Non Compliance
 
 Port checker Checks application and Route Details
