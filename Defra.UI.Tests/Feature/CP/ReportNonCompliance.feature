@@ -441,7 +441,7 @@ Examples:
 	| Enter the 15-digit microchip number, using only numbers | TestingMC         |
 	| Enter the 15-digit microchip number, using only numbers | "£%$^&<>          |
 	
-@CPCrossBrowserv2
+@CPCrossBrowser
 Scenario Outline: Verify the success message after submitting the Report non compliance
 	Then I have selected 'Ferry' radio option
 	And I select the '<FerryRoute>' radio option
@@ -471,7 +471,7 @@ Examples:
 	| A6AD63            | Loch Ryan to Belfast (Stena) | Cancelled    | Vehicle on ferry     |
 	| 8E375B            | Loch Ryan to Belfast (Stena) | Pending      | Ferry foot passenger |
 
-@CPCrossBrowserv2
+@CPCrossBrowser
 Scenario Outline: Verify passenger details section radio buttons in Report non-compliance page
 	Then I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
