@@ -176,7 +176,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyMicrochipInformationTable()
         {
             lblMCInfo.ScrollToElement(_driver);
-            return lblMCInfo.Text.Equals("Microchip information") && lblMCNumber.Text.Equals("Microchip number") && lblMCImplantDate.Text.Equals("Implant or scan date");
+            return lblMCInfo.Text.Replace("\r\n", string.Empty).Trim().Equals("Microchip information")
+                && lblMCNumber.Text.Replace("\r\n", string.Empty).Trim().Equals("Microchip number")
+                && lblMCImplantDate.Text.Replace("\r\n", string.Empty).Trim().Equals("Implant or scan date");
         }
 
         public bool VerifyPetDetailsTable(string species)
@@ -184,9 +186,27 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             lblPetDetails.ScrollToElement(_driver);
 
             if (species.Equals("Ferret"))
-                return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features") && _driver.FindElements(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Breed']")).Count.Equals(0);
+            {
+                return lblPetDetails.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet details")
+                    && lblPetName.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet name")
+                    && lblSpecies.Text.Replace("\r\n", string.Empty).Trim().Equals("Species")
+                    && lblSex.Text.Replace("\r\n", string.Empty).Trim().Equals("Sex")
+                    && lblDOB.Text.Replace("\r\n", string.Empty).Trim().Equals("Date of birth")
+                    && lblColor.Text.Replace("\r\n", string.Empty).Trim().Equals("Colour")
+                    && lblSignificantFeature.Text.Replace("\r\n", string.Empty).Trim().Equals("Significant features")
+                    && _driver.FindElements(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Breed']")).Count.Equals(0);
+            }
             else
-                return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblBreed.Text.Equals("Breed") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features");
+            {
+                return lblPetDetails.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet details")
+                    && lblPetName.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet name")
+                    && lblSpecies.Text.Replace("\r\n", string.Empty).Trim().Equals("Species")
+                    && lblBreed.Text.Replace("\r\n", string.Empty).Trim().Equals("Breed")
+                    && lblSex.Text.Replace("\r\n", string.Empty).Trim().Equals("Sex")
+                    && lblDOB.Text.Replace("\r\n", string.Empty).Trim().Equals("Date of birth")
+                    && lblColor.Text.Replace("\r\n", string.Empty).Trim().Equals("Colour")
+                    && lblSignificantFeature.Text.Replace("\r\n", string.Empty).Trim().Equals("Significant features");
+            }
         }
 
         public bool VerifyPetOwnerDetailsTable()
@@ -197,15 +217,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyRefNumTableValues(string values, string status)
         {
-            string[] value = values.Split('^');
+            var value = values.Split('^');
             lblRefNumberValue.ScrollToElement(_driver);
+
+            var refNumber = lblRefNumberValue.Text.Replace("\r\n", string.Empty).Trim();
+            var date = lblDateValue.Text.Replace("\r\n", string.Empty).Trim();
+
             if (status.Equals("Unsuccessful") || status.Equals("Pending"))
             {
-                return lblRefNumberValue.Text.Equals(value[0]) && lblDateValue.Text.Equals(value[1]);
+                return refNumber.Equals(value[0]) && date.Equals(value[1]);
             }
             else if (status.Equals("Approved") || status.Equals("Cancelled"))
             {
-                return lblRefNumberValue.Text.Equals("GB826 " + value[0]) && lblDateValue.Text.Equals(value[1]);
+                return refNumber.Equals("GB826 " + value[0]) && date.Equals(value[1]);
             }
             return false;
         }
@@ -214,7 +238,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             string[] value = values.Split('^');
             lblMCNumberValue.ScrollToElement(_driver);
-            return lblMCNumberValue.Text.Equals(value[0]) && lblMCImplantDateValue.Text.Equals(value[1]);
+
+            var mcNumber = lblMCNumberValue.Text.Replace("\r\n", string.Empty).Trim();
+            var mcImplantDate = lblMCImplantDateValue.Text.Replace("\r\n", string.Empty).Trim();
+
+            return mcNumber.Equals(value[0]) && mcImplantDate.Equals(value[1]);
         }
 
         public bool VerifyPetDetailsValues(string values, string species)
@@ -223,43 +251,64 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
             lblPetNameValue.ScrollToElement(_driver);
 
+            var petName = lblPetNameValue.Text.Replace("\r\n", string.Empty).Trim();
+            var speciesValue = lblSpeciesValue.Text.Replace("\r\n", string.Empty).Trim();
+            var sex = lblSexValue.Text.Replace("\r\n", string.Empty).Trim();
+            var dob = lblDOBValue.Text.Replace("\r\n", string.Empty).Trim();
+            var color = lblColorValue.Text.Replace("\r\n", string.Empty).Trim();
+            var significantFeature = lblSignificantFeatureValue.Text.Replace("\r\n", string.Empty).Trim();
+            var breed = lblBreedValue.Text.Replace("\r\n", string.Empty).Trim();
+
             if (species.ToUpper().Equals("FERRET"))
             {
-                return lblPetNameValue.Text.Equals(value[0])
-                    && lblSpeciesValue.Text.Equals(value[1])
-                    && lblSexValue.Text.Equals(value[2])
-                    && lblDOBValue.Text.Equals(value[3])
-                    && lblColorValue.Text.Equals(value[4])
-                    && lblSignificantFeatureValue.Text.Equals(value[5]);
+                return petName.Equals(value[0])
+                    && speciesValue.Equals(value[1])
+                    && sex.Equals(value[2])
+                    && dob.Equals(value[3])
+                    && color.Equals(value[4])
+                    && significantFeature.Equals(value[5]);
             }
             else if (species.ToUpper().Equals("DOG") || species.ToUpper().Equals("CAT"))
             {
-                return lblPetNameValue.Text.Equals(value[0])
-                    && lblSpeciesValue.Text.Equals(value[1])
-                    && lblBreedValue.Text.Equals(value[2])
-                    && lblSexValue.Text.Equals(value[3])
-                    && lblDOBValue.Text.Equals(value[4])
-                    && lblColorValue.Text.Equals(value[5])
-                    && lblSignificantFeatureValue.Text.Equals(value[6]);
+                return petName.Equals(value[0])
+                    && speciesValue.Equals(value[1])
+                    && breed.Equals(value[2])
+                    && sex.Equals(value[3])
+                    && dob.Equals(value[4])
+                    && color.Equals(value[5])
+                    && significantFeature.Equals(value[6]);
             }
+
             return false;
         }
 
         public bool VerifyPetOwnerDetailsValues(string values)
         {
             string[] value = values.Split('^');
-            return lblNameValue.Text.Equals(value[0])
-                    && lblEmailValue.Text.Equals(value[1])
-                    //&& lblAddressValue.Text.Equals(value[2])
-                    && lblPhoneNumberValue.Text.Equals(value[3]);
+
+            var name = lblNameValue.Text.Replace("\r\n", string.Empty).Trim();
+            var email = lblEmailValue.Text.Replace("\r\n", string.Empty).Trim();
+            var phoneNumber = lblPhoneNumberValue.Text.Replace("\r\n", string.Empty).Trim();
+
+            return name.Equals(value[0])
+                    && email.Equals(value[1])
+                    && phoneNumber.Equals(value[3]);
         }
 
         public bool VerifyChecksSection(string heading, string subHeading, string checkpoints)
         {
             var checkpointLabel = checkpoints.Split('|');
-            return lblChecks.Text.Equals(heading) && lblCheckSubheading.Text.Equals(subHeading + ":")
-                && checkpointLabel[0].Equals(lblCheckpoint1.Text) && checkpointLabel[1].Equals(lblCheckpoint2.Text)
-                && checkpointLabel[2].Equals(lblCheckpoint3.Text) && checkpointLabel[3].Equals(lblCheckpoint4.Text);
+
+            var checksLabel = lblChecks.Text.Replace("\r\n", string.Empty).Trim();
+            var checkSubheadingLabel = lblCheckSubheading.Text.Replace("\r\n", string.Empty).Trim();
+            var checkpoint1Label = lblCheckpoint1.Text.Replace("\r\n", string.Empty).Trim();
+            var checkpoint2Label = lblCheckpoint2.Text.Replace("\r\n", string.Empty).Trim();
+            var checkpoint3Label = lblCheckpoint3.Text.Replace("\r\n", string.Empty).Trim();
+            var checkpoint4Label = lblCheckpoint4.Text.Replace("\r\n", string.Empty).Trim();
+
+            return checksLabel.Equals(heading) && checkSubheadingLabel.Equals(subHeading + ":")
+                && checkpointLabel[0].Equals(checkpoint1Label) && checkpointLabel[1].Equals(checkpoint2Label)
+                && checkpointLabel[2].Equals(checkpoint3Label) && checkpointLabel[3].Equals(checkpoint4Label);
         }
 
         public bool VerifyChecksSectionRadioButtonsNotPresent()
@@ -278,6 +327,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             lblChecks.ScrollToElement(_driver);
             var radiobuttonsLabel = radiobuttons.Split('|');
             var hintLabel = hint.Split('|');
+
             return radiobuttonsLabel[0].Equals(rdoPass.Text) && radiobuttonsLabel[1].Equals(rdoFail.Text)
                 && hintLabel[0].Equals(lblPassRadioButtonHint.Text) && hintLabel[1].Equals(lblFailRadioButtonHint.Text);
         }
