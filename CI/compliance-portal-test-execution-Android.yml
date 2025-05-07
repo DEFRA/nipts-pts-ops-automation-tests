@@ -25,7 +25,7 @@ stages:
     jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: SamsungGalaxyTabS8 _Chrome
+        jobName: SamsungGalaxyTabS8_Chrome
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
