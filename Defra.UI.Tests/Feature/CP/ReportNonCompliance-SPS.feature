@@ -11,7 +11,6 @@ Background:
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
 
-	
 Scenario: Verify Reasons heading with hint in Report non compliance page as SPS Checker - Approved status
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
@@ -24,6 +23,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page as SPS 
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
+	And I select Fail radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Reasons' heading with hint 'Select all that apply.'

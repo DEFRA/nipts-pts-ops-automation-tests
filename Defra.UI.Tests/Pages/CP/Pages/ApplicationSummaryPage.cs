@@ -84,20 +84,22 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
             {
-                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver,true);
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver, true);
             }
 
-            return _driver.WaitForElement(By.XPath($"(//h1[normalize-space()='{status}'])[1]"),true).Text.Trim().Equals(status);
+            return _driver.WaitForElement(By.XPath($"(//h1[normalize-space()='{status}'])[1]"), true).Text.Trim().Equals(status);
         }
 
         public void SelectPassRadioButton()
         {
             rdobtnPass.Click(_driver);
         }
+
         public void SelectFailRadioButton()
         {
             rdoFail.Click(_driver);
         }
+
         public void SelectSaveAndContinue()
         {
             btnSaveAndContinue.Click(_driver);
@@ -124,7 +126,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             switch (color)
             {
                 case "Amber":
-                    value = actualColor.Contains("background-color: rgb(29, 112, 184);");  
+                    value = actualColor.Contains("background-color: rgb(29, 112, 184);");
                     break;
                 case "Red":
                     value = actualColor.Contains("background-color: rgb(212, 53, 28);");
@@ -135,7 +137,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 default:
                     value = false;
                     break;
-            }                 
+            }
             return value;
         }
 
@@ -152,7 +154,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             return value;
         }
-        
+
         public bool VerifyIssuingAuthorityTable(string status)
         {
             if (status.Equals("Approved") || status.Equals("Unsuccessful"))
@@ -163,7 +165,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             {
                 return _driver.FindElements(By.XPath("//h2[normalize-space() = 'Issuing authority']")).Count.Equals(0);
             }
-            else if(status.Equals("Cancelled"))
+            else if (status.Equals("Cancelled"))
             {
                 return true;
             }
@@ -185,7 +187,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features") && _driver.FindElements(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Breed']")).Count.Equals(0);
             else
                 return lblPetDetails.Text.Equals("Pet details") && lblPetName.Text.Equals("Pet name") && lblSpecies.Text.Equals("Species") && lblBreed.Text.Equals("Breed") && lblSex.Text.Equals("Sex") && lblDOB.Text.Equals("Date of birth") && lblColor.Text.Equals("Colour") && lblSignificantFeature.Text.Equals("Significant features");
-        } 
+        }
 
         public bool VerifyPetOwnerDetailsTable()
         {
@@ -193,7 +195,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return lblPetOwnerDetails.Text.Equals("Pet owner details") && lblName.Text.Equals("Name") && lblEmail.Text.Equals("Email") && lblAddress.Text.Equals("Address") && lblPhoneNumber.Text.Equals("Phone number");
         }
 
-        public bool VerifyRefNumTableValues(string values , string status)
+        public bool VerifyRefNumTableValues(string values, string status)
         {
             string[] value = values.Split('^');
             lblRefNumberValue.ScrollToElement(_driver);
@@ -203,19 +205,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             else if (status.Equals("Approved") || status.Equals("Cancelled"))
             {
-                return lblRefNumberValue.Text.Equals("GB826 "+value[0]) && lblDateValue.Text.Equals(value[1]);
+                return lblRefNumberValue.Text.Equals("GB826 " + value[0]) && lblDateValue.Text.Equals(value[1]);
             }
             return false;
         }
 
-        public bool VerifyMCTableValues(string values , string status)
+        public bool VerifyMCTableValues(string values, string status)
         {
             string[] value = values.Split('^');
             lblMCNumberValue.ScrollToElement(_driver);
             return lblMCNumberValue.Text.Equals(value[0]) && lblMCImplantDateValue.Text.Equals(value[1]);
-        } 
-        
-        public bool VerifyPetDetailsValues(string values , string species)
+        }
+
+        public bool VerifyPetDetailsValues(string values, string species)
         {
             string[] value = values.Split('^');
 
@@ -230,7 +232,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     && lblColorValue.Text.Equals(value[4])
                     && lblSignificantFeatureValue.Text.Equals(value[5]);
             }
-            else if(species.ToUpper().Equals("DOG") || species.ToUpper().Equals("CAT"))
+            else if (species.ToUpper().Equals("DOG") || species.ToUpper().Equals("CAT"))
             {
                 return lblPetNameValue.Text.Equals(value[0])
                     && lblSpeciesValue.Text.Equals(value[1])
