@@ -1,7 +1,4 @@
-trigger:
-  branches:
-    exclude:
-      - '*'
+trigger: none
 
 parameters:  
   - name: environment
@@ -74,16 +71,6 @@ stages:
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         application: 'AP'
         dependsOn: ''
-
-    - template: generate-Specflow-Report.yml
-      parameters:
-        jobName: CreateSpecflowReport
-        branchName: $(Build.SourceBranch)
-        SeleniumGrid: ${{parameters.seleniumGrid}}
-        dependsOn:
-        - PETS_OPS_AP_E2E
-        projects:
-        - PETS_OPS_AP_E2E
 
 
 

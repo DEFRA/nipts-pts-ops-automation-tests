@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Configuration;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
@@ -12,12 +12,13 @@ namespace Defra.UI.Tests.Data.Users
         public string LoginInfo { get; set; }
         public string Environment { get; set; }
         public bool HomePage { get; set; }
+        public string Checker {  get; set; }
 
     }
     
     public interface IUserObject
     {
-        public User GetUser(string application);
+        public User GetUser(string application, string checker="");
     }
 
     internal class UserObject : IUserObject
@@ -28,7 +29,7 @@ namespace Defra.UI.Tests.Data.Users
         private readonly object _lock = new object();
 
 
-        public User GetUser(string application)
+        public User GetUser(string application, string checker="")
         {
             User? user;
 
@@ -44,8 +45,7 @@ namespace Defra.UI.Tests.Data.Users
                 var settings = builder.Build();
                 var usersList = settings.GetSection("Users").Get<List<User>>();
 
-                var rng = new Random();
-                user = usersList?[rng.Next(usersList.Count)];
+                user = usersList?.FirstOrDefault(item => item.Checker == checker) ?? new User();
             }
 
             return user ?? new User { };

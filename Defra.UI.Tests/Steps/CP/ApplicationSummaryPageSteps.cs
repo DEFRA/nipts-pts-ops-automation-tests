@@ -1,9 +1,8 @@
-﻿using BoDi;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
-using static System.Collections.Specialized.BitVector32;
+using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -16,7 +15,7 @@ namespace Defra.UI.Tests.Steps.CP
         private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
         private IApplicationSummaryPage? _applicationSummaryPage => _objectContainer.IsRegistered<IApplicationSummaryPage>() ? _objectContainer.Resolve<IApplicationSummaryPage>() : null;
 
-        public ApplicationSummaryPageSteps (ScenarioContext context, IObjectContainer container)
+        public ApplicationSummaryPageSteps(ScenarioContext context, IObjectContainer container)
         {
             _scenarioContext = context;
             _objectContainer = container;
@@ -54,21 +53,15 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [Then(@"I see the '(.*)' color banner")]
-        public void ThenISeeTheColorBanner(String Color)
+        public void ThenISeeTheColorBanner(string Color)
         {
             Assert.True(_applicationSummaryPage?.VerifyTheBannerColor(Color), $"The Banner {Color} is not as expected");
         }
 
         [Then(@"I verify the Reference number table for '([^']*)' application")]
-        public void ThenIVerifyTheReferenceNumberTableForApplication(String Status)
+        public void ThenIVerifyTheReferenceNumberTableForApplication(string status)
         {
-            Assert.True(_applicationSummaryPage?.VerifyReferenceNumberTable(Status));
-        }
-        
-        [Then(@"I verify the Issuing Authority table for '([^']*)' application")]
-        public void ThenIVerifyTheIssuingAuthorityTable(String Status)
-        {
-            Assert.True(_applicationSummaryPage?.VerifyIssuingAuthorityTable(Status));
+            Assert.True(_applicationSummaryPage?.VerifyReferenceNumberTable(status));
         }
 
         [Then(@"I verify the Microchip Information table in Search result page")]
@@ -78,7 +71,7 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [Then(@"I verify the Pet Details table for '(.*)' in Search result page")]
-        public void ThenIVerifyThePetDetailsTable(String Species)
+        public void ThenIVerifyThePetDetailsTable(string Species)
         {
             Assert.True(_applicationSummaryPage?.VerifyPetDetailsTable(Species));
         }
@@ -89,27 +82,24 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_applicationSummaryPage?.VerifyPetOwnerDetailsTable());
         }
 
-        [Then(@"I verify the Reference number table values '([^']*)' for '([^']*)' application")]
-        public void ThenIVerifyRefNumTableValues(string values, string status)
+        [Then("I verify the Reference number table values {string} for {string} application")]
+        public void ThenIVerifyTheReferenceNumberTableValuesForApplication(string values, string status)
         {
-            Assert.True(_applicationSummaryPage?.VerifyRefNumTableValues(values, status),
-                        $"The Reference number table values are not matching");
+            Assert.True(_applicationSummaryPage?.VerifyRefNumTableValues(values, status),$"The Reference number table values are not matching");
         }
-        
-        [Then(@"I verify the Microchip table values '([^']*)' for '([^']*)' application")]
-        public void ThenIVerifyMCTableValues(string values, string status)
+
+        [Then("I verify the Microchip table values {string} for {string} application")]
+        public void ThenIVerifyTheMicrochipTableValuesForApplication(string values, string status)
         {
-            Assert.True(_applicationSummaryPage?.VerifyMCTableValues(values, status),
-                        $"The Microchip table values are not matching");
-        } 
-        
-        [Then(@"I verify the Pet Details table values '([^']*)' for the species '(.*)'")]
-        public void ThenIVerifyPetDetailsTableValues(string Values, string Species)
-        {
-            Assert.True(_applicationSummaryPage?.VerifyPetDetailsValues(Values, Species),
-                        $"The Pet Details table values are not matching");
+            Assert.True(_applicationSummaryPage?.VerifyMCTableValues(values, status), $"The Microchip table values are not matching");
         }
-        
+
+        [Then("I verify the Pet Details table values {string} for the species {string}")]
+        public void ThenIVerifyThePetDetailsTableValuesForTheSpecies(string values, string species)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyPetDetailsValues(values, species),$"The Pet Details table values are not matching");
+        }
+
         [Then(@"I verify the Pet Owner Details table values '([^']*)' for the application")]
         public void ThenIVerifyPetOwnerDetailsTableValues(string Values)
         {
@@ -126,7 +116,20 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should not see any radio button options in Checks section")]
         public void ThenIShouldNotSeeAnyRadioButtonOptionsInChecksSection()
         {
-            Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtons());
+            Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtonsNotPresent());
+        }
+
+        [Then(@"The Application Summary is displayed for '(.*)' Application")]
+        public void ThenTheApplicationSummaryIsDisplayed(String Status)
+        {
+            var pageTitle = "Your application summary";
+            Assert.IsTrue(_applicationSummaryPage?.IsApplicationSummayPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }
+
+        [Then(@"I verify Checks section with radio buttons '([^']*)' and hint '([^']*)'")]
+        public void ThenIverifyChecksSectionWithRadioButtonsAndHint(string radiobuttons, string hint)
+        {
+            Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtonsWithHints(radiobuttons, hint));
         }
     }
 }

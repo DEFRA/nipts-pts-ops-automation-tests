@@ -1,17 +1,15 @@
-﻿using BoDi;
+﻿using Capgemini.PowerApps.SpecFlowBindings.Configuration;
 using Capgemini.PowerApps.SpecFlowBindings.Steps;
 using Defra.Trade.Plants.SpecFlowBindings.Steps;
-using FluentAssertions;
 using Defra.UI.Tests.Tools;
+using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
-using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
-using Capgemini.PowerApps.SpecFlowBindings.Configuration;
-using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
-using FluentAssertions.Execution;
+using Reqnroll;
+using Reqnroll.BoDi;
 using System.ServiceModel.Channels;
+using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -55,7 +53,7 @@ namespace Defra.UI.Tests.Steps.AP
             Trade.Plants.SpecFlowBindings.Steps.DialogSteps.WhenIAssignToMeOnTheAssignDialog();
         }
 
-        [When("I (Pass|Fail) the Microchip check")]
+        [When("I {string} the Microchip check")]
         public void WhenIPassOrFailTheMicrochipCheck(string MicrochipStatus)
         {
             EntitySteps.ISelectTab("Verification Checks");
@@ -64,7 +62,7 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             if (MicrochipStatus == "Fail")
             {
-                EntitySteps.WhenIEnterInTheField("Nil Return", "nipts_failreason", "optionset", "field", 1);
+                EntitySteps.WhenIEnterInTheField("Nil Return", "nipts_failreason", "buttonset", "field", 1);
             }
             CommandSteps.ClickCommand(MicrochipStatus);
             SharedSteps.WaitForScriptProcessing();
@@ -73,7 +71,7 @@ namespace Defra.UI.Tests.Steps.AP
             FormSteps.ICanSeeAHeaderField("readonly", MicrochipStatus);
         }
 
-        [When("I (Pass|Fail) the Evidence check")]
+        [When("I {string} the Evidence check")]
         public void WhenIPassOrFailTheEvidenceCheck(string Status)
         {
             EntitySteps.ISelectTab("Verification Checks");
@@ -91,16 +89,16 @@ namespace Defra.UI.Tests.Steps.AP
             FormSteps.ICanSeeAHeaderField("readonly", Status);
         }
 
-        [When("I Fail the Microchip check with '(.*)' reason")]
-        public void WhenIFailTheMicrochipCheckWithOtherReason(string reason)
+        [When("I {string} the Microchip check with {string} reason")]
+        public void WhenIFailTheMicrochipCheckWithOtherReason(string status, string reason)
         {
             EntitySteps.ISelectTab("Verification Checks");
             SharedSteps.WaitForScriptProcessing();
             GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(0);
             SharedSteps.WaitForScriptProcessing();
-            EntitySteps.WhenIEnterInTheField(reason, "nipts_failreason", "optionset", "field");
+            EntitySteps.WhenIEnterInTheField(reason, "nipts_failreason", "buttonset", "field");
             EntitySteps.WhenIEnterInTheField("Other", "nipts_otherreason", "text", "field");
-            CommandSteps.ClickCommand("Fail");
+            CommandSteps.ClickCommand(status);
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
@@ -128,9 +126,9 @@ namespace Defra.UI.Tests.Steps.AP
             ThenTheStatusIsChangedTo("Revoke Pending");
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
-            EntitySteps.WhenIEnterInTheField("Other", "nipts_reasonforrevocation", "optionset", "field");
+            EntitySteps.WhenIEnterInTheField("Other", "nipts_reasonforrevocation", "buttonset", "field");
             EntitySteps.WhenIEnterInTheField("Other Reason", "nipts_otherrevocationreason", "text", "field");
-            EntitySteps.WhenIEnterInTheField("Owner Left GB", "nipts_reasonforrevocation", "optionset", "field");
+            EntitySteps.WhenIEnterInTheField("Other", "nipts_reasonforrevocation", "buttonset", "field");
             _driver.WaitForPageToLoad();
             EntitySteps.ThenICanNotSeeTheField("nipts_otherrevocationreason");
         }
@@ -138,7 +136,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("I verify the '(.*)' Fail reason")]
         public void ThenIVerifyTheFailReason(string reason)
         {
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_failreason", "optionset", "field", "");
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_failreason", "input", "field", "");
         }
 
         [When("I go back")]
@@ -182,7 +180,7 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             SharedSteps.WaitForScriptProcessing();
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrejection", "text", "field", "");
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterejected", "datetime", "field", "");
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterejected", "inputdatetime", "field", "");
         }
 
         [Then("the status is '(.*)'")]
@@ -210,14 +208,14 @@ namespace Defra.UI.Tests.Steps.AP
             if (reason.ToUpper().StartsWith("OTHER"))
             {
                 string[] OtherReason = reason.Split(':');
-                EntitySteps.WhenIEnterInTheField(OtherReason[0], "nipts_reasonforrevocation", "optionset", "field");
+                EntitySteps.WhenIEnterInTheField(OtherReason[0], "nipts_reasonforrevocation", "buttonset", "field");
                 EntitySteps.WhenIEnterInTheField(OtherReason[1], "nipts_otherrevocationreason", "text", "field");
                 RevokeandVerifyTheRevocationFields(OtherReason[0]);
                 ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(OtherReason[1], "nipts_otherrevocationreason", "text", "field", "");
             }
             else
             {
-                EntitySteps.WhenIEnterInTheField(reason, "nipts_reasonforrevocation", "optionset", "field", 1);
+                EntitySteps.WhenIEnterInTheField(reason, "nipts_reasonforrevocation", "buttonset", "field", 1);
                 EntitySteps.ThenICanNotSeeTheField("nipts_otherrevocationreason");
                 RevokeandVerifyTheRevocationFields(reason);
             }
@@ -229,19 +227,23 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
-            EntitySteps.WhenIEnterInTheField("Owner Left GB", "nipts_reasonforrevocation", "optionset", "field", 2);
+            //EntitySteps.WhenIEnterInTheField(reason, "nipts_reasonforrevocation", "buttonset", "field", 2);
 
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrevocation", "optionset", "field", "");
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterevoked", "datetime", "field", "");
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrevocation", "input", "field", "");
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterevoked", "inputdatetime", "field", "");
         }
 
-        [Then("I (do|dont) see Duplicate Microchip Notification")]
+        [Then("I {string} see Duplicate Microchip Notification")]
         public void ThenISeeDuplicateMicroChipNotification(string doOrDont)
         {
             if (doOrDont.ToUpper().Equals("DO"))
+            {
                 EntitySteps.ThenICanSeeAnInfoFormNotificationStating("Duplicate Microchip Number Identified.");
+            }
             else if (doOrDont.ToUpper().Equals("DONT"))
+            {
                 EntitySteps.ThenICannotSeeAnInfoFormNotificationStating("Duplicate Microchip Number Identified.");
+            }
         }
 
         [When("I assign the application to '(.*)' another user")]
@@ -397,12 +399,6 @@ namespace Defra.UI.Tests.Steps.AP
             GridSteps.WhenISwitchToTheViewInTheGrid(gridView);
         }
 
-        [Then("I verify the system view for the application '(.*)'")]
-        public void IVerifyTheSystemViewForTheApplication(string applicationName)
-        {
-            EntitySteps.IVerifyTheSystemViewForTheApplication(applicationName);
-        }
-
         [When("I open the first application")]
         public void WhenIOpenTheFirstRecord()
         {
@@ -422,7 +418,7 @@ namespace Defra.UI.Tests.Steps.AP
         }
 
         [When("I open the '(.*)' application")]
-        [When("I open the '([^']*)' application")]
+        [When("I open the '{string}' application")]
         public void WhenIOpenTheGivenApplication(string applicationNumber)
         {
             GridSteps.WhenISearchForInTheGrid(applicationNumber);
@@ -455,25 +451,29 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("I verify the copy of the '([^']*)' Email in Timeline")]
         public void ThenIVerifyTheCopyOfEmail(string timelineCopy)
         {
+            SharedSteps.WaitSeconds(10);
             CommandSteps.ClickCommand("Refresh");
 
+            SharedSteps.WaitForScriptProcessing();
+
             if (timelineCopy.ToUpper().Equals("CONFIRMATION"))
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Received"));
+            {
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document application received"));
+            }
             else if (timelineCopy.ToUpper().Equals("APPROVED"))
             {
-                CommandSteps.ClickCommand("Refresh");
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Decision"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document approved"));
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("approved"));
             }
             else if (timelineCopy.ToUpper().Equals("REJECTION"))
             {
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Decision"));
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("rejected"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document application unsuccessful"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("unsuccessful"));
             }
             else if (timelineCopy.ToUpper().Equals("REVOCATION"))
             {
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Lifelong Pet Travel Document Application Decision"));
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("revoked"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document cancelled"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("cancelled"));
             }
         }
 
@@ -520,12 +520,12 @@ namespace Defra.UI.Tests.Steps.AP
             }
             else if (field.ToUpper().Equals("PET OWNER"))
             {
-                ThenICannotEditTheField("Owner Type:Name:Email:Charity Name:Address Line 1:Address Line 2:Address Line 3:Town:Postcode:County:Phone");
+                ThenICannotEditTheField("Owner Type:Name:Email:Charity Name:Address Line 1:Address Line 2:Town:Postcode:County:Phone");
 
             }
             else if (field.ToUpper().Equals("APPLICANT DETAILS"))
             {
-                ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant address line 3:Applicant Town:Applicant Postcode:Applicant County:Applicant Country:Applicant Phone");
+                ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant Town:Applicant Postcode:Applicant County:Applicant Country:Applicant Phone");
             }
         }
 
@@ -648,16 +648,16 @@ namespace Defra.UI.Tests.Steps.AP
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlinephone", "text", "field", 1);
                     break;
                 case "OWNER TYPE":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_ownertype", "optionset", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_ownertype", "optionset", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_ownertype", "buttonset", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_ownertype", "buttonset", "field", "");
                     break;
                 case "PET NAME":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petname", "text", "field", 1);
                     ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petname", "text", "field", "");
                     break;
                 case "SPECIES":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_pettype", "optionset", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_pettype", "optionset", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_pettype", "buttonset", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_pettype", "buttonset", "field", "");
                     break;
                 case "BREED":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petbreedid", "lookup", "field", 1);
@@ -668,8 +668,8 @@ namespace Defra.UI.Tests.Steps.AP
                     ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_petbreeddetails", "text", "field", "");
                     break;
                 case "SEX":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_animalsex", "optionset", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_animalsex", "optionset", "field", "");
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_animalsex", "buttonset", "field", 1);
+                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_animalsex", "buttonset", "field", "");
                     break;
                 case "AGE":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petapproxage", "text", "field", 1);

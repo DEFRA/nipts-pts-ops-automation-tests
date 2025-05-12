@@ -3,13 +3,14 @@ Feature: Pets Owner Address
 
 Create a PETS travel document to provide address when PETS Owner details are incorrect
 
-Background: 
+Background:
 	Given that I navigate to the DEFRA application
 	And I have provided the password for Landing page
 	When I click Continue button from Landing page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 
+@APCrossBrowser
 Scenario Outline: Create PETS Travel Document By PostCode Address User
 	Then I should navigate to Lifelong pet travel documents page
 	When I click Apply for a document button
@@ -48,9 +49,9 @@ Scenario Outline: Create PETS Travel Document By PostCode Address User
 	Then I should redirect to the Application submitted page
 	And I can see the application reference number
 
-	Examples:
-	| PetsOwnerDetails | PetsOwnerName		| PostCode	| PhoneNumber	 | MicroChipNumberOn | MicroChipNumber | Pet | Breed        | PetName | Gender | PetColor | IsSignificanteFeatures |
-	| No               | DEFRA PTS Service  | RM10 8DP	| 07401659856	 | Yes               | 123456789123456 | Dog | Afghan Hound | The Dog | Male   | Black    | Yes                    |
+Examples:
+	| PetsOwnerDetails | PetsOwnerName     | PostCode | PhoneNumber | MicroChipNumberOn | MicroChipNumber | Pet | Breed        | PetName | Gender | PetColor | IsSignificanteFeatures |
+	| No               | DEFRA PTS Service | RM10 8DP | 07401659856 | Yes               | 123456789123456 | Dog | Afghan Hound | The Dog | Male   | Black    | Yes                    |
 
 Scenario Outline: Create PETS Travel Document By Manually Address User
 	Then I should navigate to Lifelong pet travel documents page
@@ -90,6 +91,6 @@ Scenario Outline: Create PETS Travel Document By Manually Address User
 	Then I should redirect to the Application submitted page
 	And I can see the application reference number
 
-	Examples:
-	| PetsOwnerDetails | PetsOwnerName     | AddressLineOne | AddressLineTwo | TownOrCity | County  | PostCode      |  PhoneNumber | MicroChipNumberOn | MicroChipNumber | Pet | Breed        | PetName | Gender | PetColor | IsSignificanteFeatures |
-	| No               | DEFRA PTS Service | Flat-1			| 12 Reed Road	 | Dagenham   | Essex   | RM10 8DP      | 07401659856  | Yes               | 123456789123456 | Dog | Afghan Hound | The Dog | Male   | Black    | Yes                    |
+Examples:
+	| PetsOwnerDetails | PetsOwnerName     | AddressLineOne | AddressLineTwo | TownOrCity | County | PostCode | PhoneNumber | MicroChipNumberOn | MicroChipNumber | Pet | Breed        | PetName | Gender | PetColor | IsSignificanteFeatures |
+	| No               | DEFRA PTS Service | Flat-1         | 12 Reed Road   | Dagenham   | Essex  | RM10 8DP | 07401659856 | Yes               | 123456789123456 | Dog | Afghan Hound | The Dog | Male   | Black    | Yes                    |

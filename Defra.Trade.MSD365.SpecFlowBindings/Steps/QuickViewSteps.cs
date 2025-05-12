@@ -5,7 +5,7 @@ using Defra.Trade.Plants.SpecFlowBindings.Helpers;
 using FluentAssertions;
 using OpenQA.Selenium;
 using System;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Specflow binding steps for working with Quick View forms.
@@ -27,7 +27,7 @@ public class QuickViewSteps : PowerAppsStepDefiner
         var quickFormContainer = formContext.FindElement(By.XPath($".//div[@data-id='{quickViewName}-QuickFormContainer']"));
         quickFormContainer.ScrollIntoView(Driver);
 
-        foreach (TableRow row in fields.Rows)
+        foreach (DataTableRow row in fields.Rows)
         {
             var fieldName = $"{quickViewName}.{row["schemaName"]}";
             var field = ControlHelper.FindControl(quickFormContainer, fieldName);

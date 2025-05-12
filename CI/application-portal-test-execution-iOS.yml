@@ -1,7 +1,4 @@
-trigger:
-  branches:
-    exclude:
-      - '*'
+trigger: none
 
 parameters:
   - name: environment
@@ -17,7 +14,7 @@ resources:
       endpoint: DEFRA
 
 variables:
-    - template: 'variables/AP/${{ parameters.environment }}.yml'
+  - template: 'variables/AP/${{ parameters.environment }}.yml'
   
 stages:
   

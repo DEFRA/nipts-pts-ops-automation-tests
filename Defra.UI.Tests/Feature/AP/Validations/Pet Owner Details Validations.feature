@@ -1,4 +1,4 @@
-﻿@Validations @APCrossBrowser
+﻿@Validations
 Feature: Pet Ownder Details Validations
 
 Validating the negative scenarios for Pet Owner Details
@@ -48,7 +48,6 @@ Scenario Outline: Verify pet owner phone number page validations and should not 
 	When I click Continue button from What is your phone number page
 	Then I should see an error message '<ErrorMessage>' in What is your phone number page
 	And I should not be redirected to the Is your pet microchipped page
-
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber                                                        | ErrorMessage                                                 |
 	| PetCat's | No                       | CV2 4NZ  |                                                                    | Enter your phone number                                      |
@@ -66,7 +65,6 @@ Scenario Outline: Verify postcode search page validations and should not moves t
 	And I provided the postcode '<PostCode>'
 	When I click Find Address button from What is your postcode page
 	Then I should see an error message '<ErrorMessage>' in What is your postcode page
-
 Examples:
 	| FullName | Are your details correct | PostCode                           | ErrorMessage                                                                  |
 	| PetCat's | No                       |                                    | Enter your postcode                                                           |
@@ -101,7 +99,6 @@ Scenario Outline: Verify enter address manually validations with all fields blan
 	When I click the link Enter the address manually
 	And I click Continue button from What is your address page
 	Then I should see an error message '<ErrorMessages>' in What is your address page
-
 Examples:
 	| FullName | Are your details correct | Address | ErrorMessages                                                            |
 	| PetDog's | No                       |         | Enter line 1 of your address,Enter your town or city,Enter your postcode |
@@ -117,11 +114,9 @@ Scenario Outline: Verify enter address manually validations with maximum limit c
 	Then I have provided address details as '<Address>' for each field
 	When I click Continue button from What is your address page
 	Then I should see an error message '<ErrorMessages>' in What is your address page
-
 Examples:
 	| FullName | Are your details correct | Address                                                                                                                                                                                                                                                            | ErrorMessages                                                                                                                                                                                                                                                                                         |
 	| PetDog's | No                       | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWX | Enter line 1 of your address using 250 characters or less,Enter line 2 of your address using 250 characters or less,Enter your town or city using 250 characters or less,Enter your county using 100 characters or less,Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
-
 
 Scenario Outline: Verify enter address manually validations with invalid postcode, special characters and exceed limits
 	Then I have selected '<Are your details correct>' option
@@ -134,7 +129,6 @@ Scenario Outline: Verify enter address manually validations with invalid postcod
 	Then I provided the postcode '<PostCode>'
 	When I click Continue button from What is your address page
 	Then I should see an error message '<ErrorMessages>' in What is your postcode page
-
 Examples:
 	| FullName | Are your details correct | PostCode                           | ErrorMessages                                                                 |
 	| PetCat's | No                       |                                    | Enter your postcode                                                           |

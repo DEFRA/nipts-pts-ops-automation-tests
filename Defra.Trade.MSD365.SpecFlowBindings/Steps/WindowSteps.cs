@@ -12,7 +12,7 @@ using Capgemini.PowerApps.SpecFlowBindings;
 using Defra.Trade.Plants.SpecFlowBindings.Context;
 using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 public class WindowSteps : PowerAppsStepDefiner

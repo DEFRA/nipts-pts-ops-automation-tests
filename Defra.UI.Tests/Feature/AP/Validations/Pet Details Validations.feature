@@ -1,4 +1,4 @@
-﻿@Validations @APCrossBrowser
+﻿@Validations
 Feature: Pet Details Validations
 
 Validating the negative scenarios for Pet Details

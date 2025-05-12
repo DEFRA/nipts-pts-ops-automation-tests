@@ -10,7 +10,7 @@ using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 internal class GridColumnNamesSteps : PowerAppsStepDefiner

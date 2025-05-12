@@ -1,9 +1,9 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -102,6 +102,12 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_searchDocumentPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }
 
+        [Then("I should see {string} an error message in Find a document page")]
+        public void ThenIShouldSeeAnHeaderErrorMessageInFindADocumentPage(string errorMessage)
+        {
+            Assert.True(_searchDocumentPage?.IsErrorTitle(errorMessage), $"There is no error message found with - {errorMessage}");
+        }
+
         [Then(@"I see the values are deleted")]
         public void ThenISeeTheValuesAreCleared()
         {
@@ -142,6 +148,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void WhenIClickGoBackToThePreviousLink()
         {
             _searchDocumentPage?.VerifyGoBackToPreviousPageLink();
+        }
+        
+        [When(@"I click browser back button")]
+        public void WhenIClickOnBrowserBackButton()
+        {
+            _searchDocumentPage?.ClickBrowserBackButton();
         }
     }
 }

@@ -1,15 +1,17 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
+using AventStack.ExtentReports;
+using AventStack.ExtentReports.Gherkin;
 using Capgemini.PowerApps.SpecFlowBindings.Hooks;
 using Defra.UI.Framework.Object;
 using Defra.UI.Tests.Capabilities;
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.HelperMethods;
+using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
+using Reqnroll;
 using System.Net.Http.Headers;
 using System.Reflection;
-using TechTalk.SpecFlow;
-using TechTalk.SpecFlow.Infrastructure;
 
 namespace Defra.UI.Tests.Hooks
 {
@@ -24,15 +26,33 @@ namespace Defra.UI.Tests.Hooks
         private readonly object _lock = new object();
 
         private readonly IObjectContainer _objectContainer;
-        private readonly ISpecFlowOutputHelper _specFlowOutputHelper;
+        private readonly IReqnrollOutputHelper _reqnrollOutputHelper;
         private IFetchCodeFromEmail FetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
 
+        private static ExtentReports _extent;
+        [ThreadStatic]
+        private static ExtentTest _feature;
+        [ThreadStatic]
+        private static ExtentTest _scenario;
+
         public WebDriverHook(ScenarioContext context, ObjectContainer container,
-            ISpecFlowOutputHelper specFlowOutputHelper)
+            IReqnrollOutputHelper reqnrollOutputHelper)
         {
             _scenarioContext = context;
             _objectContainer = container;
-            _specFlowOutputHelper = specFlowOutputHelper;
+            _reqnrollOutputHelper = reqnrollOutputHelper;
+        }
+
+        [BeforeTestRun]
+        public static void BeforeTestRun()
+        {
+            _extent = ExtentReportManager.GetInstance();
+        }
+
+        [BeforeFeature]
+        public static void BeforeFeature(FeatureContext featureContext)
+        {
+            _feature = _extent.CreateTest<AventStack.ExtentReports.Gherkin.Model.Feature>(featureContext.FeatureInfo.Title);
         }
 
         [BeforeScenario(Order = (int)HookRunOrder.WebDriver)]
@@ -57,6 +77,8 @@ namespace Defra.UI.Tests.Hooks
                 Console.WriteLine(reportPath);
                 Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, reportPath, false);
             }
+
+            _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
         }
 
         [AfterScenario]
@@ -91,6 +113,8 @@ namespace Defra.UI.Tests.Hooks
                     Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByCategory();
                     Cognizant.WCAG.Compliance.Checker.Reporter.HtmlReport.GenerateByGuideline();
                 }
+
+                _extent.Flush();
             }
         }
 
@@ -110,7 +134,7 @@ namespace Defra.UI.Tests.Hooks
 
             ((ITakesScreenshot)Driver).GetScreenshot().SaveAsFile(fileName);
 
-            _specFlowOutputHelper.AddAttachment(fileName);
+            _reqnrollOutputHelper.AddAttachment(fileName);
             Logger.Debug($"SCREENSHOT {fileName} ");
         }
 
@@ -139,6 +163,43 @@ namespace Defra.UI.Tests.Hooks
             {
                 Logger.LogMessage($"Not able to print Node information for {endpoint}, most likely running against manually started appium server.");
             }
+        }
+
+        [AfterStep]
+        public void AfterStep()
+        {
+            var stepType = _scenarioContext.StepContext.StepInfo.StepDefinitionType.ToString();
+            var stepInfo = _scenarioContext.StepContext.StepInfo.Text;
+            var screenshotPath = CaptureScreenshot();
+
+            if (_scenarioContext.TestError == null)
+            {
+                _scenario
+                    .CreateNode(new GherkinKeyword(stepType), stepInfo)
+                    .Pass("Step passed")
+                    .AddScreenCaptureFromPath(screenshotPath);
+            }
+            else
+            {
+                _scenario.CreateNode(new GherkinKeyword(stepType), stepInfo)
+                         .Fail(_scenarioContext.TestError.Message)
+                         .AddScreenCaptureFromPath(screenshotPath);
+            }
+        }
+
+        private string CaptureScreenshot()
+        {
+            var screenshotsDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Reports", "Screenshots");
+
+            if (!Directory.Exists(screenshotsDir))
+            {
+                Directory.CreateDirectory(screenshotsDir);
+            }
+
+            var screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
+            var filePath = Path.Combine(screenshotsDir, $"{Guid.NewGuid()}.png");
+            screenshot.SaveAsFile(filePath);
+            return filePath;
         }
 
         private void CloseBrowsers()

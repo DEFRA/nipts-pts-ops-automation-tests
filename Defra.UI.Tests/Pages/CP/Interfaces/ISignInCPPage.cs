@@ -4,7 +4,7 @@
     {
         bool IsPageLoaded();
         void ClickSignInButton();
-        bool IsSignedIn(string userName, string password);
+        void SignIn(string userName, string password);
         void EnterPassword();
         bool VerifyHeadings(string heading, string subHeading);
     }

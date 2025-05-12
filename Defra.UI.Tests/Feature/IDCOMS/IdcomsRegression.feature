@@ -165,7 +165,7 @@ Scenario: Verify the Microchip Check ‘Other Reason’ field mandatory
 	And I Switch to 'Open - Unassigned PTD Applications'
 	And I open the first application
 	And I assign the application to myself
-	And I Fail the Microchip check with 'Other' reason
+	And I 'Fail' the Microchip check with 'Other' reason
 	Then I verify the 'Other' Fail reason
 
 Scenario: Verify if a Caseworker can filter the cases with pending status
@@ -231,13 +231,13 @@ Scenario: Verify if the caseworker can create a new offline PTD application and 
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as 'auto'
-	And I enter 'Microchipped Date' as '09/08/2023'
+	#And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	Then the status is 'Open'
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
-	When I Pass the Microchip check
+	When I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -258,13 +258,13 @@ Scenario: Verify if the caseworker can create a new offline PTD application, Aut
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as 'auto'
-	And I enter 'Microchipped Date' as '09/08/2023'
+	#And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	Then the status is 'Open'
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
-	When I Pass the Microchip check
+	When I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'	
@@ -290,11 +290,11 @@ Scenario: Verify the Duplicate Microchip Notification for offline PTD applicatio
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchip Number' as '564789098987654'
-	And I enter 'Microchipped Date' as '09/08/2023'
+	#And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	Then the status is 'Open'
-	And I do see Duplicate Microchip Notification
-	When I Fail the Microchip check
+	And I 'do' see Duplicate Microchip Notification
+	When I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
 	Then the status is changed to 'Rejected'
@@ -318,7 +318,7 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Age' as '12'
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
-	And I enter 'Microchipped Date' as '09/08/2023'
+	#And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	
 Scenario: Verify if the caseworker can update the offline PTD application multiple time when the application status is Pending
@@ -365,7 +365,7 @@ Scenario: Offline PTD Application should not be editable in Revoke Pending Statu
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
-	When I Pass the Microchip check
+	When I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'

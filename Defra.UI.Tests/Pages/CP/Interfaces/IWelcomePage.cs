@@ -10,5 +10,6 @@
         void ClickBackButton();
         bool CheckFooter();
         bool IsHeaderChangeLinkDisplayed();
+        bool IsConfirmationBoxDisplayed();
     }
 }

@@ -1,7 +1,4 @@
-trigger:
-  branches:
-    exclude:
-      - '*'
+trigger: none
 
 parameters:
   - name: environment
@@ -20,179 +17,47 @@ variables:
     - template: 'variables/CP/${{ parameters.environment }}.yml'
 
 stages:
-  
-  - stage: iOS_iPhoneXR_Safari
-    displayName: iPhoneXR_Safari
+
+  - stage: iOS_iPad13_Safari
+    displayName: iPad13_Safari
     condition: always()
 
     jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: iPhoneXR_Safari
+        jobName: iPad13_Safari
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'iPhone XR'
-        bsOSVersion: '15'
-        workers:  '10'
-        bsBrowserVersion: '15.1'
-        target: 'safari'
-        isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
-        dependsOn: ''
-        application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
-
-  - stage: iOS_iPhoneXS_Safari
-    displayName: iPhoneXS_Safari
-    condition: always()
-
-    jobs:
-    - template: run-test-template.yml
-      parameters:
-        jobName: iPhoneXS_Safari
-        environment: ${{ parameters.environment}}
-        branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'iPhone XS'
-        bsOSVersion: '12'
-        workers:  '10'
-        bsBrowserVersion: '12.1'
-        target: 'safari'
-        isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
-        dependsOn: ''
-        application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
-
-  - stage: iOS_iPhoneXR_Chromium
-    displayName: iPhoneXR_Chromium
-    condition: always()
-
-    jobs:
-    - template: run-test-template.yml
-      parameters:
-        jobName: iPhoneXR_Chromium
-        environment: ${{ parameters.environment}}
-        branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'iPhone XR'
-        bsOSVersion: '15'
-        workers:  '10'
-        bsBrowserVersion: '15.1'
-        target: 'chromium'
-        isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
-        dependsOn: ''
-        application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
-
-  - stage: iOS_iPhone11_Chromium
-    displayName: iPhone11_Chromium
-    condition: always()
-
-    jobs:
-    - template: run-test-template.yml
-      parameters:
-        jobName: iPhone11_Chromium
-        environment: ${{ parameters.environment}}
-        branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'iPhone XR'
-        bsOSVersion: '14'
-        workers:  '10'
-        bsBrowserVersion: '14.1'
-        target: 'chromium'
-        isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
-        dependsOn: ''
-        application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
-
-  - stage: iOS_iPhone15_Safari
-    displayName: iPhone15_Safari
-    condition: always()
-
-    jobs:
-    - template: run-test-template.yml
-      parameters:
-        jobName: iPhone15_Safari
-        environment: ${{ parameters.environment}}
-        branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'iPhone 15'
+        deviceName: 'iPad Pro 13 2024'
         bsOSVersion: '17'
         workers:  '10'
-        bsBrowserVersion: '17.1'
+        bsBrowserVersion: '17'
         target: 'safari'
         isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
+        emulateDeviceInfo: 'iPad Pro 13 2024'
         dependsOn: ''
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowser'
 
-  - stage: iOS_iPhone15_Chromium
-    displayName: iPhone15_Chromium
+  - stage: iOS_iPad13_Chromium
+    displayName: iPad13_Chromium
     condition: always()
 
     jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: iPhone15_Chromium
+        jobName: iPad13_Chromium
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'iPhone 15'
+        deviceName: 'iPad Pro 13 2024'
         bsOSVersion: '17'
         workers:  '10'
-        bsBrowserVersion: '17.1'
+        bsBrowserVersion: '17'
         target: 'chromium'
         isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
-        dependsOn: ''
-        application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
-
-  - stage: iOS_iPhone14_Safari
-    displayName: iPhone14_Safari
-    condition: always()
-
-    jobs:
-    - template: run-test-template.yml
-      parameters:
-        jobName: iPhone14_Safari
-        environment: ${{ parameters.environment}}
-        branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'iPhone 14'
-        bsOSVersion: '18'
-        workers:  '10'
-        bsBrowserVersion: '18.1'
-        target: 'safari'
-        isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
-        dependsOn: ''
-        application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
-
-  - stage: iOS_iPhone14_Chromium
-    displayName: iPhone14_Chromium
-    condition: always()
-
-    jobs:
-    - template: run-test-template.yml
-      parameters:
-        jobName: iPhone14_Chromium
-        environment: ${{ parameters.environment}}
-        branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'iPhone 14'
-        bsOSVersion: '18'
-        workers:  '10'
-        bsBrowserVersion: '18.1'
-        target: 'chromium'
-        isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
+        emulateDeviceInfo: 'iPad Pro 13 2024'
         dependsOn: ''
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowser'
@@ -237,6 +102,48 @@ stages:
         target: 'chromium'
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
+        dependsOn: ''
+        application: 'CP'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
+
+  - stage: iOS_iPad10_Safari
+    displayName: iPad10_Safari
+    condition: always()
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPad10_Safari
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        deviceName: 'iPad 10th'
+        bsOSVersion: '16'
+        workers:  '10'
+        bsBrowserVersion: '16.1'
+        target: 'safari'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPad 10th'
+        dependsOn: ''
+        application: 'CP'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
+
+  - stage: iOS_iPad10_Chromium
+    displayName: iPad10_Chromium
+    condition: always()
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: iPad10_Chromium
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
+        deviceName: 'iPad 10th'
+        bsOSVersion: '16'
+        workers:  '10'
+        bsBrowserVersion: '16.1'
+        target: 'chromium'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPad 10th'
         dependsOn: ''
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowser'

@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Capgemini.PowerApps.SpecFlowBindings;
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Data.Users;
@@ -8,7 +8,7 @@ using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.AP
 {

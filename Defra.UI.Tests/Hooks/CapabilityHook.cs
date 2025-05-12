@@ -1,7 +1,7 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Capabilities;
 using Defra.UI.Tests.Configuration;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Hooks
 {

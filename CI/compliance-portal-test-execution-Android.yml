@@ -1,7 +1,4 @@
-trigger:
-  branches:
-    exclude:
-      - '*'
+trigger: none
 
 parameters:
   - name: environment
@@ -21,46 +18,46 @@ variables:
 
 stages:
   
-  - stage: Android_SamsungGalaxyS23_Chrome
-    displayName: SamsungGalaxyS23_Chrome
+  - stage: Android_SamsungGalaxyTabS8_Chrome
+    displayName: SamsungGalaxyTabS8_Chrome
     condition: always()
 
     jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: SamsungGalaxyS23_Chrome
+        jobName: SamsungGalaxyTabS8_Chrome
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'Samsung Galaxy S23'
-        bsOSVersion: '13.0'
+        deviceName: 'Samsung Galaxy Tab S8'
+        bsOSVersion: '12.0'
         workers:  '10'
-        bsBrowserVersion: '13.0'
+        bsBrowserVersion: '12.0'
         target: 'chrome'
         isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
+        emulateDeviceInfo: 'Samsung Galaxy Tab S8'
         dependsOn: ''
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowser'
 
-  - stage: Android_SamsungGalaxyS23_SamsungInternet
-    displayName: SamsungGalaxyS23_SamsungInternet
+  - stage: Android_SamsungGalaxyTabS8_SamsungInternet
+    displayName: SamsungGalaxyTabS8_SamsungInternet
     condition: always()
 
     jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: SamsungGalaxyS23_SamsungInternet
+        jobName: SamsungGalaxyTabS8_SamsungInternet
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'Samsung Galaxy S23'
-        bsOSVersion: '13.0'
+        deviceName: 'Samsung Galaxy Tab S8'
+        bsOSVersion: '12.0'
         workers:  '10'
-        bsBrowserVersion: '13.0'
+        bsBrowserVersion: '12.0'
         target: 'samsung'
         isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
+        emulateDeviceInfo: 'Samsung Galaxy Tab S8'
         dependsOn: ''
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowser'
@@ -103,28 +100,6 @@ stages:
         workers:  '10'
         bsBrowserVersion: '13.0'
         target: 'samsung'
-        isEmulationEnabled: 'false'
-        emulateDeviceInfo: 'iPhone 12 Pro'
-        dependsOn: ''
-        application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
-
-  - stage: Android_OnePlus11R_Chrome
-    displayName: OnePlus11R_Chrome
-    condition: always()
-
-    jobs:
-    - template: run-test-template.yml
-      parameters:
-        jobName: OnePlus11R_Chrome
-        environment: ${{ parameters.environment}}
-        branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'OnePlus 11R'
-        bsOSVersion: '13.0'
-        workers:  '10'
-        bsBrowserVersion: '13.0'
-        target: 'chrome'
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''

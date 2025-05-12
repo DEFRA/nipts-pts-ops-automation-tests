@@ -1,7 +1,4 @@
-trigger:
-  branches:
-    exclude:
-      - '*'
+trigger: none
 
 parameters:
   - name: environment
@@ -20,12 +17,14 @@ resources:
       ref: $(Build.SourceBranch)
       endpoint: DEFRA
 
+variables:
+  - template: 'variables/AP/${{ parameters.environment }}.yml'
+
 stages:
   
   - stage: Accessibility_Run
     displayName: AP Accessibility Test Execution
-    variables:
-        - template: 'variables/AP/${{ parameters.environment }}.yml'
+
     jobs:
     - template: run-test-template.yml
       parameters:

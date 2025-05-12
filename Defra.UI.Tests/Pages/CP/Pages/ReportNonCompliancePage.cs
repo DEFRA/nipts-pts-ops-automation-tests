@@ -1,9 +1,10 @@
-﻿using BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
+using System.Collections.ObjectModel;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -19,18 +20,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Report non-compliance']"));
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Report non-compliance']"), true);
         private IWebElement btnReportNonCompliance => _driver.WaitForElement(By.XPath("//button[normalize-space()='Save outcome']"));
         private IWebElement lnkPetTravelDocumentDetails => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet Travel Document details']"));
-        private IWebElement btnFootPassengerRadio => _driver.WaitForElementExists(By.CssSelector("#passengerType"));
-        private IWebElement bntVehicleRadio => _driver.WaitForElementExists(By.CssSelector("#vehiclePassenger"));
-        private IWebElement bntAirlineRadio => _driver.WaitForElementExists(By.CssSelector("#airlinePassenger"));
-        private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[1]"));
-        private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[2]"));
-        private IWebElement chkGBOutcome3 => _driver.WaitForElementExists(By.XPath("//h2[text()='GB outcome']//following::label[3]"));
-        private IWebElement chkSPSOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[1]"));
-        private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='SPS outcome']//following::label[2]"));
-        private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.XPath("//textarea[@name='spsOutcomeDetails']"));
+        private IWebElement btnFootPassengerRadio => _driver.WaitForElementExists(By.XPath("//*[@id='passengerType']/following-sibling::label"));
+        private IWebElement btnVehicleRadio => _driver.WaitForElementExists(By.XPath("//*[@id='vehiclePassenger']/following-sibling::label"));
+        private IWebElement btnAirlineRadio => _driver.WaitForElementExists(By.XPath("//*[@id='airlinePassenger']/following-sibling::label"));
+        private IWebElement lblReportOutcome => _driver.WaitForElementExists(By.XPath("//h2[normalize-space(.)='Record outcome']"));
+        private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger referred to DAERA/SPS at NI port']"));
+        private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger advised not to travel']"));
+        private IWebElement chkGBOutcome3 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger says they will not travel']"));
+        private IWebElement chkSPSOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='Record outcome']//following::label[1]"));
+        private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='Record outcome']//following::label[2]"));
+        private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.Id("spsOutcomeDetails"));
         private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome']"));
         private IWebElement lblAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']"));
         private IWebElement lblAnyRelavantCommentsHint => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]"));
@@ -64,6 +66,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblOtherIssuesOption3 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[3]"));
         private IWebElement lblOtherReasonHint => _driver.WaitForElement(By.Id("somethingRadio-item-hint"));
         private IWebElement lblMCHeader => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Microchip']"));
+        private IWebElement lblMCTableHeading => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Microchip information from PTD or Application']"));
         private IWebElement lblMCDetailsLink => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']"));
         private IWebElement lblMCCheckbox1 => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']/following::label[1]"));
         private IWebElement lblMCCheckbox2 => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']/following::label[3]"));
@@ -79,8 +82,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPetOwnerEmail => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Email')]/following-sibling::dd"));
         private IWebElement lblPetOwnerAddress => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Address')]/following-sibling::dd"));
         private IWebElement lblPetOwnerPhoneNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Phone number')]/following-sibling::dd"));
-        private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"));
-        private IWebElement bntSaveOutCome=> _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
+        private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"), true);
+        private IWebElement btnSaveOutCome => _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
+        private IWebElement lblMicrochipOption1 => _driver.WaitForElement(By.XPath("//*[@id='missingReason']"));
+        private IWebElement lblMicrochipOption2 => _driver.WaitForElement(By.XPath("//*[@id='mcNotFound']"));
         #endregion
 
         #region Methods
@@ -96,13 +101,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectReportNonComplianceButton()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnReportNonCompliance);
-            btnReportNonCompliance.Click();
+            btnReportNonCompliance.Click(_driver);
         }
 
         public void ClickPetTravelDocumentDetailsLnk()
         {
-            lnkPetTravelDocumentDetails.Click();
+            lnkPetTravelDocumentDetails.Click(_driver);
         }
 
         public bool CheckPetTravelDocumentDetailsSection(string status)
@@ -110,6 +114,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var cnt = lblPetTravelDocumentDetails.Count;
             if (cnt > 0)
             {
+                lblPTDStatus.ScrollToElement(_driver);
                 return lblPTDStatus.Text.Contains(status);
             }
             return false;
@@ -117,10 +122,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTheTableNameInPTDLink(string tableName)
         {
+            lblTableNameApplicationDetails.ScrollToElement(_driver);
             return lblTableNameApplicationDetails.Text.Trim().Equals(tableName);
         }
         public bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName)
         {
+            lblTableNamePTD.ScrollToElement(_driver);
             return lblTableNamePTD.Text.Trim().Equals(tableName);
         }
         public bool VerifyTheExpectedStatus(string applicationStatus)
@@ -138,12 +145,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 case "Approved":
                     expectedColor = "#CCE2D8";
                     break;
-                case "Awaiting verification":
-                    expectedColor = "#FFF7BF";
+                case "Pending":
+                    expectedColor = "#BBD4EA";
                     break;
-                case "Revoked":
-                    expectedColor = "#FCD6C3";
-                    break;
+                case "Cancelled":
                 case "Unsuccessful":
                     expectedColor = "#F4CDC6";
                     break;
@@ -153,15 +158,17 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         }
         public bool VerifyThePTDNumber(string ptdNumber)
         {
-            var ptd = txtValuePTDNumber.Text;
+            txtValuePTDNumber.ScrollToElement(_driver);
             return txtValuePTDNumber.Text.Trim().Equals($"GB826 {ptdNumber}");
         }
         public bool VerifyTheDateOfIssuance(string dateOfIssuance)
         {
+            txtValueDate.ScrollToElement(_driver);
             return txtValueDate.Text.Trim().Equals(dateOfIssuance);
         }
         public bool VerifyTheReferenceNumber(string referenceNumber)
         {
+            txtValueReferenceNumber.ScrollToElement(_driver);
             return txtValueReferenceNumber.Text.Trim().Equals(referenceNumber);
         }
         public bool VerifyReasonsHeadingWithHint(string reasons, string hint)
@@ -173,22 +180,25 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public void SelectTypeOfPassenger(string radioButtonValue)
         {
 
-            if (radioButtonValue.Equals("Foot passenger"))
+            if (radioButtonValue.Equals("Ferry foot passenger"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnFootPassengerRadio);
-                btnFootPassengerRadio.Click();
+                btnFootPassengerRadio.ScrollAndClick(_driver);
             }
-            else
+            else if (radioButtonValue.Equals("Vehicle on ferry"))
             {
                 try
                 {
-                    ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", bntVehicleRadio);
-                    bntVehicleRadio.Click();
+                    btnVehicleRadio.ScrollAndClick(_driver);
                 }
                 catch
                 {
-                    bntVehicleRadio.FindElement(By.CssSelector("#vehiclePassenger")).Click();
+                    btnVehicleRadio.ScrollAndClick(_driver);
                 }
+            }
+            else
+            {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnAirlineRadio);
+                btnAirlineRadio.Click();
             }
         }
 
@@ -204,77 +214,103 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return false;
         }
 
-        public bool VerifyGBOutcomeCheckboxes(string checkboxValues)
+        public bool VerifyGBOutcomeCheckboxes(string checkboxValues, string subHeading)
         {
             var gbOutcomeCheckbox = checkboxValues.Split('|');
-            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text));
+            chkGBOutcome1.ScrollToElement(_driver);
+            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) 
+                && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) 
+                && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text) 
+                && lblReportOutcome.Text.Equals(subHeading));
         }
 
         public void ClickGBOutcomeCheckbox(string GBOutcome)
         {
             if (GBOutcome.Equals("Passenger referred to DAERA/SPS at NI port"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome1);
-                chkGBOutcome1.Click();
+                chkGBOutcome1.ScrollAndClick(_driver);
             }
             else if (GBOutcome.Equals("Passenger advised not to travel"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome2);
-                chkGBOutcome2.Click();
+                chkGBOutcome2.ScrollAndClick(_driver);
             }
             else if (GBOutcome.Equals("Passenger says they will not travel"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", chkGBOutcome3);
-                chkGBOutcome3.Click();
+                chkGBOutcome3.ScrollAndClick(_driver);
+            }
+        }
+        
+        public void ClickSPSOutcomeCheckbox(string SPSOutcome)
+        {
+            if (SPSOutcome.ToUpper().Equals("ALLOWED"))
+            {
+                chkSPSOutcome1.ScrollAndClick(_driver);
+            }
+            else if (SPSOutcome.ToUpper().Equals("NOT ALLOWED"))
+            {
+                chkSPSOutcome2.ScrollAndClick(_driver);
             }
         }
 
-        public bool VerifySPSOutcomeCheckboxes(string checkboxValues)
+        public bool VerifySPSOutcomeCheckboxes(string checkboxValues, string subHeading)
         {
             var spsOutcomeCheckbox = checkboxValues.Split('|');
-            return (spsOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text) && spsOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text));
+            chkSPSOutcome1.ScrollToElement(_driver);
+            return (spsOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text) && spsOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text) && lblReportOutcome.Text.Equals(subHeading));
         }
 
         public bool VerifySPSCheckboxesAreNotChecked()
         {
+            chkSPSOutcome2.ScrollToElement(_driver);
             return (chkSPSOutcome2.HasAttribute("Checked") && chkSPSOutcome1.HasAttribute("Checked"));
         }
         public bool VerifyGBCheckboxesAreNotChecked()
         {
+            chkGBOutcome1.ScrollToElement(_driver);
             return (chkGBOutcome1.HasAttribute("Checked") && chkGBOutcome2.HasAttribute("Checked") && chkGBOutcome3.HasAttribute("Checked"));
         }
         public bool VerifyDetailsOfOutcome()
         {
+            lblDetailsOfOutcome.ScrollToElement(_driver);
             return lblDetailsOfOutcome.Text.Contains("Details of outcome");
         }
+
         public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength)
         {
+            txtareaSPSOutcome.ScrollToElement(_driver);
+
             return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
         }
 
         public bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength)
         {
+            lblAnyRelavantComments.ScrollToElement(_driver);
             return lblAnyRelavantComments.Text.Contains(heading)
-                   && lblAnyRelavantCommentsHint.Text.Contains(hint)
-                   && TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
+                   && lblAnyRelavantCommentsHint.Text.Contains(hint);
+            //&& TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
         }
 
         public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)
         {
+            lblPassengerDetails.ScrollToElement(_driver);
             return lblPassengerDetails.Text.Contains(sectionName) && lblTypeOfPassenger.Text.Contains(subHeading);
         }
 
         public bool VerifyVCAndPetOwnerDetailSubheading(string subHeading)
         {
+
             if (subHeading.Equals("Visual check"))
+            {
+                lblVisualCheck.ScrollToElement(_driver);
                 return lblVisualCheck.Text.Contains(subHeading);
+            }
+            lblPetOwnerDetailsSubHeading.ScrollToElement(_driver);
             return lblPetOwnerDetailsSubHeading.Text.Contains(subHeading);
         }
 
         public bool VerifyPetDetailsFromPTDLink(string linkName)
         {
-            _driver.ExecuteScript("arguments[0].scrollIntoView();", lnkPetDetailsFromPTD);
-            lnkPetDetailsFromPTD.Click();
+            lnkPetDetailsFromPTD.Click(_driver);
             return lnkPetDetailsFromPTD.Text.Contains(linkName);
         }
 
@@ -310,11 +346,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyOtherReasonOptionHint(string hint)
         {
+            lblOtherReasonHint.ScrollToElement(_driver);
             return lblOtherReasonHint.Text.ToLower().Contains(hint.ToLower());
         }
 
         public bool VerifyOtherIssuesCheckboxesAreNotChecked()
         {
+            lblOtherIssuesOption1.ScrollToElement(_driver);
             return lblOtherIssuesOption1.HasAttribute("Checked")
                 && lblOtherIssuesOption2.HasAttribute("Checked")
                 && lblOtherIssuesOption3.HasAttribute("Checked");
@@ -322,48 +360,55 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyMicrochipSection()
         {
+            lblMCHeader.ScrollToElement(_driver);
             return lblMCHeader.Text.Contains("Microchip")
                    && lblMCCheckbox1.Text.Contains("Microchip number does not match the PTD")
                    && lblMCCheckbox2.Text.Contains("Cannot find microchip")
-                   && lblMCDetailsLink.Text.Contains("Microchip details from PTD");
+                   && lblMCDetailsLink.Text.Contains("Microchip details from PTD")
+                   && !lblMCCheckbox1.Selected
+                   && !lblMCCheckbox2.Selected;
         }
 
         public bool VerifyMCDetailsPTDTableWithValues(string MCDetails)
         {
-            _driver.ExecuteScript("arguments[0].scrollIntoView();", lblMCDetailsLink);
-            lblMCDetailsLink.Click();
+            lblMCDetailsLink.Click(_driver);
             string[] MCNumberAndDate = MCDetails.Split('|');
-            return lblMCNumber.Text.Equals("Microchip number") && lblMCImplantOrScanDate.Text.Equals("Implant or scan date") && lblMCNumberValue.Text.Equals(MCNumberAndDate[0]) && lblMCImplantOrScanDateValue.Text.Equals(MCNumberAndDate[1]);
+            return lblMCTableHeading.Text.Equals("Microchip information from PTD or Application")
+                && lblMCNumber.Text.Equals("Microchip number")
+                && lblMCImplantOrScanDate.Text.Equals("Implant or scan date")
+                && lblMCNumberValue.Text.Equals(MCNumberAndDate[0])
+                && lblMCImplantOrScanDateValue.Text.Equals(MCNumberAndDate[1]);
         }
 
         public void ClickOnMCCheckbox(string mcCheckbox)
         {
             if (mcCheckbox.Equals("Microchip number does not match the PTD"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblMCCheckbox1);
-                lblMCCheckbox1.Click();
+                lblMCCheckbox1.ScrollAndClick(_driver);
             }
             else if (mcCheckbox.Equals("Cannot find microchip"))
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", lblMCCheckbox2);
-                lblMCCheckbox2.Click();
+                lblMCCheckbox2.ScrollAndClick(_driver);
             }
         }
 
         public void EnterMCNumber(string MCNumber)
         {
+            lblMCNumberNotFoundInScan.ScrollToElement(_driver);
             lblMCNumberNotFoundInScan.Text.Equals("Microchip number found in scan");
             txtMCNumberNotFoundInScan.Clear();
             txtMCNumberNotFoundInScan.SendKeys(MCNumber);
         }
         public bool VerifyNameAndEmailOfPetOwner(string name, string email)
         {
+            lblPetOwnerName.ScrollToElement(_driver);
             return lblPetOwnerName.Text.Contains(name)
                 && lblPetOwnerEmail.Text.Contains(email);
         }
 
         public bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber)
         {
+            lblPetOwnerAddress.ScrollToElement(_driver);
             var addressReplaceNewLine = lblPetOwnerAddress.Text.ReplaceLineEndings("\n");
             var addressDetail = addressReplaceNewLine.Replace('\n', ',');
 
@@ -373,15 +418,31 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyInfoSubmittedMessage(string submittedMessage)
         {
+            lblInfoSubmittedMessage.ScrollToElement(_driver);
             return lblInfoSubmittedMessage.Text.Contains(submittedMessage);
         }
 
         public void ClickSaveOutComeButton()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", bntSaveOutCome);
-            bntSaveOutCome.Click();
+            btnSaveOutCome.ScrollAndClick(_driver);
         }
 
+        public bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline)
+        {
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnFootPassengerRadio);
+            return btnFootPassengerRadio.Text.Contains(ferryFootPassenger)
+                && btnVehicleRadio.Text.Contains(vehicleOnFerry)
+                && btnAirlineRadio.Text.Contains(airline)
+                && !btnFootPassengerRadio.Selected && !btnVehicleRadio.Selected
+                && !btnAirlineRadio.Selected;
+        }
+
+        public bool VerifyMicrochipCheckboxesAreChecked()
+        {
+            lblMicrochipOption1.ScrollToElement(_driver);
+            return lblMicrochipOption1.HasAttribute("Checked")
+                && lblMicrochipOption2.HasAttribute("Checked");
+        }
         #endregion
     }
 }

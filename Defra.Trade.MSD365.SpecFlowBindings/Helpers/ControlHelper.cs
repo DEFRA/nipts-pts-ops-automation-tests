@@ -236,7 +236,7 @@ public class ControlHelper
     {
         var control = FindControl(formContext, fieldName, location, webDriver);
         var field = new Field() { Id = fieldName, Name = GetControlLabel(control, fieldName) };
-
+       
         switch (fieldType)
         {
             case "lookup":
@@ -244,6 +244,9 @@ public class ControlHelper
                 break;
             case "optionset":
                 field.Value = GetOptionSetValue(control, location == "header field" ? $"header_{fieldName}" : fieldName);
+                break;
+            case "buttonset":
+                field.Value = GetButtonSetValue(control, location == "header field" ? $"header_{fieldName}" : fieldName);
                 break;
             case "statecode":
                 field.Value = GetStateCode(control, location == "header field" ? $"header_{fieldName}" : fieldName);
@@ -257,8 +260,14 @@ public class ControlHelper
             case "text":
                 field.Value = GetTextValue(control, location == "header field" ? $"header_{fieldName}" : fieldName);
                 break;
+            case "input":
+                field.Value = GetTextInputValue(control, location == "header field" ? $"header_{fieldName}" : fieldName);
+                break;
             case "datetime":
                 field.Value = GetDateValue(control, location == "header field" ? $"header_{fieldName}" : fieldName);
+                break;
+            case "inputdatetime":
+                field.Value = GetDateInputValue(control, location == "header field" ? $"header_{fieldName}" : fieldName);
                 break;
             default:
                 return null;
@@ -431,6 +440,12 @@ public class ControlHelper
         return optionset.SelectedOption.Text;
     }
 
+    private static string GetButtonSetValue(IWebElement element, string fieldName)
+    {
+        var buttonset = element.FindElement(By.XPath($".//button[@data-id = '{fieldName}.fieldControl-option-set-select']"));
+        return buttonset.Text;
+    }
+
     private static string GetStateCode(IWebElement element, string fieldName)
     {
         var stateCode = element.FindElement(By.XPath($".//div[@data-id = '{fieldName}.fieldControl-pickliststatus-comboBox']"));
@@ -490,10 +505,33 @@ public class ControlHelper
         return (input != null) ? input.GetAttribute("value") : string.Empty;
     }
 
+    private static string GetTextInputValue(IWebElement element, string fieldName)
+    {
+        IWebElement input = null;
+
+        if (element.HasElement(By.XPath($".//div[@data-id = '{fieldName}.fieldControl-pcf-container-id']//input")))
+        {
+            input = element.FindElement(By.XPath($".//div[@data-id = '{fieldName}.fieldControl-pcf-container-id']//input"));
+        }
+        else if (element.HasElement(By.XPath($".//div[@data-id = '{fieldName}.fieldControl-pcf-container-id']//textarea")))
+        {
+            input = element.FindElement(By.XPath($".//div[@data-id = '{fieldName}.fieldControl-pcf-container-id']//textarea"));
+        }
+
+        return (input != null) ? input.GetAttribute("value") : string.Empty;
+    }
+
     private static string GetDateValue(IWebElement element, string fieldName)
     {
         if(element.HasElement(By.XPath($".//input[@data-id = '{fieldName}.fieldControl-date-time-input']")))
             return element.FindElement(By.XPath($".//input[@data-id = '{fieldName}.fieldControl-date-time-input']")).GetAttribute("value");
+        return null;
+    }
+
+    private static string GetDateInputValue(IWebElement element, string fieldName)
+    {
+        if (element.HasElement(By.XPath($".//div[@data-id = '{fieldName}.fieldControl._datecontrol-date-container']//input")))
+            return element.FindElement(By.XPath($".//div[@data-id = '{fieldName}.fieldControl._datecontrol-date-container']//input")).GetAttribute("value");
         return null;
     }
 }

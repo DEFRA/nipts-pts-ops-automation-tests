@@ -1,8 +1,9 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using Defra.UI.Framework.Driver;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -18,7 +19,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"));
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), true);
         private IWebElement btnSearch => _driver.WaitForElement(By.XPath("//button[normalize-space()='Search']"));
         private IWebElement btnClearSearch => _driver.WaitForElement(By.XPath("//a[@id='clearSearchButton']"));
         private IWebElement txtPTDSearchBox => _driver.WaitForElement(By.XPath("//input[@id='ptdNumberSearch']"));
@@ -27,12 +28,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement expectedText => _driver.WaitForElement(By.XPath("//div[@class='ons-panel__body']"));
         private IWebElement rdoApplicationNumber => _driver.WaitForElement(By.XPath("//label[normalize-space()='Search by application number']"));
         private IWebElement rdoMicrochipNumber => _driver.WaitForElement(By.XPath("//label[normalize-space()='Search by microchip number']"));
-        private IWebElement rdoSearchByPTDNumber => _driver.WaitForElement(By.XPath("//input[@id = 'documentSearch-1']"));
-        private IWebElement rdoSearchByAppNumber => _driver.WaitForElement(By.XPath("//input[@id = 'documentSearch-2']"));
-        private IWebElement rdoSearchByMCNumber => _driver.WaitForElement(By.XPath("//input[@id = 'documentSearch-3']"));
+        private IWebElement rdoSearchByPTDNumber => _driver.WaitForElement(By.Id("documentSearch-1-label"));
+        private IWebElement rdoSearchByAppNumber => _driver.WaitForElement(By.Id("documentSearch-2-label"));
+        private IWebElement rdoSearchByMCNumber => _driver.WaitForElement(By.Id("documentSearch-3-label"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
-        private IWebElement lblYouCannotAccessPageHeading => _driver.WaitForElement(By.Id("dialog-title-notsignedin"));
+        private IWebElement lblYouCannotAccessPageHeading => _driver.WaitForElement(By.XPath("//h1[contains(normalize-space(),'You cannot access this page')]"));
         private IWebElement lnkGobackToPrevPage => _driver.WaitForElement(By.XPath("//a[contains(.,'go back to the previous page')]"));
+        private IWebElement lblHeaderTitle => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-!-margin-bottom-4')]"));
         #endregion
 
         #region Methods
@@ -43,34 +45,22 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             }
 
-            _driver.ChangePageView(50);
             return pageHeading.Text.Contains("Find a document");
         }
 
         public void SelectSearchRadioOption(string radioButtonValue)
         {
-            _driver.ChangePageView(50);
-
             if (radioButtonValue == "Search by application number")
             {
-                if (!rdoApplicationNumber.Selected)
-                {
-                    rdoApplicationNumber.Click();
-                }
+                rdoApplicationNumber.Click(_driver);
             }
             else if (radioButtonValue == "Search by microchip number")
             {
-                if (!rdoMicrochipNumber.Selected)
-                {
-                    rdoMicrochipNumber.Click();
-                }
+                rdoMicrochipNumber.Click(_driver);
             }
             else if (radioButtonValue == "Search by PTD number")
             {
-                if (!rdoSearchByPTDNumber.Selected)
-                {
-                    rdoSearchByPTDNumber.Click();
-                }
+                rdoSearchByPTDNumber.Click(_driver);
             }
         }
         public void EnterPTDNumber(string ptdNumber1)
@@ -90,12 +80,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SearchButton()
         {
-            btnSearch.Click();
+            btnSearch.Click(_driver);
         }
 
         public void ClearSearchButton()
         {
-            btnClearSearch.Click();
+            btnClearSearch.Click(_driver);
         }
 
         public bool IsError(string errorMessage)
@@ -111,35 +101,50 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return false;
         }
 
+        public bool IsErrorTitle(string errorMessage)
+        {
+            return lblHeaderTitle.Text.Contains(errorMessage);
+        }
+
         public bool VerifyTheValuesAreCleared()
         {
             return rdoSearchByPTDNumber.GetAttribute("aria-expanded") is null && txtPTDSearchBox.Text.Equals(string.Empty) && rdoSearchByAppNumber.GetAttribute("aria-expanded") is null && rdoSearchByMCNumber.GetAttribute("aria-expanded") is null;
         }
+
         public bool VerifyAlreadyEnteredPTDNumber(string alreadyEnteredPTDNumber)
         {
             return txtPTDSearchBox.GetAttribute("value").Contains(alreadyEnteredPTDNumber);
         }
+
         public bool VerifyAlreadyEnteredApplicationNumber(string alreadyEnteredApplicationNumber)
         {
             return txtApplicationNumberSearchBox.GetAttribute("value").Contains(alreadyEnteredApplicationNumber);
         }
+
         public bool VerifyAlreadyEnteredMicrochipNumber(string alreadyEnteredMicrochipNumber)
         {
             return txtMicrochipNumberSearchBox.GetAttribute("value").Contains(alreadyEnteredMicrochipNumber);
         }
+
         public bool VerifyYouCannotAccessPage(string errorPageHeading)
         {
             return lblYouCannotAccessPageHeading.Text.Contains(errorPageHeading);
         }
+
         public void VerifyGoBackToPreviousPageLink()
         {
-            lnkGobackToPrevPage.Click();
+            lnkGobackToPrevPage.Click(_driver);
         }
 
         public void SelectAndSwapToApplicationNumberRadioButton()
         {
-            rdoSearchByPTDNumber.Click();
-            rdoSearchByAppNumber.Click();
+            rdoSearchByPTDNumber.Click(_driver);
+            rdoSearchByAppNumber.Click(_driver);
+        }
+
+        public void ClickBrowserBackButton()
+        {
+            _driver.Navigate().Back();
         }
         #endregion
     }

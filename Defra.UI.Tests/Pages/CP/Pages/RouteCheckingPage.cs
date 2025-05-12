@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using OpenQA.Selenium;
 using Defra.UI.Tests.Tools;
 using Defra.UI.Tests.Pages.CP.Interfaces;
@@ -20,7 +20,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement signOutPageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl']"));
-        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"));
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), true);
         private IWebElement signOutBy => _driver.WaitForElement(By.XPath("//a[@href='/signout']//*[name()='svg']"));
         private IWebElement rdoFerry => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[normalize-space()='Ferry']"));
         private IWebElement rdoFlight => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[normalize-space()='Flight']"));
@@ -59,30 +59,20 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool IsSignedOut()
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", signOutBy);
             signOutBy.Click();
+            Thread.Sleep(3000);
             return true;
         }
 
         public void SelectTransportationOption(string radioButtonValue)
         {
-            _driver.ChangePageView(50);
-
             if (radioButtonValue == "Ferry")
             {
-
-                if (!rdoFerry.Selected)
-                {
-                    rdoFerry.Click();
-                }
+                rdoFerry.Click(_driver);
             }
             else if (radioButtonValue == "Flight")
             {
-
-                if (!rdoFlight.Selected)
-                {
-                    rdoFlight.Click();
-                }
+                rdoFlight.Click(_driver);
             }
         }
 
@@ -91,13 +81,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             switch (routeOption)
             {
                 case "Birkenhead to Belfast (Stena)":
-                    rdoBirkenhead.Click();
+                    rdoBirkenhead.Click(_driver);
                     break;
                 case "Cairnryan to Larne (P&O)":
-                    rdoCairnryan.Click();
+                    rdoCairnryan.Click(_driver);
                     break;
                 case "Loch Ryan to Belfast (Stena)":
-                    rdoLochRyan.Click();
+                    rdoLochRyan.Click(_driver);
                     break;
             }
         }
@@ -109,7 +99,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             dynamic hour = rows[0];
             dynamic minute = rows[1];
 
-            SelectElement selectHour = new SelectElement(hourDropdown);
+            var selectHour = new SelectElement(hourDropdown);
             var hourOptions = hourDropdown.FindElements(By.XPath("//*[@id='sailingHour']/option")).Select(o => o.Text).ToList();
             hourOptions.Remove("");
             foreach (var option in hourOptions)
@@ -120,9 +110,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     break;
                 }
             }
+
             selectHour.SelectByValue(hour);
 
-            SelectElement selectMinute = new SelectElement(minuteDropdown);
+            var selectMinute = new SelectElement(minuteDropdown);
             var minuteOptions = minuteDropdown.FindElements(By.XPath("//*[@id='sailingMinutes']/option")).Select(o => o.Text).ToList();
             minuteOptions.Remove("");
             foreach (var option in minuteOptions)
@@ -138,11 +129,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectSaveAndContinue()
         {
-            btnSaveAndContinue.Click();
+            btnSaveAndContinue.Click(_driver);
         }
 
         public bool FlightNumberSection(string routeFlight)
         {
+            lblFlightNumber.ScrollToElement(_driver);
             return lblFlightNumber.Displayed && txtBoxFlightNumber.Displayed;
         }
 
@@ -177,7 +169,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectDropDownDepartureTimeHourOnly(string hour)
         {
-            SelectElement selectHour = new SelectElement(hourDropdown);
+            var selectHour = new SelectElement(hourDropdown);
             selectHour.SelectByValue(hour);
         }
 
@@ -204,7 +196,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             dynamic displayedTime = rows[1].Substring(12, 5);
 
             var givenDate = $"{ParseNumber(departureDay)}/{ParseNumber(departureMonth)}/{departureYear}";
-            
+
             return lblDeparture.Text.Equals("Departure:") && displayedDate.Equals(givenDate) && displayedTime.Equals(departureTime);
         }
 
@@ -268,6 +260,30 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return number.Length > 1 ? number : $"0{number}";
         }
 
+        public void CheckDepartBefore48OrAfter24Hrs(string departureDay, string departureMonth, string departureYear, string departureHour, string departureMinute, string timeCheck)
+        {
+            txtScheduleDepartureDay.Clear();
+            txtScheduleDepartureDay.SendKeys(departureDay);
+            txtScheduleDepartureMonth.Clear();
+            txtScheduleDepartureMonth.SendKeys(departureMonth);
+            txtScheduleDepartureYear.Clear();
+            txtScheduleDepartureYear.SendKeys(departureYear);
+            var selectHour = new SelectElement(hourDropdown);
+            selectHour.SelectByValue(departureHour);
+
+            if (timeCheck.Equals("48HoursAgo"))
+            {
+                var selectMinute = new SelectElement(minuteDropdown);
+                selectMinute.SelectByValue(departureMinute.ToString());
+            }
+            else if (timeCheck.Equals("After24Hours"))
+            {
+                int minuteAfter24Hours = int.Parse(departureMinute.ToString());
+                minuteAfter24Hours = (minuteAfter24Hours + 1) % 60;
+                var selectMinute = new SelectElement(minuteDropdown);
+                selectMinute.SelectByValue(minuteAfter24Hours.ToString("D2"));
+            }
+        }
         #endregion
     }
 }

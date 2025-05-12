@@ -1,10 +1,18 @@
 {
   "Users": [
     {
-      "username": "20 78 72 81 31 76",
+      "Checker":  "GB",
+      "username": "36 12 42 45 06 64",
       "Environment": "PRE",
       "HomePage": true,
-      "Credential": "Manual123$"
+      "Credential": "G0vernmen+"
+    },
+    {
+      "Checker": "SPS",
+      "username": "76 46 86 20 12 58",
+      "Environment": "PRE",
+      "HomePage": true,
+      "Credential": "G0vernmen+"
     }
   ]
 }

@@ -8,7 +8,7 @@ using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using OpenQA.Selenium.DevTools.V117.HeapProfiler;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Steps relating to timelines.
@@ -172,16 +172,19 @@ public class TimelineSteps : PowerAppsStepDefiner
 
     public static bool GetTimelineRecordBody(string expectedTitle)
     {
-        ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//*[contains(@id,\"timeline_record_title\")]/following::label[text()='View more']"));
+        ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//button[contains(@id,'tlr_footer_chevron')]/label[text()='View more']"));
         foreach (IWebElement item in TimelineRecordViewMore)
         {
             item.Click();
 
-            var iframeElement = Driver.FindElement(By.XPath("//iframe[contains(@title,'text')]"));
+            if (Driver.IsVisible(By.XPath("//iframe[contains(@title,'text')]")))
+            {
+                var iframeElement = Driver.FindElement(By.XPath("//iframe[contains(@title,'text')]"));
 
-            Driver.SwitchTo().Frame(iframeElement);
-
-            var descriptionElement = Driver.FindElement(By.XPath("//span[contains(text(),'Pet Travel Document')]"));
+                Driver.SwitchTo().Frame(iframeElement);
+            }
+            
+            var descriptionElement = Driver.FindElement(By.XPath("//div[contains(@id,'timeline_field_description')]"));
 
             if (descriptionElement.Text.Contains(expectedTitle))
             {

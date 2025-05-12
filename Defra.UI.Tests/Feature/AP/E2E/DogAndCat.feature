@@ -64,7 +64,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -138,12 +138,12 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
 	When I assign the application to myself
-	And I 'Revoke' the application with reason 'Owner Left GB'
+	And I 'Revoke' the application with reason 'Owner Deceased'
 	Then the status is changed to 'Revoked'
 	And I click on Back button in Pets Application
 	And I should not see the application in the Dashboard
@@ -214,7 +214,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter addr
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Fail the Microchip check
+	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid Application'
 	Then the status is changed to 'Rejected'
@@ -276,7 +276,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter free
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -340,7 +340,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with other colo
 	When I Login to Dynamics application
 	And I opens the application
 	And I assign the application to myself
-	And I Pass the Microchip check
+	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -352,6 +352,7 @@ Examples:
 	| PetDog's |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Other | Yes                   | Unique Unknown Breed |
 	| PetCat's |  Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Other | No                    | Unique Unknown Breed |
 
+@APCrossBrowser
 Scenario Outline: Create PETS Travel Document and navigate to Pets Owner details page
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -390,8 +391,6 @@ Scenario Outline: Create PETS Travel Document and navigate to Pets Owner details
 	And I can see the unique application reference number
 	When I click Apply for another lifelong pet travel document link
 	Then I should redirected to the Are your details correct page
-
-
 Examples:
 	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Breed                |
 	| PetDog's |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Unique Unknown Breed |

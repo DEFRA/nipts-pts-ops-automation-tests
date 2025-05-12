@@ -133,7 +133,8 @@ public static class Elements
         { "Timeline_Post_Cancel",              "id(\"create_post_cancel_btn\")" },
 
         { "Timeline_Note_Title",               "id(\"create_note_medium_titlenotescontrol\")" },
-        { "Timeline_Note_Text",                "//iframe[contains(@class, \"fullPageContentEditorFrame\")]" },
+        { "Timeline_Note_Text",                "//div[contains(@aria-label, \"nipts_ptdapplication notetext\")]" },
+        //{ "Timeline_Note_Text",                "//iframe[contains(@class, \"fullPageContentEditorFrame\")]" },
         { "Timeline_Note_TextBody",            "//body[contains(@class, 'cke_wysiwyg_frame')]" },
         { "Timeline_Note_Add",                 "//button[contains(@id,'save_button') or @id = 'splitsave-button']" },
         { "Timeline_Note_Cancel",              "id(\"create_note_cancel_btn\")" },

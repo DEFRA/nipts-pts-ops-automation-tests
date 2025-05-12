@@ -1,4 +1,4 @@
-﻿@CPRegression @CPCrossBrowser
+﻿@CPRegression
 Feature: Search Documents Validations
 
 Port checker validates Search documents and Change Route details
@@ -19,9 +19,11 @@ Scenario: Verify the error message for search button click after clearing the gi
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '12345' of the application
 	When I click clear search button
-	And I click search button
+	Then I click search by 'Search by PTD number' radio button
+	When I click search button
 	Then I should see an error message "Enter a PTD number" in Find a document page
 
 Scenario: Verify the error message for search button click after clearing the given application number
@@ -62,9 +64,10 @@ Scenario: Verify invalid PTD number navigates to Document not found page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '613465' of the application
 	When I click search button
-	Then I should see an error message "An error occurred while processing your request" in Find a document page
+	Then I should see "Document not found" an error message in Find a document page
 
 Scenario: Verify invalid application number navigates to Document not found page 
 	Then I have selected 'Ferry' radio option
@@ -240,6 +243,7 @@ Scenario: Verify the error message if no PTD number detail given
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '' of the application
 	When I click search button
 	Then I should see an error message "Enter a PTD number" in Find a document page
@@ -252,6 +256,7 @@ Scenario: Verify the error message if entering less than 6 characters PTD Number
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the 'AD763' of the application
 	When I click search button
 	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
@@ -264,11 +269,12 @@ Scenario: Verify the error message if entering more than 6 characters PTD Number
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the 'AD387641' of the application
 	When I click search button
 	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
 
-Scenario: Verify the error message if application number text box have characters other than 0-9 and A-F (not including the hyphen)
+Scenario: Verify the error message if PTD number text box have 6 characters other than 0-9 and A-F (not including the hyphen)
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '11:50'
@@ -276,9 +282,10 @@ Scenario: Verify the error message if application number text box have character
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I provided the '*%£$&{}@' of the application
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '*%£$&@' of the application
 	When I click search button
-	Then I should see an error message "Enter 6 characters after 'GB826'" in Find a document page
+	Then I should see an error message "Enter 6 characters after 'GB826', using only letters A to F and numbers" in Find a document page
 
 Scenario: Verify the error message if no text provided in application number text box
 	Then I have selected 'Ferry' radio option
@@ -379,6 +386,7 @@ Scenario: Verify the data entered remains in the text box of Find a document pag
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '4574B2' of the application
 	Then I click search by 'Search by application number' radio button
 	And I provided the Application Number 'ZRWD8KG6' of the application
@@ -405,7 +413,6 @@ Scenario: Verify change link click in header from Checks page and back button fr
 	Then I should see date subsection 'Scheduled departure date' with the current date pre-population
 	And I click back link
 	Then I should navigate to Checks page
-	#And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date '04''02''2025' time '09:45' and change link
 	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' date current date '-1' time '09:45' and change link
 
 Scenario: Verify the input hyphen only to application number text box navigates to 403 error page
@@ -420,13 +427,7 @@ Scenario: Verify the input hyphen only to application number text box navigates 
 	And I provided the Application Number ''-'' of the application
 	When I click search button
 	Then I should navigate to 'You cannot access this page or perform this action' error page
-	And I click back link
-	Then I navigate to Find a document page
-	When I select Search by PTD number radio button and then selected the Search by application number radio button
-	Then I should see the already entered application number ''-'' in the text box
-	When I click search button
-	Then I should navigate to 'You cannot access this page or perform this action' error page
-	When I click go back to the previous page link
+	When I click browser back button
 	Then I navigate to Find a document page
 	When I select Search by PTD number radio button and then selected the Search by application number radio button
 	Then I should see the already entered application number ''-'' in the text box	 
@@ -439,6 +440,7 @@ Scenario: Verify the Clear search functionality in Find a Document page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
 	And I provided the '12345' of the application
 	When I click clear search button
 	Then I see the values are deleted

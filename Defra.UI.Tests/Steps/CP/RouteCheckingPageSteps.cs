@@ -1,10 +1,10 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -226,6 +226,13 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeNoDepartureTimeIsPopulatedByDefault()
         {
             Assert.True(_routeCheckingPage?.CheckNoPrepopulatedDepartureTime(), "Departure time is pre-populated by default");
+        }
+
+        [Then("I have selected departure date as current date '(.*)' and departure time as current time to check '(.*)'")]
+        public void ThenIHaveSelectedDepartureDateAsCurrentDateAndDepartureTimeAsCurrentTime(int departuredate, string timeCheck)
+        {
+            var dateTimeTwoDaysAgo = DateTime.UtcNow.AddDays(departuredate);
+            _routeCheckingPage?.CheckDepartBefore48OrAfter24Hrs(dateTimeTwoDaysAgo.Day.ToString(), dateTimeTwoDaysAgo.Month.ToString(), dateTimeTwoDaysAgo.Year.ToString(), dateTimeTwoDaysAgo.Hour.ToString("D2"), dateTimeTwoDaysAgo.Minute.ToString("D2"), timeCheck);
         }
     }
 }

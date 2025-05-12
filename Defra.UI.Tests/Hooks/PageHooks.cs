@@ -1,8 +1,8 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Tools;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Pages;
 using Defra.UI.Tests.Pages.AP.Classes;
@@ -69,6 +69,7 @@ namespace Defra.UI.Tests.Hooks
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ApplicationSummaryPage, IApplicationSummaryPage>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ReportNonCompliancePage, IReportNonCompliancePage>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<DocumentNotFoundPage, IDocumentNotFoundPage>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<GBChecksReferralPage, IGBChecksReferralPage>());
 
         }
 

@@ -4,7 +4,7 @@ using OpenQA.Selenium;
 using System;
 using System.IO;
 using System.Reflection;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// After scenario hooks.
@@ -48,7 +48,7 @@ public class AfterScenarioHooks : PowerAppsStepDefiner
     /// <summary>
     /// Takes a screenshot of the browser when a test fails.
     /// </summary>
-    [AfterScenario(Order = 0)]
+    //[AfterScenario(Order = 0)]
     public void ScreenshotFailedScenario()
     {
         if (this.scenarioContext.ScenarioExecutionStatus == ScenarioExecutionStatus.TestError && Client.BrowserInitiated)

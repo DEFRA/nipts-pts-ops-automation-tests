@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using Capgemini.PowerApps.SpecFlowBindings;
 using Defra.Trade.Plants.SpecFlowBindings.Context;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 [Binding]
 public class FileSteps : PowerAppsStepDefiner

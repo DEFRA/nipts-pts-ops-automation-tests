@@ -1,4 +1,4 @@
-﻿@CPRegression @CPCrossBrowser
+﻿@CPRegression
 Feature: Route Checking Page Validation
 
 Validating the negative scenarios for Route Checking Information
@@ -31,13 +31,17 @@ Scenario: Verify the error message if no flight number provided in the flight ro
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the flight number. For example, RK 103" in route checking page
 
-Scenario: Verify home page for flight Number text box with special character
+Scenario Outline: Verify home page for flight Number text box with special character or more than 8 characters
 	Then I have selected 'Flight' radio option
 	When I see the subheading 'Flight number' with a text box
-	Then I provide the 'a-z$&*' in the box
+	Then I provide the '<FlightNumber>' in the box
 	And I have provided Scheduled departure time '10:50'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the flight number using up to 8 letters and numbers (for example, RK 103)" in route checking page
+	Examples:
+	| FlightNumber |
+	| a-z$&*       |
+	| 1234 5678    |
 
 Scenario: Verify error message for no scheduled departure date details provided
 	Then I have selected 'Flight' radio option
@@ -107,3 +111,17 @@ Scenario: Verify the scheduled departure date, date hint and current date pre-po
 Scenario: Verify the scheduled departure time and time hint
 	Then I should see time subsection 'Scheduled departure time'
 	And I should see hint 'Use the 24-hour clock - for example, 15:30.' under the time subheading
+
+Scenario: Verify the error message if scheduled departure date and time is more than 48 hours ago
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	Then I have selected departure date as current date '-2' and departure time as current time to check '48HoursAgo'
+	When I click save and continue button from route checker page
+	Then I should see an error message "The flight or ferry must have departed in the past 48 hours or departs within the next 24 hours" in route checking page
+
+Scenario: Verify the error message if scheduled departure date and time is after 24 hours from now
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	Then I have selected departure date as current date '1' and departure time as current time to check 'After24Hours'
+	When I click save and continue button from route checker page
+	Then I should see an error message "The flight or ferry must have departed in the past 48 hours or departs within the next 24 hours" in route checking page

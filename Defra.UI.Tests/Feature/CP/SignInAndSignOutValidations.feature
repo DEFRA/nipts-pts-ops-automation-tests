@@ -1,4 +1,4 @@
-﻿@CPRegression @CPCrossBrowser
+﻿@CPRegression
 Feature: SignIn And SignOut Validations
 
 Port checker login and logout from Checker Portal Application

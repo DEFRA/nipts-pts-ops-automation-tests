@@ -25,6 +25,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\Check-OutCome - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\ReportNonCompliance - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\SearchDocumentsValidations - Copy.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Accessibility\DogAndCat.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\E2E\DogAndCat - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\CP\Accessibility\Check-OutCome.feature.cs" />
@@ -64,20 +70,19 @@
     <PackageReference Include="Cognizant.WCAG.Compliance.Checker" Version="1.2.3" />
     <PackageReference Include="Defra.Ui.Automation.Framework" Version="2.0.7" />
     <PackageReference Include="Dynamitey" Version="3.0.3" />
+    <PackageReference Include="ExtentReports" Version="5.0.4" />
     <PackageReference Include="MailinatorApiClient" Version="1.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageReference Include="Reqnroll" Version="2.2.1" />
+    <PackageReference Include="Reqnroll.NUnit" Version="2.2.1" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="*" />
-    <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />	  
-    <PackageReference Include="SpecFlow.NUnit.Runners" Version="3.9.74" />
+    <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
-    <PackageReference Include="SpecFlow" Version="3.9.74" />
-    <PackageReference Include="SpecFlow.ExternalData" Version="3.9.74" />
-    <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
 	<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
 
   </ItemGroup>
@@ -93,6 +98,9 @@
     </None>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="driver.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="power-apps-bindings.yml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -127,11 +135,20 @@
     <Compile Update="Feature\AP\E2E\Ferret.feature.cs">
       <DependentUpon>Ferret.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\CP\Accessibility\CPAccessibility.feature.cs">
-      <DependentUpon>CPAccessibility.feature</DependentUpon>
+    <Compile Update="Feature\CP\Check-OutCome-SPS.feature.cs">
+      <DependentUpon>Check-OutCome-SPS.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\GBChecksReferralPagesValidation.feature.cs">
+      <DependentUpon>GBChecksReferralPagesValidation.feature</DependentUpon>
     </Compile>
     <Compile Update="Feature\CP\Check-OutCome.feature.cs">
       <DependentUpon>Check-Outcome.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\ReportNonCompliance-SPS.feature.cs">
+      <DependentUpon>ReportNonCompliance-SPS.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\SearchDocumentsValidations-SPS.feature.cs">
+      <DependentUpon>SearchDocumentsValidations-SPS.feature</DependentUpon>
     </Compile>
     <Compile Update="Feature\IDCOMS\IdcomsRegressionE2E.feature.cs">
       <DependentUpon>IdcomsRegressionE2E.feature</DependentUpon>
@@ -139,15 +156,15 @@
     <Compile Update="Feature\UAT\SUS\DataPreparation.feature.cs">
       <DependentUpon>DataPreparation.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\AP\Update\Update Pet Owner Details.feature.cs">
-      <DependentUpon>Update Pet Owner Details.feature</DependentUpon>
+    <Compile Update="Feature\AP\Update\UpdatePetOwnerDetails.feature.cs">
+      <DependentUpon>UpdatePetOwnerDetails.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\AP\Update\Update Pet Details.feature.cs">
-      <DependentUpon>Update Pet Details.feature</DependentUpon>
+    <Compile Update="Feature\AP\Update\UpdatePetDetails.feature.cs">
+      <DependentUpon>UpdatePetDetails.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\AP\Update\Update Microchip Information.feature.cs">
+    <Compile Update="Feature\AP\Update\UpdateMicrochipInformation.feature.cs">
       <Visible>true</Visible>
-      <DependentUpon>Update Microchip Information.feature</DependentUpon>
+      <DependentUpon>UpdateMicrochipInformation.feature</DependentUpon>
       <DesignTime>true</DesignTime>
       <AutoGen>true</AutoGen>
     </Compile>
@@ -160,6 +177,25 @@
     <Compile Update="Feature\AP\Validations\Microchip Information Validations.feature.cs">
       <DependentUpon>Microchip Information Validations.feature</DependentUpon>
     </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ReqnrollFeatureFiles Update="Feature\CP\Check-OutCome-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\GBChecksReferralPagesValidation.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\ReportNonCompliance-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\SearchDocumentsValidations-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
   </ItemGroup>
 
   <ItemGroup>

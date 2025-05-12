@@ -1,4 +1,4 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
@@ -40,7 +40,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void ClickGoBackToSearchLink()
         {
-            lnkGoBackToSearch.Click();
+            lnkGoBackToSearch.Click(_driver);
         }
         #endregion
     }

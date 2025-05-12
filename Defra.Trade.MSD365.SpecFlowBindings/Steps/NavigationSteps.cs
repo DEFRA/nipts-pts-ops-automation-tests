@@ -12,7 +12,7 @@ using Microsoft.Dynamics365.UIAutomation.Browser;
 using Microsoft.Xrm.Sdk;
 using OpenQA.Selenium;
 using System;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Steps relating to navigation of the Dynamics app.

@@ -1,9 +1,12 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using System.Runtime.Intrinsics.X86;
+using Reqnroll;
+using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -116,23 +119,29 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons,hint), "Reasons Heading and Hint does not exists as expected");
         }
 
-        [Then(@"I verify the GB Outcome '(.*)' checkboxes")]
-        public void ThenIVerifyTheGBOutcomeCheckboxes(string checkboxValues)
+        [Then(@"I verify the GB Outcome '(.*)' checkboxes under '(.*)'")]
+        public void ThenIVerifyTheGBOutcomeCheckboxes(string checkboxValues, string subHeading)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues),"The GB Outcome checkbox values are not correct");
+            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues,subHeading),"The GB Outcome checkbox values are not correct");
         }
 
         [Then(@"I Verify the GB and SPS Outcomes are not selected")]
         public void ThenIVerifyGBAndSPSOutcomesAreNotSelected()
         {
             Assert.False(_reportNonCompliancePage?.VerifyGBCheckboxesAreNotChecked());
+            //Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
+        }
+        
+        [Then(@"I Verify the SPS Outcomes are not selected")]
+        public void ThenIVerifySPSOutcomesAreNotSelected()
+        {
             Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
         }
         
-        [Then(@"I verify the SPS Outcome '(.*)' options")]
-        public void ThenIVerifyTheSPSOutcomeOptions(string checkboxValues)
+        [Then(@"I verify the SPS Outcome '(.*)' options under '(.*)'")]
+        public void ThenIVerifyTheSPSOutcomeOptions(string checkboxValues , string subHeading)
         {
-            Assert.True(_reportNonCompliancePage?.VerifySPSOutcomeCheckboxes(checkboxValues),"The SPS Outcome checkbox values are not correct");
+            Assert.True(_reportNonCompliancePage?.VerifySPSOutcomeCheckboxes(checkboxValues, subHeading),"The SPS Outcome checkbox values are not correct");
         }
         
         [Then(@"I verify the Details of Outcome label")]
@@ -201,7 +210,7 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyOtherIssuesCheckboxes(checkboxOptions), "The other issues in Visual check section checkbox values are not correct");
         }
 
-        [Then(@"I should see a hint '([^']*)' next to Other reason option")]
+        [Then(@"I should see a hint ""([^""]*)"" next to Other reason option")]
         public void ThenIShouldSeeAHintNextToOtherReasonOption(string hint)
         {
             Assert.True(_reportNonCompliancePage?.VerifyOtherReasonOptionHint(hint), "Other reason checkbox hint is not displayed");
@@ -243,6 +252,12 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _reportNonCompliancePage?.ClickGBOutcomeCheckbox(GBOutcome);
         }
+        
+        [When(@"I click '(.*)' in SPS Outcome")]
+        public void WhenISelectSPSOutcome(string SPSOutcome)
+        {
+            _reportNonCompliancePage?.ClickSPSOutcomeCheckbox(SPSOutcome);
+        }
 
         [Then(@"I should see Name '([^']*)' and Email '([^']*)' of Pet owner")]
         public void ThenIShouldSeeNameAndEmailOfPetOwner(string name, string email)
@@ -260,6 +275,18 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeAMessageInChecksPage(string submittedMessage)
         {
             Assert.True(_reportNonCompliancePage?.VerifyInfoSubmittedMessage(submittedMessage));
+        }
+
+        [When(@"I should see '([^']*)' '([^']*)' '([^']*)' radio buttons not selected by default")]
+        public void ThenIShouldSeeRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline)
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerRadioButtons(ferryFootPassenger, vehicleOnFerry, airline));
+        }
+
+        [Then(@"I should see no checkboxes are selected in microchip section")]
+        public void ThenIShouldSeeNoCheckboxesAreSelectedInMicrochipSection()
+        {
+            Assert.False(_reportNonCompliancePage?.VerifyMicrochipCheckboxesAreChecked());
         }
     }
 }

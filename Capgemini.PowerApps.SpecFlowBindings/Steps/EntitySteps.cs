@@ -9,7 +9,7 @@ using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI.DTO;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 /// <summary>
 /// Step bindings related to forms.
@@ -72,7 +72,7 @@ public class EntitySteps : PowerAppsStepDefiner
         Driver.FindElement(By.XPath("html")).Click();
 
         Driver.WaitForTransaction();
-    }     
+    }
 
     /// <summary>
     /// Sets the values of the fields in the table on the form.
@@ -83,7 +83,7 @@ public class EntitySteps : PowerAppsStepDefiner
     {
         fields = fields ?? throw new ArgumentNullException(nameof(fields));
 
-        foreach (TableRow row in fields.Rows)
+        foreach (DataTableRow row in fields.Rows)
         {
             WhenIEnterInTheField(row["Value"], row["Field"], row["Type"], row["Location"]);
         }
@@ -530,6 +530,12 @@ public class EntitySteps : PowerAppsStepDefiner
                     Name = fieldName,
                     Value = fieldValue,
                 }, index);
+                break;
+            case "buttonset":
+                XrmApp.Entity.SetValue(
+                    fieldName,
+                    fieldValue,
+                 index);
                 break;
             case "boolean":
                 XrmApp.Entity.SetValue(new BooleanItem()

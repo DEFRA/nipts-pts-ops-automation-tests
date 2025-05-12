@@ -9,7 +9,7 @@ using OpenQA.Selenium;
 using Polly;
 using System;
 using System.Linq;
-using TechTalk.SpecFlow;
+using Reqnroll;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using Field = Microsoft.Dynamics365.UIAutomation.Api.UCI.Field;
 using LookupItem = Microsoft.Dynamics365.UIAutomation.Api.UCI.LookupItem;
@@ -209,7 +209,7 @@ public sealed class ModalFormSteps : PowerAppsStepDefiner
         Driver.WaitForTransaction();
     }
 
-    [Then(@"I can see a value of '(.*)' in the '(.*)' (lookup|numeric|text|datetime|boolean|optionset|statecode) (field|header field) within the '(.*)' modal form")]
+    [Then(@"I can see a value of '(.*)' in the '(.*)' (lookup|numeric|text|input|datetime|inputdatetime|boolean|buttonset|optionset|statecode) (field|header field) within the '(.*)' modal form")]
     public static void ThenICanSeeAValueOfInTheFieldWithinTheModalForm(string expectedValue, string fieldName, string fieldType, string location, string formDisplayName)
     {
         var formContext = FormHelper.GetFormContext(Driver);

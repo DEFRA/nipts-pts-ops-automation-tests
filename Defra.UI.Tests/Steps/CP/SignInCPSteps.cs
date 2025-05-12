@@ -1,10 +1,10 @@
-﻿using BoDi;
+﻿using Reqnroll.BoDi;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -62,14 +62,27 @@ namespace Defra.UI.Tests.Steps.CP
         [When(@"I have provided the CP credentials and signin")]
         public void WhenIHaveProvidedTheCPCredentialsAndSignin()
         {
-            var jsonData = UserObject?.GetUser("CP");
+            var jsonData = UserObject?.GetUser("CP","GB");
             var userObject = new User
             {
                 UserName = jsonData.UserName,
                 Credential = jsonData.Credential
             };
 
-            _signInCPPage?.IsSignedIn(userObject.UserName, userObject.Credential);
+            _signInCPPage?.SignIn(userObject.UserName, userObject.Credential);
+        }
+
+        [When(@"I have provided the CP SPS credentials and signin")]
+        public void WhenIHaveProvidedTheCPSPSCredentialsAndSignin()
+        {
+            var jsonData = UserObject?.GetUser("CP","SPS");
+            var userObject = new User
+            {
+                UserName = jsonData.UserName,
+                Credential = jsonData.Credential
+            };
+
+            _signInCPPage?.SignIn(userObject.UserName, userObject.Credential);
         }
     }
 }

@@ -1,7 +1,4 @@
-trigger:
-  branches:
-    exclude:
-      - '*'
+trigger: none
 
 parameters:
   - name: environment
@@ -17,13 +14,13 @@ resources:
       ref: $(Build.SourceBranch)
       endpoint: DEFRA
 
+variables:
+  - template: 'variables/AP/${{ parameters.environment }}.yml'
 
 stages:
   
   - stage: Windows_Chrome_latest
     displayName: Windows_Chrome_latest    
-    variables:
-        - template: 'variables/AP/${{ parameters.environment }}.yml'
   
     jobs:
     - template: run-test-template.yml

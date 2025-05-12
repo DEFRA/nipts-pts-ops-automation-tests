@@ -10,6 +10,7 @@
         void SearchButton();
         void ClearSearchButton();
         bool IsError(string errorMessage);
+        bool IsErrorTitle(string errorMessage);
         bool VerifyTheValuesAreCleared();
         bool VerifyAlreadyEnteredPTDNumber(string alreadyEnteredPTDNumber);
         bool VerifyAlreadyEnteredApplicationNumber(string alreadyEnteredApplicationNumber);
@@ -17,5 +18,6 @@
         bool VerifyYouCannotAccessPage(string errorPageHeading);
         void VerifyGoBackToPreviousPageLink();
         void SelectAndSwapToApplicationNumberRadioButton();
+        void ClickBrowserBackButton();
     }
 }

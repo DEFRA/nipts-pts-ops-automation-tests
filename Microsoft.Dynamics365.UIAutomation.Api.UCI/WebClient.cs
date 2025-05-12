@@ -2,6 +2,7 @@
 // Licensed under the MIT license.
 
 using AngleSharp.Dom;
+using Microsoft.Dynamics365.UIAutomation.Api.UCI.Controls;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI.DTO;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using Newtonsoft.Json;
@@ -1128,11 +1129,11 @@ public class WebClient : BrowserPage, IDisposable
 
             if (to == Dialogs.AssignTo.Me)
             {
-                SetValue(new OptionSet { Name = Elements.ElementId[Reference.Dialogs.Assign.AssignToId], Value = "Me" }, FormContextType.Dialog);
+                SetValue(new ButtonSet { Name = Elements.ElementId[Reference.Dialogs.Assign.AssignToId], Value = "Me" }, FormContextType.Dialog);
             }
             else
             {
-                SetValue(new OptionSet { Name = Elements.ElementId[Reference.Dialogs.Assign.AssignToId], Value = "User or team" }, FormContextType.Dialog);
+                SetValue(new ButtonSet { Name = Elements.ElementId[Reference.Dialogs.Assign.AssignToId], Value = "User or team" }, FormContextType.Dialog);
 
                 //Set the User Or Team
                 var userOrTeamField = driver.WaitUntilAvailable(By.XPath(AppElements.Xpath[AppReference.Entity.TextFieldLookup]), "User field unavailable");
@@ -1607,7 +1608,7 @@ public class WebClient : BrowserPage, IDisposable
             return true;
         });
     }
-    
+
 
     internal BrowserCommandResult<bool> ClearSearch(int thinkTime = Constants.DefaultThinkTime)
     {
@@ -2761,6 +2762,31 @@ public class WebClient : BrowserPage, IDisposable
         });
     }
 
+    /// <summary>
+    /// Set Value
+    /// </summary>
+    /// <param name="field">The field</param>
+    /// <param name="value">The value</param>
+    /// <example>xrmApp.Entity.SetValue("firstname", "Test");</example>
+    internal BrowserCommandResult<bool> SetValueButtonList(string field, string value, FormContextType formContextType = FormContextType.Entity)
+    {
+        return Execute(GetOptions("Set Value"), driver =>
+        {
+            IWebElement fieldContainer = null;
+            fieldContainer = ValidateFormContext(driver, formContextType, field, fieldContainer);
+
+            IWebElement input;
+            bool found = fieldContainer.TryFindElement(By.TagName("button"), out input);
+
+            if (!found)
+                throw new NoSuchElementException($"Field with name {field} does not exist.");
+
+            SelectButtonValue(driver, input, value);
+
+            return true;
+        });
+    }
+
     private void SetInputValue(IWebDriver driver, IWebElement input, string value, TimeSpan? thinktime = null)
     {
         // Repeat set value if expected value is not set
@@ -2773,6 +2799,25 @@ public class WebClient : BrowserPage, IDisposable
             input.SendKeys(Keys.Control + "a");
             input.SendKeys(Keys.Backspace);
             input.SendKeys(value);
+            driver.WaitForTransaction();
+        },
+            d => input.GetAttribute("value").IsValueEqualsTo(value),
+            TimeSpan.FromSeconds(9), 3,
+            failureCallback: () => throw new InvalidOperationException($"Timeout after 10 seconds. Expected: {value}. Actual: {input.GetAttribute("value")}")
+        );
+
+        driver.WaitForTransaction();
+    }
+
+    private void SelectButtonValue(IWebDriver driver, IWebElement input, string value, TimeSpan? thinktime = null)
+    {
+        // Repeat set value if expected value is not set
+        // Do this to ensure that the static placeholder '---' is removed 
+        driver.RepeatUntil(() =>
+        {
+            input.Click();
+            input.SendKeys(value);
+            input.SendKeys(Keys.Enter);
             driver.WaitForTransaction();
         },
             d => input.GetAttribute("value").IsValueEqualsTo(value),
@@ -2948,6 +2993,25 @@ public class WebClient : BrowserPage, IDisposable
         });
     }
 
+    /// <summary>
+    /// Sets the value of a picklist or status field.
+    /// </summary>
+    /// <param name="control">The option you want to set.</param>
+    /// <example>xrmApp.Entity.SetValue(new OptionSet { Name = "preferredcontactmethodcode", Value = "Email" });</example>
+    public BrowserCommandResult<bool> SetValue(ButtonSet control, FormContextType formContextType, int index = 0)
+    {
+        var controlName = control.Name;
+        return Execute(GetOptions($"Set OptionSet Value: {controlName}"), driver =>
+        {
+            IWebElement fieldContainer = null;
+            fieldContainer = ValidateFormContext(driver, formContextType, controlName, fieldContainer);
+
+            TrySetValue(fieldContainer, control);
+            driver.WaitForTransaction();
+            return true;
+        });
+    }
+
     private static void TrySetValue(IWebElement fieldContainer, OptionSet control)
     {
         var value = control.Value;
@@ -2975,6 +3039,25 @@ public class WebClient : BrowserPage, IDisposable
         }
 
         throw new InvalidOperationException($"OptionSet Field: '{name}' does not exist");
+    }
+
+    private static void TrySetValue(IWebElement fieldContainer, ButtonSet control)
+    {
+        var value = control.Value;
+        bool success = fieldContainer.TryFindElement(By.TagName("button"), out IWebElement select);
+        if (success)
+        {
+            fieldContainer.WaitUntilAvailable(By.TagName("button"));
+            select.Click();
+
+            select.SendKeys(value);
+            select.SendKeys(Keys.Enter);
+            return;
+        }
+
+        var name = control.Name;
+
+        throw new InvalidOperationException($"ButtonSet Field: '{name}' does not exist");
     }
 
     private static void TrySetComboValue(IWebElement fieldContainer, OptionSet control, IWebDriver driver, int index = 0)
@@ -3173,7 +3256,7 @@ public class WebClient : BrowserPage, IDisposable
     private bool TrySetValue(IWebDriver driver, ISearchContext container, DateTimeControl control, FormContextType formContext)
     {
         TrySetDateValue(driver, container, control, formContext);
-        TrySetTime(driver, container, control, formContext);
+        //TrySetTime(driver, container, control, formContext);
 
         if (formContext == FormContextType.Header)
         {
@@ -3276,7 +3359,10 @@ public class WebClient : BrowserPage, IDisposable
                 if (date != null)
                 {
                     dateField.SendKeys(date);
-                    dateField.SendKeys(Keys.Tab);
+                    Thread.Sleep(2000);
+                    dateField.SendKeys(Keys.Enter);
+                    Thread.Sleep(2000);
+                    dateField.SendKeys(Keys.Enter);
                 }
             },
             d => dateField.GetAttribute("value").IsValueEqualsTo(date),
@@ -3554,8 +3640,8 @@ public class WebClient : BrowserPage, IDisposable
             else
             {
                 returnField = new Field(fieldElement);
-            }           
-            
+            }
+
             returnField.Name = field;
 
             IWebElement fieldLabel = null;
@@ -5206,7 +5292,6 @@ TimeSpan.FromSeconds(5),
 
                 return true;
             }
-
             throw new InvalidOperationException($"Field: {fieldName} with tagname {expectedTagName} Does not exist");
         });
     }
@@ -5816,7 +5901,7 @@ TimeSpan.FromSeconds(5),
             driver.FindElement(By.XPath("//span[text()='" + operators + "']")).Click();
             if (driver.FindElements(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindAddDropdown])).Count == 2)
                 driver.FindElement(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindValue])).SendKeys(value);
-            else if(!value.Equals(""))
+            else if (!value.Equals(""))
             {
                 driver.FindElement(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindValue])).Click();
                 driver.FindElement(By.XPath("//label[text()='" + value + "']")).Click();
