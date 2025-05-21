@@ -30,38 +30,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement colorBanner => _driver.WaitForElement(By.XPath("//div[contains(@class , 'govuk-panel govuk-panel--confirmation govuk')]"));
         private IWebElement lblDocCardHeading => _driver.WaitForElement(By.XPath("//div[@id='document-issued-card']/div/h2"));
         private IWebElement lblRefNumber => _driver.WaitForElement(By.XPath("(//div[@id='document-issued-card']//dt)[1]"));
-        private IWebElement lblRefNumberValue => _driver.WaitForElement(By.XPath("(//div[@id='document-issued-card']//dt)[1]/following-sibling::dd"));
-        private IWebElement lblDateValue => _driver.WaitForElement(By.XPath("(//div[@id='document-issued-card']//dt)[2]/following-sibling::dd"));
         private IWebElement lblDate => _driver.WaitForElement(By.XPath("(//div[@id='document-issued-card']//dt)[2]"));
-        private IWebElement lblMCInfo => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Microchip information']"));
-        private IWebElement lblMCNumber => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Microchip information']/following::dt[@class='govuk-summary-list__key'][1]"));
-        private IWebElement lblMCNumberValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Microchip information']/following::dt[@class='govuk-summary-list__key'][1]/following-sibling::dd"));
-        private IWebElement lblMCImplantDate => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Microchip information']/following::dt[@class='govuk-summary-list__key'][2]"));
-        private IWebElement lblMCImplantDateValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Microchip information']/following::dt[@class='govuk-summary-list__key'][2]/following-sibling::dd"));
-        private IWebElement lblPetDetails => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']"));
-        private IWebElement lblPetName => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Pet name']"));
-        private IWebElement lblPetNameValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Pet name']/following-sibling::dd"));
-        private IWebElement lblSpecies => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Species']"));
-        private IWebElement lblSpeciesValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Species']/following-sibling::dd"));
-        private IWebElement lblBreed => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Breed']"));
-        private IWebElement lblBreedValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Breed']/following-sibling::dd"));
-        private IWebElement lblSex => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Sex']"));
-        private IWebElement lblSexValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Sex']/following-sibling::dd"));
-        private IWebElement lblDOB => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Date of birth']"));
-        private IWebElement lblDOBValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Date of birth']/following-sibling::dd"));
-        private IWebElement lblColor => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Colour']"));
-        private IWebElement lblColorValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Colour']/following-sibling::dd"));
-        private IWebElement lblSignificantFeature => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Significant features']"));
-        private IWebElement lblSignificantFeatureValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Significant features']/following-sibling::dd"));
-        private IWebElement lblPetOwnerDetails => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet owner details']"));
-        private IWebElement lblName => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet owner details']/following::dt[normalize-space() = 'Name']"));
-        private IWebElement lblNameValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet owner details']/following::dt[normalize-space() = 'Name']/following-sibling::dd"));
-        private IWebElement lblEmail => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet owner details']/following::dt[normalize-space() = 'Email']"));
-        private IWebElement lblEmailValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet owner details']/following::dt[normalize-space() = 'Email']/following-sibling::dd"));
-        private IWebElement lblAddress => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet owner details']/following::dt[normalize-space() = 'Address']"));
-        private IWebElement lblAddressValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet owner details']/following::dt[normalize-space() = 'Address']/following-sibling::dd"));
-        private IWebElement lblPhoneNumber => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet owner details']/following::dt[normalize-space() = 'Phone number']"));
-        private IWebElement lblPhoneNumberValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Pet owner details']/following::dt[normalize-space() = 'Phone number']/following-sibling::dd"));
         private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']"));
         private IWebElement lblIssuingAuthorityNameAndAddress => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Name and address of competent authority']"));
         private IWebElement lblIssuingAuthorityNameAndAddressValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Name and address of competent authority']/following-sibling::dd"));
@@ -77,6 +46,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPassRadioButtonHint => _driver.WaitForElement(By.XPath("//*[@id='pass-hint']"));
         private IWebElement lblFailRadioButtonHint => _driver.WaitForElement(By.XPath("//*[@id='fail-hint']"));
         private IWebElement lblErrorTitle => _driver.WaitForElement(By.XPath("//*[@id='error-summary-title']"));
+        private IWebElement PetDetailsSection => _driver.WaitForElement(By.Id("document-pet-card"));
+        private IWebElement RefNumberSection => _driver.WaitForElement(By.Id("document-issued-card"));
+        private IWebElement MicrochipInfoSection => _driver.WaitForElement(By.Id("document-microchip-card"));
+        private IWebElement PetOwnerDetailsSection => _driver.WaitForElement(By.Id("document-owner-card"));
         #endregion
 
         #region Methods
@@ -159,7 +132,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (status.Equals("Approved") || status.Equals("Unsuccessful"))
             {
-                return (lblIssuingAuthority.Text.Equals("Issuing authority") && lblIssuingAuthorityNameAndAddress.Text.Equals("Name and address of competent authority") && lblIssuingAuthoritySign.Text.Equals("Signed on behalf of the competent authority (APHA)") && lblIssuingAuthorityNameAndAddressValue.Text.Equals("Animal and Plant Health Agency\r\nPet Travel Section\r\nEden Bridge House\r\nLowther Street\r\nCarlisle\r\nCA3 8DX") && lblIssuingAuthoritySignValue.Text.Equals("John Smith (APHA) (Signed digitally)"));
+                return (lblIssuingAuthority.Text.Equals("Issuing authority")
+                    && lblIssuingAuthorityNameAndAddress.Text.Equals("Name and address of competent authority")
+                    && lblIssuingAuthoritySign.Text.Equals("Signed on behalf of the competent authority (APHA)")
+                    && lblIssuingAuthorityNameAndAddressValue.Text.Equals("Animal and Plant Health Agency\r\nPet Travel Section\r\nEden Bridge House\r\nLowther Street\r\nCarlisle\r\nCA3 8DX")
+                    && lblIssuingAuthoritySignValue.Text.Equals("John Smith (APHA) (Signed digitally)"));
             }
             else if (status.Equals("Pending"))
             {
@@ -175,53 +152,67 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyMicrochipInformationTable()
         {
-            lblMCInfo.ScrollToElement(_driver);
-            return lblMCInfo.Text.Replace("\r\n", string.Empty).Trim().Equals("Microchip information")
-                && lblMCNumber.Text.Replace("\r\n", string.Empty).Trim().Equals("Microchip number")
-                && lblMCImplantDate.Text.Replace("\r\n", string.Empty).Trim().Equals("Implant or scan date");
+            MicrochipInfoSection.ScrollToElement(_driver);
+            var title = MicrochipInfoSection.FindElement(By.ClassName("govuk-summary-card__title"));
+            var microchipFieldList = MicrochipInfoSection.FindElements(By.ClassName("govuk-summary-list__key"));
+
+            return title.Text.Replace("\r\n", string.Empty).Trim().Equals("Microchip information")
+                && microchipFieldList[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Microchip number")
+                && microchipFieldList[1].Text.Replace("\r\n", string.Empty).Trim().Equals("Implant or scan date");
         }
 
         public bool VerifyPetDetailsTable(string species)
         {
-            lblPetDetails.ScrollToElement(_driver);
+            PetDetailsSection.ScrollToElement(_driver);
+
+            var petDetailsFieldList = PetDetailsSection.FindElements(By.ClassName("govuk-summary-list__key"));
+            var title = PetDetailsSection.FindElement(By.ClassName("govuk-summary-card__title"));
 
             if (species.Equals("Ferret"))
             {
-                return lblPetDetails.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet details")
-                    && lblPetName.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet name")
-                    && lblSpecies.Text.Replace("\r\n", string.Empty).Trim().Equals("Species")
-                    && lblSex.Text.Replace("\r\n", string.Empty).Trim().Equals("Sex")
-                    && lblDOB.Text.Replace("\r\n", string.Empty).Trim().Equals("Date of birth")
-                    && lblColor.Text.Replace("\r\n", string.Empty).Trim().Equals("Colour")
-                    && lblSignificantFeature.Text.Replace("\r\n", string.Empty).Trim().Equals("Significant features")
-                    && _driver.FindElements(By.XPath("//h2[normalize-space() = 'Pet details']/following::dt[normalize-space() = 'Breed']")).Count.Equals(0);
+                return title.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet details")
+                    && petDetailsFieldList[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Pet name")
+                    && petDetailsFieldList[1].Text.Replace("\r\n", string.Empty).Trim().Equals("Species")
+                    && petDetailsFieldList[2].Text.Replace("\r\n", string.Empty).Trim().Equals("Sex")
+                    && petDetailsFieldList[3].Text.Replace("\r\n", string.Empty).Trim().Equals("Date of birth")
+                    && petDetailsFieldList[4].Text.Replace("\r\n", string.Empty).Trim().Equals("Colour")
+                    && petDetailsFieldList[5].Text.Replace("\r\n", string.Empty).Trim().Equals("Significant features");
             }
             else
             {
-                return lblPetDetails.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet details")
-                    && lblPetName.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet name")
-                    && lblSpecies.Text.Replace("\r\n", string.Empty).Trim().Equals("Species")
-                    && lblBreed.Text.Replace("\r\n", string.Empty).Trim().Equals("Breed")
-                    && lblSex.Text.Replace("\r\n", string.Empty).Trim().Equals("Sex")
-                    && lblDOB.Text.Replace("\r\n", string.Empty).Trim().Equals("Date of birth")
-                    && lblColor.Text.Replace("\r\n", string.Empty).Trim().Equals("Colour")
-                    && lblSignificantFeature.Text.Replace("\r\n", string.Empty).Trim().Equals("Significant features");
+                return title.Text.Replace("\r\n", string.Empty).Trim().Equals("Pet details")
+                    && petDetailsFieldList[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Pet name")
+                    && petDetailsFieldList[1].Text.Replace("\r\n", string.Empty).Trim().Equals("Species")
+                    && petDetailsFieldList[2].Text.Replace("\r\n", string.Empty).Trim().Equals("Breed")
+                    && petDetailsFieldList[3].Text.Replace("\r\n", string.Empty).Trim().Equals("Sex")
+                    && petDetailsFieldList[4].Text.Replace("\r\n", string.Empty).Trim().Equals("Date of birth")
+                    && petDetailsFieldList[5].Text.Replace("\r\n", string.Empty).Trim().Equals("Colour")
+                    && petDetailsFieldList[6].Text.Replace("\r\n", string.Empty).Trim().Equals("Significant features");
             }
         }
 
         public bool VerifyPetOwnerDetailsTable()
         {
-            lblPetOwnerDetails.ScrollToElement(_driver);
-            return lblPetOwnerDetails.Text.Equals("Pet owner details") && lblName.Text.Equals("Name") && lblEmail.Text.Equals("Email") && lblAddress.Text.Equals("Address") && lblPhoneNumber.Text.Equals("Phone number");
+            PetOwnerDetailsSection.ScrollToElement(_driver);
+            var title = PetOwnerDetailsSection.FindElement(By.ClassName("govuk-summary-card__title"));
+            var petOwnerDetailsFieldList = PetOwnerDetailsSection.FindElements(By.ClassName("govuk-summary-list__key"));
+
+            return title.Text.Equals("Pet owner details")
+                && petOwnerDetailsFieldList[0].Text.Equals("Name")
+                && petOwnerDetailsFieldList[1].Text.Equals("Email")
+                && petOwnerDetailsFieldList[2].Text.Equals("Address")
+                && petOwnerDetailsFieldList[3].Text.Equals("Phone number");
         }
 
         public bool VerifyRefNumTableValues(string values, string status)
         {
             var value = values.Split('^');
-            lblRefNumberValue.ScrollToElement(_driver);
+            RefNumberSection.ScrollToElement(_driver);
 
-            var refNumber = lblRefNumberValue.Text.Replace("\r\n", string.Empty).Trim();
-            var date = lblDateValue.Text.Replace("\r\n", string.Empty).Trim();
+            var documentIssuedFieldList = RefNumberSection.FindElements(By.ClassName("govuk-summary-list__value"));
+
+            var refNumber = documentIssuedFieldList[0].Text.Replace("\r\n", string.Empty).Trim();
+            var date = documentIssuedFieldList[1].Text.Replace("\r\n", string.Empty).Trim();
 
             if (status.Equals("Unsuccessful") || status.Equals("Pending"))
             {
@@ -237,10 +228,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyMCTableValues(string values, string status)
         {
             string[] value = values.Split('^');
-            lblMCNumberValue.ScrollToElement(_driver);
+            MicrochipInfoSection.ScrollToElement(_driver);
 
-            var mcNumber = lblMCNumberValue.Text.Replace("\r\n", string.Empty).Trim();
-            var mcImplantDate = lblMCImplantDateValue.Text.Replace("\r\n", string.Empty).Trim();
+            var microchipFieldList = MicrochipInfoSection.FindElements(By.ClassName("govuk-summary-list__value"));
+
+            var mcNumber = microchipFieldList[0].Text.Replace("\r\n", string.Empty).Trim();
+            var mcImplantDate = microchipFieldList[1].Text.Replace("\r\n", string.Empty).Trim();
 
             return mcNumber.Equals(value[0]) && mcImplantDate.Equals(value[1]);
         }
@@ -249,18 +242,21 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             string[] value = values.Split('^');
 
-            lblPetNameValue.ScrollToElement(_driver);
+            PetDetailsSection.ScrollToElement(_driver);
 
-            var petName = lblPetNameValue.Text.Replace("\r\n", string.Empty).Trim();
-            var speciesValue = lblSpeciesValue.Text.Replace("\r\n", string.Empty).Trim();
-            var sex = lblSexValue.Text.Replace("\r\n", string.Empty).Trim();
-            var dob = lblDOBValue.Text.Replace("\r\n", string.Empty).Trim();
-            var color = lblColorValue.Text.Replace("\r\n", string.Empty).Trim();
-            var significantFeature = lblSignificantFeatureValue.Text.Replace("\r\n", string.Empty).Trim();
-            var breed = lblBreedValue.Text.Replace("\r\n", string.Empty).Trim();
+            var petDetailsList = PetDetailsSection.FindElements(By.ClassName("govuk-summary-list__value"));
+
+            var petName = petDetailsList[0].Text.Replace("\r\n", string.Empty).Trim();
+            var speciesValue = petDetailsList[1].Text.Replace("\r\n", string.Empty).Trim();
 
             if (species.ToUpper().Equals("FERRET"))
             {
+
+                var sex = petDetailsList[2].Text.Replace("\r\n", string.Empty).Trim();
+                var dob = petDetailsList[3].Text.Replace("\r\n", string.Empty).Trim();
+                var color = petDetailsList[4].Text.Replace("\r\n", string.Empty).Trim();
+                var significantFeature = petDetailsList[5].Text.Replace("\r\n", string.Empty).Trim();
+
                 return petName.Equals(value[0])
                     && speciesValue.Equals(value[1])
                     && sex.Equals(value[2])
@@ -270,6 +266,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             else if (species.ToUpper().Equals("DOG") || species.ToUpper().Equals("CAT"))
             {
+                var breed = petDetailsList[2].Text.Replace("\r\n", string.Empty).Trim();
+                var sex = petDetailsList[3].Text.Replace("\r\n", string.Empty).Trim();
+                var dob = petDetailsList[4].Text.Replace("\r\n", string.Empty).Trim();
+                var color = petDetailsList[5].Text.Replace("\r\n", string.Empty).Trim();
+                var significantFeature = petDetailsList[6].Text.Replace("\r\n", string.Empty).Trim();
+
+
                 return petName.Equals(value[0])
                     && speciesValue.Equals(value[1])
                     && breed.Equals(value[2])
@@ -286,9 +289,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             string[] value = values.Split('^');
 
-            var name = lblNameValue.Text.Replace("\r\n", string.Empty).Trim();
-            var email = lblEmailValue.Text.Replace("\r\n", string.Empty).Trim();
-            var phoneNumber = lblPhoneNumberValue.Text.Replace("\r\n", string.Empty).Trim();
+            PetOwnerDetailsSection.ScrollToElement(_driver);
+
+            var petOwnerDetailsFieldList = PetOwnerDetailsSection.FindElements(By.ClassName("govuk-summary-list__value"));
+
+            var name = petOwnerDetailsFieldList[0].Text.Replace("\r\n", string.Empty).Trim();
+            var email = petOwnerDetailsFieldList[1].Text.Replace("\r\n", string.Empty).Trim();
+            var phoneNumber = petOwnerDetailsFieldList[3].Text.Replace("\r\n", string.Empty).Trim();
 
             return name.Equals(value[0])
                     && email.Equals(value[1])

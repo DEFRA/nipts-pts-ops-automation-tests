@@ -5,6 +5,7 @@ using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -133,12 +134,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyTheExpectedStatus(string applicationStatus)
         {
             var bgColor = txtValueStatus.GetCssValue("background-color");
-            dynamic[] rgbValues = bgColor.Replace("rgba(", "").Replace(")", "").Split(',');
-            int r = int.Parse(rgbValues[0]);
-            int g = int.Parse(rgbValues[1]);
-            int b = int.Parse(rgbValues[2]);
-            string hexColor = "#" + r.ToString("X2") + g.ToString("X2") + b.ToString("X2");
-            string expectedColor = null;
+
+            MatchCollection matches = Regex.Matches(bgColor, @"\d+");
+
+            var red = int.Parse(matches[0].Value);
+            var green = int.Parse(matches[1].Value);
+            var blue = int.Parse(matches[2].Value);
+
+            var hexColor = "#" + red.ToString("X2") + green.ToString("X2") + blue.ToString("X2");
+
+            var expectedColor = string.Empty;
 
             switch (applicationStatus)
             {
@@ -156,21 +161,25 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
             return txtValueStatus.Text.Trim().Equals(applicationStatus) && expectedColor.Equals(hexColor);
         }
+
         public bool VerifyThePTDNumber(string ptdNumber)
         {
             txtValuePTDNumber.ScrollToElement(_driver);
             return txtValuePTDNumber.Text.Trim().Equals($"GB826 {ptdNumber}");
         }
+
         public bool VerifyTheDateOfIssuance(string dateOfIssuance)
         {
             txtValueDate.ScrollToElement(_driver);
             return txtValueDate.Text.Trim().Equals(dateOfIssuance);
         }
+
         public bool VerifyTheReferenceNumber(string referenceNumber)
         {
             txtValueReferenceNumber.ScrollToElement(_driver);
             return txtValueReferenceNumber.Text.Trim().Equals(referenceNumber);
         }
+
         public bool VerifyReasonsHeadingWithHint(string reasons, string hint)
         {
             string reasonsHeading = lblReasonsHeading.Text;
@@ -218,9 +227,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             var gbOutcomeCheckbox = checkboxValues.Split('|');
             chkGBOutcome1.ScrollToElement(_driver);
-            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text) 
-                && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text) 
-                && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text) 
+            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text)
+                && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text)
+                && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text)
                 && lblReportOutcome.Text.Equals(subHeading));
         }
 
@@ -239,7 +248,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 chkGBOutcome3.ScrollAndClick(_driver);
             }
         }
-        
+
         public void ClickSPSOutcomeCheckbox(string SPSOutcome)
         {
             if (SPSOutcome.ToUpper().Equals("ALLOWED"))
@@ -429,7 +438,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline)
         {
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnFootPassengerRadio);
+            btnFootPassengerRadio.ScrollToElement(_driver);
+
             return btnFootPassengerRadio.Text.Contains(ferryFootPassenger)
                 && btnVehicleRadio.Text.Contains(vehicleOnFerry)
                 && btnAirlineRadio.Text.Contains(airline)
