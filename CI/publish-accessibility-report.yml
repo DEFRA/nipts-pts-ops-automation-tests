@@ -16,7 +16,7 @@ jobs:
         targetType: 'inline'
         script: |
          $sourcePath= "$(System.DefaultWorkingDirectory)"
-         $destinationPath = "$sourcePath\reports"
+         $destinationPath = "$sourcePath\Accessibility"
          if( -not (Test-Path -Path $destinationPath) ) {
             New-Item -ItemType Directory -Path $destinationPath }      
 
