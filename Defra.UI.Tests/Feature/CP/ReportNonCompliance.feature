@@ -489,6 +489,7 @@ Scenario Outline: Verify passenger details section radio buttons in Report non-c
 	Then I should navigate to Report non-compliance page
 	When I Click on Back button
 	And I should see the application status in 'Approved'
+	And I select Fail radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should see 'Type of passenger' subheading under 'Passenger details' section

@@ -36,7 +36,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome']"));
         private IWebElement lblAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']"));
         private IWebElement lblAnyRelavantCommentsHint => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]"));
-        private IWebElement TxtAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]/following::textarea[1]"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         private IReadOnlyCollection<IWebElement> lblPetTravelDocumentDetails => _driver.FindElements(By.XPath("//span[@class='govuk-heading-s']"));
         private IWebElement lblPTDStatus => _driver.WaitForElementExists(By.XPath("//p[@class='govuk-body govuk-!-margin-bottom-0 pts-checker-check']"));
@@ -226,10 +225,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             var gbOutcomeCheckbox = checkboxValues.Split('|');
             chkGBOutcome1.ScrollToElement(_driver);
-            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text)
-                && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text)
-                && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text)
-                && lblReportOutcome.Text.Equals(subHeading));
+            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text.Replace("\r\n",string.Empty).Trim())
+                && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text.Replace("\r\n", string.Empty).Trim())
+                && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text.Replace("\r\n", string.Empty).Trim())
+                && lblReportOutcome.Text.Replace("\r\n", string.Empty).Trim().Equals(subHeading));
         }
 
         public void ClickGBOutcomeCheckbox(string GBOutcome)

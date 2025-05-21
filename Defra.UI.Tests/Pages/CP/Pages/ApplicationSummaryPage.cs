@@ -28,9 +28,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement btnSaveAndContinue => _driver.WaitForElement(By.XPath("//*[@id='saveAndContinue']"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         private IWebElement colorBanner => _driver.WaitForElement(By.XPath("//div[contains(@class , 'govuk-panel govuk-panel--confirmation govuk')]"));
-        private IWebElement lblDocCardHeading => _driver.WaitForElement(By.XPath("//div[@id='document-issued-card']/div/h2"));
-        private IWebElement lblRefNumber => _driver.WaitForElement(By.XPath("(//div[@id='document-issued-card']//dt)[1]"));
-        private IWebElement lblDate => _driver.WaitForElement(By.XPath("(//div[@id='document-issued-card']//dt)[2]"));
         private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']"));
         private IWebElement lblIssuingAuthorityNameAndAddress => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Name and address of competent authority']"));
         private IWebElement lblIssuingAuthorityNameAndAddressValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Name and address of competent authority']/following-sibling::dd"));
@@ -116,27 +113,33 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyReferenceNumberTable(string status)
         {
-            bool value = false;
+            var result = false;
+
+            RefNumberSection.ScrollToElement(_driver);
+            var title = RefNumberSection.FindElement(By.ClassName("govuk-summary-card__title"));
+            var documentIssuedFields = RefNumberSection.FindElements(By.ClassName("govuk-summary-list__key"));
+
             if (status.Equals("Unsuccessful") || status.Equals("Pending"))
             {
-                return (lblDocCardHeading.Text.Equals("Reference number") && lblRefNumber.Text.Equals("Application reference number") && lblDate.Text.Equals("Date"));
+                result = (title.Text.Replace("\r\n", string.Empty).Trim().Equals("Reference number") && documentIssuedFields[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Application reference number") && documentIssuedFields[1].Text.Equals("Date"));
             }
             else if (status.Equals("Approved") || status.Equals("Cancelled"))
             {
-                return (lblDocCardHeading.Text.Equals("Issued") && lblRefNumber.Text.Equals("PTD number") && lblDate.Text.Equals("Date"));
+                result = (title.Text.Replace("\r\n", string.Empty).Trim().Equals("Issued") && documentIssuedFields[0].Text.Replace("\r\n", string.Empty).Trim().Equals("PTD number") && documentIssuedFields[1].Text.Replace("\r\n", string.Empty).Trim().Equals("Date"));
             }
-            return value;
+
+            return result;
         }
 
         public bool VerifyIssuingAuthorityTable(string status)
         {
             if (status.Equals("Approved") || status.Equals("Unsuccessful"))
             {
-                return (lblIssuingAuthority.Text.Equals("Issuing authority")
-                    && lblIssuingAuthorityNameAndAddress.Text.Equals("Name and address of competent authority")
-                    && lblIssuingAuthoritySign.Text.Equals("Signed on behalf of the competent authority (APHA)")
-                    && lblIssuingAuthorityNameAndAddressValue.Text.Equals("Animal and Plant Health Agency\r\nPet Travel Section\r\nEden Bridge House\r\nLowther Street\r\nCarlisle\r\nCA3 8DX")
-                    && lblIssuingAuthoritySignValue.Text.Equals("John Smith (APHA) (Signed digitally)"));
+                return (lblIssuingAuthority.Text.Replace("\r\n", string.Empty).Trim().Equals("Issuing authority")
+                    && lblIssuingAuthorityNameAndAddress.Text.Replace("\r\n", string.Empty).Trim().Equals("Name and address of competent authority")
+                    && lblIssuingAuthoritySign.Text.Replace("\r\n", string.Empty).Trim().Equals("Signed on behalf of the competent authority (APHA)")
+                    && lblIssuingAuthorityNameAndAddressValue.Text.Replace("\r\n", string.Empty).Trim().Equals("Animal and Plant Health Agency\r\nPet Travel Section\r\nEden Bridge House\r\nLowther Street\r\nCarlisle\r\nCA3 8DX")
+                    && lblIssuingAuthoritySignValue.Text.Replace("\r\n", string.Empty).Trim().Equals("John Smith (APHA) (Signed digitally)"));
             }
             else if (status.Equals("Pending"))
             {
@@ -177,7 +180,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     && petDetailsFieldList[3].Text.Replace("\r\n", string.Empty).Trim().Equals("Date of birth")
                     && petDetailsFieldList[4].Text.Replace("\r\n", string.Empty).Trim().Equals("Colour")
                     && petDetailsFieldList[5].Text.Replace("\r\n", string.Empty).Trim().Equals("Significant features")
-                    && petDetailsFieldList.Where(x => x.Text.Contains("Breed")).Count() == 0;
+                    && petDetailsFieldList.Where(x => x.Text.Replace("\r\n", string.Empty).Trim().Contains("Breed")).Count() == 0;
             }
             else
             {
@@ -199,10 +202,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var petOwnerDetailsFieldList = PetOwnerDetailsSection.FindElements(By.ClassName("govuk-summary-list__key"));
 
             return title.Text.Equals("Pet owner details")
-                && petOwnerDetailsFieldList[0].Text.Equals("Name")
-                && petOwnerDetailsFieldList[1].Text.Equals("Email")
-                && petOwnerDetailsFieldList[2].Text.Equals("Address")
-                && petOwnerDetailsFieldList[3].Text.Equals("Phone number");
+                && petOwnerDetailsFieldList[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Name")
+                && petOwnerDetailsFieldList[1].Text.Replace("\r\n", string.Empty).Trim().Equals("Email")
+                && petOwnerDetailsFieldList[2].Text.Replace("\r\n", string.Empty).Trim().Equals("Address")
+                && petOwnerDetailsFieldList[3].Text.Replace("\r\n", string.Empty).Trim().Equals("Phone number");
         }
 
         public bool VerifyRefNumTableValues(string values, string status)
