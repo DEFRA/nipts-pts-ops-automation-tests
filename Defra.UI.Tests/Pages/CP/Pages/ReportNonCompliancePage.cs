@@ -4,7 +4,6 @@ using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
-using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 

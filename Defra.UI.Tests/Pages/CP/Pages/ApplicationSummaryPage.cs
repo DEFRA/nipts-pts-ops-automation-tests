@@ -176,7 +176,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     && petDetailsFieldList[2].Text.Replace("\r\n", string.Empty).Trim().Equals("Sex")
                     && petDetailsFieldList[3].Text.Replace("\r\n", string.Empty).Trim().Equals("Date of birth")
                     && petDetailsFieldList[4].Text.Replace("\r\n", string.Empty).Trim().Equals("Colour")
-                    && petDetailsFieldList[5].Text.Replace("\r\n", string.Empty).Trim().Equals("Significant features");
+                    && petDetailsFieldList[5].Text.Replace("\r\n", string.Empty).Trim().Equals("Significant features")
+                    && petDetailsFieldList.Where(x => x.Text.Contains("Breed")).Count() == 0;
             }
             else
             {
