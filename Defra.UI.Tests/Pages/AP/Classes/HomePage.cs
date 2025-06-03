@@ -31,7 +31,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement btnApplyForDocument => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Apply for a document']"), true);
         private IReadOnlyCollection<IWebElement> tableRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr"), true);
         private IReadOnlyCollection<IWebElement> tableHeaderRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/th"), true);
-        private IReadOnlyCollection<IWebElement> tableActionRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/td[4]//a"), true);
+        private IReadOnlyCollection<IWebElement> tableActionRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/td[2]//a"), true);
         public IWebElement lnkManageAccount => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Manage account']"));
 
         #endregion
@@ -117,7 +117,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
                 {
                     var tdCollection = element.FindElements(By.TagName("td"));
 
-                    return tdCollection[2].Text.Replace("\r\n", string.Empty).Trim().ToUpper().Equals(status.ToUpper());
+                    return tdCollection[0].Text.Replace("\r\n", string.Empty).Trim().ToUpper().Equals(status.ToUpper());
                 }
             }
 
