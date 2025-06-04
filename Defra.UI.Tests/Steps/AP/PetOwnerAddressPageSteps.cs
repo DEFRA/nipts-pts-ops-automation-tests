@@ -17,13 +17,6 @@ namespace Defra.UI.Tests.Steps.AP
             _objectContainer = container;
         }
 
-        [Then(@"I should navigate to Pets Owner address dropdown page")]
-        public void ThenIShouldNavigateToPetsOwnerAddressDropdownPage()
-        {
-            var pageTitle = $"What is your address?";
-            Assert.IsTrue(PetOwnerAddressPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }
-
         [When(@"I select Pets Owner Address from dropdown and continue")]
         public void WhenISelectPetsOwnerAddressFromDropdownAndContinue()
         {

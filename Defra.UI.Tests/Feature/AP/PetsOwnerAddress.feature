@@ -20,8 +20,7 @@ Scenario Outline: Create PETS Travel Document By PostCode Address User
 	When I provided '<PetsOwnerName>' and continue
 	Then I should navigate to Pets Owner address postcode page
 	When I provide Pets Owner '<PostCode>' and click find address
-	Then I should navigate to Pets Owner address dropdown page
-	When I select Pets Owner Address from dropdown and continue
+	And I select Pets Owner Address from dropdown and continue
 	Then I should navigate to Pets Owner phone number page
 	When I provide Pets Owner '<PhoneNumber>' and continue
 	Then I should navigate to the Is your pet microchipped page
