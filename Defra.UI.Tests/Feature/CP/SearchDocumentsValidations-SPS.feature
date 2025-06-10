@@ -43,7 +43,7 @@ Scenario: Verify the data entered remains in the text box of Find a document pag
 	Then I click search by 'Search by microchip number' radio button
 	And I should see the already entered microchip number '987659898798764' in the text box
 
-Scenario: Verify the Clear search functionality in Find a Document page - SPS Checker
+Scenario: Verify the Clear search and no radio button auto selected functionalities in Find a Document page - SPS Checker
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '08:30'
@@ -51,7 +51,8 @@ Scenario: Verify the Clear search functionality in Find a Document page - SPS Ch
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by 'Search by PTD number' radio button
+	And I should see no radio button is auto selected by default
+	Then I click search by 'Search by PTD number' radio button
 	And I provided the '12345' of the application
 	When I click clear search button
 	Then I see the values are deleted

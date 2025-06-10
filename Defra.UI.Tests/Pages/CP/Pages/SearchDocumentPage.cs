@@ -4,6 +4,7 @@ using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using Defra.UI.Framework.Driver;
+using System.Reflection.PortableExecutable;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -35,6 +36,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblYouCannotAccessPageHeading => _driver.WaitForElement(By.XPath("//h1[contains(normalize-space(),'You cannot access this page')]"));
         private IWebElement lnkGobackToPrevPage => _driver.WaitForElement(By.XPath("//a[contains(.,'go back to the previous page')]"));
         private IWebElement lblHeaderTitle => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-!-margin-bottom-4')]"));
+        private IWebElement lblYouCannotAccessPageContentText => _driver.WaitForElement(By.XPath("//*[@id='main-content']//p"));
+        private IReadOnlyCollection<IWebElement> btnSignout => _driver.FindElements(By.XPath("//label[normalize-space()='Sign out']"));
+        private IReadOnlyCollection<IWebElement> btnAccount => _driver.FindElements(By.XPath("//label[normalize-space()='Account']"));
         #endregion
 
         #region Methods
@@ -145,6 +149,24 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public void ClickBrowserBackButton()
         {
             _driver.Navigate().Back();
+        }
+
+        public bool VerifyYouCannotAccessPageText(string errorPageContentText)
+        {
+            return lblYouCannotAccessPageContentText.Text.Contains(errorPageContentText);
+        }
+
+        public bool VerifyAccountAndSignoutIcons()
+        {
+            if (btnAccount.Count>0 && btnSignout.Count>0)
+                return true;
+            else
+                return false;
+        }
+
+        public bool VerifyRadioButtonDefaultSelection()
+        {
+            return rdoSearchByPTDNumber.Selected || rdoApplicationNumber.Selected || rdoMicrochipNumber.Selected;
         }
         #endregion
     }

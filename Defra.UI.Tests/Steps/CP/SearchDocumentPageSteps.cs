@@ -4,6 +4,8 @@ using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using AventStack.ExtentReports.Gherkin.Model;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -154,6 +156,24 @@ namespace Defra.UI.Tests.Steps.CP
         public void WhenIClickOnBrowserBackButton()
         {
             _searchDocumentPage?.ClickBrowserBackButton();
+        }
+
+        [Then(@"I should see '(.*)' text under the main heading of error page")]
+        public void ThenIShouldSeeTextUnderTheMainHeadingOfErrorPage(string errorPageContentText)
+        {
+            Assert.True(_searchDocumentPage?.VerifyYouCannotAccessPageText(errorPageContentText), "Contact your team leader with any queries. is not displayed");
+        }
+
+        [Then(@"I should not see account and signout icons")]
+        public void ThenIShouldNotSeeAccountAndSignoutIcons()
+        {
+            Assert.False(_searchDocumentPage?.VerifyAccountAndSignoutIcons(), "Account and Signout icons are displayed");
+        }
+
+        [Then(@"I should see no radio button is auto selected by default")]
+        public void ThenIShouldSeeNoRadioButtonIsAutoSelectedByDefault()
+        {
+            Assert.False(_searchDocumentPage?.VerifyRadioButtonDefaultSelection(), "Radio button is auto selected by default in Find a document page");
         }
     }
 }

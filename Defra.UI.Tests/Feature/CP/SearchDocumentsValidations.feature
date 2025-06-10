@@ -432,7 +432,7 @@ Scenario: Verify the input hyphen only to application number text box navigates 
 	When I select Search by PTD number radio button and then selected the Search by application number radio button
 	Then I should see the already entered application number ''-'' in the text box	 
 
-Scenario: Verify the Clear search functionality in Find a Document page
+Scenario: Verify the Clear search and no radio button auto selected functionalities in Find a Document page
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '08:30'
@@ -440,7 +440,25 @@ Scenario: Verify the Clear search functionality in Find a Document page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by 'Search by PTD number' radio button
+	And I should see no radio button is auto selected by default
+	Then I click search by 'Search by PTD number' radio button
 	And I provided the '12345' of the application
 	When I click clear search button
 	Then I see the values are deleted
+
+Scenario: Verify header footer account and sign out icons in 403 error page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '05:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number ''-'' of the application
+	When I click search button
+	Then I should navigate to 'You cannot access this page or perform this action' error page
+	And I should see 'Contact your team leader with any queries.' text under the main heading of error page
+	And I should not see the footer of the page
+	Then I should not see the header of the page
+	And I should not see account and signout icons
