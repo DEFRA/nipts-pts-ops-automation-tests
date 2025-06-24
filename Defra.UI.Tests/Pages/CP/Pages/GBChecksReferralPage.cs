@@ -50,6 +50,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lnkPTDRefNumber => _driver.WaitForElement(By.XPath("(//strong[normalize-space(.)='Check needed'])[1]//ancestor::tr//following-sibling::button"));
         private IWebElement btnConductSPSCheck => _driver.WaitForElement(By.XPath("//button[normalize-space(.)='Conduct an SPS check']"));
         private IWebElement lnkNext => _driver.WaitForElement(By.XPath("//*[@rel='next']"));
+        private IWebElement DisplayedRouteInReferredToSPSPage => _driver.WaitForElement(By.XPath("//h1[text()='Referred to SPS']//following::caption"));
         #endregion
 
         #region Methods
@@ -278,6 +279,20 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 }
             }
             return false;
+        }
+
+        public bool CheckRouteDetailOnReferredToSPSPage(string route, string departureTime)
+        {
+            var routeDetail = DisplayedRouteInReferredToSPSPage.Text;
+            dynamic[] rows = routeDetail.Split("-");
+            dynamic displayedRoute = rows[0].Trim();
+            dynamic displayedDate = rows[1].Substring(1, 10);
+            dynamic displayedTime = rows[1].Substring(12, 5);
+
+            DateTime dateAndTime = DateTime.Today;
+            var currentDate = dateAndTime.ToString("dd/MM/yyyy");
+
+            return displayedRoute.Equals(route) && displayedDate.Equals(currentDate) && displayedTime.Equals(departureTime);
         }
         #endregion
     }

@@ -19,5 +19,8 @@
         void VerifyGoBackToPreviousPageLink();
         void SelectAndSwapToApplicationNumberRadioButton();
         void ClickBrowserBackButton();
+        bool VerifyYouCannotAccessPageText(string errorPageContentText);
+        bool VerifyAccountAndSignoutIcons();
+        bool VerifyRadioButtonDefaultSelection();
     }
 }

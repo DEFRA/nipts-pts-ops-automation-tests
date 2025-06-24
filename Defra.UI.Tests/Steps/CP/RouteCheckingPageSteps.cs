@@ -153,6 +153,11 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_welcomePage?.IsHeaderChangeLinkDisplayed(), "Change link is not displayed on the header");
         }
 
+        [Then("I should not see the header of the page")]
+        public void ThenIShouldNotSeeTheHeaderOfThePage()
+        {
+            Assert.False(_welcomePage?.CheckHeader(), "Header is displayed");
+        }
 
         [Then(@"I should see back link in the top left of route checking page")]
         public void ThenIShouldSeeBackLinkInTheTopLeftOfRouteCheckingPage()
