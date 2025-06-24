@@ -175,5 +175,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.False(_searchDocumentPage?.VerifyRadioButtonDefaultSelection(), "Radio button is auto selected by default in Find a document page");
         }
+
+        [Then(@"I should see account and signout icons")]
+        public void ThenIShouldSeeAccountAndSignoutIcons()
+        {
+            Assert.True(_searchDocumentPage?.VerifyAccountAndSignoutIcons(), "Account and Signout icons are not displayed");
+        }
     }
 }

@@ -99,3 +99,24 @@ Scenario: Verify the SPS User is able to search by Application Reference Number
 	And I provided the Application Number 'HATAIMZE' of the application
 	When I click search button
 	And I should see the application status in 'Pending'
+
+Scenario: Verify account and sign out icons in search page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '05:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I should see account and signout icons
+
+Scenario: Verify the error message if no search options selected in find a document page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '14:50'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	When I click search button
+	Then I should see an error message "Select if you are searching for a PTD, application or microchip number" in Find a document page

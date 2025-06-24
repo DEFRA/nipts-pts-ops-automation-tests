@@ -462,3 +462,24 @@ Scenario: Verify header footer account and sign out icons in 403 error page
 	And I should not see the footer of the page
 	Then I should not see the header of the page
 	And I should not see account and signout icons
+
+Scenario: Verify account and sign out icons in search page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '05:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I should see account and signout icons
+
+Scenario: Verify the error message if no search options selected in find a document page
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '14:50'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	When I click search button
+	Then I should see an error message "Select if you are searching for a PTD, application or microchip number" in Find a document page
