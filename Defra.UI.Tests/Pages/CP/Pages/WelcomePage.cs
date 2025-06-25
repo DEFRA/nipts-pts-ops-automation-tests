@@ -22,9 +22,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(text(),'Checks')]"),true);
         private IWebElement iconSearch => _driver.WaitForElement(By.XPath("//a[@href='/checker/document-search']//*[name()='svg']"));
         private IWebElement iconHome => _driver.WaitForElement(By.XPath("//span[normalize-space()='Home']"));
+        private IWebElement iconScan => _driver.WaitForElement(By.XPath("//span[normalize-space()='Scan']"));
         private IWebElement lnkHeadersChange => _driver.WaitForElement(By.XPath("//a[normalize-space()='Change']"));
         private IWebElement btnBack => _driver.WaitForElement(By.XPath("//a[text()='Back']"));
-        private IWebElement pageFooter => _driver.WaitForElement(By.XPath("//div[@class='govuk-width-container']/ul"));
+        private IReadOnlyCollection<IWebElement> pageHeader => _driver.FindElements(By.XPath("//header[@class='pts-location-bar']"));
         private IWebElement lblConfirmationBox => _driver.WaitForElement(By.XPath("//div[normalize-space(.) = 'Information has been successfully submitted']"));
         #endregion
 
@@ -60,7 +61,28 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         }
         public bool CheckFooter()
         {
-            return pageFooter.Displayed && iconHome.Displayed && iconSearch.Displayed;
+            try
+            {
+                if (iconHome.Displayed && iconSearch.Displayed && iconScan.Displayed)
+                {
+                    return true;
+                }
+                else
+                {
+                    throw new NoSuchElementException();
+                }
+            }
+            catch (NoSuchElementException)
+            {
+                return false;
+            }
+        }
+        public bool CheckHeader()
+        {
+            if (pageHeader.Count > 0)
+                return true;
+            else
+                return false;
         }
         public bool IsBackButtonDisplayed()
         {

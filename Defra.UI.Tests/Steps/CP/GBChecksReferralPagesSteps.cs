@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 using Reqnroll;
 using Defra.UI.Tests.Pages.CP.Pages;
 using System.Drawing;
+using AventStack.ExtentReports.Gherkin.Model;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -159,6 +160,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeAllThePTDNumbersShouldBeInCorrectFormatAndStartsWith(string ptdNumberPrefix)
         {
             Assert.IsTrue(_gbChecksReferralPage?.CheckPTDNumberFormat(ptdNumberPrefix), "PTD Number format in Referred to SPS page is not correct");
+        }
+
+        [Then("I should see route details '([^']*)' date and time '([^']*)' below the title of the page")]
+        public void ThenIShouldSeeRouteDetailsDateAndTimeBelowTheTitleOfThePage(string route, string departureTime)
+        {
+            Assert.True(_gbChecksReferralPage?.CheckRouteDetailOnReferredToSPSPage(route, departureTime), "Given route displayed is not displayed properly");
         }
     }
 }

@@ -98,12 +98,27 @@ Scenario: Verify Check details table in GB check report page
 	Then I should see current date as Scheduled departure date
 	And I should see '23:58' as Scheduled departure time
 
-Scenario: Verify PTD Number format in Referred to SPS page
+Scenario: Verify the route details and PTD Number format in Referred to SPS page
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '23:58'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Reference number 'H71XF4NH' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I click 'Passenger says they will not travel' GB Outcome
+	Then I click 'Vehicle on ferry' in Passenger details
+	When I click Save outcome button from non-compliance page
+	Then I should see a message 'Information has been successfully submitted' in Checks page
 	When I click View link in Fail Referred to SPS row with count more than 0
 	Then I should navigate to Referred to SPS page
+	And I should see route details 'Birkenhead to Belfast (Stena)' date and time '23:58' below the title of the page
 	And I should see all the PTD numbers should be in correct format and starts with 'GB826'

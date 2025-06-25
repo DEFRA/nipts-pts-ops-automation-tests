@@ -9,6 +9,7 @@
         bool IsBackButtonDisplayed();
         void ClickBackButton();
         bool CheckFooter();
+        bool CheckHeader();
         bool IsHeaderChangeLinkDisplayed();
         bool IsConfirmationBoxDisplayed();
     }
