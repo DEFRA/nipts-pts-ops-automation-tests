@@ -285,7 +285,7 @@ Scenario: Verify the error message if PTD number text box have 6 characters othe
 	And I click search by 'Search by PTD number' radio button
 	And I provided the '*%£$&@' of the application
 	When I click search button
-	Then I should see an error message "Enter 6 characters after 'GB826', using only letters A to F and numbers" in Find a document page
+	Then I should see an error message "Enter 6 characters after 'GB826', using only letters A-F and numbers, for example AF4399" in Find a document page
 
 Scenario: Verify the error message if no text provided in application number text box
 	Then I have selected 'Ferry' radio option
@@ -324,7 +324,7 @@ Scenario: Verify the error message if application number provided with special c
 	And I click search by 'Search by application number' radio button
 	And I provided the Application Number '£$&^@{}' of the application
 	When I click search button
-	Then I should see an error message "Enter 8 characters, using only letters and numbers" in Find a document page
+	Then I should see an error message "Enter 8 characters using letters and numbers, for example MOG2TXF7" in Find a document page
 
 Scenario: Verify the error message if no text provided in microchip number text box
 	Then I have selected 'Ferry' radio option

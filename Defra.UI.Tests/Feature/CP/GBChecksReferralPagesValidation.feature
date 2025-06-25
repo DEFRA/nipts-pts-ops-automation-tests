@@ -65,7 +65,7 @@ Scenario: Verify Outcome table in GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
 	Then I should see 'Passenger says they will not travel' as Check outcome
 	And I should see 'Microchip number does not match the PTD' as Reason for referral
-	And I should see '123498012398051' as Microchip number found in scan
+	And I should see '123456789012345' as Microchip number found in scan
 	And I should see 'None' as Additional comments
 
 Scenario: Verify Check details table in GB check report page

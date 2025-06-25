@@ -42,7 +42,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblSailingOrFlightSubheading => _driver.WaitForElement(By.XPath("//h2[text()='Are you checking a ferry or a flight?']"));
         private IWebElement lblScheduledDepartureDate => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Scheduled departure date']"));
         private IWebElement txtHintScheduledDepartureDate => _driver.WaitForElement(By.XPath("//*[@id='departure-date-hint']"));
-        private IWebElement lblScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='time-group']//b"));
+        private IWebElement lblScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='time-group']//following::h2"));
         private IWebElement txtHintScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='sailingHourHint']"));
         #endregion
 
