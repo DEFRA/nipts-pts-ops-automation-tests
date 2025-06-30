@@ -23,5 +23,6 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
         bool VerifyTravelStatus(string travelStatus, string travelStatus1);
         bool VerifyBGColorforTravelStatus(string referenceNumber, string travelStatus, string color);
         bool CheckRouteDetailOnReferredToSPSPage(string route, string departureTime);
+        bool VerifyDetailsOfOutcome(string outcomeDetails);
     }
 }

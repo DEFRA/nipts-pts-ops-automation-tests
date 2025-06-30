@@ -5,7 +5,7 @@
         bool IsPageLoaded();
         void SelectReportNonComplianceButton();
         void ClickPetTravelDocumentDetailsLnk();
-        bool VerifyTheExpectedStatus(string status);
+        bool VerifyTheExpectedStatus(string statusLabel, string status);
         void SelectTypeOfPassenger(string radioButtonValue);
         bool IsError(string errorMessage);
         bool CheckPetTravelDocumentDetailsSection(string status);
@@ -15,9 +15,9 @@
         bool VerifySPSOutcomeCheckboxes(string checkboxValues, string subHeading);
         bool VerifyDetailsOfOutcome();
         bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength);
-        bool VerifyThePTDNumber(string ptdNumber);
-        bool VerifyTheDateOfIssuance(string dateOfIssuance);
-        bool VerifyTheReferenceNumber(string refereneNumber);
+        bool VerifyThePTDNumber(string ptdNumberLabel, string ptdNumber);
+        bool VerifyTheDateOfIssuance(string dateLabel, string dateOfIssuance);
+        bool VerifyTheReferenceNumber(string refNumberLabel, string refereneNumber);
         bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName);
         bool VerifyGBCheckboxesAreNotChecked();
         bool VerifySPSCheckboxesAreNotChecked();
@@ -44,5 +44,8 @@
         bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline);
         void ClickSPSOutcomeCheckbox(string sPSOutcome);
         bool VerifyMicrochipCheckboxesAreChecked();
+        void ClickVisualCheckReason(string visualCheckReason);
+        void AnyRelevantComments(string comments);
+        void EnterDetailsOfOutcome(string details);
     }
 }

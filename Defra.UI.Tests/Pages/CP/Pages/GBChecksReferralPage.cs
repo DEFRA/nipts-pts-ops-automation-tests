@@ -35,8 +35,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblCheckOutcomeValue => _driver.WaitForElement(By.XPath("//h2[text()='Outcome']//following::p[1]"));
         private IWebElement lblReasonForReferral => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Reason for referral']"));
         private IWebElement lblReasonForReferralValue => _driver.WaitForElement(By.XPath("//dt[text()='Reason for referral']//following::p[1]"));
+        private IWebElement lblReasonForReferralMultipleValues => _driver.WaitForElement(By.XPath("//dt[text()='Reason for referral']//following::dd/ul"));
         private IWebElement lblMcNumberFoundInScan => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Microchip number found in scan']"));
         private IWebElement lblMcNumberFoundInScanValue => _driver.WaitForElement(By.XPath("//dt[text()='Microchip number found in scan']//following::p[1]"));
+        private IWebElement lblDetailsOfOutcome => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Details of outcome']"));
+        private IWebElement lblDetailsOfOutcomeValue => _driver.WaitForElement(By.XPath("//dt[text()='Details of outcome']//following::p[1]"));
         private IWebElement lblAdditionalComments => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Additional comments']"));
         private IWebElement lblAdditionalCommentsValue => _driver.WaitForElement(By.XPath("//dt[text()='Additional comments']//following::p[1]"));
         private IWebElement lblGBCheckerName => _driver.WaitForElement(By.XPath("//dt[normalize-space()='GB checker’s name']"));
@@ -107,13 +110,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool ReasonForReferral(string referralReason)
         {
             return lblReasonForReferral.Text.Trim().Equals("Reason for referral")
-            && lblReasonForReferralValue.Text.Trim().Equals(referralReason);
+            && (lblReasonForReferralValue.Text.Trim().Equals(referralReason) || lblReasonForReferralMultipleValues.Text.Trim().Replace("\r\n", ", ").Equals(referralReason));
         }
 
         public bool MCNumberFoundInScan(string mcNumber)
         {
             return lblMcNumberFoundInScan.Text.Trim().Equals("Microchip number found in scan")
             && lblMcNumberFoundInScanValue.Text.Trim().Equals(mcNumber);
+        }
+
+        public bool VerifyDetailsOfOutcome(string outcomeDetails)
+        {
+            return lblDetailsOfOutcome.Text.Trim().Equals("Details of outcome")
+            && lblDetailsOfOutcomeValue.Text.Trim().Equals(outcomeDetails);
         }
 
         public bool AdditionalComments(string additionalComments)

@@ -28,9 +28,9 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Appr
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
 	And I should see a table name for approved and revoked status as 'Pet Travel Document (PTD)'
-	And I Verify the PTD number '457 4B2'
-	And I verify the date of issuance '24/12/2024'
-	And I Verify status 'Approved' on Report non-compliance page
+	And I Verify the PTD number with label 'PTD number' and value '457 4B2'
+	And I verify the date of issuance with label 'Date' and value '24/12/2024'
+	And I Verify status with label 'Status' and value 'Approved' on Report non-compliance page
 
 Scenario: Verify PTD details drop down link in Report non compliance page - Pending status
 	Then I have selected 'Ferry' radio option
@@ -48,9 +48,9 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Pend
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
 	And I should see a table name as 'Application details'
-	And I Verify the reference number 'XC7I93AF'
-	And I verify the date of issuance '13/12/2024'
-	And I Verify status 'Pending' on Report non-compliance page
+	And I Verify the reference number with label 'Application reference number' and value 'XC7I93AF'
+	And I verify the date of issuance with label 'Date' and value '13/12/2024'
+	And I Verify status with label 'Status' and value 'Pending' on Report non-compliance page
 
 Scenario: Verify PTD details drop down link in Report non compliance page - Cancelled status
 	Then I have selected 'Ferry' radio option
@@ -68,9 +68,9 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Canc
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
 	And I should see a table name for approved and revoked status as 'Pet Travel Document (PTD)'
-	And I Verify the PTD number 'AB5 17A'
-	And I verify the date of issuance '25/10/2024'
-	And I Verify status 'Cancelled' on Report non-compliance page
+	And I Verify the PTD number with label 'PTD number' and value 'AB5 17A'
+	And I verify the date of issuance with label 'Date' and value '25/10/2024'
+	And I Verify status with label 'Status' and value 'Cancelled' on Report non-compliance page
 	
 Scenario: Verify PTD details drop down link in Report non compliance page - Unsuccessful status
 	Then I have selected 'Ferry' radio option
@@ -88,9 +88,9 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Unsu
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
 	And I should see a table name as 'Application details'
-	And I Verify the reference number '0CI5N6V6'
-	And I verify the date of issuance '14/11/2024'
-	And I Verify status 'Unsuccessful' on Report non-compliance page
+	And I Verify the reference number with label 'Application reference number' and value '0CI5N6V6'
+	And I verify the date of issuance with label 'Date' and value '14/11/2024'
+	And I Verify status with label 'Status' and value 'Unsuccessful' on Report non-compliance page
 
 Scenario: Verify the error message for no selection of type of passenger in Report non-compliance page
 	Then I have selected 'Ferry' radio option
@@ -523,3 +523,26 @@ Scenario: Verify the error message for no selection in reason section in Report 
 	And I should see no checkboxes are selected in other issues section
 	When I click Report non-compliance button from Report non-compliance page
 	Then I should see an error message "Select at least one reason for non-compliance" in Report non-compliance page
+
+Scenario: Verify the error message for any relevant comments length is more than 500 in Report non-compliance page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '12:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I Select the 'Microchip number does not match the PTD' Microchip Checkbox
+	And I enter the Microchip number in '123456789012345' in Report non-compliance page
+	And I click 'Passenger says they will not travel' GB Outcome
+	Then I click 'Vehicle on ferry' in Passenger details
+	And I enter comments 'This could be more information about the checks or any risks you have identified  Do not include personal or sensitive information  This could be more information about the checks or any risks you have identified  Do not include personal or sensitive information  This could be more information about the checks or any risks you have identified  Do not include personal or sensitive information  This could be more information about the checks or any risks you have identified  Do not include personal' in Any relevant comments
+	When I click Report non-compliance button from Report non-compliance page
+	Then I should see an error message "Relevant comments must be 500 characters or less" in Report non-compliance page
