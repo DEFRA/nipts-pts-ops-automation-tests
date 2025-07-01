@@ -44,6 +44,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtHintScheduledDepartureDate => _driver.WaitForElement(By.XPath("//*[@id='departure-date-hint']"));
         private IWebElement lblScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='time-group']//following::h2"));
         private IWebElement txtHintScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='sailingHourHint']"));
+        private IWebElement txtFlightHomePageContent => _driver.WaitForElement(By.XPath("//*[@id='main-content']//p"));
+        private IWebElement txtFlightHomePageContentList1 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[1]"));
+        private IWebElement txtFlightHomePageContentList2 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[2]"));
+        private IWebElement txtFlightHomePageContentList3 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[3]"));
         #endregion
 
         #region Methods
@@ -283,6 +287,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 var selectMinute = new SelectElement(minuteDropdown);
                 selectMinute.SelectByValue(minuteAfter24Hours.ToString("D2"));
             }
+        }
+
+        public bool CheckFlightHomePageContent(string content, string contentList1, string contentList2, string contentList3)
+        {
+            return txtFlightHomePageContent.Text.Contains(content) && txtFlightHomePageContentList1.Text.Contains(contentList1) 
+                && txtFlightHomePageContentList2.Text.Contains(contentList2) && txtFlightHomePageContentList3.Text.Contains(contentList3);
         }
         #endregion
     }

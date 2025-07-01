@@ -100,7 +100,7 @@ Scenario: Verify the SPS User is able to search by Application Reference Number
 	When I click search button
 	And I should see the application status in 'Pending'
 
-Scenario: Verify account and sign out icons in search page
+Scenario: Verify account and sign out icons in search page as SPS user
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '05:45'
@@ -110,7 +110,7 @@ Scenario: Verify account and sign out icons in search page
 	Then I navigate to Find a document page
 	And I should see account and signout icons
 
-Scenario: Verify the error message if no search options selected in find a document page
+Scenario: Verify the error message if no search options selected in find a document page as SPS Checker
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '14:50'

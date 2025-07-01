@@ -7,6 +7,7 @@ using System.Runtime.Intrinsics.X86;
 using Reqnroll;
 using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
 using static System.Net.Mime.MediaTypeNames;
+using Defra.UI.Tests.Pages.CP.Pages;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -64,28 +65,28 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.IsTrue(_reportNonCompliancePage?.VerifyTableNameForApprovedAndRevokedInPTDLink(tableName), "Application Details");
         }
 
-        [Then(@"I Verify the PTD number '([^']*)'")]
-        public void ThenIVerifyThePTDNumber(string ptdNumber)
+        [Then(@"I Verify the PTD number with label '([^']*)' and value '([^']*)'")]
+        public void ThenIVerifyThePTDNumberWithLabelAndValue(string ptdNumberLabel, string ptdNumber)
         {
-            Assert.IsTrue(_reportNonCompliancePage?.VerifyThePTDNumber(ptdNumber), "The PTD number is not displayed");
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyThePTDNumber(ptdNumberLabel, ptdNumber), "The PTD number is not displayed");
         }
 
-        [Then(@"I verify the date of issuance '([^']*)'")]
-        public void ThenIVerifyTheDateOfIssuance(string dateOfIssuance)
+        [Then(@"I verify the date of issuance with label '([^']*)' and value '([^']*)'")]
+        public void ThenIVerifyTheDateOfIssuanceWithLabelAndValue(string dateLabel, string dateOfIssuance)
         {
-            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheDateOfIssuance(dateOfIssuance), "The date of issuance is not displayed");
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheDateOfIssuance(dateLabel, dateOfIssuance), "The date of issuance is not displayed");
         }
 
-        [Then(@"I Verify the reference number '([^']*)'")]
-        public void ThenIVerifyTheReferenceNumber(string refereneNumber)
+        [Then(@"I Verify the reference number with label '([^']*)' and value '([^']*)'")]
+        public void ThenIVerifyTheReferenceNumberWithLabelAndValue(string refNumberLabel, string refereneNumber)
         {
-            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheReferenceNumber(refereneNumber), "The reference number is not displayed");
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheReferenceNumber(refNumberLabel, refereneNumber), "The reference number is not displayed");
         }
 
-        [Then(@"I Verify status '([^']*)' on Report non-compliance page")]
-        public void ThenIVerifyStatusOnReportNon_CompliancePage(string applicationStatus)
+        [Then(@"I Verify status with label '([^']*)' and value '([^']*)' on Report non-compliance page")]
+        public void ThenIVerifyStatusWithLabelAndValueOnReportNon_CompliancePage(string statusLabel, string applicationStatus)
         {
-            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheExpectedStatus(applicationStatus), "The submitted application is not in expected status");
+            Assert.IsTrue(_reportNonCompliancePage?.VerifyTheExpectedStatus(statusLabel, applicationStatus), "The submitted application is not in expected status");
         }
 
         [Then(@"I click '([^']*)' in Passenger details")]
@@ -287,6 +288,24 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeNoCheckboxesAreSelectedInMicrochipSection()
         {
             Assert.False(_reportNonCompliancePage?.VerifyMicrochipCheckboxesAreChecked());
+        }
+
+        [When(@"I select '([^']*)' as visual check reason")]
+        public void WhenISelectAsVisualCheckReason(string visualCheckReason)
+        {
+            _reportNonCompliancePage?.ClickVisualCheckReason(visualCheckReason);
+        }
+
+        [Then("I enter comments '([^']*)' in Any relevant comments")]
+        public void ThenIEnterCommentsInAnyRelevantComments(string comments)
+        {
+            _reportNonCompliancePage?.AnyRelevantComments(comments);
+        }
+
+        [Then("I enter details '([^']*)' in Details of outcome")]
+        public void ThenIEnterDetailsInDetailsOfOutcome(string details)
+        {
+            _reportNonCompliancePage?.EnterDetailsOfOutcome(details);
         }
     }
 }

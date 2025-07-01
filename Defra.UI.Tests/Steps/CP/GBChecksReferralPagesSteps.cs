@@ -75,6 +75,12 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.IsTrue(_gbChecksReferralPage?.MCNumberFoundInScan(mcNumber), "Microchip number found in scan in GB check report page is not correct");
         }
 
+        [Then(@"I should see '([^']*)' as Details of outcome")]
+        public void ThenIShouldSeeAsDetailsOfOutcome(string outcomeDetails)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.VerifyDetailsOfOutcome(outcomeDetails), "Details of outcome in GB check report page is not correct");
+        }
+
         [Then(@"I should see '([^']*)' as Additional comments")]
         public void ThenIShouldSeeAsAdditionalComments(string additionalComments)
         {
@@ -166,6 +172,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeRouteDetailsDateAndTimeBelowTheTitleOfThePage(string route, string departureTime)
         {
             Assert.True(_gbChecksReferralPage?.CheckRouteDetailOnReferredToSPSPage(route, departureTime), "Given route displayed is not displayed properly");
+        }
+
+        [When(@"I click the reference number '(.*)' link")]
+        public void WhenIClickTheReferenceNumberLink(string referenceNumber)
+        {
+               Assert.IsTrue(_gbChecksReferralPage?.ClickApplicationRef(referenceNumber), "The reference number is not present or Not able to click on " + referenceNumber);
         }
     }
 }
