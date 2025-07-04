@@ -9,6 +9,6 @@
         public bool IsSignedOut();
         public bool IsSuccessfullySignedOut();
         public void SignInToDynamics(string username, string password);
-        public bool IsSignedInCP(string userName, string password);
+        public void CPSignIn(string userName, string password);
     }
 }

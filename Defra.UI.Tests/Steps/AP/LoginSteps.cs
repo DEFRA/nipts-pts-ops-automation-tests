@@ -71,8 +71,8 @@ namespace Defra.UI.Tests.Steps.AP
             signin?.IsSignedIn(userObject.UserName, userObject.Credential);
         }
 
-        [When(@"I have provided invalid credentials and signin")]
-        public void WhenIHaveProvidedInvalidCredentialsAndSignin()
+        [When(@"I have provided invalid CP credentials and signin")]
+        public void WhenIHaveProvidedInvalidCPCredentialsAndSignin()
         {
             var jsonData = UserObject?.GetUser("AP");
             var userObject = new User
@@ -81,7 +81,7 @@ namespace Defra.UI.Tests.Steps.AP
                 Credential = jsonData.Credential
             };
 
-            signin?.IsSignedInCP(userObject.UserName, userObject.Credential);
+            signin?.CPSignIn(userObject.UserName, userObject.Credential);
         }
     }
 }
