@@ -151,12 +151,6 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyDetailsOfOutcome(),"The Details of Outcome label is incorrect");
         }
 
-        [Then(@"I verify the Details of Outcome textarea maximum length is '(.*)'")]
-        public void ThenIVerifyTheDetailsOfOutcomeTextareaMaxLength(string maxLength)
-        {
-            Assert.True(_reportNonCompliancePage?.VerifyMaxLengthOfDetailsOfOutcomeTextarea(maxLength), "The Details of Outcome textarea maxlength is not "+ maxLength);
-        }
-
         [Then(@"I verify any relavant comments section")]
         public void ThenIVerifyAnyRelavantCommentsSection()
         {

@@ -295,7 +295,12 @@ Scenario: Verify the Details of outcome textarea accepts only 500 characters
 	And I should see the application status in 'Unsuccessful'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	#And I verify the Details of Outcome textarea maximum length is '500'
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I click 'Passenger says they will not travel' GB Outcome
+	Then I click 'Vehicle on ferry' in Passenger details
+	And I enter details 'This could be more information about the checks or any risks you have identified  Do not include personal or sensitive information  This could be more information about the checks or any risks you have identified  Do not include personal or sensitive information  This could be more information about the checks or any risks you have identified  Do not include personal or sensitive information  This could be more information about the checks or any risks you have identified  Do not include personal' in Details of outcome
+	When I click Report non-compliance button from Report non-compliance page
+	Then I should see an error message "Outcome summary must be 500 characters or less" in Report non-compliance page
 
 Scenario: Verify Visual check subheading and pet details from PTD dropdown in Report non compliance page
 	Then I have selected 'Ferry' radio option

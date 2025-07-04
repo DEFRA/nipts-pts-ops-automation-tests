@@ -27,6 +27,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement btnBack => _driver.WaitForElement(By.XPath("//a[text()='Back']"));
         private IReadOnlyCollection<IWebElement> pageHeader => _driver.FindElements(By.XPath("//header[@class='pts-location-bar']"));
         private IWebElement lblConfirmationBox => _driver.WaitForElement(By.XPath("//div[normalize-space(.) = 'Information has been successfully submitted']"));
+        private IWebElement txtFlightHomePageContent => _driver.WaitForElement(By.XPath("//*[@id='main-content']//p"));
+        private IWebElement txtFlightHomePageContentList1 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[1]"));
+        private IWebElement txtFlightHomePageContentList2 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[2]"));
+        private IWebElement txtFlightHomePageContentList3 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[3]"));
+        private IReadOnlyCollection<IWebElement> txtRouteChecksPageTables => _driver.FindElements(By.XPath("//h2[@class='govuk-summary-card__title']/p[1]"));
         #endregion
 
         #region Methods
@@ -97,6 +102,31 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool IsConfirmationBoxDisplayed()
         {
             return lblConfirmationBox.IsVisible();
+        }
+
+        public bool CheckFlightHomePageContent(string content, string contentList1, string contentList2, string contentList3)
+        {
+            return txtFlightHomePageContent.Text.Contains(content) && txtFlightHomePageContentList1.Text.Contains(contentList1)
+                && txtFlightHomePageContentList2.Text.Contains(contentList2) && txtFlightHomePageContentList3.Text.Contains(contentList3);
+        }
+
+        public bool ChecksPageRouteFilter(string selectedRoute)
+        {
+            if (txtRouteChecksPageTables.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                foreach (var element in txtRouteChecksPageTables)
+                {
+                    if (element.Text.Contains(selectedRoute))
+                        return true;
+                    else
+                        return false;
+                }
+            }
+            return false;
         }
         #endregion
     }

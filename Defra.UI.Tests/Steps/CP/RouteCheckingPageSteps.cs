@@ -239,11 +239,5 @@ namespace Defra.UI.Tests.Steps.CP
             var dateTimeTwoDaysAgo = DateTime.UtcNow.AddDays(departuredate);
             _routeCheckingPage?.CheckDepartBefore48OrAfter24Hrs(dateTimeTwoDaysAgo.Day.ToString(), dateTimeTwoDaysAgo.Month.ToString(), dateTimeTwoDaysAgo.Year.ToString(), dateTimeTwoDaysAgo.Hour.ToString("D2"), dateTimeTwoDaysAgo.Minute.ToString("D2"), timeCheck);
         }
-
-        [Then(@"I should see content '([^']*)' with list '([^']*)' '([^']*)' '([^']*)'")]
-        public void ThenIShouldSeeContentWithList(string content, string contentList1, string contentList2, string contentList3)
-        {
-            _routeCheckingPage?.CheckFlightHomePageContent(content, contentList1, contentList2, contentList3);
-        }
     }
 }

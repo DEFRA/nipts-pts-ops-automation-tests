@@ -288,19 +288,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return lblDetailsOfOutcome.Text.Contains("Details of outcome");
         }
 
-        public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength)
-        {
-            txtareaSPSOutcome.ScrollToElement(_driver);
-
-            return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
-        }
-
         public bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength)
         {
             lblAnyRelavantComments.ScrollToElement(_driver);
             return lblAnyRelavantComments.Text.Contains(heading)
                    && lblAnyRelavantCommentsHint.Text.Contains(hint);
-            //&& TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
         }
 
         public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)

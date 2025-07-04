@@ -27,12 +27,6 @@ namespace Defra.UI.Tests.Steps.CP
             _objectContainer = container;
         }
 
-        [When(@"I click View link in Fail Referred to SPS row with count more than {int}")]
-        public void WhenIClickViewLinkInFailReferredToSPSRowWithCountMoreThanNumber(int number)
-        {
-            _gbChecksReferralPage?.ClickViewLink();
-        }
-
         [Then(@"I should navigate to Referred to SPS page")]
         public void ThenIShouldNavigateToReferredToSPSPage()
         {
@@ -178,6 +172,30 @@ namespace Defra.UI.Tests.Steps.CP
         public void WhenIClickTheReferenceNumberLink(string referenceNumber)
         {
                Assert.IsTrue(_gbChecksReferralPage?.ClickApplicationRef(referenceNumber), "The reference number is not present or Not able to click on " + referenceNumber);
+        }
+
+        [When(@"I click View link in Fail Referred to SPS row with departure time '([^']*)'")]
+        public void WhenIClickViewLinkInFailReferredToSPSRowWithDepartureTime(string departureTime)
+        {
+            _gbChecksReferralPage?.ClickViewLink(departureTime);
+        }
+
+        [Then(@"I verify the Referred to SPS page table column names as '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)'")]
+        public void ThenIVerifyTheReferredToSPSPageTableColumnNamesAs(string ptdOrRefNumber, string pet, string microchip, string travelBy, string spsOutcome)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckReferredToSPSTableLabels(ptdOrRefNumber, pet, microchip, travelBy, spsOutcome), "Referred to SPS page table column names are not displayed as expected");
+        }
+
+        [Then(@"I verify the Referred to SPS page table column values as '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)'")]
+        public void ThenIVerifyTheReferredToSPSPageTableColumnValuesAs(string ptdOrRefNumber, string pet, string microchip, string travelBy, string spsOutcome)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckReferredToSPSTableValues(ptdOrRefNumber, pet, microchip, travelBy, spsOutcome), "Referred to SPS page table column values are not displayed as expected");
+        }
+
+        [Then(@"I verify the PTDOrRefNum '([^']*)' is not repeated in the table")]
+        public void ThenIVerifyThePTDOrRefNumIsNotRepeatedInTheTable(string ptdOrRefNumber)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckPTDOrRefNumDuplicates(ptdOrRefNumber), "PTD or Reference number is duplicated in the Referred to SPS page table");
         }
     }
 }
