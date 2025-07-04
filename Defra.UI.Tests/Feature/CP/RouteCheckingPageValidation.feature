@@ -96,14 +96,6 @@ Scenario: Verify footer and back link in route checking page
 	And I click back link
 	And I should navigate to test environment prototype page
 
-Scenario: Verify selected departure time displays in home page
-	Then I have selected 'Flight' radio option
-	Then I provide the 'AF296Q' in the box
-	Then I have selected current date '-1' Date option
-	And I have provided Scheduled departure time '18:30'
-	When I click save and continue button from route checker page
-	Then I should see departure date current date '-1' and time '18:30' on top of the home page
-
 Scenario: Verify the scheduled departure date, date hint and current date pre-population
 	Then I should see date subsection 'Scheduled departure date' with the current date pre-population
 	And I should see hint 'For example, 27 3 2024' under the date subheading
@@ -125,11 +117,3 @@ Scenario: Verify the error message if scheduled departure date and time is after
 	Then I have selected departure date as current date '1' and departure time as current time to check 'After24Hours'
 	When I click save and continue button from route checker page
 	Then I should see an error message "The flight or ferry must have departed in the past 48 hours or departs within the next 24 hours" in route checking page
-
-Scenario: Verify the home page content for flight route selection
-	Then I have selected 'Flight' radio option
-	Then I provide the 'AF296Q' in the box
-	And I have provided Scheduled departure time '10:40'
-	When I click save and continue button from route checker page
-	Then I should navigate to Checks page
-	And I should see content 'You can scan or search for:' with list 'PTD number' 'application number' 'microchip number'

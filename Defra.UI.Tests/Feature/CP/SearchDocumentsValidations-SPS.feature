@@ -120,3 +120,11 @@ Scenario: Verify the error message if no search options selected in find a docum
 	Then I navigate to Find a document page
 	When I click search button
 	Then I should see an error message "Select if you are searching for a PTD, application or microchip number" in Find a document page
+
+Scenario: Verify the Checks home page filter and display only the selected ferry route - SPS Checker
+	Then I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '09:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	And I should see route displayed in all the tables of Checks page should be 'Birkenhead to Belfast (Stena)'

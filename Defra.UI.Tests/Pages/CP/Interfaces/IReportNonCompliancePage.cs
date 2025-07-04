@@ -14,7 +14,6 @@
         bool VerifyGBOutcomeCheckboxes(string checkboxValues, string subHeading);
         bool VerifySPSOutcomeCheckboxes(string checkboxValues, string subHeading);
         bool VerifyDetailsOfOutcome();
-        bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength);
         bool VerifyThePTDNumber(string ptdNumberLabel, string ptdNumber);
         bool VerifyTheDateOfIssuance(string dateLabel, string dateOfIssuance);
         bool VerifyTheReferenceNumber(string refNumberLabel, string refereneNumber);

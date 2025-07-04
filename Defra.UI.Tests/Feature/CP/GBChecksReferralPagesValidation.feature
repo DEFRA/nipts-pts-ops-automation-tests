@@ -14,7 +14,7 @@ Background:
 Scenario: Verify GB check report page headings and back link navigation
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '16:30'
+	And I have provided Scheduled departure time '12:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -30,7 +30,7 @@ Scenario: Verify GB check report page headings and back link navigation
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
+	When I click View link in Fail Referred to SPS row with departure time '12:30'
 	Then I should navigate to Referred to SPS page
 	When I click first link in PTD or Reference number
 	Then I should navigate to GB check report page
@@ -61,7 +61,7 @@ Scenario: Verify Outcome table in GB check report page
 	And I enter details '<DetailsOFOutcomeInReportNonCompPage>' in Details of outcome
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
+	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
 	When I click the reference number 'DKVUZHQ9' link
  	Then I should navigate to GB check report page
@@ -75,7 +75,6 @@ Examples:
 	| DetailsOFOutcomeInReportNonCompPage | AdditionalCommentsInReportNonCompPage | DetailsOFOutcomeInGBCheckReport | AdditionalCommentsInInGBCheckReport |
 	| Outcome Details                     | Comments                              | Outcome Details                 | Comments                            |
 	|                                     |                                       | None                            | None                                |
-
 
 Scenario: Verify Check details table in GB check report page
 	Then I have selected 'Ferry' radio option
@@ -97,7 +96,7 @@ Scenario: Verify Check details table in GB check report page
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
+	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
 	When I click first link in PTD or Reference number
 	Then I should navigate to GB check report page
@@ -127,7 +126,7 @@ Scenario: Verify the route details and PTD Number format in Referred to SPS page
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
+	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
 	And I should see route details 'Birkenhead to Belfast (Stena)' date and time '23:59' below the title of the page
 	And I should see all the PTD numbers should be in correct format and starts with 'GB826'
@@ -151,7 +150,7 @@ Scenario: Verify the back link navigation for search result through home referra
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
+	When I click View link in Fail Referred to SPS row with departure time '16:30'
 	Then I should navigate to Referred to SPS page
 	When I click first link in PTD or Reference number
 	Then I should navigate to GB check report page
@@ -160,7 +159,7 @@ Scenario: Verify the back link navigation for search result through home referra
 	Then I click back link
 	And I should navigate to GB check report page
 	When I click footer home icon
-	And I click View link in Fail Referred to SPS row with count more than 0
+	And I click View link in Fail Referred to SPS row with departure time '16:30'
 	Then I should navigate to Referred to SPS page
 	When I click first link in PTD or Reference number
 	Then I should navigate to GB check report page
@@ -172,3 +171,80 @@ Scenario: Verify the back link navigation for search result through home referra
 	When I should see the application status in 'Unsuccessful'
 	Then I click back link
 	And I should navigate to GB check report page
+
+Scenario: Verify the table details in Referred to SPS page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Loch Ryan to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '10:00'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Reference number '8CLR4IZ7' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	When I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I click 'Passenger says they will not travel' GB Outcome
+	Then I click 'Vehicle on ferry' in Passenger details
+	When I click Save outcome button from non-compliance page
+	Then I should see a message 'Information has been successfully submitted' in Checks page
+	When I click View link in Fail Referred to SPS row with departure time '10:00'
+	Then I should navigate to Referred to SPS page
+	And I verify the Referred to SPS page table column names as 'PTD or Reference number' 'Pet' 'Microchip' 'Travel by' 'SPS outcome'
+	And I verify the Referred to SPS page table column values as 'GB826 CBA 461' 'Dog and Other' '398931864434234' 'Vehicle' 'Check needed'
+
+Scenario: Verify for no duplicate referrals and latest details updated in GB check report page
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '23:59'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Reference number 'DKVUZHQ9' of the application
+	When I click search button
+	And I should see the application status in 'Unsuccessful'
+	And I continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I Select the 'Microchip number does not match the PTD' Microchip Checkbox
+	And I enter the Microchip number in '123456789012345' in Report non-compliance page
+	And I click 'Passenger says they will not travel' GB Outcome
+	Then I click 'Vehicle on ferry' in Passenger details
+	And I enter details 'Outcome Details' in Details of outcome
+	When I click Save outcome button from non-compliance page
+	Then I should see a message 'Information has been successfully submitted' in Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Reference number 'DKVUZHQ9' of the application
+	When I click search button
+	And I should see the application status in 'Unsuccessful'
+	And I continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I select 'Authorised person but no confirmation' as visual check reason
+	And I click 'Passenger advised not to travel' GB Outcome
+	Then I click 'Ferry foot passenger' in Passenger details
+	And I enter comments 'Comments' in Any relevant comments
+	When I click Save outcome button from non-compliance page
+	Then I should see a message 'Information has been successfully submitted' in Checks page
+	When I click View link in Fail Referred to SPS row with departure time '23:59'
+	Then I should navigate to Referred to SPS page
+	And I verify the PTDOrRefNum 'DKVUZHQ9' is not repeated in the table
+	And I verify the Referred to SPS page table column values as 'DKVUZHQ9' 'Ferret and Chocolate' '123498012398051' 'Foot' 'Check needed'
+	When I click the reference number 'DKVUZHQ9' link
+ 	Then I should navigate to GB check report page
+	And I should see 'Outcome' and 'Check details' subheadings
+	Then I should see 'Passenger advised not to travel' as Check outcome
+	And I should see 'None' as Details of outcome
+	And I should see 'Cannot find microchip, Authorised person but no confirmation' as Reason for referral
+	And I should see 'Comments' as Additional comments
+	Then I should see 'PREPROD Automation' as GB checker name
+	And I should see 'Birkenhead to Belfast (Stena)' as Route
+	Then I should see current date as Scheduled departure date
+	And I should see '23:59' as Scheduled departure time
