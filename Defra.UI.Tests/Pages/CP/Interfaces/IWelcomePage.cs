@@ -14,5 +14,7 @@
         bool IsConfirmationBoxDisplayed();
         bool CheckFlightHomePageContent(string content, string contentList1, string contentList2, string contentList3);
         bool ChecksPageRouteFilter(string selectedRoute);
+        bool SailingDetailsInChecksPageTables();
+        void OpenNewTab();
     }
 }

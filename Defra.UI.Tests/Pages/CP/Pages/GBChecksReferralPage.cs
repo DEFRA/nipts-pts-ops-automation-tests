@@ -46,6 +46,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblGBCheckerNameValue => _driver.WaitForElement(By.XPath("//dt[text()='GB checker’s name']//following::dd[1]"));
         private IWebElement lblRoute => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Route']"));
         private IWebElement lblRouteValue => _driver.WaitForElement(By.XPath("//dt[text()='Route']//following::dd[1]"));
+        private IWebElement lblDateAndTimeChecked => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Date and time checked']"));
+        private IWebElement lblDateAndTimeCheckedValue => _driver.WaitForElement(By.XPath("//dt[text()='Date and time checked']//following::dd[1]"));
         private IWebElement lblDepartDate => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Scheduled departure date']"));
         private IWebElement lblDepartDateValue => _driver.WaitForElement(By.XPath("//dt[text()='Scheduled departure date']//following::p[1]"));
         private IWebElement lblDepartTime => _driver.WaitForElement(By.XPath("(//dt[normalize-space()='Scheduled departure time'])"));
@@ -66,6 +68,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblTravelByValue => _driver.WaitForElement(By.XPath("//*[@class='govuk-table__body']//td[3]"));
         private IWebElement lblSPSOutcomeValue => _driver.WaitForElement(By.XPath("//*[@class='govuk-table__body']//td[4]"));
         private IReadOnlyCollection<IWebElement> allPTDRefNumberValues => _driver.FindElements(By.XPath("//*[@class='govuk-table__body']//button"));
+        private IWebElement txtPassCount => _driver.WaitForElement(By.XPath("//*[contains(text(),'Pass')]//following-sibling::dd"));
         #endregion
 
         #region Methods
@@ -354,6 +357,56 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 }
             }
             return true;
+        }
+
+        public bool CheckPassCount(string count, string departureTime)
+        {
+            DateTime dateAndTime = DateTime.Today;
+            var currentDate = dateAndTime.ToString("dd/MM/yyyy");
+
+            foreach (var table in ChecksPageTables)
+            {
+                if (table.Text.Contains(currentDate) && table.Text.Contains(departureTime))
+                {
+                    table.ScrollToElement(_driver);
+                    IWebElement passCount = table.FindElement(By.XPath(".//*[contains(text(),'Pass')]//following-sibling::dd"));
+                    return passCount.Text.Trim().Equals(count);
+                }
+                else
+                    continue;
+            }
+            return false;
+        }
+
+        public bool CheckFailCount(string count, string departureTime)
+        {
+            DateTime dateAndTime = DateTime.Today;
+            var currentDate = dateAndTime.ToString("dd/MM/yyyy");
+
+            foreach (var table in ChecksPageTables)
+            {
+                if (table.Text.Contains(currentDate) && table.Text.Contains(departureTime))
+                {
+                    table.ScrollToElement(_driver);
+                    IWebElement failCount = table.FindElement(By.XPath(".//*[contains(text(),'Fail: Referred to SPS')]//following-sibling::dd[1]"));
+                    return failCount.Text.Trim().Equals(count);
+                }
+                else
+                    continue;
+            }
+            return false;
+        }
+
+        public bool DateAndTimeChecked()
+        {
+            DateTime dateAndTime = DateTime.Now;
+            var currentDate = dateAndTime.ToString("dd/MM/yyyy");
+            var currentTime = dateAndTime.ToString("HH:mm");
+            var currentTimeMinusOneHour = dateAndTime.AddHours(-1).ToString("HH:mm");
+
+            return lblDateAndTimeChecked.Text.Trim().Equals("Date and time checked")
+                && lblDateAndTimeCheckedValue.Text.Trim().Contains(currentDate)
+                && (lblDateAndTimeCheckedValue.Text.Trim().Contains(currentTime) || lblDateAndTimeCheckedValue.Text.Trim().Contains(currentTimeMinusOneHour));
         }
         #endregion
     }

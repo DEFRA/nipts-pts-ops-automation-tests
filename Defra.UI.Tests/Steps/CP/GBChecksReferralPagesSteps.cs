@@ -197,5 +197,23 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.IsTrue(_gbChecksReferralPage?.CheckPTDOrRefNumDuplicates(ptdOrRefNumber), "PTD or Reference number is duplicated in the Referred to SPS page table");
         }
+
+        [Then(@"I should see the count next to Pass as '([^']*)' in the table contains departure time '([^']*)'")]
+        public void ThenIShouldSeeTheCountNextToPassAsInTheTableContainsDepartureTime(string count, string departureTime)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckPassCount(count, departureTime), "Pass count is not correct");
+        }
+
+        [Then(@"I should see the count next to Fail Referred to SPS as '([^']*)' in the table contains departure time '([^']*)'")]
+        public void ThenIShouldSeeTheCountNextToFailReferredToSPSAsInTheTableContainsDepartureTime(string count, string departureTime)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckFailCount(count, departureTime), "Fail count is not correct");
+        }
+
+        [Then(@"I should see current date and current time as Date and time checked")]
+        public void ThenIShouldSeeCurrentDateAndCurrentTimeAsDateAndTimeChecked()
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.DateAndTimeChecked(), "Date and time checked is incorrect");
+        }
     }
 }

@@ -148,9 +148,6 @@
     <Compile Update="Feature\CP\Check-OutCome.feature.cs">
       <DependentUpon>Check-Outcome.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\CP\UnauthourizedUserValidation.feature.cs">
-      <DependentUpon>UnauthourizedUserValidation.feature</DependentUpon>
-    </Compile>
     <Compile Update="Feature\CP\ReportNonCompliance-SPS.feature.cs">
       <DependentUpon>ReportNonCompliance-SPS.feature</DependentUpon>
     </Compile>
@@ -199,10 +196,6 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>
     <ReqnrollFeatureFiles Update="Feature\CP\GBChecksReferralPagesValidation.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </ReqnrollFeatureFiles>
-    <ReqnrollFeatureFiles Update="Feature\CP\UnauthourizedUserValidation.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>

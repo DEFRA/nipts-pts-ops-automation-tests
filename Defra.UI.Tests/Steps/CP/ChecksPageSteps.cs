@@ -6,6 +6,7 @@ using OpenQA.Selenium;
 using Reqnroll;
 using Defra.UI.Tests.Tools;
 using Defra.UI.Tests.Pages.CP.Pages;
+using AventStack.ExtentReports.Gherkin.Model;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -71,6 +72,18 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeRouteDisplayedInAllTheTablesOfChecksPageShouldBe(string selectedRoute)
         {
             Assert.True(_welcomePage?.ChecksPageRouteFilter(selectedRoute), "Checks Page have different routes than the selected route");
+        }
+
+        [Then(@"I should see departure date and time displayed in all tables of Checks page")]
+        public void ThenIShouldSeeDepartureDateAndTimeDisplayedInAllTablesOfChecksPage()
+        {
+            Assert.True(_welcomePage?.SailingDetailsInChecksPageTables(), "Sailing details are not displayed properly in Checks Page tables");
+        }
+
+        [When(@"I open a new tab in the same browser window")]
+        public void WhenIOpenANewTabInTheSameBrowserWindow()
+        {
+            _welcomePage?.OpenNewTab();
         }
     }
 }
