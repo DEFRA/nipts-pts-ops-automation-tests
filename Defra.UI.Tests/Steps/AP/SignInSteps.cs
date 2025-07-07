@@ -43,9 +43,11 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"sign in with valid credentials with logininfo")]
         public void ThenSignInWithValidCredentialsWithLogininfo()
         {
+            var userName = _scenarioContext.Get<string>("GGID");
+            var credential = "G0vernmen+";
             var user = UserObject?.GetUser("AP");
             _objectContainer.RegisterInstanceAs(user);
-            Assert.True(Signin?.IsSignedIn(user?.UserName, user?.Credential), "Not able to sign in");
+            Assert.True(Signin?.IsSignedIn(userName, credential), "Not able to sign in");
         }
 
         [When(@"click on signout button and verify the signout message")]
@@ -61,6 +63,7 @@ namespace Defra.UI.Tests.Steps.AP
             var user = PowerAppsStepDefiner.TestConfig.Users.FirstOrDefault();
 
             Trade.Plants.SpecFlowBindings.Steps.LoginSteps.GivenIAmLoggedInToTheAppAs1("Defra Trade - NIPTS", user?.Alias);
-        }
+        }       
+
     }
 }

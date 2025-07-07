@@ -12,6 +12,10 @@ using OpenQA.Selenium.Remote;
 using Reqnroll;
 using System.Net.Http.Headers;
 using System.Reflection;
+using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Pages.AP.Classes;
+using NUnit.Framework;
+using Microsoft.Xrm.Sdk.Workflow.Activities;
 
 namespace Defra.UI.Tests.Hooks
 {
@@ -22,12 +26,16 @@ namespace Defra.UI.Tests.Hooks
         private static string Target => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.Target;
         private static string SeleniumGrid => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.SeleniumGrid;
 
-        private ScenarioContext _scenarioContext;
+        private static ScenarioContext _scenarioContext;
         private readonly object _lock = new object();
 
-        private readonly IObjectContainer _objectContainer;
+        private static IObjectContainer _objectContainer;
         private readonly IReqnrollOutputHelper _reqnrollOutputHelper;
-        private IFetchCodeFromEmail FetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
+        private static IFetchCodeFromEmail FetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
+        private static ISignInPage? Signin => _objectContainer.IsRegistered<ISignInPage>() ? _objectContainer.Resolve<ISignInPage>() : null;
+        private static IEmailSignUpPage? EmailSignUpPage => _objectContainer.IsRegistered<IEmailSignUpPage>() ? _objectContainer.Resolve<IEmailSignUpPage>() : null;
+        private static IHomePage? HomePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
+
 
         private static ExtentReports _extent;
         [ThreadStatic]
@@ -43,10 +51,72 @@ namespace Defra.UI.Tests.Hooks
             _reqnrollOutputHelper = reqnrollOutputHelper;
         }
 
+        private static void GGIDCreation()
+        {
+            var emailRef = "PetsAutomation";
+            Signin?.ClickCreateSignInDetailsLink();
+            Random rand = new Random();
+            int number = rand.Next(0, 100000); //returns random number between 0-99999
+            string randomText = number.ToString();
+
+            string emailText = emailRef + randomText;
+            string emailAddress = emailText + "@team707045.testinator.com";
+
+            EmailSignUpPage?.EnterEmailAddress(emailAddress);
+            Thread.Sleep(3000);
+            EmailSignUpPage?.ClickContinueButton();
+
+            FetchCodeFromEmail fetchCode = new FetchCodeFromEmail(_scenarioContext);
+            string code = fetchCode.GetCodeFromEmail(emailText).Result;
+            _scenarioContext.Add("emailText", emailText);
+            _scenarioContext.Add("emailAddress", emailAddress);
+            _scenarioContext.Add("confirmationCode", code);
+
+            EmailSignUpPage?.EnterConfirmationCode(_scenarioContext.Get<string>("confirmationCode"));
+            EmailSignUpPage?.ClickContinueButton();
+            EmailSignUpPage?.ClickContinueButton();
+
+            EmailSignUpPage?.EnterFullName("Pets Automation");
+            EmailSignUpPage?.ClickContinueButton();
+
+            EmailSignUpPage?.EnterThePassword("G0vernmen+");
+            EmailSignUpPage?.ClickContinueButton();
+
+            _scenarioContext.Add("GGID", EmailSignUpPage?.IsGGIDCreated());
+            Assert.IsNotEmpty(_scenarioContext.Get<string>("GGID"));
+            EmailSignUpPage?.ClickContinueButton();
+
+            EmailSignUpPage?.ClickContinueButton();
+            EmailSignUpPage?.ClickContinueButton();
+            EmailSignUpPage?.ClickContinueButton();
+
+            EmailSignUpPage?.SelectIndividualUser();
+            EmailSignUpPage?.ClickContinueButton();
+
+            EmailSignUpPage?.EnterFirstAndLastName("Pets", "Automation");
+            EmailSignUpPage?.ClickContinueButton();
+
+            EmailSignUpPage?.EnterTelephoneNumber("07639928765");
+            EmailSignUpPage?.ClickContinueButton();
+
+            EmailSignUpPage?.EnterPostCode("OX1 1AF");
+            EmailSignUpPage?.ClickContinueButton();
+
+            EmailSignUpPage?.SelectAddress();
+            EmailSignUpPage?.ClickContinueButton();
+
+            EmailSignUpPage?.EnterMemorableWordAndHint("OpsPetsTesting", "OpsPetsTesting");
+            EmailSignUpPage?.ClickContinueButton();
+            EmailSignUpPage?.ClickContinueButton();
+
+            Assert.True(HomePage?.IsPageLoaded(), "Apply for a pet travel document not loaded");
+        }
+
         [BeforeTestRun]
         public static void BeforeTestRun()
         {
             _extent = ExtentReportManager.GetInstance();
+            GGIDCreation();
         }
 
         [BeforeFeature]
@@ -174,8 +244,7 @@ namespace Defra.UI.Tests.Hooks
 
             if (_scenarioContext.TestError == null)
             {
-                _scenario
-                    .CreateNode(new GherkinKeyword(stepType), stepInfo)
+                _scenario.CreateNode(new GherkinKeyword(stepType), stepInfo)
                     .Pass("Step passed")
                     .AddScreenCaptureFromPath(screenshotPath);
             }
