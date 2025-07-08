@@ -372,8 +372,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     IWebElement passCount = table.FindElement(By.XPath(".//*[contains(text(),'Pass')]//following-sibling::dd"));
                     return passCount.Text.Trim().Equals(count);
                 }
-                else
-                    continue;
             }
             return false;
         }
@@ -391,8 +389,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     IWebElement failCount = table.FindElement(By.XPath(".//*[contains(text(),'Fail: Referred to SPS')]//following-sibling::dd[1]"));
                     return failCount.Text.Trim().Equals(count);
                 }
-                else
-                    continue;
             }
             return false;
         }

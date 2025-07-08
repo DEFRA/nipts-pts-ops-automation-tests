@@ -19,7 +19,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(text(),'Checks')]"),true);
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(text(),'Checks')]"), true);
         private IWebElement iconSearch => _driver.WaitForElement(By.XPath("//a[@href='/checker/document-search']//*[name()='svg']"));
         private IWebElement iconHome => _driver.WaitForElement(By.XPath("//span[normalize-space()='Home']"));
         private IWebElement iconScan => _driver.WaitForElement(By.XPath("//span[normalize-space()='Scan']"));
@@ -118,17 +118,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             {
                 return true;
             }
-            else
+
+            foreach (var element in txtRouteChecksPageTables)
             {
-                foreach (var element in txtRouteChecksPageTables)
+                if (!element.Text.Contains(selectedRoute))
                 {
-                    if (element.Text.Contains(selectedRoute))
-                        continue;
-                    else
-                        break;
+                    return false;
                 }
-                return true;
             }
+            return true;
         }
 
         public bool SailingDetailsInChecksPageTables()
@@ -137,33 +135,30 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             {
                 return true;
             }
-            else
+
+            DateTime dateAndTime = DateTime.Today;
+            var currentDate = dateAndTime.ToString("dd/MM/yyyy");
+            var currentDateMinus2Days = dateAndTime.AddDays(-2).ToString("dd/MM/yyyy");
+            var currentDateMinus1Day = dateAndTime.AddDays(-1).ToString("dd/MM/yyyy");
+            var currentDatePlus1Day = dateAndTime.AddDays(1).ToString("dd/MM/yyyy");
+
+            if (ChecksPageTables.Count.Equals(txtDepartureChecksPageTables.Count))
             {
-                DateTime dateAndTime = DateTime.Today;
-                var currentDate = dateAndTime.ToString("dd/MM/yyyy");
-                var currentDateMinus2Days = dateAndTime.AddDays(-2).ToString("dd/MM/yyyy");
-                var currentDateMinus1Day = dateAndTime.AddDays(-1).ToString("dd/MM/yyyy");
-                var currentDatePlus1Day = dateAndTime.AddDays(1).ToString("dd/MM/yyyy");
-
-                if (ChecksPageTables.Count.Equals(txtDepartureChecksPageTables.Count))
+                foreach (var element in txtDepartureChecksPageTables)
                 {
-                    foreach (var element in txtDepartureChecksPageTables)
-                    {
-                        string fullDepartureLine = element.Text;
-                        var departureTime = fullDepartureLine.Substring(fullDepartureLine.Length - 5);
+                    string fullDepartureLine = element.Text;
+                    var departureTime = fullDepartureLine.Substring(fullDepartureLine.Length - 5);
 
-                        if (element.Text.Contains("Departure:")
-                        && (element.Text.Contains(currentDate) || element.Text.Contains(currentDatePlus1Day)
-                        || element.Text.Contains(currentDateMinus2Days) || element.Text.Contains(currentDateMinus1Day))
-                        && element.Text.Contains(departureTime))
-                            continue;
-                        else
-                            break;
+                    if (!element.Text.Contains("Departure:")
+                    && (!element.Text.Contains(currentDate) || !element.Text.Contains(currentDatePlus1Day)
+                    || !element.Text.Contains(currentDateMinus2Days) || !element.Text.Contains(currentDateMinus1Day))
+                    && !element.Text.Contains(departureTime))
+                    {
+                        return false;
                     }
-                    return true;
                 }
-                return false;
             }
+            return true;
         }
 
         public void OpenNewTab()
