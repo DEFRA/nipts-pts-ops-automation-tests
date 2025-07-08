@@ -105,6 +105,7 @@ Scenario: Verify Check details table in GB check report page
 	And I should see 'Birkenhead to Belfast (Stena)' as Route
 	Then I should see current date as Scheduled departure date
 	And I should see '23:59' as Scheduled departure time
+	Then I should see current date and current time as Date and time checked
 
 Scenario: Verify the route details and PTD Number format in Referred to SPS page
 	Then I have selected 'Ferry' radio option
@@ -248,3 +249,109 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	And I should see 'Birkenhead to Belfast (Stena)' as Route
 	Then I should see current date as Scheduled departure date
 	And I should see '23:59' as Scheduled departure time
+	Then I should see current date and current time as Date and time checked
+
+Scenario: Verify referral count on updating approved document pass to fail check outcome
+	Then I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time '02:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '87FDFA' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Pass radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Checks page
+	And I should see a message 'Information has been successfully submitted' in Checks page
+	Then I should see the count next to Pass as '1' in the table contains departure time '02:45'
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '87FDFA' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I select 'Authorised person but no confirmation' as visual check reason
+	And I click 'Passenger advised not to travel' GB Outcome
+	Then I click 'Ferry foot passenger' in Passenger details
+	And I enter comments 'Comments' in Any relevant comments
+	When I click Save outcome button from non-compliance page
+	Then I should see a message 'Information has been successfully submitted' in Checks page
+	Then I should see the count next to Pass as '0' in the table contains departure time '02:45'
+	And I should see the count next to Fail Referred to SPS as '1' in the table contains departure time '02:45'
+	When I click View link in Fail Referred to SPS row with departure time '02:45'
+	Then I should navigate to Referred to SPS page
+	And I verify the PTDOrRefNum 'GB826 87F DFA' is not repeated in the table
+	When I click the reference number 'GB82687FDFA' link
+ 	Then I should navigate to GB check report page
+	And I should see 'Outcome' and 'Check details' subheadings
+	Then I should see 'Passenger advised not to travel' as Check outcome
+	And I should see 'None' as Details of outcome
+	And I should see 'Cannot find microchip, Authorised person but no confirmation' as Reason for referral
+	And I should see 'Comments' as Additional comments
+	Then I should see 'PREPROD Automation' as GB checker name
+	And I should see 'Cairnryan to Larne (P&O)' as Route
+	Then I should see current date as Scheduled departure date
+	And I should see '02:45' as Scheduled departure time
+	Then I should see current date and current time as Date and time checked
+
+Scenario: Verify referral count on updating approved document fail to fail check outcome
+	Then I have selected 'Ferry' radio option
+	And I select the 'Loch Ryan to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '02:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '86FD9E' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I click 'Passenger advised not to travel' GB Outcome
+	Then I click 'Ferry foot passenger' in Passenger details
+	And I enter comments 'Comments' in Any relevant comments
+	When I click Save outcome button from non-compliance page
+	Then I should see a message 'Information has been successfully submitted' in Checks page
+	And I should see the count next to Fail Referred to SPS as '1' in the table contains departure time '02:45'
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '86FD9E' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I select 'Pet does not match the PTD' as visual check reason
+	And I click 'Passenger says they will not travel' GB Outcome
+	Then I click 'Vehicle on ferry' in Passenger details
+	When I click Save outcome button from non-compliance page
+	Then I should see a message 'Information has been successfully submitted' in Checks page
+	Then I should see the count next to Pass as '0' in the table contains departure time '02:45'
+	And I should see the count next to Fail Referred to SPS as '1' in the table contains departure time '02:45'
+	When I click View link in Fail Referred to SPS row with departure time '02:45'
+	Then I should navigate to Referred to SPS page
+	And I verify the PTDOrRefNum 'GB826 86F D9E' is not repeated in the table
+	When I click the reference number 'GB82686FD9E' link
+ 	Then I should navigate to GB check report page
+	And I should see 'Outcome' and 'Check details' subheadings
+	Then I should see 'Passenger says they will not travel' as Check outcome
+	And I should see 'None' as Details of outcome
+	And I should see 'Pet does not match the PTD' as Reason for referral
+	And I should see 'None' as Additional comments
+	Then I should see 'PREPROD Automation' as GB checker name
+	And I should see 'Loch Ryan to Belfast (Stena)' as Route
+	Then I should see current date as Scheduled departure date
+	And I should see '02:45' as Scheduled departure time
+	Then I should see current date and current time as Date and time checked

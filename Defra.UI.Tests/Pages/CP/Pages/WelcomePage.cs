@@ -19,7 +19,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(text(),'Checks')]"),true);
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(text(),'Checks')]"), true);
         private IWebElement iconSearch => _driver.WaitForElement(By.XPath("//a[@href='/checker/document-search']//*[name()='svg']"));
         private IWebElement iconHome => _driver.WaitForElement(By.XPath("//span[normalize-space()='Home']"));
         private IWebElement iconScan => _driver.WaitForElement(By.XPath("//span[normalize-space()='Scan']"));
@@ -32,6 +32,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtFlightHomePageContentList2 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[2]"));
         private IWebElement txtFlightHomePageContentList3 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[3]"));
         private IReadOnlyCollection<IWebElement> txtRouteChecksPageTables => _driver.FindElements(By.XPath("//h2[@class='govuk-summary-card__title']/p[1]"));
+        private IReadOnlyCollection<IWebElement> txtDepartureChecksPageTables => _driver.FindElements(By.XPath("//h2[@class='govuk-summary-card__title']/p[2]"));
+        private IReadOnlyCollection<IWebElement> ChecksPageTables => _driver.FindElements(By.XPath("//*[@class='govuk-summary-card']"));
         #endregion
 
         #region Methods
@@ -116,17 +118,52 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             {
                 return true;
             }
-            else
+
+            foreach (var element in txtRouteChecksPageTables)
             {
-                foreach (var element in txtRouteChecksPageTables)
+                if (!element.Text.Contains(selectedRoute))
                 {
-                    if (element.Text.Contains(selectedRoute))
-                        return true;
-                    else
-                        return false;
+                    return false;
                 }
             }
-            return false;
+            return true;
+        }
+
+        public bool SailingDetailsInChecksPageTables()
+        {
+            if (txtDepartureChecksPageTables.Count == 0)
+            {
+                return true;
+            }
+
+            DateTime dateAndTime = DateTime.Today;
+            var currentDate = dateAndTime.ToString("dd/MM/yyyy");
+            var currentDateMinus2Days = dateAndTime.AddDays(-2).ToString("dd/MM/yyyy");
+            var currentDateMinus1Day = dateAndTime.AddDays(-1).ToString("dd/MM/yyyy");
+            var currentDatePlus1Day = dateAndTime.AddDays(1).ToString("dd/MM/yyyy");
+
+            if (ChecksPageTables.Count.Equals(txtDepartureChecksPageTables.Count))
+            {
+                foreach (var element in txtDepartureChecksPageTables)
+                {
+                    string fullDepartureLine = element.Text;
+                    var departureTime = fullDepartureLine.Substring(fullDepartureLine.Length - 5);
+
+                    if (!element.Text.Contains("Departure:")
+                    && (!element.Text.Contains(currentDate) || !element.Text.Contains(currentDatePlus1Day)
+                    || !element.Text.Contains(currentDateMinus2Days) || !element.Text.Contains(currentDateMinus1Day))
+                    && !element.Text.Contains(departureTime))
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        public void OpenNewTab()
+        {
+            _driver.SwitchTo().NewWindow(WindowType.Tab);
         }
         #endregion
     }

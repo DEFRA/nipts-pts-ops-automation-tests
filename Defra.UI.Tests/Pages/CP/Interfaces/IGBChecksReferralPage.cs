@@ -27,5 +27,8 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
         bool CheckReferredToSPSTableLabels(string ptdOrRefNumber, string pet, string microchip, string travelBy, string spsOutcome);
         bool CheckReferredToSPSTableValues(string ptdOrRefNumber, string pet, string microchip, string travelBy, string spsOutcome);
         bool CheckPTDOrRefNumDuplicates(string ptdOrRefNumber);
+        bool CheckPassCount(string count, string departureTime);
+        bool CheckFailCount(string count, string departureTime);
+        bool DateAndTimeChecked();
     }
 }
