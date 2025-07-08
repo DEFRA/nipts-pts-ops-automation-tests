@@ -5,6 +5,7 @@ using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using Defra.UI.Framework.Driver;
 using System.Reflection.PortableExecutable;
+using NUnit.Framework;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -33,10 +34,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement rdoSearchByAppNumber => _driver.WaitForElement(By.Id("documentSearch-2-label"));
         private IWebElement rdoSearchByMCNumber => _driver.WaitForElement(By.Id("documentSearch-3-label"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
-        private IWebElement lblYouCannotAccessPageHeading => _driver.WaitForElement(By.XPath("//h1[contains(normalize-space(),'You cannot access this page')]"));
+        private IWebElement lblPageHeading => _driver.WaitForElement(By.XPath("//h1"));
         private IWebElement lnkGobackToPrevPage => _driver.WaitForElement(By.XPath("//a[contains(.,'go back to the previous page')]"));
         private IWebElement lblHeaderTitle => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-!-margin-bottom-4')]"));
-        private IWebElement lblYouCannotAccessPageContentText => _driver.WaitForElement(By.XPath("//*[@id='main-content']//p"));
+        private IList<IWebElement> lblErrorPageContentText => _driver.FindElements(By.XPath("//*[@id='main-content']//p"));
         private IReadOnlyCollection<IWebElement> btnSignout => _driver.FindElements(By.XPath("//a[normalize-space()='Sign out']"));
         private IReadOnlyCollection<IWebElement> btnAccount => _driver.FindElements(By.XPath("//a[normalize-space()='Account']"));
         #endregion
@@ -130,9 +131,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return txtMicrochipNumberSearchBox.GetAttribute("value").Contains(alreadyEnteredMicrochipNumber);
         }
 
-        public bool VerifyYouCannotAccessPage(string errorPageHeading)
+        public bool VerifyErrorPageHeading(string errorPageHeading)
         {
-            return lblYouCannotAccessPageHeading.Text.Contains(errorPageHeading);
+            return lblPageHeading.Text.Contains(errorPageHeading);
         }
 
         public void VerifyGoBackToPreviousPageLink()
@@ -151,9 +152,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             _driver.Navigate().Back();
         }
 
-        public bool VerifyYouCannotAccessPageText(string errorPageContentText)
+        public bool VerifyErrorPageContent(string errorPageContentText)
         {
-            return lblYouCannotAccessPageContentText.Text.Contains(errorPageContentText);
+            string[] PageContents = errorPageContentText.Split('|');
+
+            for (int i = 0; i < lblErrorPageContentText.Count; i++)
+            {
+                if (!PageContents[i].Equals(lblErrorPageContentText[i].Text))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         public bool VerifyAccountAndSignoutIcons()

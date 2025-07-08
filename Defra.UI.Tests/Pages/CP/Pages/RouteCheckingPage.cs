@@ -284,6 +284,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 selectMinute.SelectByValue(minuteAfter24Hours.ToString("D2"));
             }
         }
+
+        public void EnterInvalidURL()
+        {
+            _driver?.Navigate().GoToUrl("https://pre-check-a-pet-from-gb-to-ni.azure.defra.cloud/checker/curre");
+        }
         #endregion
     }
 }
