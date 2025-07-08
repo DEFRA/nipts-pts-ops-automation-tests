@@ -21,8 +21,6 @@ namespace Defra.UI.Tests.Hooks
     public class WebDriverHook
     {
         public IWebDriver Driver { get; set; }
-        private static string Target => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.Target;
-        private static string SeleniumGrid => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.SeleniumGrid;
 
         private ScenarioContext _scenarioContext;
         private IObjectContainer _objectContainer;
@@ -30,7 +28,9 @@ namespace Defra.UI.Tests.Hooks
         private ISignInPage? Signin => _objectContainer.IsRegistered<ISignInPage>() ? _objectContainer.Resolve<ISignInPage>() : null;
         private IEmailSignUpPage? EmailSignUpPage => _objectContainer.IsRegistered<IEmailSignUpPage>() ? _objectContainer.Resolve<IEmailSignUpPage>() : null;
         private IHomePage? HomePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
-
+        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
+        private IUrlBuilder? UrlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
+        private ILandingPage? landingPage => _objectContainer.IsRegistered<ILandingPage>() ? _objectContainer.Resolve<ILandingPage>() : null;
 
         private static ExtentReports _extent;
         [ThreadStatic]
@@ -223,8 +223,13 @@ namespace Defra.UI.Tests.Hooks
         }
 
 
-        private void GGIDCreation()
+        private async Task GGIDCreation()
         {
+            string url = UrlBuilder?.Default().BuildApp();
+            _driver?.Navigate().GoToUrl(url);
+
+            landingPage?.EnterPassword();
+            
             var emailRef = "PetsAutomation";
 
             Signin?.ClickCreateSignInDetailsLink();
@@ -238,7 +243,7 @@ namespace Defra.UI.Tests.Hooks
             Thread.Sleep(3000);
             EmailSignUpPage?.ClickContinueButton();
 
-            var code = new FetchCodeFromEmail(_scenarioContext).GetCodeFromEmail(emailText).Result;
+            var code = await new FetchCodeFromEmail(_scenarioContext)?.GetCodeFromEmail(emailText);
             _scenarioContext.Add("emailText", emailText);
             _scenarioContext.Add("emailAddress", emailAddress);
             _scenarioContext.Add("confirmationCode", code);

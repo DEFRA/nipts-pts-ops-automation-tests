@@ -7,6 +7,7 @@ using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Pages;
 using Defra.UI.Tests.Pages.AP.Classes;
 using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.HelperMethods;
 
 
 
@@ -23,7 +24,6 @@ namespace Defra.UI.Tests.Hooks
         {
             _objectContainer = objectContainer;
             _scenarioContext = senarioContext;
-
         }
 
         [BeforeScenario(Order = (int)HookRunOrder.Pages)]
@@ -61,7 +61,7 @@ namespace Defra.UI.Tests.Hooks
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<SummaryPage, ISummaryPage>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ManageAccountPage, IManageAccountPage>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<EmailSignUpPage, IEmailSignUpPage>());
-            
+
             // CP Testing
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<SignInCPPage, ISignInCPPage>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<RouteCheckingPage, IRouteCheckingPage>());
