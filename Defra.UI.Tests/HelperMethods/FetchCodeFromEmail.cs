@@ -13,6 +13,7 @@ namespace Defra.UI.Tests.HelperMethods
         public Task DeleteMessageFromInbox(string inboxId);
         public Task DeleteAllMessagesFromInbox(string inboxIdToReadCode);
     }
+
     public class FetchCodeFromEmail : IFetchCodeFromEmail
     {
         private ScenarioContext ScenarioContext { get; set; }
@@ -36,7 +37,6 @@ namespace Defra.UI.Tests.HelperMethods
                 FetchInboxResponse fetchInboxResponse = await MailinatorClient.MessagesClient.FetchInboxAsync(fetchInboxRequest);
 
                 var inBoxMessage = fetchInboxResponse.Messages.SingleOrDefault(t => t.To.Equals(inboxIdToReadCode));
-                ScenarioContext.Add(inboxIdToReadCode, inBoxMessage?.Id);
 
                 //Fetch Message
                 FetchMessageRequest fetchMessageRequest = new FetchMessageRequest() { Domain = DomainName, Inbox = inBoxMessage?.To, MessageId = inBoxMessage?.Id };
