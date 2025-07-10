@@ -83,13 +83,8 @@ namespace Defra.UI.Tests.Hooks
 
             _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
 
-            if (!_scenarioContext.ContainsKey("confirmationCode") || (_scenarioContext.ContainsKey("confirmationCode") && string.IsNullOrEmpty(_scenarioContext.Get<string>("confirmationCode"))))
-            {
-                GGIDCreation();
-            }
-
+            GovernmentGateway.Instance.GetID();
         }
-
 
         [AfterScenario]
         public void AfterScenario()
@@ -220,72 +215,6 @@ namespace Defra.UI.Tests.Hooks
                 AfterScenarioHooks.TestCleanup();
             }
             catch { }
-        }
-
-
-        private async Task GGIDCreation()
-        {
-            string url = UrlBuilder?.Default().BuildApp();
-            _driver?.Navigate().GoToUrl(url);
-
-            landingPage?.EnterPassword();
-            
-            var emailRef = "PetsAutomation";
-
-            Signin?.ClickCreateSignInDetailsLink();
-            var number = new Random().Next(0, 100000);
-            var randomText = number.ToString();
-
-            var emailText = emailRef + randomText;
-            var emailAddress = emailText + "@team707045.testinator.com";
-
-            EmailSignUpPage?.EnterEmailAddress(emailAddress);
-            Thread.Sleep(3000);
-            EmailSignUpPage?.ClickContinueButton();
-
-            var code = await new FetchCodeFromEmail(_scenarioContext)?.GetCodeFromEmail(emailText);
-            _scenarioContext.Add("emailText", emailText);
-            _scenarioContext.Add("emailAddress", emailAddress);
-            _scenarioContext.Add("confirmationCode", code);
-
-            EmailSignUpPage?.EnterConfirmationCode(_scenarioContext.Get<string>("confirmationCode"));
-            EmailSignUpPage?.ClickContinueButton();
-            EmailSignUpPage?.ClickContinueButton();
-
-            EmailSignUpPage?.EnterFullName("Pets Automation");
-            EmailSignUpPage?.ClickContinueButton();
-
-            EmailSignUpPage?.EnterThePassword("G0vernmen+");
-            EmailSignUpPage?.ClickContinueButton();
-
-            _scenarioContext.Add("GGID", EmailSignUpPage?.IsGGIDCreated());
-            Assert.IsNotEmpty(_scenarioContext.Get<string>("GGID"));
-            EmailSignUpPage?.ClickContinueButton();
-
-            EmailSignUpPage?.ClickContinueButton();
-            EmailSignUpPage?.ClickContinueButton();
-            EmailSignUpPage?.ClickContinueButton();
-
-            EmailSignUpPage?.SelectIndividualUser();
-            EmailSignUpPage?.ClickContinueButton();
-
-            EmailSignUpPage?.EnterFirstAndLastName("Pets", "Automation");
-            EmailSignUpPage?.ClickContinueButton();
-
-            EmailSignUpPage?.EnterTelephoneNumber("07639928765");
-            EmailSignUpPage?.ClickContinueButton();
-
-            EmailSignUpPage?.EnterPostCode("OX1 1AF");
-            EmailSignUpPage?.ClickContinueButton();
-
-            EmailSignUpPage?.SelectAddress();
-            EmailSignUpPage?.ClickContinueButton();
-
-            EmailSignUpPage?.EnterMemorableWordAndHint("OpsPetsTesting", "OpsPetsTesting");
-            EmailSignUpPage?.ClickContinueButton();
-            EmailSignUpPage?.ClickContinueButton();
-
-            Assert.True(HomePage?.IsPageLoaded(), "Apply for a pet travel document not loaded");
         }
     }
 }

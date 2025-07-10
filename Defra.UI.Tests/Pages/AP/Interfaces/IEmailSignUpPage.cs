@@ -8,7 +8,7 @@
         public void EnterConfirmationCode(string confirmationCode);
         public void EnterFullName(string Name);
         public void EnterThePassword(string password);
-        public string IsGGIDCreated();
+        public string GetGGID();
         public void SelectIndividualUser();
         public void EnterFirstAndLastName(string firstName, string lastName);
         public void EnterTelephoneNumber(string telephoneNumber);

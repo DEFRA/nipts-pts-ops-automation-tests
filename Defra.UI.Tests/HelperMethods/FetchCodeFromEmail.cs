@@ -18,7 +18,6 @@ namespace Defra.UI.Tests.HelperMethods
     {
         private ScenarioContext ScenarioContext { get; set; }
         private MailinatorClient MailinatorClient = new MailinatorClient("33805b1795e14f1c9af8272c25684f49");
-        //private string DomainName = "team999095.testinator.com";
         private string DomainName = "team707045.testinator.com";
 
         public FetchCodeFromEmail(ScenarioContext _scenarioContext)
