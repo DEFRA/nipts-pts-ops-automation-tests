@@ -87,13 +87,12 @@ namespace Defra.UI.Tests.Hooks
 
             _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
 
+            GovernmentGateway.Instance.GetID();
+        }
             if (string.IsNullOrEmpty(AuthData.GGID)|| string.IsNullOrEmpty(AuthData.Secret))
             {
                 GGIDCreation();
             }
-
-        }
-
 
         [AfterScenario]
         public void AfterScenario()
@@ -229,18 +228,16 @@ namespace Defra.UI.Tests.Hooks
 
         private async Task GGIDCreation()
         {
-            Task.Run(async () => await new FetchCodeFromEmail(_scenarioContext)?.DeleteAllMessagesFromInbox(domainName));
             string url = UrlBuilder?.Default().BuildApp();
             _driver?.Navigate().GoToUrl(url);
 
             landingPage?.EnterPassword();
             
-            var emailRef = "petsautomation";
+            var emailRef = "PetsAutomation";
 
             Signin?.ClickCreateSignInDetailsLink();
-            //var date = new Random().Next(0, 100000);
-            var date = DateTime.Now.ToString("ddMMyyHHmmss");
-            var randomText = date.ToString();
+            var number = new Random().Next(0, 100000);
+            var randomText = number.ToString();
 
             var emailText = emailRef + randomText;
             var emailAddress = emailText + "@team707045.testinator.com";
@@ -248,8 +245,8 @@ namespace Defra.UI.Tests.Hooks
             EmailSignUpPage?.EnterEmailAddress(emailAddress);
             Thread.Sleep(3000);
             EmailSignUpPage?.ClickContinueButton();
-            
-            var code = Task.Run(async() => await new FetchCodeFromEmail(_scenarioContext)?.GetCodeFromEmail(emailText)).Result;
+
+            var code = await new FetchCodeFromEmail(_scenarioContext)?.GetCodeFromEmail(emailText);
             _scenarioContext.Add("emailText", emailText);
             _scenarioContext.Add("emailAddress", emailAddress);
             _scenarioContext.Add("confirmationCode", code);
@@ -261,16 +258,11 @@ namespace Defra.UI.Tests.Hooks
             EmailSignUpPage?.EnterFullName("Pets Automation");
             EmailSignUpPage?.ClickContinueButton();
 
-            AuthData.Secret = "G0vernmen+";
-            EmailSignUpPage?.EnterThePassword(AuthData.Secret);
-            _scenarioContext.Add("Credential", AuthData.Secret);
+            EmailSignUpPage?.EnterThePassword("G0vernmen+");
             EmailSignUpPage?.ClickContinueButton();
 
-            var ggid = EmailSignUpPage?.GetGGID();
-            Assert.IsNotEmpty(ggid);
-            AuthData.GGID = ggid;
-            _scenarioContext.Add("GGID", ggid);            
-                       
+            _scenarioContext.Add("GGID", EmailSignUpPage?.IsGGIDCreated());
+            Assert.IsNotEmpty(_scenarioContext.Get<string>("GGID"));
             EmailSignUpPage?.ClickContinueButton();
 
             EmailSignUpPage?.ClickContinueButton();
@@ -297,8 +289,6 @@ namespace Defra.UI.Tests.Hooks
             EmailSignUpPage?.ClickContinueButton();
 
             Assert.True(HomePage?.IsPageLoaded(), "Apply for a pet travel document not loaded");
-            Signin?.IsSignedOut();
-
         }
     }
 }

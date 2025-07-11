@@ -40,7 +40,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement lblPassword => _driver.WaitForElement(By.XPath("//h1[text()='Create a password']"));
         private IWebElement txtboxPassword => _driver.WaitForElement(By.XPath("//input[@id='newPassword']"));
         private IWebElement txtboxConfirmPassword => _driver.WaitForElement(By.XPath("//input[@id='confirmPassword']"));
-        private IWebElement GGID => _driver.WaitForElement(By.XPath("//h1[text()='Your Government Gateway user ID is:']//following-sibling::div"));
+        private IWebElement lblGGID => _driver.WaitForElement(By.XPath("//h1[text()='Your Government Gateway user ID is:']//following-sibling::div"));
         private IWebElement optIndividualUser => _driver.WaitForElement(By.XPath("//input[@id='accountType-2']//following-sibling::label"));
         private IWebElement txtboxFirstName => _driver.WaitForElement(By.XPath("//input[@id='firstName']"));
         private IWebElement txtboxLastName => _driver.WaitForElement(By.XPath("//input[@id='lastName']"));
@@ -95,7 +95,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public string GetGGID()
         {
-            return GGID.Text;
+            return lblGGID.Text;
         }
 
         public void SelectIndividualUser()
