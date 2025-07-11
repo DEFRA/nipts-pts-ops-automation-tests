@@ -84,8 +84,7 @@ namespace Defra.UI.Tests.Hooks
             {
                 GovernmentGateway.Initialize(_objectContainer);
 
-                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount &&
-                    ConfigSetup.BaseConfiguration.TestConfiguration.ApplicationUrl.Contains("take-your-pet"))
+                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount)
                 {
                     fetchCodeFromEmail.DeleteAllMessagesFromInbox();
                     isRunOnce = false;
