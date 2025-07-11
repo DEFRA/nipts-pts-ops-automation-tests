@@ -1,5 +1,4 @@
-﻿using Reqnroll.BoDi;
-using AventStack.ExtentReports;
+﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin;
 using Capgemini.PowerApps.SpecFlowBindings.Hooks;
 using Defra.UI.Framework.Object;
@@ -10,6 +9,7 @@ using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using Reqnroll;
+using Reqnroll.BoDi;
 using System.Net.Http.Headers;
 using System.Reflection;
 
@@ -19,15 +19,14 @@ namespace Defra.UI.Tests.Hooks
     public class WebDriverHook
     {
         public IWebDriver Driver { get; set; }
-        private static string Target => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.Target;
-        private static string SeleniumGrid => ConfigSetup.BaseConfiguration.UiFrameworkConfiguration.SeleniumGrid;
 
         private ScenarioContext _scenarioContext;
-        private readonly object _lock = new object();
+        private IObjectContainer _objectContainer;
+        private IReqnrollOutputHelper _reqnrollOutputHelper;
 
-        private readonly IObjectContainer _objectContainer;
-        private readonly IReqnrollOutputHelper _reqnrollOutputHelper;
-        private IFetchCodeFromEmail FetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
+        private IFetchCodeFromEmail fetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
+
+        private static bool isRunOnce = false;
 
         private static ExtentReports _extent;
         [ThreadStatic]
@@ -35,11 +34,11 @@ namespace Defra.UI.Tests.Hooks
         [ThreadStatic]
         private static ExtentTest _scenario;
 
-        public WebDriverHook(ScenarioContext context, ObjectContainer container,
+        public WebDriverHook(ScenarioContext context, ObjectContainer objectContainer,
             IReqnrollOutputHelper reqnrollOutputHelper)
         {
             _scenarioContext = context;
-            _objectContainer = container;
+            _objectContainer = objectContainer;
             _reqnrollOutputHelper = reqnrollOutputHelper;
         }
 
@@ -47,6 +46,7 @@ namespace Defra.UI.Tests.Hooks
         public static void BeforeTestRun()
         {
             _extent = ExtentReportManager.GetInstance();
+            isRunOnce = true;
         }
 
         [BeforeFeature]
@@ -79,6 +79,19 @@ namespace Defra.UI.Tests.Hooks
             }
 
             _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
+
+            if (isRunOnce)
+            {
+                GovernmentGateway.Initialize(_objectContainer);
+
+                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount)
+                {
+                    fetchCodeFromEmail.DeleteAllMessagesFromInbox();
+                    isRunOnce = false;
+
+                    GovernmentGateway.Instance.GetUserDetails();
+                }
+            }
         }
 
         [AfterScenario]
@@ -174,8 +187,7 @@ namespace Defra.UI.Tests.Hooks
 
             if (_scenarioContext.TestError == null)
             {
-                _scenario
-                    .CreateNode(new GherkinKeyword(stepType), stepInfo)
+                _scenario.CreateNode(new GherkinKeyword(stepType), stepInfo)
                     .Pass("Step passed")
                     .AddScreenCaptureFromPath(screenshotPath);
             }

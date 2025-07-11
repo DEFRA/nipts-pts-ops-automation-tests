@@ -6,8 +6,8 @@ namespace Defra.UI.Tests.Configuration
     {
         Configuration =1,
         Capability = 2,
-        WebDriver =3,
-        Data=4,
-        Pages=5
+        Pages = 3,
+        WebDriver =4,
+        Data=5,
     }
 }

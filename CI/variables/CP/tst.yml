@@ -6,3 +6,4 @@ variables:
  IDCOMSUser: ''
  IDOMSUserAlias: ''
  SecretsFilter: 'PetsIDCOMSAutomation'
+ IsLiveUserAccount: false

@@ -15,4 +15,3 @@ Scenario: Sign in button click validation
 Scenario: Sign out button click validation
 	Then sign in with valid credentials with logininfo
 	And  click on signout button and verify the signout message
-

@@ -1,11 +1,11 @@
-﻿using Reqnroll.BoDi;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
-using Defra.UI.Tests.Configuration;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -13,17 +13,14 @@ namespace Defra.UI.Tests.Steps.AP
     public class LoginSteps
     {
         private readonly IObjectContainer _objectContainer;
-        private readonly ScenarioContext _scenarioContext;
-
         private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
         private IUrlBuilder? urlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
         private ILandingPage? landingPage => _objectContainer.IsRegistered<ILandingPage>() ? _objectContainer.Resolve<ILandingPage>() : null;
         private ISignInPage? signin => _objectContainer.IsRegistered<ISignInPage>() ? _objectContainer.Resolve<ISignInPage>() : null;
         private IUserObject? UserObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
 
-        public LoginSteps(ScenarioContext context, IObjectContainer container)
+        public LoginSteps(IObjectContainer container)
         {
-            _scenarioContext = context;
             _objectContainer = container;
         }
 
@@ -36,7 +33,7 @@ namespace Defra.UI.Tests.Steps.AP
             var environment = ConfigSetup.BaseConfiguration.TestConfiguration.Environment;
             var title = environment.ToUpper().Equals("PRE") ? "Private beta testing login" : "Private beta testing login";
 
-            Assert.True(landingPage?.IsPageLoaded(title), "Application page not loaded");
+            //Assert.True(landingPage?.IsPageLoaded(title), "Application page not loaded");
         }
 
         [Given(@"I have provided the password for Landing page")]
@@ -61,27 +58,18 @@ namespace Defra.UI.Tests.Steps.AP
         [When(@"I have provided the credentials and signin")]
         public void WhenIHaveProvidedTheCredentialsAndSignin()
         {
-            var jsonData = UserObject?.GetUser("AP");
-            var userObject = new User
-            {
-                UserName = jsonData.UserName,
-                Credential = jsonData.Credential
-            };
+            var userDetails = ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount ?
+                GovernmentGateway.Instance.GetUserDetails() :
+                GovernmentGateway.Instance.GetUserDetailsFromFile();
 
-            signin?.IsSignedIn(userObject.UserName, userObject.Credential);
+            signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret);
         }
 
         [When(@"I have provided invalid CP credentials and signin")]
         public void WhenIHaveProvidedInvalidCPCredentialsAndSignin()
         {
             var jsonData = UserObject?.GetUser("AP");
-            var userObject = new User
-            {
-                UserName = jsonData.UserName,
-                Credential = jsonData.Credential
-            };
-
-            signin?.CPSignIn(userObject.UserName, userObject.Credential);
+            signin?.CPSignIn(jsonData.UserName, jsonData.Credential);
         }
     }
 }

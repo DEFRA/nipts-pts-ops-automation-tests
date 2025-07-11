@@ -26,7 +26,7 @@ jobs:
     - task: PublishBuildArtifacts@1 
       displayName: 'Publish Artifact: report-files'
       inputs: 
-        PathtoPublish: '$(System.DefaultWorkingDirectory)/reports'
+        PathtoPublish: '$(System.DefaultWorkingDirectory)/Accessibility'
         ArtifactName: 'report-files' 
         publishLocation: 'Container'
   
