@@ -26,6 +26,7 @@ namespace Defra.UI.Tests.Hooks
 
         private IFetchCodeFromEmail fetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
 
+        private static bool isRunOnce = false;
 
         private static ExtentReports _extent;
         [ThreadStatic]
@@ -45,6 +46,7 @@ namespace Defra.UI.Tests.Hooks
         public static void BeforeTestRun()
         {
             _extent = ExtentReportManager.GetInstance();
+            isRunOnce = true;
         }
 
         [BeforeFeature]
@@ -78,9 +80,13 @@ namespace Defra.UI.Tests.Hooks
 
             _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
 
-            fetchCodeFromEmail.DeleteAllMessagesFromInbox();
+            if (isRunOnce)
+            {
+                fetchCodeFromEmail.DeleteAllMessagesFromInbox();
+                isRunOnce = false;
 
-            GovernmentGateway.Instance.GetUserDetails();
+                GovernmentGateway.Instance.GetUserDetails();
+            }
         }
 
         [AfterScenario]
