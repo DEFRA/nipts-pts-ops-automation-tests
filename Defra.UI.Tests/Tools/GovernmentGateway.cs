@@ -137,7 +137,7 @@ namespace Defra.UI.Tests.Tools
             emailSignUpPage?.EnterFirstAndLastName("Pets", "Automation");
             emailSignUpPage?.ClickContinueButton();
 
-            emailSignUpPage?.EnterTelephoneNumber("07639928765");
+            emailSignUpPage?.EnterTelephoneNumber("07539928765");
             emailSignUpPage?.ClickContinueButton();
 
             emailSignUpPage?.EnterPostCode("OX1 1AF");
@@ -151,6 +151,7 @@ namespace Defra.UI.Tests.Tools
             emailSignUpPage?.ClickContinueButton();
 
             Assert.True(homePage?.IsPageLoaded(), "Apply for a pet travel document not loaded");
+            Assert.True(signin?.IsSignedOut(), "Not able to sign out");
 
             return new LoginDetails
             {
