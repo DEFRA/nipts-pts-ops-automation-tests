@@ -18,7 +18,6 @@ namespace Defra.UI.Tests.HelperMethods
     {
         private ScenarioContext ScenarioContext { get; set; }
         private MailinatorClient MailinatorClient = new MailinatorClient("33805b1795e14f1c9af8272c25684f49");
-        //private string DomainName = "team999095.testinator.com";
         private string DomainName = "team707045.testinator.com";
 
         public FetchCodeFromEmail(ScenarioContext _scenarioContext)
@@ -32,10 +31,10 @@ namespace Defra.UI.Tests.HelperMethods
             try
             {
                 //Fetch Inbox
-                Thread.Sleep(15000);
+                Thread.Sleep(5000);
                 FetchInboxRequest fetchInboxRequest = new FetchInboxRequest() { Domain = DomainName, Inbox = "*", Skip = 0, Limit = 30, Sort = Sort.asc };
                 FetchInboxResponse fetchInboxResponse = await MailinatorClient.MessagesClient.FetchInboxAsync(fetchInboxRequest);
-
+                
                 var inBoxMessage = fetchInboxResponse.Messages.SingleOrDefault(t => t.To.Equals(inboxIdToReadCode));
 
                 //Fetch Message
@@ -63,13 +62,13 @@ namespace Defra.UI.Tests.HelperMethods
         {
             try
             {
-                var messageId = ScenarioContext.Get<string>(inboxIdToReadCode);
+                var code = inboxIdToReadCode.Substring(0, inboxIdToReadCode.IndexOf('-'));
                 
                 DeleteMessageRequest deleteMessageRequest = new DeleteMessageRequest()
                 {
                     Domain = DomainName,
-                    Inbox = inboxIdToReadCode,
-                    MessageId = messageId
+                    Inbox = "*",
+                    MessageId = code
                 };
 
                 DeleteMessageResponse deleteMessageResponse = await MailinatorClient.MessagesClient.DeleteMessageAsync(deleteMessageRequest);
@@ -80,20 +79,18 @@ namespace Defra.UI.Tests.HelperMethods
             }
         }
 
-        public async Task DeleteAllMessagesFromInbox(string inboxIdToReadCode)
+        public async Task DeleteAllMessagesFromInbox(string domainName)
         {
-            Thread.Sleep(22000);
+            Thread.Sleep(2000);
             try
             {
-                var messageId = ScenarioContext.Get<string>(inboxIdToReadCode);
-
-                DeleteAllInboxMessagesRequest deleteAllMessagesRequest = new DeleteAllInboxMessagesRequest()
+                
+                DeleteAllDomainMessagesRequest deleteAllMessagesRequest = new DeleteAllDomainMessagesRequest
                 {
-                    Domain = DomainName,
-                    Inbox = inboxIdToReadCode,
+                    Domain = domainName,
                 };
 
-                DeleteAllInboxMessagesResponse deleteAllMessagesResponse = await MailinatorClient.MessagesClient.DeleteAllInboxMessagesAsync(deleteAllMessagesRequest);
+                await MailinatorClient.MessagesClient.DeleteAllDomainMessagesAsync(deleteAllMessagesRequest);
             }
             catch (Exception ex)
             {

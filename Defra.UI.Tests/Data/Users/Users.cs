@@ -18,7 +18,8 @@ namespace Defra.UI.Tests.Data.Users
     
     public interface IUserObject
     {
-        public User GetUser(string application, string checker="");
+        User GetUser(string application, string checker="");
+        User GetUser(string application, string username, string password);
     }
 
     internal class UserObject : IUserObject
@@ -50,5 +51,19 @@ namespace Defra.UI.Tests.Data.Users
 
             return user ?? new User { };
         }
+
+        public User GetUser(string application, string username, string password)
+        {
+            User? user;
+
+            lock (_lock)
+            {
+                user = new User() { UserName = username, Credential = password};
+            }
+
+            return user ?? new User { };
+        }
+
+
     }
 }

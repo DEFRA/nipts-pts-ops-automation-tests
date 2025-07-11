@@ -45,7 +45,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             var userName = _scenarioContext.Get<string>("GGID");
             var credential = "G0vernmen+";
-            var user = UserObject?.GetUser("AP");
+            var user = UserObject?.GetUser("AP", AuthData.GGID, AuthData.Secret);
             _objectContainer.RegisterInstanceAs(user);
             Assert.True(Signin?.IsSignedIn(userName, credential), "Not able to sign in");
         }

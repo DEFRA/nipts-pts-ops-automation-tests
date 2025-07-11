@@ -93,7 +93,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             txtboxConfirmPassword.SendKeys(Password);
         }
 
-        public string IsGGIDCreated()
+        public string GetGGID()
         {
             return GGID.Text;
         }

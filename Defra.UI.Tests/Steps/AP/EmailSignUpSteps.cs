@@ -87,7 +87,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I Save the GGID")]
         public void ThenISaveTheGGID()
         {
-            _scenarioContext.Add("GGID", EmailSignUpPage?.IsGGIDCreated());
+            _scenarioContext.Add("GGID", EmailSignUpPage?.GetGGID());
             Assert.IsNotEmpty(_scenarioContext.Get<string>("GGID"));
         }
 
