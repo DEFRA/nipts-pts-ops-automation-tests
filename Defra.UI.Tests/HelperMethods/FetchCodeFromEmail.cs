@@ -33,10 +33,10 @@ namespace Defra.UI.Tests.HelperMethods
             try
             {
                 //Fetch Inbox
-                Thread.Sleep(15000);
+                Thread.Sleep(5000);
                 FetchInboxRequest fetchInboxRequest = new FetchInboxRequest() { Domain = DomainName, Inbox = "*", Skip = 0, Limit = 30, Sort = Sort.asc };
                 FetchInboxResponse fetchInboxResponse = await MailinatorClient.MessagesClient.FetchInboxAsync(fetchInboxRequest);
-
+                
                 var inBoxMessage = fetchInboxResponse.Messages.SingleOrDefault(t => t.To.Equals(inboxIdToReadCode));
 
                 //Fetch Message
@@ -64,13 +64,13 @@ namespace Defra.UI.Tests.HelperMethods
         {
             try
             {
-                var messageId = ScenarioContext.Get<string>(inboxIdToReadCode);
-
+                var code = inboxIdToReadCode.Substring(0, inboxIdToReadCode.IndexOf('-'));
+                
                 DeleteMessageRequest deleteMessageRequest = new DeleteMessageRequest()
                 {
                     Domain = DomainName,
-                    Inbox = inboxIdToReadCode,
-                    MessageId = messageId
+                    Inbox = "*",
+                    MessageId = code
                 };
 
                 DeleteMessageResponse deleteMessageResponse = await MailinatorClient.MessagesClient.DeleteMessageAsync(deleteMessageRequest);
