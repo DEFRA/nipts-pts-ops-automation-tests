@@ -107,9 +107,7 @@ namespace Defra.UI.Tests.Tools
             emailSignUpPage?.EnterEmailAddress(emailAddress);
             Thread.Sleep(3000);
             emailSignUpPage?.ClickContinueButton();
-
-            Thread.Sleep(5000);
-
+            
             var code = Task.Run(async () => await fetchCodeFromEmail?.GetCodeFromEmail(emailText)).Result;
 
             emailSignUpPage?.EnterConfirmationCode(code);
