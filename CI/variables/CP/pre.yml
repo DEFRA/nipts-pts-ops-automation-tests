@@ -7,3 +7,4 @@ variables:
  IDCOMSUser: 'nagarajan.subbiah@defra.gov.uk'
  IDOMSUserAlias: 'Nagarajan Subbiah'
  SecretsFilter: 'PetsIDCOMSAutomation'
+ IsLiveUserAccount: false
