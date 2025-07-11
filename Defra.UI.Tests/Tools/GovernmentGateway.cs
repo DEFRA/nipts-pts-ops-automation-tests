@@ -30,7 +30,7 @@ namespace Defra.UI.Tests.Tools
 
         public static GovernmentGateway Instance => _instance.Value;
 
-        public LoginDetails GetID()
+        public LoginDetails GetUserDetails()
         {
             if (!_isMethodCalled)
             {

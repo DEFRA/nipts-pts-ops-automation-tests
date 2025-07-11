@@ -4,11 +4,8 @@ using Capgemini.PowerApps.SpecFlowBindings.Hooks;
 using Defra.UI.Framework.Object;
 using Defra.UI.Tests.Capabilities;
 using Defra.UI.Tests.Configuration;
-using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.HelperMethods;
-using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using Reqnroll;
@@ -83,7 +80,7 @@ namespace Defra.UI.Tests.Hooks
 
             fetchCodeFromEmail.DeleteAllMessagesFromInbox();
 
-            GovernmentGateway.Instance.GetID();
+            GovernmentGateway.Instance.GetUserDetails();
         }
 
         [AfterScenario]
