@@ -80,11 +80,12 @@ namespace Defra.UI.Tests.Hooks
 
             _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
 
-            if(isRunOnce)
+            if (isRunOnce)
             {
                 GovernmentGateway.Initialize(_objectContainer);
 
-                if(ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount)
+                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount &&
+                    ConfigSetup.BaseConfiguration.TestConfiguration.ApplicationUrl.Contains("take-your-pet"))
                 {
                     fetchCodeFromEmail.DeleteAllMessagesFromInbox();
                     isRunOnce = false;
