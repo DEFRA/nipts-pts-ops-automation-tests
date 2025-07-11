@@ -1,4 +1,5 @@
 ﻿using Capgemini.PowerApps.SpecFlowBindings;
+using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
@@ -41,7 +42,10 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"sign in with valid credentials with logininfo")]
         public void ThenSignInWithValidCredentialsWithLogininfo()
         {
-            var userDetails = GovernmentGateway.Instance.GetUserDetails();
+            var userDetails = ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount ?
+                                GovernmentGateway.Instance.GetUserDetails() :
+                                GovernmentGateway.Instance.GetUserDetailsFromFile();
+
             Assert.True(Signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret), "Not able to sign in");
         }
 
@@ -58,7 +62,7 @@ namespace Defra.UI.Tests.Steps.AP
             var user = PowerAppsStepDefiner.TestConfig.Users.FirstOrDefault();
 
             Trade.Plants.SpecFlowBindings.Steps.LoginSteps.GivenIAmLoggedInToTheAppAs1("Defra Trade - NIPTS", user?.Alias);
-        }       
+        }
 
     }
 }

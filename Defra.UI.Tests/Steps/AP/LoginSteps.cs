@@ -58,7 +58,10 @@ namespace Defra.UI.Tests.Steps.AP
         [When(@"I have provided the credentials and signin")]
         public void WhenIHaveProvidedTheCredentialsAndSignin()
         {
-            var userDetails = GovernmentGateway.Instance.GetUserDetails();
+            var userDetails = ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount ?
+                GovernmentGateway.Instance.GetUserDetails() :
+                GovernmentGateway.Instance.GetUserDetailsFromFile();
+
             signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret);
         }
 

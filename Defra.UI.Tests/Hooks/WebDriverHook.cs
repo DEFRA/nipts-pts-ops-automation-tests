@@ -80,13 +80,17 @@ namespace Defra.UI.Tests.Hooks
 
             _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
 
-            if (isRunOnce)
+            if(isRunOnce)
             {
-                fetchCodeFromEmail.DeleteAllMessagesFromInbox();
-                isRunOnce = false;
-
                 GovernmentGateway.Initialize(_objectContainer);
-                GovernmentGateway.Instance.GetUserDetails();
+
+                if(ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount)
+                {
+                    fetchCodeFromEmail.DeleteAllMessagesFromInbox();
+                    isRunOnce = false;
+
+                    GovernmentGateway.Instance.GetUserDetails();
+                }
             }
         }
 

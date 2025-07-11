@@ -1,4 +1,5 @@
 ﻿using Defra.UI.Tests.Contracts;
+using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
@@ -25,6 +26,7 @@ namespace Defra.UI.Tests.Tools
         private IUrlBuilder? urlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
         private ILandingPage? landingPage => _objectContainer.IsRegistered<ILandingPage>() ? _objectContainer.Resolve<ILandingPage>() : null;
         private IFetchCodeFromEmail? fetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
+        private IUserObject? userObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
 
         private GovernmentGateway(IObjectContainer objectContainer)
         {
@@ -70,6 +72,22 @@ namespace Defra.UI.Tests.Tools
                     }
                 }
             }
+            return _cachedValue;
+        }
+
+        public LoginDetails GetUserDetailsFromFile()
+        {
+            if (_cachedValue == null)
+            {
+                var user = userObject?.GetUser("AP");
+
+                _cachedValue = new LoginDetails
+                {
+                    GovernmentGatewayID = user?.UserName,
+                    Secret = user?.Credential,
+                };
+            }
+
             return _cachedValue;
         }
 
