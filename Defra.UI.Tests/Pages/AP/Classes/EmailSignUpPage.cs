@@ -1,22 +1,10 @@
-﻿using Defra.UI.Framework.Driver;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.AP.Interfaces;
-using OpenQA.Selenium;
-using Reqnroll.BoDi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using mailinator_csharp_client.Models.Messages.Entities;
-using mailinator_csharp_client.Models.Messages.Requests;
-using mailinator_csharp_client.Models.Responses;
-using mailinator_csharp_client;
 using Reqnroll;
-using Defra.UI.Framework.Object;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {

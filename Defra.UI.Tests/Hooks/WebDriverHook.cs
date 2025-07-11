@@ -25,12 +25,8 @@ namespace Defra.UI.Tests.Hooks
         private ScenarioContext _scenarioContext;
         private IObjectContainer _objectContainer;
         private IReqnrollOutputHelper _reqnrollOutputHelper;
-        private ISignInPage? Signin => _objectContainer.IsRegistered<ISignInPage>() ? _objectContainer.Resolve<ISignInPage>() : null;
-        private IEmailSignUpPage? EmailSignUpPage => _objectContainer.IsRegistered<IEmailSignUpPage>() ? _objectContainer.Resolve<IEmailSignUpPage>() : null;
-        private IHomePage? HomePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
-        private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IUrlBuilder? UrlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
-        private ILandingPage? landingPage => _objectContainer.IsRegistered<ILandingPage>() ? _objectContainer.Resolve<ILandingPage>() : null;
+
+        private IFetchCodeFromEmail fetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
 
         private static ExtentReports _extent;
         [ThreadStatic]
@@ -82,6 +78,8 @@ namespace Defra.UI.Tests.Hooks
             }
 
             _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
+
+            fetchCodeFromEmail.DeleteAllMessagesFromInbox();
 
             GovernmentGateway.Instance.GetID();
         }

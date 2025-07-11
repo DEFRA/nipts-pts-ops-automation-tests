@@ -24,6 +24,7 @@ namespace Defra.UI.Tests.Tools
         private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
         private IUrlBuilder? urlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
         private ILandingPage? landingPage => _objectContainer.IsRegistered<ILandingPage>() ? _objectContainer.Resolve<ILandingPage>() : null;
+        private IFetchCodeFromEmail? fetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
 
         private GovernmentGateway() { }
 
@@ -55,14 +56,14 @@ namespace Defra.UI.Tests.Tools
             signin?.ClickCreateSignInDetailsLink();
 
             var emailText = $"PetsAutomation{DateTime.Now.ToString("yyyyMMddHHmmss")}";
-            var emailAddress = $"{emailText}@team707045.testinator.com";
+            var emailAddress = $"{emailText}@{fetchCodeFromEmail?.DomainName}";
             var secret = "G0vernmen+";
 
             emailSignUpPage?.EnterEmailAddress(emailAddress);
             Thread.Sleep(3000);
             emailSignUpPage?.ClickContinueButton();
 
-            var code = Task.Run(async () => await new FetchCodeFromEmail(_scenarioContext)?.GetCodeFromEmail(emailText)).Result;
+            var code = Task.Run(async () => await fetchCodeFromEmail?.GetCodeFromEmail(emailText)).Result;
 
             emailSignUpPage?.EnterConfirmationCode(code);
             emailSignUpPage?.ClickContinueButton();
@@ -75,8 +76,8 @@ namespace Defra.UI.Tests.Tools
             emailSignUpPage?.ClickContinueButton();
 
             var ggid = emailSignUpPage?.GetGGID();
-
             Assert.IsNotEmpty(ggid);
+
             emailSignUpPage?.ClickContinueButton();
 
             emailSignUpPage?.ClickContinueButton();
