@@ -85,6 +85,7 @@ namespace Defra.UI.Tests.Hooks
                 fetchCodeFromEmail.DeleteAllMessagesFromInbox();
                 isRunOnce = false;
 
+                GovernmentGateway.Initialize(_objectContainer);
                 GovernmentGateway.Instance.GetUserDetails();
             }
         }

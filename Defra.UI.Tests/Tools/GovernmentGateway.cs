@@ -10,11 +10,11 @@ namespace Defra.UI.Tests.Tools
 {
     public sealed class GovernmentGateway
     {
-        private static readonly Lazy<GovernmentGateway> _instance = new Lazy<GovernmentGateway>(() => new GovernmentGateway());
+        private static GovernmentGateway _instance;
+        private static readonly object _lock = new object();
 
         private LoginDetails _cachedValue;
         private bool _isMethodCalled = false;
-        private readonly object _lock = new object();
 
         private ScenarioContext? _scenarioContext;
         private IObjectContainer _objectContainer;
@@ -26,9 +26,36 @@ namespace Defra.UI.Tests.Tools
         private ILandingPage? landingPage => _objectContainer.IsRegistered<ILandingPage>() ? _objectContainer.Resolve<ILandingPage>() : null;
         private IFetchCodeFromEmail? fetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
 
-        private GovernmentGateway() { }
+        private GovernmentGateway(IObjectContainer objectContainer)
+        {
+            _objectContainer = objectContainer;
+            _scenarioContext = objectContainer.Resolve<ScenarioContext>();
+        }
 
-        public static GovernmentGateway Instance => _instance.Value;
+        public static void Initialize(IObjectContainer objectContainer)
+        {
+            if (_instance == null)
+            {
+                lock (_lock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new GovernmentGateway(objectContainer);
+                    }
+                }
+            }
+        }
+
+        public static GovernmentGateway Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    throw new InvalidOperationException("GovernmentGateway not initialized.");
+
+                return _instance;
+            }
+        }
 
         public LoginDetails GetUserDetails()
         {
@@ -55,13 +82,15 @@ namespace Defra.UI.Tests.Tools
 
             signin?.ClickCreateSignInDetailsLink();
 
-            var emailText = $"PetsAutomation{DateTime.Now.ToString("yyyyMMddHHmmss")}";
+            var emailText = $"petsautomation{DateTime.Now.ToString("yyyyMMddHHmmss")}";
             var emailAddress = $"{emailText}@{fetchCodeFromEmail?.DomainName}";
             var secret = "G0vernmen+";
 
             emailSignUpPage?.EnterEmailAddress(emailAddress);
             Thread.Sleep(3000);
             emailSignUpPage?.ClickContinueButton();
+
+            Thread.Sleep(5000);
 
             var code = Task.Run(async () => await fetchCodeFromEmail?.GetCodeFromEmail(emailText)).Result;
 
