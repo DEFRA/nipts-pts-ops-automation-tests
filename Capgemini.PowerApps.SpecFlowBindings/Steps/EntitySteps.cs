@@ -69,7 +69,7 @@ public class EntitySteps : PowerAppsStepDefiner
         }
 
         // Click to lose focus - So that business rules and other form events can occur
-        Driver.FindElement(By.XPath("html")).Click();
+        //Driver.FindElement(By.XPath("html")).Click();
 
         Driver.WaitForTransaction();
     }

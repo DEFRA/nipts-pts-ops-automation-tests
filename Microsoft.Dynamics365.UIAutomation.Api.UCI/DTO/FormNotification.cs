@@ -27,10 +27,10 @@ public class FormNotification
         string[] classesArr = classes.ToLower().Split(' ');
         string classFound = classesArr.FirstOrDefault(c => _classToTypeMap.ContainsKey(c));
 
-        if (classFound == null)
-            throw new InvalidOperationException($"Unknown notification type. Current class: {classes}");
+        //if (classFound == null)
+            //throw new InvalidOperationException($"Unknown notification type. Current class: {classes}");
 
-        Type = _classToTypeMap[classFound];
+        //Type = _classToTypeMap[classFound];
     }
     
 }

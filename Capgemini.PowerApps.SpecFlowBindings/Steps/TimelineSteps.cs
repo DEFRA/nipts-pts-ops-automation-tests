@@ -7,7 +7,6 @@ using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using OpenQA.Selenium.DevTools.V117.HeapProfiler;
 using Reqnroll;
 
 /// <summary>
@@ -176,6 +175,7 @@ public class TimelineSteps : PowerAppsStepDefiner
         foreach (IWebElement item in TimelineRecordViewMore)
         {
             item.Click();
+            Thread.Sleep(2000);
 
             if (Driver.IsVisible(By.XPath("//iframe[contains(@title,'text')]")))
             {
