@@ -18,7 +18,7 @@ namespace Defra.UI.Tests.Data.Users
     
     public interface IUserObject
     {
-        public User GetUser(string application, string checker="");
+        User GetUser(string application, string checker="");
     }
 
     internal class UserObject : IUserObject

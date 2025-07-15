@@ -3,6 +3,7 @@ using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -14,7 +15,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), true);
 
-        private IWebElement txtLoging => _driver.WaitForElement(By.Id("EnteredPassword"));
+        private IReadOnlyCollection<IWebElement> txtLogings => _driver.WaitForElements(By.Id("EnteredPassword"));
 
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[@type='submit']"));
 
@@ -36,8 +37,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void EnterPassword()
         {
-            txtLoging.SendKeys(ConfigSetup.BaseConfiguration.TestConfiguration.EnvAPLogin);
-            btnContinue?.Click();
+            if (txtLogings.Count > 0)
+            {
+                txtLogings.FirstOrDefault()?.SendKeys(ConfigSetup.BaseConfiguration.TestConfiguration.EnvAPLogin);
+                btnContinue?.Click();
+            }       
+            
         }
 
         public void ClickContinueButton()

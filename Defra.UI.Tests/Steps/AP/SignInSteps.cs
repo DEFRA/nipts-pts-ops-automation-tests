@@ -1,14 +1,13 @@
-﻿using Reqnroll.BoDi;
-using Capgemini.PowerApps.SpecFlowBindings;
+﻿using Capgemini.PowerApps.SpecFlowBindings;
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
-using Microsoft.Dynamics365.UIAutomation.Api.UCI;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -43,9 +42,11 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"sign in with valid credentials with logininfo")]
         public void ThenSignInWithValidCredentialsWithLogininfo()
         {
-            var user = UserObject?.GetUser("AP");
-            _objectContainer.RegisterInstanceAs(user);
-            Assert.True(Signin?.IsSignedIn(user?.UserName, user?.Credential), "Not able to sign in");
+            var userDetails = ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount ?
+                                GovernmentGateway.Instance.GetUserDetails() :
+                                GovernmentGateway.Instance.GetUserDetailsFromFile();
+
+            Assert.True(Signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret), "Not able to sign in");
         }
 
         [When(@"click on signout button and verify the signout message")]
@@ -62,5 +63,6 @@ namespace Defra.UI.Tests.Steps.AP
 
             Trade.Plants.SpecFlowBindings.Steps.LoginSteps.GivenIAmLoggedInToTheAppAs1("Defra Trade - NIPTS", user?.Alias);
         }
+
     }
 }
