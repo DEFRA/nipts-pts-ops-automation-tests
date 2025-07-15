@@ -1,6 +1,7 @@
 ﻿using Capgemini.PowerApps.SpecFlowBindings.Configuration;
 using Capgemini.PowerApps.SpecFlowBindings.Steps;
 using Defra.Trade.Plants.SpecFlowBindings.Steps;
+using Defra.UI.Framework.Driver;
 using Defra.UI.Tests.Tools;
 using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
@@ -190,6 +191,7 @@ namespace Defra.UI.Tests.Steps.AP
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
             FormSteps.ICanSeeAHeaderField("readonly", status);
+            _driver.FindElement(By.XPath("html")).Click();
         }
 
         public void RevokeApplication(string status, string reason)
@@ -236,6 +238,8 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("I {string} see Duplicate Microchip Notification")]
         public void ThenISeeDuplicateMicroChipNotification(string doOrDont)
         {
+            CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad();
             if (doOrDont.ToUpper().Equals("DO"))
             {
                 EntitySteps.ThenICanSeeAnInfoFormNotificationStating("Duplicate Microchip Number Identified.");
@@ -453,7 +457,6 @@ namespace Defra.UI.Tests.Steps.AP
         {
             SharedSteps.WaitSeconds(10);
             CommandSteps.ClickCommand("Refresh");
-
             SharedSteps.WaitForScriptProcessing();
 
             if (timelineCopy.ToUpper().Equals("CONFIRMATION"))
@@ -701,10 +704,10 @@ namespace Defra.UI.Tests.Steps.AP
                     }
                     break;
                 case "MICROCHIPPED DATE":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_microchippeddate", "text", "field", 1);
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_microchippeddate", "datetime", "field", 1);
                     break;
                 case "DATE OF BIRTH":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "text", "field", 1);
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "datetime", "field", 1);
                     break;
             }
         }

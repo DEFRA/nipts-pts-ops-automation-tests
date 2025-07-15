@@ -55,7 +55,7 @@ Examples:
 	| Ferry          | Birkenhead to Belfast (Stena) | 59D435    | Approved     | Ferret  | 59D 435^15/04/2025   | 131313131313139^12/11/2020 | Lucy^Ferret^Female^12/12/2012^Sable^No																  | Mo Testesr^MOPerf013@sunnykumar.33mail.com^12 AVELEY HOUSE ILIFFE CLOSE\\r\nREADING\\r\nRG1 2QF^07878787878			 |
 	| Ferry          | Birkenhead to Belfast (Stena) | D8C1CE    | Cancelled    | Cat     | D8C 1CE^23/04/2025   | 872347623412348^12/03/2024 | ren^Cat^rteyrty^Male^09/09/2003^Calico^No															  | Brin Pre^brindha.mathanaguru+123212@cognizant.com^30 ORTS ROAD\\r\nREADING\\r\nRG1 3JN^07541126612					 |
 
-Scenario: Verify the back link in search result page navigates to find a document page 
+Scenario: Verify the back link navigation for search result through Search icon route 
 	Then I have selected 'Ferry' radio option
 	Then I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '05:45'
@@ -68,4 +68,17 @@ Scenario: Verify the back link in search result page navigates to find a documen
 	When I click search button
 	And I should see the application status in 'Unsuccessful'
 	Then I click back link
-	And I navigate to Find a document page	
+	And I navigate to Find a document page
+	When I click clear search button
+	Then I see the values are deleted
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I Click on Back button
+	And I should see the application status in 'Approved'
+	Then I click back link
+	And I navigate to Find a document page

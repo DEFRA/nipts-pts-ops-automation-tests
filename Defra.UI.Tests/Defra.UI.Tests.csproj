@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\Check-OutCome - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\GBChecksReferralPagesValidation - Copy.feature.cs" />
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\ReportNonCompliance - Copy.feature.cs" />
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\SearchDocumentsValidations - Copy.feature.cs" />
   </ItemGroup>
@@ -138,6 +139,9 @@
     <Compile Update="Feature\CP\Check-OutCome-SPS.feature.cs">
       <DependentUpon>Check-OutCome-SPS.feature</DependentUpon>
     </Compile>
+    <Compile Update="Feature\CP\GBChecksReferralPagesValidation-SPS.feature.cs">
+      <DependentUpon>GBChecksReferralPagesValidation-SPS.feature</DependentUpon>
+    </Compile>
     <Compile Update="Feature\CP\GBChecksReferralPagesValidation.feature.cs">
       <DependentUpon>GBChecksReferralPagesValidation.feature</DependentUpon>
     </Compile>
@@ -146,6 +150,9 @@
     </Compile>
     <Compile Update="Feature\CP\ReportNonCompliance-SPS.feature.cs">
       <DependentUpon>ReportNonCompliance-SPS.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\ChecksPageValidations.feature.cs">
+      <DependentUpon>ChecksPageValidations.feature</DependentUpon>
     </Compile>
     <Compile Update="Feature\CP\SearchDocumentsValidations-SPS.feature.cs">
       <DependentUpon>SearchDocumentsValidations-SPS.feature</DependentUpon>
@@ -184,11 +191,19 @@
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\GBChecksReferralPagesValidation-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
     <ReqnrollFeatureFiles Update="Feature\CP\GBChecksReferralPagesValidation.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>
     <ReqnrollFeatureFiles Update="Feature\CP\ReportNonCompliance-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\ChecksPageValidations.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>

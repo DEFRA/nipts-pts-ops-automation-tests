@@ -4944,7 +4944,6 @@ public class WebClient : BrowserPage, IDisposable
                         Message = item.Text
                     };
                     string classes = icon.GetAttribute("class");
-                    notification.SetTypeFromClass(classes);
                     notifications.Add(notification);
                 }
 

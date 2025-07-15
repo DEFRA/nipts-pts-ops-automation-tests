@@ -43,9 +43,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblReasonsHint => _driver.WaitForElementExists(By.Id("event-name-hint"));
         private IWebElement lblTableNamePTD => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//h2[normalize-space()='Pet Travel Document (PTD)']"));
         private IWebElement lblTableNameApplicationDetails => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//h2[normalize-space()='Application details']"));
+        private IWebElement lblApplicationReferenceNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'Application reference number')]"));
         private IWebElement txtValueReferenceNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'Application reference number')]/following-sibling::dd"));
+        private IWebElement lblDate => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//*[contains(text(),'Date')]"));
         private IWebElement txtValueDate => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//*[contains(text(),'Date')]/following-sibling::dd"));
+        private IWebElement lblStatus => _driver.WaitForElement(By.XPath("//*[contains(text(),'Status')]"));
         private IWebElement txtValueStatus => _driver.WaitForElement(By.XPath("//*[contains(text(),'Status')]/following-sibling::dd/strong"));
+        private IWebElement lblPTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]"));
         private IWebElement txtValuePTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]/following-sibling::dd"));
         private IWebElement lblPassengerDetails => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h2[2]"));
         private IWebElement lblTypeOfPassenger => _driver.WaitForElement(By.XPath("//*[@id='passengerFormGroup']//h3"));
@@ -85,6 +89,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement btnSaveOutCome => _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
         private IWebElement lblMicrochipOption1 => _driver.WaitForElement(By.XPath("//*[@id='missingReason']"));
         private IWebElement lblMicrochipOption2 => _driver.WaitForElement(By.XPath("//*[@id='mcNotFound']"));
+        private IWebElement txtareaRelevantComments => _driver.WaitForElementExists(By.Id("relevantComments"));
+        private IWebElement txtareaDetailsOfOutcome => _driver.WaitForElementExists(By.Id("spsOutcomeDetails"));
         #endregion
 
         #region Methods
@@ -129,7 +135,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             lblTableNamePTD.ScrollToElement(_driver);
             return lblTableNamePTD.Text.Trim().Equals(tableName);
         }
-        public bool VerifyTheExpectedStatus(string applicationStatus)
+        public bool VerifyTheExpectedStatus(string statusLabel, string applicationStatus)
         {
             var bgColor = txtValueStatus.GetCssValue("background-color");
 
@@ -157,25 +163,25 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     break;
             }
 
-            return txtValueStatus.Text.Trim().Equals(applicationStatus) && expectedColor.Equals(hexColor);
+            return lblStatus.Text.Trim().Equals(statusLabel) && txtValueStatus.Text.Trim().Equals(applicationStatus) && expectedColor.Equals(hexColor);
         }
 
-        public bool VerifyThePTDNumber(string ptdNumber)
+        public bool VerifyThePTDNumber(string ptdNumberLabel, string ptdNumber)
         {
             txtValuePTDNumber.ScrollToElement(_driver);
-            return txtValuePTDNumber.Text.Trim().Equals($"GB826 {ptdNumber}");
+            return lblPTDNumber.Text.Trim().Equals(ptdNumberLabel) && txtValuePTDNumber.Text.Trim().Equals($"GB826 {ptdNumber}");
         }
 
-        public bool VerifyTheDateOfIssuance(string dateOfIssuance)
+        public bool VerifyTheDateOfIssuance(string datelabel, string dateOfIssuance)
         {
             txtValueDate.ScrollToElement(_driver);
-            return txtValueDate.Text.Trim().Equals(dateOfIssuance);
+            return lblDate.Text.Trim().Equals(datelabel) && txtValueDate.Text.Trim().Equals(dateOfIssuance);
         }
 
-        public bool VerifyTheReferenceNumber(string referenceNumber)
+        public bool VerifyTheReferenceNumber(string refNumberLabel, string referenceNumber)
         {
             txtValueReferenceNumber.ScrollToElement(_driver);
-            return txtValueReferenceNumber.Text.Trim().Equals(referenceNumber);
+            return lblApplicationReferenceNumber.Text.Trim().Equals(refNumberLabel) && txtValueReferenceNumber.Text.Trim().Equals(referenceNumber);
         }
 
         public bool VerifyReasonsHeadingWithHint(string reasons, string hint)
@@ -282,19 +288,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return lblDetailsOfOutcome.Text.Contains("Details of outcome");
         }
 
-        public bool VerifyMaxLengthOfDetailsOfOutcomeTextarea(string maxLength)
-        {
-            txtareaSPSOutcome.ScrollToElement(_driver);
-
-            return txtareaSPSOutcome.GetAttribute("maxlength").Equals(maxLength);
-        }
-
         public bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength)
         {
             lblAnyRelavantComments.ScrollToElement(_driver);
             return lblAnyRelavantComments.Text.Contains(heading)
                    && lblAnyRelavantCommentsHint.Text.Contains(hint);
-            //&& TxtAnyRelavantComments.GetAttribute("maxlength").Equals(maxLength);
         }
 
         public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)
@@ -450,6 +448,28 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             lblMicrochipOption1.ScrollToElement(_driver);
             return lblMicrochipOption1.HasAttribute("Checked")
                 && lblMicrochipOption2.HasAttribute("Checked");
+        }
+
+        public void ClickVisualCheckReason(string visualCheckReason)
+        {
+            if (lblOtherIssuesOption1.Text.Trim().Equals(visualCheckReason))
+                lblOtherIssuesOption1.ScrollAndClick(_driver);
+            else if (lblOtherIssuesOption2.Text.Trim().Equals(visualCheckReason))
+                lblOtherIssuesOption2.ScrollAndClick(_driver);
+            else if (lblOtherIssuesOption3.Text.Trim().Equals(visualCheckReason))
+                lblOtherIssuesOption3.ScrollAndClick(_driver);
+            else if(lblVisualCheckCheckBox.Text.Contains(visualCheckReason))
+                lblVisualCheckCheckBox.ScrollAndClick(_driver);
+        }
+
+        public void AnyRelevantComments(string comments)
+        {
+            txtareaRelevantComments.SendKeys(comments);      
+        }
+
+        public void EnterDetailsOfOutcome(string details)
+        {
+            txtareaDetailsOfOutcome.SendKeys(details);
         }
         #endregion
     }

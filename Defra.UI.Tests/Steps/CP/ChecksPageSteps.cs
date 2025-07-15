@@ -5,6 +5,8 @@ using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
 using Defra.UI.Tests.Tools;
+using Defra.UI.Tests.Pages.CP.Pages;
+using AventStack.ExtentReports.Gherkin.Model;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -58,6 +60,30 @@ namespace Defra.UI.Tests.Steps.CP
         public void VerifyConfirmationBoxIsDisplayed()
         {
             Assert.True(_welcomePage?.IsConfirmationBoxDisplayed(), "Confirmation Box is not Displayed");
+        }
+
+        [Then(@"I should see content '([^']*)' with list '([^']*)' '([^']*)' '([^']*)'")]
+        public void ThenIShouldSeeContentWithList(string content, string contentList1, string contentList2, string contentList3)
+        {
+            _welcomePage?.CheckFlightHomePageContent(content, contentList1, contentList2, contentList3);
+        }
+
+        [Then(@"I should see route displayed in all the tables of Checks page should be '([^']*)'")]
+        public void ThenIShouldSeeRouteDisplayedInAllTheTablesOfChecksPageShouldBe(string selectedRoute)
+        {
+            Assert.True(_welcomePage?.ChecksPageRouteFilter(selectedRoute), "Checks Page have different routes than the selected route");
+        }
+
+        [Then(@"I should see departure date and time displayed in all tables of Checks page")]
+        public void ThenIShouldSeeDepartureDateAndTimeDisplayedInAllTablesOfChecksPage()
+        {
+            Assert.True(_welcomePage?.SailingDetailsInChecksPageTables(), "Sailing details are not displayed properly in Checks Page tables");
+        }
+
+        [When(@"I open a new tab in the same browser window")]
+        public void WhenIOpenANewTabInTheSameBrowserWindow()
+        {
+            _welcomePage?.OpenNewTab();
         }
     }
 }

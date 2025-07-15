@@ -135,11 +135,12 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_welcomePage?.CheckFooter(), "Footer of the page is not visible");
         }
 
-        [Then(@"I should see the header of the page with route '([^']*)' date '(.*)''(.*)''(.*)' time '([^']*)' and change link")]
-        public void ThenIShouldSeeTheHeaderOfThePageWithRouteDateTimeAndChangeLink(string route, string departureDay, string departureMonth, string departureYear, string departureTime)
+        [Then(@"I should see the header of the page with route '([^']*)' current date time '([^']*)' and change link")]
+        public void ThenIShouldSeeTheHeaderOfThePageWithRouteDateTimeAndChangeLink(string route, string departureTime)
         {
+            var currentDate = DateTime.Now;
             Assert.True(_routeCheckingPage?.CheckRouteDetailOnHomePageHeader(route), "Given route is not displayed properly on the header");
-            Assert.True(_routeCheckingPage?.CheckDepartureTimeOnHomePage(departureDay, departureMonth, departureYear, departureTime), "Departure date and time are not displayed properly on the header");
+            Assert.True(_routeCheckingPage?.CheckDepartureTimeOnHomePage(currentDate.Day.ToString(), currentDate.Month.ToString(), currentDate.Year.ToString(), departureTime), "Departure date and time are not displayed properly on the header");
             Assert.True(_welcomePage?.IsHeaderChangeLinkDisplayed(),"Change link is not displayed on the header");
         }
 

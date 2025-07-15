@@ -5,7 +5,7 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
     public interface IGBChecksReferralPage
     {
         bool IsPageLoaded(); 
-        void ClickViewLink();
+        void ClickViewLink(string departureTime);
         void ClickPTDOrReferenceNumber();
         bool IsGBCheckReportPageLoaded();
         bool CheckReportPageSubheadings(string subHeading1, string subHeading2);
@@ -23,5 +23,12 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
         bool VerifyTravelStatus(string travelStatus, string travelStatus1);
         bool VerifyBGColorforTravelStatus(string referenceNumber, string travelStatus, string color);
         bool CheckRouteDetailOnReferredToSPSPage(string route, string departureTime);
+        bool VerifyDetailsOfOutcome(string outcomeDetails);
+        bool CheckReferredToSPSTableLabels(string ptdOrRefNumber, string pet, string microchip, string travelBy, string spsOutcome);
+        bool CheckReferredToSPSTableValues(string ptdOrRefNumber, string pet, string microchip, string travelBy, string spsOutcome);
+        bool CheckPTDOrRefNumDuplicates(string ptdOrRefNumber);
+        bool CheckPassCount(string count, string departureTime);
+        bool CheckFailCount(string count, string departureTime);
+        bool DateAndTimeChecked();
     }
 }

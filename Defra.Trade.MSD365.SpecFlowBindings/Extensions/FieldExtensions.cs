@@ -24,9 +24,7 @@ public static class FieldExtensions
     {
         field = field ?? throw new ArgumentNullException(nameof(field));
         driver = driver ?? throw new ArgumentNullException(nameof(driver));
-
-        return driver
-            .FindElements(By.XPath($"//*[contains(@data-id,'{field.Name}-locked-iconWrapper')]"))
-            .Any();
+        
+        return driver.FindElement(By.XPath($"(//div[contains(@data-id,'{field.Name}')]//following::input)[1]")).GetAttribute("readonly") != null;
     }
 }

@@ -27,12 +27,6 @@ namespace Defra.UI.Tests.Steps.CP
             _objectContainer = container;
         }
 
-        [When(@"I click View link in Fail Referred to SPS row with count more than {int}")]
-        public void WhenIClickViewLinkInFailReferredToSPSRowWithCountMoreThanNumber(int number)
-        {
-            _gbChecksReferralPage?.ClickViewLink();
-        }
-
         [Then(@"I should navigate to Referred to SPS page")]
         public void ThenIShouldNavigateToReferredToSPSPage()
         {
@@ -73,6 +67,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeAsMicrochipNumberFoundInScan(string mcNumber)
         {
             Assert.IsTrue(_gbChecksReferralPage?.MCNumberFoundInScan(mcNumber), "Microchip number found in scan in GB check report page is not correct");
+        }
+
+        [Then(@"I should see '([^']*)' as Details of outcome")]
+        public void ThenIShouldSeeAsDetailsOfOutcome(string outcomeDetails)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.VerifyDetailsOfOutcome(outcomeDetails), "Details of outcome in GB check report page is not correct");
         }
 
         [Then(@"I should see '([^']*)' as Additional comments")]
@@ -166,6 +166,54 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeRouteDetailsDateAndTimeBelowTheTitleOfThePage(string route, string departureTime)
         {
             Assert.True(_gbChecksReferralPage?.CheckRouteDetailOnReferredToSPSPage(route, departureTime), "Given route displayed is not displayed properly");
+        }
+
+        [When(@"I click the reference number '(.*)' link")]
+        public void WhenIClickTheReferenceNumberLink(string referenceNumber)
+        {
+               Assert.IsTrue(_gbChecksReferralPage?.ClickApplicationRef(referenceNumber), "The reference number is not present or Not able to click on " + referenceNumber);
+        }
+
+        [When(@"I click View link in Fail Referred to SPS row with departure time '([^']*)'")]
+        public void WhenIClickViewLinkInFailReferredToSPSRowWithDepartureTime(string departureTime)
+        {
+            _gbChecksReferralPage?.ClickViewLink(departureTime);
+        }
+
+        [Then(@"I verify the Referred to SPS page table column names as '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)'")]
+        public void ThenIVerifyTheReferredToSPSPageTableColumnNamesAs(string ptdOrRefNumber, string pet, string microchip, string travelBy, string spsOutcome)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckReferredToSPSTableLabels(ptdOrRefNumber, pet, microchip, travelBy, spsOutcome), "Referred to SPS page table column names are not displayed as expected");
+        }
+
+        [Then(@"I verify the Referred to SPS page table column values as '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)'")]
+        public void ThenIVerifyTheReferredToSPSPageTableColumnValuesAs(string ptdOrRefNumber, string pet, string microchip, string travelBy, string spsOutcome)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckReferredToSPSTableValues(ptdOrRefNumber, pet, microchip, travelBy, spsOutcome), "Referred to SPS page table column values are not displayed as expected");
+        }
+
+        [Then(@"I verify the PTDOrRefNum '([^']*)' is not repeated in the table")]
+        public void ThenIVerifyThePTDOrRefNumIsNotRepeatedInTheTable(string ptdOrRefNumber)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckPTDOrRefNumDuplicates(ptdOrRefNumber), "PTD or Reference number is duplicated in the Referred to SPS page table");
+        }
+
+        [Then(@"I should see the count next to Pass as '([^']*)' in the table contains departure time '([^']*)'")]
+        public void ThenIShouldSeeTheCountNextToPassAsInTheTableContainsDepartureTime(string count, string departureTime)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckPassCount(count, departureTime), "Pass count is not correct");
+        }
+
+        [Then(@"I should see the count next to Fail Referred to SPS as '([^']*)' in the table contains departure time '([^']*)'")]
+        public void ThenIShouldSeeTheCountNextToFailReferredToSPSAsInTheTableContainsDepartureTime(string count, string departureTime)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.CheckFailCount(count, departureTime), "Fail count is not correct");
+        }
+
+        [Then(@"I should see current date and current time as Date and time checked")]
+        public void ThenIShouldSeeCurrentDateAndCurrentTimeAsDateAndTimeChecked()
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.DateAndTimeChecked(), "Date and time checked is incorrect");
         }
     }
 }

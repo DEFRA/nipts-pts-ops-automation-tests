@@ -87,5 +87,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         }
 
+        public void CPSignIn(string userName, string password)
+        {
+            UserId.SendKeys(userName);
+            Password.SendKeys(password);
+            _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn)).Click();
+        }
     }
 }
