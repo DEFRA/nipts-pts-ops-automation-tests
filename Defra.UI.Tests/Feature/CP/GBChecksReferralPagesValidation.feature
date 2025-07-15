@@ -38,7 +38,7 @@ Scenario: Verify GB check report page headings and back link navigation
 	When I Click on Back button
 	Then I should navigate to Referred to SPS page
 
-Scenario: Verify Outcome table in GB check report page
+Scenario: Verify Outcome table in GB check report page - SPS User
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '23:59'
@@ -61,10 +61,22 @@ Scenario: Verify Outcome table in GB check report page
 	And I enter details '<DetailsOFOutcomeInReportNonCompPage>' in Details of outcome
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
+	And click on signout button on CP and verify the signout message
+	When I navigate to the port checker application
+	And I click signin button on port checker application
+	Then I should redirected to the CP Sign in using Government Gateway page
+	When I have provided the CP SPS credentials and signin
+	And I have provided the password for prototype research page
+	Then I should redirected to port route checker page
+	And I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '20:20'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
 	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
 	When I click the reference number 'DKVUZHQ9' link
- 	Then I should navigate to GB check report page
+	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
 	Then I should see 'Passenger says they will not travel' as Check outcome
 	And I should see '<DetailsOFOutcomeInGBCheckReport>' as Details of outcome
@@ -76,10 +88,10 @@ Examples:
 	| Outcome Details                     | Comments                              | Outcome Details                 | Comments                            |
 	|                                     |                                       | None                            | None                                |
 
-Scenario: Verify Check details table in GB check report page
+Scenario: Verify Check details table in GB check report page - SPS User
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '23:59'
+	And I have provided Scheduled departure time '23:50'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
@@ -96,7 +108,19 @@ Scenario: Verify Check details table in GB check report page
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
-	When I click View link in Fail Referred to SPS row with departure time '23:59'
+	And click on signout button on CP and verify the signout message
+	When I navigate to the port checker application
+	And I click signin button on port checker application
+	Then I should redirected to the CP Sign in using Government Gateway page
+	When I have provided the CP SPS credentials and signin
+	And I have provided the password for prototype research page
+	Then I should redirected to port route checker page
+	And I have selected 'Ferry' radio option
+	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '20:20'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click View link in Fail Referred to SPS row with departure time '23:50'
 	Then I should navigate to Referred to SPS page
 	When I click first link in PTD or Reference number
 	Then I should navigate to GB check report page
@@ -104,7 +128,7 @@ Scenario: Verify Check details table in GB check report page
 	Then I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Birkenhead to Belfast (Stena)' as Route
 	Then I should see current date as Scheduled departure date
-	And I should see '23:59' as Scheduled departure time
+	And I should see '23:50' as Scheduled departure time
 	Then I should see current date and current time as Date and time checked
 
 Scenario: Verify the route details and PTD Number format in Referred to SPS page
@@ -239,7 +263,7 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	And I verify the PTDOrRefNum 'DKVUZHQ9' is not repeated in the table
 	And I verify the Referred to SPS page table column values as 'DKVUZHQ9' 'Ferret and Chocolate' '123498012398051' 'Foot' 'Check needed'
 	When I click the reference number 'DKVUZHQ9' link
- 	Then I should navigate to GB check report page
+	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
 	Then I should see 'Passenger advised not to travel' as Check outcome
 	And I should see 'None' as Details of outcome
@@ -290,7 +314,7 @@ Scenario: Verify referral count on updating approved document pass to fail check
 	Then I should navigate to Referred to SPS page
 	And I verify the PTDOrRefNum 'GB826 87F DFA' is not repeated in the table
 	When I click the reference number 'GB82687FDFA' link
- 	Then I should navigate to GB check report page
+	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
 	Then I should see 'Passenger advised not to travel' as Check outcome
 	And I should see 'None' as Details of outcome
@@ -344,7 +368,7 @@ Scenario: Verify referral count on updating approved document fail to fail check
 	Then I should navigate to Referred to SPS page
 	And I verify the PTDOrRefNum 'GB826 86F D9E' is not repeated in the table
 	When I click the reference number 'GB82686FD9E' link
- 	Then I should navigate to GB check report page
+	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
 	Then I should see 'Passenger says they will not travel' as Check outcome
 	And I should see 'None' as Details of outcome
@@ -355,3 +379,7 @@ Scenario: Verify referral count on updating approved document fail to fail check
 	Then I should see current date as Scheduled departure date
 	And I should see '02:45' as Scheduled departure time
 	Then I should see current date and current time as Date and time checked
+
+Scenario: Verify the pagination of referrals details list in Referred to SPS page
+	Then I add records in referrals list in Referred to SPS page 'Ferry' 'Cairnryan to Larne (P&O)' '15:10' 'Cannot find microchip' 'Passenger says they will not travel' 'Vehicle on ferry' 'Information has been successfully submitted'
+	And I click View link in Fail row with departure time '15:10' and check for pagination
