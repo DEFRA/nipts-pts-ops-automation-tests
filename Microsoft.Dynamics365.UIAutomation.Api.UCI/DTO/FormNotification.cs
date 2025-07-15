@@ -28,7 +28,7 @@ public class FormNotification
         string classFound = classesArr.FirstOrDefault(c => _classToTypeMap.ContainsKey(c));
 
         if (classFound == null)
-            //throw new InvalidOperationException($"Unknown notification type. Current class: {classes}");
+            throw new InvalidOperationException($"Unknown notification type. Current class: {classes}");
 
         Type = _classToTypeMap[classFound];
     }
