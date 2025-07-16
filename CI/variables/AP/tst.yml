@@ -7,3 +7,4 @@ variables:
  IDOMSUserAlias: ''
  SecretsFilter: 'PetsIDCOMSAutomation'
  IsLiveUserAccount: false
+ IsAccessibilityEnabled: ${{ parameters.IsAccessibilityRun }}

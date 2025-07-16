@@ -37,6 +37,10 @@ parameters:
     displayName: Emulated Device Info
     type: string
     default: 'iPhone 12 Pro'
+  - name: IsAccessibilityRun
+    displayName: Is Accessibility Run Enabled
+    type: boolean
+    default: false
 
 resources:
   repositories:
