@@ -8,6 +8,10 @@ parameters:
     displayName: Selenium Grid URL
     type: string
     default: 'https://hub.browserstack.com/wd/hub/'
+  - name: IsAccessibilityRun
+    displayName: Is Accessibility Run Enabled
+    type: boolean
+    default: true
 
 resources:
   repositories:

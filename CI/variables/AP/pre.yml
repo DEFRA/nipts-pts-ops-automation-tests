@@ -6,3 +6,4 @@ variables:
  IDCOMSUser: 'nagarajan.subbiah@defra.gov.uk'
  IDOMSUserAlias: 'Nagarajan Subbiah'
  IsLiveUserAccount: true
+ IsAccessibilityEnabled: ${{ parameters.IsAccessibilityRun }}
