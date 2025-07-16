@@ -15,22 +15,23 @@ jobs:
       inputs:
         targetType: 'inline'
         script: |
-          $sourcePath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Accessibility"
+          $sourcePath = "$(System.DefaultWorkingDirectory)"
           $destinationPath = "$(System.DefaultWorkingDirectory)/Accessibility"
       
           if (-not (Test-Path -Path $destinationPath)) {
             New-Item -ItemType Directory -Path $destinationPath }          
 
-          Get-ChildItem -Path $sourcePath -Filter "*.html" -Recurse | ForEach-Object {
-            Copy-Item -Path $_.FullName -Destination $destinationPath -Force }
-          
+            Get-ChildItem -Path $sourcePath -Filter "*.html" -Recurse | ForEach-Object {
+                Write-Host $_.FullName
+                Copy-Item -Path $_.FullName -Destination $destinationPath -Force }
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: report-files'
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish WCAG report files'
       inputs:
-        PathtoPublish: "$(System.DefaultWorkingDirectory)/Accessibility"
-        ArtifactName: "report-files"
-        publishLocation: "Container"
+        targetPath: "$(System.DefaultWorkingDirectory)/Accessibility"
+        publishLocation: 'pipeline'
+        artifact: "wcag-report-files"
+        
 
   
     
