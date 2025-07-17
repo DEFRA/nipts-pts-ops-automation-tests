@@ -143,7 +143,7 @@ namespace Defra.UI.Tests.Steps.AP
             var petName = _scenarioContext.Get<string>("PetName");
             var petType = _scenarioContext.Get<string>("PetType");
 
-            var breed = petType.ToLower().Equals("ferret") ? "-" : _scenarioContext.Get<string>("Breed");
+            var breed = petType.ToLower().Equals("ferret") ? null : _scenarioContext.Get<string>("Breed");
 
             var sex = _scenarioContext.Get<string>("Sex");
             var dateOfBirth = _scenarioContext.Get<string>("DateOfBirth");
