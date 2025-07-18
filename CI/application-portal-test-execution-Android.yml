@@ -4,6 +4,10 @@ parameters:
   - name: environment
     type: string
     default: 'pre'
+  - name: IsAccessibilityRun
+    displayName: Is Accessibility Run Enabled
+    type: boolean
+    default: false
 
 resources:
   repositories:
