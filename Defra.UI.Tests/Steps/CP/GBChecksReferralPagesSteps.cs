@@ -8,7 +8,6 @@ using Defra.UI.Tests.Pages.CP.Pages;
 using System.Drawing;
 using AventStack.ExtentReports.Gherkin.Model;
 using System.Net;
-using Polly;
 
 namespace Defra.UI.Tests.Steps.CP
 {
