@@ -1,4 +1,5 @@
 ﻿using Microsoft.Crm.Sdk.Messages;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Pages.CP.Interfaces
 {
@@ -30,5 +31,7 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
         bool CheckPassCount(string count, string departureTime);
         bool CheckFailCount(string count, string departureTime);
         bool DateAndTimeChecked();
+        bool CheckPagination();
+        bool CheckDirectPageNavigation();
     }
 }

@@ -25,7 +25,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement iconScan => _driver.WaitForElement(By.XPath("//span[normalize-space()='Scan']"));
         private IWebElement lnkHeadersChange => _driver.WaitForElement(By.XPath("//a[normalize-space()='Change']"));
         private IWebElement btnBack => _driver.WaitForElement(By.XPath("//a[text()='Back']"));
-        private IReadOnlyCollection<IWebElement> pageHeader => _driver.FindElements(By.XPath("//header[@class='pts-location-bar']"));
+        private IReadOnlyCollection<IWebElement> pageHeader => _driver.FindElements(By.XPath("//*[@class='pts-location-bar']"));
         private IWebElement lblConfirmationBox => _driver.WaitForElement(By.XPath("//div[normalize-space(.) = 'Information has been successfully submitted']"));
         private IWebElement txtFlightHomePageContent => _driver.WaitForElement(By.XPath("//*[@id='main-content']//p"));
         private IWebElement txtFlightHomePageContentList1 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[1]"));
@@ -33,7 +33,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtFlightHomePageContentList3 => _driver.WaitForElement(By.XPath("//*[@id='main-content']//li[3]"));
         private IReadOnlyCollection<IWebElement> txtRouteChecksPageTables => _driver.FindElements(By.XPath("//h2[@class='govuk-summary-card__title']/p[1]"));
         private IReadOnlyCollection<IWebElement> txtDepartureChecksPageTables => _driver.FindElements(By.XPath("//h2[@class='govuk-summary-card__title']/p[2]"));
-        private IReadOnlyCollection<IWebElement> ChecksPageTables => _driver.FindElements(By.XPath("//*[@class='govuk-summary-card']"));
+        private IReadOnlyCollection<IWebElement> checksPageTables => _driver.FindElements(By.XPath("//*[@class='govuk-summary-card']"));
         #endregion
 
         #region Methods
@@ -142,7 +142,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var currentDateMinus1Day = dateAndTime.AddDays(-1).ToString("dd/MM/yyyy");
             var currentDatePlus1Day = dateAndTime.AddDays(1).ToString("dd/MM/yyyy");
 
-            if (ChecksPageTables.Count.Equals(txtDepartureChecksPageTables.Count))
+            if (checksPageTables.Count.Equals(txtDepartureChecksPageTables.Count))
             {
                 foreach (var element in txtDepartureChecksPageTables)
                 {
