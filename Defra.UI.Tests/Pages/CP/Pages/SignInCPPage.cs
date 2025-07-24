@@ -20,7 +20,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        private IWebElement lnkSignIn => _driver.WaitForElement(By.XPath("//a[contains(text(),'Sign in')]"));
+        private IWebElement lnkSignIn => _driver.WaitForElement(By.XPath("//button[contains(text(),'Sign in')]"));
         private IWebElement btnSignIn => _driver.WaitForElement(By.Id("continue"), true);
         private By signInConfirmBy => By.XPath("//h1[contains(@class,'govuk-heading-xl')]");
         private IWebElement UserId => _driver.FindElement(By.CssSelector("#user_id"));
