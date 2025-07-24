@@ -84,5 +84,41 @@ namespace Defra.UI.Tests.Steps.CP
 
             _signInCPPage?.SignIn(userObject.UserName, userObject.Credential);
         }
+
+        [Then(@"I verify '(.*)' link below the header")]
+        public void ThenIVerifyLinkBelowTheHeader(string accessbilityLink)
+        {
+            Assert.True(_signInCPPage?.VerifyAccessibilityLink(accessbilityLink));
+        }
+
+        [When(@"I click accessibility statement link")]
+        public void WhenIClickAccessibilitystatementLink()
+        {
+            _signInCPPage?.ClickAccessibilityLink();
+        }
+
+        [Then(@"I should redirected to accessibility page with '(.*)' header")]
+        public void ThenIShouldRedirectedToAccessibilityPageWithHeader(string header)
+        {
+            Assert.True(_signInCPPage?.VerifyHeader(header), "Header is not correct");
+        }
+
+        [Then(@"I verify the main heading of the page as '(.*)'")]
+        public void ThenIVerifyTheMainHeadingOfThePageAs(string mainHeading)
+        {
+            Assert.True(_signInCPPage?.VerifyHeadingOfThePage(mainHeading), "Main Heading of the accessibility statement page is not correct");
+        }
+
+        [Then(@"I verify the sub headings of the accessibility statement page")]
+        public void ThenIVerifyTheSubHeadingsOfTheAccessibilityStatementPage()
+        {
+            Assert.True(_signInCPPage?.VerifySubHeadingsOfThePage(), "Sub Headings of the accessibility statement page is not correct");
+        }
+
+        [Then(@"I verify all the links in the accessibility statement page")]
+        public void ThenIVerifyAllTheLinksInTheAccessibilityStatementPage()
+        {
+            Assert.True(_signInCPPage?.VerifyLinks(), "Links in the accessibility statement page and its navigation is not correct");
+        }
     }
 }

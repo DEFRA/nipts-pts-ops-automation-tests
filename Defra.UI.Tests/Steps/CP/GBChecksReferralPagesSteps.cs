@@ -7,6 +7,7 @@ using Reqnroll;
 using Defra.UI.Tests.Pages.CP.Pages;
 using System.Drawing;
 using AventStack.ExtentReports.Gherkin.Model;
+using System.Net;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -20,6 +21,10 @@ namespace Defra.UI.Tests.Steps.CP
         private IWelcomePage? _welcomePage => _objectContainer.IsRegistered<IWelcomePage>() ? _objectContainer.Resolve<IWelcomePage>() : null;
         private IUserObject? UserObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
         private IGBChecksReferralPage? _gbChecksReferralPage => _objectContainer.IsRegistered<IGBChecksReferralPage>() ? _objectContainer.Resolve<IGBChecksReferralPage>() : null;
+        private IRouteCheckingPage? _routeCheckingPage => _objectContainer.IsRegistered<IRouteCheckingPage>() ? _objectContainer.Resolve<IRouteCheckingPage>() : null;
+        private ISearchDocumentPage? _searchDocumentPage => _objectContainer.IsRegistered<ISearchDocumentPage>() ? _objectContainer.Resolve<ISearchDocumentPage>() : null;
+        private IApplicationSummaryPage? _applicationSummaryPage => _objectContainer.IsRegistered<IApplicationSummaryPage>() ? _objectContainer.Resolve<IApplicationSummaryPage>() : null;
+        private IReportNonCompliancePage? _reportNonCompliancePage => _objectContainer.IsRegistered<IReportNonCompliancePage>() ? _objectContainer.Resolve<IReportNonCompliancePage>() : null;
 
         public GBChecksReferralPageSteps(ScenarioContext context, IObjectContainer container)
         {
@@ -214,6 +219,40 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeCurrentDateAndCurrentTimeAsDateAndTimeChecked()
         {
             Assert.IsTrue(_gbChecksReferralPage?.DateAndTimeChecked(), "Date and time checked is incorrect");
+        }
+
+        [Then(@"I click View link in Fail row with departure time '([^']*)' and check for pagination")]
+        public void ThenIClickViewLinkInFailRowWithDepartureTimeAndCheckForPagination(string departureTime)
+        {
+            _gbChecksReferralPage?.ClickViewLink(departureTime);
+            Assert.IsTrue(_gbChecksReferralPage?.CheckPagination(), "Pagination is not correct");
+            Assert.IsTrue(_gbChecksReferralPage?.CheckDirectPageNavigation(), "Direct page navigation is not correct");
+        }
+
+        [Then(@"I add records in referrals list in Referred to SPS page '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)'")]
+        public void ThenIAddRecordsInReferralsListInReferredToSPSPage(string transportType, string routeOption, string departTime, string MCCheckbox, string GBOutcome, string passengerType, string submittedMessage)
+        {
+            var referenceNumber = new[] {"DKVUZHQ9", "D4RB5E1D", "XC7I93AF", "9DBHNYAG", "QWPEI58A", "TJI6PC42", "VAKH2DWC","593B37H4", "ZRWD8KG6", "ZWCRY3CG", "0CI5N6V6"};
+            var radioButton = "Search by application number";
+
+            foreach (var reference in referenceNumber)
+            {
+                _routeCheckingPage?.SelectTransportationOption(transportType);
+                _routeCheckingPage?.SelectFerryRouteOption(routeOption);
+                _routeCheckingPage?.SelectDropDownDepartureTime(departTime);
+                _routeCheckingPage?.SelectSaveAndContinue();
+                _welcomePage?.FooterSearchButton();
+                _searchDocumentPage?.SelectSearchRadioOption(radioButton);
+                _searchDocumentPage?.EnterApplicationNumber(reference);
+                _searchDocumentPage?.SearchButton();
+                _applicationSummaryPage?.SelectSaveAndContinue();
+                _reportNonCompliancePage?.ClickOnMCCheckbox(MCCheckbox);
+                _reportNonCompliancePage?.ClickGBOutcomeCheckbox(GBOutcome);
+                _reportNonCompliancePage?.SelectTypeOfPassenger(passengerType);
+                _reportNonCompliancePage?.ClickSaveOutComeButton();
+                Assert.True(_reportNonCompliancePage?.VerifyInfoSubmittedMessage(submittedMessage));
+                _welcomePage?.HeadersChangeLink();
+            }
         }
     }
 }
