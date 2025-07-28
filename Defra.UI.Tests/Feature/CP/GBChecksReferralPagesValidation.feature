@@ -208,9 +208,8 @@ Scenario: Verify the table details in Referred to SPS page
 	And I click search by 'Search by application number' radio button
 	And I provided the Reference number '8CLR4IZ7' of the application
 	When I click search button
-	And I should see the application status in 'Approved'
-	And I select Fail radio button
-	When I click save and continue button from application status page
+	And I should see the application status in 'Cancelled'
+	And I continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
 	And I click 'Passenger says they will not travel' GB Outcome

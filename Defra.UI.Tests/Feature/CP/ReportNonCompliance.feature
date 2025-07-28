@@ -128,7 +128,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - App
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	And I Verify status 'Approved' on Report non-compliance page
+	Then I Verify status with label 'Status' and value 'Approved' on Report non-compliance page
 	And I should not see the Pet Travel Document section for 'Approved' status
 
 Scenario: Verify Pet Travel Document section in Report non compliance page - Pending status
@@ -146,7 +146,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - Pen
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	And I Verify status 'Pending' on Report non-compliance page
+	Then I Verify status with label 'Status' and value 'Pending' on Report non-compliance page
 	And I should see the Pet Travel Document section with status 'PTD pending'
 
 Scenario: Verify Pet Travel Document section in Report non compliance page
@@ -164,7 +164,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	And I Verify status '<Status>' on Report non-compliance page
+	Then I Verify status with label 'Status' and value '<Status>' on Report non-compliance page
 	And I should see the Pet Travel Document section with status '<PTD Status>'
 Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       | PTD Status       |
@@ -462,7 +462,7 @@ Scenario Outline: Verify the success message after submitting the Report non com
 	And I continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	And I Verify status '<Status>' on Report non-compliance page
+	And I Verify status with label 'Status' and value '<Status>' on Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
 	Then I verify the GB Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes under 'Record outcome'
 	And I verify the Details of Outcome label
