@@ -10,6 +10,7 @@ using AngleSharp.Text;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Microsoft.Dynamics365.UIAutomation.Api;
 using AngleSharp.Dom;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -69,9 +70,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblSPSOutcomeValue => _driver.WaitForElement(By.XPath("//*[@class='govuk-table__body']//td[4]"));
         private IReadOnlyCollection<IWebElement> allPTDRefNumberValues => _driver.FindElements(By.XPath("//*[@class='govuk-table__body']//button"));
         private IWebElement txtPassCount => _driver.WaitForElement(By.XPath("//*[contains(text(),'Pass')]//following-sibling::dd"));
+        private IReadOnlyCollection<IWebElement> recordsInGBReferralList => _driver.FindElements(By.XPath("//*[@class='govuk-table__body']/tr"));
+        private IReadOnlyCollection<IWebElement> pagination => _driver.FindElements(By.XPath("//*[@class='govuk-pagination__list']"));
+        private IReadOnlyCollection<IWebElement> lnkNextpagination => _driver.FindElements(By.XPath("//*[@class='govuk-pagination__next']"));
+        private IWebElement lnkPrevpagination => _driver.WaitForElement(By.XPath("//*[@class='govuk-pagination__prev']"));
+        private IWebElement lnkPage1 => _driver.WaitForElement(By.XPath("//*[@aria-label='Page 1']"));
+        private IWebElement lnkPage2 => _driver.WaitForElement(By.XPath("//*[@aria-label='Page 2']"));
         #endregion
 
         #region Methods
+        private const int PAGE_SIZE = 10;
         public bool IsPageLoaded()
         {
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
@@ -104,9 +112,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     viewLinkWithinTable.Click();
                     break;
                 }
-                else
-                    continue;
-            }          
+            }
         }
 
         public void ClickPTDOrReferenceNumber()
@@ -115,7 +121,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             {
                 ptdOrReferenceNumber.ScrollToElement(_driver);
                 ptdOrReferenceNumberList.ElementAt(0).Click();
-            }     
+            }
         }
 
         public bool CheckReportPageSubheadings(string subHeading1, string subHeading2)
@@ -208,7 +214,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             return false;
         }
-        
+
         public void ClickOnConductSPSCheckButton()
         {
             btnConductSPSCheck.Click(_driver);
@@ -217,9 +223,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool CheckPTDNumberFormat(string ptdNumberPrefix)
         {
             List<string> allRecords = new List<string>();
-            while(true)
+            while (true)
             {
-                foreach(var element in ptdOrReferenceNumberList)
+                foreach (var element in ptdOrReferenceNumberList)
                 {
                     string cleanText = element.Text.Replace("reported", "").Trim();
                     allRecords.Add(cleanText);
@@ -285,7 +291,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             return false;
         }
-        
+
         public bool VerifyBGColorforTravelStatus(string referenceNumber, string travelStatus, string color)
         {
             var hasNext = true;
@@ -330,7 +336,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool CheckReferredToSPSTableLabels(string ptdOrRefNumber, string pet, string microchip, string travelBy, string spsOutcome)
         {
             var ptdOrRefNumFromInput = ptdOrRefNumber.Replace(" or ", "/");
-            return lblPTDRefNumber.Text.Trim().Equals(ptdOrRefNumFromInput) && lblPet.Text.Trim().Equals(pet) 
+            return lblPTDRefNumber.Text.Trim().Equals(ptdOrRefNumFromInput) && lblPet.Text.Trim().Equals(pet)
                 && lblMicrochip.Text.Trim().Equals(microchip) && lblTravelBy.Text.Trim().Equals(travelBy)
                 && lblSPSOutcome.Text.Trim().Equals(spsOutcome);
         }
@@ -399,10 +405,58 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var currentDate = dateAndTime.ToString("dd/MM/yyyy");
             var currentTime = dateAndTime.ToString("HH:mm");
             var currentTimeMinusOneHour = dateAndTime.AddHours(-1).ToString("HH:mm");
+            var currentTimeMinusOneMin = dateAndTime.AddMinutes(-1).ToString("HH:mm");
+            var currentTimeMinusOneHourMinusOneMin = dateAndTime.AddHours(-1).AddMinutes(-1).ToString("HH:mm");
 
             return lblDateAndTimeChecked.Text.Trim().Equals("Date and time checked")
                 && lblDateAndTimeCheckedValue.Text.Trim().Contains(currentDate)
-                && (lblDateAndTimeCheckedValue.Text.Trim().Contains(currentTime) || lblDateAndTimeCheckedValue.Text.Trim().Contains(currentTimeMinusOneHour));
+                && (lblDateAndTimeCheckedValue.Text.Trim().Contains(currentTime) || lblDateAndTimeCheckedValue.Text.Trim().Contains(currentTimeMinusOneHour)
+                || lblDateAndTimeCheckedValue.Text.Trim().Contains(currentTimeMinusOneMin) || lblDateAndTimeCheckedValue.Text.Trim().Contains(currentTimeMinusOneHourMinusOneMin));
+        }
+
+        public bool CheckPagination()
+        {
+            if (recordsInGBReferralList.Count > PAGE_SIZE)
+            {
+                return false;
+            }
+            else if (recordsInGBReferralList.Count < PAGE_SIZE)
+            {
+                if (lnkNextpagination.Count == 0)
+                    return true;
+            }
+            else if (recordsInGBReferralList.Count == PAGE_SIZE)
+            {
+                while (lnkNextpagination.Count > 0)
+                {
+                    lnkNext.ScrollAndClick(_driver);
+                    if (recordsInGBReferralList.Count >= 1 && lnkPrevpagination.Displayed)
+                        return true;
+                    else if (recordsInGBReferralList.Count > PAGE_SIZE || !lnkPrevpagination.Displayed)
+                        return false;
+                }
+                return true;
+            }
+            return false;
+        }
+
+        public bool CheckDirectPageNavigation()
+        {
+            if (pagination.Count > 0)
+            {
+                lnkPage1.ScrollAndClick(_driver);
+                if (recordsInGBReferralList.Count == PAGE_SIZE)
+                {
+                    lnkPage2.ScrollAndClick(_driver);
+                    if (recordsInGBReferralList.Count >= 1)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
+                }
+            }
+            return true;
         }
         #endregion
     }

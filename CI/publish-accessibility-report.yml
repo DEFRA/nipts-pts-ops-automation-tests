@@ -11,23 +11,27 @@ jobs:
   steps:
   
     - task: PowerShell@2
-      displayName:  'Copy Accessibility report to Default Directory'
+      displayName: 'Copy Accessibility report to Default Directory'
       inputs:
         targetType: 'inline'
         script: |
-         $sourcePath= "$(System.DefaultWorkingDirectory)"
-         $destinationPath = "$sourcePath\Accessibility"
-         if( -not (Test-Path -Path $destinationPath) ) {
-            New-Item -ItemType Directory -Path $destinationPath }      
-
-          Get-ChildItem -Path $sourcePath -Filter "*.html" -Recurse | ForEach-Object { 
-                Copy-Item -Path $_.FullName -Destination $destinationPath -Force }
+          $sourcePath = "$(System.DefaultWorkingDirectory)"
+          $destinationPath = "$(System.DefaultWorkingDirectory)/Accessibility"
       
-    - task: PublishBuildArtifacts@1 
-      displayName: 'Publish Artifact: report-files'
-      inputs: 
-        PathtoPublish: '$(System.DefaultWorkingDirectory)/Accessibility'
-        ArtifactName: 'report-files' 
-        publishLocation: 'Container'
+          if (-not (Test-Path -Path $destinationPath)) {
+            New-Item -ItemType Directory -Path $destinationPath }          
+
+            Get-ChildItem -Path $sourcePath -Filter "*.html" -Recurse | ForEach-Object {
+                Write-Host $_.FullName
+                Copy-Item -Path $_.FullName -Destination $destinationPath -Force }
+
+    - task: PublishPipelineArtifact@1
+      displayName: 'Publish WCAG report files'
+      inputs:
+        targetPath: "$(System.DefaultWorkingDirectory)/Accessibility"
+        publishLocation: 'pipeline'
+        artifact: "wcag-report-files"
+        
+
   
     
