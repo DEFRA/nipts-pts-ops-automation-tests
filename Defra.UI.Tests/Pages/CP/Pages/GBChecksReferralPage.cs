@@ -399,6 +399,35 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return false;
         }
 
+        public bool IsViewLinkPresent(string departureTime)
+        {
+            var currentDate = DateTime.Today.ToString("dd/MM/yyyy");
+
+            foreach (var table in ChecksPageTables)
+            {
+                if (table.Text.Contains(currentDate) && table.Text.Contains(departureTime))
+                {
+                    table.ScrollToElement(_driver);
+
+                    try
+                    {
+                        var viewLink = table.FindElement(By.XPath(
+                            ".//*[contains(text(),'Fail: Referred to SPS')]//following-sibling::dd[2]//following-sibling::button"));
+
+                        if (viewLink != null)
+                        {
+                            return false;
+                        }
+                    }
+                    catch (NoSuchElementException)
+                    {
+                        // Element not found, continue checking other tables
+                    }
+                }
+            }
+            return true;
+        }
+
         public bool DateAndTimeChecked()
         {
             DateTime dateAndTime = DateTime.Now;

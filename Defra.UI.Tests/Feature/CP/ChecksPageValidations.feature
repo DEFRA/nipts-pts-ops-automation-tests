@@ -27,13 +27,18 @@ Scenario: Verify the home page content for flight route selection
 	Then I should navigate to Checks page
 	And I should see content 'You can scan or search for:' with list 'PTD number' 'application number' 'microchip number'
 
-Scenario: Verify the Checks home page filter and display only the selected ferry route
+Scenario Outline: Verify the Checks home page filter and display only the selected ferry route
 	Then I have selected 'Ferry' radio option
-	Then I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '09:30'
+	Then I select the '<Route>' radio option
+	And I have provided Scheduled departure time '<DepatureTime>'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
-	And I should see route displayed in all the tables of Checks page should be 'Birkenhead to Belfast (Stena)'
+	And I should see route displayed in all the tables of Checks page should be '<Route>'
+Examples:
+	| Route                         | DepatureTime |
+	| Birkenhead to Belfast (Stena) | 09:30        |
+	| Cairnryan to Larne (P&O)      | 09:30        |
+	| Loch Ryan to Belfast (Stena)  | 09:30        |
 
 Scenario: Verify the Checks home page tables display sailing route departure date and time
 	Then I have selected 'Ferry' radio option
