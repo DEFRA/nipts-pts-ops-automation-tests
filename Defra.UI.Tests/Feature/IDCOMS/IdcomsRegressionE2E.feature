@@ -400,7 +400,6 @@ Scenario Outline: Verify if a Caseworker flags an existing case for further inve
 Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
 	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
-	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
 
 Scenario Outline: Verify the message banner at the top of the application page - duplicate MC number
 	Then I have selected '<Are your details correct>' option
