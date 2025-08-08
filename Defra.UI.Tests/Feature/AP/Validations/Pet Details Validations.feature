@@ -183,8 +183,10 @@ Scenario Outline: Verify pet colour page validations by not selecting any color
 	And I should not be redirected to the Does your pet have any significant features page
 
 Examples:
-	| FullName | Are your details correct | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | ErrorMessage                       |
-	| PetCat's | Yes                      | Yes             | 123456789654321 | Cat | Cat     | Female |       | Select the main colour of your cat |
+	| FullName    | Are your details correct | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | ErrorMessage                          |
+	| PetCat's    | Yes                      | Yes             | 123456789654321 | Cat    | Cat     | Female |       | Select the main colour of your cat    |
+	| PetDog's    | Yes                      | Yes             | 123456789654322 | Dog    | Dog     | Female |       | Select the main colour of your Dog    |
+	| PetFerret's | Yes                      | Yes             | 123456789654323 | Ferret | Ferret  | Female |       | Select the main colour of your Ferret |
 
 Scenario Outline: Verify pet colour page validations and should not moves to next page
 	Then I have selected '<Are your details correct>' option

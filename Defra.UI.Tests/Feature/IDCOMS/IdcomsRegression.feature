@@ -16,11 +16,12 @@ Scenario: Verify if the Pet owner details are not editable
 	And I open the first application
 	Then I cannot edit 'Pet Owner' Details
 
-Scenario: Verify if the Pet details are not editable
+Scenario: Verify if the Pet details are not editable and no pending button visible
 	When I Login to Dynamics application
 	And I filter with 'Status Reason' is 'Equals' to 'Pending' in PTS Application
 	And I open the first application
 	Then I cannot edit 'Pet' Details for Pending Application
+	And I cannot see 'Pending' command
 
 Scenario: Verify Revoke Pending System View	
 	When I Login to Dynamics application
@@ -244,7 +245,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application and 
 	And I dont see the Email in timeline
 	And I cannot see 'Pending' command
 		
-Scenario: Verify if the caseworker can create a new offline PTD application, Authorise and Revoke it.
+Scenario: Verify if the caseworker can create a new offline PTD application, Authorise and Revoke it and no pending button visible
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Applicant Name' as 'Automation user'
@@ -374,3 +375,51 @@ Scenario: Offline PTD Application should not be editable in Revoke Pending Statu
 	And I cannot edit 'Pet Owner' Details
 	And I cannot edit 'Pet' Details
 	And I cannot edit 'Applicant details' Details
+
+Scenario: Verify the Unique features field is empty in offline PTD application and authorise it
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I enter 'Applicant Name' as 'Automation user'
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as ''
+	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+	And I can see the submission date and time
+	When I 'Pass' the Microchip check
+	And I go back
+	And I 'Authorise' the application
+	Then the status is changed to 'Authorised'
+
+Scenario: Verify the Unique features field is empty in offline PTD application and reject it
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I enter 'Applicant Name' as 'Automation user'
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as ''
+	And I enter 'Microchip Number' as '564789098987654'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I Click on Save
+	Then the status is 'Open'
+	And I 'do' see Duplicate Microchip Notification
+	When I 'Fail' the Microchip check
+	And I go back
+	And I 'Reject' the application with reason 'Invalid MC number'
+	Then the status is changed to 'Rejected'
