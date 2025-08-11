@@ -935,7 +935,7 @@ Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP an
 	And I have provided Scheduled departure time '23:59'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
+	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
 	And The Background colour of 'Checks Needed' in 'Pending' application is 'Blue'
 	When I click on the 'Pending' application that is in checks Needed SPS Outcome
@@ -948,7 +948,7 @@ Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP an
 	When I Select the 'Cannot find microchip' Microchip Checkbox
 	And I click '<SPSOutcome>' in SPS Outcome
 	And I click Save outcome button from non-compliance page
-	And I click View link in Fail Referred to SPS row with count more than 0
+	And I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page	
 	And I verify the travel status for the 'Pending' application is '<SPSOutcome>'
 	And The Background colour of '<SPSOutcome>' in 'Pending' application is '<BGColour>'
@@ -1044,7 +1044,7 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	And I have provided Scheduled departure time '23:59'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
+	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
 	And The Background colour of 'Checks Needed' in 'Approved' application is 'Blue'
 	When I click on the 'Approved' application that is in checks Needed SPS Outcome
@@ -1057,7 +1057,7 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	When I Select the 'Cannot find microchip' Microchip Checkbox
 	And I click '<SPSOutcome>' in SPS Outcome
 	And I click Save outcome button from non-compliance page
-	And I click View link in Fail Referred to SPS row with count more than 0
+	And I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page	
 	And I verify the travel status for the 'Approved' application is '<SPSOutcome>'
 	And The Background colour of '<SPSOutcome>' in 'Approved' application is '<BGColour>'
@@ -1155,7 +1155,7 @@ Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as G
 	And I have provided Scheduled departure time '23:59'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
+	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
 	And The Background colour of 'Checks Needed' in 'Cancelled' application is 'Blue'
 	When I click on the 'Cancelled' application that is in checks Needed SPS Outcome
@@ -1167,7 +1167,7 @@ Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as G
 	When I Select the 'Cannot find microchip' Microchip Checkbox
 	And I click '<SPSOutcome>' in SPS Outcome
 	And I click Save outcome button from non-compliance page
-	And I click View link in Fail Referred to SPS row with count more than 0
+	And I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page	
 	And I verify the travel status for the 'Cancelled' application is '<SPSOutcome>'
 	And The Background colour of '<SPSOutcome>' in 'Cancelled' application is '<BGColour>'
@@ -1262,7 +1262,7 @@ Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as G
 	And I have provided Scheduled departure time '23:59'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
-	When I click View link in Fail Referred to SPS row with count more than 0
+	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
 	And The Background colour of 'Checks Needed' in 'Unsuccessful' application is 'Blue'
 	When I click on the 'Unsuccessful' application that is in checks Needed SPS Outcome
@@ -1274,7 +1274,7 @@ Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as G
 	When I Select the 'Cannot find microchip' Microchip Checkbox
 	And I click '<SPSOutcome>' in SPS Outcome
 	And I click Save outcome button from non-compliance page
-	And I click View link in Fail Referred to SPS row with count more than 0
+	And I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page	
 	And I verify the travel status for the 'Unsuccessful' application is '<SPSOutcome>'
 	And The Background colour of '<SPSOutcome>' in 'Unsuccessful' application is '<BGColour>'
