@@ -37,7 +37,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPageHeading => _driver.WaitForElement(By.XPath("//h1"));
         private IWebElement lnkGobackToPrevPage => _driver.WaitForElement(By.XPath("//a[contains(.,'go back to the previous page')]"));
         private IWebElement lblHeaderTitle => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-!-margin-bottom-4')]"));
-        private IList<IWebElement> lblErrorPageContentText => _driver.FindElements(By.XPath("//*[@id='main-content']//p"));
+        private IList<IWebElement> lblErrorPageContent => _driver.FindElements(By.XPath("//*[@id='main-content']//p"));
         private IReadOnlyCollection<IWebElement> btnSignout => _driver.FindElements(By.XPath("//a[normalize-space()='Sign out']"));
         private IReadOnlyCollection<IWebElement> btnAccount => _driver.FindElements(By.XPath("//a[normalize-space()='Account']"));
         #endregion

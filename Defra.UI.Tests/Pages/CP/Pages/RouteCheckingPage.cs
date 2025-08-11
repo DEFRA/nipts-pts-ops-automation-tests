@@ -287,7 +287,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void EnterInvalidURL()
         {
-            _driver?.Navigate().GoToUrl("https://pre-check-a-pet-from-gb-to-ni.azure.defra.cloud/checker/curre");
+
+            string baseUrl = ConfigSetup.BaseConfiguration.TestConfiguration.ApplicationUrl;
+            string Url = baseUrl + "/checker/curre";
+            _driver?.Navigate().GoToUrl(Url);
         }
         #endregion
     }
