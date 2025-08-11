@@ -3,9 +3,9 @@
     public interface IManageAccountPage
     {
         void ClickOnManageYourAccountLink();
+        void ClickOnManageAccountLink();
         void ClickOnUpdatedetailsLink();
         void ClickOnChangePersonalInformationLink();
-        void ClickOnChangePersonalAddressLink();
         void EnterPhoneNumber(string phoneNumber);
         void ClickContinue();
         void ClickBackButton();
@@ -16,5 +16,8 @@
         void EnterTheValidPostcode(string postcode);
         void ClickFindAddressButton();
         string SelectTheAddress();
+        void ClickNameChange();
+        void ClickTelePhoneNmmnerChange();
+        void ClickAddressChange();
     }
 }

@@ -2,6 +2,7 @@
 using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.HelperMethods;
+using Defra.UI.Tests.Pages.AP.Classes;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
@@ -64,5 +65,10 @@ namespace Defra.UI.Tests.Steps.AP
             Trade.Plants.SpecFlowBindings.Steps.LoginSteps.GivenIAmLoggedInToTheAppAs1("Defra Trade - NIPTS", user?.Alias);
         }
 
+        [Then("I click on Taking a pet from Great Britain to Northern Ireland link")]
+        public void ThenIClickOnTakingAPetFromGreatBritainToNorthernIrelandLink()
+        {
+            Signin?.ClickPetsTravelApplicationPortalLink();
+        }
     }
 }

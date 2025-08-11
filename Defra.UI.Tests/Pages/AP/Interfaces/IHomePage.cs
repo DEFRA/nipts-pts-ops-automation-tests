@@ -1,4 +1,6 @@
-﻿namespace Defra.UI.Tests.Pages.AP.Interfaces
+﻿using System.Security.Cryptography;
+
+namespace Defra.UI.Tests.Pages.AP.Interfaces
 {
     public interface IHomePage
     {
@@ -16,5 +18,6 @@
         bool VerifyTheApplicationIsNotAvailable(string PetName);
         void ClickViewLink(string petName);
         void ClickOnManageAccountLink();
+        void ClickSignOutLink();
     }
 }

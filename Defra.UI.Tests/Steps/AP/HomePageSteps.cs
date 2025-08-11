@@ -141,5 +141,11 @@ namespace Defra.UI.Tests.Steps.AP
 
             Assert.IsTrue(HomePage?.VerifyTheExpectedStatus(petName, applicationStatus), $"The submitted application is not in expected status of '{applicationStatus}'");
         }
+
+        [When("signed out from PETS portal")]
+        public void WhenSignedOutFromPETSPortal()
+        {
+            HomePage?.ClickSignOutLink();
+        }
     }
 }
