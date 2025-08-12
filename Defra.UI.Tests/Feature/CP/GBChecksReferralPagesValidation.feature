@@ -382,3 +382,23 @@ Scenario: Verify referral count on updating approved document fail to fail check
 Scenario: Verify the pagination of referrals details list in Referred to SPS page
 	Then I add records in referrals list in Referred to SPS page 'Ferry' 'Cairnryan to Larne (P&O)' '15:10' 'Cannot find microchip' 'Passenger says they will not travel' 'Vehicle on ferry' 'Information has been successfully submitted'
 	And I click View link in Fail row with departure time '15:10' and check for pagination
+
+Scenario: Verify if the View link should be hidden for GB referral count is 0
+	Then I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time '17:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '87FDFA' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Pass radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Checks page
+	And I should see a message 'Information has been successfully submitted' in Checks page
+	Then I should see the count next to Pass as '1' in the table contains departure time '17:45'
+	And I should see the count next to Fail Referred to SPS as '0' in the table contains departure time '17:45'
+	And I Should not see the View link in the table contains departure time '17.45'

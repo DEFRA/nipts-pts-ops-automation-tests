@@ -254,5 +254,11 @@ namespace Defra.UI.Tests.Steps.CP
                 _welcomePage?.HeadersChangeLink();
             }
         }
+
+        [Then(@"I Should not see the View link in the table contains departure time '([^']*)'")]
+        public void ThenIShouldNotSeeViewLink(string departureTime)
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.IsViewLinkPresent(departureTime), "View Link is Present");
+        }
     }
 }

@@ -284,6 +284,14 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 selectMinute.SelectByValue(minuteAfter24Hours.ToString("D2"));
             }
         }
+
+        public void EnterInvalidURL()
+        {
+
+            string baseUrl = ConfigSetup.BaseConfiguration.TestConfiguration.ApplicationUrl;
+            string Url = baseUrl + "/checker/curre";
+            _driver?.Navigate().GoToUrl(Url);
+        }
         #endregion
     }
 }

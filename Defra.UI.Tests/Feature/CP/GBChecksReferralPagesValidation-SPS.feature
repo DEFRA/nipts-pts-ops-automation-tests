@@ -62,3 +62,16 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	And I should see 'Birkenhead to Belfast (Stena)' as Route
 	Then I should see current date as Scheduled departure date
 	And I should see '23:59' as Scheduled departure time
+
+Scenario Outline: Verify the Checks home page filter and display only the selected ferry route - SPS
+	Then I have selected 'Ferry' radio option
+	Then I select the '<Route>' radio option
+	And I have provided Scheduled departure time '<DepatureTime>'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	And I should see route displayed in all the tables of Checks page should be '<Route>'
+Examples:
+	| Route                         | DepatureTime |
+	| Birkenhead to Belfast (Stena) | 09:30        |
+	| Cairnryan to Larne (P&O)      | 09:30        |
+	| Loch Ryan to Belfast (Stena)  | 09:30        |

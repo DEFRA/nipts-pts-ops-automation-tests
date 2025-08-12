@@ -240,5 +240,11 @@ namespace Defra.UI.Tests.Steps.CP
             var dateTimeTwoDaysAgo = DateTime.UtcNow.AddDays(departuredate);
             _routeCheckingPage?.CheckDepartBefore48OrAfter24Hrs(dateTimeTwoDaysAgo.Day.ToString(), dateTimeTwoDaysAgo.Month.ToString(), dateTimeTwoDaysAgo.Year.ToString(), dateTimeTwoDaysAgo.Hour.ToString("D2"), dateTimeTwoDaysAgo.Minute.ToString("D2"), timeCheck);
         }
+        
+        [When("I have entered an invalid URL")]
+        public void WhenIhaveEnteredAnInvalidURL()
+        {
+            _routeCheckingPage?.EnterInvalidURL();
+        }
     }
 }

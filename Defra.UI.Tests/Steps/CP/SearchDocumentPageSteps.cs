@@ -143,7 +143,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should navigate to '(.*)' error page")]
         public void ThenIShouldNavigateToErrorPage(string errorPageHeading)
         {
-            Assert.True(_searchDocumentPage?.VerifyYouCannotAccessPage(errorPageHeading), "You cannot access this page or perform this action page is not loaded");
+            Assert.True(_searchDocumentPage?.VerifyErrorPageHeading(errorPageHeading), "The error page is not loaded");
         }
 
         [When(@"I click go back to the previous page link")]
@@ -161,7 +161,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should see '(.*)' text under the main heading of error page")]
         public void ThenIShouldSeeTextUnderTheMainHeadingOfErrorPage(string errorPageContentText)
         {
-            Assert.True(_searchDocumentPage?.VerifyYouCannotAccessPageText(errorPageContentText), "Contact your team leader with any queries. is not displayed");
+            Assert.True(_searchDocumentPage?.VerifyErrorPageContent(errorPageContentText), "Content in the Error Page is incorrect");
         }
 
         [Then(@"I should not see account and signout icons")]

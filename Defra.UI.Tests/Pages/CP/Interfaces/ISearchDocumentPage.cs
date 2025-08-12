@@ -15,11 +15,11 @@
         bool VerifyAlreadyEnteredPTDNumber(string alreadyEnteredPTDNumber);
         bool VerifyAlreadyEnteredApplicationNumber(string alreadyEnteredApplicationNumber);
         bool VerifyAlreadyEnteredMicrochipNumber(string alreadyEnteredMicrochipNumber);
-        bool VerifyYouCannotAccessPage(string errorPageHeading);
+        bool VerifyErrorPageHeading(string errorPageHeading);
         void VerifyGoBackToPreviousPageLink();
         void SelectAndSwapToApplicationNumberRadioButton();
         void ClickBrowserBackButton();
-        bool VerifyYouCannotAccessPageText(string errorPageContentText);
+        bool VerifyErrorPageContent(string errorPageContentText);
         bool VerifyAccountAndSignoutIcons();
         bool VerifyRadioButtonDefaultSelection();
     }
