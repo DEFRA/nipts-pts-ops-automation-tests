@@ -33,6 +33,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> tableHeaderRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/th"), true);
         private IReadOnlyCollection<IWebElement> tableActionRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/td[2]//a"), true);
         public IWebElement lnkManageAccount => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Manage account']"));
+        public IWebElement lnkSignOut => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Sign out')]"));
 
         #endregion
 
@@ -144,9 +145,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             IWebElement? lnkview = null;
 
-            var rowCount = tableRows.Count - 1;
+            var rowCount = tableRows.Count-1;
 
-            for (var elementIndex = rowCount; elementIndex > 0; elementIndex--)
+            for (var elementIndex = rowCount; elementIndex >= 0; elementIndex--)
             {
                 var tableHeader = tableHeaderRows.ElementAt(elementIndex).Text.Replace("\r\n", string.Empty).Trim().ToUpper();
 
@@ -164,6 +165,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public void ClickOnManageAccountLink()
         {
             lnkManageAccount.Click();
+        }
+
+        public void ClickSignOutLink()
+        {
+            lnkSignOut.Click();
         }
 
         #endregion

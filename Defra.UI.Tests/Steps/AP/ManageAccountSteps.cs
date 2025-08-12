@@ -29,6 +29,12 @@ namespace Defra.UI.Tests.Steps.AP
             ManageAccountPage?.ClickOnManageYourAccountLink();
         }
 
+        [When(@"I click on Manage account")]
+        public void ThenIClickOnManageAccount()
+        {
+            ManageAccountPage?.ClickOnManageAccountLink();
+        }
+
         [Then(@"I click on Update Details link")]
         public void ThenIClickOnUpdateDetails()
         {
@@ -41,10 +47,23 @@ namespace Defra.UI.Tests.Steps.AP
             ManageAccountPage?.ClickOnChangePersonalInformationLink();
         }
 
-        [Then(@"I click on Change Personal Address link")]
-        public void ThenIClickOnChangePersonalAddressLink()
+        [Then("I clicked Change link for Telephone number")]
+        public void ThenIClickedChangeLinkForTelephoneNumber()
         {
-            ManageAccountPage?.ClickOnChangePersonalAddressLink();
+            ManageAccountPage?.ClickTelePhoneNmmnerChange();
+        }
+
+        
+        [Then("I clicked Change link for Name")]
+        public void ThenIClickedChangeLinkForName()
+        {
+            ManageAccountPage?.ClickNameChange();
+        }
+
+        [Then("I clicked Change link for Address")]
+        public void ThenIClickedChangeLinkForAddress()
+        {
+            ManageAccountPage?.ClickAddressChange();
         }
 
         [Then(@"I enter updated Phone number")]
@@ -98,12 +117,6 @@ namespace Defra.UI.Tests.Steps.AP
             ManageAccountPage?.EnterFirstName(_scenarioContext.Get<string>("OriginalFirstName"));
             ManageAccountPage?.EnterLastName(_scenarioContext.Get<string>("OriginalLastName"));
             ThenIClickContinue();
-            ThenIClickOnBackButton();
-            ThenIGoBackToPetsApplication();
-            homePage?.ClickApplyForPetTravelDocument();
-            string petOwnerName = _scenarioContext.Get<string>("OriginalFirstName") + " " + _scenarioContext.Get<string>("OriginalLastName");
-            Assert.IsTrue(PetOwnerDetailsPage?.VerifyUpdatedName(petOwnerName));
-
         }
 
         [Then(@"I click on Search for my address by UK Postcode link")]

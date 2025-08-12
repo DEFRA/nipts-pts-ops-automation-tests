@@ -1,10 +1,9 @@
-﻿using Reqnroll.BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using Reqnroll.BoDi;
 using SeleniumExtras.WaitHelpers;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
@@ -27,6 +26,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement DynamicsPassword => _driver.WaitForElement(By.XPath("//*[normalize-space(text())='Enter password']/following::input[1]"));
         private IWebElement BtnSignin => _driver.WaitForElement(By.XPath("//*[@value='Sign in']"));
         private IWebElement Signin => _driver.WaitForElement(By.XPath("//*[normalize-space(text()) ='Sign In']"));
+        public IWebElement PageHeaderHomePage => _driver.WaitForElement(By.XPath("//h1[normalize-space( text()='Your Defra account')]"), true);
+        public IWebElement lnkPetsTravelPortal => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Taking a pet from Great Britain to Northern Ireland']"), true);
         #endregion
 
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
@@ -92,6 +93,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             UserId.SendKeys(userName);
             Password.SendKeys(password);
             _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn)).Click();
+        }
+
+        public void ClickPetsTravelApplicationPortalLink()
+        {
+            lnkPetsTravelPortal.Click();
         }
     }
 }
