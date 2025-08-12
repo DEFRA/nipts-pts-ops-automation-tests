@@ -1,16 +1,9 @@
-﻿using Reqnroll.BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Tools;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
-using OpenQA.Selenium.Support.UI;
-using Defra.UI.Framework.Driver;
-using Defra.UI.Tests.Configuration;
+using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
-using AngleSharp.Text;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using Microsoft.Dynamics365.UIAutomation.Api;
-using AngleSharp.Dom;
-using Reqnroll;
+using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -76,10 +69,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lnkPrevpagination => _driver.WaitForElement(By.XPath("//*[@class='govuk-pagination__prev']"));
         private IWebElement lnkPage1 => _driver.WaitForElement(By.XPath("//*[@aria-label='Page 1']"));
         private IWebElement lnkPage2 => _driver.WaitForElement(By.XPath("//*[@aria-label='Page 2']"));
+        const string VIEWLINK_XPATH = ".//*[contains(text(),'Fail: Referred to SPS')]//following-sibling::dd[2]//following-sibling::button";
+        const int PAGE_SIZE = 10;
+
         #endregion
 
         #region Methods
-        private const int PAGE_SIZE = 10;
         public bool IsPageLoaded()
         {
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
@@ -402,7 +397,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool IsViewLinkPresent(string departureTime)
         {
             var currentDate = DateTime.Today.ToString("dd/MM/yyyy");
-            var viewlink_xpath = ".//*[contains(text(),'Fail: Referred to SPS')]//following-sibling::dd[2]//following-sibling::button"
+            
             foreach (var table in ChecksPageTables)
             {
                 if (table.Text.Contains(currentDate) && table.Text.Contains(departureTime))
@@ -411,7 +406,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
                     try
                     {
-                        var viewLink = table.FindElement(By.XPath(viewlink_xpath));
+                        var viewLink = table.FindElement(By.XPath(VIEWLINK_XPATH));
 
                         if (viewLink != null)
                         {
