@@ -56,8 +56,6 @@ stages:
     displayName: PETS_OPS_AP_E2E
 
     variables:
-    - name: SeleniumGrid
-      value: ${{ parameters.seleniumGrid }}
     - template: 'variables/AP/${{parameters.environment}}.yml'
 
     jobs:
