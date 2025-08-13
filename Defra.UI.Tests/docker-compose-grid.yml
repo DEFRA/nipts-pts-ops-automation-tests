@@ -1,8 +1,3 @@
-# To execute this docker-compose yml file use `docker-compose -f docker-compose-grid.yml up`
-# Add the `-d` flag at the end for detached execution
-# docker compose -f docker-compose-grid.yml up --scale chrome=4
-# To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose-grid.yml down`
-version: "3.6"
 services:
 
   selenium-hub:
