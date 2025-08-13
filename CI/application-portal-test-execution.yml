@@ -57,7 +57,7 @@ stages:
 
     variables:
       - template: 'variables/AP/${{parameters.environment}}.yml'
-
+        SeleniumGrid: ${{ parameters.seleniumGrid }}
     jobs:
     
     - template: run-test-template.yml
