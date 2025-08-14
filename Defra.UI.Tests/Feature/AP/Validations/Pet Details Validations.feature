@@ -185,8 +185,40 @@ Scenario Outline: Verify pet colour page validations by not selecting any color
 Examples:
 	| FullName    | Are your details correct | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | ErrorMessage                          |
 	| PetCat's    | Yes                      | Yes             | 123456789654321 | Cat    | Cat     | Female |       | Select the main colour of your cat    |
-	| PetDog's    | Yes                      | Yes             | 123456789654322 | Dog    | Dog     | Female |       | Select the main colour of your Dog    |
-	| PetFerret's | Yes                      | Yes             | 123456789654323 | Ferret | Ferret  | Female |       | Select the main colour of your Ferret |
+	| PetDog's    | Yes                      | Yes             | 123456789654322 | Dog    | Dog     | Female |       | Select the main colour of your dog    |
+
+Scenario Outline: Verify pet colour page validations by not selecting any color - Ferret
+	Then I have selected '<Are your details correct>' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the '<MicrochipOption>' option
+	And provided microchip number as <MicrochipNumber>
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	And I have selected an option as '<Pet>' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What is your pet's name page
+	And I provided the Pets name as '<PetName>'
+	When I click on continue button from What is your pet's name page
+	Then I should redirected to the What sex is your pet page
+	And I have selected the option as '<Gender>' for sex
+	When I click on continue button from What sex is your pet page
+	Then I should redirected to the Do you know your pet's date of birth page
+	And I have provided date of birth
+	When I click on continue button from Do you know your pet's date of birth? page
+	Then I should redirected to the What is the main colour of your '<Pet>' page
+	And I have selected the option as '<Color>' for color
+	When I click on continue button from What is the main colour of your pet page
+	Then I should see an error message '<ErrorMessage>' in What is the main colour of your pet page
+	And I should not be redirected to the Does your pet have any significant features page
+
+Examples:
+	| FullName    | Are your details correct | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | ErrorMessage                          |
+	| PetFerret's | Yes                      | Yes             | 123456789654323 | Ferret | Ferret  | Female |       | Select the main colour of your ferret |
+
 
 Scenario Outline: Verify pet colour page validations and should not moves to next page
 	Then I have selected '<Are your details correct>' option
