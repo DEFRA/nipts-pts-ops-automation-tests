@@ -20,22 +20,22 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl'] | //h1[@class='govuk-heading-l'] | //h1[@class='govuk-fieldset__heading']"), true);
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[@id='button-continue']|//button[@id='continue']|//*[normalize-space(text())='Continue']"));
         private IWebElement txtEmailAddressPage => _driver.WaitForElement(By.XPath("//h1[text() = 'Enter your email address']"));
-        private IWebElement txtboxEmail => _driver.WaitForElement(By.XPath("//input[@id='emailAddress']"));
-        private IWebElement txtConfirmEmail => _driver.WaitForElement(By.XPath("//h1[text()='Enter code to confirm your email address']"));
+        private IWebElement txtboxEmail => _driver.WaitForElement(By.XPath("//input[@id='emailAddress']"),true);
+        private IWebElement txtConfirmEmail => _driver.WaitForElement(By.XPath("//h1[text()='Enter code to confirm your email address']"),true);
         private IWebElement txtboxConfirmCode => _driver.WaitForElement(By.XPath("//input[@id='code']"));
-        private IWebElement lblFullname => _driver.WaitForElement(By.XPath("//label[text()=' What is your full name? ']"));
+        private IWebElement lblFullname => _driver.WaitForElement(By.XPath("//label[text()=' What is your full name? ']"), true);
         private IWebElement txtboxName => _driver.WaitForElement(By.XPath("//input[@id='name']"));
-        private IWebElement lblPassword => _driver.WaitForElement(By.XPath("//h1[text()='Create a password']"));
+        private IWebElement lblPassword => _driver.WaitForElement(By.XPath("//h1[text()='Create a password']"), true);
         private IWebElement txtboxPassword => _driver.WaitForElement(By.XPath("//input[@id='newPassword']"));
         private IWebElement txtboxConfirmPassword => _driver.WaitForElement(By.XPath("//input[@id='confirmPassword']"));
-        private IWebElement lblGGID => _driver.WaitForElement(By.XPath("//h1[text()='Your Government Gateway user ID is:']//following-sibling::div"));
-        private IWebElement optIndividualUser => _driver.WaitForElement(By.XPath("//input[@id='accountType-2']//following-sibling::label"));
-        private IWebElement txtboxFirstName => _driver.WaitForElement(By.XPath("//input[@id='firstName']"));
+        private IWebElement lblGGID => _driver.WaitForElement(By.XPath("//h1[text()='Your Government Gateway user ID is:']//following-sibling::div"), true);
+        private IWebElement optIndividualUser => _driver.WaitForElement(By.XPath("//input[@id='accountType-2']//following-sibling::label"), true);
+        private IWebElement txtboxFirstName => _driver.WaitForElement(By.XPath("//input[@id='firstName']"), true);
         private IWebElement txtboxLastName => _driver.WaitForElement(By.XPath("//input[@id='lastName']"));
-        private IWebElement txtboxTelephoneNumber => _driver.WaitForElement(By.XPath("//input[@id='telephoneNumber']"));
-        private IWebElement txtboxPostcode => _driver.WaitForElement(By.XPath("//input[@id='postcode']"));
+        private IWebElement txtboxTelephoneNumber => _driver.WaitForElement(By.XPath("//input[@id='telephoneNumber']"), true);
+        private IWebElement txtboxPostcode => _driver.WaitForElement(By.XPath("//input[@id='postcode']"), true);
         private IWebElement DrpdownSelectAddress => _driver.WaitForElement(By.XPath("//select[@id='address']"));
-        private IWebElement txtboxSecurityWord => _driver.WaitForElement(By.XPath("//input[@id='securityWord']"));
+        private IWebElement txtboxSecurityWord => _driver.WaitForElement(By.XPath("//input[@id='securityWord']"),true);
         private IWebElement txtAreaSecurityHint => _driver.WaitForElement(By.XPath("//textarea[@id='securityHint']"));
 
         #endregion

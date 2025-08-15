@@ -112,6 +112,7 @@ namespace Defra.UI.Tests.Tools
 
             emailSignUpPage?.EnterConfirmationCode(code);
             emailSignUpPage?.ClickContinueButton();
+            _driver.Wait(5);
             emailSignUpPage?.ClickContinueButton();
 
             emailSignUpPage?.EnterFullName("Pets Automation");
@@ -119,14 +120,17 @@ namespace Defra.UI.Tests.Tools
 
             emailSignUpPage?.EnterThePassword(secret);
             emailSignUpPage?.ClickContinueButton();
-
+         
             var ggid = emailSignUpPage?.GetGGID();
             Assert.IsNotEmpty(ggid);
 
             emailSignUpPage?.ClickContinueButton();
 
+            _driver.Wait(2);
             emailSignUpPage?.ClickContinueButton();
+            _driver.Wait(2);
             emailSignUpPage?.ClickContinueButton();
+            _driver.Wait(2);
             emailSignUpPage?.ClickContinueButton();
 
             emailSignUpPage?.SelectIndividualUser();
@@ -146,8 +150,10 @@ namespace Defra.UI.Tests.Tools
 
             emailSignUpPage?.EnterMemorableWordAndHint("OpsPetsTesting", "OpsPetsTesting");
             emailSignUpPage?.ClickContinueButton();
+            _driver.Wait(2);
             emailSignUpPage?.ClickContinueButton();
 
+            _driver.Wait(10);
             Assert.True(homePage?.IsPageLoaded(), "Apply for a pet travel document not loaded");
             Assert.True(signin?.IsSignedOut(), "Not able to sign out");
 
