@@ -36,7 +36,7 @@ stages:
         deviceName: 'OS X'
         bsOSVersion: 'Sequoia'
         workers:  '10'
-        bsBrowserVersion: '18.1'
+        bsBrowserVersion: '18.4'
         target: 'Safari'
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
