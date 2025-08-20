@@ -6,7 +6,7 @@
         bool IsSignedOut();
         void SelectTransportationOption(string option);
         void SelectFerryRouteOption(string routeOption);
-        void SelectDropDownDepartureTime(string departTime);
+        void SetScheduledDepartureTime(string departTime);
         void SelectSaveAndContinue();
         bool IsError(string errorMessage);
         void SelectFlightNumber(string routeFlight);
