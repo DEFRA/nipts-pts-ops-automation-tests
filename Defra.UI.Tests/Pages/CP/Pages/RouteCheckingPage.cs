@@ -1,10 +1,10 @@
-﻿using Reqnroll.BoDi;
-using OpenQA.Selenium;
-using Defra.UI.Tests.Tools;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Tools;
+using Microsoft.Dynamics365.UIAutomation.Browser;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using Defra.UI.Framework.Driver;
-using Defra.UI.Tests.Configuration;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -28,8 +28,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement rdoCairnryan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Cairnryan to Larne (P&O)']"));
         private IWebElement rdoLochRyan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Loch Ryan to Belfast (Stena)']"));
         private IWebElement btnSaveAndContinue => _driver.WaitForElement(By.XPath("//button[normalize-space()='Save and continue']"));
-        private IWebElement hourDropdown => _driver.WaitForElement(By.CssSelector("#sailingHour"));
-        private IWebElement minuteDropdown => _driver.WaitForElement(By.CssSelector("#sailingMinutes"));
+        private IWebElement txtScheduledDepartureHour => _driver.WaitForElement(By.Id("sailingHour"));
+        private IWebElement txtScheduledDepartureMinute => _driver.WaitForElement(By.Id("sailingMinutes"));
         private IWebElement lblFlightNumber => _driver.WaitForElement(By.XPath("//label[normalize-space()='Flight number']"));
         private IWebElement txtBoxFlightNumber => _driver.WaitForElement(By.XPath("//input[@id='routeFlight']"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
@@ -92,39 +92,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
         }
 
-        public void SelectDropDownDepartureTime(string departTime)
+        public void SetScheduledDepartureTime(string departTime)
         {
-            var time = departTime;
-            dynamic[] rows = departTime.Split(":");
-            dynamic hour = rows[0];
-            dynamic minute = rows[1];
+            var rows = departTime.Split(":");
+            var hour = rows[0];
+            var minute = rows[1];
 
-            var selectHour = new SelectElement(hourDropdown);
-            var hourOptions = hourDropdown.FindElements(By.XPath("//*[@id='sailingHour']/option")).Select(o => o.Text).ToList();
-            hourOptions.Remove("");
-            foreach (var option in hourOptions)
-            {
-                if (!(int.TryParse(option, out var hourValue) && hourValue >= 0 && hourValue <= 23))
-                {
-                    Console.WriteLine($"Invalid hour found:" + option);
-                    break;
-                }
-            }
-
-            selectHour.SelectByValue(hour);
-
-            var selectMinute = new SelectElement(minuteDropdown);
-            var minuteOptions = minuteDropdown.FindElements(By.XPath("//*[@id='sailingMinutes']/option")).Select(o => o.Text).ToList();
-            minuteOptions.Remove("");
-            foreach (var option in minuteOptions)
-            {
-                if (!(int.TryParse(option, out var minuteValue) && minuteValue >= 0 && minuteValue <= 59))
-                {
-                    Console.WriteLine($"Invalid Minute found:" + option);
-                    break;
-                }
-            }
-            selectMinute.SelectByValue(minute);
+            txtScheduledDepartureHour.Clear();
+            txtScheduledDepartureMinute.Clear();
+            txtScheduledDepartureHour.SendKeys(hour);
+            txtScheduledDepartureMinute.SendKeys(minute);
         }
 
         public void SelectSaveAndContinue()
@@ -169,8 +146,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectDropDownDepartureTimeHourOnly(string hour)
         {
-            var selectHour = new SelectElement(hourDropdown);
-            selectHour.SelectByValue(hour);
+            txtScheduledDepartureHour.Clear();
+            txtScheduledDepartureHour.SendKeys(hour);
         }
 
         public bool CheckFerryRouteSubheading(string subHeading)
@@ -235,7 +212,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             var existingDate = txtScheduleDepartureDay.GetAttribute("value") + "/" + txtScheduleDepartureMonth.GetAttribute("value") + "/" + txtScheduleDepartureYear.GetAttribute("value");
 
-            DateTime dateAndTime = DateTime.Today;
+            var dateAndTime = DateTime.Today;
             var currentDate = dateAndTime.ToString("dd/MM/yyyy");
             return existingDate.Equals(currentDate);
         }
@@ -252,7 +229,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool CheckNoPrepopulatedDepartureTime()
         {
-            return hourDropdown.GetAttribute("value").Equals("") && minuteDropdown.GetAttribute("value").Equals("");
+            return txtScheduledDepartureHour.GetAttribute("value").Equals("") && txtScheduledDepartureMinute.GetAttribute("value").Equals("");
         }
 
         private string ParseNumber(string number)
@@ -268,20 +245,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             txtScheduleDepartureMonth.SendKeys(departureMonth);
             txtScheduleDepartureYear.Clear();
             txtScheduleDepartureYear.SendKeys(departureYear);
-            var selectHour = new SelectElement(hourDropdown);
-            selectHour.SelectByValue(departureHour);
-
+            txtScheduledDepartureHour.SendKeys(departureHour);
+          
             if (timeCheck.Equals("48HoursAgo"))
             {
-                var selectMinute = new SelectElement(minuteDropdown);
-                selectMinute.SelectByValue(departureMinute.ToString());
+                txtScheduledDepartureMinute.Clear();
+                txtScheduledDepartureMinute.SendKeys(departureMinute);
             }
             else if (timeCheck.Equals("After24Hours"))
             {
-                int minuteAfter24Hours = int.Parse(departureMinute.ToString());
+                var minuteAfter24Hours = int.Parse(departureMinute.ToString());
                 minuteAfter24Hours = (minuteAfter24Hours + 1) % 60;
-                var selectMinute = new SelectElement(minuteDropdown);
-                selectMinute.SelectByValue(minuteAfter24Hours.ToString("D2"));
+                txtScheduledDepartureHour.Clear();
+                txtScheduledDepartureHour.SendKeys(minuteAfter24Hours.ToString("D2"));
             }
         }
 

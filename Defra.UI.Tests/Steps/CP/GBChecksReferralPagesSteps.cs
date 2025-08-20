@@ -239,7 +239,7 @@ namespace Defra.UI.Tests.Steps.CP
             {
                 _routeCheckingPage?.SelectTransportationOption(transportType);
                 _routeCheckingPage?.SelectFerryRouteOption(routeOption);
-                _routeCheckingPage?.SelectDropDownDepartureTime(departTime);
+                _routeCheckingPage?.SetScheduledDepartureTime(departTime);
                 _routeCheckingPage?.SelectSaveAndContinue();
                 _welcomePage?.FooterSearchButton();
                 _searchDocumentPage?.SelectSearchRadioOption(radioButton);

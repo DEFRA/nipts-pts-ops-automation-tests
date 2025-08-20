@@ -62,7 +62,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I have provided Scheduled departure time '([^']*)'")]
         public void ThenIHaveProvidedScheduledDepartureTime(string departTime)
         {
-            _routeCheckingPage?.SelectDropDownDepartureTime(departTime);
+            _routeCheckingPage?.SetScheduledDepartureTime(departTime);
         }
 
         [When(@"I click save and continue button from route checker page")]
