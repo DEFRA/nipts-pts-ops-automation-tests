@@ -48,6 +48,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblDepartTimeValue => _driver.WaitForElement(By.XPath("//dt[text()='Scheduled departure time']//following::p[1]"));
         private IWebElement lnkPTDRefNumber => _driver.WaitForElement(By.XPath("(//strong[normalize-space(.)='Check needed'])[1]//ancestor::tr//following-sibling::button"));
         private IWebElement btnConductSPSCheck => _driver.WaitForElement(By.XPath("//button[normalize-space(.)='Conduct an SPS check']"));
+        private IWebElement btnUpdateReferalOutcome => _driver.WaitForElement(By.XPath("//button[normalize-space()='Update referral outcome']"));
         private IWebElement lnkNext => _driver.WaitForElement(By.XPath("//*[@rel='next']"));
         private IWebElement DisplayedRouteInReferredToSPSPage => _driver.WaitForElement(By.XPath("//h1[text()='Referred to SPS']//following::caption"));
         private IReadOnlyCollection<IWebElement> ChecksPageTables => _driver.FindElements(By.XPath("//div[@class='govuk-summary-card']"));
@@ -212,7 +213,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void ClickOnConductSPSCheckButton()
         {
-            btnConductSPSCheck.Click(_driver);
+            btnUpdateReferalOutcome.Click(_driver);
         }
 
         public bool CheckPTDNumberFormat(string ptdNumberPrefix)

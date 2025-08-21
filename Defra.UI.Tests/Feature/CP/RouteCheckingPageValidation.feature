@@ -102,7 +102,7 @@ Scenario: Verify the scheduled departure date, date hint and current date pre-po
 
 Scenario: Verify the scheduled departure time and time hint
 	Then I should see time subsection 'Scheduled departure time'
-	And I should see hint 'Use the 24-hour clock - for example, 15:30.' under the time subheading
+	And I should see hint 'Enter the scheduled departure time using the 24-hour clock format, for example 15:30 or 01:05' under the time subheading
 
 Scenario: Verify the error message if scheduled departure date and time is more than 48 hours ago
 	Then I have selected 'Ferry' radio option
