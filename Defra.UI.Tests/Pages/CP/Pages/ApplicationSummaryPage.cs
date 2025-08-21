@@ -43,6 +43,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement RefNumberSection => _driver.WaitForElement(By.Id("document-issued-card"));
         private IWebElement MicrochipInfoSection => _driver.WaitForElement(By.Id("document-microchip-card"));
         private IWebElement PetOwnerDetailsSection => _driver.WaitForElement(By.Id("document-owner-card"));
+        private IWebElement lblStatusTitle => _driver.WaitForElement(By.Id($"documents"), true);
         #endregion
 
         #region Methods
@@ -53,7 +54,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver, true);
             }
 
-            return _driver.WaitForElement(By.XPath($"(//h1[normalize-space()='{status}'])[1]"), true).Text.Trim().Equals(status);
+            return lblStatusTitle.Text.Trim().Equals(status);
         }
 
         public void SelectPassRadioButton()
