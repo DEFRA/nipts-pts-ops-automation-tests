@@ -107,8 +107,8 @@ namespace Defra.UI.Tests.Steps.CP
                         $"The Pet Owner Details table values are not matching");
         }
 
-        [Then(@"I verify '([^']*)' section with '([^']*)' subheading and '([^']*)' check points")]
-        public void ThenIverifySectionWithSubHeadingAndCheckPoints(string heading, string subHeading, string checkpoints)
+        [Then("I verify {string} section with {string} subheading and {string}")]
+        public void ThenIVerifySectionWithSubheadingAnd(string heading, string subHeading, string checkpoints)
         {
             Assert.True(_applicationSummaryPage?.VerifyChecksSection(heading, subHeading, checkpoints));
         }

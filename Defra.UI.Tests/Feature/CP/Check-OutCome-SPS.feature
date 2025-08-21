@@ -23,7 +23,7 @@ Scenario: Verify the Checks section and radio buttons in application summary pag
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
-	Then I verify 'Checks' section with 'Check' subheading and 'PTD presented and valid|visual check of pet matches PTD|microchip number matches PTD|no risks identified' check points
+	Then I verify "Checks" section with "Check" subheading and "there's a microchip and it matches the PTD|the species matches the PTD"
 	And I should not see any radio button options in Checks section
 Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |

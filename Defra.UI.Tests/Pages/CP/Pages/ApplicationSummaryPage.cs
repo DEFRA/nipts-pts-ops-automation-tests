@@ -1,11 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
-using Microsoft.Xrm.Sdk.Metadata;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using Microsoft.Identity.Client;
+using Reqnroll.BoDi;
 
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -33,12 +31,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblIssuingAuthorityNameAndAddressValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Name and address of competent authority']/following-sibling::dd"));
         private IWebElement lblIssuingAuthoritySign => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Signed on behalf of the competent authority (APHA)']"));
         private IWebElement lblIssuingAuthoritySignValue => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']/following::dt[normalize-space() = 'Signed on behalf of the competent authority (APHA)']/following-sibling::dd"));
-        private IWebElement lblChecks => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//h1"));
+        private IWebElement lblChecks => _driver.WaitForElement(By.Id("search-results-heading"));
         private IWebElement lblCheckSubheading => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//p"));
         private IWebElement lblCheckpoint1 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[1]"));
         private IWebElement lblCheckpoint2 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[2]"));
-        private IWebElement lblCheckpoint3 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[3]"));
-        private IWebElement lblCheckpoint4 => _driver.WaitForElement(By.XPath("//*[@id='searchradio-group']//li[4]"));
         private IReadOnlyCollection<IWebElement> rdobuttons => _driver.FindElements(By.CssSelector("input[type='radio']"));
         private IWebElement lblPassRadioButtonHint => _driver.WaitForElement(By.XPath("//*[@id='pass-hint']"));
         private IWebElement lblFailRadioButtonHint => _driver.WaitForElement(By.XPath("//*[@id='fail-hint']"));
@@ -314,12 +310,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var checkSubheadingLabel = lblCheckSubheading.Text.Replace("\r\n", string.Empty).Trim();
             var checkpoint1Label = lblCheckpoint1.Text.Replace("\r\n", string.Empty).Trim();
             var checkpoint2Label = lblCheckpoint2.Text.Replace("\r\n", string.Empty).Trim();
-            var checkpoint3Label = lblCheckpoint3.Text.Replace("\r\n", string.Empty).Trim();
-            var checkpoint4Label = lblCheckpoint4.Text.Replace("\r\n", string.Empty).Trim();
 
             return checksLabel.Equals(heading) && checkSubheadingLabel.Equals(subHeading + ":")
-                && checkpointLabel[0].Equals(checkpoint1Label) && checkpointLabel[1].Equals(checkpoint2Label)
-                && checkpointLabel[2].Equals(checkpoint3Label) && checkpointLabel[3].Equals(checkpoint4Label);
+                && checkpointLabel[0].Equals(checkpoint1Label) && checkpointLabel[1].Equals(checkpoint2Label);
         }
 
         public bool VerifyChecksSectionRadioButtonsNotPresent()

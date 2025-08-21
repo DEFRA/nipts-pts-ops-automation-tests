@@ -71,8 +71,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblMCHeader => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Microchip']"));
         private IWebElement lblMCTableHeading => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Microchip information from PTD or Application']"));
         private IWebElement lblMCDetailsLink => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']"));
-        private IWebElement lblMCCheckbox1 => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']/following::label[1]"));
-        private IWebElement lblMCCheckbox2 => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details from PTD']/following::label[3]"));
+        private IWebElement lblMCCheckbox1 => _driver.WaitForElement(By.XPath("//label[@for='missingReason']"));
+        private IWebElement lblMCCheckbox2 => _driver.WaitForElement(By.XPath("//label[@for='mcNotFound']"));
         private IWebElement lblMCNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Microchip number')]"));
         private IWebElement lblMCNumberValue => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Microchip number')]/following-sibling::dd"));
         private IWebElement lblMCImplantOrScanDate => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Implant or scan date')]"));
