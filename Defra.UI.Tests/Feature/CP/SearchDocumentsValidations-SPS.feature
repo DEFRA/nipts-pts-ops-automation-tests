@@ -96,7 +96,7 @@ Scenario: Verify the SPS User is able to search by Application Reference Number
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by application number' radio button
-	And I provided the Application Number 'HATAIMZE' of the application
+	And I provided the Application Number 'JIGJ43N8' of the application
 	When I click search button
 	And I should see the application status in 'Pending'
 

@@ -184,7 +184,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should see a table '([^']*)'")]
         public void ThenIShouldSeeATable(string tableName)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyVCAndPetOwnerDetailTableName(tableName), "Visual check or Pet owner details table name is not displayed properly");
+            Assert.True(_reportNonCompliancePage?.VerifyVCAndPetDetailTableName(tableName), "Visual check or Pet owner details table name is not displayed properly");
         }
 
         [Then(@"I should see Species '([^']*)' Breed '([^']*)' Sex '([^']*)' Date of birth '([^']*)' Colour '([^']*)' and Significant features '([^']*)' in the table")]

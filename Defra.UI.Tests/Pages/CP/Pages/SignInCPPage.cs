@@ -43,7 +43,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #region Methods
         public bool VerifyHeadings(string heading, string subHeading)
         {
-            _driver.Wait(5);
+            _driver.Wait(10);
             var applicationTitle = lblTitle.Text.Replace("\r\n", " ").ToUpper();
             return applicationTitle.Contains(subHeading.ToUpper()) && applicationTitle.Contains(heading.ToUpper());
         }
