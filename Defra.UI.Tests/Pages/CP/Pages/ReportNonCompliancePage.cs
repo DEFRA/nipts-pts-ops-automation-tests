@@ -234,7 +234,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             var gbOutcomeCheckbox = checkboxValues.Split('|');
             chkGBOutcome1.ScrollToElement(_driver);
-            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text.Replace("\r\n",string.Empty).Trim())
+            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text.Replace("\r\n", string.Empty).Trim())
                 && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text.Replace("\r\n", string.Empty).Trim())
                 && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text.Replace("\r\n", string.Empty).Trim())
                 && lblReportOutcome.Text.Replace("\r\n", string.Empty).Trim().Equals(subHeading));
@@ -307,7 +307,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyVCAndPetOwnerDetailSubheading(string subHeading)
         {
 
-            if(subHeading.Equals("Visual check"))
+            if (subHeading.Equals("Visual check"))
             {
                 lblVisualCheck.ScrollToElement(_driver);
                 return lblVisualCheck.Text.Contains(subHeading);
@@ -328,14 +328,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return lblVisualCheckCheckBox.Text.Contains(checkBoxValue);
         }
 
-        public bool VerifyVCAndPetOwnerDetailTableName(string tableName)
+        public bool VerifyVCAndPetOwnerAndPetDetailTableName(string tableName)
         {
-            return lblPetOwnerDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper());
-        }
-
-        public bool VerifyVCAndPetDetailTableName(string tableName)
-        {
-            return lblPetDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper());
+            return tableName.ToUpper().Equals("PET OWNER DETAILS") ? 
+                lblPetOwnerDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper()) : 
+                lblPetDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper());
         }
 
         public bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature)
@@ -468,13 +465,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 lblOtherIssuesOption2.ScrollAndClick(_driver);
             else if (lblOtherIssuesOption3.Text.Trim().Equals(visualCheckReason))
                 lblOtherIssuesOption3.ScrollAndClick(_driver);
-            else if(lblVisualCheckCheckBox.Text.Contains(visualCheckReason))
+            else if (lblVisualCheckCheckBox.Text.Contains(visualCheckReason))
                 lblVisualCheckCheckBox.ScrollAndClick(_driver);
         }
 
         public void AnyRelevantComments(string comments)
         {
-            txtareaRelevantComments.SendKeys(comments);      
+            txtareaRelevantComments.SendKeys(comments);
         }
 
         public void EnterDetailsOfOutcome(string details)
