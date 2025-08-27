@@ -106,26 +106,45 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifySubHeadingsOfThePage()
         {
+            var h2Titles = new[] { "How accessible this website is",
+                                         "Reporting accessibility problems with this website",
+                                         "Enforcement procedure",
+                                         "Technical information about this website’s accessibility",
+                                         "What we’re doing to improve accessibility",
+                                         "Preparation of this accessibility statement" };
+
+            var h3Titles = new[] { "Compliance status",
+                                         "Non-accessible content",
+                                         "Usability"};
+
+            var h4Title = "Non-compliance with the accessibility regulations";
+
+            var h2ElementCount=0;
+            var h3ElementCount = 0;
+
             foreach (var h2Subheading in lblH2SubHeadings)
             {
-                if (!h2Subheading.Text.Trim().Equals("How accessible this website is") && !h2Subheading.Text.Trim().Equals("Reporting accessibility problems with this website")
-                    && !h2Subheading.Text.Trim().Equals("Enforcement procedure") && !h2Subheading.Text.Trim().Equals("Technical information about this website's accessibility")
-                    && !h2Subheading.Text.Trim().Equals("What we're doing to improve accessibility") && !h2Subheading.Text.Trim().Equals("Preparation of this accessibility statement"))
+                var tex = h2Subheading.Text.Trim();
+
+                if (h2Titles.Contains(h2Subheading.Text.Trim()))
                 {
-                    return false;
+                    h2ElementCount++;
+                    continue;
                 }
             }
-
+          
             foreach (var h3Subheading in lblH3SubHeadings)
             {
-                if (!h3Subheading.Text.Trim().Equals("Compliance status") && !h3Subheading.Text.Trim().Equals("Non-accessible content")
-                    && !h3Subheading.Text.Trim().Equals("Usability"))
+                if (h3Titles.Contains(h3Subheading.Text.Trim()))
                 {
-                    return false;
+                    h3ElementCount++;
+                    continue;
                 }
             }
 
-            return lblH4SubHeading.Text.Trim().Equals("Non-compliance with the accessibility regulations");
+            return lblH4SubHeading.Text.Trim().Equals(h4Title) 
+                && h2ElementCount.Equals(h2Titles.Length) 
+                && h3ElementCount.Equals(h3Titles.Length);
         }
 
         public bool VerifyLinks()
@@ -136,13 +155,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 linkElement.ScrollAndClick(_driver);
 
                 WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(6));
-                wait.Until(driver => driver.WindowHandles.Count >1);
+                wait.Until(driver => driver.WindowHandles.Count > 1);
 
                 var newTab = _driver.WindowHandles.First(handle => handle != originalWindow);
                 _driver.SwitchTo().Window(newTab);
 
                 string currentUrl = _driver.Url;
-                var urls = new[] {"https://mcmw.abilitynet.org.uk/", "https://www.equalityadvisoryservice.com/", "https://www.equalityni.org/Home", "https://www.legislation.gov.uk/uksi/2018/952/contents", "https://www.w3.org/TR/WCAG21/"};
+                var urls = new[] { "https://mcmw.abilitynet.org.uk/", "https://www.equalityadvisoryservice.com/", "https://www.equalityni.org/Home", "https://www.legislation.gov.uk/uksi/2018/952/contents", "https://www.w3.org/TR/WCAG21/" };
                 if (urls.Contains(currentUrl))
                 {
                     _driver.Close();

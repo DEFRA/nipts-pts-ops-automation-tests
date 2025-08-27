@@ -72,7 +72,7 @@ Scenario: Verify the error message if no selection of scheduled departure time d
 	Then I provide the 'AF296Q' in the box
 	Then I have selected '27''02''2025'Date option
 	When I click save and continue button from route checker page
-	Then I should see an error message "Enter the scheduled departure time, for example 15:30" in route checking page
+	Then I should see an error message "Enter the scheduled departure time in the correct 24-hour clock format, for example 06:04 or 18:00" in route checking page
 
 Scenario: Verify the error message if only hour details provided in the scheduled departure time
 	Then I have selected 'Flight' radio option
@@ -109,19 +109,19 @@ Scenario: Verify the error message if scheduled departure date and time is more 
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	Then I have selected departure date as current date '-2' and departure time as current time to check '48HoursAgo'
 	When I click save and continue button from route checker page
-	Then I should see an error message "The flight or ferry must have departed in the past 48 hours or departs within the next 24 hours" in route checking page
+	Then I should see an error message "Enter the scheduled departure time in the correct 24-hour clock format, for example 06:04 or 18:00" in route checking page
 
 Scenario: Verify the error message if scheduled departure date and time is after 24 hours from now
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	Then I have selected departure date as current date '1' and departure time as current time to check 'After24Hours'
 	When I click save and continue button from route checker page
-	Then I should see an error message "The flight or ferry must have departed in the past 48 hours or departs within the next 24 hours" in route checking page
+	Then I should see an error message "Enter the scheduled departure time in the correct 24-hour clock format, for example 06:04 or 18:00" in route checking page
 
 Scenario: Verify 404 error page by entering the invalid URL and check the content including Header and Footer
 	When I have entered an invalid URL
 	Then I should navigate to 'Page not found' error page
-	And I should see 'If you typed the web address, check it is correct.|If you pasted the web address, check you copied the entire address.|If the web address is correct or you selected a link or button, contact your team leader.' text under the main heading of error page
+	And I should see 'If you typed the web address, check it is correct.|If you pasted the web address, check you copied the entire address.|If the web address is correct or you selected a link or button, contact APHA:' text under the main heading of error page
 	And I should not see the footer of the page
 	Then I should not see the header of the page
 	And I should not see account and signout icons

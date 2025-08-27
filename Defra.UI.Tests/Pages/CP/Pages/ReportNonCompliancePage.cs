@@ -37,24 +37,24 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']"));
         private IWebElement lblAnyRelavantCommentsHint => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
-        private IReadOnlyCollection<IWebElement> lblPetTravelDocumentDetails => _driver.FindElements(By.XPath("//span[@class='govuk-heading-s']"));
+        private IReadOnlyCollection<IWebElement> lblPetTravelDocumentDetails => _driver.FindElements(By.XPath("//div[@class='govuk-section-break--l'][2]"));
         private IWebElement lblPTDStatus => _driver.WaitForElementExists(By.XPath("//p[@class='govuk-body govuk-!-margin-bottom-0 pts-checker-check']"));
         private IWebElement lblReasonsHeading => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Reasons']"));
         private IWebElement lblReasonsHint => _driver.WaitForElementExists(By.Id("event-name-hint"));
         private IWebElement lblTableNamePTD => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//h2[normalize-space()='Pet Travel Document (PTD)']"));
-        private IWebElement lblTableNameApplicationDetails => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//h2[normalize-space()='Application details']"));
-        private IWebElement lblApplicationReferenceNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'Application reference number')]"));
-        private IWebElement txtValueReferenceNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'Application reference number')]/following-sibling::dd"));
-        private IWebElement lblDate => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//*[contains(text(),'Date')]"));
-        private IWebElement txtValueDate => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//*[contains(text(),'Date')]/following-sibling::dd"));
-        private IWebElement lblStatus => _driver.WaitForElement(By.XPath("//*[contains(text(),'Status')]"));
-        private IWebElement txtValueStatus => _driver.WaitForElement(By.XPath("//*[contains(text(),'Status')]/following-sibling::dd/strong"));
+        private IWebElement lblTableNameApplicationDetails => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet Travel Document details']"));
+        private IWebElement lblApplicationReferenceNumber => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Application reference number']"));
+        private IWebElement txtValueReferenceNumber => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Application reference number']/following-sibling::dd"));
+        private IWebElement lblDate => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Date']"));
+        private IWebElement txtValueDate => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Date']/following-sibling::dd"));
+        private IWebElement lblStatus => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']"));
+        private IWebElement txtValueStatus => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']/following-sibling::dd/strong"));
         private IWebElement lblPTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]"));
         private IWebElement txtValuePTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]/following-sibling::dd"));
-        private IWebElement lblPassengerDetails => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h2[2]"));
-        private IWebElement lblTypeOfPassenger => _driver.WaitForElement(By.XPath("//*[@id='passengerFormGroup']//h3"));
+        private IWebElement lblPassengerDetails => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h2[text()='Passenger details']"));
+        private IWebElement lblTypeOfPassenger => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h3[text()='Type of passenger']"));
         private IWebElement lblVisualCheck => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Visual check']"));
-        private IWebElement lnkPetDetailsFromPTD => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet details from PTD']"));
+        private IWebElement lnkPetDetailsFromPTD => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet details']"));
         private IWebElement lblVisualCheckCheckBox => _driver.WaitForElement(By.XPath("//label[normalize-space()='Pet does not match the PTD']"));
         private IWebElement lblVisualCheckTableName => _driver.WaitForElement(By.XPath("//*[@id='document-pet-card']//h2"));
         private IWebElement lblVisualCheckTableSpecies => _driver.WaitForElement(By.XPath("//*[contains(text(),'Species')]/following-sibling::dd"));
@@ -79,8 +79,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblMCImplantOrScanDateValue => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Implant or scan date')]/following-sibling::dd"));
         private IWebElement lblMCNumberNotFoundInScan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Microchip number found in scan']"));
         private IWebElement txtMCNumberNotFoundInScan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Microchip number found in scan']/following::input[1]"));
-        private IWebElement lblPetOwnerDetailsSubHeading => _driver.WaitForElement(By.XPath("//h2[@class='govuk-heading-l govuk-!-margin-top-9']"));
-        private IWebElement lblPetOwnerDetailsTableName => _driver.WaitForElement(By.XPath("//*[@id='document-owner-card']//h2"));
+        private IWebElement lblPetOwnerDetailsSubHeading => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Passenger details']"));
+        private IWebElement lblPetOwnerDetailsTableName => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet owner details']"));
         private IWebElement lblPetOwnerName => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Name')]/following-sibling::dd"));
         private IWebElement lblPetOwnerEmail => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Email')]/following-sibling::dd"));
         private IWebElement lblPetOwnerAddress => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Address')]/following-sibling::dd"));
@@ -130,11 +130,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             lblTableNameApplicationDetails.ScrollToElement(_driver);
             return lblTableNameApplicationDetails.Text.Trim().Equals(tableName);
         }
+
         public bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName)
         {
-            lblTableNamePTD.ScrollToElement(_driver);
-            return lblTableNamePTD.Text.Trim().Equals(tableName);
+            lblTableNameApplicationDetails.ScrollToElement(_driver);
+            return lblTableNameApplicationDetails.Text.Trim().Equals(tableName);
         }
+
         public bool VerifyTheExpectedStatus(string statusLabel, string applicationStatus)
         {
             var bgColor = txtValueStatus.GetCssValue("background-color");
@@ -303,12 +305,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyVCAndPetOwnerDetailSubheading(string subHeading)
         {
-
-            if (subHeading.Equals("Visual check"))
-            {
-                lblVisualCheck.ScrollToElement(_driver);
-                return lblVisualCheck.Text.Contains(subHeading);
-            }
             lblPetOwnerDetailsSubHeading.ScrollToElement(_driver);
             return lblPetOwnerDetailsSubHeading.Text.Contains(subHeading);
         }
@@ -326,7 +322,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyVCAndPetOwnerDetailTableName(string tableName)
         {
-            return tableName.ToUpper().Equals("PET DETAILS FROM PTD OR APPLICATION") ? lblVisualCheckTableName.Text.ToUpper().Contains(tableName.ToUpper()) : lblPetOwnerDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper());
+            return lblPetOwnerDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper());
         }
 
         public bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature)
@@ -406,6 +402,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         }
         public bool VerifyNameAndEmailOfPetOwner(string name, string email)
         {
+            lblPetOwnerDetailsTableName.Click();
+
             lblPetOwnerName.ScrollToElement(_driver);
             return lblPetOwnerName.Text.Contains(name)
                 && lblPetOwnerEmail.Text.Contains(email);
