@@ -27,7 +27,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Appr
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	And I should see a table name for approved and revoked status as 'Pet Travel Document (PTD)'
+	And I should see a table name for approved and revoked status as 'Pet Travel Document details'
 	And I Verify the PTD number with label 'PTD number' and value '457 4B2'
 	And I verify the date of issuance with label 'Date' and value '24/12/2024'
 	And I Verify status with label 'Status' and value 'Approved' on Report non-compliance page
@@ -47,7 +47,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Pend
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	And I should see a table name as 'Application details'
+	And I should see a table name as 'Pet Travel Document details'
 	And I Verify the reference number with label 'Application reference number' and value 'XC7I93AF'
 	And I verify the date of issuance with label 'Date' and value '13/12/2024'
 	And I Verify status with label 'Status' and value 'Pending' on Report non-compliance page
@@ -67,7 +67,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Canc
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	And I should see a table name for approved and revoked status as 'Pet Travel Document (PTD)'
+	And I should see a table name for approved and revoked status as 'Pet Travel Document details'
 	And I Verify the PTD number with label 'PTD number' and value 'AB5 17A'
 	And I verify the date of issuance with label 'Date' and value '25/10/2024'
 	And I Verify status with label 'Status' and value 'Cancelled' on Report non-compliance page
@@ -87,7 +87,7 @@ Scenario: Verify PTD details drop down link in Report non compliance page - Unsu
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	And I should see a table name as 'Application details'
+	And I should see a table name as 'Pet Travel Document details'
 	And I Verify the reference number with label 'Application reference number' and value '0CI5N6V6'
 	And I verify the date of issuance with label 'Date' and value '14/11/2024'
 	And I Verify status with label 'Status' and value 'Unsuccessful' on Report non-compliance page
@@ -302,7 +302,7 @@ Scenario: Verify the Details of outcome textarea accepts only 500 characters
 	When I click Report non-compliance button from Report non-compliance page
 	Then I should see an error message "Outcome summary must be 500 characters or less" in Report non-compliance page
 
-Scenario: Verify Visual check subheading and pet details from PTD dropdown in Report non compliance page
+Scenario: Verify Visual check subheading and pet details dropdown in Report non compliance page
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '16:30'
@@ -318,7 +318,7 @@ Scenario: Verify Visual check subheading and pet details from PTD dropdown in Re
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Visual check' subheading
-	And I should click 'Pet details from PTD' link next to the subheading
+	And I should click 'Pet details' link next to the subheading
 
 Scenario: Verify the check box in Visual check section of Report non compliance page
 	Then I have selected 'Ferry' radio option
@@ -359,7 +359,7 @@ Scenario: Verify Other issues check boxes in Visual check section of Report non 
 	And I should see a hint "Enter the reason in the 'Any relevant comments' section, this could be about the PTD and any risks identified." next to Other reason option
 	And I should see no checkboxes are selected in other issues section
 
-Scenario: Verify Visual check Pet details from PTD dropdown table in Report non compliance page
+Scenario: Verify Visual check Pet details dropdown table in Report non compliance page
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '16:30'
@@ -375,8 +375,8 @@ Scenario: Verify Visual check Pet details from PTD dropdown table in Report non 
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Visual check' subheading
-	And I should click 'Pet details from PTD' link next to the subheading
-	And I should see a table 'Pet details from PTD or application'
+	And I should click 'Pet details' link next to the subheading
+	And I should see a table 'Pet details'
 	And I should see Species 'Dog' Breed 'Afghan Hound' Sex 'Male' Date of birth '07/10/2018' Colour 'Brown, tan or chocolate' and Significant features 'No' in the table
 
 Scenario: Verify Pet owner details section in Report non compliance page
@@ -394,7 +394,7 @@ Scenario: Verify Pet owner details section in Report non compliance page
 	And I select Fail radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I should see the 'Pet owner details' subheading
+	And I should see the 'Passenger details' subheading
 	And I should see a table 'Pet owner details'
 	And I should see Name 'Watson Kate' and Email 'Vinotha.Thiyagarajan+5@cognizant.com' of Pet owner
 	And I should see Address '4 JACK FLETCHER CLOSE,LINCOLN,LN4 1FF' and Phone number '07897897895' of Pet owner

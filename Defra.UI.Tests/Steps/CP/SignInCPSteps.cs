@@ -85,7 +85,8 @@ namespace Defra.UI.Tests.Steps.CP
             _signInCPPage?.SignIn(userObject.UserName, userObject.Credential);
         }
 
-        [Then(@"I verify '(.*)' link below the header")]
+        [Given(@"I verify {string} link below the header")]
+        [Then(@"I verify {string} link below the header")]
         public void ThenIVerifyLinkBelowTheHeader(string accessbilityLink)
         {
             Assert.True(_signInCPPage?.VerifyAccessibilityLink(accessbilityLink));

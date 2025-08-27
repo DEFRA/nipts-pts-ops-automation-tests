@@ -1,13 +1,11 @@
-﻿using Reqnroll.BoDi;
+﻿using AventStack.ExtentReports.Gherkin.Model;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Pages.CP.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
-using Defra.UI.Tests.Pages.CP.Pages;
-using System.Drawing;
-using AventStack.ExtentReports.Gherkin.Model;
-using System.Net;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -54,6 +52,12 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIShouldSeeAndSubheadings(string subHeading1, string subHeading2)
         {
             Assert.IsTrue(_gbChecksReferralPage?.CheckReportPageSubheadings(subHeading1, subHeading2), "GB check report page subheadings are not correct");
+        }
+
+        [When("I click the View button from Checks page")]
+        public void WhenIClickTheViewButtonFromChecksPage()
+        {
+            _gbChecksReferralPage?.ClickViewLink();
         }
 
         [Then(@"I should see '([^']*)' as Check outcome")]
@@ -154,7 +158,7 @@ namespace Defra.UI.Tests.Steps.CP
                 Assert.IsTrue(_gbChecksReferralPage?.VerifyTravelStatus(referenceNumber, travelStatus.ToUpper()), "Travel Status is not set to " + travelStatus);
             }
         }
-        
+
         [When(@"I click Conduct a SPS check button")]
         public void WhenIClickOnConductSPSCheclButton()
         {
@@ -176,7 +180,7 @@ namespace Defra.UI.Tests.Steps.CP
         [When(@"I click the reference number '(.*)' link")]
         public void WhenIClickTheReferenceNumberLink(string referenceNumber)
         {
-               Assert.IsTrue(_gbChecksReferralPage?.ClickApplicationRef(referenceNumber), "The reference number is not present or Not able to click on " + referenceNumber);
+            Assert.IsTrue(_gbChecksReferralPage?.ClickApplicationRef(referenceNumber), "The reference number is not present or Not able to click on " + referenceNumber);
         }
 
         [When(@"I click View link in Fail Referred to SPS row with departure time '([^']*)'")]
@@ -232,7 +236,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I add records in referrals list in Referred to SPS page '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)'")]
         public void ThenIAddRecordsInReferralsListInReferredToSPSPage(string transportType, string routeOption, string departTime, string MCCheckbox, string GBOutcome, string passengerType, string submittedMessage)
         {
-            var referenceNumber = new[] {"DKVUZHQ9", "D4RB5E1D", "XC7I93AF", "9DBHNYAG", "QWPEI58A", "TJI6PC42", "VAKH2DWC","593B37H4", "ZRWD8KG6", "ZWCRY3CG", "0CI5N6V6"};
+            var referenceNumber = new[] { "DKVUZHQ9", "D4RB5E1D", "XC7I93AF", "9DBHNYAG", "QWPEI58A", "TJI6PC42", "VAKH2DWC", "593B37H4", "ZRWD8KG6", "ZWCRY3CG", "0CI5N6V6" };
             var radioButton = "Search by application number";
 
             foreach (var reference in referenceNumber)

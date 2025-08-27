@@ -20,7 +20,7 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by application number' radio button
-	And I provided the Reference number 'DKVUZHQ9' of the application
+	And I provided the Reference number '0CI5N6V6' of the application
 	When I click search button
 	And I should see the application status in 'Unsuccessful'
 	And I continue button from application status page
@@ -35,7 +35,7 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by application number' radio button
-	And I provided the Reference number 'DKVUZHQ9' of the application
+	And I provided the Reference number '0CI5N6V6' of the application
 	When I click search button
 	And I should see the application status in 'Unsuccessful'
 	And I continue button from application status page
@@ -48,16 +48,17 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
 	When I click View link in Fail Referred to SPS row with departure time '23:59'
-	Then I should navigate to Referred to SPS page
-	And I verify the PTDOrRefNum 'DKVUZHQ9' is not repeated in the table
-	And I verify the Referred to SPS page table column values as 'DKVUZHQ9' 'Ferret and Chocolate' '123498012398051' 'Foot' 'Check needed'
-	When I click the reference number 'DKVUZHQ9' link
- 	Then I should navigate to GB check report page
+	Then I should navigate to Checks page
+	And I verify the PTDOrRefNum '0CI5N6V6' is not repeated in the table
+	When I click the View button from Checks page
+ 	Then I should navigate to Referred to SPS page
+	When I click the reference number '0CI5N6V6' link
+	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
-	Then I should see 'Passenger advised not to travel' as Check outcome
+	Then I should see 'Passenger says they will not travel' as Check outcome
 	And I should see 'None' as Details of outcome
-	And I should see 'Cannot find microchip, Authorised person but no confirmation' as Reason for referral
-	And I should see 'Comments' as Additional comments
+	And I should see 'Cannot find microchip' as Reason for referral
+	And I should see 'None' as Additional comments
 	Then I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Birkenhead to Belfast (Stena)' as Route
 	Then I should see current date as Scheduled departure date

@@ -72,6 +72,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lnkPage2 => _driver.WaitForElement(By.XPath("//*[@aria-label='Page 2']"));
         const string VIEWLINK_XPATH = ".//*[contains(text(),'Fail: Referred to SPS')]//following-sibling::dd[2]//following-sibling::button";
         const int PAGE_SIZE = 10;
+        private IWebElement lnkView => _driver.WaitForElement(By.Id("view-button-1"));
 
         #endregion
 
@@ -482,6 +483,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             }
             return true;
         }
+
+        public void ClickViewLink()
+        {
+            lnkView.Click(_driver);
+        }
+
         #endregion
     }
 }
