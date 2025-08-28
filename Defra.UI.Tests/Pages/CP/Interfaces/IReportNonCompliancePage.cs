@@ -25,7 +25,7 @@
         bool VerifyVCAndPetOwnerDetailSubheading(string subHeading);
         bool VerifyPetDetailsFromPTDLink(string linkName);
         bool VerifyPetDoesNotMatchThePTDCheckBox(string checkboxValue);
-        bool VerifyVCAndPetOwnerDetailTableName(string tableName);
+        bool VerifyVCAndPetOwnerAndPetDetailTableName(string tableName);
         bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature);
         bool VerifyOtherIssuesSubheading(string subHeading);
         bool VerifyOtherIssuesCheckboxes(string checkboxOptions);
@@ -46,6 +46,5 @@
         void ClickVisualCheckReason(string visualCheckReason);
         void AnyRelevantComments(string comments);
         void EnterDetailsOfOutcome(string details);
-        bool VerifyVCAndPetDetailTableName(string tableName);
     }
 }
