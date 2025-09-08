@@ -221,7 +221,7 @@ Scenario: Verify the Assisted Digital PTD Applications System Views
 Scenario: Verify if the caseworker can create a new offline PTD application and Authorise it.
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Applicant Name' as 'Automation user'
+	And I enter 'Applicant Name' as 'Pets Automation'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
@@ -248,7 +248,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application and 
 Scenario: Verify if the caseworker can create a new offline PTD application, Authorise and Revoke it and no pending button visible
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Applicant Name' as 'Automation user'
+	And I enter 'Applicant Name' as 'Pets Automation'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
@@ -280,7 +280,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application, Aut
 Scenario: Verify the Duplicate Microchip Notification for offline PTD application submitted with only mandatory fields and reject it
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Applicant Name' as 'Automation user'
+	And I enter 'Applicant Name' as 'Pets Automation'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
@@ -349,7 +349,7 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 Scenario: Offline PTD Application should not be editable in Revoke Pending Status
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Applicant Name' as 'Automation user'
+	And I enter 'Applicant Name' as 'Pets Automation'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
@@ -379,7 +379,7 @@ Scenario: Offline PTD Application should not be editable in Revoke Pending Statu
 Scenario: Verify the Unique features field is empty in offline PTD application and authorise it
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Applicant Name' as 'Automation user'
+	And I enter 'Applicant Name' as 'Pets Automation'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
@@ -404,7 +404,7 @@ Scenario: Verify the Unique features field is empty in offline PTD application a
 Scenario: Verify the Unique features field is empty in offline PTD application and reject it
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Applicant Name' as 'Automation user'
+	And I enter 'Applicant Name' as 'Pets Automation'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
