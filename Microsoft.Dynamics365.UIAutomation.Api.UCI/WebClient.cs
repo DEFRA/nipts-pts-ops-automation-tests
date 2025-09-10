@@ -4833,11 +4833,13 @@ public class WebClient : BrowserPage, IDisposable
         });
     }
 
-    internal BrowserCommandResult<bool> SelectLookupNewButton()
+    internal BrowserCommandResult<bool> SelectLookupNewButton(string fieldValue)
     {
         return this.Execute(GetOptions("Click New Lookup Button"), driver =>
         {
             driver.WaitForTransaction();
+
+            driver.WaitUntilAvailable(By.XPath(AppElements.Xpath[AppReference.Entity.TextFieldLookupSearchButton].Replace("[NAME]", fieldValue))).Click();
 
             if (driver.TryFindElement(By.XPath(AppElements.Xpath[AppReference.AdvancedLookup.Container]), out var advancedLookup))
             {

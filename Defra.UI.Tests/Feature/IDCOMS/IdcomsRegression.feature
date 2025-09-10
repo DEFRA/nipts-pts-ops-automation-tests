@@ -346,7 +346,7 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 
-Scenario: Offline PTD Application should not be editable in Revoke Pending Status
+Scenario: Offline PTD Application should not be editable in Revoke Pending Status and should remain assigned with the case worker
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Applicant Name' as 'Pets Automation'
@@ -376,7 +376,7 @@ Scenario: Offline PTD Application should not be editable in Revoke Pending Statu
 	And I cannot edit 'Pet' Details
 	And I cannot edit 'Applicant details' Details
 
-Scenario: Verify the Unique features field is empty in offline PTD application and authorise it
+Scenario: Verify the Unique features field is empty in offline PTD application and authorise it and verify the status in CP
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Applicant Name' as 'Pets Automation'
@@ -395,11 +395,31 @@ Scenario: Verify the Unique features field is empty in offline PTD application a
 	Then the status is 'Open'
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
+	And I get the PTD Reference Number and Store it
 	And I can see the submission date and time
-	When I 'Pass' the Microchip check
+	When I Verify the Microchip Number in Microchip Verification Check
+	And I go back
+	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
+	When I navigate to the port checker application
+	And I click signin button on port checker application
+	Then I should redirected to the CP Sign in using Government Gateway page
+	When I have provided the CP credentials and signin
+	And I have provided the password for prototype research page
+	Then I should redirected to port route checker page
+	And I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time '11:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the PTD number of the application
+	When I click search button
+	And I should see the application status in 'Approved'
 
 Scenario: Verify the Unique features field is empty in offline PTD application and reject it
 	When I Login to Dynamics application
@@ -414,7 +434,7 @@ Scenario: Verify the Unique features field is empty in offline PTD application a
 	And I enter 'Age' as '12'
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as ''
-	And I enter 'Microchip Number' as '564789098987654'
+	And I enter 'Microchip Number' as '564789098982222'
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	Then the status is 'Open'
@@ -423,3 +443,42 @@ Scenario: Verify the Unique features field is empty in offline PTD application a
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
 	Then the status is changed to 'Rejected'
+
+Scenario: Verify the error message when the future date is entered in Microchip date field
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I enter 'Microchipped Date' as 'CurrentDate+4'
+	And I enter 'Pet Name' as 'Aurora'
+	Then I See the error 'The date for Microchipped Date must be in the past.' notification
+
+Scenario: Verify the error message when the future date is entered in Date of birth field
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I enter 'Date of Birth' as 'CurrentDate+4'
+	And I enter 'Pet Name' as 'Aurora'
+	Then I See the error 'The date for Date of Birth must be in the past.' notification
+
+Scenario: Create a New applicant Contact is and create a offline application and authorise it
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I create a new applicant in IDCOMS
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I enter 'Microchip Number' as 'auto'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+	And I can see the submission date and time
+	When I 'Pass' the Microchip check
+	And I go back
+	And I 'Authorise' the application
+	Then the status is changed to 'Authorised'

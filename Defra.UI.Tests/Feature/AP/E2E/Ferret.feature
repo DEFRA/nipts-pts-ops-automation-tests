@@ -60,7 +60,8 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	And I have verified pet owner details in summary page
 	When I Login to Dynamics application
 	When I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Pass' the Evidence check
@@ -131,7 +132,8 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	And I have verified pet owner details in summary page	
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
@@ -211,7 +213,8 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter addr
 	And I have verified pet owner details in summary page
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
