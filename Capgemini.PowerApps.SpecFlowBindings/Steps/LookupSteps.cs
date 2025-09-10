@@ -19,9 +19,9 @@ public class LookupSteps : PowerAppsStepDefiner
     /// Clicks the new button in a lookup.
     /// </summary>
     [When("I click the new button in the lookup")]
-    public static void WhenIClickTheNewButtonInTheLookup()
+    public static void WhenIClickTheNewButtonInTheLookup(string fieldValue)
     {
-        XrmApp.Lookup.New();
+        XrmApp.Lookup.New(fieldValue);
     }
 
     /// <summary>

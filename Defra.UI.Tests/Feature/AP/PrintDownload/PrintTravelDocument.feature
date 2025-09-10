@@ -168,7 +168,8 @@ Scenario Outline: Print PETS Travel Document Dog and Cat - Approved
 	And I have verified pet owner details in summary page
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -230,7 +231,8 @@ Scenario Outline: Print PETS Travel Document Ferret - Approved
 	And I have verified pet owner details in summary page
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application

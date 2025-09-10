@@ -36,10 +36,22 @@ namespace Defra.UI.Tests.Tools
            return DateTime.Now.ToString("ddMMyyHHmmssfff");
         }
 
+        public static string GenerateRandomNumber()
+        {
+            return DateTime.Now.ToString("ddMMyyHHmmss");
+        }
+
         public static DateTime GetCurrentTime()
         {
             DateTime currentDate = DateTime.Today;
             return currentDate;
+        }
+               
+        public static string GetFutureDate(int daysInFuture)
+        {
+            DateTime currentDate = DateTime.Today;
+            DateTime futureDate = currentDate.AddDays(daysInFuture);
+            return futureDate.ToString("MM/dd/yyyy");
         }
 
         public static void ChangePageView(this IWebDriver driver, int percentage)
