@@ -477,7 +477,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("I verify the copy of the '([^']*)' Email in Timeline")]
         public void ThenIVerifyTheCopyOfEmail(string timelineCopy)
         {
-            SharedSteps.WaitSeconds(10);
+            SharedSteps.WaitSeconds(20);
             CommandSteps.ClickCommand("Refresh");
             SharedSteps.WaitForScriptProcessing();
 
