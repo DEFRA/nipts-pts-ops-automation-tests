@@ -25,9 +25,9 @@ public class Lookup : Element
     /// <summary>
     /// Clicks the New button in a lookup control
     /// </summary>
-    public void New()
+    public void New(string fieldValue)
     {
-        _client.SelectLookupNewButton();
+        _client.SelectLookupNewButton(fieldValue);
     }
 
     /// <summary>

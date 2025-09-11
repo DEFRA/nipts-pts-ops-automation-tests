@@ -55,7 +55,8 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	Then The submitted application should be displayed in summary view
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -131,7 +132,8 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then The submitted application should be displayed in summary view
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -204,7 +206,8 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -278,7 +281,8 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in R
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -350,7 +354,8 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid Application'
@@ -419,7 +424,8 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in U
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid Application'
@@ -489,7 +495,8 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then The submitted application should be displayed in summary view
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -563,7 +570,8 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -636,7 +644,8 @@ Examples:
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid Application'
@@ -770,6 +779,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	Then click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
+	Then I get the PTD Reference Number and Store it
 	When I navigate to the port checker application
 	And I click signin button on port checker application
 	Then I should redirected to the CP Sign in using Government Gateway page
@@ -1002,7 +1012,8 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -1111,7 +1122,8 @@ Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as G
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -1221,7 +1233,8 @@ Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as G
 	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid Application'

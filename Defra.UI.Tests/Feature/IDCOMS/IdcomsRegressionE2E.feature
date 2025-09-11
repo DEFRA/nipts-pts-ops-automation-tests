@@ -51,7 +51,8 @@ Scenario Outline: Verify if a Caseworker can change the status of the case from 
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	Then the status is 'Open'
 	When I mark the application to 'Pending'
 	Then the status is 'Pending'
@@ -112,7 +113,8 @@ Scenario Outline: Verify if a Caseworker can change the status of the case from 
 	And I should see the application in 'Pending' status
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	When I add notes as 'Notes Title' and 'Notes Body'
 	Then I 'dont' see Duplicate Microchip Notification
 	Then the status is 'Open'
@@ -170,7 +172,8 @@ Scenario Outline: Verify the email subject for Rejection email
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
@@ -225,7 +228,8 @@ Scenario Outline: Verify the email subject for revoked email
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -282,7 +286,8 @@ Scenario Outline: Verify the email subject for approved email
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to 'Shukla Vishal' another user
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to 'Shukla Vishal' another user
 	And I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
@@ -338,7 +343,8 @@ Scenario Outline: Verify the email subject of the confirmation email
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	Then I verify the copy of the 'CONFIRMATION' Email in Timeline
 
 Examples:
@@ -390,12 +396,14 @@ Scenario Outline: Verify if a Caseworker flags an existing case for further inve
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I marked the case as Pending
 	And I switched to PETS Application
 	And I have clicked the View all your lifelong pet travel documents link
 	Then I should redirected to Apply for a pet travel document page
 	And I should see the application in 'Pending' status
+	#And I Verify the Application language for Welsh application
 
 Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
@@ -449,7 +457,8 @@ Scenario Outline: Verify the message banner at the top of the application page -
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	Then I 'do' see Duplicate Microchip Notification
 
 Examples:
@@ -504,7 +513,8 @@ Scenario Outline: Verify if the caseworker can add notes to the case
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to 'Shukla Vishal' another user
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to 'Shukla Vishal' another user
 	And I assign the application to myself
 	When I add notes as 'Notes Title' and 'Notes Body'
 
@@ -565,7 +575,8 @@ Scenario Outline: Verify the error message when the caseworker Authorises an app
 	And I should see the application in 'Pending' status
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	Then I 'do' see Duplicate Microchip Notification
 	When I 'Pass' the Microchip check
 	And I go back
@@ -613,7 +624,8 @@ Scenario Outline: Verify if a user can Submit an application in AP and the Casew
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
@@ -662,7 +674,8 @@ Scenario Outline: Verify if a user can Submit an application in AP and the Casew
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
+	Then I get the PTD Reference Number and Store it
+	When I assign the application to myself
 	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'

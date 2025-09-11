@@ -5,12 +5,14 @@ using Defra.UI.Framework.Driver;
 using Defra.UI.Tests.Tools;
 using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
+using Microsoft.Xrm.Sdk.Metadata;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
 using Reqnroll.BoDi;
 using System.ServiceModel.Channels;
 using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
+using NavigationSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.NavigationSteps;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -40,8 +42,12 @@ namespace Defra.UI.Tests.Steps.AP
                 GridSteps.WhenISearchForInTheGrid(referenceNumber);
             GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(0);
             _driver.WaitForPageToLoad();
-            _scenarioContext.Add("PTDReferenceNumber", FormSteps.GetValueOfField("nipts_documentreference"));
+        }
 
+        [Then("I get the PTD Reference Number and Store it")]
+        public void ThenISavePTDReferenceNumber()
+        {
+            _scenarioContext.Add("PTDReferenceNumber", FormSteps.GetValueOfField("nipts_documentreference"));
         }
 
         [When("I assign the application to myself")]
@@ -52,6 +58,22 @@ namespace Defra.UI.Tests.Steps.AP
             _driver.WaitForPageToLoad();
             CommandSteps.ClickCommand("Assign");
             Trade.Plants.SpecFlowBindings.Steps.DialogSteps.WhenIAssignToMeOnTheAssignDialog();
+        }
+
+        [When("I Verify the Microchip Number in Microchip Verification Check")]
+        public void WhenIVerifyMicrochipNumber()
+        {
+            EntitySteps.ISelectTab("Verification Checks");
+            SharedSteps.WaitForScriptProcessing();
+            GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(0);
+            SharedSteps.WaitForScriptProcessing();
+            EntitySteps.ThenICanSeeAValueOfInTheField(_scenarioContext.Get<string>("MicrochipNumber"), "nipts_microchipnum", "numeric");
+        }
+
+        [Then("I Verify the Application language for Welsh application")]
+        public void ThenIVerifyAppLanguageforWelsh()
+        {
+            EntitySteps.ThenICanSeeAValueOfInTheField("CY", "nipts_applicationlanguage", "text");
         }
 
         [When("I {string} the Microchip check")]
@@ -694,6 +716,7 @@ namespace Defra.UI.Tests.Steps.AP
                     if (value.ToUpper().Equals("AUTO"))
                     {
                         var microchiNumber = Utils.GenerateMicrochipNumber();
+                        _scenarioContext.Add("MicrochipNumber", microchiNumber);
                         EntitySteps.WhenIEnterInTheField(microchiNumber, "nipts_microchipnum", "text", "field", 1);
                         ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(microchiNumber, "nipts_microchipnum", "text", "field", "");
                     }
@@ -704,9 +727,17 @@ namespace Defra.UI.Tests.Steps.AP
                     }
                     break;
                 case "MICROCHIPPED DATE":
+                    if (value.StartsWith("CurrentDate+"))
+                    {
+                        value = Utils.GetFutureDate(int.Parse(value.Substring(12)));
+                    }
                     EntitySteps.WhenIEnterInTheField(value, "nipts_microchippeddate", "datetime", "field", 1);
                     break;
                 case "DATE OF BIRTH":
+                    if (value.StartsWith("CurrentDate+"))
+                    {
+                        value = Utils.GetFutureDate(int.Parse(value.Substring(12)));
+                    }
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "datetime", "field", 1);
                     break;
             }
@@ -735,6 +766,7 @@ namespace Defra.UI.Tests.Steps.AP
             string PTD_Reference = EntitySteps.ThenIGetTheHeaderTitle();
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(PTD_Reference, "nipts_applicationreference", "text", "field", "");
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(PTD_Reference, "nipts_documentreference", "text", "field", "");
+            
         }
 
         [Then(@"I can see the submission date and time")]
@@ -759,7 +791,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I See the error '(.*)' notification")]
         public void ThenISeeTheErrorNotification(string errorMessage)
         {
-            EntitySteps.ThenICanSeeAnErrorFormNotificationStating(errorMessage);
+            EntitySteps.ThenICanSeeAnInfoFormNotificationStating(errorMessage);
         }
 
         [Then(@"I See an error '(.*)' when Authorising the application")]
@@ -783,6 +815,28 @@ namespace Defra.UI.Tests.Steps.AP
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
             ThenTheStatusIsChangedTo("Revoke Pending");
+        }
+
+        [When(@"I create a new applicant in IDCOMS")]
+        public void WhenICreateNewApplicant()
+        {
+            SharedSteps.WaitForScriptProcessing();
+            LookupSteps.WhenIClickTheNewButtonInTheLookup("nipts_applicantid");
+            SharedSteps.WaitForScriptProcessing();
+            var firstName = "Auto"+Utils.GenerateRandomNumber();
+            var phoneNumber = Utils.GenerateRandomUKPhonenumber();
+            QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate(firstName, "firstname", "text");
+            QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate("user", "lastname", "text");
+            //QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate("Automation_offlineuser@email.com", "emailaddress1", "text");
+            QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate("117", "defra_addrcorbuildingnumber", "text");
+            QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate("Oxford street", "defra_addrcorstreet", "text");
+            QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate("London", "defra_addrcortown", "text");
+            QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate("Greater London", "defra_addrcorcounty", "text");
+            QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate("BA1 1ER", "defra_addrcorpostcode", "text");
+            QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate(phoneNumber, "telephone1", "text");
+            SharedSteps.WaitForScriptProcessing();
+            QuickCreateSteps.WhenISaveTheQuickCreate();
+            SharedSteps.WaitForScriptProcessing();
         }
     }
 }
