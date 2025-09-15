@@ -5,6 +5,7 @@
        bool VerifyTheExpectedStatus(string status);
        void SelectPassRadioButton();
        void SelectFailRadioButton();
+       void SelectReferToSPSRadioButton();
        void SelectSaveAndContinue();
        bool IsError(string errorMessage);
         bool VerifyReferenceNumberTable(string status);

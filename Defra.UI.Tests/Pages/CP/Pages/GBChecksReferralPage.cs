@@ -20,6 +20,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Referred to SPS']"));
         private IWebElement gbCheckReportPageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='GB check report']"));
+        private IWebElement updateReferralOutcomePageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Update referral outcome']"));
         private IWebElement viewLink => _driver.WaitForElement(By.XPath("//*[contains(text(),'View')]"));
         private IWebElement ptdOrReferenceNumber => _driver.WaitForElement(By.XPath("//*[@class='referred-form']/button"));
         private IReadOnlyCollection<IWebElement> ptdOrReferenceNumberList => _driver.WaitForElements(By.XPath("//*[@class='referred-form']/button"));
@@ -93,6 +94,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             }
             return gbCheckReportPageHeading.Text.Contains("GB check report");
+        }
+
+        public bool IsGBUpdateReferralOutcomePageLoaded()
+        {
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+            }
+            return updateReferralOutcomePageHeading.Text.Contains("Update referral outcome");
         }
 
         public void ClickViewLink(string departureTime)
@@ -212,7 +222,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return false;
         }
 
-        public void ClickOnConductSPSCheckButton()
+        public void ClickOnUpdateReferralOutcomeButton()
         {
             btnUpdateReferalOutcome.Click(_driver);
         }

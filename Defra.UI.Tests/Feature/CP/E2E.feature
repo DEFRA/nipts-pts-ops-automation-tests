@@ -925,12 +925,11 @@ Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP an
 	And I provided the Reference number of the application
 	When I click search button
 	And I should see the application status in 'Pending'
-	#And I select Fail radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click 'Vehicle on ferry' in Passenger details
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click 'Passenger says they will not travel' GB Outcome
+	And I click 'Passenger says they will not travel' Record Outcome
 	And I click Report non-compliance button from Report non-compliance page
 	Then I should navigate to Checks page
 	And click on signout button on CP and verify the signout message
@@ -949,9 +948,8 @@ Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP an
 	Then I should navigate to Referred to SPS page
 	And The Background colour of 'Checks Needed' in 'Pending' application is 'Blue'
 	When I click on the 'Pending' application that is in checks Needed SPS Outcome
-	And I click Conduct a SPS check button
+	And I click Update referral outcome button
 	And I should see the application status in 'Pending'
-	#And I select Fail radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click 'Vehicle on ferry' in Passenger details
@@ -1040,7 +1038,7 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	Then I should navigate to Report non-compliance page
 	And I click 'Vehicle on ferry' in Passenger details
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click 'Passenger says they will not travel' GB Outcome
+	And I click 'Passenger says they will not travel' Record Outcome
 	And I click Report non-compliance button from Report non-compliance page
 	Then I should navigate to Checks page
 	And click on signout button on CP and verify the signout message
@@ -1059,7 +1057,7 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	Then I should navigate to Referred to SPS page
 	And The Background colour of 'Checks Needed' in 'Approved' application is 'Blue'
 	When I click on the 'Approved' application that is in checks Needed SPS Outcome
-	And I click Conduct a SPS check button
+	And I click Update referral outcome button
 	And I should see the application status in 'Approved'
 	And I select Fail radio button
 	And I click save and continue button from application status page
@@ -1152,7 +1150,7 @@ Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as G
 	Then I should navigate to Report non-compliance page
 	And I click 'Vehicle on ferry' in Passenger details
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click 'Passenger says they will not travel' GB Outcome
+	And I click 'Passenger says they will not travel' Record Outcome
 	And I click Report non-compliance button from Report non-compliance page
 	Then I should navigate to Checks page
 	And click on signout button on CP and verify the signout message
@@ -1171,7 +1169,7 @@ Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as G
 	Then I should navigate to Referred to SPS page
 	And The Background colour of 'Checks Needed' in 'Cancelled' application is 'Blue'
 	When I click on the 'Cancelled' application that is in checks Needed SPS Outcome
-	And I click Conduct a SPS check button
+	And I click Update referral outcome button
 	And I should see the application status in 'Cancelled'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
@@ -1260,7 +1258,7 @@ Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as G
 	Then I should navigate to Report non-compliance page
 	And I click 'Vehicle on ferry' in Passenger details
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click 'Passenger says they will not travel' GB Outcome
+	And I click 'Passenger says they will not travel' Record Outcome
 	And I click Report non-compliance button from Report non-compliance page
 	Then I should navigate to Checks page
 	And click on signout button on CP and verify the signout message
@@ -1279,7 +1277,7 @@ Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as G
 	Then I should navigate to Referred to SPS page
 	And The Background colour of 'Checks Needed' in 'Unsuccessful' application is 'Blue'
 	When I click on the 'Unsuccessful' application that is in checks Needed SPS Outcome
-	And I click Conduct a SPS check button
+	And I click Update referral outcome button
 	And I should see the application status in 'Unsuccessful'
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
