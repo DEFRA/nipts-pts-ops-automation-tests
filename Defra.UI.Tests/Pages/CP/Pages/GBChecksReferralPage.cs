@@ -409,7 +409,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool IsViewLinkPresent(string departureTime)
         {
             var currentDate = DateTime.Today.ToString("dd/MM/yyyy");
-            
+            var viewlink_xpath = ".//*[contains(text(),'Fail: Referred to SPS')]//following-sibling::dd[2]//following-sibling::button";
             foreach (var table in ChecksPageTables)
             {
                 if (table.Text.Contains(currentDate) && table.Text.Contains(departureTime))
