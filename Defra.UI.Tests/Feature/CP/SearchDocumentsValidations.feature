@@ -150,7 +150,7 @@ Scenario: Verify the navigation for change link click in header from report non-
 	And I provided the Microchip number '561365613656136' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
+	And I select Refer to SPS radio button
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	Then I click change link from headers
