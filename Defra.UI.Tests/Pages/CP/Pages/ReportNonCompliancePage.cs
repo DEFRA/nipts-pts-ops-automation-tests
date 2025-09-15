@@ -33,7 +33,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement chkSPSOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='Record outcome']//following::label[1]"));
         private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='Record outcome']//following::label[2]"));
         private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.Id("spsOutcomeDetails"));
-        private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome']"));
+        private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome (optional)']"));
         private IWebElement lblAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']"));
         private IWebElement lblAnyRelavantCommentsHint => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
@@ -240,17 +240,17 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 && lblReportOutcome.Text.Replace("\r\n", string.Empty).Trim().Equals(subHeading));
         }
 
-        public void ClickGBOutcomeCheckbox(string GBOutcome)
+        public void ClickGBOutcomeCheckbox(string RecordOutcome)
         {
-            if (GBOutcome.Equals("Passenger referred to DAERA/SPS at NI port"))
+            if (RecordOutcome.Equals("Passenger referred to DAERA/SPS at NI port"))
             {
                 chkGBOutcome1.ScrollAndClick(_driver);
             }
-            else if (GBOutcome.Equals("Passenger advised not to travel"))
+            else if (RecordOutcome.Equals("Passenger advised not to travel"))
             {
                 chkGBOutcome2.ScrollAndClick(_driver);
             }
-            else if (GBOutcome.Equals("Passenger says they will not travel"))
+            else if (RecordOutcome.Equals("Passenger says they will not travel"))
             {
                 chkGBOutcome3.ScrollAndClick(_driver);
             }
@@ -288,7 +288,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyDetailsOfOutcome()
         {
             lblDetailsOfOutcome.ScrollToElement(_driver);
-            return lblDetailsOfOutcome.Text.Contains("Details of outcome");
+            return lblDetailsOfOutcome.Text.Contains("Details of outcome (optional)");
         }
 
         public bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength)
@@ -351,8 +351,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             var otherIssuesCheckbox = checkboxOptions.Split('|');
             return otherIssuesCheckbox[0].Equals(lblOtherIssuesOption1.Text)
-                && otherIssuesCheckbox[1].Equals(lblOtherIssuesOption2.Text)
-                && otherIssuesCheckbox[2].Equals(lblOtherIssuesOption3.Text);
+                && otherIssuesCheckbox[1].Equals(lblOtherIssuesOption2.Text);
         }
 
         public bool VerifyOtherReasonOptionHint(string hint)
@@ -365,18 +364,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             lblOtherIssuesOption1.ScrollToElement(_driver);
             return lblOtherIssuesOption1.HasAttribute("Checked")
-                && lblOtherIssuesOption2.HasAttribute("Checked")
-                && lblOtherIssuesOption3.HasAttribute("Checked");
+                && lblOtherIssuesOption2.HasAttribute("Checked");
         }
 
         public bool VerifyMicrochipSection()
         {
             lblMCHeader.ScrollToElement(_driver);
             return lblMCHeader.Text.Contains("Microchip")
-                   && lblMCCheckbox1.Text.Contains("Microchip number does not match the PTD")
-                   && lblMCCheckbox2.Text.Contains("Cannot find microchip")
-                   && !lblMCCheckbox1.Selected
-                   && !lblMCCheckbox2.Selected;
+                   && lblMCCheckbox1.Text.Contains("Cannot find microchip")
+                   && !lblMCCheckbox1.Selected;
         }
 
         public bool VerifyMCDetailsPTDTableWithValues(string MCDetails)
@@ -394,11 +390,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             if (mcCheckbox.Equals("Microchip number does not match the PTD"))
             {
-                lblMCCheckbox1.ScrollAndClick(_driver);
+                lblMCCheckbox2.ScrollAndClick(_driver);
             }
             else if (mcCheckbox.Equals("Cannot find microchip"))
             {
-                lblMCCheckbox2.ScrollAndClick(_driver);
+                lblMCCheckbox1.ScrollAndClick(_driver);
             }
         }
 
@@ -439,22 +435,19 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             btnSaveOutCome.ScrollAndClick(_driver);
         }
 
-        public bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline)
+        public bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry)
         {
             btnFootPassengerRadio.ScrollToElement(_driver);
 
             return btnFootPassengerRadio.Text.Contains(ferryFootPassenger)
-                && btnVehicleRadio.Text.Contains(vehicleOnFerry)
-                && btnAirlineRadio.Text.Contains(airline)
-                && !btnFootPassengerRadio.Selected && !btnVehicleRadio.Selected
-                && !btnAirlineRadio.Selected;
+                && btnVehicleRadio.Text.Contains(vehicleOnFerry)           
+                && !btnFootPassengerRadio.Selected && !btnVehicleRadio.Selected;
         }
 
         public bool VerifyMicrochipCheckboxesAreChecked()
         {
             lblMicrochipOption1.ScrollToElement(_driver);
-            return lblMicrochipOption1.HasAttribute("Checked")
-                && lblMicrochipOption2.HasAttribute("Checked");
+            return lblMicrochipOption1.HasAttribute("Checked");
         }
 
         public void ClickVisualCheckReason(string visualCheckReason)
@@ -463,8 +456,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 lblOtherIssuesOption1.ScrollAndClick(_driver);
             else if (lblOtherIssuesOption2.Text.Trim().Equals(visualCheckReason))
                 lblOtherIssuesOption2.ScrollAndClick(_driver);
-            else if (lblOtherIssuesOption3.Text.Trim().Equals(visualCheckReason))
-                lblOtherIssuesOption3.ScrollAndClick(_driver);
             else if (lblVisualCheckCheckBox.Text.Contains(visualCheckReason))
                 lblVisualCheckCheckBox.ScrollAndClick(_driver);
         }

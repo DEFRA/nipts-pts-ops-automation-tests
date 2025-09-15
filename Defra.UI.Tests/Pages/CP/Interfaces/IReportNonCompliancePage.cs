@@ -40,7 +40,7 @@
         bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber);
         bool VerifyInfoSubmittedMessage(string submittedMessage);
         void ClickSaveOutComeButton();
-        bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline);
+        bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry);
         void ClickSPSOutcomeCheckbox(string sPSOutcome);
         bool VerifyMicrochipCheckboxesAreChecked();
         void ClickVisualCheckReason(string visualCheckReason);

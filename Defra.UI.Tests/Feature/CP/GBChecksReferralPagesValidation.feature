@@ -19,14 +19,15 @@ Scenario: Verify GB check report page headings and back link navigation
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by 'Search by application number' radio button
-	And I provided the Reference number '0CI5N6V6' of the application
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '4574B2' of the application
 	When I click search button
-	And I should see the application status in 'Unsuccessful'
-	And I continue button from application status page
+	And I should see the application status in 'Approved'
+	And I select Refer to SPS radio button
+	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click 'Passenger says they will not travel' GB Outcome
+	And I click 'Passenger says they will not travel' Record Outcome
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
@@ -46,18 +47,17 @@ Scenario: Verify Outcome table in GB check report page - SPS User
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by 'Search by application number' radio button
-	And I provided the Reference number 'DKVUZHQ9' of the application
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '4574B2' of the application
 	When I click search button
-	And I should see the application status in 'Unsuccessful'
-	And I continue button from application status page
+	And I should see the application status in 'Approved'
+	And I select Refer to SPS radio button
+	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	When I Select the 'Microchip number does not match the PTD' Microchip Checkbox
-	And I enter the Microchip number in '123456789012345' in Report non-compliance page
-	And I select 'Authorised person but no confirmation' as visual check reason
-	And I click 'Passenger says they will not travel' GB Outcome
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I select 'Authorised person but no confirmation' as other issues reason
+	And I click 'Passenger says they will not travel' Record Outcome
 	Then I click 'Vehicle on ferry' in Passenger details
-	And I enter comments '<AdditionalCommentsInReportNonCompPage>' in Any relevant comments
 	And I enter details '<DetailsOFOutcomeInReportNonCompPage>' in Details of outcome
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
@@ -75,14 +75,13 @@ Scenario: Verify Outcome table in GB check report page - SPS User
 	Then I should navigate to Checks page
 	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
-	When I click the reference number 'DKVUZHQ9' link
+	When I click the reference number 'GB8264574B2' link
 	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
 	Then I should see 'Passenger says they will not travel' as Check outcome
 	And I should see '<DetailsOFOutcomeInGBCheckReport>' as Details of outcome
-	And I should see 'Microchip number does not match the PTD, Authorised person but no confirmation' as Reason for referral
-	And I should see '123456789012345' as Microchip number found in scan
-	And I should see '<AdditionalCommentsInInGBCheckReport>' as Additional comments
+	And I should see 'Cannot find microchip, Authorised person but no confirmation' as Reason for referral
+
 Examples:
 	| DetailsOFOutcomeInReportNonCompPage | AdditionalCommentsInReportNonCompPage | DetailsOFOutcomeInGBCheckReport | AdditionalCommentsInInGBCheckReport |
 	| Outcome Details                     | Comments                              | Outcome Details                 | Comments                            |
@@ -96,15 +95,15 @@ Scenario: Verify Check details table in GB check report page - SPS User
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by 'Search by application number' radio button
-	And I provided the Reference number 'VRNB3GAF' of the application
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '4574B2' of the application
 	When I click search button
-	And I should see the application status in 'Cancelled'
-	And I continue button from application status page
+	And I should see the application status in 'Approved'
+	And I select Refer to SPS radio button
+	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	When I Select the 'Microchip number does not match the PTD' Microchip Checkbox
-	And I enter the Microchip number in '123456789012345' in Report non-compliance page
-	And I click 'Passenger says they will not travel' GB Outcome
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I click 'Passenger says they will not travel' Record Outcome
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
@@ -143,11 +142,11 @@ Scenario: Verify the route details and PTD Number format in Referred to SPS page
 	And I provided the Reference number 'H71XF4NH' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
-	When I click save and continue button from application status page
+	And I select Refer to SPS radio button
+	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click 'Passenger says they will not travel' GB Outcome
+	And I click 'Passenger says they will not travel' Record Outcome
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
@@ -155,47 +154,6 @@ Scenario: Verify the route details and PTD Number format in Referred to SPS page
 	Then I should navigate to Referred to SPS page
 	And I should see route details 'Birkenhead to Belfast (Stena)' date and time '23:59' below the title of the page
 	And I should see all the PTD numbers should be in correct format and starts with 'GB826'
-
-Scenario: Verify the back link navigation for search result through home referral page route
-	Then I have selected 'Ferry' radio option
-	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '16:30'
-	When I click save and continue button from route checker page
-	Then I should navigate to Checks page
-	When I click search button from footer
-	Then I navigate to Find a document page
-	And I click search by 'Search by application number' radio button
-	And I provided the Reference number '0CI5N6V6' of the application
-	When I click search button
-	And I should see the application status in 'Unsuccessful'
-	And I continue button from application status page
-	Then I should navigate to Report non-compliance page
-	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click 'Passenger says they will not travel' GB Outcome
-	Then I click 'Vehicle on ferry' in Passenger details
-	When I click Save outcome button from non-compliance page
-	Then I should see a message 'Information has been successfully submitted' in Checks page
-	When I click View link in Fail Referred to SPS row with departure time '16:30'
-	Then I should navigate to Referred to SPS page
-	When I click first link in PTD or Reference number
-	Then I should navigate to GB check report page
-	When I click Conduct a SPS check button
-	And I should see the application status in 'Unsuccessful'
-	Then I click back link
-	And I should navigate to GB check report page
-	When I click footer home icon
-	And I click View link in Fail Referred to SPS row with departure time '16:30'
-	Then I should navigate to Referred to SPS page
-	When I click first link in PTD or Reference number
-	Then I should navigate to GB check report page
-	When I click Conduct a SPS check button
-	And I should see the application status in 'Unsuccessful'
-	And I click save and continue button from application status page
-	Then I should navigate to Report non-compliance page
-	And I click back link
-	When I should see the application status in 'Unsuccessful'
-	Then I click back link
-	And I should navigate to GB check report page
 
 Scenario: Verify the table details in Referred to SPS page
 	Then I have selected 'Ferry' radio option
@@ -206,72 +164,72 @@ Scenario: Verify the table details in Referred to SPS page
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by application number' radio button
-	And I provided the Reference number '8CLR4IZ7' of the application
+	And I provided the Reference number '0NMG3969' of the application
 	When I click search button
-	And I should see the application status in 'Cancelled'
-	And I continue button from application status page
+	And I should see the application status in 'Approved'
+	And I select Refer to SPS radio button
+	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click 'Passenger says they will not travel' GB Outcome
+	And I click 'Passenger says they will not travel' Record Outcome
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
 	When I click View link in Fail Referred to SPS row with departure time '10:00'
 	Then I should navigate to Referred to SPS page
 	And I verify the Referred to SPS page table column names as 'PTD or Reference number' 'Pet' 'Microchip' 'Travel by' 'SPS outcome'
-	And I verify the Referred to SPS page table column values as 'GB826 CBA 461' 'Dog and Other' '398931864434234' 'Vehicle' 'Check needed'
+	And I verify the Referred to SPS page table column values as 'GB826 1B3 554' 'Cat and Ginger' '267452894526725' 'Vehicle' 'Check needed'
 
 Scenario: Verify for no duplicate referrals and latest details updated in GB check report page
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '23:59'
+	And I have provided Scheduled departure time '23:53'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by 'Search by application number' radio button
-	And I provided the Reference number 'DKVUZHQ9' of the application
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '38AA7C' of the application
 	When I click search button
-	And I should see the application status in 'Unsuccessful'
-	And I continue button from application status page
+	And I should see the application status in 'Approved'
+	And I select Refer to SPS radio button
+	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	When I Select the 'Microchip number does not match the PTD' Microchip Checkbox
-	And I enter the Microchip number in '123456789012345' in Report non-compliance page
-	And I click 'Passenger says they will not travel' GB Outcome
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I click 'Passenger says they will not travel' Record Outcome
 	Then I click 'Vehicle on ferry' in Passenger details
 	And I enter details 'Outcome Details' in Details of outcome
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
 	When I click search button from footer
 	Then I navigate to Find a document page
-	And I click search by 'Search by application number' radio button
-	And I provided the Reference number 'DKVUZHQ9' of the application
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '38AA7C' of the application
 	When I click search button
-	And I should see the application status in 'Unsuccessful'
-	And I continue button from application status page
+	And I should see the application status in 'Approved'
+	And I select Refer to SPS radio button
+	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I select 'Authorised person but no confirmation' as visual check reason
-	And I click 'Passenger advised not to travel' GB Outcome
+	And I select 'Authorised person but no confirmation' as other issues reason
+	And I click 'Passenger advised not to travel' Record Outcome
 	Then I click 'Ferry foot passenger' in Passenger details
-	And I enter comments 'Comments' in Any relevant comments
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
-	When I click View link in Fail Referred to SPS row with departure time '23:59'
+	When I click View link in Fail Referred to SPS row with departure time '23:53'
 	Then I should navigate to Referred to SPS page
-	And I verify the PTDOrRefNum 'DKVUZHQ9' is not repeated in the table
-	And I verify the Referred to SPS page table column values as 'DKVUZHQ9' 'Ferret and Chocolate' '123498012398051' 'Foot' 'Check needed'
-	When I click the reference number 'DKVUZHQ9' link
+	And I verify the PTDOrRefNum 'GB82638AA7C' is not repeated in the table
+	And I verify the Referred to SPS page table column values as 'GB826 38A A7C' 'Dog and Other' '989867453215678' 'Foot' 'Check needed'
+	When I click the reference number 'GB82638AA7C' link
 	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
 	Then I should see 'Passenger advised not to travel' as Check outcome
 	And I should see 'None' as Details of outcome
 	And I should see 'Cannot find microchip, Authorised person but no confirmation' as Reason for referral
-	And I should see 'Comments' as Additional comments
 	Then I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Birkenhead to Belfast (Stena)' as Route
 	Then I should see current date as Scheduled departure date
-	And I should see '23:59' as Scheduled departure time
+	And I should see '23:53' as Scheduled departure time
 	Then I should see current date and current time as Date and time checked
 
 Scenario: Verify referral count on updating approved document pass to fail check outcome
@@ -297,14 +255,13 @@ Scenario: Verify referral count on updating approved document pass to fail check
 	And I provided the '87FDFA' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
+	And I select Refer to SPS radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I select 'Authorised person but no confirmation' as visual check reason
-	And I click 'Passenger advised not to travel' GB Outcome
+	And I select 'Authorised person but no confirmation' as other issues reason
+	And I click 'Passenger advised not to travel' Record Outcome
 	Then I click 'Ferry foot passenger' in Passenger details
-	And I enter comments 'Comments' in Any relevant comments
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
 	Then I should see the count next to Pass as '0' in the table contains departure time '02:45'
@@ -318,7 +275,6 @@ Scenario: Verify referral count on updating approved document pass to fail check
 	Then I should see 'Passenger advised not to travel' as Check outcome
 	And I should see 'None' as Details of outcome
 	And I should see 'Cannot find microchip, Authorised person but no confirmation' as Reason for referral
-	And I should see 'Comments' as Additional comments
 	Then I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Cairnryan to Larne (P&O)' as Route
 	Then I should see current date as Scheduled departure date
@@ -337,13 +293,12 @@ Scenario: Verify referral count on updating approved document fail to fail check
 	And I provided the '86FD9E' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
+	And I select Refer to SPS radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click 'Passenger advised not to travel' GB Outcome
+	And I click 'Passenger advised not to travel' Record Outcome
 	Then I click 'Ferry foot passenger' in Passenger details
-	And I enter comments 'Comments' in Any relevant comments
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
 	And I should see the count next to Fail Referred to SPS as '1' in the table contains departure time '02:45'
@@ -353,11 +308,11 @@ Scenario: Verify referral count on updating approved document fail to fail check
 	And I provided the '86FD9E' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
+	And I select Refer to SPS radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	When I select 'Pet does not match the PTD' as visual check reason
-	And I click 'Passenger says they will not travel' GB Outcome
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	And I click 'Passenger says they will not travel' Record Outcome
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
@@ -371,8 +326,7 @@ Scenario: Verify referral count on updating approved document fail to fail check
 	And I should see 'Outcome' and 'Check details' subheadings
 	Then I should see 'Passenger says they will not travel' as Check outcome
 	And I should see 'None' as Details of outcome
-	And I should see 'Pet does not match the PTD' as Reason for referral
-	And I should see 'None' as Additional comments
+	And I should see 'Cannot find microchip' as Reason for referral
 	Then I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Loch Ryan to Belfast (Stena)' as Route
 	Then I should see current date as Scheduled departure date

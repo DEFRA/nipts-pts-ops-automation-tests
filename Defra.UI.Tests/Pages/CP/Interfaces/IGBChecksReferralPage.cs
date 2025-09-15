@@ -9,6 +9,7 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
         void ClickViewLink(string departureTime);
         void ClickPTDOrReferenceNumber();
         bool IsGBCheckReportPageLoaded();
+        bool IsGBUpdateReferralOutcomePageLoaded();
         bool CheckReportPageSubheadings(string subHeading1, string subHeading2);
         bool CheckOutcome(string checkOutcome);
         bool ReasonForReferral(string referralReason);
@@ -20,7 +21,7 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
         bool ScheduledDepartTime(string departTime);
         bool CheckPTDNumberFormat(string ptdNumberPrefix);
         bool ClickApplicationRef(string referenceNumber);
-        void ClickOnConductSPSCheckButton();
+        void ClickOnUpdateReferralOutcomeButton();
         bool VerifyTravelStatus(string travelStatus, string travelStatus1);
         bool VerifyBGColorforTravelStatus(string referenceNumber, string travelStatus, string color);
         bool CheckRouteDetailOnReferredToSPSPage(string route, string departureTime);

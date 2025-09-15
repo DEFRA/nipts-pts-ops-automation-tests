@@ -48,6 +48,12 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.IsTrue(_gbChecksReferralPage?.IsGBCheckReportPageLoaded(), "GB check report page not loaded");
         }
 
+        [Then(@"I should navigate to Update referral outcome page")]
+        public void ThenIShouldNavigateToUpdateReferralOutcomePage()
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.IsGBUpdateReferralOutcomePageLoaded(), "GB check report page not loaded");
+        }
+
         [Then(@"I should see '([^']*)' and '([^']*)' subheadings")]
         public void ThenIShouldSeeAndSubheadings(string subHeading1, string subHeading2)
         {
@@ -159,10 +165,10 @@ namespace Defra.UI.Tests.Steps.CP
             }
         }
 
-        [When(@"I click Conduct a SPS check button")]
-        public void WhenIClickOnConductSPSCheclButton()
+        [When(@"I click Update referral outcome button")]
+        public void WhenIClickUpdateReferralOutcomeButton()
         {
-            _gbChecksReferralPage?.ClickOnConductSPSCheckButton();
+            _gbChecksReferralPage?.ClickOnUpdateReferralOutcomeButton();
         }
 
         [Then(@"I should see all the PTD numbers should be in correct format and starts with '([^']*)'")]

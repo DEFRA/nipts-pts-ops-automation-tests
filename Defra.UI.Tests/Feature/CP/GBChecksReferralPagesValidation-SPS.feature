@@ -41,7 +41,7 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	And I continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I select 'Authorised person but no confirmation' as visual check reason
+	And I select 'Authorised person but no confirmation' as other issues reason
 	And I click 'Allowed' in SPS Outcome
 	Then I click 'Ferry foot passenger' in Passenger details
 	And I enter comments 'Comments' in Any relevant comments

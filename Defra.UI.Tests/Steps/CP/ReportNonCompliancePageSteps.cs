@@ -120,14 +120,14 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons,hint), "Reasons Heading and Hint does not exists as expected");
         }
 
-        [Then(@"I verify the GB Outcome '(.*)' checkboxes under '(.*)'")]
-        public void ThenIVerifyTheGBOutcomeCheckboxes(string checkboxValues, string subHeading)
+        [Then(@"I verify the Record Outcome '(.*)' checkboxes under '(.*)'")]
+        public void ThenIVerifyTheRecordOutcomeCheckboxes(string checkboxValues, string subHeading)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues,subHeading),"The GB Outcome checkbox values are not correct");
+            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues,subHeading), "The Record Outcome checkbox values are not correct");
         }
 
-        [Then(@"I Verify the GB and SPS Outcomes are not selected")]
-        public void ThenIVerifyGBAndSPSOutcomesAreNotSelected()
+        [Then(@"I Verify the Record Outcome check boxes are not selected")]
+        public void ThenIVerifyRecordOutcomeCheckBoxesAreNotSelected()
         {
             Assert.False(_reportNonCompliancePage?.VerifyGBCheckboxesAreNotChecked());
             //Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
@@ -175,11 +175,11 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyPetDetailsFromPTDLink(linkName), "Pet details from PTD link is not displayed");
         }
 
-        [Then(@"I should see a checkbox '([^']*)' is not selected")]
+/*        [Then(@"I should see a checkbox '([^']*)' is not selected")]
         public void ThenIShouldSeeACheckboxIsNotSelected(string checkBoxValue)
         {
             Assert.True(_reportNonCompliancePage?.VerifyPetDoesNotMatchThePTDCheckBox(checkBoxValue), "Pet does not match the PTD check box is not displayed or selected by default");
-        }
+        }*/
 
         [Then(@"I should see a table '([^']*)'")]
         public void ThenIShouldSeeATable(string tableName)
@@ -242,10 +242,10 @@ namespace Defra.UI.Tests.Steps.CP
             _reportNonCompliancePage?.ClickOnMCCheckbox(MCCheckbox);
         } 
         
-        [When(@"I click '(.*)' GB Outcome")]
-        public void WhenISelectGBOutcome(string GBOutcome)
+        [When(@"I click '(.*)' Record Outcome")]
+        public void WhenISelectGBOutcome(string RecordOutcome)
         {
-            _reportNonCompliancePage?.ClickGBOutcomeCheckbox(GBOutcome);
+            _reportNonCompliancePage?.ClickGBOutcomeCheckbox(RecordOutcome);
         }
         
         [When(@"I click '(.*)' in SPS Outcome")]
@@ -272,10 +272,10 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyInfoSubmittedMessage(submittedMessage));
         }
 
-        [When(@"I should see '([^']*)' '([^']*)' '([^']*)' radio buttons not selected by default")]
-        public void ThenIShouldSeeRadioButtons(string ferryFootPassenger, string vehicleOnFerry, string airline)
+        [When(@"I should see '([^']*)' '([^']*)' radio buttons not selected by default")]
+        public void ThenIShouldSeeRadioButtons(string ferryFootPassenger, string vehicleOnFerry)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerRadioButtons(ferryFootPassenger, vehicleOnFerry, airline));
+            Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerRadioButtons(ferryFootPassenger, vehicleOnFerry));
         }
 
         [Then(@"I should see no checkboxes are selected in microchip section")]
@@ -284,7 +284,7 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.False(_reportNonCompliancePage?.VerifyMicrochipCheckboxesAreChecked());
         }
 
-        [When(@"I select '([^']*)' as visual check reason")]
+        [When(@"I select '([^']*)' as other issues reason")]
         public void WhenISelectAsVisualCheckReason(string visualCheckReason)
         {
             _reportNonCompliancePage?.ClickVisualCheckReason(visualCheckReason);
