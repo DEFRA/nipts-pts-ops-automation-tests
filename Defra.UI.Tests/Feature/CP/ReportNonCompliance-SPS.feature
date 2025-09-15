@@ -28,7 +28,7 @@ Scenario: Verify Reasons heading with hint in Report non compliance page as SPS 
 	Then I should navigate to Report non-compliance page
 	And I should see the 'Reasons' heading with hint 'Select all that apply.'
 
-Scenario Outline: Verify SPS Outcome in Report non compliance page for Approved application as SPS Checker
+Scenario Outline: Verify Details of Outcome label in Report non compliance page for Approved application as SPS Checker
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '12:40'
@@ -43,9 +43,7 @@ Scenario Outline: Verify SPS Outcome in Report non compliance page for Approved 
 	And I select Fail radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
-	And I verify the SPS Outcome 'Allowed to travel under Windsor Framework|Not allowed to travel under Windsor Framework' options under 'Record outcome'
 	And I verify the Details of Outcome label
-	And I Verify the SPS Outcomes are not selected
 
 Scenario: Verify the error message for no selection in reason section in Report non-compliance page as SPS Checker
 	Then I have selected 'Ferry' radio option

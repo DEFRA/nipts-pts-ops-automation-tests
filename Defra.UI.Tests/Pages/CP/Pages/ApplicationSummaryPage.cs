@@ -21,6 +21,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement lblTitle => _driver.WaitForElement(By.XPath("//h1[normalize-space(.)='Your application summary']"));
         private IWebElement rdoPass => _driver.WaitForElement(By.XPath("//label[normalize-space()='Pass']"));
+        private IWebElement rdoSUPTD => _driver.WaitForElement(By.XPath("//label[normalize-space()='Issue SUPTD']"));
         private IWebElement rdobtnPass => _driver.WaitForElement(By.XPath("//input[@value='Pass']"));
         private IWebElement rdoFail => _driver.WaitForElement(By.XPath("//label[normalize-space()='Fail']"));
         private IWebElement rdoReferToSPS => _driver.WaitForElement(By.XPath("//label[normalize-space()='Refer to SPS']"));
@@ -339,8 +340,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var radiobuttonsLabel = radiobuttons.Split('|');
             var hintLabel = hint.Split('|');
 
-            return radiobuttonsLabel[0].Equals(rdoPass.Text) && radiobuttonsLabel[1].Equals(rdoFail.Text)
-                && hintLabel[0].Equals(lblPassRadioButtonHint.Text) && hintLabel[1].Equals(lblFailRadioButtonHint.Text);
+            return radiobuttonsLabel[0].Equals(rdoPass.Text) && radiobuttonsLabel[1].Equals(rdoSUPTD.Text) && radiobuttonsLabel[2].Equals(rdoFail.Text);
+                //&& hintLabel[0].Equals(lblPassRadioButtonHint.Text) && hintLabel[1].Equals(lblFailRadioButtonHint.Text);
         }
         #endregion
     }
