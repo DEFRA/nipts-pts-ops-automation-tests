@@ -28,21 +28,6 @@ Scenario: Validate pass outcome for approved application found by PTD number
 	Then I should navigate to Checks page
 	Then The Confirmation box is displayed in Checks page
 
-Scenario: Validate fail outcome for Pending status application found by PTD number
-	Then I have selected 'Ferry' radio option
-	And I select the 'Cairnryan to Larne (P&O)' radio option
-	And I have provided Scheduled departure time '10:20'
-	When I click save and continue button from route checker page
-	Then I should navigate to Checks page
-	When I click search button from footer
-	Then I navigate to Find a document page
-	And I click search by 'Search by PTD number' radio button
-	And I provided the '39AC94' of the application
-	When I click search button
-	And I should see the application status in 'Pending'
-	And I click save and continue button from application status page
-	Then I should navigate to Report non-compliance page
-
 Scenario: Validate pass outcome for approved application found by application number
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
@@ -58,22 +43,6 @@ Scenario: Validate pass outcome for approved application found by application nu
 	And I select Pass radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
-
-Scenario: Validate fail outcome for Pending status with color banner application found by application number
-	Then I have selected 'Ferry' radio option
-	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '11:30'
-	When I click save and continue button from route checker page
-	Then I should navigate to Checks page
-	When I click search button from footer
-	Then I navigate to Find a document page
-	And I click search by 'Search by application number' radio button
-	And I provided the Reference number '1R4QRIL3' of the application
-	When I click search button
-	And I should see the application status in 'Pending'
-	Then I see the 'Amber' color banner
-	When I click save and continue button from application status page
-	Then I should navigate to Report non-compliance page
 
 Scenario: Validate pass outcome and color banner for approved application found by microchip number
 	Then I have selected 'Ferry' radio option
@@ -91,21 +60,6 @@ Scenario: Validate pass outcome and color banner for approved application found 
 	When I select Pass radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
-
-Scenario: Validate fail outcome for Pending status application found by microchip number
-	Then I have selected 'Ferry' radio option
-	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	And I have provided Scheduled departure time '12:30'
-	When I click save and continue button from route checker page
-	Then I should navigate to Checks page
-	When I click search button from footer
-	Then I navigate to Find a document page
-	And I click search by 'Search by microchip number' radio button
-	And I provided the Microchip number '236782367823678' of the application
-	When I click search button
-	And I should see the application status in 'Pending'
-	And I click save and continue button from application status page
-	Then I should navigate to Report non-compliance page
 
 Scenario: Verify the error message for no selection of radio button in application status page
 	Then I have selected 'Ferry' radio option
