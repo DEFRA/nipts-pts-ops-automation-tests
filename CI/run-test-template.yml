@@ -153,12 +153,79 @@ jobs:
 
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
-          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_$(System.StageName).xml"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_$(System.StageName)_retry0.xml"
       displayName: 'Execute Tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
       continueOnError: true
+    
+    - task: AzurePowerShell@5
+      displayName: 'Rerun failed tests'      
+      inputs:
+        azureSubscription: 'AZD-TRD-TST1'
+        ScriptType: 'InlineScript'
+        azurePowerShellVersion: 'LatestVersion'
+        pwsh: true
+        Inline: |
+    
+            $maxRetries = 3
+            
+            function Get-FailedTests {
+                param ([string]$trxFilePath)
+               
+                [xml]$trx = Get-Content $trxFilePath               
+                $failedTests = $trx.TestRun.Results.UnitTestResult | Where-Object { $_.outcome -eq 'Failed' }            
+                return $failedTests 
+            }
 
+            function Get-LogFilePath {
+                param ([string]$logFileName)
+
+                $trxFullFilePath = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)" -Filter $logFileName -Recurse | Select-Object -First 1
+                if ($null -eq $trxFullFilePath) {
+                    Write-Error "trx file not found."
+                    exit 1
+                }
+                return $trxFullFilePath
+            }
+
+            function Rerun-FailedTests {
+                param ([int]$maxRetries)
+
+                $retryCount = 0
+                
+                $testDll = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
+                $settings= "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings"
+        
+                do {
+                    
+                    $retryTrxFileName = "${{ parameters.jobName }}_$(System.StageName)_retry${retryCount}.xml"
+
+                    $trxFilePath = Get-LogFilePath -logFileName $retryTrxFileName        
+                    $failedTests = Get-FailedTests -trxFilePath $trxFilePath
+
+                    if ($failedTests.Count -eq 0) 
+                    { 
+                        Write-Host "All tests passed."
+                        break              
+                    }              
+            
+                    $testNames = $failedTests | ForEach-Object { if ($_.testName.IndexOf('(') -gt 0) { $_.testName.Substring(0, $_.testName.IndexOf('(')) } else { $_.testName } }
+                    
+                    $filter = ($testNames | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
+  
+                    Write-Host "Failed Testcases are -> $filter"
+
+                    $retryCount++ 
+                    $retryTrxFileName = "${{ parameters.jobName }}_$(System.StageName)_retry${retryCount}.xml"
+        
+                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;LogFileName=$retryTrxFileName"
+
+                } while ($failedTests.Count -gt 0 -and $retryCount -lt $maxRetries)      
+             }
+
+             Rerun-FailedTests -maxRetries $maxRetries
+    
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
       - task: DockerCompose@0
         displayName: Run a Docker Compose command
