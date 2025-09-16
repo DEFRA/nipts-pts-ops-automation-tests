@@ -214,8 +214,15 @@ jobs:
                     $filter = ($testNames | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
   
                     Write-Host "Failed Testcases are -> $filter"
+
+                    $trxPath = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)" -Filter $trxFileName -Recurse | Select-Object -First 1
+
+                    if (Test-Path $trxPath) {
+                            Write-Host "Deleting existing test result file: $trxPath"
+                            Remove-Item $trxPath -Force
+                        }
         
-                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;LogFileName=$trxFileName"
+                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$trxFileName"
             
                     $retryCount++          
 
