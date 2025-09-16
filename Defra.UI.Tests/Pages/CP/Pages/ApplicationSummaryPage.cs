@@ -325,7 +325,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyChecksSectionRadioButtonsNotPresent()
         {
-            lblChecks.ScrollToElement(_driver);
+            PetOwnerDetailsSection.ScrollToElement(_driver);
             return rdobuttons.Count == 0;
         }
 
@@ -342,6 +342,14 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
             return radiobuttonsLabel[0].Equals(rdoPass.Text) && radiobuttonsLabel[1].Equals(rdoSUPTD.Text) && radiobuttonsLabel[2].Equals(rdoFail.Text);
                 //&& hintLabel[0].Equals(lblPassRadioButtonHint.Text) && hintLabel[1].Equals(lblFailRadioButtonHint.Text);
+        }
+        
+        public bool VerifyChecksSectionRadioButtonsWithHintsGB(string radiobuttons, string hint)
+        {
+            lblChecks.ScrollToElement(_driver);
+            var radiobuttonsLabel = radiobuttons.Split('|');
+
+            return radiobuttonsLabel[0].Equals(rdoPass.Text) && radiobuttonsLabel[1].Equals(rdoSUPTD.Text) && radiobuttonsLabel[2].Equals(rdoReferToSPS.Text);
         }
         #endregion
     }

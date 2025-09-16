@@ -170,7 +170,7 @@ Scenario: Verify the footer display from all pages
 	Then I should see the footer of the page
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
+	And I select Refer to SPS radio button
 	Then I should see the footer of the page
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
@@ -191,7 +191,7 @@ Scenario: Verify the header display from all pages
 	Then I should see the header of the page with route 'Cairnryan to Larne (P&O)' date current date '-1' time '15:30' and change link
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
+	And I select Refer to SPS radio button
 	Then I should see the header of the page with route 'Cairnryan to Larne (P&O)' date current date '-1' time '15:30' and change link
 	When I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page

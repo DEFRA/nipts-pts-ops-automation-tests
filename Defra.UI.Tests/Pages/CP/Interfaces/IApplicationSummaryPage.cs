@@ -22,5 +22,6 @@
         bool VerifyPetOwnerDetailsValues(string values);
         bool IsApplicationSummayPageLoaded(string pageTitle);
         bool VerifyChecksSectionRadioButtonsWithHints(string radiobuttons, string hint);
+        bool VerifyChecksSectionRadioButtonsWithHintsGB(string radiobuttons, string hint);
     }
 }
