@@ -153,7 +153,7 @@ jobs:
 
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
-          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_$(System.StageName)_retry0.xml"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_$(System.StageName).xml"
       displayName: 'Execute Tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
@@ -169,7 +169,9 @@ jobs:
         Inline: |
     
             $maxRetries = 3
-            
+
+            $trxFileName = "${{ parameters.jobName }}_$(System.StageName).xml"
+
             function Get-FailedTests {
                 param ([string]$trxFilePath)
                
@@ -190,18 +192,15 @@ jobs:
             }
 
             function Rerun-FailedTests {
-                param ([int]$maxRetries)
-
+                param ([string]$trxFileName, [int]$maxRetries)
+            
                 $retryCount = 0
-                
+
                 $testDll = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
                 $settings= "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings"
         
                 do {
-                    
-                    $retryTrxFileName = "${{ parameters.jobName }}_$(System.StageName)_retry${retryCount}.xml"
-
-                    $trxFilePath = Get-LogFilePath -logFileName $retryTrxFileName        
+                    $trxFilePath = Get-LogFilePath -logFileName $trxFileName        
                     $failedTests = Get-FailedTests -trxFilePath $trxFilePath
 
                     if ($failedTests.Count -eq 0) 
@@ -215,16 +214,15 @@ jobs:
                     $filter = ($testNames | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
   
                     Write-Host "Failed Testcases are -> $filter"
-
-                    $retryCount++ 
-                    $retryTrxFileName = "${{ parameters.jobName }}_$(System.StageName)_retry${retryCount}.xml"
         
-                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;LogFileName=$retryTrxFileName"
+                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;LogFileName=$trxFileName"
+            
+                    $retryCount++          
 
                 } while ($failedTests.Count -gt 0 -and $retryCount -lt $maxRetries)      
              }
 
-             Rerun-FailedTests -maxRetries $maxRetries
+             Rerun-FailedTests -trxFileName $trxFileName -maxRetries $maxRetries
     
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
       - task: DockerCompose@0
