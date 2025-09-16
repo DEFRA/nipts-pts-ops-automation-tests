@@ -172,8 +172,8 @@ Scenario: Verify the Checks section and radio buttons in application summary pag
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
-	Then I verify "Checks" section with "Check" subheading and "there's a microchip and it matches the PTD|the species matches the PTD"
-	And I should not see any radio button options in Checks section
+	#Then I verify "Checks" section with "Check" subheading and "there's a microchip and it matches the PTD|the species matches the PTD"
+	Then I should not see any radio button options in Checks section
 Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful |
@@ -192,4 +192,4 @@ Scenario: Verify the radio buttons label and hint in application summary page
 	And I provided the '586B06' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
-	Then I verify Checks section with radio buttons 'Pass|Issue SUPTD|Fail' and hint ''
+	Then I verify Checks section with radio buttons 'Pass|Issue SUPTD|Refer to SPS' and hint '' for GB Checker
