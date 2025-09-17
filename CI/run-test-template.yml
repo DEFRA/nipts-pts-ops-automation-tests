@@ -188,9 +188,9 @@ jobs:
         
                 do {
 
-                    $uniqueFileName = "${{ parameters.jobName }}_$(System.StageName)_retry$retryCount"
+                    $uniqueFileName = "${{ parameters.jobName }}_$(System.StageName)_retry$retryCount.xml"
                     $trxPath = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)" -Filter $uniqueFileName -Recurse | Select-Object -First 1
-        
+
                     $failedTests = Get-FailedTests -trxFilePath $trxPath
 
                     if ($failedTests.Count -eq 0) {
