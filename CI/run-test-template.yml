@@ -188,11 +188,11 @@ jobs:
         
                 do {
 
-                    $uniqueFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
-                    $trxFile = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" -Filter $uniqueFileName | Select-Object -First 1
+                    $currentFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
+                    $trxFile = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" -Filter $currentFileName | Select-Object -First 1
                     
                     if (-not $trxFile) {
-                        Write-Host "TRX file not found: $uniqueFileName in $(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults"
+                        Write-Host "TRX file not found: $currentFileName in $(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults"
                         break
                     }
                     
@@ -216,9 +216,9 @@ jobs:
   
                     Write-Host "Failed Testcases are -> $filter"
         
-                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$uniqueFileName"
-            
-                    $retryCount++          
+                    $retryCount++
+                    $nextFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
+                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$nextFileName"          
 
                 } while ($failedTests.Count -gt 0 -and $retryCount -lt $maxRetries)
                 
