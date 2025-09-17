@@ -188,7 +188,7 @@ jobs:
         
                 do {
 
-                    $uniqueFileName = "${{ parameters.jobName }}_$(System.StageName)_retry$retryCount.xml"
+                    $uniqueFileName = "${{ parameters.jobName }}_$(System.StageName)_retry$retryCount"
                     $trxPath = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)" -Filter $uniqueFileName -Recurse | Select-Object -First 1
         
                     $failedTests = Get-FailedTests -trxFilePath $trxPath
@@ -222,7 +222,7 @@ jobs:
                 Rename-Item -Path "$(System.DefaultWorkingDirectory)/xxx.UI.Tests/TestResults/$finalFile" -NewName $latestFile -Force
              }
 
-             Rerun-FailedTests -trxFileName $trxFileName -maxRetries $maxRetries
+             Rerun-FailedTests -maxRetries $maxRetries
     
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
       - task: DockerCompose@0
