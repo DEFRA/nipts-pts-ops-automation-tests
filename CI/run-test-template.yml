@@ -153,7 +153,7 @@ jobs:
 
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
-          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_$(System.StageName)_retry0.xml"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_retry0.xml"
       displayName: 'Execute Tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
@@ -188,11 +188,11 @@ jobs:
         
                 do {
 
-                    $uniqueFileName = "${{ parameters.jobName }}_$(System.StageName)_retry$retryCount.xml"
-                    $trxFile = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)" -Filter $uniqueFileName -Recurse | Select-Object -First 1
+                    $uniqueFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
+                    $trxFile = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" -Filter $uniqueFileName | Select-Object -First 1
                     
                     if (-not $trxFile) {
-                        Write-Host "TRX file not found: $uniqueFileName"
+                        Write-Host "TRX file not found: $uniqueFileName in $(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults"
                         break
                     }
                     
@@ -222,9 +222,9 @@ jobs:
 
                 } while ($failedTests.Count -gt 0 -and $retryCount -lt $maxRetries)
                 
-                $finalFile = "${{ parameters.jobName }}_$(System.StageName)_retry$($retryCount - 1).xml"
-                $latestFile = "${{ parameters.jobName }}_$(System.StageName)_latest.xml"
-                Rename-Item -Path "$(System.DefaultWorkingDirectory)/xxx.UI.Tests/TestResults/$finalFile" -NewName $latestFile -Force
+                $finalFile = "${{ parameters.jobName }}_retry$($retryCount - 1).xml"
+                $latestFile = "${{ parameters.jobName }}_latest.xml"
+                Rename-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$finalFile" -NewName $latestFile -Force
              }
 
              Rerun-FailedTests -maxRetries $maxRetries
@@ -276,7 +276,7 @@ jobs:
       displayName: 'Publish Test Results'
       inputs:
         testResultsFormat: VSTest
-        testResultsFiles: ${{ parameters.jobName }}_$(System.StageName)_latest.xml
+        testResultsFiles: ${{ parameters.jobName }}_latest.xml
         searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/'
         testRunTitle: ${{ parameters.jobName }}
         failTaskOnFailedTests: true
