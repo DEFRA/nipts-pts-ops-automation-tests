@@ -189,9 +189,14 @@ jobs:
                 do {
 
                     $uniqueFileName = "${{ parameters.jobName }}_$(System.StageName)_retry$retryCount.xml"
-                    $trxPath = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)" -Filter $uniqueFileName -Recurse | Select-Object -First 1
-
-                    $failedTests = Get-FailedTests -trxFilePath $trxPath
+                    $trxFile = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)" -Filter $uniqueFileName -Recurse | Select-Object -First 1
+                    
+                    if (-not $trxFile) {
+                        Write-Host "TRX file not found: $uniqueFileName"
+                        break
+                    }
+                    
+                    $failedTests = Get-FailedTests -trxFilePath $trxFile.FullName
 
                     if ($failedTests.Count -eq 0) {
                         Write-Host "All tests passed."
