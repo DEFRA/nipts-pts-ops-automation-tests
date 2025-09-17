@@ -187,15 +187,12 @@ jobs:
                 $settings= "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings"
         
                 do {
+
                     $uniqueFileName = "${{ parameters.jobName }}_$(System.StageName)_retry$retryCount.xml"
                     $trxPath = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)" -Filter $uniqueFileName -Recurse | Select-Object -First 1
-
-                    if ($null -ne $trxPath -and (Test-Path $trxPath.FullName)) {
-                        Write-Host "Deleting existing test result file: $($trxPath.FullName)"
-                        Remove-Item $trxPath.FullName -Force
-                    }
         
-                    $failedTests = Get-FailedTests -trxFilePath $uniqueFileName
+                    $failedTests = Get-FailedTests -trxFilePath $trxPath
+
                     if ($failedTests.Count -eq 0) {
                         Write-Host "All tests passed."
                         break
