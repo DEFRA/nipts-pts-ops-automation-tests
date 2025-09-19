@@ -23,7 +23,7 @@ Scenario Outline: Verify microchipped date should not allows future date
 	Then I should redirected to When was your pet microchipped or last scanned? page
 	And I have provided future date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page
-	Then I should see an error message "Enter a date that is in the past" in pets microchipped or last scanned page
+	Then I should see an error message "Date of microchipping or last scan must be in the past" in pets microchipped or last scanned page
 	And I should not be redirected to Is your pet a dog, cat or ferret? page
 
 Examples:
