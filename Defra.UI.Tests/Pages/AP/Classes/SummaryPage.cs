@@ -24,8 +24,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> divMicrochipInformation => _driver.WaitForElements(By.XPath("//div[@id='document-microchip-card']//dl/div"));
         private IReadOnlyCollection<IWebElement> divPetDetails => _driver.WaitForElements(By.XPath("//div[@id='document-pet-card']//dl/div"));
         private IReadOnlyCollection<IWebElement> divPetOwnerDetails => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div"));
-        private IWebElement lnkPDFDownload => _driver.WaitForElement(By.XPath("//a[contains(text(),'Download PDF')]"));
-        private IWebElement lnkPrint => _driver.WaitForElement(By.XPath("//a[contains(text(),'Print this page')]"));
+        private IWebElement lnkPDFDownload => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Download your application' or normalize-space(text())='Download your document']"));
+        private IWebElement lnkPrint => _driver.WaitForElement(By.Id("print-this-page"));
         #endregion
 
         #region Methods
