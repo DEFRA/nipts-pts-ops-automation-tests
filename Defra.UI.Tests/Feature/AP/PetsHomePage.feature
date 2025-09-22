@@ -5,8 +5,7 @@ Checking the header, footer, GetHelp and Feedback Hyperlinks
 
 Background: 
 	Given that I navigate to the DEFRA application
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
 	Then I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type
 	When I click Continue button from How do you want to sign in page
