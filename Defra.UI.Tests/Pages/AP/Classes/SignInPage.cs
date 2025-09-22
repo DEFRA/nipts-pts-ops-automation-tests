@@ -14,7 +14,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IObjectContainer _objectContainer;
 
         #region Page Objects
-        private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl'] | //h1[@class='govuk-heading-l'] | //h1[@class='govuk-fieldset__heading']"), true);
+        private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl']"), true);
         private IWebElement UserId => _driver.FindElement(By.Id("user_id"));
         private IWebElement Password => _driver.FindElement(By.Id("password"));
         private IWebElement SignIn => _driver.WaitForElement(By.Id("continue"));
@@ -39,6 +39,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool IsPageLoaded()
         {
+            Thread.Sleep(5000);
             return PageHeading.Text.Contains("Sign in using Government Gateway");
         }
 

@@ -1,7 +1,6 @@
 ﻿using Defra.UI.Tests.Contracts;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.HelperMethods;
-using Defra.UI.Tests.Pages.AP.Classes;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -98,9 +97,7 @@ namespace Defra.UI.Tests.Tools
             var url = urlBuilder?.Default().BuildApp();
             _driver?.Navigate().GoToUrl(url);
 
-            landingPage?.EnterPassword();
-
-            landingPage?.ClickContinueButton();
+            landingPage?.EnterPasswordAndClick();
 
             governmentGatewayTypePage?.SelectLoginType("Sign in with Government Gateway");
             governmentGatewayTypePage?.ClickContinueButton();
