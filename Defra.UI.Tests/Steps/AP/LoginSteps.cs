@@ -38,9 +38,10 @@ namespace Defra.UI.Tests.Steps.AP
 
         [Given(@"I have provided the password for Landing page")]
         [Then(@"I have provided the password for Landing page")]
+        [When(@"I have provided the password for Landing page")]
         public void GivenIHaveProvidedThePasswordForLandingPage()
         {
-            landingPage?.EnterPassword();
+            landingPage?.EnterPasswordAndClick();
         }
 
         [When(@"I click Continue button from Landing page")]

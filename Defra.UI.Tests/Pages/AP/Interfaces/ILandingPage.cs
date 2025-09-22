@@ -3,7 +3,7 @@
     public interface ILandingPage
     {
         bool IsPageLoaded(string pageName);
-        void EnterPassword();
+        void EnterPasswordAndClick();
         void ClickContinueButton();
     }
 }
