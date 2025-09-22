@@ -1,9 +1,8 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
-using Microsoft.Dynamics365.UIAutomation.Browser;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -40,7 +39,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             if (txtLogings.Count > 0)
             {
                 txtLogings.FirstOrDefault()?.SendKeys(ConfigSetup.BaseConfiguration.TestConfiguration.EnvAPLogin);
-                btnContinue?.Click();
             }       
             
         }

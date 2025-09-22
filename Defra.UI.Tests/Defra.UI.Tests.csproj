@@ -8,9 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Feature\CP\E2E\**" />
     <Compile Remove="Feature\Regression\**" />
+    <EmbeddedResource Remove="Feature\CP\E2E\**" />
     <EmbeddedResource Remove="Feature\Regression\**" />
+    <None Remove="Feature\CP\E2E\**" />
     <None Remove="Feature\Regression\**" />
+    <ReqnrollFeatureFiles Remove="Feature\CP\E2E\**" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\E2E\**" />
     <SpecFlowFeatureFiles Remove="Feature\Regression\**" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\Regression\**" />
   </ItemGroup>
@@ -258,10 +263,6 @@
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Feature\CP\E2E\" />
   </ItemGroup>
 	
 
