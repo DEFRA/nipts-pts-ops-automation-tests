@@ -1,6 +1,7 @@
 ﻿using Defra.UI.Tests.Contracts;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.HelperMethods;
+using Defra.UI.Tests.Pages.AP.Classes;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -21,6 +22,7 @@ namespace Defra.UI.Tests.Tools
         private IObjectContainer _objectContainer;
         private ISignInPage? signin => _objectContainer.IsRegistered<ISignInPage>() ? _objectContainer.Resolve<ISignInPage>() : null;
         private IEmailSignUpPage? emailSignUpPage => _objectContainer.IsRegistered<IEmailSignUpPage>() ? _objectContainer.Resolve<IEmailSignUpPage>() : null;
+        private IGovernmentGatewayTypePage? governmentGatewayTypePage => _objectContainer.IsRegistered<IGovernmentGatewayTypePage>() ? _objectContainer.Resolve<IGovernmentGatewayTypePage>() : null;
         private IHomePage? homePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
         private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
         private IUrlBuilder? urlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
@@ -97,6 +99,11 @@ namespace Defra.UI.Tests.Tools
             _driver?.Navigate().GoToUrl(url);
 
             landingPage?.EnterPassword();
+
+            landingPage?.ClickContinueButton();
+
+            governmentGatewayTypePage?.SelectLoginType("Sign in with Government Gateway");
+            governmentGatewayTypePage?.ClickContinueButton();
 
             signin?.ClickCreateSignInDetailsLink();
 
