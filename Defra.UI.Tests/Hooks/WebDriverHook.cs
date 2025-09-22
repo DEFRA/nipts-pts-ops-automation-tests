@@ -84,7 +84,7 @@ namespace Defra.UI.Tests.Hooks
             {
                 GovernmentGateway.Initialize(_objectContainer);
 
-                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount && ConfigSetup.BaseConfiguration.TestConfiguration.IsPetsAPorCP.Equals("AP"))
+                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount)
                 {
                     fetchCodeFromEmail.DeleteAllMessagesFromInbox();
                     isRunOnce = false;
