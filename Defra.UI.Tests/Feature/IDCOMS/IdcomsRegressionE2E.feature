@@ -5,8 +5,7 @@ Create a PETS travel document for the travel from Great Britain to Northern Irel
 
 Background:
 	Given I navigate to PETS a travel document URL
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
 	Then I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type
 	When I click Continue button from How do you want to sign in page
