@@ -5,8 +5,10 @@ Validating the negative scenarios for Pet Details
 
 Background:
 	Given I navigate to PETS a travel document URL
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
@@ -89,7 +91,7 @@ Scenario Outline: Verify if the pet type is not selected then should not move to
 	When I click Continue button from When was your pet microchipped page
 	Then I should redirected to the Is your pet a cat, dog or ferret page
 	When I click on continue button from Is your pet a cat, dog or ferret page
-	Then I should see an error message "Select if you are taking a pet dog, cat or ferret" in Is your pet a dog, cat or ferret page
+	Then I should see an error message "Select if your pet is a cat, dog or ferret" in Is your pet a dog, cat or ferret page
 	And I should not be redirected to What breed is your '<Pet>' page
 
 Examples:

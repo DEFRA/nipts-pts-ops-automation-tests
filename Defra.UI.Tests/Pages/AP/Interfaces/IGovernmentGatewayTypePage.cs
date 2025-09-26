@@ -1,9 +1,9 @@
 ﻿namespace Defra.UI.Tests.Pages.AP.Interfaces
 {
-    public interface ILandingPage
+    public interface IGovernmentGatewayTypePage
     {
         bool IsPageLoaded(string pageName);
-        void EnterPasswordAndClick();
+        void SelectLoginType(string loginType);
         void ClickContinueButton();
     }
 }

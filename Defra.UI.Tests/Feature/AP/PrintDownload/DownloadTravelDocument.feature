@@ -5,14 +5,15 @@ Create a PETS travel document from Great Britain to Northern Ireland and Downloa
 
 Background:
 	Given I navigate to PETS a travel document URL
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page
-
 
 Scenario Outline: Download PETS Travel Document Dog and Cat - Pending
 	Then I have selected '<Are your details correct>' option

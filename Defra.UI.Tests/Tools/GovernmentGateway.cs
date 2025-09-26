@@ -21,6 +21,7 @@ namespace Defra.UI.Tests.Tools
         private IObjectContainer _objectContainer;
         private ISignInPage? signin => _objectContainer.IsRegistered<ISignInPage>() ? _objectContainer.Resolve<ISignInPage>() : null;
         private IEmailSignUpPage? emailSignUpPage => _objectContainer.IsRegistered<IEmailSignUpPage>() ? _objectContainer.Resolve<IEmailSignUpPage>() : null;
+        private IGovernmentGatewayTypePage? governmentGatewayTypePage => _objectContainer.IsRegistered<IGovernmentGatewayTypePage>() ? _objectContainer.Resolve<IGovernmentGatewayTypePage>() : null;
         private IHomePage? homePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
         private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
         private IUrlBuilder? urlBuilder => _objectContainer.IsRegistered<IUrlBuilder>() ? _objectContainer.Resolve<IUrlBuilder>() : null;
@@ -96,7 +97,10 @@ namespace Defra.UI.Tests.Tools
             var url = urlBuilder?.Default().BuildApp();
             _driver?.Navigate().GoToUrl(url);
 
-            landingPage?.EnterPassword();
+            landingPage?.EnterPasswordAndClick();
+
+            governmentGatewayTypePage?.SelectLoginType("Sign in with Government Gateway");
+            governmentGatewayTypePage?.ClickContinueButton();
 
             signin?.ClickCreateSignInDetailsLink();
 

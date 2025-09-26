@@ -5,8 +5,10 @@ Validating the negative scenarios for Microchip Information
 
 Background:
 	Given I navigate to PETS a travel document URL
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
@@ -23,7 +25,7 @@ Scenario Outline: Verify microchipped date should not allows future date
 	Then I should redirected to When was your pet microchipped or last scanned? page
 	And I have provided future date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page
-	Then I should see an error message "Enter a date that is in the past" in pets microchipped or last scanned page
+	Then I should see an error message "Date of microchipping or last scan must be in the past" in pets microchipped or last scanned page
 	And I should not be redirected to Is your pet a dog, cat or ferret? page
 
 Examples:

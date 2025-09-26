@@ -5,8 +5,10 @@ Validating the negative scenarios for Pet Owner Details
 
 Background:
 	Given I navigate to PETS a travel document URL
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
@@ -15,7 +17,7 @@ Background:
 
 Scenario: Verify pet owner details page validations and should not moves to next page
 	When I click on continue button from Are your details correct page
-	Then I should see an error message 'Select if your details are correct' in pet owner details page
+	Then I should see an error message 'Select yes if your details are correct' in pet owner details page
 
 Scenario Outline: Verify full name should not allows exceed limits
 	Then I have selected '<Are your details correct>' option
@@ -66,12 +68,12 @@ Scenario Outline: Verify postcode search page validations and should not moves t
 	When I click Find Address button from What is your postcode page
 	Then I should see an error message '<ErrorMessage>' in What is your postcode page
 Examples:
-	| FullName | Are your details correct | PostCode                           | ErrorMessage                                                                  |
-	| PetCat's | No                       |                                    | Enter your postcode                                                           |
-	| PetCat's | No                       | ABC121C                            | Enter your postcode in England, Scotland or Wales                             |
-	| PetDog's | No                       | &&ABC1$$                           | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
-	| PetDog's | No                       | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
-	| PetDog's | No                       | IM1 1AX                            | Enter your postcode in England, Scotland or Wales                             |
+	| FullName | Are your details correct | PostCode                           | ErrorMessage                                                                                                                   |
+	| PetCat's | No                       |                                    | Enter your postcode                                                                                                            |
+	| PetCat's | No                       | ABC121C                            | Enter your postcode in Enter your full postcode in the correct format, for example TF7 5AY or TF75AYEngland, Scotland or Wales |
+	| PetDog's | No                       | &&ABC1$$                           | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY                                                  |
+	| PetDog's | No                       | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY                                                  |
+	| PetDog's | No                       | IM1 1AX                            | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY                                                  |
 
 Scenario Outline: Verify postcode search page by not selecting an address from dropdownlist and should not moves to next page
 	Then I have selected '<Are your details correct>' option
@@ -86,8 +88,8 @@ Scenario Outline: Verify postcode search page by not selecting an address from d
 	Then I should see an error message '<ErrorMessage>' in What is your postcode page
 
 Examples:
-	| FullName | Are your details correct | PostCode | ErrorMessage                      |
-	| PetCat's | No                       | CV2 4NY  | Select your address from the list |
+	| FullName | Are your details correct | PostCode | ErrorMessage        |
+	| PetCat's | No                       | CV2 4NY  | Select your address |
 
 Scenario Outline: Verify enter address manually validations with all fields blank
 	Then I have selected '<Are your details correct>' option
@@ -100,8 +102,8 @@ Scenario Outline: Verify enter address manually validations with all fields blan
 	And I click Continue button from What is your address page
 	Then I should see an error message '<ErrorMessages>' in What is your address page
 Examples:
-	| FullName | Are your details correct | Address | ErrorMessages                                                            |
-	| PetDog's | No                       |         | Enter line 1 of your address,Enter your town or city,Enter your postcode |
+	| FullName | Are your details correct | Address | ErrorMessages                                                                    |
+	| PetDog's | No                       |         | Enter address line 1 of your address,Enter your town or city,Enter your postcode |
 	
 Scenario Outline: Verify enter address manually validations with maximum limit characters for each fields
 	Then I have selected '<Are your details correct>' option
@@ -134,4 +136,4 @@ Examples:
 	| PetCat's | No                       |                                    | Enter your postcode                                                           |
 	| PetCat's | No                       | @ABC121C                           | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
 	| PetDog's | No                       | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
-	| PetDog's | No                       | BT9 7EP                            | Enter your postcode in England, Scotland or Wales                             |
+	| PetDog's | No                       | BT9 7EP                            | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |

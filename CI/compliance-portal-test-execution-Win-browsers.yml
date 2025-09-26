@@ -5,7 +5,7 @@ parameters:
     displayName: Environment
     type: string
     default: 'pre'
-  - name: IsAccessibilityRun
+  - name: isAccessibilityEnabled
     displayName: Is Accessibility Run Enabled
     type: boolean
     default: false
