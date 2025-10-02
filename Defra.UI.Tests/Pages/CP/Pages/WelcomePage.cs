@@ -66,6 +66,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             iconHome.Click();
         }
+
         public bool CheckFooter()
         {
             try
@@ -84,6 +85,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 return false;
             }
         }
+
         public bool CheckHeader()
         {
             if (pageHeader.Count > 0)
