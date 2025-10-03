@@ -78,7 +78,7 @@ Scenario: Verify the back link navigation for search result through Search icon 
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
+	And I select Refer to SPS radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Click on Back button

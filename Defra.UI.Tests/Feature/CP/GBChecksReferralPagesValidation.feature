@@ -67,6 +67,9 @@ Scenario: Verify Outcome table in GB check report page - SPS User
 	And click on signout button on CP and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
@@ -113,6 +116,9 @@ Scenario: Verify Check details table in GB check report page - SPS User
 	And click on signout button on CP and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
@@ -167,7 +173,7 @@ Scenario: Verify the table details in Referred to SPS page
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by application number' radio button
-	And I provided the Reference number '0NMG3969' of the application
+	And I provided the Reference number 'KWHGS553' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
 	And I select Refer to SPS radio button
@@ -181,7 +187,7 @@ Scenario: Verify the table details in Referred to SPS page
 	When I click View link in Fail Referred to SPS row with departure time '10:00'
 	Then I should navigate to Referred to SPS page
 	And I verify the Referred to SPS page table column names as 'PTD or Reference number' 'Pet' 'Microchip' 'Travel by' 'SPS outcome'
-	And I verify the Referred to SPS page table column values as 'GB826 1B3 554' 'Cat and Ginger' '267452894526725' 'Vehicle' 'Check needed'
+	And I verify the Referred to SPS page table column values as 'GB826 8E8 0AC' 'Cat and Tortoiseshell' '011025161505346' 'Vehicle' 'Check needed'
 
 Scenario: Verify for no duplicate referrals and latest details updated in GB check report page
 	Then I have selected 'Ferry' radio option
@@ -192,7 +198,7 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by PTD number' radio button
-	And I provided the '38AA7C' of the application
+	And I provided the 'AD0D63' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
 	And I select Refer to SPS radio button
@@ -207,7 +213,7 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by PTD number' radio button
-	And I provided the '38AA7C' of the application
+	And I provided the 'AD0D63' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
 	And I select Refer to SPS radio button
@@ -221,9 +227,9 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	Then I should see a message 'Information has been successfully submitted' in Checks page
 	When I click View link in Fail Referred to SPS row with departure time '23:53'
 	Then I should navigate to Referred to SPS page
-	And I verify the PTDOrRefNum 'GB82638AA7C' is not repeated in the table
-	And I verify the Referred to SPS page table column values as 'GB826 38A A7C' 'Dog and Other' '989867453215678' 'Foot' 'Check needed'
-	When I click the reference number 'GB82638AA7C' link
+	And I verify the PTDOrRefNum 'GB826AD0D63' is not repeated in the table
+	And I verify the Referred to SPS page table column values as 'GB826 AD0 D63' 'Dog and Other' '989867453215678' 'Foot' 'Check needed'
+	When I click the reference number 'GB826AD0D63' link
 	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
 	Then I should see 'Passenger advised not to travel' as Check outcome

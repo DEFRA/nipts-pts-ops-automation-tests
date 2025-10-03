@@ -242,7 +242,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I add records in referrals list in Referred to SPS page '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)'")]
         public void ThenIAddRecordsInReferralsListInReferredToSPSPage(string transportType, string routeOption, string departTime, string MCCheckbox, string GBOutcome, string passengerType, string submittedMessage)
         {
-            var referenceNumber = new[] { "DKVUZHQ9", "D4RB5E1D", "XC7I93AF", "9DBHNYAG", "QWPEI58A", "TJI6PC42", "VAKH2DWC", "593B37H4", "ZRWD8KG6", "ZWCRY3CG", "0CI5N6V6" };
+            var referenceNumber = new[] { "KWHGS553", "GAALN8T6", "9JIQN9Y2", "E1EVO852", "APP0A31E", "84LJA6R5", "8RG6G0SH", "X9QUQZJD", "37S1ITN8", "AYDK5ZUD", "NFBZBSU8" };
             var radioButton = "Search by application number";
 
             foreach (var reference in referenceNumber)
