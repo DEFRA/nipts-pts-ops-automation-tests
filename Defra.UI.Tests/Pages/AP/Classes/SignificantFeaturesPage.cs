@@ -24,6 +24,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement SignificantFeaturesRadioButtonYes => _driver.WaitForElementExists(By.CssSelector("#HasUniqueFeatureYes"), true);
         private IWebElement SignificantFeaturesRadioButtonNo => _driver.WaitForElementExists(By.CssSelector("#HasUniqueFeatureNo"), true);
         private IWebElement SignificantFeaturesTextBox => _driver.WaitForElementExists(By.ClassName("govuk-textarea"));
+        private IWebElement SignificantFeaturesYesOptionHint => _driver.WaitForElementExists(By.XPath("//*[@id='conditional-feature']//label"));
         private IWebElement txtUniqueFeatures => _driver.WaitForElement(By.Id("featureinput"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
 
@@ -44,12 +45,17 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public string SelectSignificantFeaturesOption(string hasSignificantFeatures)
         {
             var significantFeatures = "Black Mark on Shoulder";
+            var fontWeight = SignificantFeaturesYesOptionHint.GetCssValue("font-weight");
 
             if (hasSignificantFeatures.ToLower().Equals("yes"))
             {
                 SignificantFeaturesRadioButtonYes.Click();
-                SignificantFeaturesTextBox.SendKeys(significantFeatures);
-                return significantFeatures;
+                if (SignificantFeaturesYesOptionHint.Text.Trim().Equals("Briefly describe your pet's significant feature")
+                && fontWeight == "700")
+                {
+                    SignificantFeaturesTextBox.SendKeys(significantFeatures);
+                    return significantFeatures;
+                }
             }
             else if (hasSignificantFeatures.ToLower().Equals("no"))
             {

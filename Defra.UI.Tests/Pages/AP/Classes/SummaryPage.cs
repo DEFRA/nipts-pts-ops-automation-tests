@@ -26,6 +26,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> divPetOwnerDetails => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div"));
         private IWebElement lnkPDFDownload => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Download your application' or normalize-space(text())='Download your document']"));
         private IWebElement lnkPrint => _driver.WaitForElement(By.Id("print-this-page"));
+        private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Issuing authority']"));
+        private IWebElement lblNameAndAddressOfAuthority => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Name and address of competent authority']"));
+        private IWebElement lblAuthorityAddress => _driver.WaitForElement(By.XPath("//dd[contains(normalize-space(.),'Woodham Lane')]"));
         #endregion
 
         #region Methods
@@ -157,6 +160,21 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             }
 
             return summary;
+        }
+
+        public bool VerifyIssuingAuthorityTable(string tableName, string columnName)
+        {
+            return lblIssuingAuthority.Text.Equals(tableName) && lblNameAndAddressOfAuthority.Text.Equals(columnName);
+        }
+
+        public bool VerifyIssuingAuthorityAddress(string addressLine1, string addressLine2)
+        {
+            var address = lblAuthorityAddress.Text;
+            string[] separateLines = address.Split(new String[] {"\r\n", "\n", "\r"}, StringSplitOptions.RemoveEmptyEntries);
+            string firstAddressLine = separateLines[0];
+            string secondAddressLine = separateLines[1];
+
+            return firstAddressLine.Equals(addressLine1) && secondAddressLine.Equals(addressLine2);
         }
     }
 }

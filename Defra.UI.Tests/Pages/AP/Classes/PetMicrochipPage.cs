@@ -24,7 +24,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement rdoNo => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[@for='MicrochippedNo']"));
         private IWebElement txtMicroshipNumber => _driver.WaitForElement(By.XPath("//input[@id='MicrochipNumber']"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
-
+        private IWebElement txtMCNumberSearchBox => _driver.WaitForElement(By.XPath("//input[@id='MicrochipNumber']"));
+        private IWebElement lnkGoBackToThePreviousPage => _driver.WaitForElement(By.LinkText("go back to the previous page"));
         #endregion
 
         #region Methods
@@ -89,6 +90,16 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             }
 
             return false;
+        }
+
+        public bool VerifyAlreadyEnteredMCNumber(string alreadyEnteredMCNumber)
+        {
+            return txtMCNumberSearchBox.GetAttribute("value").Contains(alreadyEnteredMCNumber);
+        }
+
+        public void ClickGoBackToThePreviousPageLink()
+        {
+            lnkGoBackToThePreviousPage.Click();
         }
         #endregion
     }

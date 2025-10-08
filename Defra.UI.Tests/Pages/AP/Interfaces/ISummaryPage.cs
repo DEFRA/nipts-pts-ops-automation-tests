@@ -8,5 +8,7 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         Summary GetSummaryDetails();
         public void ClickPDFDownloadLink();
         public bool ClickPrintdLink();
+        bool VerifyIssuingAuthorityTable(string tableName, string columnName);
+        bool VerifyIssuingAuthorityAddress(string addressLine1, string addressLine2);
     }
 }

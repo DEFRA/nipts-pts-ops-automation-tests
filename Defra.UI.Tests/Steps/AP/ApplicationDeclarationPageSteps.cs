@@ -3,6 +3,7 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Defra.UI.Tests.Pages.AP.Classes;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -34,6 +35,15 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenIClickSendApplicationButtonInDeclarationPage()
         {
             ApplicationDeclarationPage?.ClickSendApplicationButton();
+        }
+
+        [Then(@"I should see an error message '([^']*)' in declaration page")]
+        public void ThenIShouldSeeAnErrorMessageInDeclarationPage(string errorMessage)
+        {
+            if (!string.IsNullOrEmpty(errorMessage))
+            {
+                Assert.True(ApplicationDeclarationPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
+            }
         }
     }
 }

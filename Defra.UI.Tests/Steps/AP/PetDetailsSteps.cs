@@ -183,5 +183,11 @@ namespace Defra.UI.Tests.Steps.AP
         {
             significantFeaturesPage?.ClickContinueButton();
         }
+
+        [Then(@"I have provided date of birth as '(.*)''(.*)''(.*)'")]
+        public void ThenIHaveProvidedDateOfBirthAs(string day, string month, string year)
+        {
+            petDOBPage?.EnterPetDateOfBirth(day, month, year);
+        }
     }
 }

@@ -3,5 +3,6 @@
     public interface IGetYourPetMicrochippedPage
     {
         bool IsNextPageLoaded(string pageTitle);
+        void ClickSurveyLink(string surveyLink);
     }
 }
