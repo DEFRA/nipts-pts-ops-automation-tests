@@ -210,10 +210,13 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("the status is changed to '(.*)'")]
         public void ThenTheStatusIsChangedTo(string status)
         {
+            Thread.Sleep(5000);
+            CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad(); 
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
             FormSteps.ICanSeeAHeaderField("readonly", status);
-            _driver.FindElement(By.XPath("html")).Click();
+            CommandSteps.ClickCommand("Refresh");
         }
 
         public void RevokeApplication(string status, string reason)
@@ -477,7 +480,8 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("I verify the copy of the '([^']*)' Email in Timeline")]
         public void ThenIVerifyTheCopyOfEmail(string timelineCopy)
         {
-            SharedSteps.WaitSeconds(20);
+            CommandSteps.ClickCommand("Refresh"); 
+            SharedSteps.WaitSeconds(30);
             CommandSteps.ClickCommand("Refresh");
             SharedSteps.WaitForScriptProcessing();
 
@@ -499,6 +503,11 @@ namespace Defra.UI.Tests.Steps.AP
             {
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document cancelled"));
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("cancelled"));
+            }
+            else if (timelineCopy.ToUpper().Equals("SUSPENSION"))
+            {
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Suspension notice: Non-attendance at SPS inspection facilities in Northern Ireland"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("you are suspended from the Northern Ireland Pet Travel Scheme"));
             }
         }
 
@@ -837,6 +846,46 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             QuickCreateSteps.WhenISaveTheQuickCreate();
             SharedSteps.WaitForScriptProcessing();
+        }
+
+        [When(@"I create a New Suspect Non Compliance")]
+        public void WhenICreateSNC()
+        {
+            EntitySteps.ISelectTab("SNCs");
+            SharedSteps.WaitForScriptProcessing();
+            CommandSteps.WhenISelectTheCommand("New Suspect Non Compliance", "SNCs_subgrid");
+            EntitySteps.WhenIEnterInTheField("Berkenhead", "nipts_portoforigin", "text", "field", 1);
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm("Berkenhead", "nipts_portoforigin", "text", "field", "");
+            EntitySteps.WhenIEnterInTheField("Belfast", "nipts_destination", "text", "field", 1);
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm("Belfast", "nipts_destination", "text", "field", "");
+            var CrossingDate = Utils.GetPastDate(20);
+            EntitySteps.WhenIEnterInTheField(CrossingDate, "nipts_crossingdate", "text", "field", 1);
+            CommandSteps.ClickCommand("Save");
+            _driver.WaitForPageToLoad();
+            CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad();
+            ModalFormSteps.ThenICanSeeAValueTheModalForm("nipts_name", "text", "field", "");
+        }
+
+        [When(@"I Log decision in SNC as '(.*)'")]
+        public void WhenILogDecisionInSNC(string value)
+        {
+            EntitySteps.WhenIEnterInTheField(value, "nipts_decision", "buttonset", "field", 4);
+            EntitySteps.WhenIEnterInTheField("Non compliant_Automation", "nipts_suspectednoncompliancereason", "text", "field", 1);
+            CommandSteps.ClickCommand("Log Decision");
+            _driver.WaitForPageToLoad();
+            PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
+            SharedSteps.WaitForScriptProcessing();
+            CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad();
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentDate("dd/MM/yyyy"), "nipts_decisiondate", "inputdatetime", "field", "");
+            ThenTheStatusIsChangedTo("Intent to Suspend");
+        }
+
+        [Then(@"I see '(.*)' in Intent to Suspend Letter field")]
+        public void ThenISeeIntentToSuspendLetter(string value)
+        {
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_intenttosuspendletter", "optionset", "field", "");
         }
     }
 }
