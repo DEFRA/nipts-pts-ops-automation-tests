@@ -12,5 +12,6 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         void ClickPetDetailsChangeLink(string fieldName);
         void ClickPetOwnerChangeLink(string fieldName);
         void ClickPetDetailsChangeForFerretLink(string fieldName);
+        public bool IsError(string errorMessage);
     }
 }

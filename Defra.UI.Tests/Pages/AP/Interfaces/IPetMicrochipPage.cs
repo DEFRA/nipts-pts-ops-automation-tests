@@ -9,5 +9,7 @@
         void UpdateMicrochipNumber(string microChipNumber);
         void ClickContinueButton();
         bool IsError(string errorMessage);
+        bool VerifyAlreadyEnteredMCNumber(string alreadyEnteredMCNumber);
+        void ClickGoBackToThePreviousPageLink();
     }
 }

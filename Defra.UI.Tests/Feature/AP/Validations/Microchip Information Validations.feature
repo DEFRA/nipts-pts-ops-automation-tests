@@ -121,3 +121,99 @@ Examples:
 	| FullName | Are your details correct | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         |
 	| PetDog's | Yes                      | 02012345671 | Yes             | 123456789123458 | Dog | Dog     | Male   | Black         |
 	| PetCat's | Yes                      | 07440345672 | Yes             | 123456789654322 | Cat | Cat     | Female | Tortoiseshell |
+
+Scenario Outline: Verify declaration page validation and should not moves to application completion
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the 'Yes' option
+	And provided microchip number through auto-generated
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	And I have selected an option as 'Dog' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What breed is your 'Dog'? page
+	And I have selected 1 as breed index from breed dropdownlist
+	When I click on continue button from What is your pet's breed page
+	Then I should redirected to the What is your pet's name page
+	And I provided the Pets name as 'Dog'
+	When I click on continue button from What is your pet's name page
+	Then I should redirected to the What sex is your pet page
+	And I have selected the option as 'Male' for sex
+	When I click on continue button from What sex is your pet page
+	Then I should redirected to the Do you know your pet's date of birth page
+	And I have provided past date of birth from microchip scanned date
+	When I click on continue button from Do you know your pet's date of birth? page
+	Then I should navigate to the What is the main colour of your 'Dog' page
+	When I have selected the radio button as 'Black' for pet's and continue
+	Then I should navigate to the Does your pet have any significant features page
+	When I have selected 'No' for significant features and continue
+	Then I navigate to the Check your answers and sign the declaration page
+	When I click Send Application button in Declaration page
+	Then I should see an error message 'Agree to the declaration' in declaration page
+
+Scenario Outline: Verify the survey link in get your pet microchipped before applying page
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the 'No' option
+	When I click Continue button from microchipped page
+	Then I should redirected to the Get your pet microchipped before applying page
+	When  I click the survey link 'What did you think of this service? (takes 30 seconds)'
+	Then I should navigate to the feedback page in new tab
+
+Scenario Outline: Verify the survey link in application submitted page
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the 'Yes' option
+	And provided microchip number through auto-generated
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	And I have selected an option as 'Dog' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What breed is your 'Dog'? page
+	And I have selected 1 as breed index from breed dropdownlist
+	When I click on continue button from What is your pet's breed page
+	Then I should redirected to the What is your pet's name page
+	And I provided the Pets name as 'Dog'
+	When I click on continue button from What is your pet's name page
+	Then I should redirected to the What sex is your pet page
+	And I have selected the option as 'Male' for sex
+	When I click on continue button from What sex is your pet page
+	Then I should redirected to the Do you know your pet's date of birth page
+	And I have provided past date of birth from microchip scanned date
+	When I click on continue button from Do you know your pet's date of birth? page
+	Then I should navigate to the What is the main colour of your 'Dog' page
+	When I have selected the radio button as 'Black' for pet's and continue
+	Then I should navigate to the Does your pet have any significant features page
+	When I have selected 'No' for significant features and continue
+	Then I navigate to the Check your answers and sign the declaration page
+	And I have ticked the I agree to the declaration checkbox
+	When I click Accept and Send button from Declaration page
+	Then I should redirected to the Application submitted page
+	And I can see the unique application reference number
+	When  I click the survey link 'What did you think of this service? (takes 30 seconds)'
+	Then I should navigate to the feedback page in new tab
+
+Scenario: Verify the input hyphen only to microchip number text box navigates to 403 error page and validate the back button
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the 'Yes' option
+	And I provided microchip number as hyphen '-'
+	When I click Continue button from microchipped page
+	Then I should navigate to 'You cannot access this page or perform this action' error page
+	When I click browser back button
+	Then I should see the already entered hyphen '-' in the microchip number text box
+	When I click Continue button from microchipped page
+	Then I should navigate to 'You cannot access this page or perform this action' error page
+	And I click go back to the previous page link
+	Then I should redirected to the Is your pet microchipped page
+	And I should see the already entered hyphen '-' in the microchip number text box

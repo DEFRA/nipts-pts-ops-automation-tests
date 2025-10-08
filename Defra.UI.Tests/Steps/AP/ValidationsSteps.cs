@@ -38,6 +38,13 @@ namespace Defra.UI.Tests.Steps.AP
             petDOBPage?.EnterDateMonthYear(Utils.ConvertToDate(microchippedDate).AddDays(1));
         }
 
+        [Then(@"I have provided past date of birth from microchip scanned date")]
+        public void ThenIHaveProvidedPastDateOfBirthFromMicrochipScannedDate()
+        {
+            var microchippedDate = _scenarioContext.Get<string>("MicrochippedDate");
+            petDOBPage?.EnterDateMonthYear(Utils.ConvertToDate(microchippedDate).AddDays(-1));
+        }
+
         [Then(@"I should not be redirected to the What is the main colour of your '([^']*)' page")]
         public void ThenIShouldNotBeRedirectedToTheWhatIsTheMainColourOfYourPage(string petCategory)
         {
