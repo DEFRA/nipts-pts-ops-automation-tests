@@ -228,7 +228,7 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	When I click View link in Fail Referred to SPS row with departure time '23:53'
 	Then I should navigate to Referred to SPS page
 	And I verify the PTDOrRefNum 'GB826AD0D63' is not repeated in the table
-	And I verify the Referred to SPS page table column values as 'GB826 AD0 D63' 'Dog and Other' '989867453215678' 'Foot' 'Check needed'
+	And I verify the Referred to SPS page table column values as 'GB826 AD0 D63' 'Dog and Brown, tan or chocolate' '021025123227019' 'Foot' 'Check needed'
 	When I click the reference number 'GB826AD0D63' link
 	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
