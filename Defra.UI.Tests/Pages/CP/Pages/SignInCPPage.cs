@@ -50,6 +50,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool IsPageLoaded()
         {
+            _driver.Wait(5);
             return PageHeading.Text.Contains("Sign in using Government Gateway");
         }
 

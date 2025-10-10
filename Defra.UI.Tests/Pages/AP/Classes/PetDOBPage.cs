@@ -4,6 +4,7 @@ using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -59,7 +60,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public bool IsError(string errorMessage)
         {
             foreach (var element in lblErrorMessages)
-            {
+            { 
                 if (element.Text.Contains(errorMessage))
                 {
                     return true;
@@ -74,6 +75,16 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             _driver.ContinueButton();
         }
 
+        public void EnterPetDateOfBirth(string day, string month, string year)
+        {
+            txtDay.Clear();
+            txtMonth.Clear();
+            txtYear.Clear();
+
+            txtDay.SendKeys(day);
+            txtMonth.SendKeys(month);
+            txtYear.SendKeys(year);
+        }
         #endregion
     }
 }

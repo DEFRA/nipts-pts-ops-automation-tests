@@ -8,6 +8,7 @@ using Microsoft.Dynamics365.UIAutomation.Browser;
 using Newtonsoft.Json;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using OpenQA.Selenium.Support.UI;
 using OtpNet;
 using System;
 using System.Collections.Generic;
@@ -2815,9 +2816,27 @@ public class WebClient : BrowserPage, IDisposable
         // Do this to ensure that the static placeholder '---' is removed 
         driver.RepeatUntil(() =>
         {
-            input.Click();
-            input.SendKeys(value);
-            input.SendKeys(Keys.Enter);
+            Actions actions = new Actions(driver);            
+            var maxAttempts = 20;
+
+            for (int i = 0; i < maxAttempts; i++)
+            {
+                actions.MoveToElement(input).Click().Perform();
+                actions.SendKeys(Keys.ArrowDown).Perform();
+                Thread.Sleep(300); 
+                actions.SendKeys(Keys.Enter).Perform();
+
+                string currentValue = input.GetAttribute("value").Trim();
+
+                if (currentValue == value)
+                {
+                    break;
+                }                
+            }
+
+            //input.Click();
+            //input.SendKeys(value);
+            //input.SendKeys(Keys.Enter);
             driver.WaitForTransaction();
         },
             d => input.GetAttribute("value").IsValueEqualsTo(value),

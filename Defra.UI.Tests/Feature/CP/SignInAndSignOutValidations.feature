@@ -9,6 +9,9 @@ Background:
 
 Scenario: Validate Sign in feature
 	When I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -16,6 +19,9 @@ Scenario: Validate Sign in feature
 
 Scenario: Validate Sign out feature
 	When I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -23,6 +29,9 @@ Scenario: Validate Sign out feature
 
 Scenario: Verify unauthouried signin in compliance portal
 	When I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided invalid CP credentials and signin
 	Then I should navigate to 'You cannot access this page or perform this action' error page
