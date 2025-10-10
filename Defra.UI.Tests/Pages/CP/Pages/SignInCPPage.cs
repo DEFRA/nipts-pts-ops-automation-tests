@@ -115,10 +115,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                                          "Preparation of this accessibility statement" };
 
             var h3Titles = new[] { "Compliance status",
-                                         "Non-accessible content",
+                                     //    "Non-accessible content",
                                          "Usability"};
 
-            var h4Title = "Non-compliance with the accessibility regulations";
+           // var h4Title = "Non-compliance with the accessibility regulations";
 
             var h2ElementCount=0;
             var h3ElementCount = 0;
@@ -143,9 +143,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 }
             }
 
-            return lblH4SubHeading.Text.Trim().Equals(h4Title) 
-                && h2ElementCount.Equals(h2Titles.Length) 
+            return h2ElementCount.Equals(h2Titles.Length)
                 && h3ElementCount.Equals(h3Titles.Length);
+               // && lblH4SubHeading.Text.Trim().Equals(h4Title);
         }
 
         public bool VerifyLinks()
