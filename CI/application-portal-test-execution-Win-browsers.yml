@@ -36,7 +36,7 @@ stages:
     jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: Windows_Chrome_latest
+        jobName: 'Windows_Chrome'
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: ${{ parameters.seleniumGrid }}
@@ -53,7 +53,7 @@ stages:
 
     - template: run-test-template.yml
       parameters:
-        jobName: Windows_Edge
+        jobName: 'Windows_Edge'
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: ${{ parameters.seleniumGrid }}
@@ -70,7 +70,7 @@ stages:
 
     - template: run-test-template.yml
       parameters:
-        jobName: Windows_Firefox
+        jobName: 'Windows_Firefox'
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: ${{ parameters.seleniumGrid }}
