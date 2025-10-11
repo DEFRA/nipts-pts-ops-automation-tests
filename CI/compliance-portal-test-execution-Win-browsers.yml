@@ -9,6 +9,10 @@ parameters:
     displayName: Is Accessibility Run Enabled
     type: boolean
     default: false
+  - name: seleniumGrid
+    displayName: Selenium Grid or Browserstack endpoint
+    type: string
+    default: 'http://localhost:4444'
 
 resources:
   repositories:
@@ -20,20 +24,57 @@ resources:
 
 variables:
     - template: 'variables/CP/${{ parameters.environment }}.yml'
-
+    - name: pool
+      value: 'DEFRA-COMMON-ubuntu2004-SSV3'
+    - name: jobDependency
+      ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+        value: 'SetupSeleniumGrid'
+      ${{ else }}:
+        value: ''
 stages:
-  
-  - stage: Windows_Chrome_latest
-    displayName: Windows_Chrome_latest
+  - stage: ParallelBrowserTests
+    displayName: Parallel Browser Tests
     condition: always()
-  
+    
     jobs:
+    - job: SetupSeleniumGrid
+      displayName: Setup Selenium Grid
+      condition: ${{ contains(parameters.seleniumGrid, 'localhost') }}
+      pool:
+        name: $(pool)
+      steps:
+      - task: DownloadBuildArtifacts@0
+        displayName: TestArtifact
+        inputs:
+          buildType: 'specific'
+          project: '023a3c95-20fd-49b4-b068-4706843ba0d7'
+          pipeline: '8452'
+          buildVersionToDownload: 'latestFromBranch'
+          branchName: $(Build.SourceBranch)
+          downloadType: 'single'
+          artifactName: 'drop'
+          downloadPath: '$(System.ArtifactsDirectory)'
+      - task: ExtractFiles@1
+        inputs:
+          archiveFilePatterns: '**/Defra.UI.Tests.zip'
+          destinationFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests'
+      - powershell: docker system prune -a --volumes --force
+        displayName: 'Clean Docker'
+      - task: DockerCompose@0
+        displayName: Start Selenium Grid
+        inputs:
+          action: Run a Docker Compose command
+          workingDirectory: $(System.DefaultWorkingDirectory)/Defra.UI.Tests
+          dockerComposeFile: $(System.DefaultWorkingDirectory)/Defra.UI.Tests/docker-compose-grid.yml
+          projectName: defra-ui-tests
+          dockerComposeCommand: up -d
+
     - template: run-test-template.yml
       parameters:
         jobName: Windows_Chrome_latest
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'http://localhost:4444'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'Windows'
         bsOSVersion: '11'
         workers:  '10'
@@ -42,20 +83,16 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'CP'
-        dependsOn: ''
+        dependsOn: $(jobDependency)
         filterTestCases: 'TestCategory=CPCrossBrowser'
+        isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 
-  - stage: Windows_Edge
-    displayName: Windows_Edge
-    condition: always()
-
-    jobs:
     - template: run-test-template.yml
       parameters:
         jobName: Windows_Edge
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'http://localhost:4444'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'Windows'
         bsOSVersion: '11'
         workers:  '10'
@@ -64,20 +101,16 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'CP'
-        dependsOn: ''
+        dependsOn: $(jobDependency)
         filterTestCases: 'TestCategory=CPCrossBrowser'
+        isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 
-  - stage: Windows_Firefox
-    displayName: Windows_Firefox
-    condition: always()
-
-    jobs:
     - template: run-test-template.yml
       parameters:
         jobName: Windows_Firefox
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'http://localhost:4444'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'Windows'
         bsOSVersion: '11'
         workers:  '10'
@@ -86,5 +119,16 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'CP'
-        dependsOn: ''
+        dependsOn: $(jobDependency)
         filterTestCases: 'TestCategory=CPCrossBrowser'
+        isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
+
+    - job: CleanupSeleniumGrid
+      displayName: Cleanup Selenium Grid
+      dependsOn: [Windows_Chrome_latest, Windows_Edge, Windows_Firefox]
+      condition: and(always(), ${{ contains(parameters.seleniumGrid, 'localhost') }})
+      pool:
+        name: $(pool)
+      steps:
+      - powershell: docker compose -p defra-ui-tests down
+        displayName: 'Stop Selenium Grid'
