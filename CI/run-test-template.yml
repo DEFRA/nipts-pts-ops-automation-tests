@@ -190,12 +190,18 @@ jobs:
                 $currentFileName = "${{ parameters.jobName }}_retry0.xml"
                 
                 while ($retryCount -lt $maxRetries) {
+                    Write-Host "Looking for file: $currentFileName"
+                    Write-Host "Files in TestResults folder:"
+                    Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" | ForEach-Object { Write-Host "  $($_.Name)" }
+                    
                     $trxFile = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" -Filter $currentFileName | Select-Object -First 1
                     
                     if (-not $trxFile) {
                         Write-Host "TRX file not found: $currentFileName in $(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults"
                         break
                     }
+                    
+                    Write-Host "Found TRX file: $($trxFile.FullName)"
                     
                     $failedTests = Get-FailedTests -trxFilePath $trxFile.FullName
 
