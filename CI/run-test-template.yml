@@ -14,7 +14,6 @@ parameters:
     type: string
   - name: dependsOn
     type: string
-    default: ''
   - name: workers
     type: string
   - name: bsBrowserVersion
@@ -39,8 +38,6 @@ jobs:
 - job: ${{ parameters.jobName }}
   displayName: ${{ parameters.jobName }}
   timeoutInMinutes: 300
-  ${{ if ne(parameters.dependsOn, '') }}:
-    dependsOn: ${{ parameters.dependsOn }}
 
   pool:
     ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
@@ -137,7 +134,22 @@ jobs:
         Write-Host $ymlString
       displayName: 'Display power-apps-bindings.yml'
 
+    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+      - powershell:
+          docker system prune -a --volumes --force
+        displayName: 'Stop and Clean all containers'
 
+    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+      - task: DockerCompose@0
+        displayName: Run a Docker Compose command
+        inputs:
+          action: Run a Docker Compose command
+          workingDirectory: $(System.DefaultWorkingDirectory)/Defra.UI.Tests
+          dockerComposeFile: $(System.DefaultWorkingDirectory)/Defra.UI.Tests/docker-compose-grid.yml 
+          projectName: defra-ui-tests
+          qualifyImageNames: true
+          dockerComposeCommand: up -d
+          #arguments: '--exit-code-from selenium-hub'
 
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
@@ -217,7 +229,16 @@ jobs:
 
              Rerun-FailedTests -maxRetries $maxRetries
     
-
+    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+      - task: DockerCompose@0
+        displayName: Run a Docker Compose command
+        inputs:
+          action: Run a Docker Compose command
+          workingDirectory: $(System.DefaultWorkingDirectory)/Defra.UI.Tests
+          dockerComposeFile: $(System.DefaultWorkingDirectory)/Defra.UI.Tests/docker-compose-grid.yml 
+          projectName: defra-ui-tests
+          qualifyImageNames: true
+          dockerComposeCommand: down
     
     - powershell: |
         Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
@@ -260,5 +281,3 @@ jobs:
         testRunTitle: ${{ parameters.jobName }}
         failTaskOnFailedTests: true
         continueOnError: true
-  
-    
