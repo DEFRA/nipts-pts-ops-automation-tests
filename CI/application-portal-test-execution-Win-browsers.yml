@@ -80,7 +80,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
-        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}: 'SetupSeleniumGrid' ${{ else }}: '' 
+        ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          dependsOn: 'SetupSeleniumGrid' 
         filterTestCases: 'TestCategory=APCrossBrowser'
 
     - template: run-test-template.yml
@@ -97,7 +98,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
-        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}: 'SetupSeleniumGrid' ${{ else }}: '' 
+        ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          dependsOn: 'SetupSeleniumGrid' 
         filterTestCases: 'TestCategory=APCrossBrowser'
 
     - template: run-test-template.yml
@@ -114,7 +116,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
-        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}: 'SetupSeleniumGrid' ${{ else }}: '' 
+        ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          dependsOn: 'SetupSeleniumGrid' 
         filterTestCases: 'TestCategory=APCrossBrowser'
 
     - job: CleanupSeleniumGrid

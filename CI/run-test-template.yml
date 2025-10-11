@@ -14,6 +14,7 @@ parameters:
     type: string
   - name: dependsOn
     type: string
+    default: ''
   - name: workers
     type: string
   - name: bsBrowserVersion

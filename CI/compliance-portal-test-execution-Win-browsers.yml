@@ -78,7 +78,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'CP'
-        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}: 'SetupSeleniumGrid' ${{ else }}: ''
+        ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          dependsOn: 'SetupSeleniumGrid' 
         filterTestCases: 'TestCategory=CPCrossBrowser'
         isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 
@@ -96,7 +97,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'CP'
-        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}: 'SetupSeleniumGrid' ${{ else }}: ''
+        ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          dependsOn: 'SetupSeleniumGrid' 
         filterTestCases: 'TestCategory=CPCrossBrowser'
         isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 
@@ -114,7 +116,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'CP'
-        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}: 'SetupSeleniumGrid' ${{ else }}: ''
+        ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          dependsOn: 'SetupSeleniumGrid' 
         filterTestCases: 'TestCategory=CPCrossBrowser'
         isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 
