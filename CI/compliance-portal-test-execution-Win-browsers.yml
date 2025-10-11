@@ -26,11 +26,6 @@ variables:
     - template: 'variables/CP/${{ parameters.environment }}.yml'
     - name: pool
       value: 'DEFRA-COMMON-ubuntu2004-SSV3'
-    - name: jobDependency
-      ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
-        value: 'SetupSeleniumGrid'
-      ${{ else }}:
-        value: ''
 stages:
   - stage: ParallelBrowserTests
     displayName: Parallel Browser Tests
@@ -83,7 +78,10 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'CP'
-        dependsOn: $(jobDependency)
+        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          'SetupSeleniumGrid'
+        ${{ else }}:
+          ''
         filterTestCases: 'TestCategory=CPCrossBrowser'
         isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 
@@ -101,7 +99,10 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'CP'
-        dependsOn: $(jobDependency)
+        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          'SetupSeleniumGrid'
+        ${{ else }}:
+          ''
         filterTestCases: 'TestCategory=CPCrossBrowser'
         isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 
@@ -119,7 +120,10 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'CP'
-        dependsOn: $(jobDependency)
+        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          'SetupSeleniumGrid'
+        ${{ else }}:
+          ''
         filterTestCases: 'TestCategory=CPCrossBrowser'
         isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 

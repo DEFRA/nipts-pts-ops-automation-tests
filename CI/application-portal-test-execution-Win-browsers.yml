@@ -26,11 +26,6 @@ variables:
   - template: 'variables/AP/${{ parameters.environment }}.yml'
   - name: pool
     value: 'DEFRA-COMMON-ubuntu2004-SSV3'
-  - name: jobDependency
-    ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
-      value: 'SetupSeleniumGrid'
-    ${{ else }}:
-      value: ''
 
 stages:
   
@@ -85,7 +80,10 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
-        dependsOn: $(jobDependency)
+        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          'SetupSeleniumGrid'
+        ${{ else }}:
+          ''
         filterTestCases: 'TestCategory=APCrossBrowser'
 
     - template: run-test-template.yml
@@ -102,7 +100,10 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
-        dependsOn: $(jobDependency)
+        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          'SetupSeleniumGrid'
+        ${{ else }}:
+          ''
         filterTestCases: 'TestCategory=APCrossBrowser'
 
     - template: run-test-template.yml
@@ -119,7 +120,10 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
-        dependsOn: $(jobDependency)
+        dependsOn: ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
+          'SetupSeleniumGrid'
+        ${{ else }}:
+          ''
         filterTestCases: 'TestCategory=APCrossBrowser'
 
     - job: CleanupSeleniumGrid
