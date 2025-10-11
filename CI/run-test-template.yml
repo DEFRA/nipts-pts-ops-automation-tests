@@ -187,7 +187,7 @@ jobs:
                 $settings= "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings"
         
                 # Start by checking the initial test run (retry0)
-                $currentFileName = "${{ parameters.jobName }}_retry0.xml"
+                $currentFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
                 
                 while ($retryCount -lt $maxRetries) {
                     Write-Host "Looking for file: $currentFileName"
