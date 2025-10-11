@@ -1,9 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
-using OpenQA.Selenium;
 using Microsoft.Dynamics365.UIAutomation.Browser;
+using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -15,7 +15,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), true);
 
-        private IReadOnlyCollection<IWebElement> txtLogings => _driver.WaitForElements(By.Id("EnteredPassword"));
+        private IReadOnlyCollection<IWebElement> txtMagicPasswords => _driver.WaitForElements(By.Id("EnteredPassword"));
 
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[@type='submit']"));
 
@@ -35,14 +35,13 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return PageHeading.Text.Contains(pageName);
         }
 
-        public void EnterPassword()
+        public void EnterPasswordAndClick()
         {
-            if (txtLogings.Count > 0)
+            if (txtMagicPasswords.Count > 0)
             {
-                txtLogings.FirstOrDefault()?.SendKeys(ConfigSetup.BaseConfiguration.TestConfiguration.EnvAPLogin);
-                btnContinue?.Click();
-            }       
-            
+                txtMagicPasswords?.FirstOrDefault()?.SendKeys(ConfigSetup.BaseConfiguration.TestConfiguration.EnvAPLogin);
+                btnContinue.Click();
+            }
         }
 
         public void ClickContinueButton()

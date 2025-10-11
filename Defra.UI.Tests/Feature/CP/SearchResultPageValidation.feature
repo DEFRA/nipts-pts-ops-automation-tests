@@ -4,6 +4,9 @@ Feature: Search Result Validation
 Background:
 	Given that I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -75,7 +78,7 @@ Scenario: Verify the back link navigation for search result through Search icon 
 	And I provided the '4574B2' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
+	And I select Refer to SPS radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Click on Back button

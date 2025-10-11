@@ -5,8 +5,10 @@ As a Defra customer, I am able to sign in and sign out with valid credentials
 
 Background: 
 	Given that I navigate to the DEFRA application
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 
 Scenario: Sign in button click validation

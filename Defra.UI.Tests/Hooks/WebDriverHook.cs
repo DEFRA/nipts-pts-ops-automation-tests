@@ -75,7 +75,7 @@ namespace Defra.UI.Tests.Hooks
             {
                 var reportPath = Path.Combine($"{Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)}", "Accessibility");
                 Console.WriteLine(reportPath);
-                Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, reportPath, false);
+                Cognizant.WCAG.Compliance.Checker.Start.Init(Driver, reportPath);
             }
 
             _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
@@ -84,7 +84,7 @@ namespace Defra.UI.Tests.Hooks
             {
                 GovernmentGateway.Initialize(_objectContainer);
 
-                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount && ConfigSetup.BaseConfiguration.TestConfiguration.IsPetsAPorCP.Equals("AP"))
+                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount)
                 {
                     fetchCodeFromEmail.DeleteAllMessagesFromInbox();
                     isRunOnce = false;

@@ -5,12 +5,14 @@ Create a PETS travel document providing PETS Significante Features to travel fro
 
 Background: 
 	Given that I navigate to the DEFRA application
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 	
-Scenario Outline: Create PETS Travel Document for PETS with or without Significant Features
+Scenario Outline: Create PETS Travel Document for PETS with or without Significant Features and verify the hint for yes option
 	Then I should navigate to Lifelong pet travel documents page
 	When I click Apply for a document button
 	Then I should navigate to the Pets Owner details correct page

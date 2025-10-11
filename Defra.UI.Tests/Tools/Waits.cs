@@ -31,7 +31,7 @@ namespace Defra.UI.Tests.Tools
                 element.ScrollToElement(driver);
                 return element;
 
-                throw new ElementNotVisibleException("Element is not visible", ex);
+                throw new Exception("Element is not visible", ex);
             }
         }
 
@@ -56,7 +56,7 @@ namespace Defra.UI.Tests.Tools
             {
                 return driver.FindElements(elementBy);
 
-                throw new ElementNotVisibleException("Element is not visible", ex);
+                throw new Exception("Element is not visible", ex);
             }
 
         }
@@ -125,7 +125,7 @@ namespace Defra.UI.Tests.Tools
             {
                 return driver.FindElement(elementBy);
 
-                throw new ElementNotVisibleException("Element is not visible", ex);
+                throw new Exception("Element is not visible", ex);
             }
 
         }

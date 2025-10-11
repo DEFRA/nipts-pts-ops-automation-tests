@@ -5,8 +5,10 @@ Validating the negative scenarios for Pet Details
 
 Background:
 	Given I navigate to PETS a travel document URL
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
@@ -76,6 +78,62 @@ Scenario Outline: Verify pets date of birth should not allows future date
 Examples:
 	| FullName | Are your details correct | MicrochipOption | MicrochipNumber | Pet | PetName | Gender |
 	| PetCat's | Yes                      | Yes             | 123456789654321 | Cat | Cat     | Female |
+
+Scenario Outline: Verify pets date of birth text boxes should not allow invalid date
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the 'Yes' option
+	And provided microchip number through auto-generated
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	And I have selected an option as 'Dog' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What breed is your 'Dog'? page
+	And I have selected 1 as breed index from breed dropdownlist
+	When I click on continue button from What is your pet's breed page
+	Then I should redirected to the What is your pet's name page
+	And I provided the Pets name as 'Dog'
+	When I click on continue button from What is your pet's name page
+	Then I should redirected to the What sex is your pet page
+	And I have selected the option as 'Male' for sex
+	When I click on continue button from What sex is your pet page
+	Then I should redirected to the Do you know your pet's date of birth page
+	And I have provided date of birth as '40''13''2024'
+	When I click on continue button from Do you know your pet's date of birth? page
+	Then I should not be redirected to What is the main colour of your 'Dog' page
+	And I should see an error message "Enter your pet’s date of birth in the correct format, for example, 11 04 2021" in pets date of birth page
+
+Scenario Outline: Verify the error message for no pets date of birth provided
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the 'Yes' option
+	And provided microchip number through auto-generated
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	And I have selected an option as 'Dog' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What breed is your 'Dog'? page
+	And I have selected 1 as breed index from breed dropdownlist
+	When I click on continue button from What is your pet's breed page
+	Then I should redirected to the What is your pet's name page
+	And I provided the Pets name as 'Dog'
+	When I click on continue button from What is your pet's name page
+	Then I should redirected to the What sex is your pet page
+	And I have selected the option as 'Male' for sex
+	When I click on continue button from What sex is your pet page
+	Then I should redirected to the Do you know your pet's date of birth page
+	And I have provided date of birth as ''''''
+	When I click on continue button from Do you know your pet's date of birth? page
+	Then I should not be redirected to What is the main colour of your 'Dog' page
+	And I should see an error message "Enter your pet’s date of birth in the correct format, for example, 11 04 2021" in pets date of birth page
 
 Scenario Outline: Verify if the pet type is not selected then should not move to next page
 	Then I have selected '<Are your details correct>' option

@@ -5,8 +5,10 @@ Validating the negative scenarios for Pet Owner Details
 
 Background:
 	Given I navigate to PETS a travel document URL
-	And I have provided the password for Landing page
-	When I click Continue button from Landing page
+	When I have provided the password for Landing page
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
@@ -66,12 +68,12 @@ Scenario Outline: Verify postcode search page validations and should not moves t
 	When I click Find Address button from What is your postcode page
 	Then I should see an error message '<ErrorMessage>' in What is your postcode page
 Examples:
-	| FullName | Are your details correct | PostCode                           | ErrorMessage                                                                                                                   |
-	| PetCat's | No                       |                                    | Enter your postcode                                                                                                            |
-	| PetCat's | No                       | ABC121C                            | Enter your postcode in Enter your full postcode in the correct format, for example TF7 5AY or TF75AYEngland, Scotland or Wales |
-	| PetDog's | No                       | &&ABC1$$                           | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY                                                  |
-	| PetDog's | No                       | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY                                                  |
-	| PetDog's | No                       | IM1 1AX                            | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY                                                  |
+	| FullName | Are your details correct | PostCode                           | ErrorMessage                                                                  |
+	| PetCat's | No                       |                                    | Enter your postcode                                                           |
+	| PetCat's | No                       | ABC121C                            | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
+	| PetDog's | No                       | &&ABC1$$                           | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
+	| PetDog's | No                       | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGH | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
+	| PetDog's | No                       | IM1 1AX                            | Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
 
 Scenario Outline: Verify postcode search page by not selecting an address from dropdownlist and should not moves to next page
 	Then I have selected '<Are your details correct>' option

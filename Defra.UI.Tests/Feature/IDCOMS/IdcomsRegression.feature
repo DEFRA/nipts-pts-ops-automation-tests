@@ -458,7 +458,7 @@ Scenario: Verify the error message when the future date is entered in Date of bi
 	And I enter 'Pet Name' as 'Aurora'
 	Then I See the error 'The date for Date of Birth must be in the past.' notification
 
-Scenario: Create a New applicant Contact is and create a offline application and authorise it
+Scenario: Create a New applicant Contact is and create a offline application and authorise it and create a SNC for 12 Months
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I create a new applicant in IDCOMS
@@ -481,4 +481,6 @@ Scenario: Create a New applicant Contact is and create a offline application and
 	When I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
-	Then the status is changed to 'Authorised'
+	Then the status is changed to 'Authorised'	
+	When I create a New Suspect Non Compliance
+	And I Log decision in SNC as '12 Months'

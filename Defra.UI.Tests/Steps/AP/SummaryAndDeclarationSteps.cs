@@ -2,6 +2,7 @@
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using Reqnroll;
+using Defra.UI.Tests.Pages.AP.Classes;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -214,6 +215,18 @@ namespace Defra.UI.Tests.Steps.AP
         {
             var petName = _scenarioContext.Get<string>("PetName");
             Assert.IsTrue(homePage?.VerifyTheApplicationIsNotAvailable(petName), $"The application is available in Dashboard!");
+        }
+
+        [Then(@"I should see a table named '(.*)' with a column '(.*)' in approved document")]
+        public void ThenIShouldSeeATableNamedWithAColumnInApprovedDocument(string tableName, string columnName)
+        {
+            Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityTable(tableName, columnName));
+        }
+
+        [Then(@"the address of authority should be '(.*)' '(.*)'")]
+        public void ThenTheAddressOfAuthorityShouldBe(string addressLine1, string addressLine2)
+        {
+            Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityAddress(addressLine1, addressLine2));
         }
     }
 }

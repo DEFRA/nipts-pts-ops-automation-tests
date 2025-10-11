@@ -31,6 +31,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> divPetOwnerDetailsTitleList => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div/descendant::dt"));
         private IReadOnlyCollection<IWebElement> divPetOwnerDetailsValueList => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div/descendant::dd[1]"));
         private IReadOnlyCollection<IWebElement> divPetOwnerDetailsActionList => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div/descendant::dd[2]/a"));
+        private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         #endregion
 
         #region Methods
@@ -215,6 +216,17 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             }
         }
 
+        public bool IsError(string errorMessage)
+        {
+            foreach (var element in lblErrorMessages)
+            {
+                if (element.Text.Contains(errorMessage))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
     }
 }
