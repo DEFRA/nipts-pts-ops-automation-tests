@@ -5,6 +5,9 @@ parameters:
     displayName: Environment
     type: string
     default: 'pre'
+  - name: branchName
+    displayName: Branch Name
+    type: string
   - name: isAccessibilityEnabled
     displayName: Is Accessibility Run Enabled
     type: boolean
