@@ -186,9 +186,10 @@ jobs:
                 $testDll = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
                 $settings= "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings"
         
-                do {
-
-                    $currentFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
+                # Start by checking the initial test run (retry0)
+                $currentFileName = "${{ parameters.jobName }}_retry0.xml"
+                
+                while ($retryCount -lt $maxRetries) {
                     $trxFile = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" -Filter $currentFileName | Select-Object -First 1
                     
                     if (-not $trxFile) {
@@ -220,10 +221,9 @@ jobs:
                     Write-Host "Failed Testcases are -> $filter"
         
                     $retryCount++
-                    $nextFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
-                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$nextFileName"          
-
-                } while ($failedTests.Count -gt 0 -and $retryCount -lt $maxRetries)
+                    $currentFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
+                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$currentFileName"
+                }
                 
                 # Only rename if we actually did retries
                 if ($retryCount -gt 0) {
