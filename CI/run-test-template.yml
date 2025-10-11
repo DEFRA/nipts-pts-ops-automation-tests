@@ -227,8 +227,12 @@ jobs:
                     Write-Host "Failed Testcases are -> $filter"
         
                     $retryCount++
-                    $currentFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
-                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$currentFileName"
+                    $nextFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
+                    Write-Host "Running retry $retryCount, creating file: $nextFileName"
+                    Write-Host "Filter: $filter"
+                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$nextFileName"
+                    Write-Host "Dotnet test completed for retry $retryCount"
+                    $currentFileName = $nextFileName
                 }
                 
                 # Only rename if we actually did retries
