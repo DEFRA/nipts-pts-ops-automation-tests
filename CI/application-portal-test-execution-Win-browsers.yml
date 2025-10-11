@@ -41,7 +41,7 @@ stages:
     jobs:
     - job: SetupSeleniumGrid
       displayName: Setup Selenium Grid
-      condition: ${{ contains(${{ parameters.seleniumGrid }}, 'localhost') }}
+      condition: ${{ contains(parameters.seleniumGrid, 'localhost') }}
       pool:
         name: $(pool)
       steps:
@@ -125,7 +125,7 @@ stages:
     - job: CleanupSeleniumGrid
       displayName: Cleanup Selenium Grid
       dependsOn: [Windows_Chrome_latest, Windows_Edge, Windows_Firefox]
-      condition: and(always(), ${{ contains(${{ parameters.seleniumGrid }}, 'localhost') }})
+      condition: and(always(), ${{ contains(parameters.seleniumGrid, 'localhost') }})
       pool:
         name: $(pool)
       steps:
