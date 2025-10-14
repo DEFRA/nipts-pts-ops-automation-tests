@@ -186,7 +186,7 @@ jobs:
                 $testDll = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
                 $settings= "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings"
         
-                $currentFileName = "${{ parameters.jobName }}_$retryCount.xml"
+                $currentFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
                 
                 while ($retryCount -lt $maxRetries) {
                    
@@ -247,9 +247,8 @@ jobs:
                 
                 # Only rename if we actually did retries
                 if ($retryCount -gt 0) {
-                    $finalFile = "${{ parameters.jobName }}_retry$($retryCount - 1).xml"
                     $latestFile = "${{ parameters.jobName }}_latest.xml"
-                    Rename-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$finalFile" -NewName $latestFile -Force
+                    Rename-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$currentFileName" -NewName $latestFile -Force
                 }
              }
 
