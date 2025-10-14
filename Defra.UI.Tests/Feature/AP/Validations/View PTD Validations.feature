@@ -14,7 +14,7 @@ Background:
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page
 
-Scenario Outline: Verify name and address in Issuing authority table of approved document
+Scenario: Verify name and address in Issuing authority table of approved document
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the Is your pet microchipped page
@@ -69,3 +69,44 @@ Scenario Outline: Verify name and address in Issuing authority table of approved
 	When I have clicked the View hyperlink from home page
 	Then I should see a table named 'Issuing authority' with a column 'Name and address of competent authority' in approved document
 	And the address of authority should be 'Animal and Plant Health Agency' 'Woodham Lane, New Haw, Addlestone, Surrey KT15 3NB'
+
+Scenario: Verify back button functionality from are your details correct page and from declaration page
+	Then I click on Back button
+	And I should redirected to Apply for a pet travel document page
+	When I click Create a new pet travel document button
+	Then I should redirected to the Are your details correct page
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the 'Yes' option
+	And provided microchip number through auto-generated
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	And I have selected an option as 'Dog' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What breed is your 'Dog'? page
+	And I have selected 1 as breed index from breed dropdownlist
+	When I click on continue button from What is your pet's breed page
+	Then I should redirected to the What is your pet's name page
+	And I provided the Pets name as 'Dog'
+	When I click on continue button from What is your pet's name page
+	Then I should redirected to the What sex is your pet page
+	And I have selected the option as 'Male' for sex
+	When I click on continue button from What sex is your pet page
+	Then I should redirected to the Do you know your pet's date of birth page
+	And I have provided date of birth
+	When I click on continue button from Do you know your pet's date of birth? page
+	Then I should redirected to the What is the main colour of your 'Dog' page
+	And I have selected the option as 'Gold or yellow' for color
+	When I click on continue button from What is the main colour of your pet page
+	Then I should redirected to the Does your pet have any significant features page
+	And I have selected an option as 'No' for significant features
+	When I click on continue button from Does your pet have any significant features page
+	Then I should redirected to the Check your answers and sign the declaration page
+	And I click on Back button
+	Then I should redirected to the Does your pet have any significant features page
+	And I click on Back button
+	Then I should redirected to the What is the main colour of your 'Dog' page

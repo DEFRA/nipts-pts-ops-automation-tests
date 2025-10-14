@@ -6,5 +6,6 @@
         string EnterDateMonthYear(DateTime dateTime);
         void ClickContinueButton();
         bool IsError(string errorMessage);
+        void EnterMicrochippedDate(string day, string month, string year);
     }
 }

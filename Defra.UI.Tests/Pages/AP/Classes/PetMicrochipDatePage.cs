@@ -72,6 +72,17 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return false;
         }
 
+        public void EnterMicrochippedDate(string day, string month, string year)
+        {
+            txtDay.Clear();
+            txtMonth.Clear();
+            txtYear.Clear();
+
+            txtDay.SendKeys(day);
+            txtMonth.SendKeys(month);
+            txtYear.SendKeys(year);
+        }
+
         #endregion
     }
 }
