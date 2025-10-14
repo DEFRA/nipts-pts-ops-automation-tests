@@ -153,7 +153,7 @@ jobs:
 
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
-          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_retry.xml"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_retry.trx"
       displayName: 'Execute Tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
@@ -167,7 +167,7 @@ jobs:
             }
 
           $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
-          dotnet-retest "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_retry.xml" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --output "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_latest.xml"
+          dotnet-retest "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_retry.trx" --settings "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\testrun_${{ parameters.workers }}.runsettings" --output "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_latest.xml"
       displayName: 'Rerun failed tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
