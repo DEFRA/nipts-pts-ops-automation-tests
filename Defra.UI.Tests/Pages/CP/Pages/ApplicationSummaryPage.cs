@@ -119,6 +119,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             var result = false;
 
+            _driver.Wait(5);
+
             RefNumberSection.ScrollToElement(_driver);
             var title = RefNumberSection.FindElement(By.ClassName("govuk-summary-card__title"));
             var documentIssuedFields = RefNumberSection.FindElements(By.ClassName("govuk-summary-list__key"));
