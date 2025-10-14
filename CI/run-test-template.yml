@@ -154,14 +154,16 @@ jobs:
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
           dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_retry.xml"
-            
-          dotnet tool install --global dotnet-retest --verbosity quiet
-
-          export PATH="$PATH:$HOME/.dotnet/tools"
-
-          dotnet retest ${{ parameters.jobName }}_retry.xml --output ${{ parameters.jobName }}_latest.xml --threshold 1 --retries 3 --verbosity normal
-          
       displayName: 'Execute Tests'
+      failOnStderr: true
+      ignoreLASTEXITCODE: true
+      continueOnError: true
+
+    - powershell: |
+          dotnet tool install --global dotnet-retest
+          $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
+          dotnet-retest "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_retry.xml" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --output "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_latest.xml"
+      displayName: 'Rerun failed tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
       continueOnError: true
