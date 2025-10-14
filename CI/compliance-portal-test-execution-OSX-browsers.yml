@@ -46,7 +46,7 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserTest'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
     - template: run-test-template.yml
       parameters:
@@ -63,7 +63,7 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserTest'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
     - template: run-test-template.yml
       parameters:
@@ -80,7 +80,7 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserTest'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
 
     - template: run-test-template.yml
       parameters:
@@ -97,4 +97,4 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowserTest'
+        filterTestCases: 'TestCategory=CPCrossBrowser'
