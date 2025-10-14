@@ -37,11 +37,12 @@ namespace Defra.UI.Tests.Steps.AP
         {
             HomePage?.ClickFeedbackLink();
         }
-        [Then(@"I should navigate to the Feedback details correct page")]
-        public void ThenIShouldNavigateToTheFeedbackDetailsCorrectPage()
+        [Then(@"I should navigate to the Feedback details correct page opens in new tab")]
+        public void ThenIShouldNavigateToTheFeedbackDetailsCorrectPageOpensInNewTab()
         {
             string currentURL = DriverCommand.GetCurrentUrl;
             currentURL.Contains("defragroup.eu.qualtrics.com/");
+            Assert.IsFalse(HomePage?.VerifyTheLinkOpensInSameTab());
         }
         [Then(@"I click the Gethelp Link")]
         public void ThenIClickTheGethelpLink()
@@ -62,11 +63,12 @@ namespace Defra.UI.Tests.Steps.AP
             HomePage?.ClickAccessibilityStatementLink();
         }
 
-        [Then(@"I should navigate to the AccessibilityStatement details correct page")]
-        public void ThenIShouldNavigateToTheAccessibilityStatementDetailsCorrectPage()
+        [Then(@"I should navigate to the AccessibilityStatement details correct page opens in same tab")]
+        public void ThenIShouldNavigateToTheAccessibilityStatementDetailsCorrectPageOpensInSameTab()
         {
-            var pageTitle = "Accessibility statement for taking a dog, cat or ferret from Great Britain to Northern Ireland";
+            var pageTitle = "Accessibility statement for ‘Taking a dog, cat or ferret from Great Britain to Northern Ireland’";
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsTrue(HomePage?.VerifyTheLinkOpensInSameTab());
         }
 
         [Then(@"I click the Cookies Link")]
@@ -75,10 +77,11 @@ namespace Defra.UI.Tests.Steps.AP
             HomePage?.ClickCookiesLink();
         }
 
-        [Then(@"I should navigate to the Cookies details correct page")]
-        public void ThenIShouldNavigateToTheCookiesDetailsCorrectPage()
+        [Then(@"I should navigate to the Cookies details correct page opens in same tab")]
+        public void ThenIShouldNavigateToTheCookiesDetailsCorrectPageOpensInSameTab()
         {
             var pageTitle = "Cookies";
+            Assert.IsTrue(HomePage?.VerifyTheLinkOpensInSameTab());
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
@@ -101,10 +104,11 @@ namespace Defra.UI.Tests.Steps.AP
             HomePage?.ClickTermsAndConditionsLink();
         }
 
-        [Then(@"I should navigate to the TermsAndConditions details correct page")]
-        public void ThenIShouldNavigateToTheTermsAndConditionsDetailsCorrectPage()
+        [Then(@"I should navigate to the TermsAndConditions details correct page opens in same tab")]
+        public void ThenIShouldNavigateToTheTermsAndConditionsDetailsCorrectPageOpensInSameTab()
         {
-            var pageTitle = "Terms and conditions for taking a dog, cat or ferret from Great Britain to Northern Ireland";
+            var pageTitle = "Northern Ireland Pet Travel Scheme terms and conditions";
+            Assert.IsTrue(HomePage?.VerifyTheLinkOpensInSameTab());
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 

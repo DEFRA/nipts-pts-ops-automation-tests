@@ -20,13 +20,13 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), true);
         public IWebElement btnApplyForDocumentButton => _driver.WaitForElement(By.XPath("//*[@id='main-content']//form/button"));
-        public IWebElement FeedbackLink => _driver.WaitForElement(By.ClassName("govuk-link"));
+        public IWebElement FeedbackLink => _driver.WaitForElement(By.XPath("//a[contains(text() ,'give your feedback (opens in a new tab).')]"));
         public IWebElement GetHelpLink => _driver.WaitForElement(By.ClassName("govuk-link--inverse"));
         public IWebElement GethelpHeader => _driver.WaitForElement(By.ClassName("govuk-heading-xl"));
         public IWebElement AccessibilityStatementLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[1]/a"));
         public IWebElement CookiesLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[2]/a"));
         public IWebElement PrivacyNoticeLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[4]/a"));
-        public IWebElement TermsAndConditionsLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[5]/a"));
+        public IWebElement TermsAndConditionsLink => _driver.WaitForElement(By.LinkText("Terms and conditions"));
         public IWebElement CrownCopyrightLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[2]/a"));
         private IWebElement btnApplyForDocument => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Apply for a document']"), true);
         private IReadOnlyCollection<IWebElement> tableRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr"), true);
@@ -172,6 +172,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             lnkSignOut.Click();
         }
 
+        public bool VerifyTheLinkOpensInSameTab()
+        {
+            if (_driver.WindowHandles.Count == 1)
+            {
+                return true;
+            }
+            return false;
+        }
         #endregion
     }
 }

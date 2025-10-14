@@ -3,6 +3,7 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Defra.UI.Tests.Pages.AP.Classes;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -29,6 +30,12 @@ namespace Defra.UI.Tests.Steps.AP
         {
             PetMicrochipDatePage?.EnterDateMonthYear(DateTime.Now.AddYears(-1));
             PetMicrochipDatePage?.ClickContinueButton();
+        }
+
+        [Then(@"I have provided microchipped date as '(.*)' '(.*)' '(.*)'")]
+        public void ThenIHaveProvidedMicrochippedDateAs(string day, string month, string year)
+        {
+            PetMicrochipDatePage?.EnterMicrochippedDate(day, month, year);
         }
     }
 }

@@ -19,5 +19,6 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         void ClickViewLink(string petName);
         void ClickOnManageAccountLink();
         void ClickSignOutLink();
+        bool VerifyTheLinkOpensInSameTab();
     }
 }
