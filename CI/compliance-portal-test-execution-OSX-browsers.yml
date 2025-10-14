@@ -8,6 +8,10 @@ parameters:
     displayName: Is Accessibility Run Enabled
     type: boolean
     default: false
+  - name: seleniumGrid
+    displayName: Selenium Grid or Browserstack endpoint
+    type: string
+    default: 'https://hub.browserstack.com/wd/hub/'
 
 resources:
   repositories:
@@ -22,8 +26,8 @@ variables:
 
 stages:
   
-  - stage: OSX_Sequoia_Safari
-    displayName: Sequoia_Safari
+  - stage: ParallelBrowserTests
+    displayName: Parallel Browser Tests
     condition: always()
 
     jobs:
@@ -32,7 +36,7 @@ stages:
         jobName: Sequoia_Safari
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'OS X'
         bsOSVersion: 'Sequoia'
         workers:  '10'
@@ -42,19 +46,14 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowserTest'
 
-  - stage: OSX_Sonama_Safari
-    displayName: Sonama_Safari
-    condition: always()
-
-    jobs:
     - template: run-test-template.yml
       parameters:
         jobName: Sonama_Safari
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'OS X'
         bsOSVersion: 'Sonoma'
         workers:  '10'
@@ -64,19 +63,14 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowserTest'
 
-  - stage: OSX_Sonama_Firefox
-    displayName: Sonama_Firefox
-    condition: always()
-
-    jobs:
     - template: run-test-template.yml
       parameters:
         jobName: Sonama_Firefox
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'OS X'
         bsOSVersion: 'Sonoma'
         workers:  '10'
@@ -86,19 +80,14 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowserTest'
 
-  - stage: OSX_Sonama_Chrome
-    displayName: Sonama_Chrome
-    condition: always()
-
-    jobs:
     - template: run-test-template.yml
       parameters:
         jobName: Sonama_Chrome
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'https://hub.browserstack.com/wd/hub/'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'OS X'
         bsOSVersion: 'Sonoma'
         workers:  '10'
@@ -108,4 +97,4 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
         application: 'CP'
-        filterTestCases: 'TestCategory=CPCrossBrowser'
+        filterTestCases: 'TestCategory=CPCrossBrowserTest'

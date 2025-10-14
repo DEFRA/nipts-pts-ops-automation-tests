@@ -9,6 +9,10 @@ parameters:
     displayName: Is Accessibility Run Enabled
     type: boolean
     default: false
+  - name: seleniumGrid
+    displayName: Selenium Grid or Browserstack endpoint
+    type: string
+    default: 'http://localhost:4444'
 
 resources:
   repositories:
@@ -20,20 +24,20 @@ resources:
 
 variables:
     - template: 'variables/CP/${{ parameters.environment }}.yml'
-
+    - name: pool
+      value: 'DEFRA-COMMON-ubuntu2004-SSV3'
 stages:
-  
-  - stage: Windows_Chrome_latest
-    displayName: Windows_Chrome_latest
+  - stage: ParallelBrowserTests
+    displayName: Parallel Browser Tests
     condition: always()
-  
+    
     jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: Windows_Chrome_latest
+        jobName: 'Windows_Chrome'
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'http://localhost:4444'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'Windows'
         bsOSVersion: '11'
         workers:  '10'
@@ -44,18 +48,14 @@ stages:
         application: 'CP'
         dependsOn: ''
         filterTestCases: 'TestCategory=CPCrossBrowser'
+        isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 
-  - stage: Windows_Edge
-    displayName: Windows_Edge
-    condition: always()
-
-    jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: Windows_Edge
+        jobName: 'Windows_Edge'
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'http://localhost:4444'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'Windows'
         bsOSVersion: '11'
         workers:  '10'
@@ -66,18 +66,14 @@ stages:
         application: 'CP'
         dependsOn: ''
         filterTestCases: 'TestCategory=CPCrossBrowser'
+        isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
 
-  - stage: Windows_Firefox
-    displayName: Windows_Firefox
-    condition: always()
-
-    jobs:
     - template: run-test-template.yml
       parameters:
-        jobName: Windows_Firefox
+        jobName: 'Windows_Firefox'
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
-        seleniumGrid: 'http://localhost:4444'
+        seleniumGrid: ${{ parameters.seleniumGrid }}
         deviceName: 'Windows'
         bsOSVersion: '11'
         workers:  '10'
@@ -88,3 +84,4 @@ stages:
         application: 'CP'
         dependsOn: ''
         filterTestCases: 'TestCategory=CPCrossBrowser'
+        isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
