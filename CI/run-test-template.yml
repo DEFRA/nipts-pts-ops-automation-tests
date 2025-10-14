@@ -205,7 +205,11 @@ jobs:
                         Write-Host "All tests passed."
                         # Copy the current file as latest since no retries needed
                         $latestFile = "${{ parameters.jobName }}_latest.xml"
-                        Copy-Item -Path $trxFile.FullName -Destination "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$latestFile" -Force
+                        $latestPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$latestFile"
+                        if (Test-Path $latestPath) {
+                            Remove-Item $latestPath -Force
+                        }
+                        Copy-Item -Path $trxFile.FullName -Destination $latestPath -Force
                         break
                     }         
             
@@ -238,7 +242,11 @@ jobs:
                         Write-Host "Retry file $nextFileName was not created - no tests matched the filter or all tests passed"
                         # Copy the previous file as latest since retry didn't generate new results
                         $latestFile = "${{ parameters.jobName }}_latest.xml"
-                        Copy-Item -Path $trxFile.FullName -Destination "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$latestFile" -Force
+                        $latestPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$latestFile"
+                        if (Test-Path $latestPath) {
+                            Remove-Item $latestPath -Force
+                        }
+                        Copy-Item -Path $trxFile.FullName -Destination $latestPath -Force
                         break
                     }
                     
