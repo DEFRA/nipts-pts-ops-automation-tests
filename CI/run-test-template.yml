@@ -190,10 +190,7 @@ jobs:
                 $currentFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
                 
                 while ($retryCount -lt $maxRetries) {
-                    Write-Host "Looking for file: $currentFileName"
-                    Write-Host "Files in TestResults folder:"
-                    Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" | ForEach-Object { Write-Host "  $($_.Name)" }
-                    
+                   
                     $trxFile = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" -Filter $currentFileName | Select-Object -First 1
                     
                     if (-not $trxFile) {
@@ -216,13 +213,12 @@ jobs:
                     $testNames = $failedTests | ForEach-Object { 
                         if ($_.testName.IndexOf('(') -gt 0) { 
                             $_.testName.Substring(0, $_.testName.IndexOf('(')) 
-                            } 
-                            else { 
+                        } else { 
                             $_.testName 
-                            } 
-                           }
+                        } 
+                    }
                     
-                    $filter = ($testNames | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
+                    $filter = ($testNames | Select-Object -Unique | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
   
                     Write-Host "Failed Testcases are -> $filter"
         
@@ -233,7 +229,7 @@ jobs:
 
                     if(Test-Path -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$nextFileName") {
                         Remove-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$nextFileName" -Force
-                    })
+                    }
 
                     dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$nextFileName"
                     Write-Host "Dotnet test completed for retry $retryCount"
@@ -242,11 +238,11 @@ jobs:
                 
                 # Only rename if we actually did retries
                 if ($retryCount -gt 0) {
-                    $finalFile = "${{ parameters.jobName }}_retry$($retryCount - 1).xml"
+                    $finalFile = "${{ parameters.jobName }}_retry$retryCount.xml"
                     $latestFile = "${{ parameters.jobName }}_latest.xml"
                     Rename-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$finalFile" -NewName $latestFile -Force
                 }
-             }
+            }
 
              Rerun-FailedTests -maxRetries $maxRetries
     
