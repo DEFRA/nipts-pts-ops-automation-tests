@@ -160,7 +160,12 @@ jobs:
       continueOnError: true
 
     - powershell: |
-          dotnet tool install --global dotnet-retest
+          try {
+                dotnet tool install --global dotnet-retest
+            } catch {
+                Write-Host "dotnet-retest already installed, continuing..."
+            }
+
           $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
           dotnet-retest "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_retry.xml" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --output "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_latest.xml"
       displayName: 'Rerun failed tests'
