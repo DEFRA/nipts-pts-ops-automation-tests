@@ -231,6 +231,11 @@ jobs:
                         Remove-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$nextFileName" -Force
                     }
 
+                    if (Test-Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults") 
+                    {
+                        Remove-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" -Recurse -Force
+                    }
+
                     dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$nextFileName"
                     Write-Host "Dotnet test completed for retry $retryCount"
                     $currentFileName = $nextFileName
