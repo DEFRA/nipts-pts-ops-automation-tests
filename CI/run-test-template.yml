@@ -160,16 +160,17 @@ jobs:
       continueOnError: true
 
     - script: |
-        if dotnet tool list -g | findstr dotnet-retest >nul; then
-            echo "dotnet-retest already installed"
+        dotnet tool list -g | findstr dotnet-retest >nul
+        if %errorlevel% equ 0 (
+            echo dotnet-retest already installed
             dotnet tool update -g dotnet-retest
-        else
-            echo "Installing dotnet-retest..."
+        ) else (
+            echo Installing dotnet-retest...
             dotnet tool install -g dotnet-retest
-            export PATH="$PATH:$HOME/.dotnet/tools"
-        fi        
+            set PATH=%PATH%;%USERPROFILE%\.dotnet\tools
+        )
       displayName: 'Check and Install dotnet-retest'
-
+      shell: cmd
 
     - script: |
         dotnet-retest ${{ parameters.jobName }}_first.trx --output ${{ parameters.jobName }}_latest.trx
