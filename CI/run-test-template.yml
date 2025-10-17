@@ -167,10 +167,9 @@ jobs:
         ) else (
             echo Installing dotnet-retest...
             dotnet tool install -g dotnet-retest
-            set PATH=%PATH%;%USERPROFILE%\.dotnet\tools
+            set "PATH=%PATH%;%USERPROFILE%\.dotnet\tools"
         )
       displayName: 'Check and Install dotnet-retest'
-
 
     - script: |
         dotnet-retest ${{ parameters.jobName }}_first.trx --output ${{ parameters.jobName }}_latest.trx
