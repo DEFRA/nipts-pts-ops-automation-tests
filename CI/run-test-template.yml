@@ -166,6 +166,7 @@ jobs:
         else
             echo "Installing dotnet-retest..."
             dotnet tool install -g dotnet-retest
+            $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
         fi        
       displayName: 'Check and Install dotnet-retest'
 
