@@ -170,7 +170,7 @@ jobs:
             set PATH=%PATH%;%USERPROFILE%\.dotnet\tools
         )
       displayName: 'Check and Install dotnet-retest'
-      shell: cmd
+
 
     - script: |
         dotnet-retest ${{ parameters.jobName }}_first.trx --output ${{ parameters.jobName }}_latest.trx
