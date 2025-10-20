@@ -172,8 +172,7 @@ jobs:
       displayName: 'Check and Install dotnet-retest'
 
     - script: |
-        set "PATH=%PATH%;%USERPROFILE%\.dotnet\tools"
-        dotnet-retest "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_first.trx" --output "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_latest.trx"
+        dotnet retest "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_first.trx" --output "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_latest.trx"
       displayName: 'Retry Failed Tests'
 
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
