@@ -159,13 +159,15 @@ jobs:
       ignoreLASTEXITCODE: true
       continueOnError: true
 
-    - script: |
+    - powershell: |
         dotnet tool restore
       displayName: 'Restore dotnet tools'
+      workingDirectory: $(System.DefaultWorkingDirectory)
 
-    - script: |
+    - powershell: |
         dotnet tool run dotnet-retest "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_first.trx" --output "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_latest.trx"
       displayName: 'Retry Failed Tests'
+      workingDirectory: $(System.DefaultWorkingDirectory)
 
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
       - task: DockerCompose@0
