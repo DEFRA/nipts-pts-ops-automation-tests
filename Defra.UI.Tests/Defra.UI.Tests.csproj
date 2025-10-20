@@ -51,6 +51,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include=".config\dotnet-tools.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Data\Users\AP\DEV\Users.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
