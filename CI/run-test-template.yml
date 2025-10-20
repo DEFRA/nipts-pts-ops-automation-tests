@@ -150,15 +150,6 @@ jobs:
           qualifyImageNames: true
           dockerComposeCommand: up -d
           #arguments: '--exit-code-from selenium-hub'
-
-    - powershell: |
-          Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
-          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_first.trx"
-      displayName: 'Execute Tests'
-      failOnStderr: true
-      ignoreLASTEXITCODE: true
-      continueOnError: true
-
     - script: |
         dotnet tool list -g | findstr dotnet-retest >nul
         if %errorlevel% equ 0 (
@@ -172,8 +163,17 @@ jobs:
       displayName: 'Check and Install dotnet-retest'
 
     - script: |
-        dotnet retest "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_first.trx" --output "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_latest.trx"
-      displayName: 'Retry Failed Tests'
+        set PATH=%PATH%;%USERPROFILE%\.dotnet\tools
+        dotnet-retest --help
+      displayName: 'Verify dotnet-retest availability'
+
+    - powershell: |
+          Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_first.trx"
+      displayName: 'Execute Tests'
+      failOnStderr: true
+      ignoreLASTEXITCODE: true
+      continueOnError: true
 
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
       - task: DockerCompose@0
