@@ -184,11 +184,11 @@ jobs:
                 while ($attempt -le $maxRetries -and -not $passed) {
                     Write-Host "Retrying: $testName (Attempt $attempt)"
 
-                     if ($_.testName.IndexOf('(') -gt 0) { 
-                        $escapedName =    $_.testName.Substring(0, $_.testName.IndexOf('(')) 
+                     if ($testName.IndexOf('(') -gt 0) { 
+                        $escapedName =    $testName.Substring(0,$testName.IndexOf('(')) 
                             } 
                             else { 
-                           $escapedName= $_.testName 
+                           $escapedName= $testName 
                             } 
 
                     dotnet test $dllPath --filter "FullyQualifiedName~$escapedName" --logger "trx;LogFileName=$escapedName$testNameCount`_Retry_`$attempt.trx"
