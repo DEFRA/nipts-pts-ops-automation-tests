@@ -191,10 +191,10 @@ jobs:
                            $escapedName= $testName 
                             } 
 
-                    dotnet test $dllPath --filter "FullyQualifiedName~$escapedName" --logger "trx;LogFileName=$escapedName$testNameCount`_Retry_`$attempt.trx"
+                    dotnet test $dllPath --filter "FullyQualifiedName~$escapedName" --logger "trx;LogFileName=${escapedName}${testNameCount}_Retry_${attempt}.trx"
  
                     # Check if test passed in retry
-                    $retryFailures = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$escapedName$testNameCount`_Retry_`$attempt.trx"
+                    $retryFailures = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/TestResults/${escapedName}${testNameCount}_Retry_${attempt}.trx"
                     $passed = -not ($retryFailures -contains $escapedName)
                     $attempt++
                 }
@@ -207,7 +207,7 @@ jobs:
             }
  
             # Set the folder containing .trx files
-            $testResultsFolder = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults"
+            $testResultsFolder = "$(System.DefaultWorkingDirectory)/TestResults"
             $mergedFile = "MergedResults.trx"
  
             # Get all .trx files recursively
