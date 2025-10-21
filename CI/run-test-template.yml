@@ -218,19 +218,7 @@ jobs:
                 Write-Host "No .trx files found in $testResultsFolder"
                 exit
             }
- 
-            $toolInstalled = dotnet tool list -g | Select-String "trx-merger"
- 
-            if (-not $toolInstalled) {
-                Write-Host "Installing trx-merger..."
-                dotnet tool install -g trx-merger
-            } else {
-                Write-Host "trx-merger is already installed."
-            }
- 
-            trx-merger -o $mergedFile $trxFiles
- 
-            Write-Host "Merged $($trxFiles.Count) .trx files into $mergedFile"
+            
       displayName: 'Retry Failed Tests'
 
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
@@ -280,7 +268,7 @@ jobs:
       displayName: 'Publish Test Results'
       inputs:
         testResultsFormat: VSTest
-        testResultsFiles: '**/MergedResults.trx'
+        testResultsFiles: '**/*.trx'
         mergeTestResults: true
         searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/'
         testRunTitle: ${{ parameters.jobName }}
