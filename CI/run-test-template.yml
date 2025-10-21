@@ -198,7 +198,7 @@ jobs:
                     Write-Host "Found $($failedTests.Count) failed test(s). Preparing to rerun..."
 
                     $filterExpr = $failedTests -join '|'
-                    Write-Host "Rerunning failed tests with filter: $filterExpr"
+                    Write-Host "Rerunning failed tests with filter: $filterExpr, with full filder : FullyQualifiedName~($filterExpr)"
 
                     $attempt++
 
