@@ -1,4 +1,4 @@
-parameters:
+﻿parameters:
   - name: jobName
     type: string
   - name: environment
@@ -153,21 +153,77 @@ jobs:
 
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
-          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_first.trx"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_InitialResults.trx"
       displayName: 'Execute Tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
       continueOnError: true
 
-    - powershell: |
-        dotnet tool restore
-      displayName: 'Restore dotnet tools'
-      workingDirectory: $(System.DefaultWorkingDirectory)
+    - script: |
+         
+            $dllPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
+            $maxRetries = 3
+  
+            function Get-FailedTestNames {
+                param($trxFile)
+                [xml]$trx = Get-Content $trxFile
+                $trx.TestRun.Results.UnitTestResult |
+                    Where-Object { $_.outcome -eq "Failed" } |
+                    Select-Object -ExpandProperty testName
+            }
+ 
+            $failedTestNames = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_InitialResults.trx"
+            $testNameCount=0
 
-    - powershell: |
-        dotnet tool run dotnet-retest "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_first.trx" --output "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_latest.trx"
+            foreach ($testName in $failedTestNames) {
+                $escapedName = $testName
+                $attempt = 1
+                $passed = $false
+                $testNameCount++
+
+                while ($attempt -le $maxRetries -and -not $passed) {
+                    Write-Host "Retrying: $testName (Attempt $attempt)"
+                    dotnet test $dllPath --filter "FullyQualifiedName~$escapedName" --logger "trx;LogFileName=testName$testNameCount_Retry_$attempt.trx"
+ 
+                    # Check if test passed in retry
+                    $retryFailures = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/testName$testNameCount_Retry_$attempt.trx"
+                    $passed = -not ($retryFailures -contains $testName)
+                    $attempt++
+                }
+ 
+                if ($passed) {
+                    Write-Host "Passed after $($attempt - 1) attempt(s): $testName"
+                } else {
+                    Write-Host "Still failing after $maxRetries attempts: $testName"
+                }
+            }
+ 
+            # Set the folder containing .trx files
+            $testResultsFolder = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults"
+            $mergedFile = "MergedResults.trx"
+ 
+            # Get all .trx files recursively
+            $trxFiles = Get-ChildItem -Path $testResultsFolder -Filter *.trx -Recurse | Select-Object -ExpandProperty FullName
+ 
+            # Check if any .trx files were found
+            if ($trxFiles.Count -eq 0) {
+                Write-Host "No .trx files found in $testResultsFolder"
+                exit
+            }
+ 
+            $toolInstalled = dotnet tool list -g | Select-String "trx-merger"
+ 
+            if (-not $toolInstalled) {
+                Write-Host "Installing trx-merger..."
+                dotnet tool install -g trx-merger
+            } else {
+                Write-Host "trx-merger is already installed."
+            }
+ 
+            trx-merger -o $mergedFile $trxFiles
+ 
+            Write-Host "Merged $($trxFiles.Count) .trx files into $mergedFile"
       displayName: 'Retry Failed Tests'
-      workingDirectory: $(System.DefaultWorkingDirectory)
 
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
       - task: DockerCompose@0
@@ -216,7 +272,7 @@ jobs:
       displayName: 'Publish Test Results'
       inputs:
         testResultsFormat: VSTest
-        testResultsFiles: '**/*.trx'
+        testResultsFiles: '**/MergedResults.trx'
         mergeTestResults: true
         searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/'
         testRunTitle: ${{ parameters.jobName }}
