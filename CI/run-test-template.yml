@@ -175,7 +175,11 @@ jobs:
             $failedTestNames = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_InitialResults.trx"
             $testNameCount=0
 
-            $quotedNames = $failedTests | ForEach-Object {$escaped = $_.testName -replace '"', '`"' '"' + $escaped + '"' }
+            $quotedNames = $failedTests | ForEach-Object {
+                    $escaped = $_.testName -replace '"', '`"'  # Escape embedded quotes
+                    "`"$escaped`""                             # Wrap in double quotes safely
+                }
+
 
             foreach ($testName in $quotedNames) {
                 $escapedName = ""
@@ -193,7 +197,7 @@ jobs:
                      #       $escapedName= $testName 
                      #        } 
 
-                    dotnet test $dllPath --filter "FullyQualifiedName~($escapedName)" --logger "trx;LogFileName=${escapedName}${testNameCount}_Retry_${attempt}.trx"
+                    dotnet test $dllPath --filter "FullyQualifiedName~$escapedName" --logger "trx;LogFileName=${escapedName}${testNameCount}_Retry_${attempt}.trx"
  
                     # Check if test passed in retry
                     $retryFailures = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/TestResults/${escapedName}${testNameCount}_Retry_${attempt}.trx"
@@ -206,21 +210,7 @@ jobs:
                 } else {
                     Write-Host "Still failing after $maxRetries attempts: $testName"
                 }
-            }
- 
-            # Set the folder containing .trx files
-            $testResultsFolder = "$(System.DefaultWorkingDirectory)/TestResults"
-            $mergedFile = "MergedResults.trx"
- 
-            # Get all .trx files recursively
-            $trxFiles = Get-ChildItem -Path $testResultsFolder -Filter *.trx -Recurse | Select-Object -ExpandProperty FullName
- 
-            # Check if any .trx files were found
-            if ($trxFiles.Count -eq 0) {
-                Write-Host "No .trx files found in $testResultsFolder"
-                exit
-            }
-            
+            }            
       displayName: 'Retry Failed Tests'
 
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
