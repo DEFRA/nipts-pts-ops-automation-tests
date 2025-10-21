@@ -153,7 +153,7 @@ jobs:
 
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
-          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_InitialResults.trx"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_results_0.trx"
       displayName: 'Execute Tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
@@ -161,56 +161,53 @@ jobs:
 
     - powershell: |
          
-            $dllPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
+            $projectDllPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
             $maxRetries = 3
   
-            function Get-FailedTestNames {
-                param($trxFile)
-                [xml]$trx = Get-Content $trxFile
-                $trx.TestRun.Results.UnitTestResult |
-                    Where-Object { $_.outcome -eq "Failed" } |
-                    Select-Object -ExpandProperty testName
+            $resultsDir = "TestResults"
+            $attempt = 0
+            $failedTests = @()
+
+            # Ensure results directory exists
+            if (-not (Test-Path $resultsDir)) {
+                New-Item -ItemType Directory -Path $resultsDir | Out-Null
             }
- 
-            $failedTestNames = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_InitialResults.trx"
-            $testNameCount=0
 
-            $quotedNames = $failedTests | ForEach-Object {
-                    $escaped = $_.testName -replace '"', '`"'  # Escape embedded quotes
-                    "`"$escaped`""                             # Wrap in double quotes safely
-                }
+            do {
+                
+                $trxFile = "${resultsDir}\${{ parameters.jobName }}_results_${attempt}.trx"
 
+                [xml]$trx = Get-Content $trxFile
 
-            foreach ($testName in $quotedNames) {
-                $escapedName = ""
-                $attempt = 1
-                $passed = $false
-                $testNameCount++
+                $failedTests = $trx.TestRun.Results.UnitTestResult |
+                                Where-Object { $_.outcome -eq "Failed" } |
+                                Sort-Object testName |
+                                Select-Object -Unique testName |
+                                ForEach-Object {
+                                    $name = $_.testName
+                                    if ($name.Contains('(')) {
+                                        $cleanName = $name.Substring(0, $name.IndexOf('('))
+                                    } else {
+                                        $cleanName = $name
+                                    }
+                                } 
 
-                while ($attempt -le $maxRetries -and -not $passed) {
-                    Write-Host "Retrying: $testName (Attempt $attempt)"
+                if ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries) {
+                    Write-Host "Found $($failedTests.Count) failed test(s). Preparing to rerun..."
 
-                     # if ($testName.IndexOf('(') -gt 0) { 
-                     #    $escapedName =    $testName.Substring(0,$testName.IndexOf('(')) 
-                     #        } 
-                     #        else { 
-                     #       $escapedName= $testName 
-                     #        } 
+                    $filterExpr = $failedTests -join '|'
+                    Write-Host "Rerunning failed tests with filter: $filterExpr"
 
-                    dotnet test $dllPath --filter "FullyQualifiedName~$escapedName" --logger "trx;LogFileName=${escapedName}${testNameCount}_Retry_${attempt}.trx"
- 
-                    # Check if test passed in retry
-                    $retryFailures = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/TestResults/${escapedName}${testNameCount}_Retry_${attempt}.trx"
-                    $passed = -not ($retryFailures -contains $escapedName)
                     $attempt++
+
+                    $nextTrxFile = "${resultsDir}\${{ parameters.jobName }}_results_${attempt}.trx"
+
+                    dotnet test $projectDllPath --filter "FullyQualifiedName~($filterExpr)" --logger:"trx;LogFileName=${nextTrxFile}"
                 }
- 
-                if ($passed) {
-                    Write-Host "Passed after $($attempt - 1) attempt(s): $testName"
-                } else {
-                    Write-Host "Still failing after $maxRetries attempts: $testName"
-                }
-            }            
+
+            } while ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries)
+
+            Write-Host "Test rerun process complete."
       displayName: 'Retry Failed Tests'
 
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
