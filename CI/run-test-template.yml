@@ -176,18 +176,26 @@ jobs:
             $testNameCount=0
 
             foreach ($testName in $failedTestNames) {
-                $escapedName = $testName
+                $escapedName = ""
                 $attempt = 1
                 $passed = $false
                 $testNameCount++
 
                 while ($attempt -le $maxRetries -and -not $passed) {
                     Write-Host "Retrying: $testName (Attempt $attempt)"
-                    dotnet test $dllPath --filter "FullyQualifiedName~$escapedName" --logger "trx;LogFileName=testName$testNameCount_Retry_$attempt.trx"
+
+                     if ($_.testName.IndexOf('(') -gt 0) { 
+                        $escapedName =    $_.testName.Substring(0, $_.testName.IndexOf('(')) 
+                            } 
+                            else { 
+                           $escapedName= $_.testName 
+                            } 
+
+                    dotnet test $dllPath --filter "FullyQualifiedName~$escapedName" --logger "trx;LogFileName=$escapedName$testNameCount`_Retry_`$attempt.trx"
  
                     # Check if test passed in retry
-                    $retryFailures = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/testName$testNameCount_Retry_$attempt.trx"
-                    $passed = -not ($retryFailures -contains $testName)
+                    $retryFailures = Get-FailedTestNames "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$escapedName$testNameCount`_Retry_`$attempt.trx"
+                    $passed = -not ($retryFailures -contains $escapedName)
                     $attempt++
                 }
  
