@@ -164,7 +164,7 @@ jobs:
             $projectDllPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
             $maxRetries = 3
   
-            $resultsDir = "TestResults"
+            $resultsDir = "Defra.UI.Tests\TestResults"
             $attempt = 0
             $failedTests = @()
 
