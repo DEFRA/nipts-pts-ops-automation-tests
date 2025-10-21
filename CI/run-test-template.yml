@@ -159,7 +159,7 @@ jobs:
       ignoreLASTEXITCODE: true
       continueOnError: true
 
-    - script: |
+    - powershell: |
          
             $dllPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
             $maxRetries = 3
