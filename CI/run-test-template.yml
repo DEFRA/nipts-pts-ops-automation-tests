@@ -224,8 +224,8 @@ jobs:
             $mergedTrxPath = "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_MergedResults.trx"
 
             $trxFiles = @( 
-                Get-ChildItem -Path $initialRunResult -Filter *.trx,
-                Get-ChildItem -Path $retryRunResult -Filter *.trx
+                Get-ChildItem -Path $initialRunResult -Filter "*.trx" -Recurse,
+                Get-ChildItem -Path $retryRunResult -Filter "*.trx" -Recurse
             )
 
             $latestResults = @{}
