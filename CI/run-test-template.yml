@@ -202,7 +202,7 @@ jobs:
 
                     $attempt++
 
-                    $nextTrxFile = "${resultsDir}\${{ parameters.jobName }}_results_${attempt}.trx"
+                    $nextTrxFile = "${{ parameters.jobName }}_results_${attempt}.trx"
 
                     dotnet test $projectDllPath --filter "FullyQualifiedName~($filterExpr)" --logger:"trx;LogFileName=${nextTrxFile}"
                 }
