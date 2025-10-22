@@ -330,7 +330,7 @@ jobs:
       inputs:
         testResultsFormat: VSTest
         testResultsFiles: '${{ parameters.jobName }}_MergedResults.trx'
-        mergeTestResults: true
         searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults'
         testRunTitle: ${{ parameters.jobName }}
+        failTaskOnFailedTests: true
         continueOnError: true
