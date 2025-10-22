@@ -164,7 +164,7 @@ jobs:
             $projectDllPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
             $maxRetries = 3
   
-            $resultsDir = "Defra.UI.Tests\TestResults"
+            $resultsDir = "TestResults"
             $attempt = 0
             $failedTests = @()
 
@@ -175,7 +175,12 @@ jobs:
 
             do {
                 
-                $trxFile = "${resultsDir}\${{ parameters.jobName }}_results_${attempt}.trx"
+                if ($attempt -eq 0) {
+                    $trxFile = "Defra.UI.Tests\${resultsDir}\${{ parameters.jobName }}_results_${attempt}.trx"
+                }
+                else {
+                    $trxFile = "${resultsDir}\${{ parameters.jobName }}_results_${attempt}.trx"
+                }
 
                 [xml]$trx = Get-Content $trxFile
 
@@ -260,9 +265,9 @@ jobs:
       displayName: 'Publish Test Results'
       inputs:
         testResultsFormat: VSTest
-        testResultsFiles: '**/*.trx'
+        testResultsFiles: '**/TestResults/*.trx'
         mergeTestResults: true
-        searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/'
+        searchFolder: '$(System.DefaultWorkingDirectory)'
         testRunTitle: ${{ parameters.jobName }}
         failTaskOnFailedTests: true
         continueOnError: true
