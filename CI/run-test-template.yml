@@ -197,14 +197,15 @@ jobs:
                 if ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries) {
                     Write-Host "Found $($failedTests.Count) failed test(s). Preparing to rerun..."
 
-                    $filterExpr = $failedTests -join '|'
+                    $filterExpr = ($failedTests | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
+
                     Write-Host "Rerunning failed tests with filter: $filterExpr, with full filder : FullyQualifiedName~($filterExpr)"
 
                     $attempt++
 
                     $nextTrxFile = "${{ parameters.jobName }}_results_${attempt}.trx"
 
-                    dotnet test $projectDllPath --filter "FullyQualifiedName~($filterExpr)" --logger:"trx;LogFileName=${nextTrxFile}"
+                    dotnet test $projectDllPath --filter "$filterExpr" --logger:"trx;LogFileName=${nextTrxFile}"
                 }
 
             } while ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries)
