@@ -15,7 +15,7 @@ Background:
 Scenario: Checking the Feedback Hyperlink
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the Feedback Link
-	Then I should navigate to the Feedback details correct page
+	Then I should navigate to the Feedback details correct page opens in new tab
 
 Scenario: Checking the Gethelp Hyperlink
 	Then I should navigate to Lifelong pet travel documents page
@@ -25,12 +25,14 @@ Scenario: Checking the Gethelp Hyperlink
 Scenario: Checking the AccessibilityStatement Hyperlink
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the AccessibilityStatement Link
-	Then I should navigate to the AccessibilityStatement details correct page
+	Then I should navigate to the AccessibilityStatement details correct page opens in same tab
 
 Scenario: Checking the Cookies Hyperlink
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the Cookies Link
-	Then I should navigate to the Cookies details correct page
+	Then I should navigate to the Cookies details correct page opens in same tab
+	And I click on Back button
+	Then I should navigate to Lifelong pet travel documents page 
 
 Scenario: Checking the PrivacyNotice Hyperlink
 	Then I should navigate to Lifelong pet travel documents page
@@ -40,7 +42,9 @@ Scenario: Checking the PrivacyNotice Hyperlink
 Scenario: Checking the TermsAndConditions Hyperlink
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the TermsAndConditions Link
-	Then I should navigate to the TermsAndConditions details correct page
+	Then I should navigate to the TermsAndConditions details correct page opens in same tab
+	And I click on Back button
+	Then I should navigate to Lifelong pet travel documents page 
 
 Scenario: Checking the CrownCopyright Hyperlink
 	Then I should navigate to Lifelong pet travel documents page

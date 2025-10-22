@@ -48,6 +48,25 @@ Examples:
 	| FullName | Are your details correct | MicrochipOption | MicrochipNumber |
 	| PetCat's | Yes                      | Yes             | 123456789123485 |
 
+Scenario Outline: Verify microchipped date text boxes should not allow invalid date
+	Then I have selected '<Are your details correct>' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the '<MicrochipOption>' option
+	And provided microchip number as <MicrochipNumber>
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided microchipped date as '<MicrochippedDay>' '<MicrochippedMonth>' '<MicrochippedYear>'
+	When I click Continue button from When was your pet microchipped page
+	Then I should not be redirected to Is your pet a dog, cat or ferret? page
+	And I should see an error message "Enter the date your pet was microchipped or the date it was last scanned. For example, 11 4 2021" in pets microchipped or last scanned page
+Examples:
+	| Are your details correct | MicrochipOption | MicrochipNumber | MicrochippedDay | MicrochippedMonth | MicrochippedYear |
+	| Yes                      | Yes             | 123456789123485 | 34              | 12                | 2002             |
+	| Yes                      | Yes             | 123456789123485 | 21              | 14                | 2002             |
+	| Yes                      | Yes             | 123456789123485 | £$              | %^                | 200$             |
+	| Yes                      | Yes             | 123456789123485 | dd              | mm                | 20yy             |
+
 Scenario Outline: Verify microchipped page validations without selection and should not moves to next page
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
