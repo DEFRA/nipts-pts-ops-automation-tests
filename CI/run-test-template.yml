@@ -263,10 +263,10 @@ jobs:
 
                 if ($definition -and $result) {
                     $importedResult = $finalTrx.ImportNode($result, $true)
-                    $finalTrx.TestRun.Results.AppendChild($importedResult) | Out-Null
+                    $finalTrx.SelectSingleNode("//Results").AppendChild($importedResult) | Out-Null
 
                     $importedDef = $finalTrx.ImportNode($definition, $true)
-                    $finalTrx.TestRun.TestDefinitions.AppendChild($importedDef) | Out-Null
+                    $finalTrx.SelectSingleNode("//TestDefinitions").AppendChild($importedDef) | Out-Null
                 }
             }
 
