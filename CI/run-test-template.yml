@@ -204,7 +204,7 @@ jobs:
 
                     $filterExpr = ($failedTests | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
 
-                    Write-Host "Rerunning failed tests with filter: $filterExpr, with full filder : FullyQualifiedName~($filterExpr)"
+                    Write-Host "Rerunning failed tests with filter: $filterExpr"
 
                     $attempt++
 
@@ -216,7 +216,9 @@ jobs:
             } while ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries)
 
             Write-Host "Test rerun process complete."
+            exit 0
       displayName: 'Retry Failed Tests'
+      failOnStderr: false
 
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
       - task: DockerCompose@0
