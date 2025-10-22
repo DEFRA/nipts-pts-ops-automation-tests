@@ -127,7 +127,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
             if (status.Equals("Unsuccessful") || status.Equals("Pending"))
             {
-                result = (title.Text.Replace("\r\n", string.Empty).Trim().Equals("Reference number") && documentIssuedFields[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Application reference number") && documentIssuedFields[1].Text.Equals("Date"));
+                result = (title.Text.Replace("\r\n", string.Empty).Trim().Equals("Reference number") && documentIssuedFields[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Application reference number") && documentIssuedFields[1].Text.Replace("\r\n", string.Empty).Equals("Date"));
             }
             else if (status.Equals("Approved") || status.Equals("Cancelled"))
             {
