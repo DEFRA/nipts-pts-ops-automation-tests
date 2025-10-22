@@ -252,6 +252,9 @@ jobs:
             # Use the first .trx file as a base
             [xml]$finalTrx = Get-Content "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_results_0.trx"
 
+            $namespaceManager = New-Object System.Xml.XmlNamespaceManager($finalTrx.NameTable)
+            $namespaceManager.AddNamespace("ns", $finalTrx.DocumentElement.NamespaceURI)
+
             # Clear existing results and definitions
             $finalTrx.TestRun.Results.RemoveAll()
             $finalTrx.TestRun.TestDefinitions.RemoveAll()
@@ -263,10 +266,10 @@ jobs:
 
                 if ($definition -and $result) {
                     $importedResult = $finalTrx.ImportNode($result, $true)
-                    $finalTrx.SelectSingleNode("//Results").AppendChild($importedResult) | Out-Null
-
+                    $finalTrx.SelectSingleNode("//ns:Results", $namespaceManager).AppendChild($importedResult) | Out-Null
+                    
                     $importedDef = $finalTrx.ImportNode($definition, $true)
-                    $finalTrx.SelectSingleNode("//TestDefinitions").AppendChild($importedDef) | Out-Null
+                    $finalTrx.SelectSingleNode("//ns:TestDefinitions", $namespaceManager).AppendChild($importedDef) | Out-Null
                 }
             }
 
