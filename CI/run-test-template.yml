@@ -176,10 +176,10 @@ jobs:
             do {
                 
                 if ($attempt -eq 0) {
-                    $trxFile = "Defra.UI.Tests\${resultsDir}\${{ parameters.jobName }}_results_${attempt}.trx"
+                    $trxFile = "Defra.UI.Tests/${resultsDir}/${{ parameters.jobName }}_results_${attempt}.trx"
                 }
                 else {
-                    $trxFile = "${resultsDir}\${{ parameters.jobName }}_results_${attempt}.trx"
+                    $trxFile = "${resultsDir}/${{ parameters.jobName }}_results_${attempt}.trx"
                 }
 
                 [xml]$trx = Get-Content $trxFile
@@ -219,9 +219,9 @@ jobs:
 
             # Merge all trx files into one
 
-            $initialRunResult = "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults"
-            $retryRunResult = "$(System.DefaultWorkingDirectory)\TestResults"
-            $mergedTrxPath = "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_MergedResults.trx"
+            $initialRunResult = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults"
+            $retryRunResult = "$(System.DefaultWorkingDirectory)/TestResults"
+            $mergedTrxPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_MergedResults.trx"
 
             $trxFiles = @( 
                 Get-ChildItem -Path $initialRunResult -Filter "*.trx" -Recurse
@@ -250,7 +250,7 @@ jobs:
             }
 
             # Use the first .trx file as a base
-            [xml]$finalTrx = Get-Content "$(System.DefaultWorkingDirectory)\Defra.UI.Tests\TestResults\${{ parameters.jobName }}_results_0.trx"
+            [xml]$finalTrx = Get-Content "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_results_0.trx"
 
             $namespaceManager = New-Object System.Xml.XmlNamespaceManager($finalTrx.NameTable)
             $namespaceManager.AddNamespace("ns", $finalTrx.DocumentElement.NamespaceURI)
