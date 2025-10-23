@@ -18,9 +18,9 @@ namespace Defra.UI.Tests.HelperMethods
     public class FetchCodeFromEmail : IFetchCodeFromEmail
     {
         private ScenarioContext ScenarioContext { get; set; }
-        public string DomainName { get; set; } = "team947193.testinator.com";
+        public string DomainName { get; set; } = "team553512.testinator.com";
 
-        private MailinatorClient MailinatorClient = new MailinatorClient("e8dd4956d033404498bc790303738870");
+        private MailinatorClient mailinatorClient = new MailinatorClient("af00c8254afc4c34b3f32ba44a040e73");
 
         public FetchCodeFromEmail(ScenarioContext _scenarioContext)
         {
@@ -35,13 +35,13 @@ namespace Defra.UI.Tests.HelperMethods
                 //Fetch Inbox
                 Thread.Sleep(5000);
                 FetchInboxRequest fetchInboxRequest = new FetchInboxRequest() { Domain = DomainName, Inbox = "*", Skip = 0, Limit = 30, Sort = Sort.asc };
-                FetchInboxResponse fetchInboxResponse = await MailinatorClient.MessagesClient.FetchInboxAsync(fetchInboxRequest);
+                FetchInboxResponse fetchInboxResponse = await mailinatorClient.MessagesClient.FetchInboxAsync(fetchInboxRequest);
                 
                 var inBoxMessage = fetchInboxResponse.Messages.SingleOrDefault(t => t.To.Equals(inboxIdToReadCode));
 
                 //Fetch Message
                 FetchMessageRequest fetchMessageRequest = new FetchMessageRequest() { Domain = DomainName, Inbox = inBoxMessage?.To, MessageId = inBoxMessage?.Id };
-                FetchMessageResponse fetchMessageResponse = await MailinatorClient.MessagesClient.FetchMessageAsync(fetchMessageRequest);
+                FetchMessageResponse fetchMessageResponse = await mailinatorClient.MessagesClient.FetchMessageAsync(fetchMessageRequest);
 
                 var message = fetchMessageResponse.Parts[0];
 
@@ -73,7 +73,7 @@ namespace Defra.UI.Tests.HelperMethods
                     MessageId = code
                 };
 
-                DeleteMessageResponse deleteMessageResponse = await MailinatorClient.MessagesClient.DeleteMessageAsync(deleteMessageRequest);
+                DeleteMessageResponse deleteMessageResponse = await mailinatorClient.MessagesClient.DeleteMessageAsync(deleteMessageRequest);
             }
             catch (Exception ex)
             {
@@ -85,7 +85,7 @@ namespace Defra.UI.Tests.HelperMethods
         {
             try
             {
-                await MailinatorClient.MessagesClient.DeleteAllDomainMessagesAsync(new DeleteAllDomainMessagesRequest
+                await mailinatorClient.MessagesClient.DeleteAllDomainMessagesAsync(new DeleteAllDomainMessagesRequest
                 {
                     Domain = DomainName
                 });

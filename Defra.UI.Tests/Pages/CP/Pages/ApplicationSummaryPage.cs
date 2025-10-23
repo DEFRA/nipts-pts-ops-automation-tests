@@ -119,13 +119,15 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             var result = false;
 
+            _driver.Wait(5);
+
             RefNumberSection.ScrollToElement(_driver);
             var title = RefNumberSection.FindElement(By.ClassName("govuk-summary-card__title"));
             var documentIssuedFields = RefNumberSection.FindElements(By.ClassName("govuk-summary-list__key"));
 
             if (status.Equals("Unsuccessful") || status.Equals("Pending"))
             {
-                result = (title.Text.Replace("\r\n", string.Empty).Trim().Equals("Reference number") && documentIssuedFields[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Application reference number") && documentIssuedFields[1].Text.Equals("Date"));
+                result = (title.Text.Replace("\r\n", string.Empty).Trim().Equals("Reference number") && documentIssuedFields[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Application reference number") && documentIssuedFields[1].Text.Replace("\r\n", string.Empty).Equals("Date"));
             }
             else if (status.Equals("Approved") || status.Equals("Cancelled"))
             {

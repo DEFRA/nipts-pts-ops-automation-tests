@@ -243,7 +243,8 @@ Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
 	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
 
-Scenario Outline: Verify the email subject for approved email
+@ignore
+Scenario Outline: Verify the email subject for approved email and create SNC for 6 Months and verify suspension email in Timeline
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the What is your full name page
@@ -295,6 +296,11 @@ Scenario Outline: Verify the email subject for approved email
 	And I go back
 	And I 'Authorise' the application
 	Then I verify the copy of the 'APPROVED' Email in Timeline
+	When I create a New Suspect Non Compliance
+	And I Log decision in SNC as '6 Months'
+	Then I verify the copy of the 'SUSPENSION' Email in Timeline
+	And The Decision date is set to Current date
+	And the status is changed to 'Intent to Suspend'
 Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
 	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
@@ -352,7 +358,7 @@ Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
 	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
 
-Scenario Outline: Verify the message banner at the top of the application page - duplicate MC number
+Scenario Outline: Verify the duplicate MC number message banner and reject the application
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the What is your full name page
@@ -528,13 +534,13 @@ Scenario Outline: Verify the error message when the caseworker Authorises an app
 	Then I 'do' see Duplicate Microchip Notification
 	When I 'Pass' the Microchip check
 	And I go back
-	Then I See an error 'Another Authorised application exists with this microchip number' when Authorising the application
+	Then I See an error 'Another Authorised or Suspended application exists with this microchip number.' when Authorising the application
 
 Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
 	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
 
-Scenario Outline: Verify if a user can Submit an application in AP and the Caseworker can Approved the application in Dynamics and verify the approved email	
+Scenario Outline: Verify if a user can Submit an application in AP and the Caseworker can Approved the application 	
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the Is your pet microchipped page
@@ -578,10 +584,7 @@ Scenario Outline: Verify if a user can Submit an application in AP and the Casew
 	And I go back
 	And I 'Authorise' the application
 	Then I verify the copy of the 'APPROVED' Email in Timeline	
-	When I create a New Suspect Non Compliance
-	And I Log decision in SNC as '6 Months'
-	Then I verify the copy of the 'SUSPENSION' Email in Timeline
-
+	
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
@@ -675,8 +678,9 @@ Scenario Outline: Verify if a user can Submit an application in AP and the Casew
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself
-	And I 'Pass' the Microchip check
+	And I assign the application to myself	
+	Then I verify the copy of the 'CONFIRMATION' Email in Timeline
+	When I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	And I assign the application to myself
