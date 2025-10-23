@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="12345678-1234-1234-1234-123456789abc" name="SampleTestRun" runUser="AzureDevOpsAgent" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <Times creation="2025-10-20T14:00:00.000Z" queuing="2025-10-20T14:00:01.000Z" start="2025-10-20T14:00:02.000Z" finish="2025-10-20T14:00:10.000Z" />
+  <TestDefinitions>
+    <UnitTest name="TestThatFails" storage="SampleTests.dll" id="11111111-1111-1111-1111-111111111111">
+      <Execution id="22222222-2222-2222-2222-222222222222" />
+      <TestMethod codeBase="SampleTests.dll" adapterTypeName="Microsoft.VisualStudio.TestTools.TestAdapter" className="SampleTests.FailureTests" name="TestThatFails" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="00000000-0000-0000-0000-000000000000" />
+  </TestLists>
+  <Results>
+    <UnitTestResult executionId="22222222-2222-2222-2222-222222222222" testId="11111111-1111-1111-1111-111111111111" testName="TestThatFails" computerName="AzureDevOpsAgent" duration="00:00:01.234" outcome="Failed" testListId="00000000-0000-0000-0000-000000000000" relativeResultsDirectory="11111111-1111-1111-1111-111111111111">
+      <Output>
+        <ErrorInfo>
+          <Message>Assert.AreEqual failed. Expected:&lt;42&gt;. Actual:&lt;0&gt;.</Message>
+          <StackTrace>at SampleTests.FailureTests.TestThatFails() in C:\agent\_work\1\s\SampleTests\FailureTests.cs:line 15</StackTrace>
+        </ErrorInfo>
+      </Output>
+    </UnitTestResult>
+  </Results>
+</TestRun>
