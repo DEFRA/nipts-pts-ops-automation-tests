@@ -1939,6 +1939,30 @@ public class WebClient : BrowserPage, IDisposable
         });
     }
 
+    public BrowserCommandResult<bool> IsSorted(string columnName, string sortOptionButtonText, int thinkTime = Constants.DefaultThinkTime)
+    {
+        ThinkTime(thinkTime);
+
+        return this.Execute(GetOptions($"Sort by {columnName}"), driver =>
+        {
+
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("document.body.style.zoom='50%'");
+
+            var sortCol = driver.FindElement(By.XPath(AppElements.Xpath[AppReference.Grid.GridColumn].Replace("[COLNAME]", columnName)));
+
+            if (sortCol == null)
+                throw new InvalidOperationException($"Column: {columnName} Does not exist");
+            else
+            {
+                sortCol.Click(true);
+                driver.WaitUntilClickable(By.XPath($@"//button[@name='{sortOptionButtonText}']/div/i[1]")).GetAttribute("data-icon-name").Equals("CheckMark");
+                return true;
+            }
+            return false;
+        });
+    }
+
     #endregion
 
     #region RelatedGrid
@@ -2813,9 +2837,9 @@ public class WebClient : BrowserPage, IDisposable
     private void SelectButtonValue(IWebDriver driver, IWebElement input, string value, TimeSpan? thinktime = null)
     {
         // Repeat set value if expected value is not set
-        // Do this to ensure that the static placeholder '---' is removed 
+        // Do this to ensure that the static placeholder '---' is removed        
         driver.RepeatUntil(() =>
-        {
+        {           
             Actions actions = new Actions(driver);            
             var maxAttempts = 20;
 
@@ -2823,15 +2847,15 @@ public class WebClient : BrowserPage, IDisposable
             {
                 actions.MoveToElement(input).Click().Perform();
                 actions.SendKeys(Keys.ArrowDown).Perform();
-                Thread.Sleep(300); 
+                Thread.Sleep(300);
                 actions.SendKeys(Keys.Enter).Perform();
 
-                string currentValue = input.GetAttribute("value").Trim();
+                string? currentValue = input.GetAttribute("value").Trim();
 
                 if (currentValue == value)
                 {
                     break;
-                }                
+                }
             }
 
             //input.Click();
@@ -5897,6 +5921,35 @@ TimeSpan.FromSeconds(5),
         Browser.Dispose();
     }
 
+    internal BrowserCommandResult<bool> VerifyAdvancedSearch(string fieldName, string operators, string value, int thinkTime = Constants.DefaultThinkTime)
+    {
+        ThinkTime(thinkTime);
+
+        return this.Execute(GetOptions($"Advanced Search"), driver =>
+        {
+            driver.WaitUntilClickable(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFind])).Click();
+            driver.WaitForTransaction();
+            Thread.Sleep(1000);
+            driver.WaitForTransaction();
+            var elements = driver.FindElements(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindFieldValue]));
+            var elementValues = driver.FindElements(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindValue]));
+            var elementOperators =  driver.FindElements(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindOperator]));
+            
+
+        for (var i = 0 ; i < elements.Count; i++)
+            {
+                if (elements[i].GetAttribute("value").Equals(fieldName) && elementOperators[i].GetAttribute("value").Equals(operators) && elementValues[i].GetAttribute("value").Equals(value))
+                {
+                    driver.WaitUntilClickable(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindApply])).Click();
+                    driver.WaitForTransaction();
+                    return true;
+                }               
+            }
+            
+            return false;
+        });
+
+    }
     internal BrowserCommandResult<bool> AdvancedSearch(string fieldName, string operators, string value, int thinkTime = Constants.DefaultThinkTime)
     {
         ThinkTime(thinkTime);

@@ -458,6 +458,22 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIVerifyIfColoumnIsAvailable(string columnName)
         {
             Trade.Plants.SpecFlowBindings.Steps.GridSteps.CheckColumnExists(columnName, "Duplicates_subgrid");
+        }  
+        
+        [Then("I Verify the '(.*)' coloumns are present")]
+        public void ThenIVerifyColoumnsArePresent(string columnNames)
+        {
+            string[] columnName = columnNames.Split('|');
+            foreach (string column in columnName)
+            {
+                Trade.Plants.SpecFlowBindings.Steps.GridSteps.CheckColumnExists(column, "");
+            }
+        }
+
+        [Then("I Verify the '(.*)' coloumn is present")]
+        public void ThenIVerifyColoumnISPresent(string columnName)
+        {
+            Trade.Plants.SpecFlowBindings.Steps.GridSteps.CheckColumnExists(columnName, "");
         }
 
         [Then("I Verify the '(.*)' Failed Verification Check Error Message")]
@@ -878,14 +894,30 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentDate("dd/MM/yyyy"), "nipts_decisiondate", "inputdatetime", "field", "");
-            ThenTheStatusIsChangedTo("Intent to Suspend");
         }
 
+        [Then(@"The Decision date is set to Current date")]
+        public void ThenDecisionDateIsSetToCurrentDate()
+        {
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentDate("dd/MM/yyyy"), "nipts_decisiondate", "inputdatetime", "field", "");
+        }
+               
         [Then(@"I see '(.*)' in Intent to Suspend Letter field")]
         public void ThenISeeIntentToSuspendLetter(string value)
         {
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_intenttosuspendletter", "optionset", "field", "");
+        }
+
+        [Then(@"I Verify the Grid filter with '(.*)' '(.*)' '(.*)'")]
+        public void ThenIVerifyTheGridFilter(string fieldName , string Operator, string value)
+        {
+            GridSteps.WhenIVerifyAdvancedFilterInTheGrid(fieldName, Operator, value);
+        }
+
+        [Then(@"I verify the column '(.*)' is sorted by '(.*)'")]
+        public void ThenIVerifyTheColumnIsSorted(string columnName , string sortOption) 
+        {
+            GridSteps.VerifyTheColumnIsSorted(columnName, sortOption);
         }
     }
 }
