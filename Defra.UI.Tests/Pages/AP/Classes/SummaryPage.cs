@@ -4,6 +4,8 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Reqnroll;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -29,6 +31,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Issuing authority']"));
         private IWebElement lblNameAndAddressOfAuthority => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Name and address of competent authority']"));
         private IWebElement lblAuthorityAddress => _driver.WaitForElement(By.XPath("//dd[contains(normalize-space(.),'Woodham Lane')]"));
+        private IWebElement lblStatusValue => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']/following-sibling::dd"));
+        private IReadOnlyCollection<IWebElement> IssuingAuthorityTable => _driver.FindElements(By.XPath("//div[@id='document-authority-card']"));
         #endregion
 
         #region Methods
@@ -175,6 +179,34 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             string secondAddressLine = separateLines[1];
 
             return firstAddressLine.Equals(addressLine1) && secondAddressLine.Equals(addressLine2);
+        }
+
+        public bool VerifyApplicationStatus(string status)
+        {
+            return lblStatusValue.Text.Contains(status);
+        }
+
+        public bool VerifyPrintAndDownloadLinks()
+        {
+            _driver.WaitForPageToLoad();
+            var printLink = _driver.FindElements(By.Id("print-this-page")).Count;
+            var downloadLink = _driver.FindElements(By.XPath("//a[normalize-space(text())='Download your application' or normalize-space(text())='Download your document']")).Count;
+
+            if (printLink.Equals(0) && downloadLink.Equals(0))
+            {
+                return true;
+            }
+            return false;       
+        }
+
+        public bool VerifyApplicationDetails(string status)
+        {
+            return lblStatusValue.Text.Contains(status);
+        }
+
+        public bool VerifyIssuingAuthorityTableIsNotVisible()
+        {
+            return IssuingAuthorityTable.Count == 0;
         }
     }
 }

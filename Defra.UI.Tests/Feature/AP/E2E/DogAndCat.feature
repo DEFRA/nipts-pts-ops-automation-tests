@@ -73,6 +73,10 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	Then the status is changed to 'Authorised'
 	And I click on Back button in Pets Application
 	And I should see the application in 'Approved' status
+	When I have clicked the View hyperlink from home page
+	Then I verify all the details in the declaration page for approved PTD 'Approved'
+	And I should see a table named 'Issuing authority' with a column 'Name and address of competent authority' in approved document
+	Then the address of authority should be 'Animal and Plant Health Agency' 'Woodham Lane, New Haw, Addlestone, Surrey KT15 3NB'
 
 Examples:
 	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |

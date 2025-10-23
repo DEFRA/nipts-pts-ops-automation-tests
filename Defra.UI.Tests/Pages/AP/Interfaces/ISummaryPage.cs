@@ -10,5 +10,9 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         public bool ClickPrintdLink();
         bool VerifyIssuingAuthorityTable(string tableName, string columnName);
         bool VerifyIssuingAuthorityAddress(string addressLine1, string addressLine2);
+        bool VerifyApplicationStatus(string status);
+        bool VerifyPrintAndDownloadLinks();
+        bool VerifyApplicationDetails(string status);
+        bool VerifyIssuingAuthorityTableIsNotVisible();
     }
 }
