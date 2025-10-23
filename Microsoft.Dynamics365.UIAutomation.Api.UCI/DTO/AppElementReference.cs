@@ -57,6 +57,7 @@ public static class AppReference
         public static string AdvancedFindAdd = "Grid_AdvancedFindAdd";
         public static string AdvancedAddRow = "Grid_AdvancedAddRow";
         public static string AdvancedFindField = "Grid_AdvancedFindField";
+        public static string AdvancedFindFieldValue = "Grid_AdvancedFindFieldValue";
         public static string AdvancedFindDeleteFilters = "Grid_AdvancedFindDeleteAllFilters";
         public static string AdvancedDeleteRow = "Grid_AdvancedDeleteRow";
         public static string AdvancedMoreOptions = "Grid_AdvancedMoreOptions";
@@ -82,6 +83,7 @@ public static class AppReference
         public static string ChartSelector = "Grid_ChartSelector";
         public static string ChartViewList = "Grid_ChartViewList";
         public static string GridSortColumn = "Grid_SortColumn";
+        public static string GridColumn = "Grid_Column";
         public static string Cells = "Grid_Cells";
         public static string CellContainer = "Grid_CellContainer";
         public static string ViewSelector = "Grid_ViewSelector";
@@ -421,6 +423,7 @@ public static class AppElements
         { "Grid_AdvancedFindDeleteAllFilters" , "//span[text()='Delete all filters']" },
         { "Grid_AdvancedMoreOptions" , "//span[@data-automationid=\"splitbuttonprimary\"]/i[@data-icon-name='More']" },
         { "Grid_AdvancedFindField"    , "//div[@class='eb-RowExpressionView-Container']//input[@aria-label='field selector']/following::span[1]"},
+        { "Grid_AdvancedFindFieldValue"    , "//div[@class='eb-RowExpressionView-Container']//input[@aria-label='field selector']"},
         { "Grid_AdvancedFindOperator"    , "//div[@class='eb-RowExpressionView-Container']//input[@aria-label='Operator']"},
         { "Grid_AdvancedFindValue"    , "//div[@class='eb-RowExpressionView-Container']//input[@aria-label='Value']"},
         { "Grid_AdvancedFindApply"    , "//button[@aria-label='Apply the current advanced filters']"},
@@ -443,6 +446,7 @@ public static class AppElements
         { "Grid_ChartSelector"           , "//span[contains(@id,'ChartSelector')]"},
         { "Grid_ChartViewList"           , "//ul[contains(@role,'listbox')]"},
         { "Grid_SortColumn",           "//*[contains(@id,'pcf_grid_control_container')]//*[contains(@data-testid,'[COLNAME]')]"},
+        { "Grid_Column",           "//div[@data-testid=\"columnHeader\"]//label/div[text()='[COLNAME]']"},
         { "Grid_Cells", ".//div[@role='gridcell']"},
         //{ "Grid_CellContainer"    ,"//div[@role='grid'][@data-id='grid-cell-container']"},
         { "Grid_CellContainer"    ,"//div[@role='grid']"},

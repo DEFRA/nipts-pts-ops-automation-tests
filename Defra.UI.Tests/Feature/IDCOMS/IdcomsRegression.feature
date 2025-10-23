@@ -304,12 +304,13 @@ Scenario: Verify the Duplicate Microchip Notification for offline PTD applicatio
 Scenario: Verify if the caseworker can update the offline PTD application multiple time when the application status is Open
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchip Number' as '564789098987654'
 	And I Click on Save
 	Then the status is 'Open'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
 	When I enter 'Applicant Name' as 'Automation user'
+	And I enter 'Microchip Number' as 'auto'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
@@ -484,3 +485,13 @@ Scenario: Create a New applicant Contact is and create a offline application and
 	Then the status is changed to 'Authorised'	
 	When I create a New Suspect Non Compliance
 	And I Log decision in SNC as '12 Months'
+	Then The Decision date is set to Current date
+	And the status is changed to 'Intent to Suspend'
+
+Scenario: Verify Application Reporting View shows submitted applications from last 35 days, excludes EUEXTST and the Submission date is sorted by Older to Newer
+	When I Login to Dynamics application
+	And I Switch to 'Application Reporting View'
+	Then I Verify the Grid filter with 'Submission Date' 'Last x days' '35'
+	And I Verify the Grid filter with 'Applicant' 'Does not contain' 'EUEXTST'
+	And I Verify the 'Application Method|Status Reason|Reason for Rejection|Other Revocation Reason|Application Language|Submission Date|Date Authorised|Date Rejected|Date Revoked|Application Reference|PTD Reference|Modified On' coloumns are present
+	And I verify the column 'Submission Date' is sorted by 'Older to newer'

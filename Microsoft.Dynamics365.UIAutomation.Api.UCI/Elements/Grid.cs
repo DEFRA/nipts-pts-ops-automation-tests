@@ -85,6 +85,11 @@ public class Grid : Element
         _client.Sort(columnName, sortOptionButtonText);
     }
 
+    public void IsSorted(string columnName, string sortOptionButtonText)
+    {
+        _client.IsSorted(columnName, sortOptionButtonText);
+    }
+
     /// <summary>
     /// Filter the grid by the Character provided
     /// </summary>
@@ -103,5 +108,10 @@ public class Grid : Element
     public void AdvancedSearch(string fieldName, string operators, string value)
     {
         _client.AdvancedSearch(fieldName, operators, value);
+    } 
+    
+    public void VerifyAdvancedSearch(string fieldName, string operators, string value)
+    {
+        _client.VerifyAdvancedSearch(fieldName, operators, value);
     }
 }
