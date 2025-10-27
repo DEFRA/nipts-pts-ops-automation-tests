@@ -12,7 +12,7 @@ Background:
 	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 
-Scenario: Checking the Feedback Hyperlink
+Scenario: Checking the Feedback Hyperlink opens in new tab
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the Feedback Link
 	Then I should navigate to the Feedback details correct page opens in new tab
@@ -22,24 +22,26 @@ Scenario: Checking the Gethelp Hyperlink
 	And  I click the Gethelp Link
 	Then I should navigate to the Gethelp details correct page
 
-Scenario: Checking the AccessibilityStatement Hyperlink
+Scenario: Checking the AccessibilityStatement Hyperlink opens in same tab and back navigation
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the AccessibilityStatement Link
 	Then I should navigate to the AccessibilityStatement details correct page opens in same tab
+	And I click on Back button
+	Then I should navigate to Lifelong pet travel documents page
 
-Scenario: Checking the Cookies Hyperlink
+Scenario: Checking the Cookies Hyperlink opens in same tab and back navigation
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the Cookies Link
 	Then I should navigate to the Cookies details correct page opens in same tab
 	And I click on Back button
 	Then I should navigate to Lifelong pet travel documents page 
 
-Scenario: Checking the PrivacyNotice Hyperlink
+Scenario: Checking the PrivacyNotice Hyperlink opens in new tab
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the PrivacyNotice Link
-	Then I should navigate to the PrivacyNotice details correct page
+	Then I should navigate to the PrivacyNotice details correct page opens in new tab
 
-Scenario: Checking the TermsAndConditions Hyperlink
+Scenario: Checking the TermsAndConditions Hyperlink opens in same tab and back navigation
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the TermsAndConditions Link
 	Then I should navigate to the TermsAndConditions details correct page opens in same tab

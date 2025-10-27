@@ -76,11 +76,11 @@ namespace Defra.UI.Tests.Tools
             return _cachedValue;
         }
 
-        public LoginDetails GetUserDetailsFromFile()
+        public LoginDetails GetUserDetailsFromFile(string checker = "")
         {
             if (_cachedValue == null)
             {
-                var user = userObject?.GetUser("AP");
+                var user = userObject?.GetUser("AP", checker);
 
                 _cachedValue = new LoginDetails
                 {
