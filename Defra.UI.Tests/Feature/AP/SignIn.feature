@@ -17,3 +17,16 @@ Scenario: Sign in button click validation
 Scenario: Sign out button click validation
 	Then sign in with valid credentials with logininfo
 	And  click on signout button and verify the signout message
+
+Scenario: Verify the footer links access before signing in to the pets application
+	Then  I click the TermsAndConditions Link
+	And I should navigate to the TermsAndConditions details page
+	Then I should not see manage account and sign out links
+	And I close the current tab and switch back to government gateway page
+	Then I click the AccessibilityStatement Link
+	And I should navigate to the AccessibilityStatement details page
+	Then I should not see manage account and sign out links
+	And I close the current tab and switch back to government gateway page
+	Then  I click the Cookies Link
+	And I should navigate to the Cookies details page
+	Then I should not see manage account and sign out links

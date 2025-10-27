@@ -66,6 +66,14 @@ namespace Defra.UI.Tests.Steps.AP
             signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret);
         }
 
+        [When(@"I have provided the suspension credentials and signin")]
+        public void WhenIHaveProvidedTheSuspensionCredentialsAndSignin()
+        {
+            var userDetails = GovernmentGateway.Instance.GetUserDetailsFromFile("SUS");
+
+            signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret);
+        }
+
         [When(@"I have provided invalid CP credentials and signin")]
         public void WhenIHaveProvidedInvalidCPCredentialsAndSignin()
         {

@@ -1,4 +1,4 @@
-parameters:
+﻿parameters:
   - name: jobName
     type: string
   - name: environment
@@ -153,104 +153,135 @@ jobs:
 
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
-          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_retry0.xml"
+          dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_results_0.trx"
       displayName: 'Execute Tests'
       failOnStderr: true
       ignoreLASTEXITCODE: true
       continueOnError: true
-    
-    - task: AzurePowerShell@5
-      displayName: 'Rerun failed tests'      
-      inputs:
-        azureSubscription: 'AZD-TRD-TST1'
-        ScriptType: 'InlineScript'
-        azurePowerShellVersion: 'LatestVersion'
-        pwsh: true
-        Inline: |
-    
+
+    - powershell: |
+         
+            $projectDllPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
             $maxRetries = 3
-
-            function Get-FailedTests {
-                param ([string]$trxFilePath)
-               
-                [xml]$trx = Get-Content $trxFilePath               
-                $failedTests = $trx.TestRun.Results.UnitTestResult | Where-Object { $_.outcome -eq 'Failed' }            
-                return $failedTests 
-            }
-
-            function Rerun-FailedTests {
-                param ([int]$maxRetries)
-            
-                $retryCount = 0
-
-                $testDll = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
-                $settings= "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings"
-        
-                # Start by checking the initial test run (retry0)
-                $currentFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
-                
-                while ($retryCount -lt $maxRetries) {
-                   
-                    $trxFile = Get-ChildItem -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" -Filter $currentFileName | Select-Object -First 1
-                    
-                    if (-not $trxFile) {
-                        Write-Host "TRX file not found: $currentFileName in $(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults"
-                        break
-                    }
-                    
-                    Write-Host "Found TRX file: $($trxFile.FullName)"
-                    
-                    $failedTests = Get-FailedTests -trxFilePath $trxFile.FullName
-
-                    if ($failedTests.Count -eq 0) {
-                        Write-Host "All tests passed."
-                        # Copy the current file as latest since no retries needed
-                        $latestFile = "${{ parameters.jobName }}_latest.xml"
-                        Copy-Item -Path $trxFile.FullName -Destination "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$latestFile" -Force
-                        break
-                    }         
-            
-                    $testNames = $failedTests | ForEach-Object { 
-                        if ($_.testName.IndexOf('(') -gt 0) { 
-                            $_.testName.Substring(0, $_.testName.IndexOf('(')) 
-                        } else { 
-                            $_.testName 
-                        } 
-                    }
-                    
-                    $filter = ($testNames | Select-Object -Unique | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
   
-                    Write-Host "Failed Testcases are -> $filter"
-        
-                    $retryCount++
-                    $nextFileName = "${{ parameters.jobName }}_retry$retryCount.xml"
-                    Write-Host "Running retry $retryCount, creating file: $nextFileName"
-                    Write-Host "Filter: $filter"
+            $resultsDir = "TestResults"
+            $attempt = 0
+            $failedTests = @()
 
-                    if(Test-Path -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$nextFileName") {
-                        Remove-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$nextFileName" -Force
-                    }
+            # Ensure results directory exists
+            if (-not (Test-Path $resultsDir)) {
+                New-Item -ItemType Directory -Path $resultsDir | Out-Null
+            }
 
-                    if (Test-Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults") 
-                    {
-                        Remove-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults" -Recurse -Force
-                    }
-
-                    dotnet test $testDll --settings $settings --filter "$filter" --logger "trx;logfilename=$nextFileName"
-                    Write-Host "Dotnet test completed for retry $retryCount"
-                    $currentFileName = $nextFileName
-                }
+            do {
                 
-                # Only rename if we actually did retries
-                if ($retryCount -gt 0) {
-                    $finalFile = "${{ parameters.jobName }}_retry$retryCount.xml"
-                    $latestFile = "${{ parameters.jobName }}_latest.xml"
-                    Rename-Item -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/$finalFile" -NewName $latestFile -Force
+                if ($attempt -eq 0) {
+                    $trxFile = "Defra.UI.Tests/${resultsDir}/${{ parameters.jobName }}_results_${attempt}.trx"
+                }
+                else {
+                    $trxFile = "${resultsDir}/${{ parameters.jobName }}_results_${attempt}.trx"
+                }
+
+                [xml]$trx = Get-Content $trxFile
+
+                $failedTests = $trx.TestRun.Results.UnitTestResult |
+                    Where-Object { $_.outcome -eq "Failed" } |
+                    ForEach-Object {
+                        $name = $_.testName
+                        if ($name.Contains('(')) {
+                            $cleanName = $name.Substring(0, $name.IndexOf('('))
+                        } else {
+                            $cleanName = $name
+                        }
+
+                        $cleanName
+                     }| 
+                     Sort-Object | 
+                     Get-Unique
+                
+                if ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries) {
+                    Write-Host "Found $($failedTests.Count) failed test(s). Preparing to rerun..."
+
+                    $filterExpr = ($failedTests | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
+
+                    Write-Host "Rerunning failed tests with filter: $filterExpr"
+
+                    $attempt++
+
+                    $nextTrxFile = "${{ parameters.jobName }}_results_${attempt}.trx"
+
+                    dotnet test $projectDllPath --filter "$filterExpr" --logger:"trx;LogFileName=${nextTrxFile}"
+                }
+
+            } while ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries)
+
+            Write-Host "Test rerun process complete."
+
+            # Merge all trx files into one
+
+            $initialRunResult = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults"
+            $retryRunResult = "$(System.DefaultWorkingDirectory)/TestResults"
+            $mergedTrxPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_MergedResults.trx"
+
+            $trxFiles = @( 
+                Get-ChildItem -Path $initialRunResult -Filter "*.trx" -Recurse
+                Get-ChildItem -Path $retryRunResult -Filter "*.trx" -Recurse
+            )
+
+            $latestResults = @{}
+            $unitTestDefinitions = @{}
+
+            foreach ($file in $trxFiles) {
+                [xml]$xml = Get-Content $file.FullName
+
+                foreach ($unitTest in $xml.TestRun.TestDefinitions.UnitTest) {
+                    $name = $unitTest.name
+                    $unitTestDefinitions[$name] = $unitTest
+                }
+
+                foreach ($result in $xml.TestRun.Results.UnitTestResult) {
+                    $name = $result.testName
+                    $endTime = [datetime]$result.endTime
+
+                    if (-not $latestResults.ContainsKey($name) -or $endTime -gt $latestResults[$name].endTime) {
+                        $latestResults[$name] = $result
+                    }
                 }
             }
 
-             Rerun-FailedTests -maxRetries $maxRetries
-    
+            # Use the first .trx file as a base
+            [xml]$finalTrx = Get-Content "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/${{ parameters.jobName }}_results_0.trx"
+
+            $namespaceManager = New-Object System.Xml.XmlNamespaceManager($finalTrx.NameTable)
+            $namespaceManager.AddNamespace("ns", $finalTrx.DocumentElement.NamespaceURI)
+
+            # Clear existing results and definitions
+            $finalTrx.TestRun.Results.RemoveAll()
+            $finalTrx.TestRun.TestDefinitions.RemoveAll()
+
+            # Add latest results and matching definitions
+            foreach ($name in $latestResults.Keys) {
+                $result = $latestResults[$name]
+                $definition = $unitTestDefinitions[$name]
+
+                if ($definition -and $result) {
+                    $importedResult = $finalTrx.ImportNode($result, $true)
+                    $finalTrx.SelectSingleNode("//ns:Results", $namespaceManager).AppendChild($importedResult) | Out-Null
+                    
+                    $importedDef = $finalTrx.ImportNode($definition, $true)
+                    $finalTrx.SelectSingleNode("//ns:TestDefinitions", $namespaceManager).AppendChild($importedDef) | Out-Null
+                }
+            }
+
+            # Save the final merged .trx file
+            $finalTrx.Save($mergedTrxPath)
+
+            Write-Host "Merged .trx file saved to: $mergedTrxPath"
+
+            exit 0
+      displayName: 'Retry Failed Tests'
+      failOnStderr: false
+
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
       - task: DockerCompose@0
         displayName: Run a Docker Compose command
@@ -298,8 +329,8 @@ jobs:
       displayName: 'Publish Test Results'
       inputs:
         testResultsFormat: VSTest
-        testResultsFiles: ${{ parameters.jobName }}_latest.xml
-        searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/'
+        testResultsFiles: '${{ parameters.jobName }}_MergedResults.trx'
+        searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults'
         testRunTitle: ${{ parameters.jobName }}
         failTaskOnFailedTests: true
         continueOnError: true
