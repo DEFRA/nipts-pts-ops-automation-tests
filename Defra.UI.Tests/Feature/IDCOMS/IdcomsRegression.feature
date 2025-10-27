@@ -34,21 +34,21 @@ Scenario: Verify Status transitions for Authorised application
 	And I Switch to 'Authorised PTD Applications'
 	And I open the first application
 	Then the status is 'Authorised'
-	And I cannot see 'Activate' button
+	And I 'cannot' see 'Activate' button
 
 Scenario: Verify Status transitions for Revoked application
 	When I Login to Dynamics application
 	And I Switch to 'Revoked PTD Applications'
 	And I open the first application
 	Then the status is 'Revoked'
-	And I cannot see 'Activate' button
+	And I 'cannot' see 'Activate' button
 
 Scenario: Verify Status transitions for Rejected application
 	When I Login to Dynamics application
 	And I Switch to 'Rejected PTD Applications'
 	And I open the first application
 	Then the status is 'Rejected'
-	And I cannot see 'Activate' button
+	And I 'cannot' see 'Activate' button
 
 
 Scenario: Verify the duplicate subgrid - Rejected Application
@@ -459,7 +459,7 @@ Scenario: Verify the error message when the future date is entered in Date of bi
 	And I enter 'Pet Name' as 'Aurora'
 	Then I See the error 'The date for Date of Birth must be in the past.' notification
 
-Scenario: Create a New applicant Contact is and create a offline application and authorise it and create a SNC for 12 Months
+Scenario: Create a New applicant Contact is and create a offline application and authorise it and check activate/Deactivate buttons is not present in SNC Subgrid and create a SNC for 12 Months
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I create a new applicant in IDCOMS
@@ -482,12 +482,15 @@ Scenario: Create a New applicant Contact is and create a offline application and
 	When I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
-	Then the status is changed to 'Authorised'	
+	Then the status is changed to 'Authorised'
+	When I switch to 'SNCs' tab
+	Then I 'Cannot' see the 'Activate' button in the form
+	Then I 'Cannot' see the 'Deactivate' button in the form
 	When I create a New Suspect Non Compliance
 	And I Log decision in SNC as '12 Months'
-	Then The Decision date is set to Current date
+	Then The 'Decision date' is set to Current date
 	And the status is changed to 'Intent to Suspend'
-
+	
 Scenario: Verify Application Reporting View shows submitted applications from last 35 days, excludes EUEXTST and the Submission date is sorted by Older to Newer
 	When I Login to Dynamics application
 	And I Switch to 'Application Reporting View'
@@ -495,3 +498,103 @@ Scenario: Verify Application Reporting View shows submitted applications from la
 	And I Verify the Grid filter with 'Applicant' 'Does not contain' 'EUEXTST'
 	And I Verify the 'Application Method|Status Reason|Reason for Rejection|Other Revocation Reason|Application Language|Submission Date|Date Authorised|Date Rejected|Date Revoked|Application Reference|PTD Reference|Modified On' coloumns are present
 	And I verify the column 'Submission Date' is sorted by 'Older to newer'
+
+Scenario: Verify Activate and Deactivate buttons not present on SNC view and Form
+	When I Login to Dynamics application
+	And I open 'Suspect Non Compliances' under 'Application'
+	Then I cannot see 'Activate' command
+	And I cannot see 'Deactivate' command
+	When I open the first application
+	Then I cannot see 'Activate' command
+	And I cannot see 'Deactivate' command
+
+Scenario: Verify Contacts in the sitemap and Activate/Deactivate button is not present
+	When I Login to Dynamics application
+	And I open 'Contacts' under 'Application'
+	Then I cannot see 'Activate' command
+	And I cannot see 'Deactivate' command
+
+Scenario: Create SNC in authorised PTD with warning; verify closure date.
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I enter 'Applicant Name' as 'Pets Automation'
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as ''
+	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+	And I get the PTD Reference Number and Store it
+	And I can see the submission date and time
+	When I Verify the Microchip Number in Microchip Verification Check
+	And I go back
+	And I 'Pass' the Microchip check
+	And I go back
+	And I 'Authorise' the application
+	When I create a New Suspect Non Compliance
+	And I Log decision in SNC as 'Warning'
+	Then The 'Decision date' is set to Current date
+	Then The 'Close date' is set to Current date
+	And the status is changed to 'Closed'
+	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA’s decision' notification
+	And I 'can' see 'Letter Sent' button
+
+Scenario: Verify Activate/Deactivate button is not present in suspension view and verify all the views and columns in Suspensions 
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	Then I cannot see 'Activate' command
+	And I cannot see 'Deactivate' command
+	And I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present
+	When I open the first application
+	Then I cannot see 'Activate' command
+	And I cannot see 'Deactivate' command
+	When I go back
+	And I Switch to 'All Suspensions'
+	Then I Verify the 'Name|Status Reason|Pet Owner|Suspension End Date|Created On' coloumns are present	
+	When I Switch to 'Inactive Suspensions'
+	Then I Verify the 'Name|Status Reason|Pet Owner|Suspension End Date|Created On' coloumns are present
+	When I Switch to 'Suspensions Appealed - Successful'
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present
+	When I Switch to 'Suspensions Appealed - Partially Successful'
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present	
+	When I Switch to 'Suspensions Appealed - Unsuccessful'
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present	
+	When I Switch to 'Suspensions On Appeal'
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present	
+	When I Switch to 'Correspondence Required - Suspensions'
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Status Reason|Application Language (PTD)|Close letter|Appeal outcome letter' coloumns are present
+
+Scenario: Verify End Suspension button and backing off it
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1071' application
+	And I assign the application to myself
+	When I click on 'End Suspension' Command
+	Then I verify the dialog message 'Do you want to end this suspension? The suspension will end immediately.'
+	When I click on 'Cancel' button in Dialog
+
+Scenario: Verify the Suspended pet owner notification
+	When I Login to Dynamics application
+	And I open 'Contacts' under 'Application'
+	And I open the 'petsautomation20250909002322@team947193.testinator.com' application
+	Then I See the error 'This pet owner is currently suspended.' notification
+
+Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter to be sent and notification text and Letter sent button is visible in offline application
+	When I Login to Dynamics application
+	And I open 'Suspect Non Compliances' under 'Application'
+	And I Switch to 'All Suspect Non-Compliances'
+	And I open the 'SNC-1212' application
+	Then I 'can' see 'Letter Sent' button
+	And I See the 'Letter to be sent' value in 'nipts_intenttosuspendletter' field
+	And I See the 'Letter to be sent' value in 'nipts_closeletter' field
+	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
+
