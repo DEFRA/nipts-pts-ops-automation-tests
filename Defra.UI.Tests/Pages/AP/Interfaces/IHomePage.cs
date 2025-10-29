@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using DocumentFormat.OpenXml.Wordprocessing;
+using System.Security.Cryptography;
 
 namespace Defra.UI.Tests.Pages.AP.Interfaces
 {
@@ -19,5 +20,16 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         void ClickViewLink(string petName);
         void ClickOnManageAccountLink();
         void ClickSignOutLink();
+        bool VerifyTheLinkOpensInSameTab();
+        bool VerifyInvalidDocumentsLink();
+        void ClickInvalidDocumentsLink();
+        bool InvalidDocsTableHeadings(string petName, string status);
+        bool InvalidDocsTablePTDStatus();
+        bool InvalidDocsTableViewLink();
+        void CloseCurrentTabAndSwitchBack();
+        bool IsInvalidDocumentsPageLoaded(string pageTitle);
+        bool VerifyManageAccAndSignOutNotVisible();
+        bool VerifySuspensionWarning();
+        bool VerifyApplyButtonNotVisible();
     }
 }

@@ -3,6 +3,7 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using Reqnroll;
 using Defra.UI.Tests.Pages.AP.Classes;
+using System.Text.RegularExpressions;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -227,6 +228,66 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenTheAddressOfAuthorityShouldBe(string addressLine1, string addressLine2)
         {
             Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityAddress(addressLine1, addressLine2));
+        }
+
+        [Then(@"I verify the application status '(.*)'")]
+        public void ThenIVerifyTheApplicationStatus(string status)
+        {
+            Assert.IsTrue(summaryPage?.VerifyApplicationStatus(status), "The status of the pet travel document is not correct");
+        }
+
+        [Then(@"I should not see print and download your application options")]
+        public void ThenIShouldNotSeePrintAndDownloadYourApplicationOptions()
+        {
+            Assert.IsTrue(summaryPage?.VerifyPrintAndDownloadLinks(), "Print and Download links are visible");
+        }
+
+        [Then(@"I verify all the details in the summary page for pending or unsuccessful PTD '(.*)'")]
+        public void ThenIVerifyAllTheDetailsInTheSummaryPageForPendingOrUnsuccessfulPTD(string status)
+        {
+            VerifyMicrodhipInformation(true);
+            VerifyPetsDetails();
+            VerifyPetOwnerDetails(true);
+            Assert.IsTrue(summaryPage?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
+        }
+
+        [Then(@"I verify all the details in the declaration page for cancelled PTD '(.*)'")]
+        public void ThenIVerifyAllTheDetailsInTheDeclarationPageForCancelledPTD(string status)
+        {
+            VerifyMicrodhipInformation(true);
+            VerifyPetsDetails();
+            VerifyIssuedTable(true);
+            Assert.IsTrue(summaryPage?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
+        }
+
+        [Then(@"I verify all the details in the declaration page for approved PTD '(.*)'")]
+        public void ThenIVerifyAllTheDetailsInTheDeclarationPageForApprovedPTD(string status)
+        {
+            VerifyMicrodhipInformation(true);
+            VerifyPetsDetails();
+            VerifyIssuedTable(true);
+        }
+
+        private void VerifyIssuedTable(bool isSummaryPage = true)
+        {
+            var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
+            var registeredUserDetails = changeDetailsPage?.GetRegisteredUserDetails();
+            var pageName = isSummaryPage ? "summary" : "declaration";
+
+            if (isSummaryPage)
+            {
+                var ptdNumber = _scenarioContext.Get<string>("PTDReferenceNumber");
+                var date = DateTime.Now.ToString("dd/MM/yyyy");
+
+                Assert.AreEqual(Regex.Replace(ptdNumber, @"\s+", ""), Regex.Replace(summary?.PTDNumber, @"\s+", ""), $"PTD number is not matching in {pageName} page!");
+                Assert.AreEqual(date, summary?.Date, $"Microchip number is not matching in {pageName} page!");
+            }
+        }
+
+        [Then(@"I should not see issuing authority table")]
+        public void ThenIShouldNotSeeIssuingAuthorityTable()
+        {
+            Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityTableIsNotVisible());
         }
     }
 }

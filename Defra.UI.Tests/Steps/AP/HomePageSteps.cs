@@ -3,6 +3,10 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using DocumentFormat.OpenXml.Presentation;
+using AventStack.ExtentReports.Gherkin.Model;
+using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
+using Defra.UI.Tests.Pages.AP.Classes;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -37,11 +41,12 @@ namespace Defra.UI.Tests.Steps.AP
         {
             HomePage?.ClickFeedbackLink();
         }
-        [Then(@"I should navigate to the Feedback details correct page")]
-        public void ThenIShouldNavigateToTheFeedbackDetailsCorrectPage()
+        [Then(@"I should navigate to the Feedback details correct page opens in new tab")]
+        public void ThenIShouldNavigateToTheFeedbackDetailsCorrectPageOpensInNewTab()
         {
             string currentURL = DriverCommand.GetCurrentUrl;
             currentURL.Contains("defragroup.eu.qualtrics.com/");
+            Assert.IsFalse(HomePage?.VerifyTheLinkOpensInSameTab());
         }
         [Then(@"I click the Gethelp Link")]
         public void ThenIClickTheGethelpLink()
@@ -62,11 +67,12 @@ namespace Defra.UI.Tests.Steps.AP
             HomePage?.ClickAccessibilityStatementLink();
         }
 
-        [Then(@"I should navigate to the AccessibilityStatement details correct page")]
-        public void ThenIShouldNavigateToTheAccessibilityStatementDetailsCorrectPage()
+        [Then(@"I should navigate to the AccessibilityStatement details correct page opens in same tab")]
+        public void ThenIShouldNavigateToTheAccessibilityStatementDetailsCorrectPageOpensInSameTab()
         {
-            var pageTitle = "Accessibility statement for taking a dog, cat or ferret from Great Britain to Northern Ireland";
+            var pageTitle = "Accessibility statement for ‘Taking a dog, cat or ferret from Great Britain to Northern Ireland’";
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsTrue(HomePage?.VerifyTheLinkOpensInSameTab());
         }
 
         [Then(@"I click the Cookies Link")]
@@ -75,10 +81,11 @@ namespace Defra.UI.Tests.Steps.AP
             HomePage?.ClickCookiesLink();
         }
 
-        [Then(@"I should navigate to the Cookies details correct page")]
-        public void ThenIShouldNavigateToTheCookiesDetailsCorrectPage()
+        [Then(@"I should navigate to the Cookies details correct page opens in same tab")]
+        public void ThenIShouldNavigateToTheCookiesDetailsCorrectPageOpensInSameTab()
         {
             var pageTitle = "Cookies";
+            Assert.IsTrue(HomePage?.VerifyTheLinkOpensInSameTab());
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
@@ -88,11 +95,12 @@ namespace Defra.UI.Tests.Steps.AP
             HomePage?.ClickPrivacyNoticeLink();
         }
 
-        [Then(@"I should navigate to the PrivacyNotice details correct page")]
-        public void ThenIShouldNavigateToThePrivacyNoticeDetailsCorrectPage()
+        [Then(@"I should navigate to the PrivacyNotice details correct page opens in new tab")]
+        public void ThenIShouldNavigateToThePrivacyNoticeDetailsCorrectPageOpensInNewTab()
         {
             var pageTitle = "Pet travel scheme privacy notice";
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            Assert.IsFalse(HomePage?.VerifyTheLinkOpensInSameTab());
         }
 
         [Then(@"I click the TermsAndConditions Link")]
@@ -101,10 +109,11 @@ namespace Defra.UI.Tests.Steps.AP
             HomePage?.ClickTermsAndConditionsLink();
         }
 
-        [Then(@"I should navigate to the TermsAndConditions details correct page")]
-        public void ThenIShouldNavigateToTheTermsAndConditionsDetailsCorrectPage()
+        [Then(@"I should navigate to the TermsAndConditions details correct page opens in same tab")]
+        public void ThenIShouldNavigateToTheTermsAndConditionsDetailsCorrectPageOpensInSameTab()
         {
-            var pageTitle = "Terms and conditions for taking a dog, cat or ferret from Great Britain to Northern Ireland";
+            var pageTitle = "Northern Ireland Pet Travel Scheme terms and conditions";
+            Assert.IsTrue(HomePage?.VerifyTheLinkOpensInSameTab());
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
@@ -146,6 +155,88 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenSignedOutFromPETSPortal()
         {
             HomePage?.ClickSignOutLink();
+        }
+
+        [Then(@"I should see invalid documents link")]
+        public void ThenIShouldSeeInvalidDocumentsLink()
+        {
+            Assert.IsTrue(HomePage?.VerifyInvalidDocumentsLink(), "View invalid documents link is not visible");
+        }
+
+        [When(@"I click invalid documents link")]
+        public void WhenIClickInvalidDocumentsLink()
+        {
+            HomePage?.ClickInvalidDocumentsLink();
+        }
+
+        [Then(@"I should be navigated to invalid documents page")]
+        public void ThenIShouldBeNavigatedToInvalidDocumentsPage()
+        {
+            var pageTitle = "Invalid documents";
+            Assert.IsTrue(HomePage?.IsInvalidDocumentsPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }
+
+        [Then(@"invalid documents table column names should be '([^']*)' '([^']*)'")]
+        public void ThenInvalidDocumentsTableColumnNamesShouldBe(string petName, string status)
+        {
+            Assert.IsTrue(HomePage?.InvalidDocsTableHeadings(petName, status));
+        }
+
+        [Then(@"the status column should display only unsuccessful and cancelled records")]
+        public void ThenTheStatusColumnShouldDisplayOnlyUnsuccessfulAndCancelledRecords()
+        {
+            Assert.IsTrue(HomePage?.InvalidDocsTablePTDStatus());
+        }
+
+        [Then(@"I can see the view link in all records of the table")]
+        public void ThenICanSeeTheViewLinkInAllRecordsOfTheTable()
+        {
+            Assert.IsTrue(HomePage?.InvalidDocsTableViewLink());
+        }
+
+        [Then(@"I should navigate to the TermsAndConditions details page")]
+        public void ThenIShouldNavigateToTheTermsAndConditionsDetailsPage()
+        {
+            var pageTitle = "Terms and conditions";
+            Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }
+
+        [Then(@"I should navigate to the AccessibilityStatement details page")]
+        public void ThenIShouldNavigateToTheAccessibilityStatementDetailsPage()
+        {
+            var pageTitle = "Accessibility statement for Government Gateway";
+            Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }
+
+        [Then(@"I should navigate to the Cookies details page")]
+        public void ThenIShouldNavigateToTheCookiesDetailsPage()
+        {
+            var pageTitle = "Cookies";
+            Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }
+
+        [Then(@"I close the current tab and switch back to government gateway page")]
+        public void ThenICloseTheCurrentTabAndSwitchBackToGovernmentGatewayPage()
+        {
+            HomePage?.CloseCurrentTabAndSwitchBack();
+        }
+
+        [Then(@"I should not see manage account and sign out links")]
+        public void ThenIShouldNotSeeManageAccountAndSignOutLinks()
+        {
+            Assert.IsTrue(HomePage?.VerifyManageAccAndSignOutNotVisible());
+        }
+
+        [Then(@"I should see a suspension warning message")]
+        public void ThenIShouldSeeASuspensionWarningMessage()
+        {
+            Assert.IsTrue(HomePage?.VerifySuspensionWarning());
+        }
+
+        [Then(@"I should not see apply for a document green button")]
+        public void ThenIShouldNotSeeApplyForADocumentGreenButton()
+        {
+            Assert.IsTrue(HomePage?.VerifyApplyButtonNotVisible());
         }
     }
 }

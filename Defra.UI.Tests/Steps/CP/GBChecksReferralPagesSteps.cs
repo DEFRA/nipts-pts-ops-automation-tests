@@ -242,7 +242,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I add records in referrals list in Referred to SPS page '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)' '([^']*)'")]
         public void ThenIAddRecordsInReferralsListInReferredToSPSPage(string transportType, string routeOption, string departTime, string MCCheckbox, string GBOutcome, string passengerType, string submittedMessage)
         {
-            var referenceNumber = new[] { "KWHGS553", "GAALN8T6", "9JIQN9Y2", "E1EVO852", "APP0A31E", "84LJA6R5", "8RG6G0SH", "X9QUQZJD", "37S1ITN8", "AYDK5ZUD", "NFBZBSU8" };
+            var referenceNumber = new[] { "VSP7XJCA", "ZQNIKXQD", "7RTYVEJC", "SEEQP2Q9", "BPBXU589", "LQSDFZ57", "Q5PPR5R8", "7O8OZZ57", "Q7BN4KI6", "4COBZ8B8", "O99TAXJE" };
             var radioButton = "Search by application number";
 
             foreach (var reference in referenceNumber)
@@ -255,6 +255,7 @@ namespace Defra.UI.Tests.Steps.CP
                 _searchDocumentPage?.SelectSearchRadioOption(radioButton);
                 _searchDocumentPage?.EnterApplicationNumber(reference);
                 _searchDocumentPage?.SearchButton();
+                _applicationSummaryPage?.SelectReferToSPSRadioButton();
                 _applicationSummaryPage?.SelectSaveAndContinue();
                 _reportNonCompliancePage?.ClickOnMCCheckbox(MCCheckbox);
                 _reportNonCompliancePage?.ClickGBOutcomeCheckbox(GBOutcome);

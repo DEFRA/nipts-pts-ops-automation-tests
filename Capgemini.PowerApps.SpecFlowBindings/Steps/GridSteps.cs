@@ -43,6 +43,11 @@ public class GridSteps : PowerAppsStepDefiner
         XrmApp.Grid.Sort(column, sortOption);
     }
 
+    public static void VerifyTheColumnIsSorted(string column, string sortOption)
+    {
+        XrmApp.Grid.IsSorted(column, sortOption);
+    }
+
     /// <summary>
     /// Switches view in a grid.
     /// </summary>
@@ -140,6 +145,13 @@ public class GridSteps : PowerAppsStepDefiner
     public static void WhenISearchByAdvancedFilterInTheGrid(string filterName, string operators, string value)
     {
         XrmApp.Grid.AdvancedSearch(filterName, operators, value);
+
+        Driver.WaitForTransaction();
+    }
+    
+    public static void WhenIVerifyAdvancedFilterInTheGrid(string filterName, string operators, string value)
+    {
+        XrmApp.Grid.VerifyAdvancedSearch(filterName, operators, value);
 
         Driver.WaitForTransaction();
     }

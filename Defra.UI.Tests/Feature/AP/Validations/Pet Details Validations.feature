@@ -437,3 +437,24 @@ Scenario Outline: Verify pet's breed not selected validations and should not mov
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | ErrorMessage                          |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Select or enter the breed of your pet |
+
+Scenario: Verify the pet name accepts alphanumeric and special characters
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the 'Yes' option
+	And provided microchip number as 123456789123456
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	And I have selected an option as 'Cat' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What breed is your 'Cat'? page
+	And I have selected 1 as breed index from breed dropdownlist
+	When I click on continue button from What is your pet's breed page
+	Then I should redirected to the What is your pet's name page
+	And I provided the Pets name as 'Pet!"£$%^&123'
+	When I click on continue button from What is your pet's name page
+	Then I should redirected to the What sex is your pet page

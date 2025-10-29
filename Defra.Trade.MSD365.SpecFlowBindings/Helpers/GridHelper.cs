@@ -27,6 +27,9 @@ public class GridHelper
     /// <returns>Returns the headers of the grid as a list of IWebElements.</returns>
     public static IList<IWebElement> GetHeaders(IWebDriver driver, string gridName)
     {
+
+        IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+        js.ExecuteScript("document.body.style.zoom='50%'");
         var grid = GetGrid(driver, gridName);
         grid.Should().NotBeNull($"Unable to find the grid {gridName}");
         var headers = grid.FindElements(By.XPath($".//div[contains (@class, '{GridHeaderClassWj}') or contains (@class, '{GridHeaderClassPcf}')]"));
@@ -597,7 +600,7 @@ public class GridHelper
         return driver.WaitUntilAvailable(
             By.XPath(AppElements.Xpath[AppReference.Entity.SubGridContents].Replace("[NAME]", gridName)));
     }
-
+    
     /// <summary>
     /// Find the specified element 
     /// </summary>
@@ -644,6 +647,7 @@ public class GridHelper
                  var headers = GetHeaders(driver, gridName);
                  for (int i = 0; i < headers.Count; i++)
                  {
+                     var x = headers[i].Text;
                      if (CheckHeaderMatched(headers[i], headerName))
                      {
                          result = i;

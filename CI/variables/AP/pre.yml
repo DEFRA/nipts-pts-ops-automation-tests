@@ -5,5 +5,5 @@ variables:
  IDCOMSUrl: 'https://defra-trade-plants-preprod.crm4.dynamics.com'
  IDCOMSUser: 'nagarajan.subbiah@defra.gov.uk'
  IDOMSUserAlias: 'Nagarajan Subbiah'
- IsLiveUserAccount: true
+ IsLiveUserAccount: false
  IsAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
