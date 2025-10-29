@@ -64,6 +64,12 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _routeCheckingPage?.SetScheduledDepartureTime(departTime);
         }
+        
+        [When(@"I have provided Scheduled departure date '([^']*)'")]
+        public void ThenIHaveProvidedScheduledDepartureDate(string departDay)
+        {
+            _routeCheckingPage?.SetScheduledDepartureDay(departDay);
+        }
 
         [When(@"I click save and continue button from route checker page")]
         public void WhenIClickSaveAndContinueButtonFromRouteCheckePage()

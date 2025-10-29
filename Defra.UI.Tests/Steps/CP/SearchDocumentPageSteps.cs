@@ -181,5 +181,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_searchDocumentPage?.VerifyAccountAndSignoutIcons(), "Account and Signout icons are not displayed");
         }
+
+        [Then(@"I verify the '([^']*)' warning text")]
+        public void ThenIVerifyTheWarningText(string warningText)
+        {
+            Assert.True(_searchDocumentPage?.VerifyWarningText(warningText), "The warning text is not correct");
+        }
     }
 }

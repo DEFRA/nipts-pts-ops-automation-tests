@@ -1,6 +1,7 @@
 ﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
+using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
 
@@ -34,6 +35,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPageHeading => _driver.WaitForElement(By.XPath("//h1"));
         private IWebElement lnkGobackToPrevPage => _driver.WaitForElement(By.XPath("//a[contains(.,'go back to the previous page')]"));
         private IWebElement lblHeaderTitle => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-!-margin-bottom-4')]"));
+        private IWebElement lblWarningText=> _driver.WaitForElement(By.XPath("//strong[@class='govuk-warning-text__text']"));
         private IList<IWebElement> lblErrorPageContentList => _driver.FindElements(By.XPath("//*[@id='main-content']//p"));
         private IReadOnlyCollection<IWebElement> btnSignout => _driver.FindElements(By.XPath("//a[normalize-space()='Sign out']"));
         private IReadOnlyCollection<IWebElement> btnAccount => _driver.FindElements(By.XPath("//a[normalize-space()='Account']"));
@@ -175,6 +177,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public bool VerifyRadioButtonDefaultSelection()
         {
             return rdoSearchByPTDNumber.Selected || rdoApplicationNumber.Selected || rdoMicrochipNumber.Selected;
+        }
+
+        public bool VerifyWarningText(string warningText)
+        {
+            string[] warningTextParts = lblWarningText.Text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+            string actualWarningText = warningTextParts.Length > 1 ? warningTextParts[1] : lblWarningText.Text;
+            return actualWarningText.Equals(warningText);
         }
         #endregion
     }

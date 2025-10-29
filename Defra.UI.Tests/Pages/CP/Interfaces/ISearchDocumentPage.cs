@@ -22,5 +22,6 @@
         bool VerifyErrorPageContent(string errorPageContentText);
         bool VerifyAccountAndSignoutIcons();
         bool VerifyRadioButtonDefaultSelection();
+        bool VerifyWarningText(string warningText);
     }
 }
