@@ -131,3 +131,22 @@ Scenario: Verify the Checks home page filter and display only the selected ferry
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	And I should see route displayed in all the tables of Checks page should be 'Birkenhead to Belfast (Stena)'
+
+Scenario Outline: Verify the Warning text in Suspended PTD Search result page - SPS
+	Then I have selected '<Transportation>' radio option
+	And I select the '<FerryRoute>' radio option
+	And I have provided Scheduled departure time '14:00'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '<PTDNumber>' of the application
+	When I click search button
+	And I should see the application status in '<Status>'
+	Then I verify the '<WarningText>' warning text 
+Examples:
+	| Transportation | FerryRoute                    | PTDNumber | Status       | WarningText |
+	| Ferry          | Birkenhead to Belfast (Stena) | E9C42C    | Unsuccessful | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script.            |
+	| Ferry          | Birkenhead to Belfast (Stena) | FA188D    | Cancelled    | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script.            |
+	| Ferry          | Birkenhead to Belfast (Stena) | C1778C    | Suspended    | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script.            |
