@@ -86,7 +86,7 @@ Scenario: Verify the back link navigation for search result through Search icon 
 	Then I click back link
 	And I navigate to Find a document page
 
-Scenario Outline: Verify the Warning text in PTD Search result page
+Scenario Outline: Verify the Warning text and Checks section in PTD Search result page
 	Then I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '14:00'
@@ -98,14 +98,16 @@ Scenario Outline: Verify the Warning text in PTD Search result page
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
-	Then I verify the '<WarningText>' warning text 
+	Then I verify the '<WarningText>' warning text	
+	And I verify Checks section is not present
+	And I verify Save and Continue button is not present
 Examples:
-	| Transportation | FerryRoute                    | PTDNumber | Status       | WarningText                                                                                   |
+	| Transportation | FerryRoute                    | PTDNumber | Status       | WarningText                                                                                 |
 	| Ferry          | Birkenhead to Belfast (Stena) | CA7BED    | Unsuccessful | Because the PTD is ‘Unsuccessful’, you should check whether you can issue a SUPTD |
 	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Pending      | Because the PTD is ‘Pending’, you should check whether you can issue a SUPTD |
 	| Ferry          | Birkenhead to Belfast (Stena) | D8C1CE    | Cancelled    | Because the PTD is ‘Cancelled’, you should check whether you can issue a SUPTD |
 
-Scenario Outline: Verify the Warning text in Suspended PTD Search result page
+Scenario Outline: Verify the Warning text and Checks section in Suspended PTD Search result page
 	Then I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '14:00'
@@ -117,7 +119,9 @@ Scenario Outline: Verify the Warning text in Suspended PTD Search result page
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
-	Then I verify the '<WarningText>' warning text 
+	Then I verify the '<WarningText>' warning text
+	And I verify Checks section is not present
+	And I verify Save and Continue button is not present
 Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       | WarningText |
 	| Ferry          | Birkenhead to Belfast (Stena) | E9C42C    | Unsuccessful | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script.            |

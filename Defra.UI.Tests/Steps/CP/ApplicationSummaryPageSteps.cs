@@ -143,5 +143,17 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtonsWithHintsGB(radiobuttons, hint));
         }
+        
+        [Then(@"I verify Checks section is not present")]
+        public void ThenIverifyChecksSectionWithRadioButtonsIsNotPresent()
+        {
+            Assert.True(_applicationSummaryPage?.VerifyChecksSectionIsNotPresent());
+        }
+        
+        [Then(@"I verify Save and Continue button is not present")]
+        public void VerifySaveAndContinueIsNotPresent()
+        {
+            Assert.True(_applicationSummaryPage?.VerifyContinueIsNotPresent());
+        }
     }
 }
