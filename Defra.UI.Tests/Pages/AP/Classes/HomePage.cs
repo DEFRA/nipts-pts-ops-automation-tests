@@ -24,7 +24,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement GethelpHeader => _driver.WaitForElement(By.XPath("//*[@class='govuk-heading-xl' or @class='gem-c-heading__text govuk-heading-xl']"));
         public IWebElement AccessibilityStatementLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[1]/a"));
         public IWebElement CookiesLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[2]/a"));
-        public IWebElement PrivacyNoticeLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[4]/a"));
+        public IWebElement PrivacyNoticeLink => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Privacy notice (opens in new tab)')]"));
         public IWebElement TermsAndConditionsLink => _driver.WaitForElement(By.LinkText("Terms and conditions"));
         public IWebElement CrownCopyrightLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[2]/a"));
         private IWebElement btnApplyForDocument => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Apply for a document']"), true);
