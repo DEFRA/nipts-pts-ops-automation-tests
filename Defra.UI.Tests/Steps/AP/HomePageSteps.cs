@@ -41,24 +41,13 @@ namespace Defra.UI.Tests.Steps.AP
         {
             HomePage?.ClickFeedbackLink();
         }
+
         [Then(@"I should navigate to the Feedback details correct page opens in new tab")]
         public void ThenIShouldNavigateToTheFeedbackDetailsCorrectPageOpensInNewTab()
         {
             string currentURL = DriverCommand.GetCurrentUrl;
             currentURL.Contains("defragroup.eu.qualtrics.com/");
             Assert.IsFalse(HomePage?.VerifyTheLinkOpensInSameTab());
-        }
-        [Then(@"I click the Gethelp Link")]
-        public void ThenIClickTheGethelpLink()
-        {
-            HomePage?.ClickGethelpLink();
-        }
-
-        [Then(@"I should navigate to the Gethelp details correct page")]
-        public void ThenIShouldNavigateToTheGethelpDetailsCorrectPage()
-        {
-            var pageTitle = "Get help applying";
-            Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [Then(@"I click the AccessibilityStatement Link")]
@@ -237,6 +226,54 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIShouldNotSeeApplyForADocumentGreenButton()
         {
             Assert.IsTrue(HomePage?.VerifyApplyButtonNotVisible());
+        }
+
+        [Then(@"I should verify the status of all records in the dashboard as '(.*)'")]
+        public void ThenIShouldVerifyTheStatusOfAllRecordsInTheDashboardAs(string susStatus)
+        {
+            Assert.IsTrue(HomePage?.VerifySuspensionStatusInDashboard(susStatus));
+        }
+
+        [Then(@"I should see cookies banner at the top of the page")]
+        public void ThenIShouldSeeCookiesBannerAtTheTopOfThePage()
+        {
+            Assert.True(HomePage?.VerifyCookiesBanner());
+        }
+
+        [Then(@"I should see accept and reject additional cookies button in the cookies banner")]
+        public void ThenIShouldSeeAcceptAndRejectAdditionalCookiesButtonInTheCookiesBanner()
+        {
+            Assert.True(HomePage?.VerifyCookiesBannerButtons());
+        }
+
+        [When(@"I click Accept additional cookies button in the cookies banner")]
+        public void WhenIClickAcceptAdditionalCookiesButtonInTheCookiesBanner()
+        {
+            HomePage?.ClickAcceptAdditionalCookies();
+        }
+
+        [Then(@"I should see additional cookies accepted confirmation message")]
+        public void ThenIShouldSeeAdditionalCookiesAcceptedConfirmationMessage()
+        {
+            Assert.True(HomePage?.VerifyAcceptedCookiesConfirmation());
+        }
+
+        [When(@"I click Reject additional cookies button in the cookies banner")]
+        public void WhenIClickRejectAdditionalCookiesButtonInTheCookiesBanner()
+        {
+            HomePage?.ClickRejectAdditionalCookies();
+        }
+
+        [Then(@"I should see additional cookies rejected confirmation message")]
+        public void ThenIShouldSeeAdditionalCookiesRejectedConfirmationMessage()
+        {
+            Assert.True(HomePage?.VerifyRejectedCookiesConfirmation());
+        }
+
+        [Then(@"I click Hide cookie message should hide the '(.*)' cookie banner")]
+        public void ThenIClickHideCookieMessageShouldHideTheCookieBanner(string option)
+        {
+            Assert.True(HomePage?.ClickHideAndVerifyCookieBanner(option));
         }
     }
 }

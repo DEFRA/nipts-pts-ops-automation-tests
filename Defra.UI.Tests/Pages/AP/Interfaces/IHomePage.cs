@@ -9,7 +9,6 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         void ClickApplyForPetTravelDocument();
         void ClickFeedbackLink();
         bool IsNextPageLoaded(string pageTitle);
-        void ClickGethelpLink();
         void ClickAccessibilityStatementLink();
         void ClickCookiesLink();
         void ClickPrivacyNoticeLink();
@@ -31,5 +30,13 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         bool VerifyManageAccAndSignOutNotVisible();
         bool VerifySuspensionWarning();
         bool VerifyApplyButtonNotVisible();
+        bool VerifySuspensionStatusInDashboard(string susStatus);
+        bool VerifyCookiesBanner();
+        bool VerifyCookiesBannerButtons();
+        void ClickAcceptAdditionalCookies();
+        bool VerifyAcceptedCookiesConfirmation();
+        void ClickRejectAdditionalCookies();
+        bool VerifyRejectedCookiesConfirmation();
+        bool ClickHideAndVerifyCookieBanner(string option);
     }
 }
