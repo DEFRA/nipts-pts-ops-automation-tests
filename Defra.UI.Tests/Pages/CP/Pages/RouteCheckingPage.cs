@@ -44,6 +44,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtHintScheduledDepartureDate => _driver.WaitForElement(By.XPath("//*[@id='departure-date-hint']"));
         private IWebElement lblScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='time-group']//following::h2"));
         private IWebElement txtHintScheduledDepartureTime => _driver.WaitForElement(By.XPath("//*[@id='sailingHourHint']"));
+        private IWebElement txtDepartDay => _driver.WaitForElement(By.XPath("//input[@id='departureDateDay']"));
         #endregion
 
         #region Methods
@@ -102,6 +103,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             txtScheduledDepartureMinute.Clear();
             txtScheduledDepartureHour.SendKeys(hour);
             txtScheduledDepartureMinute.SendKeys(minute);
+        }
+
+        public void SetScheduledDepartureDay(string departDay)
+        {
+            txtDepartDay.Clear();
+            txtDepartDay.SendKeys(departDay);
         }
 
         public void SelectSaveAndContinue()

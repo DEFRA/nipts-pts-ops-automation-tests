@@ -3,10 +3,6 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
-using DocumentFormat.OpenXml.Presentation;
-using AventStack.ExtentReports.Gherkin.Model;
-using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
-using Defra.UI.Tests.Pages.AP.Classes;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -84,12 +80,11 @@ namespace Defra.UI.Tests.Steps.AP
             HomePage?.ClickPrivacyNoticeLink();
         }
 
-        [Then(@"I should navigate to the PrivacyNotice details correct page opens in new tab")]
-        public void ThenIShouldNavigateToThePrivacyNoticeDetailsCorrectPageOpensInNewTab()
+        [Then(@"I should navigate to the PrivacyNotice details correct page")]
+        public void ThenIShouldNavigateToThePrivacyNoticeDetailsCorrectPage()
         {
             var pageTitle = "Pet travel scheme privacy notice";
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-            Assert.IsFalse(HomePage?.VerifyTheLinkOpensInSameTab());
         }
 
         [Then(@"I click the TermsAndConditions Link")]

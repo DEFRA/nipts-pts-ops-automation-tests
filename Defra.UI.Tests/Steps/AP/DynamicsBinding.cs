@@ -3,6 +3,7 @@ using Capgemini.PowerApps.SpecFlowBindings.Steps;
 using Defra.Trade.Plants.SpecFlowBindings.Steps;
 using Defra.UI.Framework.Driver;
 using Defra.UI.Tests.Tools;
+using DocumentFormat.OpenXml.Bibliography;
 using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using Microsoft.Xrm.Sdk.Metadata;
@@ -230,8 +231,8 @@ namespace Defra.UI.Tests.Steps.AP
             ThenTheStatusIsChangedTo("Revoke Pending");
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
-            ThenICannotSeeButton("Authorise");
-            ThenICannotSeeButton("Reject");
+            ThenICanOrCannotSeeButton("Cannot","Authorise");
+            ThenICanOrCannotSeeButton("Cannot","Reject");
             if (reason.ToUpper().StartsWith("OTHER"))
             {
                 string[] OtherReason = reason.Split(':');
@@ -302,12 +303,19 @@ namespace Defra.UI.Tests.Steps.AP
             TimelineSteps.WhenIAddANoteToTheTimeline(title, body);
         }
 
-        [Then("I cannot see '(.*)' button")]
-        public void ThenICannotSeeButton(string commandName)
+        [Then("I '(.*)' see '(.*)' button")]
+        public void ThenICanOrCannotSeeButton(string CanOrCannot, string commandName)
         {
-            CommandBarSteps.ThenICanNotSeeTheCommand(commandName);
+            if (CanOrCannot.ToUpper().Equals("CANNOT"))
+            {
+                CommandBarSteps.ThenICanNotSeeTheCommand(commandName);
+            }
+            else if (CanOrCannot.ToUpper().Equals("CAN"))
+            {
+                CommandBarSteps.ThenICanSeeTheCommand(commandName);
+            }
         }
-
+                
         [Then("I cannot edit the field '(.*)'")]
         public void ThenICannotEditTheField(string fieldNames)
         {
@@ -434,6 +442,7 @@ namespace Defra.UI.Tests.Steps.AP
             GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(0);
         }
 
+        [When(@"I filter with '(.*)' is '(.*)' to '(.*)'") ]
         [When(@"I filter with '(.*)' is '(.*)' to '(.*)' in PTS Application")]
         public void WhenISearchWithFilters(string filterName, string Operator, string Value)
         {
@@ -525,6 +534,12 @@ namespace Defra.UI.Tests.Steps.AP
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Suspension notice: Non-attendance at SPS inspection facilities in Northern Ireland"));
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("you are suspended from the Northern Ireland Pet Travel Scheme"));
             }
+            else if (timelineCopy.ToUpper().Equals("SUSPENSION WRITTEN WARNING"))
+            {
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Suspension written warning: Non-attendance at SPS inspection facilities in Northern Ireland"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("we are issuing you with a written warning"));
+            }
+
         }
 
         [Then("I verify the revocation error message")]
@@ -807,12 +822,13 @@ namespace Defra.UI.Tests.Steps.AP
         }
 
         [Then(@"I cannot see '(.*)' command")]
-        public void ThenICannotSeePending(string command)
+        public void ThenICanorCannotSeeCommand(string command)
         {
             ModalFormSteps modalFormSteps = new ModalFormSteps(_scenarioContext);
             modalFormSteps.ThenICanSeeTheCommandWithinTheModalForm("cannot", command, "");
         }
 
+        [Then(@"I See the '(.*)' notification")]
         [Then(@"I See the error '(.*)' notification")]
         public void ThenISeeTheErrorNotification(string errorMessage)
         {
@@ -883,6 +899,13 @@ namespace Defra.UI.Tests.Steps.AP
             ModalFormSteps.ThenICanSeeAValueTheModalForm("nipts_name", "text", "field", "");
         }
 
+        [When(@"I switch to '(.*)' tab")]
+        public void WhenISwitchToTab(string tabName)
+        {
+            EntitySteps.ISelectTab(tabName);
+            SharedSteps.WaitForScriptProcessing();
+        }
+
         [When(@"I Log decision in SNC as '(.*)'")]
         public void WhenILogDecisionInSNC(string value)
         {
@@ -896,10 +919,17 @@ namespace Defra.UI.Tests.Steps.AP
             _driver.WaitForPageToLoad();
         }
 
-        [Then(@"The Decision date is set to Current date")]
-        public void ThenDecisionDateIsSetToCurrentDate()
+        [Then(@"The '(.*)' is set to Current date")]
+        public void ThenDecisionDateIsSetToCurrentDate(string fieldName)
         {
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentDate("dd/MM/yyyy"), "nipts_decisiondate", "inputdatetime", "field", "");
+            if(fieldName.ToUpper().Equals("DECISION DATE"))
+            {
+                ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentDate("dd/MM/yyyy"), "nipts_decisiondate", "inputdatetime", "field", "");
+            }
+            else if (fieldName.ToUpper().Equals("CLOSE DATE"))
+            {
+                ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentDate("dd/MM/yyyy"), "nipts_closedate", "inputdatetime", "field", "");
+            }
         }
                
         [Then(@"I see '(.*)' in Intent to Suspend Letter field")]
@@ -918,6 +948,44 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIVerifyTheColumnIsSorted(string columnName , string sortOption) 
         {
             GridSteps.VerifyTheColumnIsSorted(columnName, sortOption);
+        }
+        
+        [When(@"I open '(.*)' under '(.*)'")]
+        public void ThenIOpen(string subArea , string Area) 
+        {
+            Capgemini.PowerApps.SpecFlowBindings.Steps.NavigationSteps.WhenIOpenTheSubAreaUnderTheArea(subArea, Area);
+        }
+
+        [Then(@"I '(.*)' see the '(.*)' button in the form")]
+        public void ThenICanSeeButtonInForm(string canOCannot, string commandName)
+        {
+            Defra.Trade.Plants.SpecFlowBindings.Steps.GridSteps.WhenICanSeeCommandInTheSubgrid(canOCannot, commandName, "SNCs_subgrid");
+        }
+
+        [When(@"I click on '(.*)' Command")]
+        public void ThenIClickCommand(string commandName)
+        {
+            CommandSteps.ClickCommand(commandName);
+            _driver.WaitForPageToLoad();
+        }
+
+        [Then(@"I verify the dialog message '(.*)'")]
+        public void ThenIVerifyDialog(string dialogMessage)
+        {
+            Trade.Plants.SpecFlowBindings.Steps.DialogSteps.ThenADialogIsDisplayedWithMessageInTheDialogField(dialogMessage, "dialogMessageText");
+        }
+
+        [When(@"I click on '(.*)' button in Dialog")]
+        public void WhenIClickOnDialog(string DialogButton)
+        {
+            PopupSteps.WhenIClickTheButtonOnThePopupDialog(DialogButton);
+            SharedSteps.WaitForScriptProcessing();
+        }
+
+        [Then(@"I See the '(.*)' value in '(.*)' field")]
+        public void ThenISeeTheValueInTheField(string value, string fieldName)
+        {
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, fieldName, "input", "field", "");
         }
     }
 }

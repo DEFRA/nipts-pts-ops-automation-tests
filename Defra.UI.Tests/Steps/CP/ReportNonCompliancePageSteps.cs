@@ -163,6 +163,12 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerSubheading(subHeading, sectionName), "Type of passenger subheading under Passenger details section is not displayed properly");
         }
 
+        [Then(@"I should not see Type of Passenger section in Report non compliance page")]
+        public void ThenIShouldNotSeeSubheadingUnderSection()
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerSubheadingISNotPresent(), "Type of passenger subheading under Passenger details section is displayed for flight");
+        }
+
         [Then(@"I should see the '([^']*)' subheading")]
         public void ThenIShouldSeeTheSubheading(string subHeading)
         {

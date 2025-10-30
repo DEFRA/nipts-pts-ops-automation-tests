@@ -28,5 +28,6 @@
         bool CheckNoPrepopulatedDepartureTime();
         void CheckDepartBefore48OrAfter24Hrs(string departureDay, string departureMonth, string departureYear, string departureHour, string departureMinute, string timeCheck);
         void EnterInvalidURL();
+        void SetScheduledDepartureDay(string departDay);
     }
 }

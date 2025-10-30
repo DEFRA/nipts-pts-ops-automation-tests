@@ -4,8 +4,6 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Reqnroll;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {

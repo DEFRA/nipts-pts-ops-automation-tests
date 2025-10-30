@@ -4,6 +4,7 @@ using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 
@@ -53,6 +54,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtValuePTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]/following-sibling::dd"));
         private IWebElement lblPassengerDetails => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h2[text()='Passenger details']"));
         private IWebElement lblTypeOfPassenger => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h3[text()='Type of passenger']"));
+        private ReadOnlyCollection<IWebElement> lblTypeOfPassengerLabels => _driver.FindElements(By.XPath("//*[@id='nonComplianceForm']//h3[text()='Type of passenger']"));
         private IWebElement lblVisualCheck => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Visual check']"));
         private IWebElement lnkPetDetailsFromPTD => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet details']"));
         private IWebElement lblVisualCheckCheckBox => _driver.WaitForElement(By.XPath("//label[normalize-space()='Pet does not match the PTD']"));
@@ -302,6 +304,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             lblPassengerDetails.ScrollToElement(_driver);
             return lblPassengerDetails.Text.Contains(sectionName) && lblTypeOfPassenger.Text.Contains(subHeading);
+        }
+        
+        public bool VerifyTypeOfPassengerSubheadingISNotPresent()
+        {
+            return lblTypeOfPassengerLabels.Count() == 0;
         }
 
         public bool VerifyVCAndPetOwnerDetailSubheading(string subHeading)

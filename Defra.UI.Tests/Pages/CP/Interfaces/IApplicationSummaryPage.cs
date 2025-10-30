@@ -23,5 +23,7 @@
         bool IsApplicationSummayPageLoaded(string pageTitle);
         bool VerifyChecksSectionRadioButtonsWithHints(string radiobuttons, string hint);
         bool VerifyChecksSectionRadioButtonsWithHintsGB(string radiobuttons, string hint);
+        bool VerifyChecksSectionIsNotPresent();
+        bool VerifyContinueIsNotPresent();
     }
 }
