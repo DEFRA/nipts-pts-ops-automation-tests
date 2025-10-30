@@ -46,5 +46,6 @@
         void ClickVisualCheckReason(string visualCheckReason);
         void AnyRelevantComments(string comments);
         void EnterDetailsOfOutcome(string details);
+        bool VerifyTypeOfPassengerSubheadingISNotPresent();
     }
 }

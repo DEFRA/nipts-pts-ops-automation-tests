@@ -299,3 +299,26 @@ Scenario: Verify the error message for no selection in reason section in Report 
 	And I should see no checkboxes are selected in other issues section
 	When I click Report non-compliance button from Report non-compliance page
 	Then I should see an error message "Select at least one reason for non-compliance" in Report non-compliance page
+
+Scenario: Verify the Report non compliance page content for flight route selection
+	Then I have selected 'Flight' radio option
+	Then I provide the 'RK 29Q' in the box
+	And I have provided Scheduled departure time '18:49'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '4574B2' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Refer to SPS radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	And I should see no checkboxes are selected in microchip section
+	And I should see no checkboxes are selected in other issues section
+	And I should not see Type of Passenger section in Report non compliance page
+	When I click 'Passenger says they will not travel' Record Outcome
+	And I Select the 'Cannot find microchip' Microchip Checkbox
+	And I click Report non-compliance button from Report non-compliance page
+	Then I should navigate to Checks page
