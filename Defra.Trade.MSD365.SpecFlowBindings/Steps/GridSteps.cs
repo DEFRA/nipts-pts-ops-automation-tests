@@ -575,6 +575,22 @@ public class GridSteps : PowerAppsStepDefiner
         var subGrid = GridHelper.GetGrid(Driver, gridName);
         CommandHelper.ClickCommand(Driver, subGrid, commandName);
     }
+    
+    [When(@"I click can|cannot see the command '(.*)' in the '(.*)' subgrid")]
+    public static void WhenICanSeeCommandInTheSubgrid(string canOrCannot, string commandName, string gridName)
+    {
+        var subGrid = GridHelper.GetGrid(Driver, gridName);
+        var commandButtons = CommandHelper.GetCommands(Driver, subGrid);
+        var commandButton = commandButtons.FirstOrDefault(d => d.Key == commandName).Value;
+        if (canOrCannot.ToUpper().Equals("CAN"))
+        {
+            commandButton.IsVisible().Should().BeTrue();
+        }
+        else
+        {
+            commandButton.IsVisible().Should().BeFalse();
+        }
+    }
 
     [Then(@"I can see the following headers on the grid view(| in any order)")]
     public static void ThenICanSeeTheFollowingHeadersInTheGridView(string inOrder, Table expectedHeadersTable)
