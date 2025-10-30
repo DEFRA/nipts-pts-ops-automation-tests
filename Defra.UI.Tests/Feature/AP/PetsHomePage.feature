@@ -17,11 +17,6 @@ Scenario: Checking the Feedback Hyperlink opens in new tab
 	And  I click the Feedback Link
 	Then I should navigate to the Feedback details correct page opens in new tab
 
-Scenario: Checking the Gethelp Hyperlink
-	Then I should navigate to Lifelong pet travel documents page
-	And  I click the Gethelp Link
-	Then I should navigate to the Gethelp details correct page
-
 Scenario: Checking the AccessibilityStatement Hyperlink opens in same tab and back navigation
 	Then I should navigate to Lifelong pet travel documents page
 	And  I click the AccessibilityStatement Link

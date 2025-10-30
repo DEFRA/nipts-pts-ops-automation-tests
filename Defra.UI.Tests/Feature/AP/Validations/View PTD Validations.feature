@@ -176,3 +176,16 @@ Scenario: Verify invalid documents link and table
 	Then I click on Back button
 	And I should redirected to Apply for a pet travel document page
 
+Scenario: Verify the accept additional cookies in cookies banner and hide cookie message
+	Then I should see cookies banner at the top of the page
+	And I should see accept and reject additional cookies button in the cookies banner
+	When I click Accept additional cookies button in the cookies banner
+	Then  I should see additional cookies accepted confirmation message
+	And I click Hide cookie message should hide the 'Accepted' cookie banner
+
+Scenario: Verify the reject additional cookies in cookies banner and hide cookie message
+	Then I should see cookies banner at the top of the page
+	And I should see accept and reject additional cookies button in the cookies banner
+	When I click Reject additional cookies button in the cookies banner
+	Then  I should see additional cookies rejected confirmation message
+	And I click Hide cookie message should hide the 'Rejected' cookie banner
