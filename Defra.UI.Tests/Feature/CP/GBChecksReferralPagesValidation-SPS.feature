@@ -26,3 +26,29 @@ Examples:
 	| Birkenhead to Belfast (Stena) | 09:30        |
 	| Cairnryan to Larne (P&O)      | 09:30        |
 	| Loch Ryan to Belfast (Stena)  | 09:30        |
+
+Scenario: Verify the table details in Referred to SPS page as SPS Checker
+	Then I have selected 'Ferry' radio option
+	And I select the 'Loch Ryan to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '10:00'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Reference number 'RHE7FYYD' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	And I select Fail radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Report non-compliance page
+	When I Select the 'Cannot find microchip' Microchip Checkbox
+	#And I click 'Passenger says they will not travel' Record Outcome
+	Then I click 'Vehicle on ferry' in Passenger details
+	When I click Save outcome button from non-compliance page
+	Then I should see a message 'Information has been successfully submitted' in Checks page
+	When I click View link in Fail Referred to SPS row with departure time '10:00'
+	Then I should navigate to Referred to SPS page
+	And I verify the Referred to SPS page table column names as 'PTD or Reference number' 'Pet' 'Microchip' 'Travel by' 'SPS outcome'
+	And I verify the Referred to SPS page table column values as 'GB826 8C5 FA2' 'Cat and Tortoiseshell' '291025122748541' 'Vehicle' 'Check needed'
+	And I should not see Additional Comments

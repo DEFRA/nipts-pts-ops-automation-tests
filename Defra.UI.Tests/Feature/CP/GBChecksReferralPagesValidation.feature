@@ -173,7 +173,7 @@ Scenario: Verify the table details in Referred to SPS page
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by application number' radio button
-	And I provided the Reference number 'KWHGS553' of the application
+	And I provided the Reference number 'RHE7FYYD' of the application
 	When I click search button
 	And I should see the application status in 'Approved'
 	And I select Refer to SPS radio button
@@ -187,7 +187,8 @@ Scenario: Verify the table details in Referred to SPS page
 	When I click View link in Fail Referred to SPS row with departure time '10:00'
 	Then I should navigate to Referred to SPS page
 	And I verify the Referred to SPS page table column names as 'PTD or Reference number' 'Pet' 'Microchip' 'Travel by' 'SPS outcome'
-	And I verify the Referred to SPS page table column values as 'GB826 8E8 0AC' 'Cat and Tortoiseshell' '011025161505346' 'Vehicle' 'Check needed'
+	And I verify the Referred to SPS page table column values as 'GB826 8C5 FA2' 'Cat and Tortoiseshell' '291025122748541' 'Vehicle' 'Check needed'
+	And I should not see Additional Comments
 
 Scenario: Verify for no duplicate referrals and latest details updated in GB check report page
 	Then I have selected 'Ferry' radio option
@@ -340,7 +341,7 @@ Scenario: Verify referral count on updating approved document fail to fail check
 	And I should see 'Loch Ryan to Belfast (Stena)' as Route
 	Then I should see current date as Scheduled departure date
 	And I should see '02:45' as Scheduled departure time
-	Then I should see current date and current time as Date and time checked
+	Then I should see current date and current time as Date and time checked	
 
 Scenario: Verify the pagination of referrals details list in Referred to SPS page
 	Then I add records in referrals list in Referred to SPS page 'Ferry' 'Cairnryan to Larne (P&O)' '15:10' 'Cannot find microchip' 'Passenger says they will not travel' 'Vehicle on ferry' 'Information has been successfully submitted'
