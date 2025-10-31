@@ -43,7 +43,6 @@ Scenario: Verify the table details in Referred to SPS page as SPS Checker
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	When I Select the 'Cannot find microchip' Microchip Checkbox
-	#And I click 'Passenger says they will not travel' Record Outcome
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
