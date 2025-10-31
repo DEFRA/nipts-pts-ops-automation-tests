@@ -295,6 +295,7 @@ Scenario Outline: Verify the view document for status and print download option 
 	And I have verified microchip details in summary page
 	And I have verified pet details in summary page
 	And I have verified pet owner details in summary page
+	Then I verify the application status 'Pending'
 	When I Login to Dynamics application
 	And I opens the application
 	Then I get the PTD Reference Number and Store it
@@ -363,6 +364,7 @@ Scenario Outline: Verify the view document for status and print download option 
 	And I have verified microchip details in summary page
 	And I have verified pet details in summary page
 	And I have verified pet owner details in summary page
+	Then I verify the application status 'Pending'
 	When I Login to Dynamics application
 	And I opens the application
 	Then I get the PTD Reference Number and Store it

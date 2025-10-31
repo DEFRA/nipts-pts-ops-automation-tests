@@ -37,5 +37,11 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         void ClickRejectAdditionalCookies();
         bool VerifyRejectedCookiesConfirmation();
         bool ClickHideAndVerifyCookieBanner(string option);
+        bool VerifyCookiesRadioButtons();
+        bool VerifyCookiesDefaultSelection();
+        void ClickCookiesYesRadioButton();
+        void ClickSaveCookiesSettings();
+        bool VerifyCookiesSuccessMessage();
+        void ClickChangeYourCookieSettings(string option);
     }
 }

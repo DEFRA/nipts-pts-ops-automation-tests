@@ -189,3 +189,33 @@ Scenario: Verify the reject additional cookies in cookies banner and hide cookie
 	When I click Reject additional cookies button in the cookies banner
 	Then  I should see additional cookies rejected confirmation message
 	And I click Hide cookie message should hide the 'Rejected' cookie banner
+
+Scenario: Verify Cookies page radio buttons and default option selection 
+	And  I click the Cookies Link
+	Then I should navigate to the Cookies details correct page opens in same tab
+	When I see two radio buttons are visible at the end of the page
+	Then I should see the No option is selected as default option
+
+Scenario: Verify the applicant can change the cookie preference and save it in cookies page
+	And  I click the Cookies Link
+	Then I should navigate to the Cookies details correct page opens in same tab
+	And I should see the No option is selected as default option
+	Then I select the Yes option 
+	When I click the save cookies settings button
+	Then I should see success message at the top of the page
+
+Scenario: Verify clicking change your cookie settings link in cookies banner opens cookies page in same tab - accept cookies
+	Then I should see cookies banner at the top of the page
+	And I should see accept and reject additional cookies button in the cookies banner
+	When I click Accept additional cookies button in the cookies banner
+	Then  I should see additional cookies accepted confirmation message
+	When I click change your cookie settings link in the 'Accepted' confirmation message
+	Then I should navigate to the Cookies details correct page opens in same tab 
+
+Scenario: Verify clicking change your cookie settings link in cookies banner opens cookies page in same tab - reject cookies
+	Then I should see cookies banner at the top of the page
+	And I should see accept and reject additional cookies button in the cookies banner
+	When I click Reject additional cookies button in the cookies banner
+	Then  I should see additional cookies rejected confirmation message
+	When I click change your cookie settings link in the 'Rejected' confirmation message
+	Then I should navigate to the Cookies details correct page opens in same tab
