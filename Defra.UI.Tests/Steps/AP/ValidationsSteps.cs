@@ -300,5 +300,11 @@ namespace Defra.UI.Tests.Steps.AP
                 Assert.True(petOwnerAddressPage?.IsError(error), $"There is no error message found with - {error}");
             }
         }
+
+        [Then(@"I verify the breeds displayed in the breed dropdownlist for '(.*)' species")]
+        public void ThenIVerifyTheBreedsDisplayedInTheBreedDropdownlistForSpecies(string species)
+        {
+            Assert.True(breedPage?.VerifyBreedsList(species));
+        }
     }
 }

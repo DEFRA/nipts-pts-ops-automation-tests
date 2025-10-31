@@ -289,5 +289,23 @@ namespace Defra.UI.Tests.Steps.AP
         {
             Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityTableIsNotVisible());
         }
+
+        [Then(@"I verify the status of the application '(.*)'")]
+        public void ThenIVerifyTheStatusOfTheApplication(string status)
+        {
+            Assert.IsTrue(summaryPage?.VerifyApplicationDetails(status), "The status of the PTD is not correct");
+        }
+
+        [When(@"I have clicked the first ptd view hyperlink from dashboard")]
+        public void WhenIHaveClickedTheFirstPtdViewHyperlinkFromDashboard()
+        {
+            summaryPage?.ClickFirstViewHyperLink();
+        }
+
+        [Then(@"I have verified breed row for ferret is not displayed")]
+        public void ThenIHaveVerifiedBreedRowForFerretIsNotDisplayed()
+        {
+            Assert.IsTrue(summaryPage?.VerifyBreedForFerret());
+        }
     }
 }
