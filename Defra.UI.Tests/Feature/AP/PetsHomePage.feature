@@ -1,7 +1,7 @@
 ﻿@PETS
 Feature: PetsHomePageFooterLinks
 
-Checking the header, footer, GetHelp and Feedback Hyperlinks
+Checking the header, footer and Feedback Hyperlinks
 
 Background: 
 	Given that I navigate to the DEFRA application

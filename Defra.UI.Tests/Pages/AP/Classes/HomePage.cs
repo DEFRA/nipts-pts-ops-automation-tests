@@ -49,9 +49,17 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement lnkViewCookies => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='View cookies']"));
         private IWebElement lblAcceptedCookies => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-accepted']//p"));
         private IWebElement lblRejectedCookies => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-rejected']//p"));
+        private IWebElement lnkChangeCookieSettingsAccepted => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-accepted']//a"));
+        private IWebElement lnkChangeCookieSettingsRejected => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-rejected']//a"));
         private IWebElement btnHideCookieAcceptedMsg => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-accepted']//div[2]/button"));
         private IWebElement btnHideCookieRejectedMsg => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-rejected']//div[2]/button"));
         private IReadOnlyCollection<IWebElement> txtEntireCookieBanner => _driver.FindElements(By.XPath("//*[@class='govuk-cookie-banner']"));
+        private IWebElement btnCookiesOptionYes => _driver.WaitForElementExists(By.XPath("//*[@id='yes']/following-sibling::label"));
+        private IWebElement btnCookiesOptionNo => _driver.WaitForElementExists(By.XPath("//*[@id='no']/following-sibling::label"));
+        private IWebElement btnRadioNo => _driver.WaitForElementExists(By.XPath("//*[@id='no']"));
+        private IWebElement btnSaveCookiesSettings => _driver.WaitForElementExists(By.XPath("//button[normalize-space(text())='Save cookies settings']"));
+        private IWebElement txtSuccessMsgHeader => _driver.WaitForElementExists(By.XPath("//*[@class='govuk-notification-banner__title']"));
+        private IWebElement txtSuccessMsg => _driver.WaitForElementExists(By.XPath("//*[@class='govuk-notification-banner__content']/p"));
         #endregion
 
         #region Methods
@@ -315,6 +323,45 @@ namespace Defra.UI.Tests.Pages.AP.Classes
                     return false;
             }
             return true;
+        }
+
+        public bool VerifyCookiesRadioButtons()
+        {
+            return btnCookiesOptionYes.Text.Trim().Contains("Yes")
+                && btnCookiesOptionNo.Text.Trim().Contains("No");
+        }
+
+        public bool VerifyCookiesDefaultSelection()
+        {
+            btnRadioNo.ScrollToElement(_driver);
+
+            string checkedRadioBtn = btnRadioNo.GetAttribute("checked");
+            bool isNoSelected = !string.IsNullOrEmpty(checkedRadioBtn);
+            return isNoSelected;
+        }
+
+        public void ClickCookiesYesRadioButton()
+        {
+            btnCookiesOptionYes.Click();
+        }
+
+        public void ClickSaveCookiesSettings()
+        {
+            btnSaveCookiesSettings.Click();
+        }
+
+        public bool VerifyCookiesSuccessMessage()
+        {
+            return txtSuccessMsgHeader.Text.Trim().Contains("Success")
+                && txtSuccessMsg.Text.Trim().Contains("You’ve set your cookie preferences.");
+        }
+
+        public void ClickChangeYourCookieSettings(string option)
+        {
+            if (option == "Accepted")
+                lnkChangeCookieSettingsAccepted.Click();
+            else if (option == "Rejected")
+                lnkChangeCookieSettingsRejected.Click();
         }
         #endregion
     }
