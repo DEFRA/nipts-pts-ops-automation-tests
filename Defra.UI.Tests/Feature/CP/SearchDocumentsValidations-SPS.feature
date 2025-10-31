@@ -133,7 +133,7 @@ Scenario: Verify the Checks home page filter and display only the selected ferry
 	Then I should navigate to Checks page
 	And I should see route displayed in all the tables of Checks page should be 'Birkenhead to Belfast (Stena)'
 
-Scenario Outline: Verify the Warning text in Suspended PTD Search result page - SPS
+Scenario Outline: Verify the Warning text ad Checks section in Suspended PTD Search result page - SPS
 	Then I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '14:00'
@@ -175,4 +175,3 @@ Examples:
 	| Ferry          | Birkenhead to Belfast (Stena) | 7D2F63    | Unsuccessful |
 	| Ferry          | Birkenhead to Belfast (Stena) | 412576    | Cancelled    |
 	| Ferry          | Birkenhead to Belfast (Stena) | 95D9C3    | Pending	    |
-

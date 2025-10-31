@@ -96,6 +96,12 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.IsTrue(_gbChecksReferralPage?.AdditionalComments(additionalComments), "Additional comments in GB check report page is not correct");
         }
 
+        [Then(@"I should not see Additional Comments")]
+        public void ThenIShouldNotSeeAdditionalComments()
+        {
+            Assert.IsTrue(_gbChecksReferralPage?.VerifyAdditionalCommentsNotPresent(), "Additional comments in GB check report page is Present");
+        }
+
         [Then(@"I should see '([^']*)' as GB checker name")]
         public void ThenIShouldSeeAsGBCheckerName(string gbChecker)
         {
