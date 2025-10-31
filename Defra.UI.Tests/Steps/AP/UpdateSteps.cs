@@ -212,5 +212,16 @@ namespace Defra.UI.Tests.Steps.AP
                 breedPage?.ClickContinueButton();
             }
         }
+
+        [Then(@"I have modified the microchip scanned date before to the date of birth")]
+        public void ThenIHaveModifiedTheMicrochipScannedDateBeforeToTheDateOfBirth()
+        {
+            var dateOfBirthString = _scenarioContext.Get<string>("DateOfBirth");
+            var date = Utils.ConvertToDate(dateOfBirthString).AddDays(-10);
+            _scenarioContext.Remove("MicrochippedDate");
+
+            var microchippedDate = petMicrochipDatePage?.EnterDateMonthYear(date);
+            _scenarioContext.Add("MicrochippedDate", microchippedDate);
+        }
     }
 }

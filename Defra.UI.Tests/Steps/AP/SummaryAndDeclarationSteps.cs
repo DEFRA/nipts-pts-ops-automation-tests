@@ -280,7 +280,7 @@ namespace Defra.UI.Tests.Steps.AP
                 var date = DateTime.Now.ToString("dd/MM/yyyy");
 
                 Assert.AreEqual(Regex.Replace(ptdNumber, @"\s+", ""), Regex.Replace(summary?.PTDNumber, @"\s+", ""), $"PTD number is not matching in {pageName} page!");
-                Assert.AreEqual(date, summary?.Date, $"Microchip number is not matching in {pageName} page!");
+                Assert.AreEqual(date, summary?.Date, $"Date is not matching in {pageName} page!");
             }
         }
 
