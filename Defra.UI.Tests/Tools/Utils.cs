@@ -52,11 +52,11 @@ namespace Defra.UI.Tests.Tools
             return DateTime.Today.ToString(format);
         }
 
-            public static string GetFutureDate(int daysInFuture)
+        public static string GetFutureDate(int daysInFuture)
         {
             DateTime currentDate = DateTime.Today;
             DateTime futureDate = currentDate.AddDays(daysInFuture);
-            return futureDate.ToString("MM/dd/yyyy");
+            return futureDate.ToString("dd/MM/yyyy");
         }
 
         public static string GetPastDate(int daysInFuture)
