@@ -406,6 +406,9 @@ Scenario: Verify the Unique features field is empty in offline PTD application a
 	Then the status is changed to 'Authorised'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
