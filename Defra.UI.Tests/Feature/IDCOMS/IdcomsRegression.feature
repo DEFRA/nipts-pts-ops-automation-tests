@@ -343,7 +343,6 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Age' as '12'
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
-	And I enter 'Microchip Number' as 'auto'
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 
@@ -548,7 +547,7 @@ Scenario: Create SNC in authorised PTD with warning; verify closure date.
 	Then The 'Decision date' is set to Current date
 	Then The 'Close date' is set to Current date
 	And the status is changed to 'Closed'
-	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA’s decision' notification
+	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
 	And I 'can' see 'Letter Sent' button
 
 Scenario: Verify Activate/Deactivate button is not present in suspension view and verify all the views and columns in Suspensions 
@@ -574,7 +573,7 @@ Scenario: Verify Activate/Deactivate button is not present in suspension view an
 	When I Switch to 'Suspensions On Appeal'
 	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present	
 	When I Switch to 'Correspondence Required - Suspensions'
-	Then I Verify the 'Name|Pet Owner|Suspension End Date|Status Reason|Application Language (PTD)|Close letter|Appeal outcome letter' coloumns are present
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Status Reason|Application Language (PTD)|Close letter|Appeal Outcome Letter' coloumns are present
 
 Scenario: Verify End Suspension button and backing off it
 	When I Login to Dynamics application
