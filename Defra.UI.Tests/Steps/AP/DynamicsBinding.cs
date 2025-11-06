@@ -54,11 +54,12 @@ namespace Defra.UI.Tests.Steps.AP
         [When("I assign the application to myself")]
         public void WhenIAssignTheApplicationToHimself()
         {
-            var formContext = _driver.WaitUntilAvailable(By.Id("mainContent"));
+            _driver.WaitUntilAvailable(By.Id("mainContent"));
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
             CommandSteps.ClickCommand("Assign");
             Trade.Plants.SpecFlowBindings.Steps.DialogSteps.WhenIAssignToMeOnTheAssignDialog();
+            _driver.WaitForTransaction();
         }
 
         [When("I Verify the Microchip Number in Microchip Verification Check")]

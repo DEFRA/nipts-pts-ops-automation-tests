@@ -348,7 +348,7 @@ public class EntitySteps : PowerAppsStepDefiner
     [Then(@"I can see an info form notification stating '(.*)'")]
     public static void ThenICanSeeAnInfoFormNotificationStating(string message)
     {
-        XrmApp.Entity.GetFormNotifications().Should().Contain(formNotification => formNotification.Type == FormNotificationType.Information && formNotification.Message == message);
+        XrmApp.Entity.GetFormNotifications().Should().Contain(formNotification => formNotification.Type == FormNotificationType.Information && formNotification.Message.Replace("’", "") == message.Replace("'", ""));
     }
 
     public static void ThenICannotSeeAnInfoFormNotificationStating(string message)

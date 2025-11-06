@@ -320,5 +320,41 @@ namespace Defra.UI.Tests.Steps.AP
         {
             HomePage?.VerifyCommonHeaderLinks(govukLink, takingAPetLink);
         }
+
+        [When(@"I see two radio buttons are visible at the end of the page")]
+        public void WhenISeeTwoRadioButtonAreVisibleAtTheEndOfThePage()
+        {
+            Assert.True(HomePage?.VerifyCookiesRadioButtons());
+        }
+
+        [Then(@"I should see the No option is selected as default option")]
+        public void ThenIShouldSeeTheNoOptionIsSelectedAsDefaultOption()
+        {
+            Assert.True(HomePage?.VerifyCookiesDefaultSelection());
+        }
+
+        [Then(@"I select the Yes option")]
+        public void ThenISelectTheYesOption()
+        {
+            HomePage?.ClickCookiesYesRadioButton();
+        }
+
+        [When(@"I click the save cookies settings button")]
+        public void WhenIClickTheSaveCookiesSettingsButton()
+        {
+            HomePage?.ClickSaveCookiesSettings();
+        }
+
+        [Then(@"I should see success message at the top of the page")]
+        public void ThenIShouldSeeSuccessMessageAtTheTopOfThePage()
+        {
+            Assert.True(HomePage?.VerifyCookiesSuccessMessage());
+        }
+
+        [When(@"I click change your cookie settings link in the '(.*)' confirmation message")]
+        public void WhenIChangeYourCookieSettingsLinkInTheConfirmationMessage(string option)
+        {
+            HomePage?.ClickChangeYourCookieSettings(option);
+        }
     }
 }
