@@ -236,6 +236,12 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.True(HomePage?.VerifyCookiesBanner());
         }
 
+        [Then(@"I should not see cookies banner at the top of the page")]
+        public void ThenIShouldNotSeeCookiesBannerAtTheTopOfThePage()
+        {
+            Assert.True(HomePage?.VerifyCookiesBannerNotDisplayed());
+        }
+
         [Then(@"I should see accept and reject additional cookies button in the cookies banner")]
         public void ThenIShouldSeeAcceptAndRejectAdditionalCookiesButtonInTheCookiesBanner()
         {
@@ -269,7 +275,8 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I click Hide cookie message should hide the '(.*)' cookie banner")]
         public void ThenIClickHideCookieMessageShouldHideTheCookieBanner(string option)
         {
-            Assert.True(HomePage?.ClickHideAndVerifyCookieBanner(option));
+            HomePage?.ClickHideCookiesButton(option);
+            Assert.True(HomePage?.VerifyCookiesBannerNotDisplayed());
         }
 
         [When(@"I see two radio buttons are visible at the end of the page")]
@@ -306,6 +313,12 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenIChangeYourCookieSettingsLinkInTheConfirmationMessage(string option)
         {
             HomePage?.ClickChangeYourCookieSettings(option);
+        }
+
+        [Then("I should see '(.*)' '(.*)' links in the header")]
+        public void ThenIShouldSeeLinksInTheHeader(string govukLink, string takingAPetLink)
+        {
+            HomePage?.VerifyCommonHeaderLinks(govukLink, takingAPetLink);
         }
     }
 }

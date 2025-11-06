@@ -16,5 +16,6 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         bool VerifyIssuingAuthorityTableIsNotVisible();
         void ClickFirstViewHyperLink();
         bool VerifyBreedForFerret();
+        bool VerifyIssuingAuthoritySignatureRow(string signatureColName);
     }
 }

@@ -11,6 +11,7 @@
         public void SignInToDynamics(string username, string password);
         public void CPSignIn(string userName, string password);
         void ClickPetsTravelApplicationPortalLink();
-        //bool VerifyYourDefraAccountPageAppears();
+        void ClickSignInButton();
+        bool IsError(string errorMessage);
     }
 }
