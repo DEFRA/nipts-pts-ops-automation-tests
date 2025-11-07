@@ -44,6 +44,12 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _applicationSummaryPage?.SelectReferToSPSRadioButton();
         }
+        
+        [When(@"I select Issue SUPTD radio button")]
+        public void WhenISelectIssueSUPTDRadioButton()
+        {
+            _applicationSummaryPage?.SelectIssueSUPTDRadioButton();
+        }
 
         [When(@"I click save and continue button from application status page")]
         [When(@"I continue button from application status page")]
