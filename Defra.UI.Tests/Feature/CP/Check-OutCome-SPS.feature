@@ -32,7 +32,7 @@ Scenario: Verify the radio buttons label, hint and Pass outcome with in applicat
 	Then I should navigate to Checks page
 	Then The Confirmation box is displayed in Checks page
 
-Scenario: Verify the error message for no selection of radio button in application status page as SPS Checker
+Scenario: Verify the error message for no selection of radio button and select Issue SUPTD in application status page as SPS Checker
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '14:00'
@@ -46,3 +46,6 @@ Scenario: Verify the error message for no selection of radio button in applicati
 	And I should see the application status in 'Approved'
 	And I click save and continue button from application status page
 	Then I should see an error message "Select an option" in application status page
+	When I select Issue SUPTD radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Checks page
