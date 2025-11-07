@@ -70,5 +70,17 @@ namespace Defra.UI.Tests.Steps.AP
         {
             Signin?.ClickPetsTravelApplicationPortalLink();
         }
+
+        [Then("I click sign in button")]
+        public void ThenIClickSignInButton()
+        {
+            Signin?.ClickSignInButton();
+        }
+
+        [Then(@"I should see an error message ""(.*)"" in Government Gateway page")]
+        public void ThenIShouldSeeAnErrorMessageInGovernmentGatewayPage(string errorMessage)
+        {
+            Assert.True(Signin?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
+        }
     }
 }

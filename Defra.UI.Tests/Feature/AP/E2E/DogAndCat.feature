@@ -79,9 +79,9 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	Then the address of authority should be 'Animal and Plant Health Agency' 'Woodham Lane, New Haw, Addlestone, Surrey KT15 3NB'
 
 Examples:
-	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
-	| PetDog's  | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
-	| PetCat's  | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |
 
 Scenario Outline: Create PETS Travel Document By Registered User with details not correct - Revoked in Dynamics
 	Then I have selected '<Are your details correct>' option
@@ -158,9 +158,9 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 
 
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
-	| PetCat's |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
-	| PetDog's |  No                       | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetCat's | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
+	| PetDog's | No                       | CV1 4PY  | 123         | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
 
 Scenario Outline: Create PETS Travel Document By Registered User with enter address manually - Reject in Dynamics
 	Then I have selected '<Are your details correct>' option
@@ -231,9 +231,9 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter addr
 	And I should not see the application in the Dashboard
 
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
-	| PetCat's |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
-	| PetDog's |  No                       | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetCat's | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
+	| PetDog's | No                       | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
 
 Scenario Outline: Create PETS Travel Document By Registered User with enter freetext breed
 	Then I have selected '<Are your details correct>' option
@@ -294,9 +294,9 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter free
 	And I should see the application in 'Approved' status
 
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Breed                |
-	| PetDog's |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Unique Unknown Breed |
-	| PetCat's |  Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    | Unique Unknown Breed |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Breed                |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Unique Unknown Breed |
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    | Unique Unknown Breed |
 	
 
 Scenario Outline: Create PETS Travel Document By Registered User with other color
@@ -359,9 +359,9 @@ Scenario Outline: Create PETS Travel Document By Registered User with other colo
 	And I should see the application in 'Approved' status
 
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Breed                |
-	| PetDog's |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Other | Yes                   | Unique Unknown Breed |
-	| PetCat's |  Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Other | No                    | Unique Unknown Breed |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Breed                |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Other | Yes                   | Unique Unknown Breed |
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Other | No                    | Unique Unknown Breed |
 
 @APCrossBrowser
 Scenario Outline: Create PETS Travel Document and navigate to Pets Owner details page
@@ -403,5 +403,5 @@ Scenario Outline: Create PETS Travel Document and navigate to Pets Owner details
 	When I click Apply for another lifelong pet travel document link
 	Then I should redirected to the Are your details correct page
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Breed                |
-	| PetDog's |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Unique Unknown Breed |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Breed                |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Unique Unknown Breed |
