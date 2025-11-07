@@ -27,6 +27,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement btnFootPassengerRadio => _driver.WaitForElementExists(By.XPath("//*[@id='passengerType']/following-sibling::label"));
         private IWebElement btnVehicleRadio => _driver.WaitForElementExists(By.XPath("//*[@id='vehiclePassenger']/following-sibling::label"));
         private IWebElement btnAirlineRadio => _driver.WaitForElementExists(By.XPath("//*[@id='airlinePassenger']/following-sibling::label"));
+        private ReadOnlyCollection<IWebElement> btnAirlinesButton => _driver.FindElements(By.XPath("//*[@id='airlinePassenger']/following-sibling::label"));
         private IWebElement lblReportOutcome => _driver.WaitForElementExists(By.XPath("//h2[normalize-space(.)='Record outcome']"));
         private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger referred to DAERA/SPS at NI port']"));
         private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger advised not to travel']"));
@@ -447,7 +448,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             btnFootPassengerRadio.ScrollToElement(_driver);
 
             return btnFootPassengerRadio.Text.Contains(ferryFootPassenger)
-                && btnVehicleRadio.Text.Contains(vehicleOnFerry)           
+                && btnVehicleRadio.Text.Contains(vehicleOnFerry) && btnAirlinesButton.Count() == 0
                 && !btnFootPassengerRadio.Selected && !btnVehicleRadio.Selected;
         }
 

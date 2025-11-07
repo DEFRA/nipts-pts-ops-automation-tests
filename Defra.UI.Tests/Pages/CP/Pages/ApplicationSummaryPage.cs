@@ -28,6 +28,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement rdoFail => _driver.WaitForElement(By.XPath("//label[normalize-space()='Fail']"));
         private IReadOnlyCollection<IWebElement> rdoFailButtons => _driver.FindElements(By.XPath("//label[normalize-space()='Fail']"));
         private IWebElement rdoReferToSPS => _driver.WaitForElement(By.XPath("//label[normalize-space()='Refer to SPS']"));
+        private IWebElement rdoIssueSUPTD => _driver.WaitForElement(By.XPath("//label[normalize-space()='Issue SUPTD']"));
         private IReadOnlyCollection<IWebElement> rdoReferToSPSButtons => _driver.FindElements(By.XPath("//label[normalize-space()='Refer to SPS']"));
         private IWebElement btnSaveAndContinue => _driver.WaitForElement(By.XPath("//*[@id='saveAndContinue']"));
         private IReadOnlyCollection<IWebElement> btnSaveAndContinueButtons => _driver.FindElements(By.XPath("//*[@id='saveAndContinue']"));
@@ -77,6 +78,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public void SelectReferToSPSRadioButton()
         {
             rdoReferToSPS.Click(_driver);
+        }
+        
+        public void SelectIssueSUPTDRadioButton()
+        {
+            rdoIssueSUPTD.Click(_driver);
         }
 
         public void SelectSaveAndContinue()

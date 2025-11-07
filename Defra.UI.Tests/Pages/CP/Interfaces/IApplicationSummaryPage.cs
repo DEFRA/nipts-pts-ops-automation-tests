@@ -6,6 +6,7 @@
        void SelectPassRadioButton();
        void SelectFailRadioButton();
        void SelectReferToSPSRadioButton();
+       void SelectIssueSUPTDRadioButton();
        void SelectSaveAndContinue();
        bool IsError(string errorMessage);
         bool VerifyReferenceNumberTable(string status);
