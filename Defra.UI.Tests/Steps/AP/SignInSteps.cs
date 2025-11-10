@@ -57,6 +57,12 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.True(Signin?.IsSignedOut(), "Not able to sign out");
         }
 
+        [Then(@"I click on signout button from your defra account page and verify the signout message")]
+        public void ThenIClickOnSignoutButtonFromYourDefraAccountPageAndVerifyTheSignoutMessage()
+        {
+            Assert.True(Signin?.IsSignedOutFromYourDefraAccountPage(), "Not able to sign out");
+        }
+
         [When(@"I Login to Dynamics application")]
         public void GivenThatINavigateToTheDynamicspplication()
         {
