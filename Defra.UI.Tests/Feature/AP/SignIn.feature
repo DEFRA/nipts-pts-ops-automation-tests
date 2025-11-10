@@ -41,3 +41,16 @@ Scenario: Verify the user not able to enter the previous session after signing o
 	Then I should redirected to the AP Sign in using Government Gateway page
 	And I click sign in button
 	And I should see an error message "Enter Government Gateway user ID&Enter your password" in Government Gateway page
+
+Scenario: Verify the user not able to enter the previous session after signing out from manage account page
+	Then sign in with valid credentials with logininfo
+	Then I should navigate to Manage account
+	And I click on Manage your account
+	And I click on signout button from your defra account page and verify the signout message
+	Given that I navigate to the DEFRA application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
+	Then I should redirected to the AP Sign in using Government Gateway page
+	And I click sign in button
+	And I should see an error message "Enter Government Gateway user ID&Enter your password" in Government Gateway page

@@ -13,5 +13,6 @@
         void ClickPetsTravelApplicationPortalLink();
         void ClickSignInButton();
         bool IsError(string errorMessage);
+        bool IsSignedOutFromYourDefraAccountPage();
     }
 }
