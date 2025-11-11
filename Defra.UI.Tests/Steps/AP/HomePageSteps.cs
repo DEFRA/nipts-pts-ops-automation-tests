@@ -3,10 +3,7 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
-using DocumentFormat.OpenXml.Presentation;
 using AventStack.ExtentReports.Gherkin.Model;
-using DocumentFormat.OpenXml.Office2013.Drawing.ChartStyle;
-using Defra.UI.Tests.Pages.AP.Classes;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -41,24 +38,13 @@ namespace Defra.UI.Tests.Steps.AP
         {
             HomePage?.ClickFeedbackLink();
         }
+
         [Then(@"I should navigate to the Feedback details correct page opens in new tab")]
         public void ThenIShouldNavigateToTheFeedbackDetailsCorrectPageOpensInNewTab()
         {
             string currentURL = DriverCommand.GetCurrentUrl;
             currentURL.Contains("defragroup.eu.qualtrics.com/");
             Assert.IsFalse(HomePage?.VerifyTheLinkOpensInSameTab());
-        }
-        [Then(@"I click the Gethelp Link")]
-        public void ThenIClickTheGethelpLink()
-        {
-            HomePage?.ClickGethelpLink();
-        }
-
-        [Then(@"I should navigate to the Gethelp details correct page")]
-        public void ThenIShouldNavigateToTheGethelpDetailsCorrectPage()
-        {
-            var pageTitle = "Get help applying";
-            Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [Then(@"I click the AccessibilityStatement Link")]
@@ -95,12 +81,11 @@ namespace Defra.UI.Tests.Steps.AP
             HomePage?.ClickPrivacyNoticeLink();
         }
 
-        [Then(@"I should navigate to the PrivacyNotice details correct page opens in new tab")]
-        public void ThenIShouldNavigateToThePrivacyNoticeDetailsCorrectPageOpensInNewTab()
+        [Then(@"I should navigate to the PrivacyNotice details correct page")]
+        public void ThenIShouldNavigateToThePrivacyNoticeDetailsCorrectPage()
         {
             var pageTitle = "Pet travel scheme privacy notice";
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-            Assert.IsFalse(HomePage?.VerifyTheLinkOpensInSameTab());
         }
 
         [Then(@"I click the TermsAndConditions Link")]
@@ -237,6 +222,103 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIShouldNotSeeApplyForADocumentGreenButton()
         {
             Assert.IsTrue(HomePage?.VerifyApplyButtonNotVisible());
+        }
+
+        [Then(@"I should verify the status of all records in the dashboard as '(.*)'")]
+        public void ThenIShouldVerifyTheStatusOfAllRecordsInTheDashboardAs(string susStatus)
+        {
+            Assert.IsTrue(HomePage?.VerifySuspensionStatusInDashboard(susStatus));
+        }
+
+        [Then(@"I should see cookies banner at the top of the page")]
+        public void ThenIShouldSeeCookiesBannerAtTheTopOfThePage()
+        {
+            Assert.True(HomePage?.VerifyCookiesBanner());
+        }
+
+        [Then(@"I should not see cookies banner at the top of the page")]
+        public void ThenIShouldNotSeeCookiesBannerAtTheTopOfThePage()
+        {
+            Assert.True(HomePage?.VerifyCookiesBannerNotDisplayed());
+        }
+
+        [Then(@"I should see accept and reject additional cookies button in the cookies banner")]
+        public void ThenIShouldSeeAcceptAndRejectAdditionalCookiesButtonInTheCookiesBanner()
+        {
+            Assert.True(HomePage?.VerifyCookiesBannerButtons());
+        }
+
+        [When(@"I click Accept additional cookies button in the cookies banner")]
+        public void WhenIClickAcceptAdditionalCookiesButtonInTheCookiesBanner()
+        {
+            HomePage?.ClickAcceptAdditionalCookies();
+        }
+
+        [Then(@"I should see additional cookies accepted confirmation message")]
+        public void ThenIShouldSeeAdditionalCookiesAcceptedConfirmationMessage()
+        {
+            Assert.True(HomePage?.VerifyAcceptedCookiesConfirmation());
+        }
+
+        [When(@"I click Reject additional cookies button in the cookies banner")]
+        public void WhenIClickRejectAdditionalCookiesButtonInTheCookiesBanner()
+        {
+            HomePage?.ClickRejectAdditionalCookies();
+        }
+
+        [Then(@"I should see additional cookies rejected confirmation message")]
+        public void ThenIShouldSeeAdditionalCookiesRejectedConfirmationMessage()
+        {
+            Assert.True(HomePage?.VerifyRejectedCookiesConfirmation());
+        }
+
+        [Then(@"I click Hide cookie message should hide the '(.*)' cookie banner")]
+        public void ThenIClickHideCookieMessageShouldHideTheCookieBanner(string option)
+        {
+            HomePage?.ClickHideCookiesButton(option);
+            Assert.True(HomePage?.VerifyCookiesBannerNotDisplayed());
+        }
+
+        [When(@"I see two radio buttons are visible at the end of the page")]
+        public void WhenISeeTwoRadioButtonAreVisibleAtTheEndOfThePage()
+        {
+            Assert.True(HomePage?.VerifyCookiesRadioButtons());
+        }
+
+        [Then(@"I should see the No option is selected as default option")]
+        public void ThenIShouldSeeTheNoOptionIsSelectedAsDefaultOption()
+        {
+            Assert.True(HomePage?.VerifyCookiesDefaultSelection());
+        }
+
+        [Then(@"I select the Yes option")]
+        public void ThenISelectTheYesOption()
+        {
+            HomePage?.ClickCookiesYesRadioButton();
+        }
+
+        [When(@"I click the save cookies settings button")]
+        public void WhenIClickTheSaveCookiesSettingsButton()
+        {
+            HomePage?.ClickSaveCookiesSettings();
+        }
+
+        [Then(@"I should see success message at the top of the page")]
+        public void ThenIShouldSeeSuccessMessageAtTheTopOfThePage()
+        {
+            Assert.True(HomePage?.VerifyCookiesSuccessMessage());
+        }
+
+        [When(@"I click change your cookie settings link in the '(.*)' confirmation message")]
+        public void WhenIChangeYourCookieSettingsLinkInTheConfirmationMessage(string option)
+        {
+            HomePage?.ClickChangeYourCookieSettings(option);
+        }
+
+        [Then("I should see '(.*)' '(.*)' links in the header")]
+        public void ThenIShouldSeeLinksInTheHeader(string govukLink, string takingAPetLink)
+        {
+            HomePage?.VerifyCommonHeaderLinks(govukLink, takingAPetLink);
         }
     }
 }

@@ -21,11 +21,17 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement lblTitle => _driver.WaitForElement(By.XPath("//h1[normalize-space(.)='Your application summary']"));
         private IWebElement rdoPass => _driver.WaitForElement(By.XPath("//label[normalize-space()='Pass']"));
+        private IReadOnlyCollection<IWebElement> rdoPassButtons => _driver.FindElements(By.XPath("//label[normalize-space()='Pass']"));
         private IWebElement rdoSUPTD => _driver.WaitForElement(By.XPath("//label[normalize-space()='Issue SUPTD']"));
+        private IReadOnlyCollection<IWebElement> rdoSUPTDButtons  => _driver.FindElements(By.XPath("//label[normalize-space()='Issue SUPTD']"));
         private IWebElement rdobtnPass => _driver.WaitForElement(By.XPath("//input[@value='Pass']"));
         private IWebElement rdoFail => _driver.WaitForElement(By.XPath("//label[normalize-space()='Fail']"));
+        private IReadOnlyCollection<IWebElement> rdoFailButtons => _driver.FindElements(By.XPath("//label[normalize-space()='Fail']"));
         private IWebElement rdoReferToSPS => _driver.WaitForElement(By.XPath("//label[normalize-space()='Refer to SPS']"));
+        private IWebElement rdoIssueSUPTD => _driver.WaitForElement(By.XPath("//label[normalize-space()='Issue SUPTD']"));
+        private IReadOnlyCollection<IWebElement> rdoReferToSPSButtons => _driver.FindElements(By.XPath("//label[normalize-space()='Refer to SPS']"));
         private IWebElement btnSaveAndContinue => _driver.WaitForElement(By.XPath("//*[@id='saveAndContinue']"));
+        private IReadOnlyCollection<IWebElement> btnSaveAndContinueButtons => _driver.FindElements(By.XPath("//*[@id='saveAndContinue']"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         private IWebElement colorBanner => _driver.WaitForElement(By.XPath("//div[contains(@class , 'govuk-panel govuk-panel--confirmation govuk')]"));
         private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space() = 'Issuing authority']"));
@@ -72,6 +78,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         public void SelectReferToSPSRadioButton()
         {
             rdoReferToSPS.Click(_driver);
+        }
+        
+        public void SelectIssueSUPTDRadioButton()
+        {
+            rdoIssueSUPTD.Click(_driver);
         }
 
         public void SelectSaveAndContinue()
@@ -352,6 +363,16 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var radiobuttonsLabel = radiobuttons.Split('|');
 
             return radiobuttonsLabel[0].Equals(rdoPass.Text) && radiobuttonsLabel[1].Equals(rdoSUPTD.Text) && radiobuttonsLabel[2].Equals(rdoReferToSPS.Text);
+        }
+
+        public bool VerifyChecksSectionIsNotPresent()
+        {
+            return rdoPassButtons.Count() ==0 && rdoSUPTDButtons.Count() == 0 && rdoReferToSPSButtons.Count() == 0 && rdoFailButtons.Count() == 0;
+        }
+        
+        public bool VerifyContinueIsNotPresent()
+        {
+            return btnSaveAndContinueButtons.Count() ==0 ;
         }
         #endregion
     }

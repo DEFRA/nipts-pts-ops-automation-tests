@@ -36,5 +36,6 @@ namespace Defra.UI.Tests.Pages.CP.Interfaces
         bool CheckDirectPageNavigation();
         bool IsViewLinkPresent(string departureTime);
         void ClickViewLink();
+        bool VerifyAdditionalCommentsNotPresent();
     }
 }

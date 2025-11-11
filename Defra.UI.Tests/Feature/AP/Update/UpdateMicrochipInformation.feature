@@ -215,3 +215,83 @@ Scenario Outline: Modify PETS Microchip number By Registered User with details c
 Examples:
 	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | UpdatedMicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
 	| PetFerret |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | 132456789123451        | Ferret | Ferret  | Male   | Chocolate | Yes                   |
+
+Scenario Outline: Modify PETS Microchip scanned date before to date of birth and verify the error message
+	Then I have selected '<Are your details correct>' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the '<MicrochipOption>' option
+	And provided microchip number as <MicrochipNumber>
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	And I have selected an option as '<Pet>' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What breed is your '<Pet>'? page
+	And I have selected 1 as breed index from breed dropdownlist
+	When I click on continue button from What is your pet's breed page
+	Then I should redirected to the What is your pet's name page
+	And I provided the Pets name as '<PetName>'
+	When I click on continue button from What is your pet's name page
+	Then I should redirected to the What sex is your pet page
+	And I have selected the option as '<Gender>' for sex
+	When I click on continue button from What sex is your pet page
+	Then I should redirected to the Do you know your pet's date of birth page
+	And I have provided date of birth
+	When I click on continue button from Do you know your pet's date of birth? page
+	Then I should redirected to the What is the main colour of your '<Pet>' page
+	And I have selected the option as '<Color>' for color
+	When I click on continue button from What is the main colour of your pet page
+	Then I should redirected to the Does your pet have any significant features page
+	And I have selected an option as '<IsSignificantFeatures>' for significant features
+	When I click on continue button from Does your pet have any significant features page
+	Then I should redirected to the Check your answers and sign the declaration page
+	And I have clicked the change option for the 'Implant or scan date' from Microchip information section
+	Then I have modified the microchip scanned date before to the date of birth
+	When I click Continue button from When was your pet microchipped page
+	Then I should see an error message "Enter a date that is after the pet’s date of birth" in pets microchipped or last scanned page
+
+Examples:
+	|  Are your details correct | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	|  Yes                      | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   |
+	|  Yes                      | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   |
+
+Scenario Outline: Modify PETS Microchip scanned date before to date of birth and verify the error message - Ferret
+	Then I have selected '<Are your details correct>' option
+	When I click on continue button from Are your details correct page
+	Then I should redirected to the Is your pet microchipped page
+	And I selected the '<MicrochipOption>' option
+	And provided microchip number as <MicrochipNumber>
+	When I click Continue button from microchipped page
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	And I have selected an option as '<Pet>' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
+	Then I should redirected to the What is your pet's name page
+	And I provided the Pets name as '<PetName>'
+	When I click on continue button from What is your pet's name page
+	Then I should redirected to the What sex is your pet page
+	And I have selected the option as '<Gender>' for sex
+	When I click on continue button from What sex is your pet page
+	Then I should redirected to the Do you know your pet's date of birth page
+	And I have provided date of birth
+	When I click on continue button from Do you know your pet's date of birth? page
+	Then I should redirected to the What is the main colour of your '<Pet>' page
+	And I have selected the option as '<Color>' for color
+	When I click on continue button from What is the main colour of your pet page
+	Then I should redirected to the Does your pet have any significant features page
+	And I have selected an option as '<IsSignificantFeatures>' for significant features
+	When I click on continue button from Does your pet have any significant features page
+	Then I should redirected to the Check your answers and sign the declaration page
+	And I have clicked the change option for the 'Implant or scan date' from Microchip information section
+	Then I have modified the microchip scanned date before to the date of birth
+	When I click Continue button from When was your pet microchipped page
+	Then I should see an error message "Enter a date that is after the pet’s date of birth" in pets microchipped or last scanned page
+
+Examples:
+	| Are your details correct | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
+	| Yes                      | Yes             | 123456789123452 | Ferret | Ferret  | Female | Chocolate | Yes                   |

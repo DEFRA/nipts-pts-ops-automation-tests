@@ -161,7 +161,7 @@ Examples:
 | Authorised PTD Applications        |
 | Rejected PTD Applications          |
 
-Scenario: Verify the Microchip Check ‘Other Reason’ field mandatory
+Scenario: Verify the Microchip Check â€˜Other Reasonâ€™ field mandatory
 	When I Login to Dynamics application
 	And I Switch to 'Open - Unassigned PTD Applications'
 	And I open the first application
@@ -343,7 +343,6 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Age' as '12'
 	And I enter 'Colour' as 'Brown, tan or chocolate'
 	And I enter 'Unique feature' as 'As fast as Cheetah'
-	And I enter 'Microchip Number' as 'auto'
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 
@@ -406,6 +405,9 @@ Scenario: Verify the Unique features field is empty in offline PTD application a
 	Then the status is changed to 'Authorised'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -553,7 +555,7 @@ Scenario: Create SNC in authorised PTD with warning; verify closure date.
 	Then The 'Decision date' is set to Current date
 	Then The 'Close date' is set to Current date
 	And the status is changed to 'Closed'
-	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA’s decision' notification
+	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
 	And I 'can' see 'Letter Sent' button
 
 Scenario: Verify Activate/Deactivate button is not present in suspension view and verify all the views and columns in Suspensions 
@@ -579,7 +581,8 @@ Scenario: Verify Activate/Deactivate button is not present in suspension view an
 	When I Switch to 'Suspensions On Appeal'
 	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present	
 	When I Switch to 'Correspondence Required - Suspensions'
-	Then I Verify the 'Name|Pet Owner|Suspension End Date|Status Reason|Application Language (PTD)|Close letter|Appeal outcome letter' coloumns are present
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Status Reason|Application Language (PTD)|Close letter|Appeal Outcome Letter' coloumns are present
+
 
 Scenario: Verify End Suspension button and backing off it
 	When I Login to Dynamics application

@@ -21,7 +21,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), true);
         public IWebElement btnApplyForDocumentButton => _driver.WaitForElement(By.XPath("//*[@id='main-content']//form/button"));
         public IWebElement FeedbackLink => _driver.WaitForElement(By.XPath("//a[contains(text() ,'give your feedback (opens in a new tab).')]"));
-        public IWebElement GetHelpLink => _driver.WaitForElement(By.ClassName("govuk-link--inverse"));
         private IWebElement GethelpHeader => _driver.WaitForElement(By.XPath("//*[@class='govuk-heading-xl' or @class='gem-c-heading__text govuk-heading-xl']"));
         public IWebElement AccessibilityStatementLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[1]/a"));
         public IWebElement CookiesLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[2]/a"));
@@ -43,6 +42,26 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> lnksManageAccAndSingOut => _driver.FindElements(By.XPath("//div[@class = 'login-nav govuk-!-display-none-print']"));
         private IWebElement lblSusWarning => _driver.WaitForElement(By.XPath("//div[@class = 'govuk-warning-text']/strong"));
         private IReadOnlyCollection<IWebElement> btnApplyForDocumentCheck => _driver.FindElements(By.XPath("//button[normalize-space(text())='Apply for a document']"));
+        private IReadOnlyCollection<IWebElement> lblSusStatusInDashboard => _driver.FindElements(By.XPath("//*[@class='govuk-table__cell status-column']/strong"));
+        private IWebElement lblCookiesBanner => _driver.WaitForElement(By.XPath("//h2[@class = 'govuk-cookie-banner__heading govuk-heading-m']"));
+        private IWebElement btnAcceptAdditionalCookies => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Accept additional cookies']"));
+        private IWebElement btnRejectAdditionalCookies => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Reject additional cookies']"));
+        private IWebElement lnkViewCookies => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='View cookies']"));
+        private IWebElement lblAcceptedCookies => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-accepted']//p"));
+        private IWebElement lblRejectedCookies => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-rejected']//p"));
+        private IWebElement lnkChangeCookieSettingsAccepted => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-accepted']//a"));
+        private IWebElement lnkChangeCookieSettingsRejected => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-rejected']//a"));
+        private IWebElement btnHideCookieAcceptedMsg => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-accepted']//div[2]/button"));
+        private IWebElement btnHideCookieRejectedMsg => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-rejected']//div[2]/button"));
+        private IReadOnlyCollection<IWebElement> txtEntireCookieBanner => _driver.FindElements(By.XPath("//*[@class='govuk-cookie-banner']"));
+        private IWebElement btnCookiesOptionYes => _driver.WaitForElementExists(By.XPath("//*[@id='yes']/following-sibling::label"));
+        private IWebElement btnCookiesOptionNo => _driver.WaitForElementExists(By.XPath("//*[@id='no']/following-sibling::label"));
+        private IWebElement btnRadioNo => _driver.WaitForElementExists(By.XPath("//*[@id='no']"));
+        private IWebElement btnSaveCookiesSettings => _driver.WaitForElementExists(By.XPath("//button[normalize-space(text())='Save cookies settings']"));
+        private IWebElement txtSuccessMsgHeader => _driver.WaitForElementExists(By.XPath("//*[@class='govuk-notification-banner__title']"));
+        private IWebElement txtSuccessMsg => _driver.WaitForElementExists(By.XPath("//*[@class='govuk-notification-banner__content']/p"));
+        private IWebElement lnkPetsTravelPortal => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Taking a pet from Great Britain to Northern Ireland']"));
+        private IWebElement lnkGovUk => _driver.WaitForElement(By.XPath("//*[@class='govuk-header__logo']/a"));
         #endregion
 
         #region Methods
@@ -60,11 +79,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public void ClickFeedbackLink()
         {
             FeedbackLink.Click();
-        }
-
-        public void ClickGethelpLink()
-        {
-            GetHelpLink.Click();
         }
 
         public bool IsNextPageLoaded(string pageTitle)
@@ -253,6 +267,112 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public bool VerifyApplyButtonNotVisible()
         {
             return btnApplyForDocumentCheck.Count == 0;
+        }
+
+        public bool VerifySuspensionStatusInDashboard(string susStatus)
+        {
+            foreach (var element in lblSusStatusInDashboard)
+            {
+                if (element.Text.Contains("Suspended"))
+                    return true;
+            }
+            return false;
+        }
+
+        public bool VerifyCookiesBanner()
+        {
+            return lblCookiesBanner.Text.Trim().Contains("Cookies on Taking a pet from Great Britain to Northern Ireland");
+        }
+
+        public bool VerifyCookiesBannerButtons()
+        {
+            return btnAcceptAdditionalCookies.Text.Trim().Contains("Accept additional cookies")
+                && btnRejectAdditionalCookies.Text.Trim().Contains("Reject additional cookies")
+                && lnkViewCookies.Text.Trim().Contains("View cookies");
+        }
+
+        public void ClickAcceptAdditionalCookies()
+        {
+            btnAcceptAdditionalCookies.Click();
+        }
+
+        public bool VerifyAcceptedCookiesConfirmation()
+        {
+            return lblAcceptedCookies.Text.Trim().Contains("You've accepted additional cookies.");
+        }
+
+        public void ClickRejectAdditionalCookies()
+        {
+            btnRejectAdditionalCookies.Click();
+        }
+
+        public bool VerifyRejectedCookiesConfirmation()
+        {
+            return lblRejectedCookies.Text.Trim().Contains("You've rejected additional cookies.");
+        }
+
+        public void ClickHideCookiesButton(string option)
+        {
+            if(option.Equals("Accepted"))
+                btnHideCookieAcceptedMsg.Click();
+            else if (option.Equals("Rejected"))
+                btnHideCookieRejectedMsg.Click();
+        }
+
+        public bool VerifyCookiesRadioButtons()
+        {
+            return btnCookiesOptionYes.Text.Trim().Contains("Yes")
+                && btnCookiesOptionNo.Text.Trim().Contains("No");
+        }
+
+        public bool VerifyCookiesDefaultSelection()
+        {
+            btnRadioNo.ScrollToElement(_driver);
+
+            string checkedRadioBtn = btnRadioNo.GetAttribute("checked");
+            bool isNoSelected = !string.IsNullOrEmpty(checkedRadioBtn);
+            return isNoSelected;
+        }
+
+        public void ClickCookiesYesRadioButton()
+        {
+            btnCookiesOptionYes.Click();
+        }
+
+        public void ClickSaveCookiesSettings()
+        {
+            btnSaveCookiesSettings.Click();
+        }
+
+        public bool VerifyCookiesSuccessMessage()
+        {
+            return txtSuccessMsgHeader.Text.Trim().Contains("Success")
+                && txtSuccessMsg.Text.Trim().Contains("You’ve set your cookie preferences.");
+        }
+
+        public void ClickChangeYourCookieSettings(string option)
+        {
+            if (option == "Accepted")
+                lnkChangeCookieSettingsAccepted.Click();
+            else if (option == "Rejected")
+                lnkChangeCookieSettingsRejected.Click();
+        }
+
+        public bool VerifyCookiesBannerNotDisplayed()
+        {
+            foreach (var element in txtEntireCookieBanner)
+            {
+                string display = element.GetCssValue("display");
+                if (!display.Equals("none", StringComparison.OrdinalIgnoreCase))
+                    return false;
+            }
+            return true;
+        }
+
+        public bool VerifyCommonHeaderLinks(string govukLink, string takingAPetLink)
+        {
+            return lnkGovUk.Text.Trim().Contains("GOV.UK")
+                && lnkPetsTravelPortal.Text.Trim().Contains("Taking a pet from Great Britain to Northern Ireland");
         }
         #endregion
     }

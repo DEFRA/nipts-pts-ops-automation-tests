@@ -44,6 +44,12 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _applicationSummaryPage?.SelectReferToSPSRadioButton();
         }
+        
+        [When(@"I select Issue SUPTD radio button")]
+        public void WhenISelectIssueSUPTDRadioButton()
+        {
+            _applicationSummaryPage?.SelectIssueSUPTDRadioButton();
+        }
 
         [When(@"I click save and continue button from application status page")]
         [When(@"I continue button from application status page")]
@@ -142,6 +148,18 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIverifyChecksSectionWithRadioButtonsAndHintGB(string radiobuttons, string hint)
         {
             Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtonsWithHintsGB(radiobuttons, hint));
+        }
+        
+        [Then(@"I verify Checks section is not present")]
+        public void ThenIverifyChecksSectionWithRadioButtonsIsNotPresent()
+        {
+            Assert.True(_applicationSummaryPage?.VerifyChecksSectionIsNotPresent());
+        }
+        
+        [Then(@"I verify Save and Continue button is not present")]
+        public void VerifySaveAndContinueIsNotPresent()
+        {
+            Assert.True(_applicationSummaryPage?.VerifyContinueIsNotPresent());
         }
     }
 }

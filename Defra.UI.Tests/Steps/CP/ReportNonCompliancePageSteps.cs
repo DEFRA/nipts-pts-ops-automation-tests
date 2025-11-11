@@ -151,16 +151,22 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.True(_reportNonCompliancePage?.VerifyDetailsOfOutcome(),"The Details of Outcome label is incorrect");
         }
 
-        [Then(@"I verify any relavant comments section")]
-        public void ThenIVerifyAnyRelavantCommentsSection()
+        [Then(@"I should not see any relevant comments section")]
+        public void ThenIShouldNotSeeAnyRelevantCommentsSection()
         {
-            Assert.True(_reportNonCompliancePage?.VerifyAnyRelavantCommentsTextarea("Any relevant comments", "This could be more information about the checks or any risks you've identified. Do not include personal or sensitive information.", "500"));
+            Assert.True(_reportNonCompliancePage?.VerifyAnyRelavantCommentsSection());
         }
 
         [Then(@"I should see '([^']*)' subheading under '([^']*)' section")]
         public void ThenIShouldSeeSubheadingUnderSection(string subHeading, string sectionName)
         {
             Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerSubheading(subHeading, sectionName), "Type of passenger subheading under Passenger details section is not displayed properly");
+        }
+
+        [Then(@"I should not see Type of Passenger section in Report non compliance page")]
+        public void ThenIShouldNotSeeSubheadingUnderSection()
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyTypeOfPassengerSubheadingISNotPresent(), "Type of passenger subheading under Passenger details section is displayed for flight");
         }
 
         [Then(@"I should see the '([^']*)' subheading")]
@@ -174,12 +180,6 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_reportNonCompliancePage?.VerifyPetDetailsFromPTDLink(linkName), "Pet details from PTD link is not displayed");
         }
-
-/*        [Then(@"I should see a checkbox '([^']*)' is not selected")]
-        public void ThenIShouldSeeACheckboxIsNotSelected(string checkBoxValue)
-        {
-            Assert.True(_reportNonCompliancePage?.VerifyPetDoesNotMatchThePTDCheckBox(checkBoxValue), "Pet does not match the PTD check box is not displayed or selected by default");
-        }*/
 
         [Then(@"I should see a table '([^']*)'")]
         public void ThenIShouldSeeATable(string tableName)
@@ -290,16 +290,22 @@ namespace Defra.UI.Tests.Steps.CP
             _reportNonCompliancePage?.ClickVisualCheckReason(visualCheckReason);
         }
 
-        [Then("I enter comments '([^']*)' in Any relevant comments")]
-        public void ThenIEnterCommentsInAnyRelevantComments(string comments)
-        {
-            _reportNonCompliancePage?.AnyRelevantComments(comments);
-        }
-
         [Then("I enter details '([^']*)' in Details of outcome")]
         public void ThenIEnterDetailsInDetailsOfOutcome(string details)
         {
             _reportNonCompliancePage?.EnterDetailsOfOutcome(details);
+        }
+
+        [Then(@"I should not see visual check heading and pet does not match the ptd checkbox")]
+        public void ThenIShouldNotSeeVisualCheckHeadingAndPetDoesNotMatchThePtdCheckbox()
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyVisualCheckCheckBox(), "Visual check heading or pet does not match the PTD checkbox displayed");
+        }
+
+        [Then(@"I should not see Microchip number does not match the PTD checkbox")]
+        public void ThenIShouldNotSeeMicrochipNumberDoesNotMatchThePtdCheckbox()
+        {
+            Assert.True(_reportNonCompliancePage?.VerifyMicrochipDoesNotMatchPTDCheckbox(), "Visual check heading or pet does not match the PTD checkbox displayed");
         }
     }
 }

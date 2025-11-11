@@ -4,8 +4,6 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using DocumentFormat.OpenXml.Wordprocessing;
-using Reqnroll;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -31,8 +29,13 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Issuing authority']"));
         private IWebElement lblNameAndAddressOfAuthority => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Name and address of competent authority']"));
         private IWebElement lblAuthorityAddress => _driver.WaitForElement(By.XPath("//dd[contains(normalize-space(.),'Woodham Lane')]"));
+        private IWebElement lblSignedColumn => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Signed on behalf of the competent authority (APHA)']"));
+        private IWebElement lblSignedName => _driver.WaitForElement(By.XPath("//p[contains(normalize-space(.),'Irene Cristofaro')]"));
+        private IWebElement lblDesignation => _driver.WaitForElement(By.XPath("//p[contains(normalize-space(.),'Veterinary Head of International Trade')]"));
         private IWebElement lblStatusValue => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']/following-sibling::dd"));
         private IReadOnlyCollection<IWebElement> IssuingAuthorityTable => _driver.FindElements(By.XPath("//div[@id='document-authority-card']"));
+        private IWebElement lnkFirstViewLink => _driver.WaitForElement(By.XPath("//tr[@class='govuk-table__row'][1]//li"));
+        private IReadOnlyCollection<IWebElement> lblFerretBreedRow => _driver.FindElements(By.XPath("//dt[normalize-space()='Breed']"));
         #endregion
 
         #region Methods
@@ -181,6 +184,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return firstAddressLine.Equals(addressLine1) && secondAddressLine.Equals(addressLine2);
         }
 
+        public bool VerifyIssuingAuthoritySignatureRow(string signatureColName)
+        {
+            return lblSignedColumn.Text.Contains(signatureColName) && lblSignedName.Text.Contains("Irene Cristofaro")
+                && lblDesignation.Text.Contains("Veterinary Head of International Trade");
+        }
+
         public bool VerifyApplicationStatus(string status)
         {
             return lblStatusValue.Text.Contains(status);
@@ -207,6 +216,16 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public bool VerifyIssuingAuthorityTableIsNotVisible()
         {
             return IssuingAuthorityTable.Count == 0;
+        }
+
+        public void ClickFirstViewHyperLink()
+        {
+            lnkFirstViewLink.Click();
+        }
+
+        public bool VerifyBreedForFerret()
+        {
+            return lblFerretBreedRow.Count == 0;
         }
     }
 }
