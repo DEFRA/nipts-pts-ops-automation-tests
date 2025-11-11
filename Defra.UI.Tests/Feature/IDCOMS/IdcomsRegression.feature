@@ -626,4 +626,29 @@ Examples:
 | Pet Owner Name        | Pets Automation |
 | Pet Owner Postcode    | OX1 1AF         |
 
+Scenario: Verify the Status Reason and Owner of the Suspended Record
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1071' application
+	Then the status is 'Open' and readonly
+	Then the Owner is 'Brindha Mathanaguru' and readonly
 
+Scenario: Verify automatic rejection of new PTD offline application for a suspended pet owner
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I enter 'Applicant Name' as 'petsautomation20250909002322@team947193.testinator.com'
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as ''
+	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I Click on Save
+	Then the status is changed to 'Rejected'
+	And The reason for rejection is updated as 'You are currently suspended from the Northern Ireland Pet Travel Scheme. You cannot apply for a Pet Travel Document until your suspension period has ended.'
+	
