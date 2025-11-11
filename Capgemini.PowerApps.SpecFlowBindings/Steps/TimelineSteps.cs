@@ -39,6 +39,12 @@ public class TimelineSteps : PowerAppsStepDefiner
     {
         XrmApp.Timeline.AddNote(title, body);
     }
+    
+    [Then("I verify the recently added notes with title '(.*)' and preview '(.*)'")]
+    public static bool ThenIVerifyTheNotesAdded(string title, string body)
+    {
+        return XrmApp.Timeline.VerifyRecentlyAddedNotes(title, body);
+    }
 
     /// <summary>
     /// Adds a phone call to the timeline. TODO: Improve duration regex.

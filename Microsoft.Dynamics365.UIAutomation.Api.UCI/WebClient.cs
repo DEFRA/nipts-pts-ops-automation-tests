@@ -5317,7 +5317,6 @@ TimeSpan.FromSeconds(5),
                 if (!inputbox.TagName.Contains("iframe", StringComparison.InvariantCultureIgnoreCase))
                 {
                     inputbox.Click(true);
-                    inputbox.Clear();
                     inputbox.SendKeys(value);
                 }
                 else
@@ -5982,6 +5981,33 @@ TimeSpan.FromSeconds(5),
             driver.WaitUntilClickable(By.XPath(AppElements.Xpath[AppReference.Grid.AdvancedFindApply])).Click();
             driver.WaitForTransaction();
             return true;
+        });
+    }
+
+    internal BrowserCommandResult<bool> VerifyTimelinePost(string expectedTitle, string expectedBody, int thinkTime = Constants.DefaultThinkTime)
+    {
+        ThinkTime(thinkTime);
+
+        return this.Execute(GetOptions("Verify Timeline Post"), driver =>
+        {
+            // Wait for timeline to load
+            var timelineItems = driver.FindElements(By.XPath(Elements.Xpath["Timeline_Container"]));                 
+
+            if(timelineItems.Count > 0)
+            {
+                var titleElement = timelineItems[0].FindElement(By.XPath(Elements.Xpath["Timeline_Notes_Added_Title"]));
+                var bodyElement = timelineItems[0].FindElement(By.XPath(Elements.Xpath["Timeline_Notes_Added_Body"]));
+
+                var actualTitle = titleElement?.Text?.Trim();
+                var actualBody = bodyElement?.Text?.Trim();
+
+                if (actualTitle == expectedTitle && actualBody == expectedBody)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         });
     }
 }
