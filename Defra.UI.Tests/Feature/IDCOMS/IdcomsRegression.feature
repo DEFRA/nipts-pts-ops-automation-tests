@@ -483,6 +483,7 @@ Scenario: Create a New applicant Contact is and create a offline application and
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
+	When I add notes as 'Notes Title-Automation' and 'Notes Body-Automation'
 	When I switch to 'SNCs' tab
 	Then I 'Cannot' see the 'Activate' button in the form
 	Then I 'Cannot' see the 'Deactivate' button in the form
@@ -507,6 +508,13 @@ Scenario: Verify Activate and Deactivate buttons not present on SNC view and For
 	When I open the first application
 	Then I cannot see 'Activate' command
 	And I cannot see 'Deactivate' command
+
+Scenario: Verify the caseworker can add notes in a Suspension record
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the first application
+	When I add notes as 'Notes Title Automation' and 'notes Body Automation'
+	Then I Verify the notes added in the Timeline with Title 'Notes Title Automation' and body 'notes Body Automation'
 
 Scenario: Verify Contacts in the sitemap and Activate/Deactivate button is not present
 	When I Login to Dynamics application
@@ -597,4 +605,25 @@ Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter 
 	And I See the 'Letter to be sent' value in 'nipts_intenttosuspendletter' field
 	And I See the 'Letter to be sent' value in 'nipts_closeletter' field
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
+
+Scenario: Verify if the Pet owner details are not editable in Contact
+	When I Login to Dynamics application
+	And I open 'Contacts' under 'Application'
+	And I open the 'brindha.mathanaguru@cognizant.com' application
+	Then I cannot edit 'Pet Owner Contact' Details
+
+Scenario Outline: Verify ability to search from different data fields from the view
+	When I Login to Dynamics application
+	And I Switch to 'All PTD Applications'
+	And I open the '<FieldValue>' application
+	Then I verify the field '<FieldName>' value is '<FieldValue>'
+Examples:
+| FieldName             | FieldValue      |
+| Application Reference | GVEYQOZ9        |
+| PTD Reference         | GB826AD28F9     |
+| Microchip Number      | 101125125838926 |
+| Pet Name              | Deera           |
+| Pet Owner Name        | Pets Automation |
+| Pet Owner Postcode    | OX1 1AF         |
+
 

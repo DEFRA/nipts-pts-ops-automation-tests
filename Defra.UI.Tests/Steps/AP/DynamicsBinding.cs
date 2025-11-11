@@ -4,6 +4,7 @@ using Defra.Trade.Plants.SpecFlowBindings.Steps;
 using Defra.UI.Framework.Driver;
 using Defra.UI.Tests.Tools;
 using DocumentFormat.OpenXml.Bibliography;
+using DocumentFormat.OpenXml.Wordprocessing;
 using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using Microsoft.Xrm.Sdk.Metadata;
@@ -425,6 +426,45 @@ namespace Defra.UI.Tests.Steps.AP
                     case "APPLICANT PHONE":
                         FormSteps.ThenICanNotEditTheField("nipts_ownerphone"); //nipts_offlinephone
                         break;
+                    case "FIRST NAME":
+                        FormSteps.ThenICanNotEditTheField("firstname");
+                        break;
+                    case "MIDDLE NAME":
+                        FormSteps.ThenICanNotEditTheField("middlename");
+                        break;
+                    case "LAST NAME":
+                        FormSteps.ThenICanNotEditTheField("lastname");
+                        break;
+                    case "PRINCIPAL EMAIL ADDRESS":
+                        FormSteps.ThenICanNotEditTheField("emailaddress1");
+                        break;
+                    case "PRINCIPAL PHONE":
+                        FormSteps.ThenICanNotEditTheField("telephone1");
+                        break;
+                    case "PREFERRED METHOD OF CONTACT":
+                        FormSteps.ThenICanNotEditTheField("preferredcontactmethodcode");
+                        break;
+                    case "TITLE/SALUTATION":
+                        FormSteps.ThenICanNotEditTheField("defra_title");
+                        break;
+                    case "BUILDING NUMBER":
+                        FormSteps.ThenICanNotEditTheField("defra_addrcorbuildingnumber");
+                        break;
+                    case "BUILDING NAME":
+                        FormSteps.ThenICanNotEditTheField("defra_addrcorbuildingname");
+                        break;
+                    case "STREET":
+                        FormSteps.ThenICanNotEditTheField("defra_addrcorstreet");
+                        break;
+                    case "CONTACT TOWN":
+                        FormSteps.ThenICanNotEditTheField("defra_addrcortown");
+                        break;
+                    case "CONTACT COUNTY":
+                        FormSteps.ThenICanNotEditTheField("defra_addrcorcounty");
+                        break;
+                    case "CONTACT POSTCODE":
+                        FormSteps.ThenICanNotEditTheField("defra_addrcorpostcode");
+                        break;
                     default:
                         break;
                 }
@@ -591,6 +631,10 @@ namespace Defra.UI.Tests.Steps.AP
             else if (field.ToUpper().Equals("APPLICANT DETAILS"))
             {
                 ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant Town:Applicant Postcode:Applicant County:Applicant Country:Applicant Phone");
+            }
+            else if (field.ToUpper().Equals("PET OWNER CONTACT"))
+            {
+                ThenICannotEditTheField("First Name:Middle Name:Last Name:Principal Email Address:Principal Phone:Preferred Method of Contact:Title/Salutation:Building Number:Building Name:Street:CONTACT Town:CONTACT County:CONTACT PostCode:CONTACT Country");
             }
         }
 
@@ -986,6 +1030,40 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenISeeTheValueInTheField(string value, string fieldName)
         {
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, fieldName, "input", "field", "");
+        }
+
+        [Then(@"I Verify the notes added in the Timeline with Title '(.*)' and body '(.*)'")]
+        public void ThenIVerifyTheNotesAddedInTimeline(string title, string body)
+        {
+            Assert.IsTrue(TimelineSteps.ThenIVerifyTheNotesAdded(title, body));
+        }
+
+        [Then(@"I verify the field '(.*)' value is '(.*)'")]
+        public void ThenIVerifyTheFieldValue(string fieldName, string value)
+        {
+            switch (fieldName.ToUpper())
+            {
+                case "APPLICATION REFERENCE":
+                    Assert.IsTrue(FormSteps.GetValueOfField("nipts_applicationreference").Equals(value));
+                    break;
+                case "PTD REFERENCE":
+                    Assert.IsTrue(FormSteps.GetValueOfField("nipts_documentreference").Equals(value));
+                    break;
+                case "MICROCHIP NUMBER":
+                    Assert.IsTrue(FormSteps.GetValueOfField("nipts_microchipnum").Equals(value));
+                    break;
+                case "PET NAME":
+                    Assert.IsTrue(FormSteps.GetValueOfField("nipts_petname").Equals(value));
+                    break;
+                case "PET OWNER NAME":
+                    Assert.IsTrue(FormSteps.GetValueOfField("nipts_ownername").Equals(value));
+                    break;
+                case "PET OWNER POSTCODE":
+                    Assert.IsTrue(FormSteps.GetValueOfField("nipts_ownerpostcode").Equals(value));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
