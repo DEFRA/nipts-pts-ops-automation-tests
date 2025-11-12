@@ -645,7 +645,6 @@ Scenario: Verify automatic rejection of new PTD offline application for a suspen
 	And I enter 'Date of Birth' as '09/08/2022'
 	And I enter 'Age' as '12'
 	And I enter 'Colour' as 'Brown, tan or chocolate'
-	And I enter 'Unique feature' as ''
 	And I enter 'Microchip Number' as 'auto'
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
