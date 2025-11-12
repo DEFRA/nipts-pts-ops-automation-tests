@@ -80,6 +80,63 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return false;
         }
 
+        public bool VerifyBreedsList(string species)
+        {
+            drpBreedType.Click();
+            
+            List<string> expectedDogBreeds = new List<string> { "Mixed breed or unknown", "Afghan Hound", "Airedale Terrier", "Alaskan Malamute", "Australian Shepherd", "Basenji", "Basset Hound", "Beagle", "Belgian Malinois", "Belgian Tervuren", "Bernese Mountain Dog",
+                "Bichon Frise", "Bloodhound", "Border Collie", "Borzoi", "Boston Terrier", "Boxer", "Bull Terrier", "Bulldog", "Cairn Terrier", "Cavalier King Charles Spaniel", "Chihuahua", "Chow Chow", "Cockapoo", "Cocker Spaniel",
+                "Collie", "Corgi (Pembroke and Cardigan)", "Dachshund", "Dalmatian", "Doberman Pinscher", "English Setter", "Fox Terrier", "French Bulldog", "German Shepherd", "German Shorthaired Pointer", "Golden Retriever", "Great Dane",
+                "Greyhound", "Irish Setter", "Irish Terrier", "Italian Greyhound", "Jack Russell Terrier", "Labrador Retriever", "Lhasa Apso", "Mastiff", "Newfoundland", "Old English Sheepdog", "Papillon", "Pekingese", "Pomeranian",
+                "Poodle (Standard and Miniature)", "Portuguese Water Dog", "Pug", "Rottweiler", "Saint Bernard", "Samoyed", "Scottish Terrier", "Shar Pei", "Shetland Sheepdog", "Shih Tzu", "Siberian Husky", "Toy Poodle", "Vizsla",
+                "Weimaraner", "West Highland White Terrier", "Whippet" };
+
+            List<string> expectedCatBreeds = new List<string> { "Mixed breed or unknown", "Abyssinian", "American Shorthair", "Bengal", "Birman", "British Shorthair", "Burmese", "Chartreux", "Cornish Rex", "Devon Rex", "Domestic Longhair", "Domestic Mediumhair", 
+                "Domestic Shorthair", "Exotic Shorthair", "Himalayan", "Maine Coon", "Manx", "Norwegian Forest Cat", "Ocicat", "Oriental Longhair", "Oriental Shorthair", "Persian", "Ragdoll", "Russian Blue", "Savannah", "Scottish Fold", "Scottish Fold Longhair", 
+                "Siamese", "Siberian", "Sphynx", "Tonkinese", "Turkish Angora", "Turkish Van"};
+
+            IList<IWebElement> breeds = drpBreedsListBox.FindElements(By.TagName("li"));
+            if (species == "Dog")
+            {
+                List<string> acutalDogBreeds = new List<String>();
+                foreach (IWebElement option in breeds)
+                {
+                    if (!string.IsNullOrEmpty(option.Text.Trim()))
+                    {
+                        acutalDogBreeds.Add(option.Text.Trim());
+                    }
+                }
+
+                for (int i = 0; i < expectedDogBreeds.Count; i++)
+                {
+                    if (expectedDogBreeds[i] != acutalDogBreeds[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            else if (species == "Cat")
+            {
+                List<string> acutalCatBreeds = new List<String>();
+                foreach (IWebElement option in breeds)
+                {
+                    if (!string.IsNullOrEmpty(option.Text.Trim()))
+                    {
+                        acutalCatBreeds.Add(option.Text.Trim());
+                    }
+                }
+
+                for (int i = 0; i < expectedCatBreeds.Count; i++)
+                {
+                    if (expectedCatBreeds[i] != acutalCatBreeds[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
         #endregion
     }
 }

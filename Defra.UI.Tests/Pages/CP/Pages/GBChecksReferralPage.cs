@@ -4,6 +4,7 @@ using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
+using System.Collections.ObjectModel;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {
@@ -36,7 +37,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblDetailsOfOutcome => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Details of outcome']"));
         private IWebElement lblDetailsOfOutcomeValue => _driver.WaitForElement(By.XPath("//dt[text()='Details of outcome']//following::p[1]"));
         private IWebElement lblAdditionalComments => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Additional comments']"));
+        private ReadOnlyCollection<IWebElement> lblAdditionalCommentsLabels => _driver.FindElements(By.XPath("//dt[normalize-space()='Additional comments']"));
         private IWebElement lblAdditionalCommentsValue => _driver.WaitForElement(By.XPath("//dt[text()='Additional comments']//following::p[1]"));
+        private ReadOnlyCollection<IWebElement> lblAdditionalCommentsValues => _driver.FindElements(By.XPath("//dt[text()='Additional comments']//following::p[1]"));
         private IWebElement lblGBCheckerName => _driver.WaitForElement(By.XPath("//dt[normalize-space()='GB checker’s name']"));
         private IWebElement lblGBCheckerNameValue => _driver.WaitForElement(By.XPath("//dt[text()='GB checker’s name']//following::dd[1]"));
         private IWebElement lblRoute => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Route']"));
@@ -165,6 +168,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             return lblAdditionalComments.Text.Trim().Equals("Additional comments")
             && lblAdditionalCommentsValue.Text.Trim().Equals(additionalComments);
+        }
+
+        public bool VerifyAdditionalCommentsNotPresent()
+        {
+            return lblAdditionalCommentsLabels.Count() == 0 && lblAdditionalCommentsValues.Count() == 0;
         }
 
         public bool GBChecker(string gbChecker)

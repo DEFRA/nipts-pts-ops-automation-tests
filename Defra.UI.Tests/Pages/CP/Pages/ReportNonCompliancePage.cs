@@ -4,6 +4,7 @@ using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
 
 
@@ -26,6 +27,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement btnFootPassengerRadio => _driver.WaitForElementExists(By.XPath("//*[@id='passengerType']/following-sibling::label"));
         private IWebElement btnVehicleRadio => _driver.WaitForElementExists(By.XPath("//*[@id='vehiclePassenger']/following-sibling::label"));
         private IWebElement btnAirlineRadio => _driver.WaitForElementExists(By.XPath("//*[@id='airlinePassenger']/following-sibling::label"));
+        private ReadOnlyCollection<IWebElement> btnAirlinesButton => _driver.FindElements(By.XPath("//*[@id='airlinePassenger']/following-sibling::label"));
         private IWebElement lblReportOutcome => _driver.WaitForElementExists(By.XPath("//h2[normalize-space(.)='Record outcome']"));
         private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger referred to DAERA/SPS at NI port']"));
         private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger advised not to travel']"));
@@ -34,8 +36,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='Record outcome']//following::label[2]"));
         private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.Id("spsOutcomeDetails"));
         private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome (optional)']"));
-        private IWebElement lblAnyRelavantComments => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']"));
-        private IWebElement lblAnyRelavantCommentsHint => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]"));
+        private IReadOnlyCollection<IWebElement> lblAnyRelavantComments => _driver.FindElements(By.XPath("//label[normalize-space()='Any relevant comments']"));
+        private IReadOnlyCollection<IWebElement> lblAnyRelavantCommentsHint => _driver.FindElements(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         private IReadOnlyCollection<IWebElement> lblPetTravelDocumentDetails => _driver.FindElements(By.XPath("//div[@class='govuk-section-break--l'][2]"));
         private IWebElement lblPTDStatus => _driver.WaitForElementExists(By.XPath("//p[@class='govuk-body govuk-!-margin-bottom-0 pts-checker-check']"));
@@ -53,9 +55,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement txtValuePTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]/following-sibling::dd"));
         private IWebElement lblPassengerDetails => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h2[text()='Passenger details']"));
         private IWebElement lblTypeOfPassenger => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h3[text()='Type of passenger']"));
-        private IWebElement lblVisualCheck => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Visual check']"));
+        private ReadOnlyCollection<IWebElement> lblTypeOfPassengerLabels => _driver.FindElements(By.XPath("//*[@id='nonComplianceForm']//h3[text()='Type of passenger']"));
+        private ReadOnlyCollection<IWebElement> lblVisualCheck => _driver.FindElements(By.XPath("//*[normalize-space()='Visual check']"));
         private IWebElement lnkPetDetailsFromPTD => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet details']"));
-        private IWebElement lblVisualCheckCheckBox => _driver.WaitForElement(By.XPath("//label[normalize-space()='Pet does not match the PTD']"));
+        private ReadOnlyCollection<IWebElement> lblVisualCheckCheckBox => _driver.FindElements(By.XPath("//label[normalize-space()='Pet does not match the PTD']"));
         private IWebElement lblVisualCheckTableName => _driver.WaitForElement(By.XPath("//*[@id='document-pet-card']//h2"));
         private IWebElement lblVisualCheckTableSpecies => _driver.WaitForElement(By.XPath("//*[contains(text(),'Species')]/following-sibling::dd"));
         private IWebElement lblVisualCheckTableBreed => _driver.WaitForElement(By.XPath("//*[contains(text(),'Breed')]/following-sibling::dd"));
@@ -72,7 +75,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblMCTableHeading => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Microchip']"));
         private IWebElement lblMCDetailsLink => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details']"));
         private IWebElement lblMCCheckbox1 => _driver.WaitForElement(By.XPath("//label[@for='missingReason']"));
-        private IWebElement lblMCCheckbox2 => _driver.WaitForElement(By.XPath("//label[@for='mcNotFound']"));
+        private ReadOnlyCollection<IWebElement> lblMCCheckbox2 => _driver.FindElements(By.XPath("//label[@for='mcNotFound']"));
         private IWebElement lblMCNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Microchip number')]"));
         private IWebElement lblMCNumberValue => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Microchip number')]/following-sibling::dd"));
         private IWebElement lblMCImplantOrScanDate => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Implant or scan date')]"));
@@ -89,7 +92,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement btnSaveOutCome => _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
         private IWebElement lblMicrochipOption1 => _driver.WaitForElement(By.XPath("//*[@id='missingReason']"));
         private IWebElement lblMicrochipOption2 => _driver.WaitForElement(By.XPath("//*[@id='mcNotFound']"));
-        private IWebElement txtareaRelevantComments => _driver.WaitForElementExists(By.Id("relevantComments"));
+        private ReadOnlyCollection<IWebElement> txtareaRelevantComments => _driver.FindElements(By.Id("relevantComments"));
         private IWebElement txtareaDetailsOfOutcome => _driver.WaitForElementExists(By.Id("spsOutcomeDetails"));
         private IWebElement lblPetDetailsTableName => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet details']"));
         #endregion
@@ -291,11 +294,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return lblDetailsOfOutcome.Text.Contains("Details of outcome (optional)");
         }
 
-        public bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength)
+        public bool VerifyAnyRelavantCommentsSection()
         {
-            lblAnyRelavantComments.ScrollToElement(_driver);
-            return lblAnyRelavantComments.Text.Contains(heading)
-                   && lblAnyRelavantCommentsHint.Text.Contains(hint);
+            return lblAnyRelavantComments.Count == 0 && lblAnyRelavantCommentsHint.Count == 0
+                 && txtareaRelevantComments.Count == 0;
         }
 
         public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)
@@ -303,16 +305,14 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             lblPassengerDetails.ScrollToElement(_driver);
             return lblPassengerDetails.Text.Contains(sectionName) && lblTypeOfPassenger.Text.Contains(subHeading);
         }
+        
+        public bool VerifyTypeOfPassengerSubheadingISNotPresent()
+        {
+            return lblTypeOfPassengerLabels.Count() == 0;
+        }
 
         public bool VerifyVCAndPetOwnerDetailSubheading(string subHeading)
         {
-
-            if (subHeading.Equals("Visual check"))
-            {
-                lblVisualCheck.ScrollToElement(_driver);
-                return lblVisualCheck.Text.Contains(subHeading);
-            }
-
             lblPetOwnerDetailsSubHeading.ScrollToElement(_driver);
             return lblPetOwnerDetailsSubHeading.Text.Contains(subHeading);
         }
@@ -321,11 +321,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             lnkPetDetailsFromPTD.Click(_driver);
             return lnkPetDetailsFromPTD.Text.Contains(linkName);
-        }
-
-        public bool VerifyPetDoesNotMatchThePTDCheckBox(string checkBoxValue)
-        {
-            return lblVisualCheckCheckBox.Text.Contains(checkBoxValue);
         }
 
         public bool VerifyVCAndPetOwnerAndPetDetailTableName(string tableName)
@@ -388,11 +383,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void ClickOnMCCheckbox(string mcCheckbox)
         {
-            if (mcCheckbox.Equals("Microchip number does not match the PTD"))
-            {
-                lblMCCheckbox2.ScrollAndClick(_driver);
-            }
-            else if (mcCheckbox.Equals("Cannot find microchip"))
+            if (mcCheckbox.Equals("Cannot find microchip"))
             {
                 lblMCCheckbox1.ScrollAndClick(_driver);
             }
@@ -440,7 +431,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             btnFootPassengerRadio.ScrollToElement(_driver);
 
             return btnFootPassengerRadio.Text.Contains(ferryFootPassenger)
-                && btnVehicleRadio.Text.Contains(vehicleOnFerry)           
+                && btnVehicleRadio.Text.Contains(vehicleOnFerry) && btnAirlinesButton.Count() == 0
                 && !btnFootPassengerRadio.Selected && !btnVehicleRadio.Selected;
         }
 
@@ -456,18 +447,21 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 lblOtherIssuesOption1.ScrollAndClick(_driver);
             else if (lblOtherIssuesOption2.Text.Trim().Equals(visualCheckReason))
                 lblOtherIssuesOption2.ScrollAndClick(_driver);
-            else if (lblVisualCheckCheckBox.Text.Contains(visualCheckReason))
-                lblVisualCheckCheckBox.ScrollAndClick(_driver);
-        }
-
-        public void AnyRelevantComments(string comments)
-        {
-            txtareaRelevantComments.SendKeys(comments);
         }
 
         public void EnterDetailsOfOutcome(string details)
         {
             txtareaDetailsOfOutcome.SendKeys(details);
+        }
+
+        public bool VerifyVisualCheckCheckBox()
+        {
+            return lblVisualCheck.Count() == 0 && lblVisualCheckCheckBox.Count() == 0;
+        }
+
+        public bool VerifyMicrochipDoesNotMatchPTDCheckbox()
+        {
+            return lblMCCheckbox2.Count() == 0;
         }
         #endregion
     }

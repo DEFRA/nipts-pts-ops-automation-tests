@@ -230,6 +230,12 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityAddress(addressLine1, addressLine2));
         }
 
+        [Then(@"I should see '(.*)' column with signed person name and designation")]
+        public void ThenIShouldSeeColumnWithSignedPersonNameAndDesignation(string signatureColName)
+        {
+            Assert.IsTrue(summaryPage?.VerifyIssuingAuthoritySignatureRow(signatureColName));
+        }
+
         [Then(@"I verify the application status '(.*)'")]
         public void ThenIVerifyTheApplicationStatus(string status)
         {
@@ -278,9 +284,14 @@ namespace Defra.UI.Tests.Steps.AP
             {
                 var ptdNumber = _scenarioContext.Get<string>("PTDReferenceNumber");
                 var date = DateTime.Now.ToString("dd/MM/yyyy");
+                string[] parts = summary?.PTDNumber.Split(' ');
 
+                Assert.AreEqual(3, parts.Length);
+                Assert.AreEqual(5, parts[0].Length);
+                Assert.AreEqual(3, parts [1].Length);
+                Assert.AreEqual (3, parts [2].Length);
                 Assert.AreEqual(Regex.Replace(ptdNumber, @"\s+", ""), Regex.Replace(summary?.PTDNumber, @"\s+", ""), $"PTD number is not matching in {pageName} page!");
-                Assert.AreEqual(date, summary?.Date, $"Microchip number is not matching in {pageName} page!");
+                Assert.AreEqual(date, summary?.Date, $"Date is not matching in {pageName} page!");
             }
         }
 
@@ -288,6 +299,24 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIShouldNotSeeIssuingAuthorityTable()
         {
             Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityTableIsNotVisible());
+        }
+
+        [Then(@"I verify the status of the application '(.*)'")]
+        public void ThenIVerifyTheStatusOfTheApplication(string status)
+        {
+            Assert.IsTrue(summaryPage?.VerifyApplicationDetails(status), "The status of the PTD is not correct");
+        }
+
+        [When(@"I have clicked the first ptd view hyperlink from dashboard")]
+        public void WhenIHaveClickedTheFirstPtdViewHyperlinkFromDashboard()
+        {
+            summaryPage?.ClickFirstViewHyperLink();
+        }
+
+        [Then(@"I have verified breed row for ferret is not displayed")]
+        public void ThenIHaveVerifiedBreedRowForFerretIsNotDisplayed()
+        {
+            Assert.IsTrue(summaryPage?.VerifyBreedForFerret());
         }
     }
 }

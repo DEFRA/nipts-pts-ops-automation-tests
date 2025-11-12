@@ -137,7 +137,21 @@ Examples:
 	| Ferry          | Birkenhead to Belfast (Stena) | A6AD63    | Cancelled    |
 	| Ferry          | Birkenhead to Belfast (Stena) | 39AC94    | Pending      |
 
-Scenario: Verify the radio buttons label and hint in application summary page
+Scenario: Verify the Checks section checkpoints in application summary page for approved document
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '15:00'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '586B06' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+	Then I verify "Checks" section with "Check" subheading and "there's a microchip and it matches the PTD|the species matches the PTD"
+
+Scenario: Verify the radio buttons label and hint and select Issue SUPTD in application summary page
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '14:00'
@@ -150,3 +164,6 @@ Scenario: Verify the radio buttons label and hint in application summary page
 	When I click search button
 	And I should see the application status in 'Approved'
 	Then I verify Checks section with radio buttons 'Pass|Issue SUPTD|Refer to SPS' and hint '' for GB Checker
+	When I select Issue SUPTD radio button
+	And I click save and continue button from application status page
+	Then I should navigate to Checks page
