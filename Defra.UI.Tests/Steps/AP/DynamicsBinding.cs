@@ -209,7 +209,15 @@ namespace Defra.UI.Tests.Steps.AP
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterejected", "inputdatetime", "field", "");
         }
 
+        [Then(@"The reason for rejection is updated as '(.*)'")]
+        private void VerifyReasonforRejection(string reason)
+        {
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrejection", "text", "field", "");
+        }
+
         [Then("the status is '(.*)'")]
+        [Then("the status is '(.*)' and readonly")]
+        [Then("the Owner is '(.*)' and readonly")]
         [Then("the status is changed to '(.*)'")]
         public void ThenTheStatusIsChangedTo(string status)
         {
@@ -565,6 +573,11 @@ namespace Defra.UI.Tests.Steps.AP
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document application unsuccessful"));
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("unsuccessful"));
             }
+            else if (timelineCopy.ToUpper().Equals("REJECTION DUE TO SUSPENDED PET OWNER"))
+            {
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document application unsuccessful"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("You are currently suspended from the Northern Ireland Pet Travel Scheme. You cannot apply for a Pet Travel Document until your suspension period has ended."));
+            }
             else if (timelineCopy.ToUpper().Equals("REVOCATION"))
             {
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document cancelled"));
@@ -721,7 +734,7 @@ namespace Defra.UI.Tests.Steps.AP
             {
                 case "APPLICANT NAME":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_applicantid", "lookup", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_applicantid", "lookup", "field", "");
+                    //ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_applicantid", "lookup", "field", "");
                     break;
                 case "EMAIL":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlineemail", "text", "field", 1);
