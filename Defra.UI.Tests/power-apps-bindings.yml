@@ -1,8 +1,8 @@
-url: https://defra-trade-plants-preprod.crm4.dynamics.com
+url: '#{{ IDCOMSUrl }}'
 useProfiles: false
 browserOptions: 
   browserType: Chrome
 users: 
-  - username: Brindha.mathanaguru@defra.gov.uk
-    password: Hellocog@2
-    alias: Brindha Mathanaguru
+  - username: '#{{ IDCOMSUser }}'
+    password: '#{{ IDCOMSPassword }}'
+    alias: '#{{ IDOMSUserAlias }}'
