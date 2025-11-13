@@ -635,7 +635,7 @@ Scenario: Verify the Status Reason and Owner of the Suspended Record
 	Then the status is 'Open' and readonly
 	Then the Owner is 'Brindha Mathanaguru' and readonly
 
-Scenario: Verify automatic rejection of new PTD offline application for a suspended pet owner
+Scenario: Verify automatic rejection of new PTD offline application for a suspended pet owner and verify the rejection reason and date
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Applicant Name' as 'petsautomation20250909002322@team947193.testinator.com'
@@ -652,4 +652,27 @@ Scenario: Verify automatic rejection of new PTD offline application for a suspen
 	And I Click on Save
 	Then the status is changed to 'Rejected'
 	And The reason for rejection is updated as 'You are currently suspended from the Northern Ireland Pet Travel Scheme. You cannot apply for a Pet Travel Document until your suspension period has ended.'
-	
+	And Verify the Rejected date is populated as current date
+
+Scenario: Verify the Appeal Decision Button in On Appeal Suspension record and error message for not selecting the Appeal decision
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1035' application
+	And I assign the application to myself
+	Then the status is 'On Appeal' and readonly	
+	When I click on 'Appeal Decision' Command
+	Then I verify the dialog message 'You must log an Appeal Decision before completing the appeal process.'
+	When I click on 'OK' button in Dialog
+	Then I verify the Appeal decision 'Appeal successful:Appeal partially successful:Appeal unsuccessful' option
+
+Scenario: Verify the Confirm Appeal message in a Suspension record
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1070' application
+	And I assign the application to myself
+	Then the status is 'Open' and readonly
+	When I click on 'Appeal' Command
+	Then I verify the dialog message 'Do you want to mark this suspension as on appeal?'
+	And I Verify the button 'Confirm' is present in Dialog box
+	And I Verify the button 'Cancel' is present in Dialog box
+	When I click on 'Cancel' button in Dialog

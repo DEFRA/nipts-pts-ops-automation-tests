@@ -1079,5 +1079,27 @@ namespace Defra.UI.Tests.Steps.AP
                     break;
             }
         }
+
+        [Then(@"Verify the Rejected date is populated as current date")]
+        public void ThenVerifyRejectedDate()
+        {
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterejected", "inputdatetime", "field", "");
+        }
+        
+        [Then(@"I Verify the button '(.*)' is present in Dialog box")]
+        public void ThenIVerifyDialogButton(string dialogButton)
+        {
+            PopupSteps.WhenIVerifyButtonInThePopupDialog(dialogButton);
+        }
+
+        [Then(@"I verify the Appeal decision '(.*)' option")]
+        public void ThenIVerifyAppealDecisionOption(string value)
+        {
+            string[] appealDecision = value.Split(':');
+            foreach(string appeadDecisionValue in appealDecision)
+            {
+                EntitySteps.WhenIEnterInTheField(appeadDecisionValue, "nipts_appealdecision", "buttonset", "field", 1);
+            }
+        }
     }
 }
