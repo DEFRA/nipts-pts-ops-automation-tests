@@ -461,7 +461,7 @@ Scenario: Verify the error message when the future date is entered in Date of bi
 	And I enter 'Pet Name' as 'Aurora'
 	Then I See the error 'The date for Date of Birth must be in the past.' notification
 
-Scenario: Create a New applicant Contact is and create a offline application and authorise it and check activate/Deactivate buttons is not present in SNC Subgrid and create a SNC for 12 Months
+Scenario: Create a New applicant Contact is and create a offline application and authorise it and check activate/Deactivate buttons is not present in SNC Subgrid and verify the error message for log decision and create a SNC for 12 Months
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I create a new applicant in IDCOMS
@@ -490,6 +490,9 @@ Scenario: Create a New applicant Contact is and create a offline application and
 	Then I 'Cannot' see the 'Activate' button in the form
 	Then I 'Cannot' see the 'Deactivate' button in the form
 	When I create a New Suspect Non Compliance
+	And I click on 'Log Decision' Command
+	Then I verify the dialog message 'You must provide a decision.'
+	When I click on 'OK' button in Dialog
 	And I Log decision in SNC as '12 Months'
 	Then The 'Decision date' is set to Current date
 	And the status is changed to 'Intent to Suspend'
@@ -608,7 +611,7 @@ Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter 
 	And I See the 'Letter to be sent' value in 'nipts_closeletter' field
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
 
-Scenario: Verify if the Pet owner details are not editable in Contact
+Scenario: Verify if the Pet owner details are not editable for an online Contact
 	When I Login to Dynamics application
 	And I open 'Contacts' under 'Application'
 	And I open the 'brindha.mathanaguru@cognizant.com' application
@@ -676,3 +679,10 @@ Scenario: Verify the Confirm Appeal message in a Suspension record
 	And I Verify the button 'Confirm' is present in Dialog box
 	And I Verify the button 'Cancel' is present in Dialog box
 	When I click on 'Cancel' button in Dialog
+
+Scenario: Verify the Appeal Outcome letter field and Letter action needed Notification for the suspended record - offline
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1087' application
+	Then I See the 'Letter to be sent' value in 'nipts_appealoutcomeletter' field
+	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
