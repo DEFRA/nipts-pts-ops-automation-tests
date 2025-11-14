@@ -120,6 +120,16 @@ public class PopupSteps : PowerAppsStepDefiner
            Driver.WaitForTransaction();
     }
 
+    [When(@"I verify the '(.*)' button on the popup dialog")]
+    public static void WhenIVerifyButtonInThePopupDialog(string buttonName)
+    {
+        var buttonElement = Driver.FindElement(By.XPath($"//*[text()='{buttonName}']"));
+
+        // Verify button is visible and enabled
+        (buttonElement.Displayed && buttonElement.Enabled).Should().BeTrue(because: "the button should be present in the dialog"); ;
+        
+    }
+
     [When(@"I deactivate the record in the (.*) popup box")]
     public void WhenIDeactivateTheRecordInThePopupBox(string entityLogicalName)
     {
