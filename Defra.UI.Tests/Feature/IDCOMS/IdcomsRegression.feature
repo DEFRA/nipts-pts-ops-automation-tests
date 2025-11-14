@@ -323,7 +323,7 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	
-Scenario: Verify if the caseworker can update the offline PTD application multiple time when the application status is Pending
+Scenario: Verify if the caseworker can update the offline PTD application multiple time when the application status is Pending and authorise the application
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Microchip Number' as 'auto'
@@ -345,6 +345,10 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
+	When I 'Pass' the Microchip check
+	And I go back
+	And I 'Authorise' the application
+	Then the status is changed to 'Authorised'
 
 Scenario: Offline PTD Application should not be editable in Revoke Pending Status and should remain assigned with the case worker
 	When I Login to Dynamics application
@@ -686,3 +690,39 @@ Scenario: Verify the Appeal Outcome letter field and Letter action needed Notifi
 	And I open the 'SUS-1087' application
 	Then I See the 'Letter to be sent' value in 'nipts_appealoutcomeletter' field
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
+
+Scenario: Verify all the views and columns in Contacts 
+	When I Login to Dynamics application
+	And I open 'Contacts' under 'Application'
+	Then I Verify the 'Full Name|Principal Email Address|Principal Phone|Suspended|Applicant Type' coloumns are present	
+	When I Switch to 'Inactive Contacts'
+	Then I Verify the 'Full Name|Principal Email Address|Principal Phone|Applicant Type' coloumns are present
+
+Scenario: Verify if the Pet owner details are editable for an offline Contact
+	When I Login to Dynamics application
+	And I open 'Contacts' under 'Application'
+	And I open the 'Auto141125131624' application
+	Then I can edit 'Pet Owner Contact' Details
+
+Scenario: Verify Offline PTD Reference is assigned to Application Reference and searchable
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I create a new applicant in IDCOMS
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I enter 'Microchip Number' as 'auto'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+	And I get the PTD Reference Number and Store it
+	When I go back
+	And I open the previously saved application

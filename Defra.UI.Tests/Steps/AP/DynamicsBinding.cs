@@ -479,6 +479,56 @@ namespace Defra.UI.Tests.Steps.AP
                 }
         }
 
+        public void ThenICanEditTheField(string fieldNames)
+        {
+            string[] fieldName = fieldNames.Split(':');
+            foreach (string field in fieldName)
+                switch (field.ToUpper())
+                {
+                    case "FIRST NAME":
+                        FormSteps.ThenICanEditTheField("firstname");
+                        break;
+                    case "MIDDLE NAME":
+                        FormSteps.ThenICanEditTheField("middlename");
+                        break;
+                    case "LAST NAME":
+                        FormSteps.ThenICanEditTheField("lastname");
+                        break;
+                    case "PRINCIPAL EMAIL ADDRESS":
+                        FormSteps.ThenICanEditTheField("emailaddress1");
+                        break;
+                    case "PRINCIPAL PHONE":
+                        FormSteps.ThenICanEditTheField("telephone1");
+                        break;
+                    case "PREFERRED METHOD OF CONTACT":
+                        FormSteps.ThenICanEditTheField("preferredcontactmethodcode");
+                        break;
+                    case "TITLE/SALUTATION":
+                        FormSteps.ThenICanEditTheField("defra_title");
+                        break;
+                    case "BUILDING NUMBER":
+                        FormSteps.ThenICanEditTheField("defra_addrcorbuildingnumber");
+                        break;
+                    case "BUILDING NAME":
+                        FormSteps.ThenICanEditTheField("defra_addrcorbuildingname");
+                        break;
+                    case "STREET":
+                        FormSteps.ThenICanEditTheField("defra_addrcorstreet");
+                        break;
+                    case "CONTACT TOWN":
+                        FormSteps.ThenICanEditTheField("defra_addrcortown");
+                        break;
+                    case "CONTACT COUNTY":
+                        FormSteps.ThenICanEditTheField("defra_addrcorcounty");
+                        break;
+                    case "CONTACT POSTCODE":
+                        FormSteps.ThenICanEditTheField("defra_addrcorpostcode");
+                        break;
+                    default:
+                        break;
+                }
+        }
+
         [When("I Switch to '([^']*)'")]
         public void WhenISwitchTheGridView(string gridView)
         {
@@ -649,6 +699,18 @@ namespace Defra.UI.Tests.Steps.AP
             else if (field.ToUpper().Equals("PET OWNER CONTACT"))
             {
                 ThenICannotEditTheField("First Name:Middle Name:Last Name:Principal Email Address:Principal Phone:Preferred Method of Contact:Title/Salutation:Building Number:Building Name:Street:CONTACT Town:CONTACT County:CONTACT PostCode:CONTACT Country");
+            }
+        }
+
+
+        [Then("I can edit '(.*)' Details")]
+        public void ThenICanEditDetails(string field)
+        {
+            CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad();
+            if (field.ToUpper().Equals("PET OWNER CONTACT"))
+            {
+                ThenICanEditTheField("First Name:Middle Name:Last Name:Principal Email Address:Principal Phone:Preferred Method of Contact:Title/Salutation:Building Number:Building Name:Street:CONTACT Town:CONTACT County:CONTACT PostCode:CONTACT Country");
             }
         }
 
@@ -1100,6 +1162,13 @@ namespace Defra.UI.Tests.Steps.AP
             {
                 EntitySteps.WhenIEnterInTheField(appeadDecisionValue, "nipts_appealdecision", "buttonset", "field", 1);
             }
+        }
+
+        [When(@"I open the previously saved application")]
+        public void WhenIOpenPrevouslySavedApplication()
+        {
+            WhenIOpenTheGivenApplication(_scenarioContext.Get<string>("PTDReferenceNumber"));
+            Assert.IsTrue(EntitySteps.ThenIGetTheHeaderTitle().Equals(_scenarioContext.Get<string>("PTDReferenceNumber")));
         }
     }
 }

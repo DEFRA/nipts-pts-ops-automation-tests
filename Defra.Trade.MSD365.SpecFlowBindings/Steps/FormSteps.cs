@@ -646,6 +646,11 @@ public class FormSteps : PowerAppsStepDefiner
         XrmApp.Entity.GetField(fieldName).IsReadOnly(Driver).Should().BeTrue(because: "the field should not be editable");
     }
 
+    public static void ThenICanEditTheField(string fieldName)
+    {
+        XrmApp.Entity.GetField(fieldName).IsReadOnly(Driver).Should().BeFalse(because: "the field should not be editable");
+    }
+
     // TODO: Variables are refering to the test implementation, not documenting system behaviour. Needs replaced.
     [Then("The value in the '(.*)' '(.*)' '(.*)' (matches|does not match) the value in the '(.*)' variable")]
     [Then("The value in the '(.*)' (text|optionset|multioptionset|boolean|numeric|currency|datetime|lookup) (field|header field) (matches|does not match) the value in the '(.*)' variable")]
