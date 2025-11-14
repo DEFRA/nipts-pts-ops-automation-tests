@@ -686,3 +686,4 @@ Scenario: Verify the Appeal Outcome letter field and Letter action needed Notifi
 	And I open the 'SUS-1087' application
 	Then I See the 'Letter to be sent' value in 'nipts_appealoutcomeletter' field
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
+
