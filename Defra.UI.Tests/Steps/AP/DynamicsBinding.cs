@@ -829,14 +829,14 @@ namespace Defra.UI.Tests.Steps.AP
                     {
                         value = Utils.GetFutureDate(int.Parse(value.Substring(12)));
                     }
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_microchippeddate", "datetime", "field", 1);
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_microchippeddate", "text", "field", 1);
                     break;
                 case "DATE OF BIRTH":
                     if (value.StartsWith("CurrentDate+"))
                     {
                         value = Utils.GetFutureDate(int.Parse(value.Substring(12)));
                     }
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "datetime", "field", 1);
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "text", "field", 1);
                     break;
             }
         }
