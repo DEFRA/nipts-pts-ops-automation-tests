@@ -37,7 +37,7 @@ namespace Defra.UI.Tests.Steps.AP
             ApplicationDeclarationPage?.ClickSendApplicationButton();
         }
 
-        [Then(@"I should see an error message '([^']*)' in declaration page")]
+        [Then(@"I should see an error message '(.*)' in declaration page")]
         public void ThenIShouldSeeAnErrorMessageInDeclarationPage(string errorMessage)
         {
             if (!string.IsNullOrEmpty(errorMessage))
