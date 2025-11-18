@@ -733,7 +733,7 @@ Scenario: Verify the No Data available message
 	And I search the 'Kylo' application
 	Then I Verify the No data available 'We didn't find anything to show here' messsage
 	
-Scenario: Verify the fields in a suspension record
+Scenario: Verify the readonly fields in a suspension record
 	When I Login to Dynamics application	
 	And I open 'Suspensions' under 'Application'
 	And I open the 'SUS-1071' application
