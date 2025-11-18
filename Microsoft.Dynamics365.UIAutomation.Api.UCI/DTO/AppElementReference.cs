@@ -90,6 +90,7 @@ public static class AppReference
         public static string ViewContainer = "Grid_ViewContainer";
         public static string ViewSelectorMenuItem = "Grid_ViewSelectorMenuItem";
         public static string SubArea = "Grid_SubArea";
+        public static string NoDataMessage = "Grid_NoData";
     }
 
     public static class Entity
@@ -456,6 +457,7 @@ public static class AppElements
         { "Grid_ViewContainer"   , "//div[contains(@aria-label,'View') and @role='dialog']" },
         { "Grid_ViewSelectorMenuItem", ".//span[contains(@class, 'ms-ContextualMenu-itemText')]" },
         { "Grid_SubArea"   , "//*[contains(@data-id,'[NAME]')]"},
+        { "Grid_NoData"   , "//div[@class='ag-overlay']/div/div/div/div/div[2]"},
         
 
         //Entity

@@ -475,6 +475,7 @@ namespace Defra.UI.Tests.Steps.AP
                         FormSteps.ThenICanNotEditTheField("defra_addrcorpostcode");
                         break;
                     default:
+                        FormSteps.ThenICanNotEditTheField(fieldNames);
                         break;
                 }
         }
@@ -560,6 +561,18 @@ namespace Defra.UI.Tests.Steps.AP
         {
             GridSteps.WhenISearchForInTheGrid(applicationNumber);
             GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(0);
+        }
+
+        [When("I search the '(.*)' application")]
+        public void WhenISearhTheGivenApplication(string applicationNumber)
+        {
+            GridSteps.WhenISearchForInTheGrid(applicationNumber);
+        }
+
+        [Then("I Verify the No data available '(.*)' messsage")]
+        public void ThenIVerifyTheNoDataMessage(string message)
+        {
+            GridSteps.VerifyNoDataAvailableMessage(message);
         }
 
         [Then("I Verify if '(.*)' coloumn is available in Duplicate subgrid")]

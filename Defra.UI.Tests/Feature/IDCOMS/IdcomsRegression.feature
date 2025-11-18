@@ -726,3 +726,18 @@ Scenario: Verify Offline PTD Reference is assigned to Application Reference and 
 	And I get the PTD Reference Number and Store it
 	When I go back
 	And I open the previously saved application
+
+Scenario: Verify the No Data available message
+	When I Login to Dynamics application	
+	And I Switch to 'All PTD Applications'
+	And I search the 'Kylo' application
+	Then I Verify the No data available 'We didn't find anything to show here' messsage
+	
+Scenario: Verify the fields in a suspension record
+	When I Login to Dynamics application	
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1071' application
+	Then I cannot edit the field 'nipts_name'
+	Then I cannot edit the field 'nipts_petowner'
+	Then I cannot edit the field 'nipts_ptd'
+	Then I cannot edit the field 'nipts_suspensionenddate'
