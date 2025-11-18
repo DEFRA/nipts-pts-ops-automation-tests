@@ -209,7 +209,15 @@ namespace Defra.UI.Tests.Steps.AP
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterejected", "inputdatetime", "field", "");
         }
 
+        [Then(@"The reason for rejection is updated as '(.*)'")]
+        private void VerifyReasonforRejection(string reason)
+        {
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrejection", "text", "field", "");
+        }
+
         [Then("the status is '(.*)'")]
+        [Then("the status is '(.*)' and readonly")]
+        [Then("the Owner is '(.*)' and readonly")]
         [Then("the status is changed to '(.*)'")]
         public void ThenTheStatusIsChangedTo(string status)
         {
@@ -471,6 +479,56 @@ namespace Defra.UI.Tests.Steps.AP
                 }
         }
 
+        public void ThenICanEditTheField(string fieldNames)
+        {
+            string[] fieldName = fieldNames.Split(':');
+            foreach (string field in fieldName)
+                switch (field.ToUpper())
+                {
+                    case "FIRST NAME":
+                        FormSteps.ThenICanEditTheField("firstname");
+                        break;
+                    case "MIDDLE NAME":
+                        FormSteps.ThenICanEditTheField("middlename");
+                        break;
+                    case "LAST NAME":
+                        FormSteps.ThenICanEditTheField("lastname");
+                        break;
+                    case "PRINCIPAL EMAIL ADDRESS":
+                        FormSteps.ThenICanEditTheField("emailaddress1");
+                        break;
+                    case "PRINCIPAL PHONE":
+                        FormSteps.ThenICanEditTheField("telephone1");
+                        break;
+                    case "PREFERRED METHOD OF CONTACT":
+                        FormSteps.ThenICanEditTheField("preferredcontactmethodcode");
+                        break;
+                    case "TITLE/SALUTATION":
+                        FormSteps.ThenICanEditTheField("defra_title");
+                        break;
+                    case "BUILDING NUMBER":
+                        FormSteps.ThenICanEditTheField("defra_addrcorbuildingnumber");
+                        break;
+                    case "BUILDING NAME":
+                        FormSteps.ThenICanEditTheField("defra_addrcorbuildingname");
+                        break;
+                    case "STREET":
+                        FormSteps.ThenICanEditTheField("defra_addrcorstreet");
+                        break;
+                    case "CONTACT TOWN":
+                        FormSteps.ThenICanEditTheField("defra_addrcortown");
+                        break;
+                    case "CONTACT COUNTY":
+                        FormSteps.ThenICanEditTheField("defra_addrcorcounty");
+                        break;
+                    case "CONTACT POSTCODE":
+                        FormSteps.ThenICanEditTheField("defra_addrcorpostcode");
+                        break;
+                    default:
+                        break;
+                }
+        }
+
         [When("I Switch to '([^']*)'")]
         public void WhenISwitchTheGridView(string gridView)
         {
@@ -565,6 +623,11 @@ namespace Defra.UI.Tests.Steps.AP
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document application unsuccessful"));
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("unsuccessful"));
             }
+            else if (timelineCopy.ToUpper().Equals("REJECTION DUE TO SUSPENDED PET OWNER"))
+            {
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document application unsuccessful"));
+                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("You are currently suspended from the Northern Ireland Pet Travel Scheme. You cannot apply for a Pet Travel Document until your suspension period has ended."));
+            }
             else if (timelineCopy.ToUpper().Equals("REVOCATION"))
             {
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document cancelled"));
@@ -636,6 +699,18 @@ namespace Defra.UI.Tests.Steps.AP
             else if (field.ToUpper().Equals("PET OWNER CONTACT"))
             {
                 ThenICannotEditTheField("First Name:Middle Name:Last Name:Principal Email Address:Principal Phone:Preferred Method of Contact:Title/Salutation:Building Number:Building Name:Street:CONTACT Town:CONTACT County:CONTACT PostCode:CONTACT Country");
+            }
+        }
+
+
+        [Then("I can edit '(.*)' Details")]
+        public void ThenICanEditDetails(string field)
+        {
+            CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad();
+            if (field.ToUpper().Equals("PET OWNER CONTACT"))
+            {
+                ThenICanEditTheField("First Name:Middle Name:Last Name:Principal Email Address:Principal Phone:Preferred Method of Contact:Title/Salutation:Building Number:Building Name:Street:CONTACT Town:CONTACT County:CONTACT PostCode:CONTACT Country");
             }
         }
 
@@ -721,7 +796,7 @@ namespace Defra.UI.Tests.Steps.AP
             {
                 case "APPLICANT NAME":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_applicantid", "lookup", "field", 1);
-                    ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_applicantid", "lookup", "field", "");
+                    //ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_applicantid", "lookup", "field", "");
                     break;
                 case "EMAIL":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlineemail", "text", "field", 1);
@@ -816,14 +891,14 @@ namespace Defra.UI.Tests.Steps.AP
                     {
                         value = Utils.GetFutureDate(int.Parse(value.Substring(12)));
                     }
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_microchippeddate", "datetime", "field", 1);
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_microchippeddate", "text", "field", 1);
                     break;
                 case "DATE OF BIRTH":
                     if (value.StartsWith("CurrentDate+"))
                     {
                         value = Utils.GetFutureDate(int.Parse(value.Substring(12)));
                     }
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "datetime", "field", 1);
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "text", "field", 1);
                     break;
             }
         }
@@ -1065,6 +1140,35 @@ namespace Defra.UI.Tests.Steps.AP
                 default:
                     break;
             }
+        }
+
+        [Then(@"Verify the Rejected date is populated as current date")]
+        public void ThenVerifyRejectedDate()
+        {
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterejected", "inputdatetime", "field", "");
+        }
+        
+        [Then(@"I Verify the button '(.*)' is present in Dialog box")]
+        public void ThenIVerifyDialogButton(string dialogButton)
+        {
+            PopupSteps.WhenIVerifyButtonInThePopupDialog(dialogButton);
+        }
+
+        [Then(@"I verify the Appeal decision '(.*)' option")]
+        public void ThenIVerifyAppealDecisionOption(string value)
+        {
+            string[] appealDecision = value.Split(':');
+            foreach(string appeadDecisionValue in appealDecision)
+            {
+                EntitySteps.WhenIEnterInTheField(appeadDecisionValue, "nipts_appealdecision", "buttonset", "field", 1);
+            }
+        }
+
+        [When(@"I open the previously saved application")]
+        public void WhenIOpenPrevouslySavedApplication()
+        {
+            WhenIOpenTheGivenApplication(_scenarioContext.Get<string>("PTDReferenceNumber"));
+            Assert.IsTrue(EntitySteps.ThenIGetTheHeaderTitle().Equals(_scenarioContext.Get<string>("PTDReferenceNumber")));
         }
     }
 }

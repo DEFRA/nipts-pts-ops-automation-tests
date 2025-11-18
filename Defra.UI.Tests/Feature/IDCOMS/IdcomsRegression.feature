@@ -323,7 +323,7 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	
-Scenario: Verify if the caseworker can update the offline PTD application multiple time when the application status is Pending
+Scenario: Verify if the caseworker can update the offline PTD application multiple time when the application status is Pending and authorise the application
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Microchip Number' as 'auto'
@@ -345,6 +345,10 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Unique feature' as 'As fast as Cheetah'
 	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
+	When I 'Pass' the Microchip check
+	And I go back
+	And I 'Authorise' the application
+	Then the status is changed to 'Authorised'
 
 Scenario: Offline PTD Application should not be editable in Revoke Pending Status and should remain assigned with the case worker
 	When I Login to Dynamics application
@@ -461,7 +465,7 @@ Scenario: Verify the error message when the future date is entered in Date of bi
 	And I enter 'Pet Name' as 'Aurora'
 	Then I See the error 'The date for Date of Birth must be in the past.' notification
 
-Scenario: Create a New applicant Contact is and create a offline application and authorise it and check activate/Deactivate buttons is not present in SNC Subgrid and create a SNC for 12 Months
+Scenario: Create a New applicant Contact is and create a offline application and authorise it and check activate/Deactivate buttons is not present in SNC Subgrid and verify the error message for log decision and create a SNC for 12 Months
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I create a new applicant in IDCOMS
@@ -490,6 +494,9 @@ Scenario: Create a New applicant Contact is and create a offline application and
 	Then I 'Cannot' see the 'Activate' button in the form
 	Then I 'Cannot' see the 'Deactivate' button in the form
 	When I create a New Suspect Non Compliance
+	And I click on 'Log Decision' Command
+	Then I verify the dialog message 'You must provide a decision.'
+	When I click on 'OK' button in Dialog
 	And I Log decision in SNC as '12 Months'
 	Then The 'Decision date' is set to Current date
 	And the status is changed to 'Intent to Suspend'
@@ -583,7 +590,6 @@ Scenario: Verify Activate/Deactivate button is not present in suspension view an
 	When I Switch to 'Correspondence Required - Suspensions'
 	Then I Verify the 'Name|Pet Owner|Suspension End Date|Status Reason|Application Language (PTD)|Close letter|Appeal Outcome Letter' coloumns are present
 
-
 Scenario: Verify End Suspension button and backing off it
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
@@ -609,7 +615,7 @@ Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter 
 	And I See the 'Letter to be sent' value in 'nipts_closeletter' field
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
 
-Scenario: Verify if the Pet owner details are not editable in Contact
+Scenario: Verify if the Pet owner details are not editable for an online Contact
 	When I Login to Dynamics application
 	And I open 'Contacts' under 'Application'
 	And I open the 'brindha.mathanaguru@cognizant.com' application
@@ -629,4 +635,94 @@ Examples:
 | Pet Owner Name        | Pets Automation |
 | Pet Owner Postcode    | OX1 1AF         |
 
+Scenario: Verify the Status Reason and Owner of the Suspended Record
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1071' application
+	Then the status is 'Open' and readonly
+	Then the Owner is 'Brindha Mathanaguru' and readonly
 
+Scenario: Verify automatic rejection of new PTD offline application for a suspended pet owner and verify the rejection reason and date
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I enter 'Applicant Name' as 'petsautomation20250909002322@team947193.testinator.com'
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I Click on Save
+	Then the status is changed to 'Rejected'
+	And The reason for rejection is updated as 'You are currently suspended from the Northern Ireland Pet Travel Scheme. You cannot apply for a Pet Travel Document until your suspension period has ended.'
+	And Verify the Rejected date is populated as current date
+
+Scenario: Verify the Appeal Decision Button in On Appeal Suspension record and error message for not selecting the Appeal decision
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1035' application
+	And I assign the application to myself
+	Then the status is 'On Appeal' and readonly	
+	When I click on 'Appeal Decision' Command
+	Then I verify the dialog message 'You must log an Appeal Decision before completing the appeal process.'
+	When I click on 'OK' button in Dialog
+	Then I verify the Appeal decision 'Appeal successful:Appeal partially successful:Appeal unsuccessful' option
+
+Scenario: Verify the Confirm Appeal message in a Suspension record
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1070' application
+	And I assign the application to myself
+	Then the status is 'Open' and readonly
+	When I click on 'Appeal' Command
+	Then I verify the dialog message 'Do you want to mark this suspension as on appeal?'
+	And I Verify the button 'Confirm' is present in Dialog box
+	And I Verify the button 'Cancel' is present in Dialog box
+	When I click on 'Cancel' button in Dialog
+
+Scenario: Verify the Appeal Outcome letter field and Letter action needed Notification for the suspended record - offline
+	When I Login to Dynamics application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1087' application
+	Then I See the 'Letter to be sent' value in 'nipts_appealoutcomeletter' field
+	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
+
+Scenario: Verify all the views and columns in Contacts 
+	When I Login to Dynamics application
+	And I open 'Contacts' under 'Application'
+	Then I Verify the 'Full Name|Principal Email Address|Principal Phone|Suspended|Applicant Type' coloumns are present	
+	When I Switch to 'Inactive Contacts'
+	Then I Verify the 'Full Name|Principal Email Address|Principal Phone|Applicant Type' coloumns are present
+
+Scenario: Verify if the Pet owner details are editable for an offline Contact
+	When I Login to Dynamics application
+	And I open 'Contacts' under 'Application'
+	And I open the 'Auto141125131624' application
+	Then I can edit 'Pet Owner Contact' Details
+
+Scenario: Verify Offline PTD Reference is assigned to Application Reference and searchable
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I create a new applicant in IDCOMS
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I enter 'Microchip Number' as 'auto'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+	And I get the PTD Reference Number and Store it
+	When I go back
+	And I open the previously saved application
