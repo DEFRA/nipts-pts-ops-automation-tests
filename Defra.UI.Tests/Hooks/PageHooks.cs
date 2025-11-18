@@ -75,6 +75,20 @@ namespace Defra.UI.Tests.Hooks
             //Read Email
             _objectContainer.RegisterInstanceAs(GetBaseWithScenarioContext<FetchCodeFromEmail, IFetchCodeFromEmail>());
 
+
+            // AP Welsh Testing
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<HomePageWelsh, IHomePageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetMicrochipPageWelsh, IPetMicrochipPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetMicrochipDatePageWelsh, IPetMicrochipDatePageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ChangeDetailsPageWelsh, IChangeDetailsPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetSpeciesPageWelsh, IPetSpeciesPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetNamePageWelsh, IPetNamePageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetColourPageWelsh, IPetColourPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetBreedPageWelsh, IPetBreedPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<SignificantFeaturesPageWelsh, ISignificantFeaturesPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ApplicationDeclarationPageWelsh, IApplicationDeclarationPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<GetYourPetMicrochippedPageWelsh, IGetYourPetMicrochippedPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ApplicationSubmissionPageWelsh, IApplicationSubmissionPageWelsh>());
         }
 
 
