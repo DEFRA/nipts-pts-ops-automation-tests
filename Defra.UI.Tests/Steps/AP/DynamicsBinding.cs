@@ -1183,5 +1183,21 @@ namespace Defra.UI.Tests.Steps.AP
             WhenIOpenTheGivenApplication(_scenarioContext.Get<string>("PTDReferenceNumber"));
             Assert.IsTrue(EntitySteps.ThenIGetTheHeaderTitle().Equals(_scenarioContext.Get<string>("PTDReferenceNumber")));
         }
+
+        [Then(@"I verify the error message for the offline contact")]
+        public void ThenIVerifyErrorMessageForOfflineContact()
+        {
+            SharedSteps.WaitForScriptProcessing();
+            LookupSteps.WhenIClickTheNewButtonInTheLookup("nipts_applicantid");
+            SharedSteps.WaitForScriptProcessing();
+            QuickCreateSteps.WhenISaveTheQuickCreate();
+            SharedSteps.WaitForScriptProcessing();
+        }
+
+        [Then(@"I Verify '(.*)' is not available and '(.*)' is available in Appeal decision")]
+        public void ThenIVerifyAppealOptionIsNotAvailableAndAvailable(string options, string optionValues)
+        {
+            EntitySteps.WhenIVerifyTheValueIsNotPresentInDropDown("nipts_appealdecision", options, optionValues);
+        }
     }
 }
