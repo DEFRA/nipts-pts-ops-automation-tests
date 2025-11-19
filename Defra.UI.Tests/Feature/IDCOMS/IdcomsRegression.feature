@@ -750,10 +750,24 @@ Scenario: Verify the partially successful option is hidden in appeal decision dr
 	Then the status is 'On Appeal' and readonly	
 	And I Verify 'Appeal partially successful' is not available and 'Appeal successful:Appeal unsuccessful' is available in Appeal decision
 
-	Scenario: Verify the partially successful option is hidden in appeal decision dropdown for 6 month suspension - Online PTD
+Scenario: Verify the partially successful option is hidden in appeal decision dropdown for 6 month suspension - Online PTD
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
 	And I open the 'SUS-1105' application
 	And I assign the application to myself
 	Then the status is 'On Appeal' and readonly	
 	And I Verify 'Appeal partially successful' is not available and 'Appeal successful:Appeal unsuccessful' is available in Appeal decision
+
+Scenario: Verify Partial value search based on the start of the value
+	When I Login to Dynamics application
+	And I Switch to 'All PTD Applications'
+	And I open the '<FieldValue>' application
+	Then I verify the parital field '<FieldName>' value is '<FieldValue>'
+Examples:
+| FieldName             | FieldValue      |
+| Application Reference | GVEY	          |
+| PTD Reference         | GB826AD28	      |
+| Microchip Number      | 1011251258389   |
+| Pet Name              | Deer            |
+| Pet Owner Name        | Pets Automati   |
+| Pet Owner Postcode    | OX1 1           |

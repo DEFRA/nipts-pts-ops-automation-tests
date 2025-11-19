@@ -530,7 +530,7 @@ namespace Defra.UI.Tests.Steps.AP
                 }
         }
 
-        public void ThenICanEditTheField(string fieldNames)
+        public void ThenICanEditTheFields(string fieldNames)
         {
             string[] fieldName = fieldNames.Split(':');
             foreach (string field in fieldName)
@@ -773,7 +773,7 @@ namespace Defra.UI.Tests.Steps.AP
             _driver.WaitForPageToLoad();
             if (field.ToUpper().Equals("PET OWNER CONTACT"))
             {
-                ThenICanEditTheField("First Name:Middle Name:Last Name:Principal Email Address:Principal Phone:Preferred Method of Contact:Title/Salutation:Building Number:Building Name:Street:CONTACT Town:CONTACT County:CONTACT PostCode:CONTACT Country");
+                ThenICanEditTheFields("First Name:Middle Name:Last Name:Principal Email Address:Principal Phone:Preferred Method of Contact:Title/Salutation:Building Number:Building Name:Street:CONTACT Town:CONTACT County:CONTACT PostCode:CONTACT Country");
             }
         }
 
@@ -1248,6 +1248,34 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIVerifyAppealOptionIsNotAvailableAndAvailable(string options, string optionValues)
         {
             EntitySteps.WhenIVerifyTheValueIsNotPresentInDropDown("nipts_appealdecision", options, optionValues);
+        }
+
+        [Then(@"I verify the parital field '(.*)' value is '(.*)'")]
+        public void ThenIVerifyThePartialFieldValue(string fieldName, string value)
+        {
+            switch (fieldName.ToUpper())
+            {
+                case "APPLICATION REFERENCE":
+                    Assert.IsTrue(Convert.ToString(FormSteps.GetValueOfField("nipts_applicationreference")).Contains(value));
+                    break;
+                case "PTD REFERENCE":
+                    Assert.IsTrue(Convert.ToString(FormSteps.GetValueOfField("nipts_documentreference")).Contains(value));
+                    break;
+                case "MICROCHIP NUMBER":
+                    Assert.IsTrue(Convert.ToString(FormSteps.GetValueOfField("nipts_microchipnum")).Contains(value));
+                    break;
+                case "PET NAME":
+                    Assert.IsTrue(Convert.ToString(FormSteps.GetValueOfField("nipts_petname")).Contains(value));
+                    break;
+                case "PET OWNER NAME":
+                    Assert.IsTrue(Convert.ToString(FormSteps.GetValueOfField("nipts_ownername")).Contains(value));
+                    break;
+                case "PET OWNER POSTCODE":
+                    Assert.IsTrue(Convert.ToString(FormSteps.GetValueOfField("nipts_ownerpostcode")).Contains(value));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
