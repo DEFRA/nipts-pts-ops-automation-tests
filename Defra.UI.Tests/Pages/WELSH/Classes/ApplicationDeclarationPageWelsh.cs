@@ -8,11 +8,11 @@ using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
-    public class ApplicationDeclarationPage : IApplicationDeclarationPage
+    public class ApplicationDeclarationPageWelsh : IApplicationDeclarationPageWelsh
     {
         private readonly IObjectContainer _objectContainer;
 
-        public ApplicationDeclarationPage(IObjectContainer container)
+        public ApplicationDeclarationPageWelsh(IObjectContainer container)
         {
             _objectContainer = container;
         }
@@ -47,7 +47,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void TickAgreedToDeclaration()
         {
-            Thread.Sleep(1000);
             chkAgreesToDeclaration.Click();
         }
 

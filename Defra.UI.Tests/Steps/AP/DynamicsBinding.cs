@@ -530,6 +530,56 @@ namespace Defra.UI.Tests.Steps.AP
                 }
         }
 
+        public void ThenICanEditTheField(string fieldNames)
+        {
+            string[] fieldName = fieldNames.Split(':');
+            foreach (string field in fieldName)
+                switch (field.ToUpper())
+                {
+                    case "FIRST NAME":
+                        FormSteps.ThenICanEditTheField("firstname");
+                        break;
+                    case "MIDDLE NAME":
+                        FormSteps.ThenICanEditTheField("middlename");
+                        break;
+                    case "LAST NAME":
+                        FormSteps.ThenICanEditTheField("lastname");
+                        break;
+                    case "PRINCIPAL EMAIL ADDRESS":
+                        FormSteps.ThenICanEditTheField("emailaddress1");
+                        break;
+                    case "PRINCIPAL PHONE":
+                        FormSteps.ThenICanEditTheField("telephone1");
+                        break;
+                    case "PREFERRED METHOD OF CONTACT":
+                        FormSteps.ThenICanEditTheField("preferredcontactmethodcode");
+                        break;
+                    case "TITLE/SALUTATION":
+                        FormSteps.ThenICanEditTheField("defra_title");
+                        break;
+                    case "BUILDING NUMBER":
+                        FormSteps.ThenICanEditTheField("defra_addrcorbuildingnumber");
+                        break;
+                    case "BUILDING NAME":
+                        FormSteps.ThenICanEditTheField("defra_addrcorbuildingname");
+                        break;
+                    case "STREET":
+                        FormSteps.ThenICanEditTheField("defra_addrcorstreet");
+                        break;
+                    case "CONTACT TOWN":
+                        FormSteps.ThenICanEditTheField("defra_addrcortown");
+                        break;
+                    case "CONTACT COUNTY":
+                        FormSteps.ThenICanEditTheField("defra_addrcorcounty");
+                        break;
+                    case "CONTACT POSTCODE":
+                        FormSteps.ThenICanEditTheField("defra_addrcorpostcode");
+                        break;
+                    default:
+                        break;
+                }
+        }
+
         [When("I Switch to '([^']*)'")]
         public void WhenISwitchTheGridView(string gridView)
         {
