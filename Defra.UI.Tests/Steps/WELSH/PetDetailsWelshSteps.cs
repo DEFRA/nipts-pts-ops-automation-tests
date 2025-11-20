@@ -22,7 +22,7 @@ namespace Defra.UI.Tests.Steps.AP
         private IPetDOBPageWelsh? petDOBPageWelsh => _objectContainer.IsRegistered<IPetDOBPageWelsh>() ? _objectContainer.Resolve<IPetDOBPageWelsh>() : null;
         private IPetColourPage? petColourPag => _objectContainer.IsRegistered<IPetColourPage>() ? _objectContainer.Resolve<IPetColourPage>() : null;
         private IPetColourPageWelsh? petColourPageWelsh => _objectContainer.IsRegistered<IPetColourPageWelsh>() ? _objectContainer.Resolve<IPetColourPageWelsh>() : null;
-        private ISignificantFeaturesPage? significantFeaturesPage => _objectContainer.IsRegistered<ISignificantFeaturesPage>() ? _objectContainer.Resolve<ISignificantFeaturesPage>() : null;
+        private ISignificantFeaturesPageWelsh? significantFeaturesPageWelsh => _objectContainer.IsRegistered<ISignificantFeaturesPageWelsh>() ? _objectContainer.Resolve<ISignificantFeaturesPageWelsh>() : null;
 
         public PetDetailsWelshSteps(ScenarioContext context, IObjectContainer container)
         {
@@ -127,12 +127,12 @@ namespace Defra.UI.Tests.Steps.AP
             _scenarioContext.Add("Color", color);
         }
 
-        [Then(@"I provided other color of the pet as ""([^""]*)""")]
+/*        [Then(@"I provided other color of the pet as ""([^""]*)""")]
         public void ThenIProvidedOtherColorOfThePetAs(string otherColor)
         {
             petColourPag?.SelectOtherColorOption(otherColor);
             _scenarioContext.Add("OtherColor", otherColor);
-        }
+        }*/
 
         [When(@"I click on continue button from What is the main colour of your pet page in Welsh")]
         public void WhenIClickOnContinueButtonFromWhatIsTheMainColourOfYourPetPageInWelsh()
@@ -140,30 +140,30 @@ namespace Defra.UI.Tests.Steps.AP
             petColourPageWelsh?.ClickParhauButton();
         }
 
-/*        [Then(@"I should redirected to the Does your pet have any significant features page")]
-        public void ThenIShouldRedirectedToTheDoesYourPetHaveAnySignificantFeaturesPage()
+        [Then(@"I should redirected to the Does your pet have any significant features page in Welsh")]
+        public void ThenIShouldRedirectedToTheDoesYourPetHaveAnySignificantFeaturesPageInWelsh()
         {
-            var pageTitle = "Does your pet have any significant features?";
-            Assert.IsTrue(significantFeaturesPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            var pageTitle = "Oes gan eich anifail anwes unrhyw nodweddion arwyddocaol?";
+            Assert.IsTrue(significantFeaturesPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-        [Then(@"I have selected an option as '([^']*)' for significant features")]
-        public void ThenIHaveSelectedAnOptionAsForSignificantFeatures(string hasSignificantFeatures)
-        {
-            var significantFeature = significantFeaturesPage?.SelectSignificantFeaturesOption(hasSignificantFeatures);
-            _scenarioContext.Add("SignificantFeatures", significantFeature);
-        }
+        /*        [Then(@"I have selected an option as '([^']*)' for significant features")]
+                public void ThenIHaveSelectedAnOptionAsForSignificantFeatures(string hasSignificantFeatures)
+                {
+                    var significantFeature = significantFeaturesPage?.SelectSignificantFeaturesOption(hasSignificantFeatures);
+                    _scenarioContext.Add("SignificantFeatures", significantFeature);
+                }*/
 
-        [When(@"I click on continue button from Does your pet have any significant features page")]
-        public void WhenIClickOnContinueButtonFromDoesYourPetHaveAnySignificantFeaturesPage()
-        {
-            significantFeaturesPage?.ClickContinueButton();
-        }
+                [When(@"I click on continue button from Does your pet have any significant features page in Welsh")]
+                public void WhenIClickOnContinueButtonFromDoesYourPetHaveAnySignificantFeaturesPageInWelsh()
+                {
+                    significantFeaturesPageWelsh?.ClickParhauButton();
+                }
 
-        [Then(@"I have provided date of birth as '(.*)''(.*)''(.*)'")]
-        public void ThenIHaveProvidedDateOfBirthAs(string day, string month, string year)
-        {
-            petDOBPage?.EnterPetDateOfBirth(day, month, year);
-        }*/
+    /*            [Then(@"I have provided date of birth as '(.*)''(.*)''(.*)'")]
+                public void ThenIHaveProvidedDateOfBirthAs(string day, string month, string year)
+                {
+                    petDOBPage?.EnterPetDateOfBirth(day, month, year);
+                }*/
     }
 }
