@@ -24,7 +24,7 @@ namespace Defra.UI.Tests.Steps.AP
             _objectContainer = container;
         }
 
-        [Then(@"I should redirected to the What is your full name page")]
+/*        [Then(@"I should redirected to the What is your full name page")]
         public void ThenIShouldRedirectedToTheWhatIsYourFullNamePage()
         {
             Assert.True(petOwnerNamePage?.IsNextPageLoaded("What is your full name?"), "Application page not loaded");
@@ -132,7 +132,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             petOwnerPhoneNumberPage?.ClickContinueButton();
         }
-
+*/
         [Then(@"I should redirected to the Application submitted page in Welsh")]
         public void ThenIShouldRedirectedToTheApplicationSubmittedPageInWelsh()
         {
@@ -140,7 +140,7 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(applicationSubmissionPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-        [When(@"I have clicked the View all your lifelong pet travel documents link")]
+   /*     [When(@"I have clicked the View all your lifelong pet travel documents link")]
         public void WhenIHaveClickedTheViewAllYourLifelongPetTravelDocumentsLink()
         {
             applicationSubmissionPageWelsh?.ClickViewAllSubmittedPetTravelDocument();
@@ -150,7 +150,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIClickApplyForAnotherLifelongPetTravelDocumentLink()
         {
             applicationSubmissionPageWelsh?.ClickApplyForAnotherPetTravelDocument();
-        }
+        }*/
 
     }
 }

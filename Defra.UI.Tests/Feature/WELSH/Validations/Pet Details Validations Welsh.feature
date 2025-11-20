@@ -1,4 +1,4 @@
-﻿@Validations
+﻿@Validations @Welsh
 Feature: Pet Details Validations Welsh
 
 Validating the negative scenarios for Pet Details in Welsh
@@ -317,44 +317,44 @@ Examples:
 	| PetDog's | Yes                      | Yes             | 123456789123456 | Ci  | Dog     | Male   | Arall | Disgrifiwch liw eich ci                                               |                                                                                                                                                              |
 	| PetDog's | Yes                      | Yes             | 123456789123452 | Ci  | Dog     | Female | Arall | Disgrifiwch brif liw eich ci, gan ddefnyddio 150 o gymeriadau neu lai | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ |
 
-Scenario Outline: Verify pet's significant features page validations by no selection and should not moves to next page
+Scenario Outline: Verify pet's significant features page validations by no selection and should not moves to next page in Welsh
 	Then I have selected '<Are your details correct>' option
-	When I click on continue button from Are your details correct page
-	Then I should redirected to the Is your pet microchipped page
+	When I click on continue button from Are your details correct page in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the '<MicrochipOption>' option
 	And provided microchip number as <MicrochipNumber>
-	When I click Continue button from microchipped page
-	Then I should redirected to When was your pet microchipped or last scanned? page
+	When I click Continue button from microchipped page in Welsh
+	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I have provided date of PETS microchipped
-	When I click Continue button from When was your pet microchipped page
-	Then I should redirected to the Is your pet a cat, dog or ferret page
-	And I have selected an option as '<Pet>' for pet
-	When I click on continue button from Is your pet a cat, dog or ferret page
-	Then I should redirected to the What breed is your '<Pet>'? page
+	When I click Continue button from When was your pet microchipped page in Welsh
+	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
+	And I have selected an option as '<Pet>' for pet in Welsh
+	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
+	Then I should redirected to the What breed is your '<Pet>'? page in Welsh
 	And I have selected 2 as breed index from breed dropdownlist
-	When I click on continue button from What is your pet's breed page
-	Then I should redirected to the What is your pet's name page
+	When I click on continue button from What is your pet's breed page in Welsh
+	Then I should redirected to the What is your pet's name page in Welsh
 	And I provided the Pets name as '<PetName>'
-	When I click on continue button from What is your pet's name page
-	Then I should redirected to the What sex is your pet page
+	When I click on continue button from What is your pet's name page in Welsh
+	Then I should redirected to the What sex is your pet page in Welsh
 	And I have selected the option as '<Gender>' for sex
-	When I click on continue button from What sex is your pet page
-	Then I should redirected to the Do you know your pet's date of birth page
+	When I click on continue button from What sex is your pet page in Welsh
+	Then I should redirected to the Do you know your pet's date of birth page in Welsh
 	And I have provided date of birth
-	When I click on continue button from Do you know your pet's date of birth? page
-	Then I should redirected to the What is the main colour of your '<Pet>' page
+	When I click on continue button from Do you know your pet's date of birth? page in Welsh
+	Then I should redirected to the What is the main colour of your '<Pet>' page in Welsh
 	And I have selected the option as '<Color>' for color
-	When I click on continue button from What is the main colour of your pet page
-	Then I should redirected to the Does your pet have any significant features page
-	When I click on continue button from Does your pet have any significant features page
+	When I click on continue button from What is the main colour of your pet page in Welsh
+	Then I should redirected to the Does your pet have any significant features page in Welsh
+	When I click on continue button from Does your pet have any significant features page in Welsh
 	Then I should see an error message '<ErrorMessage>' in Does your pet have any significant features page
-	And I should not be redirected to the Check your answers and sign the declaration page
+	And I should not be redirected to the Check your answers and sign the declaration page in Welsh
 
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | ErrorMessage                                    |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black |                       | Select if your pet has any significant features |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | ErrorMessage                                                        |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Ci  | Dog     | Male   | Aur neu felyn |                       | Dewiswch a oes gan eich anifail anwes unrhyw nodweddion arwyddocaol |
 
-Scenario Outline: Verify pet's significant features page validations and should not moves to next page
+Scenario Outline: Verify pet's significant features page validations and should not moves to next page in Welsh
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the Is your pet microchipped page
@@ -440,26 +440,26 @@ Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | ErrorMessage                             |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Ci  | Dog     | Male   | Dewiswch neu roi frîd eich anifail anwes |
 
-Scenario: Verify the pet name accepts alphanumeric and special characters
+Scenario: Verify the pet name accepts alphanumeric and special characters in Welsh
 	Then I have selected 'Yes' option
-	When I click on continue button from Are your details correct page
-	Then I should redirected to the Is your pet microchipped page
+	When I click on continue button from Are your details correct page in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the 'Yes' option
 	And provided microchip number as 123456789123456
-	When I click Continue button from microchipped page
-	Then I should redirected to When was your pet microchipped or last scanned? page
+	When I click Continue button from microchipped page in Welsh
+	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I have provided date of PETS microchipped
-	When I click Continue button from When was your pet microchipped page
-	Then I should redirected to the Is your pet a cat, dog or ferret page
-	And I have selected an option as 'Cat' for pet
-	When I click on continue button from Is your pet a cat, dog or ferret page
-	Then I should redirected to the What breed is your 'Cat'? page
+	When I click Continue button from When was your pet microchipped page in Welsh
+	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
+	And I have selected an option as 'Cath' for pet in Welsh
+	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
+	Then I should redirected to the What breed is your 'Cath'? page in Welsh
 	And I have selected 1 as breed index from breed dropdownlist
-	When I click on continue button from What is your pet's breed page
-	Then I should redirected to the What is your pet's name page
+	When I click on continue button from What is your pet's breed page in Welsh
+	Then I should redirected to the What is your pet's name page in Welsh
 	And I provided the Pets name as 'Pet!"£$%^&123'
-	When I click on continue button from What is your pet's name page
-	Then I should redirected to the What sex is your pet page
+	When I click on continue button from What is your pet's name page in Welsh
+	Then I should redirected to the What sex is your pet page in Welsh
 
 Scenario Outline: Verify pet's breed are displayed in dropdown based on the selected species in Welsh
 	Then I have selected '<Are your details correct>' option
