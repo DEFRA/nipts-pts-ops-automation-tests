@@ -461,29 +461,29 @@ Scenario: Verify the pet name accepts alphanumeric and special characters
 	When I click on continue button from What is your pet's name page
 	Then I should redirected to the What sex is your pet page
 
-Scenario Outline: Verify pet's breed are displayed in dropdown based on the selected species
+Scenario Outline: Verify pet's breed are displayed in dropdown based on the selected species in Welsh
 	Then I have selected '<Are your details correct>' option
-	When I click on continue button from Are your details correct page
-	Then I should redirected to the Is your pet microchipped page
+	When I click on continue button from Are your details correct page in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the '<MicrochipOption>' option
 	And provided microchip number as <MicrochipNumber>
-	When I click Continue button from microchipped page
-	Then I should redirected to When was your pet microchipped or last scanned? page
+	When I click Continue button from microchipped page in Welsh
+	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I have provided date of PETS microchipped
-	When I click Continue button from When was your pet microchipped page
-	Then I should redirected to the Is your pet a cat, dog or ferret page
-	And I have selected an option as '<Pet>' for pet
-	When I click on continue button from Is your pet a cat, dog or ferret page
-	Then I should redirected to the What breed is your '<Pet>'? page
-	And I verify the breeds displayed in the breed dropdownlist for '<Pet>' species
+	When I click Continue button from When was your pet microchipped page in Welsh
+	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
+	And I have selected an option as '<Pet>' for pet in Welsh
+	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
+	Then I should redirected to the What breed is your '<Pet>'? page in Welsh
+	And I verify the breeds displayed in the breed dropdownlist for '<Pet>' species in Welsh
 	Then I have selected 1 as breed index from breed dropdownlist
-	When I click on continue button from What is your pet's breed page
-	Then I should redirected to the What is your pet's name page
+	When I click on continue button from What is your pet's breed page in Welsh
+	Then I should redirected to the What is your pet's name page in Welsh
 
 Examples:
-	| Are your details correct | MicrochipOption | MicrochipNumber | Pet |
-	| Yes                      | Yes             | 123456789123456 | Dog |
-	| Yes                      | Yes             | 123456789123456 | Cat |
+	| Are your details correct | MicrochipOption | MicrochipNumber | Pet  |
+	| Yes                      | Yes             | 123456789123456 | Ci   |
+	| Yes                      | Yes             | 123456789123456 | Cath |
 
 Scenario Outline: Verify pet's breed accept free text and moves to next page
 	Then I have selected '<Are your details correct>' option
