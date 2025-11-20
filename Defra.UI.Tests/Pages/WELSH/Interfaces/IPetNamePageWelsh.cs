@@ -3,7 +3,7 @@
     public interface IPetNamePageWelsh
     {
         bool IsNextPageLoaded(string pageTitle);
-        void ClickContinueButton();
+        void ClickParhauButton();
         void EnterPetsName(string petsName);
         bool IsError(string errorMessage);
     }

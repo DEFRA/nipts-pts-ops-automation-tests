@@ -51,11 +51,6 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.True(petMicrochipDatePage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }*/
 
-        [Then(@"I have provided older than expected date of PETS date of birth")]
-        public void ThenIHaveProvidedOlderThanExpectedDateOfPetsDateOfBirth()
-        {
-            petDOBPage?.EnterDateMonthYear(new DateTime(1989, 1, 1));
-        }
 
         [Then(@"I should not be redirected to What is the main colour of your '(.*)' page")]
         public void ThenIShouldNotBeRedirectedToWhatIsTheMainColourOfYourPage(string petType)
@@ -64,11 +59,6 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(petDOBPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-        [Then(@"I have provided future date of PETS date of birth")]
-        public void ThenIHaveProvidedFutureDateOfPETSDateOfBirth()
-        {
-            petDOBPage?.EnterDateMonthYear(DateTime.Now.AddDays(10));
-        }
 
         [Then(@"I should not be redirected to What is your postcode page")]
         public void ThenIShouldNotBeRedirectedToWhatIsYourPostcodePage()
@@ -92,10 +82,10 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.True(petSpeciesPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }*/
 
-        [Then(@"I should not be redirected to What breed is your '(.*)' page")]
+        [Then(@"I should not be redirected to What breed is your '(.*)' page in Welsh")]
         public void ThenIShouldNotBeRedirectedToWhatBreedIsYourPage(string petType)
         {
-            var pageTitle = "Is your pet a dog, cat or ferret?";
+            var pageTitle = "Pa un o’r rhain yw eich anifail anwes chi ?";
             Assert.IsTrue(petSpeciesPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
@@ -108,17 +98,11 @@ namespace Defra.UI.Tests.Steps.AP
             }
         }*/
 
-        [Then(@"I should not be redirected to What sex is your pet page")]
+        [Then(@"I should not be redirected to What sex is your pet page in Welsh")]
         public void ThenIShouldNotBeRedirectedToWhatSexIsYourPetPage()
         {
-            var pageTitle = "What is your pet's name?";
+            var pageTitle = "Beth yw enw’ch anifail anwes?";
             Assert.IsTrue(petNamePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }
-
-        [Then(@"I provided the invalid Pets name as '(.*)'")]
-        public void ThenIProvidedThePetsNameAs(string petName)
-        {
-            petNamePage?.EnterPetsName(petName);
         }
 
 /*        [Then(@"I should see an error message ""(.*)"" in What sex is your pet page")]
@@ -127,10 +111,10 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.True(petSexPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }*/
 
-        [Then(@"I should not redirected to the Do you know your pet's date of birth page")]
-        public void ThenIShouldNotRedirectedToTheDoYouKnowYourPetsDateOfBirthPage()
+        [Then(@"I should not redirected to the Do you know your pet's date of birth page in Welsh")]
+        public void ThenIShouldNotRedirectedToTheDoYouKnowYourPetsDateOfBirthPageinWelsh()
         {
-            var pageTitle = "What sex is your pet?";
+            var pageTitle = "Beth yw rhyw eich anifail anwes?";
             Assert.IsTrue(petSexPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
@@ -159,16 +143,16 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(petOwnerPhoneNumberPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-        [Then(@"I have provided other colour value as '(.*)'")]
+/*        [Then(@"I have provided other colour value as '(.*)'")]
         public void ThenIHaveProvidedOtherColourValueAs(string otherColor)
         {
             petColourPage?.SelectOtherColorOption(otherColor);
-        }
+        }*/
 
-        [Then(@"I should not be redirected to the Does your pet have any significant features page")]
+        [Then(@"I should not be redirected to the Does your pet have any significant features page in Welsh")]
         public void ThenIShouldNotBeRedirectedToTheDoesYourPetHaveAnySignificantFeaturesPage()
         {
-            var pageTitle = $"What is the main colour of your";
+            var pageTitle = $"Beth yw prif liw eich";
             Assert.IsTrue(petColourPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
@@ -203,11 +187,11 @@ namespace Defra.UI.Tests.Steps.AP
             significantFeaturesPage?.EnterSignificantFeatures(significantFeatures);
         }
 
-        [Then(@"I have provided breed value as '(.*)' in breed dropdownlist")]
+/*        [Then(@"I have provided breed value as '(.*)' in breed dropdownlist")]
         public void ThenIHaveProvidedBreedValueAsInBreedDropdownlist(string breed)
         {
             breedPage?.EnterFreeTextBreed(breed);
-        }
+        }*/
 
 /*        [Then(@"I should see an error message '(.*)' in What breed is your pet page")]
         public void ThenIShouldSeeAnErrorMessageInWhatBreedIsYourDogPage(string errorMessage)
@@ -218,10 +202,10 @@ namespace Defra.UI.Tests.Steps.AP
             }
         }
 */
-        [Then(@"I should not be redirected to the What is your pet's name page")]
-        public void ThenIShouldNotBeRedirectedToTheWhatIsYourPetsNamePage()
+        [Then(@"I should not be redirected to the What is your pet's name page in Welsh")]
+        public void ThenIShouldNotBeRedirectedToTheWhatIsYourPetsNamePageInWelsh()
         {
-            var pageTitle = $"What breed is your dog?";
+            var pageTitle = $"Pa frid yw’ch ci chi?";
             Assert.IsTrue(breedPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 

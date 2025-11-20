@@ -55,9 +55,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return selectedBread;
         }
 
-        public void ClickContinueButton()
+        public void ClickParhauButton()
         {
-            _driver.ContinueButton();
+            _driver.ParhauButton();
         }
 
         public void EnterFreeTextBreed(string breed)

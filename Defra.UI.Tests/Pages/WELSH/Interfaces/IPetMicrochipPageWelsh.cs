@@ -7,7 +7,7 @@
         string EnterMicrochipNumber();
         string EnterGivenMicrochipNumber(string microChipNumber);
         void UpdateMicrochipNumber(string microChipNumber);
-        void ClickContinueButton();
+        void ClickParhauButton();
         bool IsError(string errorMessage);
         bool VerifyAlreadyEnteredMCNumber(string alreadyEnteredMCNumber);
         void ClickGoBackToThePreviousPageLink();

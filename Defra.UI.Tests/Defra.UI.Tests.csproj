@@ -206,6 +206,9 @@
     <Compile Update="Feature\WELSH\Validations\Microchip Information Validations Welsh.feature.cs">
       <DependentUpon>Microchip Information Validations Welsh.feature</DependentUpon>
     </Compile>
+    <Compile Update="Feature\WELSH\Validations\Pet Details Validations Welsh.feature.cs">
+      <DependentUpon>Pet Details Validations Welsh.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -246,6 +249,10 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>
     <ReqnrollFeatureFiles Update="Feature\WELSH\Validations\Microchip Information Validations Welsh.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\WELSH\Validations\Pet Details Validations Welsh.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>

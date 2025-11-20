@@ -28,7 +28,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenIHaveSelectedForSignificantFeaturesAndContinueInWelsh(string featuresType)
         {
             SignificantFeaturesPageWelsh?.SelectSignificantFeaturesOption(featuresType);
-            SignificantFeaturesPageWelsh?.ClickContinueButton();
+            SignificantFeaturesPageWelsh?.ClickParhauButton();
         }
     }
 }

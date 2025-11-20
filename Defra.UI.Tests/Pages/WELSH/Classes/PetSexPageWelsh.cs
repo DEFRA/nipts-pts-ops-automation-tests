@@ -7,39 +7,50 @@ using OpenQA.Selenium;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
-    public class PetNamePageWelsh : IPetNamePageWelsh
+    public class PetSexPageWelsh : IPetSexPageWelsh
     {
         private readonly IObjectContainer _objectContainer;
-        public PetNamePageWelsh(IObjectContainer container)
+        public PetSexPageWelsh(IObjectContainer container)
         {
             _objectContainer = container;
         }
 
         #region Page objects
-
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        public IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1/label[@for='PetName']"), true);
-        private IWebElement txtPetsName => _driver.WaitForElement(By.Id("PetName"));
+        public IWebElement PageHeading => _driver.WaitForElement(By.ClassName("govuk-fieldset__heading"), true);
+        public IWebElement rdoFemale => _driver.WaitForElementExists(By.CssSelector("#Female"), true);
+        public IWebElement rdoMale => _driver.WaitForElementExists(By.CssSelector("#Male"), true);
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
-
         #endregion
 
         #region Methods
-
         public bool IsNextPageLoaded(string pageTitle)
         {
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
             {
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             }
-            string heading = PageHeading.Text.Trim().Replace("\u2019", "'").Replace("\u2018", "'");
-            return heading.Contains(pageTitle);
+
+            return PageHeading.Text.Contains(pageTitle);
         }
 
-        public void EnterPetsName(string petName)
+        public void SelectPetsSexOption(string sex)
         {
-            txtPetsName.Clear();
-            txtPetsName.SendKeys(petName);
+            if (sex.ToLower().Equals("male"))
+            {
+                rdoMale.Click();
+            }
+            else
+            {
+                try
+                {
+                    rdoFemale.Click();
+                }
+                catch
+                {
+                    rdoFemale.FindElement(By.CssSelector("#Female")).Click();
+                }
+            }
         }
 
         public void ClickParhauButton()
@@ -59,7 +70,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             return false;
         }
-
         #endregion
     }
 }

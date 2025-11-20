@@ -65,5 +65,18 @@ namespace Defra.UI.Tests.Steps.AP
         {
             getYourPetMicrochippedPageWelsh?.ClickSurveyLink(surveyLink);
         }
+
+        [When(@"I click Continue button from microchipped page in Welsh")]
+        public void WhenIClickContinueButtonFromMicrochippedPageInWelsh()
+        {
+            petMicrochipPageWelsh?.ClickParhauButton();
+        }
+
+        [When(@"I click Continue button from When was your pet microchipped page in Welsh")]
+        public void WhenIClickContinueButtonFromWhenWasYourPetMicrochippedPage()
+        {
+            petMicrochipDatePageWelsh?.ClickParhauButton();
+            Thread.Sleep(2000);
+        }
     }
 }
