@@ -16,6 +16,7 @@ namespace Defra.UI.Tests.Steps.AP
         private IPetMicrochipDatePage? petMicrochipDatePage => _objectContainer.IsRegistered<IPetMicrochipDatePage>() ? _objectContainer.Resolve<IPetMicrochipDatePage>() : null;
         private IPetSpeciesPage? petSpeciesPage => _objectContainer.IsRegistered<IPetSpeciesPage>() ? _objectContainer.Resolve<IPetSpeciesPage>() : null;
         private IPetBreedPage? breedPage => _objectContainer.IsRegistered<IPetBreedPage>() ? _objectContainer.Resolve<IPetBreedPage>() : null;
+        private IPetBreedPageWelsh? breedPageWelsh => _objectContainer.IsRegistered<IPetBreedPageWelsh>() ? _objectContainer.Resolve<IPetBreedPageWelsh>() : null;
         private IPetNamePage? petNamePage => _objectContainer.IsRegistered<IPetNamePage>() ? _objectContainer.Resolve<IPetNamePage>() : null;
         private IPetSexPage? petSexPage => _objectContainer.IsRegistered<IPetSexPage>() ? _objectContainer.Resolve<IPetSexPage>() : null;
         private IPetDOBPage? petDOBPage => _objectContainer.IsRegistered<IPetDOBPage>() ? _objectContainer.Resolve<IPetDOBPage>() : null;
@@ -49,15 +50,14 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIShouldSeeAnErrorMessageInPetMicrochippedOrLastScannedPage(string errorMessage)
         {
             Assert.True(petMicrochipDatePage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
-        }*/
-
+        }
 
         [Then(@"I should not be redirected to What is the main colour of your '(.*)' page")]
         public void ThenIShouldNotBeRedirectedToWhatIsTheMainColourOfYourPage(string petType)
         {
             var pageTitle = "What is your pet's date of birth?";
             Assert.IsTrue(petDOBPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }
+        }*/
 
 
         [Then(@"I should not be redirected to What is your postcode page")]
@@ -172,7 +172,7 @@ namespace Defra.UI.Tests.Steps.AP
             {
                 Assert.True(significantFeaturesPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
             }
-        }*/
+        }
 
         [Then(@"I should not be redirected to the Check your answers and sign the declaration page")]
         public void ThenIShouldNotBeRedirectedToTheCheckYourAnswersAndSignTheDeclarationPage()
@@ -180,20 +180,20 @@ namespace Defra.UI.Tests.Steps.AP
             var pageTitle = $"Does your pet have any significant features?";
             Assert.IsTrue(significantFeaturesPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
-
+        
         [Then(@"I have provided significant features as '(.*)'")]
         public void ThenIHaveProvidedSignificantFeaturesValueAs(string significantFeatures)
         {
             significantFeaturesPage?.EnterSignificantFeatures(significantFeatures);
         }
 
-/*        [Then(@"I have provided breed value as '(.*)' in breed dropdownlist")]
+        [Then(@"I have provided breed value as '(.*)' in breed dropdownlist")]
         public void ThenIHaveProvidedBreedValueAsInBreedDropdownlist(string breed)
         {
             breedPage?.EnterFreeTextBreed(breed);
-        }*/
-
-/*        [Then(@"I should see an error message '(.*)' in What breed is your pet page")]
+        }
+        
+        [Then(@"I should see an error message '(.*)' in What breed is your pet page")]
         public void ThenIShouldSeeAnErrorMessageInWhatBreedIsYourDogPage(string errorMessage)
         {
             if (!string.IsNullOrEmpty(errorMessage))
@@ -201,7 +201,7 @@ namespace Defra.UI.Tests.Steps.AP
                 Assert.True(breedPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
             }
         }
-*/
+        */
         [Then(@"I should not be redirected to the What is your pet's name page in Welsh")]
         public void ThenIShouldNotBeRedirectedToTheWhatIsYourPetsNamePageInWelsh()
         {
@@ -240,10 +240,10 @@ namespace Defra.UI.Tests.Steps.AP
             }
         }*/
 
-        [Then(@"I verify the breeds displayed in the breed dropdownlist for '(.*)' species")]
-        public void ThenIVerifyTheBreedsDisplayedInTheBreedDropdownlistForSpecies(string species)
+        [Then(@"I verify the breeds displayed in the breed dropdownlist for '(.*)' species in Welsh")]
+        public void ThenIVerifyTheBreedsDisplayedInTheBreedDropdownlistForSpeciesInWelsh(string species)
         {
-            Assert.True(breedPage?.VerifyBreedsList(species));
+            Assert.True(breedPageWelsh?.VerifyBreedsListInWelsh(species));
         }
     }
 }

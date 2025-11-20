@@ -140,7 +140,7 @@ namespace Defra.UI.Tests.Steps.AP
             petColourPageWelsh?.ClickParhauButton();
         }
 
-        [Then(@"I should redirected to the Does your pet have any significant features page")]
+/*        [Then(@"I should redirected to the Does your pet have any significant features page")]
         public void ThenIShouldRedirectedToTheDoesYourPetHaveAnySignificantFeaturesPage()
         {
             var pageTitle = "Does your pet have any significant features?";
@@ -160,7 +160,7 @@ namespace Defra.UI.Tests.Steps.AP
             significantFeaturesPage?.ClickContinueButton();
         }
 
-/*        [Then(@"I have provided date of birth as '(.*)''(.*)''(.*)'")]
+        [Then(@"I have provided date of birth as '(.*)''(.*)''(.*)'")]
         public void ThenIHaveProvidedDateOfBirthAs(string day, string month, string year)
         {
             petDOBPage?.EnterPetDateOfBirth(day, month, year);
