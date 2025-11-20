@@ -2871,6 +2871,59 @@ public class WebClient : BrowserPage, IDisposable
         driver.WaitForTransaction();
     }
 
+    public List<string> GetAllOptions(IWebDriver driver, string field, FormContextType formContextType = FormContextType.Entity)
+    {
+        IWebElement fieldContainer = null;
+        fieldContainer = ValidateFormContext(driver, formContextType, field, fieldContainer);
+
+        IWebElement input;
+        bool found = fieldContainer.TryFindElement(By.TagName("button"), out input);
+
+        var options = new List<string>();
+        Actions actions = new Actions(driver);
+        var maxAttempts = 50; // Adjust based on expected number of options
+        string? previousValue = null;
+
+        // Open dropdown
+        actions.MoveToElement(input).Click().Perform();
+        Thread.Sleep(500);
+
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            // Navigate to next option
+            actions.MoveToElement(input).Click().Perform();
+            actions.SendKeys(Keys.ArrowDown).Perform();
+            Thread.Sleep(300);
+            actions.SendKeys(Keys.Enter).Perform();
+
+
+            // Capture current value
+            string? currentValue = input.GetAttribute("value")?.Trim();
+
+            // Stop if we loop back to the first option
+            if (!string.IsNullOrEmpty(currentValue) && currentValue == previousValue)
+                break;
+
+            if (!string.IsNullOrEmpty(currentValue) && !options.Contains(currentValue))
+            {
+                options.Add(currentValue);
+            }
+
+            previousValue = currentValue;
+        }
+
+        actions.MoveToElement(input).Click().Perform(); // Reopen dropdown
+        Thread.Sleep(300);
+        actions.SendKeys(Keys.Home).Perform(); // Jump to first option
+        Thread.Sleep(200);
+        actions.SendKeys(Keys.Enter).Perform();
+
+        // Close dropdown
+        actions.SendKeys(Keys.Escape).Perform();
+
+        return options;
+    }
+
     /// <summary>
     /// Sets the value of a Lookup, Customer, Owner or ActivityParty Lookup which accepts only a single value.
     /// </summary>

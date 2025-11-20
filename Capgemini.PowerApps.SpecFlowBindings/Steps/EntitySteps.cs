@@ -73,6 +73,16 @@ public class EntitySteps : PowerAppsStepDefiner
         Driver.WaitForTransaction();
     }
 
+    public static void WhenIVerifyTheValueIsNotPresentInDropDown(string fieldName, string fieldValue, string fieldValues)
+    {
+        var Options = XrmApp.Entity.GetDropdownValues(fieldName);
+        foreach (var value in fieldValues.Split(':'))
+        {
+            Options.Contains(value).Should().BeTrue(because: "the Option should be Present");
+        }
+        Options.Contains(fieldValue).Should().BeFalse(because: "the Option should not be Present");
+    }
+
     /// <summary>
     /// Sets the values of the fields in the table on the form.
     /// </summary>
