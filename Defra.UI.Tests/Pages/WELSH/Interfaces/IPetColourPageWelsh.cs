@@ -5,7 +5,7 @@
         bool IsNextPageLoaded(string pageTitle);
         void SelectColorOption(string color);
         void SelectOtherColorOption(string color);
-        void ClickContinueButton();
+        void ClickParhauButton();
         bool IsError(string errorMessage);
     }
 }

@@ -1,43 +1,34 @@
-﻿using Defra.UI.Tests.Configuration;
-using Reqnroll.BoDi;
+﻿using Reqnroll.BoDi;
+using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
-    public class PetMicrochipDatePageWelsh : IPetMicrochipDatePageWelsh
+    public class PetDOBPageWelsh : IPetDOBPageWelsh
     {
         private readonly IObjectContainer _objectContainer;
-        public PetMicrochipDatePageWelsh(IObjectContainer container)
+
+        public PetDOBPageWelsh(IObjectContainer container)
         {
             _objectContainer = container;
         }
 
         #region Page objects
-
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        public IWebElement PageHeading => _driver.WaitForElement(By.ClassName("govuk-fieldset__heading"), true);
+        public IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-fieldset__heading')]"), true);
+        private IWebElement txtDay => _driver.WaitForElement(By.Id("Day"), true);
+        private IWebElement txtMonth => _driver.WaitForElement(By.Id("Month"), true);
+        private IWebElement txtYear => _driver.WaitForElement(By.Id("Year"), true);
 
-        private IWebElement txtDay => _driver.WaitForElement(By.Id("Day"));
-        private IWebElement txtMonth => _driver.WaitForElement(By.Id("Month"));
-        private IWebElement txtYear => _driver.WaitForElement(By.Id("Year"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
 
         #endregion
 
         #region Methods
-
-        public bool IsNextPageLoaded(string pageTitle)
-        {
-            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
-            {
-                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
-            }
-
-            return PageHeading.Text.Contains(pageTitle);
-        }
 
         public string EnterDateMonthYear(DateTime dateTime)
         {
@@ -56,14 +47,22 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return $"{day}/{month}/{year}";
         }
 
-        public void ClickParhauButton()
+        public bool IsNextPageLoaded(string pageTitle)
         {
-            _driver.ParhauButton();
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+            }
+
+            return PageHeading.Text.Contains(pageTitle);
         }
+
         public bool IsError(string errorMessage)
         {
+            Thread.Sleep(1000);
             foreach (var element in lblErrorMessages)
             {
+                Console.WriteLine("element.Text: " + element.Text);
                 if (element.Text.Contains(errorMessage))
                 {
                     return true;
@@ -73,7 +72,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return false;
         }
 
-        public void EnterMicrochippedDate(string day, string month, string year)
+        public void ClickParhauButton()
+        {
+            _driver.ParhauButton();
+        }
+
+        public void EnterPetDateOfBirth(string day, string month, string year)
         {
             txtDay.Clear();
             txtMonth.Clear();

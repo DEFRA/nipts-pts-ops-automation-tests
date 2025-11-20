@@ -29,9 +29,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         #endregion
 
         #region Methods
-        public void ClickContinueButton()
+        public void ClickParhauButton()
         {
-            _driver.ContinueButton();
+            _driver.ParhauButton();
         }
 
         public string EnterMicrochipNumber()

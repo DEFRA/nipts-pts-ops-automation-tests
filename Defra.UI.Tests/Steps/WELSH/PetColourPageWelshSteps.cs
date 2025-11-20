@@ -34,7 +34,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenIHaveSelectedTheRadioButtonAsForPetsAndContinueInWelsh(string colourOption)
         {
             PetColourPageWelsh?.SelectColorOption(colourOption);
-            PetColourPageWelsh?.ClickContinueButton();
+            PetColourPageWelsh?.ClickParhauButton();
         }
     }
 }

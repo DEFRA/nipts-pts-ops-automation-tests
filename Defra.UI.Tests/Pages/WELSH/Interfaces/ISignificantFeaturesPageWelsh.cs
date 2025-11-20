@@ -4,7 +4,7 @@
     {
         bool IsNextPageLoaded(string pageTitle);
         string SelectSignificantFeaturesOption(string featuresOption);
-        void ClickContinueButton();
+        void ClickParhauButton();
         bool IsError(string errorMessage);
         void EnterSignificantFeatures(string significantFeatures);
     }

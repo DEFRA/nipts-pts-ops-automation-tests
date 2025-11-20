@@ -83,6 +83,8 @@ namespace Defra.UI.Tests.Hooks
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ChangeDetailsPageWelsh, IChangeDetailsPageWelsh>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetSpeciesPageWelsh, IPetSpeciesPageWelsh>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetNamePageWelsh, IPetNamePageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetSexPageWelsh, IPetSexPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetDOBPageWelsh, IPetDOBPageWelsh>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetColourPageWelsh, IPetColourPageWelsh>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetBreedPageWelsh, IPetBreedPageWelsh>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<SignificantFeaturesPageWelsh, ISignificantFeaturesPageWelsh>());

@@ -21,7 +21,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         
         public IWebElement lnkFeedback => _driver.WaitForElement(By.XPath("//a[contains(text() ,'adborth (yn agor mewn tab newydd)')]"));
         public IWebElement lnkPrivacyNotice => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Hysbysiad preifatrwydd (yn agor mewn tab newydd)')]"));
+        public IWebElement lnkAccessibilityStatement => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Datganiad hygyrchedd')]"));
         public IWebElement lnkCookies => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Cwcis')]"));
+        public IWebElement lnkTermsAndConditions => _driver.WaitForElement(By.LinkText("Telerau ac amodau"));
         public IWebElement lnkEnglish => _driver.WaitForElement(By.XPath("//span[normalize-space(text()) ='English']"));
         public IWebElement lnkWelsh => _driver.WaitForElement(By.XPath("//span[normalize-space(text()) ='Cymraeg']"));
         public IWebElement lnkDashboardHeadingWelsh => _driver.WaitForElement(By.XPath("//*[@id='documents']"));
@@ -139,7 +141,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void ClickAccessibilityStatementLink()
         {
-            AccessibilityStatementLink.Click();
+            lnkAccessibilityStatement.Click();
         }
 
         public void ClickCookiesLink()
@@ -157,7 +159,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         }
         public void ClickTermsAndConditionsLink()
         {
-            TermsAndConditionsLink.Click();
+            lnkTermsAndConditions.Click();
         }
 
         public void ClickCrownCopyrightLink()

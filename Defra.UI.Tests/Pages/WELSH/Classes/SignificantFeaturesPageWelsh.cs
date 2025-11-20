@@ -67,9 +67,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return "No";
         }
 
-        public void ClickContinueButton()
+        public void ClickParhauButton()
         {
-            _driver.ContinueButton();
+            _driver.ParhauButton();
         }
 
         public void EnterSignificantFeatures(string significantFeatures)

@@ -56,9 +56,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             }
         }
 
-        public void ClickContinueButton()
+        public void ClickParhauButton()
         {
-            _driver.ContinueButton();
+            _driver.ParhauButton();
         }
 
         public bool IsError(string errorMessage)

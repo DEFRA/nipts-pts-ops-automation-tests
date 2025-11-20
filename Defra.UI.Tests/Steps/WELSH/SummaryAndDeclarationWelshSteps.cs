@@ -93,11 +93,11 @@ namespace Defra.UI.Tests.Steps.AP
             _scenarioContext.Add("AreDetailsCorrect", option);
         }*/
 
-/*        [When(@"I click on continue button from Are your details correct page")]
-        public void WhenIClickOnContinueButtonFromAreYourDetailsCorrectPage()
+        [When(@"I click on continue button from Are your details correct page in Welsh")]
+        public void WhenIClickOnContinueButtonFromAreYourDetailsCorrectPageInWelsh()
         {
-            changeDetailsPageWelsh?.ClickContinueButton();
-        }*/
+            changeDetailsPageWelsh?.ClickParhauButton();
+        }
 
         /*[When(@"I captured Application PTD number")]
         public void WhenICapturedApplicationPTDNumber()
