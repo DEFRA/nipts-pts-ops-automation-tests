@@ -60,12 +60,12 @@ namespace Defra.UI.Tests.Steps.AP
         }*/
 
 
-        [Then(@"I should not be redirected to What is your postcode page")]
+/*        [Then(@"I should not be redirected to What is your postcode page")]
         public void ThenIShouldNotBeRedirectedToWhatIsYourPostcodePage()
         {
             var pageTitle = "What is your full name?";
             Assert.IsTrue(petKeeperPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }
+        }*/
 
 /*        [Then(@"I should see an error message '(.*)' in What is your full name page")]
         public void ThenIShouldSeeAnErrorMessageInWhatIsYourFullNamePage(string errorMessage)
@@ -136,12 +136,12 @@ namespace Defra.UI.Tests.Steps.AP
                     }
                 }*/
 
-        [Then(@"I should not be redirected to the Is your pet microchipped page")]
+/*        [Then(@"I should not be redirected to the Is your pet microchipped page")]
         public void ThenIShouldNotBeRedirectedToTheIsYourPetMicrochippedPage()
         {
             var pageTitle = "What is your phone number?";
             Assert.IsTrue(petOwnerPhoneNumberPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }
+        }*/
 
 /*        [Then(@"I have provided other colour value as '(.*)'")]
         public void ThenIHaveProvidedOtherColourValueAs(string otherColor)
@@ -172,16 +172,16 @@ namespace Defra.UI.Tests.Steps.AP
             {
                 Assert.True(significantFeaturesPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
             }
-        }
+        }*/
 
-        [Then(@"I should not be redirected to the Check your answers and sign the declaration page")]
-        public void ThenIShouldNotBeRedirectedToTheCheckYourAnswersAndSignTheDeclarationPage()
+        [Then(@"I should not be redirected to the Check your answers and sign the declaration page in Welsh")]
+        public void ThenIShouldNotBeRedirectedToTheCheckYourAnswersAndSignTheDeclarationPageInWelsh()
         {
-            var pageTitle = $"Does your pet have any significant features?";
+            var pageTitle = $"Oes gan eich anifail anwes unrhyw nodweddion arwyddocaol?";
             Assert.IsTrue(significantFeaturesPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
         
-        [Then(@"I have provided significant features as '(.*)'")]
+      /*  [Then(@"I have provided significant features as '(.*)'")]
         public void ThenIHaveProvidedSignificantFeaturesValueAs(string significantFeatures)
         {
             significantFeaturesPage?.EnterSignificantFeatures(significantFeatures);
@@ -218,7 +218,7 @@ namespace Defra.UI.Tests.Steps.AP
             }
         }*/
 
-        [Then(@"I have provided address details as '(.*)' for each field")]
+/*        [Then(@"I have provided address details as '(.*)' for each field")]
         public void ThenIShouldSeeAnErrorMessageInWhatIsYourAddressDetaislPage(string address)
         {
             petOwnerAddressPage?.EnterAddressManually(address, address, address, address, address);
@@ -228,7 +228,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenIClickContinueButtonFromWhatIsYourAddressPage()
         {
             petOwnerAddressPage?.ClickContinueButton();
-        }
+        }*/
 
 /*        [Then(@"I should see an error message '(.*)' in What is your address page")]
         public void ThenIShouldSeeAnErrorMessageInWhatIsYourAddressPage(string errorMessage)
