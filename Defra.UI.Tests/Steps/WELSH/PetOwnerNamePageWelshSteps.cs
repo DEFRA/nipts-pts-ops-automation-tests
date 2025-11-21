@@ -1,13 +1,8 @@
-﻿using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
 using Reqnroll.BoDi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Defra.UI.Tests.Steps.WELSH
 {
@@ -17,7 +12,7 @@ namespace Defra.UI.Tests.Steps.WELSH
 
         private readonly IObjectContainer _objectContainer;
         private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
-        private IPetOwnerNamePage? PetOwnerNamePage => _objectContainer.IsRegistered<IPetOwnerNamePage>() ? _objectContainer.Resolve<IPetOwnerNamePage>() : null;
+        private IPetOwnerNamePageWelsh? PetOwnerNamePageWelsh => _objectContainer.IsRegistered<IPetOwnerNamePageWelsh>() ? _objectContainer.Resolve<IPetOwnerNamePageWelsh>() : null;
         public PetOwnerNamePageWelshSteps(IObjectContainer container)
         {
             _objectContainer = container;
@@ -26,15 +21,15 @@ namespace Defra.UI.Tests.Steps.WELSH
         [Then(@"I should navigate to Pets Owner full name page in Welsh")]
         public void ThenIShouldNavigateToPetsOwnerFullNamePage()
         {
-            var pageTitle = $"What is your full name?";
-            Assert.IsTrue(PetOwnerNamePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+            var pageTitle = $"Beth yw’ch enw llawn?";
+            Assert.IsTrue(PetOwnerNamePageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
         [When(@"I provided '([^']*)' and continue in Welsh")]
         public void WhenIProvidedAndContinue(string userName)
         {
-            PetOwnerNamePage?.EnterPetOwnerName(userName);
-            PetOwnerNamePage?.ClickContinueButton();
+            PetOwnerNamePageWelsh?.EnterPetOwnerName(userName);
+            PetOwnerNamePageWelsh?.ClickContinueButton();
         }
     }
 }

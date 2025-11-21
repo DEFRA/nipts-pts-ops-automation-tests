@@ -1,5 +1,5 @@
-﻿@PETS
-Feature: Pets Owner Address
+﻿@PETS @Welsh
+Feature: Pets Owner Address Welsh
 
 Create a PETS travel document to provide address when PETS Owner details are incorrect
 
@@ -19,16 +19,15 @@ Scenario Outline: Create PETS Travel Document By PostCode Address User in Welsh
 	Then I should see the heading of dashboard page changed to Welsh
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
-	Then I should navigate to the Pets Owner details correct page
-	When I selected the radio button '<PetsOwnerDetails>' option and continue
-	Then I should navigate to Pets Owner full name page
-	When I provided '<PetsOwnerName>' and continue
-	Then I should navigate to Pets Owner address postcode page
-	When I provide Pets Owner '<PostCode>' and click find address
-	And I select Pets Owner Address from dropdown and continue
-	Then I should navigate to Pets Owner phone number page
-	When I provide Pets Owner '<PhoneNumber>' and continue
-	Then I should navigate to the Is your pet microchipped page
+	When I selected the radio button '<PetsOwnerDetails>' option and continue in Welsh
+	Then I should navigate to Pets Owner full name page in Welsh
+	When I provided '<PetsOwnerName>' and continue in Welsh
+	Then I should navigate to Pets Owner address postcode page in Welsh
+	When I provide Pets Owner '<PostCode>' and click find address in Welsh
+	And I select Pets Owner Address from dropdown and continue in Welsh
+	Then I should navigate to Pets Owner phone number page in Welsh
+	When I provide Pets Owner '<PhoneNumber>' and continue in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the radio button '<MicroChipNumberOn>' option
 	And provided microchip number as'<MicroChipNumber>' and continue
 	Then I should navigate to When was your pet microchipped page
