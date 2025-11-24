@@ -1,4 +1,4 @@
-﻿@PETS
+﻿@PETS @Regression
 Feature: PetsHomePageFooterLinks
 
 Checking the header, footer and Feedback Hyperlinks

@@ -1,4 +1,4 @@
-﻿@APAccessibility
+﻿@APAccessibility @Regression
 Feature: Application Portal Accessibility Automation
 
 Create a PETS travel document for the travel from Great Britain to Northern Ireland

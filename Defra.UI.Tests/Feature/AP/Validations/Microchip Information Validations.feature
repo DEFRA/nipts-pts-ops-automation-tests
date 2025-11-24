@@ -1,4 +1,4 @@
-﻿@Validations
+﻿@Validations @Regression
 Feature: Microchip Information Validations
 
 Validating the negative scenarios for Microchip Information

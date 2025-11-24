@@ -1,4 +1,4 @@
-﻿@ChangeDetails
+﻿@ChangeDetails @Regression
 Feature: Update Pet Owner Details
 
 Modify the Pet owner details before submitting the application

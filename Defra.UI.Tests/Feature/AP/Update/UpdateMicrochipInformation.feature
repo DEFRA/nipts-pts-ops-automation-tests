@@ -1,4 +1,4 @@
-﻿@ChangeDetails
+﻿@ChangeDetails @Regression
 Feature: Update Microchip Information
 
 Modify the Microchipd details before submitting the application

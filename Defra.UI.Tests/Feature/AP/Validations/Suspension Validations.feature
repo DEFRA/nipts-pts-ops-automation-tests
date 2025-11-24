@@ -1,4 +1,4 @@
-﻿@Validations
+﻿@Validations @Regression
 Feature: Suspension related Validations
 
 

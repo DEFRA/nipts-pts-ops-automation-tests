@@ -1,4 +1,4 @@
-﻿@ChangeDetails
+﻿@ChangeDetails @Regression
 Feature: ManageAccount
 
 Background: 
