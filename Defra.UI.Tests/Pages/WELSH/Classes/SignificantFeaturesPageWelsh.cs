@@ -46,7 +46,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             var significantFeatures = "Black Mark on Shoulder";
             var fontWeight = SignificantFeaturesYesOptionHint.GetCssValue("font-weight");
-            Console.WriteLine("hasSignificantFeatures... " + hasSignificantFeatures);
             if (hasSignificantFeatures.ToLower().Equals("oes"))
             {
                 SignificantFeaturesRadioButtonYes.Click();

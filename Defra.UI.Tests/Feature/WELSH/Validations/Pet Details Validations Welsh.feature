@@ -1,4 +1,4 @@
-﻿@Validations @Welsh
+﻿@WelshValidations
 Feature: Pet Details Validations Welsh
 
 Validating the negative scenarios for Pet Details in Welsh
@@ -356,44 +356,44 @@ Examples:
 
 Scenario Outline: Verify pet's significant features page validations and should not moves to next page in Welsh
 	Then I have selected '<Are your details correct>' option
-	When I click on continue button from Are your details correct page
-	Then I should redirected to the Is your pet microchipped page
+	When I click on continue button from Are your details correct page in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the '<MicrochipOption>' option
 	And provided microchip number as <MicrochipNumber>
-	When I click Continue button from microchipped page
-	Then I should redirected to When was your pet microchipped or last scanned? page
+	When I click Continue button from microchipped page in Welsh
+	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I have provided date of PETS microchipped
-	When I click Continue button from When was your pet microchipped page
-	Then I should redirected to the Is your pet a cat, dog or ferret page
-	And I have selected an option as '<Pet>' for pet
-	When I click on continue button from Is your pet a cat, dog or ferret page
-	Then I should redirected to the What breed is your '<Pet>'? page
+	When I click Continue button from When was your pet microchipped page in Welsh
+	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
+	And I have selected an option as '<Pet>' for pet in Welsh
+	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
+	Then I should redirected to the What breed is your '<Pet>'? page in Welsh
 	And I have selected 2 as breed index from breed dropdownlist
-	When I click on continue button from What is your pet's breed page
-	Then I should redirected to the What is your pet's name page
+	When I click on continue button from What is your pet's breed page in Welsh
+	Then I should redirected to the What is your pet's name page in Welsh
 	And I provided the Pets name as '<PetName>'
-	When I click on continue button from What is your pet's name page
-	Then I should redirected to the What sex is your pet page
+	When I click on continue button from What is your pet's name page in Welsh
+	Then I should redirected to the What sex is your pet page in Welsh
 	And I have selected the option as '<Gender>' for sex
-	When I click on continue button from What sex is your pet page
-	Then I should redirected to the Do you know your pet's date of birth page
+	When I click on continue button from What sex is your pet page in Welsh
+	Then I should redirected to the Do you know your pet's date of birth page in Welsh
 	And I have provided date of birth
-	When I click on continue button from Do you know your pet's date of birth? page
-	Then I should redirected to the What is the main colour of your '<Pet>' page
+	When I click on continue button from Do you know your pet's date of birth? page in Welsh
+	Then I should redirected to the What is the main colour of your '<Pet>' page in Welsh
 	And I have selected the option as '<Color>' for color
-	When I click on continue button from What is the main colour of your pet page
-	Then I should redirected to the Does your pet have any significant features page
-	When I click on continue button from Does your pet have any significant features page
+	When I click on continue button from What is the main colour of your pet page in Welsh
+	Then I should redirected to the Does your pet have any significant features page in Welsh
+	When I click on continue button from Does your pet have any significant features page in Welsh
 	Then I have selected an option as '<IsSignificantFeatures>' for significant features
 	And I have provided significant features as '<SignificantFeatures>'
-	When I click on continue button from Does your pet have any significant features page
+	When I click on continue button from Does your pet have any significant features page in Welsh
 	Then I should see an error message '<ErrorMessage>' in Does your pet have any significant features page
-	And I should not be redirected to the Check your answers and sign the declaration page
+	And I should not be redirected to the Check your answers and sign the declaration page in Welsh
 
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | SignificantFeatures                                                                                                                                                                                                                                                                                                      | ErrorMessage                                                          |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |                                                                                                                                                                                                                                                                                                                          | Describe your pet's significant feature                               |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ | Describe your pet's significant feature, using 300 characters or less |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | SignificantFeatures                                                                                                                                                                                                                                                                                                      | ErrorMessage                                                                                |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Ci  | Dog     | Male   | Aur neu felyn | Yes                   |                                                                                                                                                                                                                                                                                                                          | Disgrifiwch nodwedd arwyddocaol eich anifail anwes                                          |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Ci  | Dog     | Male   | Aur neu felyn | Yes                   | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ | Disgrifiwch nodwedd arwyddocaol eich anifail anwes, gan ddefnyddio 300 o gymeriadau neu lai |
 
 Scenario Outline: Verify pet's breed maximum characters limit validations and should not moves to next page in Welsh
 	Then I have selected '<Are your details correct>' option
@@ -485,25 +485,25 @@ Examples:
 	| Yes                      | Yes             | 123456789123456 | Ci   |
 	| Yes                      | Yes             | 123456789123456 | Cath |
 
-Scenario Outline: Verify pet's breed accept free text and moves to next page
+Scenario Outline: Verify pet's breed accept free text and moves to next page in Welsh
 	Then I have selected '<Are your details correct>' option
-	When I click on continue button from Are your details correct page
-	Then I should redirected to the Is your pet microchipped page
+	When I click on continue button from Are your details correct page in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the '<MicrochipOption>' option
 	And provided microchip number as <MicrochipNumber>
-	When I click Continue button from microchipped page
-	Then I should redirected to When was your pet microchipped or last scanned? page
+	When I click Continue button from microchipped page in Welsh
+	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I have provided date of PETS microchipped
-	When I click Continue button from When was your pet microchipped page
-	Then I should redirected to the Is your pet a cat, dog or ferret page
-	And I have selected an option as '<Pet>' for pet
-	When I click on continue button from Is your pet a cat, dog or ferret page
-	Then I should redirected to the What breed is your '<Pet>'? page
+	When I click Continue button from When was your pet microchipped page in Welsh
+	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
+	And I have selected an option as '<Pet>' for pet in Welsh
+	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
+	Then I should redirected to the What breed is your '<Pet>'? page in Welsh
 	And I have provided breed value as '<Breed>' in breed dropdownlist
-	When I click on continue button from What is your pet's breed page
-	Then I should redirected to the What is your pet's name page
+	When I click on continue button from What is your pet's breed page in Welsh
+	Then I should redirected to the What is your pet's name page in Welsh
 
 Examples:
-	| Are your details correct | MicrochipOption | MicrochipNumber | Pet | Breed    |
-	| Yes                      | Yes             | 123456789123456 | Dog | DogBreed |
-	| Yes                      | Yes             | 123456789123456 | Cat | CatBreed |
+	| Are your details correct | MicrochipOption | MicrochipNumber | Pet  | Breed    |
+	| Yes                      | Yes             | 123456789123456 | Ci   | DogBreed |
+	| Yes                      | Yes             | 123456789123456 | Cath | CatBreed |

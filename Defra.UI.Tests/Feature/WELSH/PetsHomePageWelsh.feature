@@ -1,4 +1,4 @@
-﻿@PETS
+﻿@WelshPETS
 Feature: PetsHomePageFooterLinksWelsh
 
 Checking the header, footer and Feedback Hyperlinks in Welsh
