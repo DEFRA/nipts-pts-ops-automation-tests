@@ -32,7 +32,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             PetOwnerPostCodePageWelsh?.ClickFindAddressButton();
         }
 
-        [When(@"I I click on Enter the address manually link from postcode page in Welsh")]
+        [When(@"I click on Enter the address manually link from postcode page in Welsh")]
         public void WhenIIClickOnEnterTheAddressManuallyLinkFromPostcodePage()
         {
             PetOwnerPostCodePageWelsh?.ClickManuallyAddressLink();
