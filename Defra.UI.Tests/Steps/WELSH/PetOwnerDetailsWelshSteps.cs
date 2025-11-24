@@ -141,11 +141,11 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(applicationSubmissionPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-        [When(@"I have clicked the View all your lifelong pet travel documents link")]
+/*      [When(@"I have clicked the View all your lifelong pet travel documents link")]
         public void WhenIHaveClickedTheViewAllYourLifelongPetTravelDocumentsLink()
         {
             applicationSubmissionPageWelsh?.ClickViewAllSubmittedPetTravelDocument();
-        }
+        }*/
 
         [When(@"I click Apply for another lifelong pet travel document link in Welsh")]
         public void ThenIClickApplyForAnotherLifelongPetTravelDocumentLink()

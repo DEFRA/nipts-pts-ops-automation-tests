@@ -1,7 +1,6 @@
 ﻿@Validations
 Feature: View pet travel document Validations
 
-
 Background:
 	Given I navigate to PETS a travel document URL
 	When I have provided the password for Landing page
@@ -69,7 +68,7 @@ Scenario: Verify name address and signature details in Issuing authority table o
 	When I have clicked the View hyperlink from home page
 	Then I should see a table named 'Issuing authority' with a column 'Name and address of competent authority' in approved document
 	And the address of authority should be 'Animal and Plant Health Agency' 'Woodham Lane, New Haw, Addlestone, Surrey KT15 3NB'
-	Then I should see 'Signed on behalf of the competent authority(APHA)' column with signed person name and designation
+	Then I should see 'Signed on behalf of the competent authority (APHA)' column with signed person name and designation
 
 Scenario: Verify back button functionality from are your details correct page and from declaration page
 	When I click Create a new pet travel document button

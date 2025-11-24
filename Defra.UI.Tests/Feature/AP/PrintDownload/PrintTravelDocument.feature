@@ -1,4 +1,5 @@
-﻿Feature: Print Travel Document
+﻿@Regression
+Feature: Print Travel Document
 
 Create a PETS travel document from Great Britain to Northern Ireland and Print the travel document
 
