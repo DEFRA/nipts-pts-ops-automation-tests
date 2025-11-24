@@ -7,11 +7,11 @@ using OpenQA.Selenium;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
-    public class SummaryPage : ISummaryPage
+    public class SummaryPageWelsh : ISummaryPageWelsh
     {
         private readonly IObjectContainer _objectContainer;
 
-        public SummaryPage(IObjectContainer container)
+        public SummaryPageWelsh(IObjectContainer container)
         {
             _objectContainer = container;
         }
@@ -33,6 +33,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement lblSignedName => _driver.WaitForElement(By.XPath("//p[contains(normalize-space(.),'Irene Cristofaro')]"));
         private IWebElement lblDesignation => _driver.WaitForElement(By.XPath("//p[contains(normalize-space(.),'Veterinary Head of International Trade')]"));
         private IWebElement lblStatusValue => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']/following-sibling::dd"));
+        private IWebElement lblStatusValueWelsh => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Statws']/following-sibling::dd"));
         private IReadOnlyCollection<IWebElement> IssuingAuthorityTable => _driver.FindElements(By.XPath("//div[@id='document-authority-card']"));
         private IWebElement lnkFirstViewLink => _driver.WaitForElement(By.XPath("//tr[@class='govuk-table__row'][1]//li"));
         private IReadOnlyCollection<IWebElement> lblFerretBreedRow => _driver.FindElements(By.XPath("//dt[normalize-space()='Breed']"));
@@ -199,8 +200,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             _driver.WaitForPageToLoad();
             var printLink = _driver.FindElements(By.Id("print-this-page")).Count;
-            var downloadLink = _driver.FindElements(By.XPath("//a[normalize-space(text())='Download your application'" +
-                " or normalize-space(text())='Download your document' or normalize-space(text())='Lawrlwytho’ch dogfen']")).Count;
+            var downloadLink = _driver.FindElements(By.XPath("//a[normalize-space(text())='Download your application' or normalize-space(text())='Download your document']")).Count;
 
             if (printLink.Equals(0) && downloadLink.Equals(0))
             {
@@ -211,7 +211,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyApplicationDetails(string status)
         {
-            return lblStatusValue.Text.Contains(status);
+            return lblStatusValueWelsh.Text.Contains(status);
         }
 
         public bool VerifyIssuingAuthorityTableIsNotVisible()
