@@ -52,14 +52,14 @@ Scenario Outline: Create PETS Travel Document By PostCode Address User in Welsh
 	Then I should navigate to the Does your pet have any significant features page in Welsh
 	When I have selected '<IsSignificanteFeatures>' for significant features and continue in Welsh
 	Then I navigate to the Check your answers and sign the declaration page in Welsh
-	And I have ticked the checkbox I agree to the declaration 
+	And I have ticked the checkbox I agree to the declaration
 	When I click Send Application button in Declaration page
 	Then I should redirect to the Application submitted page in Welsh
 	And I can see the application reference number
 
 Examples:
-	| PetsOwnerDetails | PetsOwnerName     | PostCode | PhoneNumber | MicroChipNumberOn | MicroChipNumber | Pet | PetName | Gender | PetColor | IsSignificanteFeatures |
-	| Nac ydyn         | DEFRA PTS Service | RM10 8DP | 07401659856 | Yes               | 123456789123456 | Ci | The Dog | Male   | Aur neu felyn    | Oes                    |
+	| PetsOwnerDetails | PetsOwnerName     | PostCode | PhoneNumber | MicroChipNumberOn | MicroChipNumber | Pet | PetName | Gender | PetColor      | IsSignificanteFeatures |
+	| Nac ydyn         | DEFRA PTS Service | RM10 8DP | 07401659856 | Yes               | 123456789123456 | Ci  | The Ci  | Male   | Aur neu felyn | Oes                    |
 
 Scenario Outline: Create PETS Travel Document By Manually Address User in Welsh
 	Then I should navigate to Lifelong pet travel documents page
@@ -101,11 +101,11 @@ Scenario Outline: Create PETS Travel Document By Manually Address User in Welsh
 	Then I should navigate to the Does your pet have any significant features page in Welsh
 	When I have selected '<IsSignificanteFeatures>' for significant features and continue in Welsh
 	Then I navigate to the Check your answers and sign the declaration page in Welsh
-	And I have ticked the checkbox I agree to the declaration 
+	And I have ticked the checkbox I agree to the declaration
 	When I click Send Application button in Declaration page
 	Then I should redirect to the Application submitted page in Welsh
 	And I can see the application reference number
 
 Examples:
-	| PetsOwnerDetails | PetsOwnerName     | AddressLineOne | AddressLineTwo | TownOrCity | County | PostCode | PhoneNumber | MicroChipNumberOn | MicroChipNumber | Pet | PetName | Gender | PetColor | IsSignificanteFeatures |
-	| Nac ydyn               | DEFRA PTS Service | Flat-1         | 12 Reed Road   | Dagenham   | Essex  | RM10 8DP | 07401659856 | Yes               | 123456789123456 | Ci | The Dog | Male   | Aur neu felyn    | Oes                    |
+	| PetsOwnerDetails | PetsOwnerName     | AddressLineOne | AddressLineTwo | TownOrCity | County | PostCode | PhoneNumber | MicroChipNumberOn | MicroChipNumber | Pet | PetName | Gender | PetColor      | IsSignificanteFeatures |
+	| Nac ydyn         | DEFRA PTS Service | Flat-1         | 12 Reed Road   | Dagenham   | Essex  | RM10 8DP | 07401659856 | Yes               | 123456789123456 | Ci  | The Ci  | Male   | Aur neu felyn | Oes                    |
