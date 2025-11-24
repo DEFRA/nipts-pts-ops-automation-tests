@@ -22,11 +22,11 @@ namespace Defra.UI.Tests.Steps.AP
             _objectContainer = container;
         }
 
-/*        [When(@"I click '([^']*)' link to change the language")]
+        [When(@"I click '([^']*)' link to change the language")]
         public void WhenIClickLinkToChangeTheLanguage(string language)
         {
             HomePageWelsh.ClickLanguageLnk(language);
-        }*/
+        }
 
         [Then(@"I should see the heading of dashboard page changed to Welsh")]
         public void ThenIShouldSeeTheHeadingOfDashboardPageChangedToWelsh()
@@ -236,27 +236,27 @@ namespace Defra.UI.Tests.Steps.AP
          public void ThenIShouldNotSeeManageAccountAndSignOutLinks()
          {
              Assert.IsTrue(HomePage?.VerifyManageAccAndSignOutNotVisible());
-         }
+         }*/
 
-         [Then(@"I should see a suspension warning message")]
-         public void ThenIShouldSeeASuspensionWarningMessage()
+         [Then(@"I should see a suspension warning message in Welsh")]
+         public void ThenIShouldSeeASuspensionWarningMessageInWelsh()
          {
-             Assert.IsTrue(HomePage?.VerifySuspensionWarning());
+             Assert.IsTrue(HomePageWelsh?.VerifySuspensionWarningInWelsh());
          }
 
-         [Then(@"I should not see apply for a document green button")]
-         public void ThenIShouldNotSeeApplyForADocumentGreenButton()
+        [Then(@"I should not see apply for a document green button in Welsh")]
+        public void ThenIShouldNotSeeApplyForADocumentGreenButtonInWelsh()
+        {
+            Assert.IsTrue(HomePageWelsh?.VerifyWelshApplyButtonNotVisible());
+        }
+
+        [Then(@"I should verify the status of all records in the dashboard as '(.*)' in Welsh")]
+         public void ThenIShouldVerifyTheStatusOfAllRecordsInTheDashboardAsInWelsh(string susStatus)
          {
-             Assert.IsTrue(HomePage?.VerifyApplyButtonNotVisible());
+             Assert.IsTrue(HomePageWelsh?.VerifySuspensionStatusInDashboardInWelsh(susStatus));
          }
 
-         [Then(@"I should verify the status of all records in the dashboard as '(.*)'")]
-         public void ThenIShouldVerifyTheStatusOfAllRecordsInTheDashboardAs(string susStatus)
-         {
-             Assert.IsTrue(HomePage?.VerifySuspensionStatusInDashboard(susStatus));
-         }
-
-         [Then(@"I should see cookies banner at the top of the page")]
+       /*  [Then(@"I should see cookies banner at the top of the page")]
          public void ThenIShouldSeeCookiesBannerAtTheTopOfThePage()
          {
              Assert.True(HomePage?.VerifyCookiesBanner());
