@@ -1,6 +1,5 @@
-﻿@Validations @Regression
+﻿@Validations
 Feature: View pet travel document Validations
-
 
 Background:
 	Given I navigate to PETS a travel document URL

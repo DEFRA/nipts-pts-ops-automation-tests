@@ -1,4 +1,4 @@
-﻿@ChangeDetails @Regression
+﻿@ChangeDetails
 Feature: Update Pet Details
 
 Modify the Pet details before submitting the application
