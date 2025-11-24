@@ -28,12 +28,5 @@ namespace Defra.UI.Tests.Steps.WELSH
             PetOwnerAddressPageWelsh?.SelectAnAddress(3);
             PetOwnerAddressPageWelsh?.ClickContinueButton();
         }
-
-        //[Then(@"I should navigate to Pets Owner manually address page in Welsh")]
-        //public void ThenIShouldNavigateToPetsOwnerManuallyAddressPage()
-        //{
-        //    var pageTitle = $"Beth yw’ch cyfeiriad?";
-        //    Assert.IsTrue(PetOwnerAddressManuallyPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        //}
     }
 }

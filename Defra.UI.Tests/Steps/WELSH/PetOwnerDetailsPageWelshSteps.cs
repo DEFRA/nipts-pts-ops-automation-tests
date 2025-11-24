@@ -35,7 +35,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             PetOwnerDetailsPageWelsh?.ClickContinueButton();
         }
 
-        [Then(@"I should see an error message '([^']*)' in pet owner details page")]
+        [Then(@"I should see an error message '([^']*)' in pet owner details page in Welsh")]
         public void ThenIShouldSeeAnErrorMessageInPetOwnerDetailsPage(string errorMessage)
         {
             if (!string.IsNullOrEmpty(errorMessage))
@@ -44,20 +44,20 @@ namespace Defra.UI.Tests.Steps.WELSH
             }
         }
 
-        [Then(@"I verify the updated Phone number")]
+        [Then(@"I verify the updated Phone number in Welsh")]
         public void ThenIVerifyTheUpdatedPhoneNumber()
         {
             Assert.IsTrue(PetOwnerDetailsPageWelsh?.VerifyUpdatedPhoneNumber(_scenarioContext.Get<string>("PhoneNumber")));
         }
 
-        [Then(@"I verify the updated Pet Owner Name")]
+        [Then(@"I verify the updated Pet Owner Name in Welsh")]
         public void ThenIVerifyTheUpdatedPetOwnerName()
         {
             string petOwnerName = _scenarioContext.Get<string>("FirstName") + " " + _scenarioContext.Get<string>("LastName");
             Assert.IsTrue(PetOwnerDetailsPageWelsh?.VerifyUpdatedName(petOwnerName));
         }
 
-        [Then(@"I verify the updated Pet Owner Address")]
+        [Then(@"I verify the updated Pet Owner Address in Welsh")]
         public void ThenIVerifyTheUpdatedPetOwnerAddress()
         {
             _driver?.Wait(15);

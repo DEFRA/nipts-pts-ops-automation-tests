@@ -1,4 +1,4 @@
-﻿@PETS @Welsh
+﻿@WelshPETS
 Feature: Pets Owner Address Welsh
 
 Create a PETS travel document to provide address when PETS Owner details are incorrect
@@ -12,7 +12,6 @@ Background:
 	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 
-@APCrossBrowser
 Scenario Outline: Create PETS Travel Document By PostCode Address User in Welsh
 	Then I should navigate to Lifelong pet travel documents page
 	When I click 'Cymraeg' link to change the language

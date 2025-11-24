@@ -29,11 +29,5 @@ namespace Defra.UI.Tests.Steps.WELSH
             var pageTitle = "Cais wedi’i gyflwyno";
             Assert.IsTrue(ApplicationSubmittedPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
-
-        //[Then(@"I can see the application reference number")]
-        //public void ThenICanSeeTheApplicationReferenceNumber()
-        //{
-        //    Assert.IsTrue(!string.IsNullOrEmpty(ApplicationSubmittedPageWelsh?.GetApplicationReferenceNumber()), "There is an issue with application submission");
-        //}
     }
 }
