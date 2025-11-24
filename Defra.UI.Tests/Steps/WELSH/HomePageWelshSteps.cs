@@ -25,7 +25,7 @@ namespace Defra.UI.Tests.Steps.AP
         [When(@"I click '([^']*)' link to change the language")]
         public void WhenIClickLinkToChangeTheLanguage(string language)
         {
-            HomePageWelsh.ClickLanguageLnk(language);
+            HomePageWelsh?.ClickLanguageLnk(language);
         }
 
         [Then(@"I should see the heading of dashboard page changed to Welsh")]

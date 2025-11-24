@@ -5,6 +5,8 @@ using Defra.UI.Tests.Pages.AP.Classes;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Pages;
+using Defra.UI.Tests.Pages.WELSH.Classes;
+using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
 using Reqnroll;
 using Reqnroll.BoDi;
@@ -92,6 +94,12 @@ namespace Defra.UI.Tests.Hooks
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<GetYourPetMicrochippedPageWelsh, IGetYourPetMicrochippedPageWelsh>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ApplicationSubmissionPageWelsh, IApplicationSubmissionPageWelsh>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<SummaryPageWelsh, ISummaryPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetOwnerDetailsPageWelsh, IPetOwnerDetailsPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetOwnerNamePageWelsh, IPetOwnerNamePageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetOwnerPostCodePageWelsh, IPetOwnerPostCodePageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetOwnerAddressPageWelsh, IPetOwnerAddressPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetOwnerPhoneNumberPageWelsh, IPetOwnerPhoneNumberPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetOwnerAddressManuallyPageWelsh, IPetOwnerAddressManuallyPageWelsh>());
         }
 
 
