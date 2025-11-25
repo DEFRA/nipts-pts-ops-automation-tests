@@ -22,7 +22,7 @@ namespace Defra.UI.Tests.Steps.AP
             _objectContainer = container;
         }
 
-        [When(@"I click '([^']*)' link to change the language")]
+        [When(@"I click {string} link to change the language")]
         public void WhenIClickLinkToChangeTheLanguage(string language)
         {
             HomePageWelsh?.ClickLanguageLnk(language);
