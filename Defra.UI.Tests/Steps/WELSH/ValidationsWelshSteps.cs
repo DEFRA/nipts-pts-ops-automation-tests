@@ -3,6 +3,7 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using Reqnroll;
+using Defra.UI.Tests.Pages.WELSH.Interfaces;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -23,7 +24,7 @@ namespace Defra.UI.Tests.Steps.AP
         private IPetColourPage? petColourPage => _objectContainer.IsRegistered<IPetColourPage>() ? _objectContainer.Resolve<IPetColourPage>() : null;
         private ISignificantFeaturesPage? significantFeaturesPage => _objectContainer.IsRegistered<ISignificantFeaturesPage>() ? _objectContainer.Resolve<ISignificantFeaturesPage>() : null;
         private IPetOwnerNamePage? petKeeperPage => _objectContainer.IsRegistered<IPetOwnerNamePage>() ? _objectContainer.Resolve<IPetOwnerNamePage>() : null;
-        private IPetOwnerAddressPage? petOwnerAddressPage => _objectContainer.IsRegistered<IPetOwnerAddressPage>() ? _objectContainer.Resolve<IPetOwnerAddressPage>() : null;
+        private IPetOwnerAddressPageWelsh? petOwnerAddressPageWelsh => _objectContainer.IsRegistered<IPetOwnerAddressPageWelsh>() ? _objectContainer.Resolve<IPetOwnerAddressPageWelsh>() : null;
         private IPetOwnerPhoneNumberPage? petOwnerPhoneNumberPage => _objectContainer.IsRegistered<IPetOwnerPhoneNumberPage>() ? _objectContainer.Resolve<IPetOwnerPhoneNumberPage>() : null;
 
         public ValidationsWelshSteps(ScenarioContext context, IObjectContainer container)
@@ -60,14 +61,14 @@ namespace Defra.UI.Tests.Steps.AP
         }*/
 
 
-/*        [Then(@"I should not be redirected to What is your postcode page")]
+        [Then(@"I should not be redirected to What is your postcode page in Welsh")]
         public void ThenIShouldNotBeRedirectedToWhatIsYourPostcodePage()
         {
-            var pageTitle = "What is your full name?";
-            Assert.IsTrue(petKeeperPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }*/
+            var pageTitle = "Beth yw’ch enw llawn?";
+            Assert.IsTrue(petOwnerAddressPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }
 
-/*        [Then(@"I should see an error message '(.*)' in What is your full name page")]
+        /*[Then(@"I should see an error message '(.*)' in What is your full name page")]
         public void ThenIShouldSeeAnErrorMessageInWhatIsYourFullNamePage(string errorMessage)
         {
             if (!string.IsNullOrEmpty(errorMessage))
@@ -136,12 +137,12 @@ namespace Defra.UI.Tests.Steps.AP
                     }
                 }*/
 
-/*        [Then(@"I should not be redirected to the Is your pet microchipped page")]
+        [Then(@"I should not be redirected to the Is your pet microchipped page in Welsh")]
         public void ThenIShouldNotBeRedirectedToTheIsYourPetMicrochippedPage()
         {
-            var pageTitle = "What is your phone number?";
+            var pageTitle = "Beth yw’ch rhif ffôn?";
             Assert.IsTrue(petOwnerPhoneNumberPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }*/
+        }
 
 /*        [Then(@"I have provided other colour value as '(.*)'")]
         public void ThenIHaveProvidedOtherColourValueAs(string otherColor)
@@ -222,21 +223,21 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIShouldSeeAnErrorMessageInWhatIsYourAddressDetaislPage(string address)
         {
             petOwnerAddressPage?.EnterAddressManually(address, address, address, address, address);
-        }
-
-        [When(@"I click Continue button from What is your address page")]
-        public void WhenIClickContinueButtonFromWhatIsYourAddressPage()
-        {
-            petOwnerAddressPage?.ClickContinueButton();
         }*/
 
-/*        [Then(@"I should see an error message '(.*)' in What is your address page")]
+        [When(@"I click Continue button from What is your address page in Welsh")]
+        public void WhenIClickContinueButtonFromWhatIsYourAddressPage()
+        {
+            petOwnerAddressPageWelsh?.ClickContinueButton();
+        }
+
+        /*[Then(@"I should see an error message '(.*)' in What is your address page in Welsh")]
         public void ThenIShouldSeeAnErrorMessageInWhatIsYourAddressPage(string errorMessage)
         {
-            var errorMessages = errorMessage.Split(',');
+            var errorMessages = errorMessage.Split('$');
             foreach (var error in errorMessages)
             {
-                Assert.True(petOwnerAddressPage?.IsError(error), $"There is no error message found with - {error}");
+                Assert.True(petOwnerAddressPageWelsh?.IsError(error), $"There is no error message found with - {error}");
             }
         }*/
 
