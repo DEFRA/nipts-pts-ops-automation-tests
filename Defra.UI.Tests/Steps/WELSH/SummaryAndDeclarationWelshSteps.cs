@@ -13,7 +13,7 @@ namespace Defra.UI.Tests.Steps.AP
         private readonly IObjectContainer _objectContainer;
         private readonly ScenarioContext _scenarioContext;
 
-      //  private ISummaryPage? summaryPage => _objectContainer.IsRegistered<ISummaryPage>() ? _objectContainer.Resolve<ISummaryPage>() : null;
+        private ISummaryPageWelsh? summaryPageWelsh => _objectContainer.IsRegistered<ISummaryPageWelsh>() ? _objectContainer.Resolve<ISummaryPageWelsh>() : null;
       //  private IApplicationDeclarationPage? declarationPage => _objectContainer.IsRegistered<IApplicationDeclarationPage>() ? _objectContainer.Resolve<IApplicationDeclarationPage>() : null;
         private IChangeDetailsPageWelsh? changeDetailsPageWelsh => _objectContainer.IsRegistered<IChangeDetailsPageWelsh>() ? _objectContainer.Resolve<IChangeDetailsPageWelsh>() : null;
       //  private IHomePage? homePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
@@ -93,11 +93,11 @@ namespace Defra.UI.Tests.Steps.AP
             _scenarioContext.Add("AreDetailsCorrect", option);
         }*/
 
-/*        [When(@"I click on continue button from Are your details correct page")]
-        public void WhenIClickOnContinueButtonFromAreYourDetailsCorrectPage()
+        [When(@"I click on continue button from Are your details correct page in Welsh")]
+        public void WhenIClickOnContinueButtonFromAreYourDetailsCorrectPageInWelsh()
         {
-            changeDetailsPageWelsh?.ClickContinueButton();
-        }*/
+            changeDetailsPageWelsh?.ClickParhauButton();
+        }
 
         /*[When(@"I captured Application PTD number")]
         public void WhenICapturedApplicationPTDNumber()
@@ -281,15 +281,15 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIShouldNotSeeIssuingAuthorityTable()
         {
             Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityTableIsNotVisible());
-        }
+        }*/
 
-        [Then(@"I verify the status of the application '(.*)'")]
-        public void ThenIVerifyTheStatusOfTheApplication(string status)
+        [Then(@"I verify the status of the application '(.*)' in Welsh")]
+        public void ThenIVerifyTheStatusOfTheApplicationInWelsh(string status)
         {
-            Assert.IsTrue(summaryPage?.VerifyApplicationDetails(status), "The status of the PTD is not correct");
+            Assert.IsTrue(summaryPageWelsh?.VerifyApplicationDetails(status), "The status of the PTD is not correct");
         }
 
-        [When(@"I have clicked the first ptd view hyperlink from dashboard")]
+       /* [When(@"I have clicked the first ptd view hyperlink from dashboard")]
         public void WhenIHaveClickedTheFirstPtdViewHyperlinkFromDashboard()
         {
             summaryPage?.ClickFirstViewHyperLink();

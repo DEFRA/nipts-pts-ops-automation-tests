@@ -55,9 +55,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return selectedBread;
         }
 
-        public void ClickContinueButton()
+        public void ClickParhauButton()
         {
-            _driver.ContinueButton();
+            _driver.ParhauButton();
         }
 
         public void EnterFreeTextBreed(string breed)
@@ -81,23 +81,23 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return false;
         }
 
-        public bool VerifyBreedsList(string species)
+        public bool VerifyBreedsListInWelsh(string species)
         {
             drpBreedType.Click();
             
-            List<string> expectedDogBreeds = new List<string> { "Mixed breed or unknown", "Afghan Hound", "Airedale Terrier", "Alaskan Malamute", "Australian Shepherd", "Basenji", "Basset Hound", "Beagle", "Belgian Malinois", "Belgian Tervuren", "Bernese Mountain Dog",
-                "Bichon Frise", "Bloodhound", "Border Collie", "Borzoi", "Boston Terrier", "Boxer", "Bull Terrier", "Bulldog", "Cairn Terrier", "Cavalier King Charles Spaniel", "Chihuahua", "Chow Chow", "Cockapoo", "Cocker Spaniel",
-                "Collie", "Corgi (Pembroke and Cardigan)", "Dachshund", "Dalmatian", "Doberman Pinscher", "English Setter", "Fox Terrier", "French Bulldog", "German Shepherd", "German Shorthaired Pointer", "Golden Retriever", "Great Dane",
-                "Greyhound", "Irish Setter", "Irish Terrier", "Italian Greyhound", "Jack Russell Terrier", "Labrador Retriever", "Lhasa Apso", "Mastiff", "Newfoundland", "Old English Sheepdog", "Papillon", "Pekingese", "Pomeranian",
-                "Poodle (Standard and Miniature)", "Portuguese Water Dog", "Pug", "Rottweiler", "Saint Bernard", "Samoyed", "Scottish Terrier", "Shar Pei", "Shetland Sheepdog", "Shih Tzu", "Siberian Husky", "Toy Poodle", "Vizsla",
-                "Weimaraner", "West Highland White Terrier", "Whippet" };
+            List<string> expectedDogBreeds = new List<string> { "Brid cymysg neu anhysbys", "Adargi Labrador", "Adargi melyn", "Basenji", "Bichon Frise", "Bleiddgi'r Almaen", "Bocser", "Borzoi", "Ci Affgan", "Ci Basset", "Ci codi llwynog", "Ci Dalmataidd", "Ci defaid", 
+                "Ci defaid Awstralia", "Ci defaid Shetland", "Ci defaid y goror", "Ci dŵr Portiwgal", "Ci Esgimo Alasca", "Ci mawr Denmarc", "Ci Sant Bernard", "Ci smwt", "Ci tarw", "Ci tarw Frengig", "Ci’r Tir Newydd", "Cockapoo", "Corfilgi", "Corgi (Penfro ac Aberteifi)",
+                "Corhelgi", "Cyfeirgi Gwyddelig", "Cyfeirgi Seisnig", "Chihuahuah", "Chow", "Dachshund", "Daeargi Airedale", "Daeargi Albanaidd", "Daeargi Almaenig blew cwta", "Daeargi Boston", "Daeargi byrgoes", "Daeargi Gwyddelig", "Daeargi gwyn yr Ucheldiroedd",
+                "Daeargi Jack Russell", "Daeargi tarw", "Dobermann Pinscher", "Gwaetgi", "Hen gi defaid Seisnig", "Hysgi Siberia", "Lhasa Apso", "Llamgi", "Malinois Gwlad Belg", "Mastiff", "Milgi", "Milgi Eidalaidd", "Mynyddgi Bern", "Papillon", "Pecinî", "Pomeraniad",
+                "Pwdl (Pwdl Tegan)", "Pwdl (Tal a Bychan)", "Rottweiler", "Samoyed", "Sbaengi Siarl", "Shar Pei", "Shih Tzu", "Tervuren Gwlad Belg", "Vizsla", "Weimaraner" };
 
-            List<string> expectedCatBreeds = new List<string> { "Mixed breed or unknown", "Abyssinian", "American Shorthair", "Bengal", "Birman", "British Shorthair", "Burmese", "Chartreux", "Cornish Rex", "Devon Rex", "Domestic Longhair", "Domestic Mediumhair", 
-                "Domestic Shorthair", "Exotic Shorthair", "Himalayan", "Maine Coon", "Manx", "Norwegian Forest Cat", "Ocicat", "Oriental Longhair", "Oriental Shorthair", "Persian", "Ragdoll", "Russian Blue", "Savannah", "Scottish Fold", "Scottish Fold Longhair", 
-                "Siamese", "Siberian", "Sphynx", "Tonkinese", "Turkish Angora", "Turkish Van"};
+            List<string> expectedCatBreeds = new List<string> { "Brid cymysg neu anhysbys", "Birman", "Cath Abysinia", "Cath Angora Twrci", "Cath Americanaidd blew cwta", "Cath Bengal", "Cath Bersia", "Cath Brydeinig blew cwta", "Cath Byrma", 
+                "Cath clustiau plyg blew hir o’r Alban", "Cath clustiau plyg o’r Alban", "Cath Chartreux", "Cath ddomestig blew canolig", "Cath ddomestig blew cwta", "Cath ddomestig blew hir", "Cath ddwyreiniol blew cwta", "Cath ddwyreiniol blew hir", 
+                "Cath estron blew cwta", "Cath Fan Twrci", "Cath fforestydd Norwy", "Cath gwta", "Cath Himalaiaidd", "Cath las Rwsia", "Cath Maine", "Cath safana", "Cath Siám", "Cath Siberia", "Cath Toncin", "Ocicat", "Ragdoll", "Rex Cernyw", 
+                "Rex Dyfnaint", "Sffincs" };
 
             IList<IWebElement> breeds = drpBreedsListBox.FindElements(By.TagName("li"));
-            if (species == "Dog")
+            if (species == "Ci")
             {
                 List<string> acutalDogBreeds = new List<String>();
                 foreach (IWebElement option in breeds)
@@ -117,7 +117,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
                 }
             }
 
-            else if (species == "Cat")
+            else if (species == "Cath")
             {
                 List<string> acutalCatBreeds = new List<String>();
                 foreach (IWebElement option in breeds)

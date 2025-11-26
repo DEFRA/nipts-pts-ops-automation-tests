@@ -22,10 +22,10 @@ namespace Defra.UI.Tests.Steps.AP
             _objectContainer = container;
         }
 
-        [When(@"I click '([^']*)' link to change the language")]
+        [When(@"I click {string} link to change the language")]
         public void WhenIClickLinkToChangeTheLanguage(string language)
         {
-            HomePageWelsh.ClickLanguageLnk(language);
+            HomePageWelsh?.ClickLanguageLnk(language);
         }
 
         [Then(@"I should see the heading of dashboard page changed to Welsh")]
@@ -77,22 +77,24 @@ namespace Defra.UI.Tests.Steps.AP
          public void WhenIClickApplyForADocumentButton()
          {
              HomePage?.ClickApplyForPetTravelDocument();
-         }
-         [Then(@"I click the AccessibilityStatement Link")]
-         public void ThenIClickTheAccessibilityStatementLink()
+         }*/
+
+
+         [Then(@"I click the welsh AccessibilityStatement Link")]
+         public void ThenIClickTheWelshAccessibilityStatementLink()
          {
-             HomePage?.ClickAccessibilityStatementLink();
+            HomePageWelsh?.ClickAccessibilityStatementLink();
          }
 
-         [Then(@"I should navigate to the AccessibilityStatement details correct page opens in same tab")]
-         public void ThenIShouldNavigateToTheAccessibilityStatementDetailsCorrectPageOpensInSameTab()
+         [Then(@"I should navigate to the welsh AccessibilityStatement details correct page opens in same tab")]
+         public void ThenIShouldNavigateToTheWelshAccessibilityStatementDetailsCorrectPageOpensInSameTab()
          {
-             var pageTitle = "Accessibility statement for ‘Taking a dog, cat or ferret from Great Britain to Northern Ireland’";
-             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-             Assert.IsTrue(HomePage?.VerifyTheLinkOpensInSameTab());
+             var pageTitle = "Datganiad hygyrchedd ar gyfer 'Mynd â chi, cath neu ffured o Brydain Fawr i Ogledd Iwerddon'";
+             Assert.IsTrue(HomePageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+             Assert.IsTrue(HomePageWelsh?.VerifyTheLinkOpensInSameTab());
          }
 
-         [Then(@"I click the Cookies Link")]
+       /*  [Then(@"I click the Cookies Link")]
          public void ThenIClickTheCookiesLink()
          {
              HomePage?.ClickCookiesLink();
@@ -110,23 +112,23 @@ namespace Defra.UI.Tests.Steps.AP
          {
              var pageTitle = "Pet travel scheme privacy notice";
              Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-         }
+         } */
 
-         [Then(@"I click the TermsAndConditions Link")]
-         public void ThenIClickTheTermsAndConditionsLink()
+         [Then(@"I click the welsh TermsAndConditions Link")]
+         public void ThenIClickTheWelshTermsAndConditionsLink()
          {
-             HomePage?.ClickTermsAndConditionsLink();
+            HomePageWelsh?.ClickTermsAndConditionsLink();
          }
 
-         [Then(@"I should navigate to the TermsAndConditions details correct page opens in same tab")]
-         public void ThenIShouldNavigateToTheTermsAndConditionsDetailsCorrectPageOpensInSameTab()
+         [Then(@"I should navigate to the welsh TermsAndConditions details correct page opens in same tab")]
+         public void ThenIShouldNavigateToTheWelshTermsAndConditionsDetailsCorrectPageOpensInSameTab()
          {
-             var pageTitle = "Northern Ireland Pet Travel Scheme terms and conditions";
-             Assert.IsTrue(HomePage?.VerifyTheLinkOpensInSameTab());
-             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+             var pageTitle = "Telerau ac amodau Cynllun Teithio Anifeiliaid Anwes Gogledd Iwerddon";
+             Assert.IsTrue(HomePageWelsh?.VerifyTheLinkOpensInSameTab());
+             Assert.IsTrue(HomePageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
          }
 
-         [Then(@"I click the CrownCopyright Link")]
+        /* [Then(@"I click the CrownCopyright Link")]
          public void ThenIClickTheCrownCopyrightLink()
          {
              HomePage?.ClickCrownCopyrightLink();
@@ -234,27 +236,27 @@ namespace Defra.UI.Tests.Steps.AP
          public void ThenIShouldNotSeeManageAccountAndSignOutLinks()
          {
              Assert.IsTrue(HomePage?.VerifyManageAccAndSignOutNotVisible());
-         }
+         }*/
 
-         [Then(@"I should see a suspension warning message")]
-         public void ThenIShouldSeeASuspensionWarningMessage()
+         [Then(@"I should see a suspension warning message in Welsh")]
+         public void ThenIShouldSeeASuspensionWarningMessageInWelsh()
          {
-             Assert.IsTrue(HomePage?.VerifySuspensionWarning());
+             Assert.IsTrue(HomePageWelsh?.VerifySuspensionWarningInWelsh());
          }
 
-         [Then(@"I should not see apply for a document green button")]
-         public void ThenIShouldNotSeeApplyForADocumentGreenButton()
+        [Then(@"I should not see apply for a document green button in Welsh")]
+        public void ThenIShouldNotSeeApplyForADocumentGreenButtonInWelsh()
+        {
+            Assert.IsTrue(HomePageWelsh?.VerifyWelshApplyButtonNotVisible());
+        }
+
+        [Then(@"I should verify the status of all records in the dashboard as '(.*)' in Welsh")]
+         public void ThenIShouldVerifyTheStatusOfAllRecordsInTheDashboardAsInWelsh(string susStatus)
          {
-             Assert.IsTrue(HomePage?.VerifyApplyButtonNotVisible());
+             Assert.IsTrue(HomePageWelsh?.VerifySuspensionStatusInDashboardInWelsh(susStatus));
          }
 
-         [Then(@"I should verify the status of all records in the dashboard as '(.*)'")]
-         public void ThenIShouldVerifyTheStatusOfAllRecordsInTheDashboardAs(string susStatus)
-         {
-             Assert.IsTrue(HomePage?.VerifySuspensionStatusInDashboard(susStatus));
-         }
-
-         [Then(@"I should see cookies banner at the top of the page")]
+       /*  [Then(@"I should see cookies banner at the top of the page")]
          public void ThenIShouldSeeCookiesBannerAtTheTopOfThePage()
          {
              Assert.True(HomePage?.VerifyCookiesBanner());

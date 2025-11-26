@@ -199,7 +199,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             _driver.WaitForPageToLoad();
             var printLink = _driver.FindElements(By.Id("print-this-page")).Count;
-            var downloadLink = _driver.FindElements(By.XPath("//a[normalize-space(text())='Download your application' or normalize-space(text())='Download your document']")).Count;
+            var downloadLink = _driver.FindElements(By.XPath("//a[normalize-space(text())='Download your application'" +
+                " or normalize-space(text())='Download your document' or normalize-space(text())='Lawrlwytho’ch dogfen']")).Count;
 
             if (printLink.Equals(0) && downloadLink.Equals(0))
             {

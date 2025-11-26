@@ -37,6 +37,7 @@
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\ReportNonCompliance - Copy.feature.cs" />
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\SearchDocumentsValidations - Copy.feature.cs" />
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\PetsHomePage.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\PTSignificantFeatures.feature.cs" />
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\SignIn.feature.cs" />
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\Validations\Microchip Information Validations.feature.cs" />
     <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\Validations\Pet Details Validations.feature.cs" />
@@ -203,8 +204,20 @@
     <Compile Update="Feature\WELSH\PetsHomePageWelsh.feature.cs">
       <DependentUpon>PetsHomePageWelsh.feature</DependentUpon>
     </Compile>
+    <Compile Update="Feature\WELSH\PTSignificantFeaturesWelsh.feature.cs">
+      <DependentUpon>PTSignificantFeaturesWelsh.feature</DependentUpon>
+    </Compile>
     <Compile Update="Feature\WELSH\Validations\Microchip Information Validations Welsh.feature.cs">
       <DependentUpon>Microchip Information Validations Welsh.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\WELSH\Validations\Pet Details Validations Welsh.feature.cs">
+      <DependentUpon>Pet Details Validations Welsh.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\WELSH\Validations\Suspension Validations Welsh.feature.cs">
+      <Visible>true</Visible>
+      <DependentUpon>Suspension Validations Welsh.feature</DependentUpon>
+      <DesignTime>true</DesignTime>
+      <AutoGen>true</AutoGen>
     </Compile>
   </ItemGroup>
 
@@ -245,7 +258,19 @@
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\WELSH\PTSignificantFeaturesWelsh.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
     <ReqnrollFeatureFiles Update="Feature\WELSH\Validations\Microchip Information Validations Welsh.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\WELSH\Validations\Pet Details Validations Welsh.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\WELSH\Validations\Suspension Validations Welsh.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </ReqnrollFeatureFiles>

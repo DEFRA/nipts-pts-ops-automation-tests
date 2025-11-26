@@ -21,7 +21,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         
         public IWebElement lnkFeedback => _driver.WaitForElement(By.XPath("//a[contains(text() ,'adborth (yn agor mewn tab newydd)')]"));
         public IWebElement lnkPrivacyNotice => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Hysbysiad preifatrwydd (yn agor mewn tab newydd)')]"));
+        public IWebElement lnkAccessibilityStatement => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Datganiad hygyrchedd')]"));
         public IWebElement lnkCookies => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Cwcis')]"));
+        public IWebElement lnkTermsAndConditions => _driver.WaitForElement(By.LinkText("Telerau ac amodau"));
         public IWebElement lnkEnglish => _driver.WaitForElement(By.XPath("//span[normalize-space(text()) ='English']"));
         public IWebElement lnkWelsh => _driver.WaitForElement(By.XPath("//span[normalize-space(text()) ='Cymraeg']"));
         public IWebElement lnkDashboardHeadingWelsh => _driver.WaitForElement(By.XPath("//*[@id='documents']"));
@@ -48,7 +50,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> txtViewLinks => _driver.WaitForElements(By.XPath("//*[@class = 'govuk-table__row']/td[2]"));
         private IReadOnlyCollection<IWebElement> lnksManageAccAndSingOut => _driver.FindElements(By.XPath("//div[@class = 'login-nav govuk-!-display-none-print']"));
         private IWebElement lblSusWarning => _driver.WaitForElement(By.XPath("//div[@class = 'govuk-warning-text']/strong"));
-        private IReadOnlyCollection<IWebElement> btnApplyForDocumentCheck => _driver.FindElements(By.XPath("//button[normalize-space(text())='Apply for a document']"));
+        private IReadOnlyCollection<IWebElement> btnApplyForDocumentCheck => _driver.FindElements(By.XPath("//button[normalize-space(text())='Gwneud cais am ddogfen']"));
         private IReadOnlyCollection<IWebElement> lblSusStatusInDashboard => _driver.FindElements(By.XPath("//*[@class='govuk-table__cell status-column']/strong"));
         private IWebElement lblCookiesBanner => _driver.WaitForElement(By.XPath("//h2[@class = 'govuk-cookie-banner__heading govuk-heading-m']"));
         private IWebElement btnAcceptAdditionalCookies => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Accept additional cookies']"));
@@ -139,7 +141,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void ClickAccessibilityStatementLink()
         {
-            AccessibilityStatementLink.Click();
+            lnkAccessibilityStatement.Click();
         }
 
         public void ClickCookiesLink()
@@ -157,7 +159,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         }
         public void ClickTermsAndConditionsLink()
         {
-            TermsAndConditionsLink.Click();
+            lnkTermsAndConditions.Click();
         }
 
         public void ClickCrownCopyrightLink()
@@ -298,21 +300,21 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return lnksManageAccAndSingOut.Count == 0;
         }
 
-        public bool VerifySuspensionWarning()
+        public bool VerifySuspensionWarningInWelsh()
         {
-            return lblSusWarning.Text.Trim().Contains("You have been suspended from this scheme and cannot use your pet travel documents or apply for new ones until your suspension is lifted. Check your email for more information, including how to appeal.");
+            return lblSusWarning.Text.Trim().Contains("Rydych chi wedi cael eich atal o'r cynllun yma a chewch chi ddim defnyddio’ch dogfennau teithio anifeiliaid anwes na gwneud cais am rai newydd nes bod eich ataliad wedi’i godi. Gwiriwch eich ebost am ragor o wybodaeth, gan gynnwys sut i apelio.");
         }
 
-        public bool VerifyApplyButtonNotVisible()
+        public bool VerifyWelshApplyButtonNotVisible()
         {
             return btnApplyForDocumentCheck.Count == 0;
         }
 
-        public bool VerifySuspensionStatusInDashboard(string susStatus)
+        public bool VerifySuspensionStatusInDashboardInWelsh(string susStatus)
         {
             foreach (var element in lblSusStatusInDashboard)
             {
-                if (element.Text.Contains("Suspended"))
+                if (element.Text.Contains("Wedi’i atal"))
                     return true;
             }
             return false;

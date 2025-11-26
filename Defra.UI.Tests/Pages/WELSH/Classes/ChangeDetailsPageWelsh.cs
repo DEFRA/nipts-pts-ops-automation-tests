@@ -24,9 +24,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> divPetOwnerDetailsList => _driver.WaitForElements(By.XPath("//dl/div"));
 
 
-        public void ClickContinueButton()
+        public void ClickParhauButton()
         {
-            _driver.ContinueButton();
+            _driver.ParhauButton();
         }
 
         public bool IsNextPageLoaded(string pageTitle)

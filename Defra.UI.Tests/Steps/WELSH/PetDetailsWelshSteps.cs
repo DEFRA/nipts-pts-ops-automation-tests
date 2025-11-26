@@ -17,9 +17,12 @@ namespace Defra.UI.Tests.Steps.AP
         private IPetBreedPageWelsh? breedPageWelsh => _objectContainer.IsRegistered<IPetBreedPageWelsh>() ? _objectContainer.Resolve<IPetBreedPageWelsh>() : null;
         private IPetNamePageWelsh? petNamePageWelsh => _objectContainer.IsRegistered<IPetNamePageWelsh>() ? _objectContainer.Resolve<IPetNamePageWelsh>() : null;
         private IPetSexPage? petSexPage => _objectContainer.IsRegistered<IPetSexPage>() ? _objectContainer.Resolve<IPetSexPage>() : null;
+        private IPetSexPageWelsh? petSexPageWelsh => _objectContainer.IsRegistered<IPetSexPageWelsh>() ? _objectContainer.Resolve<IPetSexPageWelsh>() : null;
         private IPetDOBPage? petDOBPage => _objectContainer.IsRegistered<IPetDOBPage>() ? _objectContainer.Resolve<IPetDOBPage>() : null;
+        private IPetDOBPageWelsh? petDOBPageWelsh => _objectContainer.IsRegistered<IPetDOBPageWelsh>() ? _objectContainer.Resolve<IPetDOBPageWelsh>() : null;
         private IPetColourPage? petColourPag => _objectContainer.IsRegistered<IPetColourPage>() ? _objectContainer.Resolve<IPetColourPage>() : null;
-        private ISignificantFeaturesPage? significantFeaturesPage => _objectContainer.IsRegistered<ISignificantFeaturesPage>() ? _objectContainer.Resolve<ISignificantFeaturesPage>() : null;
+        private IPetColourPageWelsh? petColourPageWelsh => _objectContainer.IsRegistered<IPetColourPageWelsh>() ? _objectContainer.Resolve<IPetColourPageWelsh>() : null;
+        private ISignificantFeaturesPageWelsh? significantFeaturesPageWelsh => _objectContainer.IsRegistered<ISignificantFeaturesPageWelsh>() ? _objectContainer.Resolve<ISignificantFeaturesPageWelsh>() : null;
 
         public PetDetailsWelshSteps(ScenarioContext context, IObjectContainer container)
         {
@@ -44,7 +47,7 @@ namespace Defra.UI.Tests.Steps.AP
         [When(@"I click on continue button from Is your pet a cat, dog or ferret page in Welsh")]
         public void WhenIClickOnContinueButtonFromIsYourPetACatDogOrFerretPageInWelsh()
         {
-            petSpeciesPageWelsh?.ClickContinueButton();
+            petSpeciesPageWelsh?.ClickParhauButton();
         }
 
         [Then(@"I should redirected to the What breed is your {string}? page in Welsh")]
@@ -57,12 +60,18 @@ namespace Defra.UI.Tests.Steps.AP
             }
         }
 
-/*        [Then(@"I have provided freetext breed as '([^']*)'")]
-        public void ThenIHaveProvidedFreetextBreedAs(string breed)
+        [When(@"I click on continue button from What is your pet's breed page in Welsh")]
+        public void WhenIClickOnContinueButtonFromWhatIsYourPetssBreedPageInWelsh()
         {
-            breedPage?.EnterFreeTextBreed(breed);
-            _scenarioContext.Add("Breed", breed);
-        }*/
+            breedPageWelsh?.ClickParhauButton();
+        }
+
+        /*        [Then(@"I have provided freetext breed as '([^']*)'")]
+                public void ThenIHaveProvidedFreetextBreedAs(string breed)
+                {
+                    breedPage?.EnterFreeTextBreed(breed);
+                    _scenarioContext.Add("Breed", breed);
+                }*/
 
 
         [Then(@"I should redirected to the What is your pet's name page in Welsh")]
@@ -72,11 +81,23 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(petNamePageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
+        [When(@"I click on continue button from What is your pet's name page in Welsh")]
+        public void WhenIClickOnContinueButtonFromWhatIsYourPetsNamePage()
+        {
+            petNamePageWelsh?.ClickParhauButton();
+        }
+
         [Then(@"I should redirected to the What sex is your pet page in Welsh")]
         public void ThenIShouldRedirectedToTheWhatSexIsYourPetPageInWelsh()
         {
             var pageTitle = "Beth yw rhyw eich anifail anwes?";
             Assert.IsTrue(petSexPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }
+
+        [When(@"I click on continue button from What sex is your pet page in Welsh")]
+        public void WhenIClickOnContinueButtonFromWhatSexIsYourPetPage()
+        {
+            petSexPageWelsh?.ClickParhauButton();
         }
 
         [Then(@"I should redirected to the Do you know your pet's date of birth page in Welsh")]
@@ -86,71 +107,63 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(petDOBPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-        [Then(@"I have provided date of birth")]
-        public void ThenIHaveProvidedDateOfBirth()
+        [When(@"I click on continue button from Do you know your pet's date of birth? page in Welsh")]
+        public void WhenIClickOnContinueButtonFromDoYouKnowYourPetsDateOfBirthPageInWelsh()
         {
-            var dateOfBirth = petDOBPage?.EnterDateMonthYear(DateTime.Now.AddYears(-8));
-            _scenarioContext.Add("DateOfBirth", dateOfBirth);
+            petDOBPageWelsh?.ClickParhauButton();
         }
 
-
-    /* [When(@"I click on continue button from Do you know your pet's date of birth? page")]
-        public void WhenIClickOnContinueButtonFromDoYouKnowYourPetsDateOfBirthPage()
+        [Then(@"I should redirected to the What is the main colour of your '([^']*)' page in Welsh")]
+        public void ThenIShouldRedirectedToTheWhatIsTheMainColourOfYourPageInWelsh(string petCategory)
         {
-            petDOBPage?.ClickContinueButton();
-        }*/
-
-        [Then(@"I should redirected to the What is the main colour of your '([^']*)' page")]
-        public void ThenIShouldRedirectedToTheWhatIsTheMainColourOfYourPage(string petCategory)
-        {
-            var pageTitle = $"What is the main colour of your {petCategory.ToLower()}?";
+            var pageTitle = $"Beth yw prif liw eich {petCategory.ToLower()}?";
             Assert.IsTrue(petColourPag?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-        [Then(@"I have selected the option as '([^']*)' for color")]
-        public void ThenIHaveSelectedTheOptionAsForColor(string color)
+        [Then(@"I have selected the option as '([^']*)' for color in Welsh")]
+        public void ThenIHaveSelectedTheOptionAsForColorInWelsh(string color)
         {
-            petColourPag?.SelectColorOption(color);
+            petColourPageWelsh?.SelectColorOption(color);
             _scenarioContext.Add("Color", color);
         }
 
-        [Then(@"I provided other color of the pet as ""([^""]*)""")]
+/*        [Then(@"I provided other color of the pet as ""([^""]*)""")]
         public void ThenIProvidedOtherColorOfThePetAs(string otherColor)
         {
             petColourPag?.SelectOtherColorOption(otherColor);
             _scenarioContext.Add("OtherColor", otherColor);
+        }*/
+
+        [When(@"I click on continue button from What is the main colour of your pet page in Welsh")]
+        public void WhenIClickOnContinueButtonFromWhatIsTheMainColourOfYourPetPageInWelsh()
+        {
+            petColourPageWelsh?.ClickParhauButton();
         }
 
-        [When(@"I click on continue button from What is the main colour of your pet page")]
-        public void WhenIClickOnContinueButtonFromWhatIsTheMainColourOfYourPetPage()
+        [Then(@"I should redirected to the Does your pet have any significant features page in Welsh")]
+        public void ThenIShouldRedirectedToTheDoesYourPetHaveAnySignificantFeaturesPageInWelsh()
         {
-            petColourPag?.ClickContinueButton();
+            var pageTitle = "Oes gan eich anifail anwes unrhyw nodweddion arwyddocaol?";
+            Assert.IsTrue(significantFeaturesPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-        [Then(@"I should redirected to the Does your pet have any significant features page")]
-        public void ThenIShouldRedirectedToTheDoesYourPetHaveAnySignificantFeaturesPage()
-        {
-            var pageTitle = "Does your pet have any significant features?";
-            Assert.IsTrue(significantFeaturesPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }
+        /*        [Then(@"I have selected an option as '([^']*)' for significant features")]
+                public void ThenIHaveSelectedAnOptionAsForSignificantFeatures(string hasSignificantFeatures)
+                {
+                    var significantFeature = significantFeaturesPage?.SelectSignificantFeaturesOption(hasSignificantFeatures);
+                    _scenarioContext.Add("SignificantFeatures", significantFeature);
+                }*/
 
-        [Then(@"I have selected an option as '([^']*)' for significant features")]
-        public void ThenIHaveSelectedAnOptionAsForSignificantFeatures(string hasSignificantFeatures)
-        {
-            var significantFeature = significantFeaturesPage?.SelectSignificantFeaturesOption(hasSignificantFeatures);
-            _scenarioContext.Add("SignificantFeatures", significantFeature);
-        }
+                [When(@"I click on continue button from Does your pet have any significant features page in Welsh")]
+                public void WhenIClickOnContinueButtonFromDoesYourPetHaveAnySignificantFeaturesPageInWelsh()
+                {
+                    significantFeaturesPageWelsh?.ClickParhauButton();
+                }
 
-        [When(@"I click on continue button from Does your pet have any significant features page")]
-        public void WhenIClickOnContinueButtonFromDoesYourPetHaveAnySignificantFeaturesPage()
-        {
-            significantFeaturesPage?.ClickContinueButton();
-        }
-
-        [Then(@"I have provided date of birth as '(.*)''(.*)''(.*)'")]
-        public void ThenIHaveProvidedDateOfBirthAs(string day, string month, string year)
-        {
-            petDOBPage?.EnterPetDateOfBirth(day, month, year);
-        }
+    /*            [Then(@"I have provided date of birth as '(.*)''(.*)''(.*)'")]
+                public void ThenIHaveProvidedDateOfBirthAs(string day, string month, string year)
+                {
+                    petDOBPage?.EnterPetDateOfBirth(day, month, year);
+                }*/
     }
 }

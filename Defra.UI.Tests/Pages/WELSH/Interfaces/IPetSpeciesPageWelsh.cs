@@ -4,7 +4,7 @@
     {
         bool IsNextPageLoaded(string pageTitle);
         void SelectSpecies(string petCategory);
-        void ClickContinueButton();
+        void ClickParhauButton();
         bool IsError(string errorMessage);
     }
 }

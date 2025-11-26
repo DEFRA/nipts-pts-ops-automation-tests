@@ -4,7 +4,7 @@
     {
         bool IsNextPageLoaded(string pageTitle);
         string EnterDateMonthYear(DateTime dateTime);
-        void ClickContinueButton();
+        void ClickParhauButton();
         bool IsError(string errorMessage);
         void EnterMicrochippedDate(string day, string month, string year);
     }

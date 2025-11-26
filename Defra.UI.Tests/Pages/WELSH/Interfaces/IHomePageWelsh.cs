@@ -33,9 +33,9 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         void CloseCurrentTabAndSwitchBack();
         bool IsInvalidDocumentsPageLoaded(string pageTitle);
         bool VerifyManageAccAndSignOutNotVisible();
-        bool VerifySuspensionWarning();
-        bool VerifyApplyButtonNotVisible();
-        bool VerifySuspensionStatusInDashboard(string susStatus);
+        bool VerifySuspensionWarningInWelsh();
+        bool VerifyWelshApplyButtonNotVisible();
+        bool VerifySuspensionStatusInDashboardInWelsh(string susStatus);
         bool VerifyCookiesBanner();
         bool VerifyCookiesBannerButtons();
         void ClickAcceptAdditionalCookies();
