@@ -377,7 +377,7 @@ Scenario: Offline PTD Application should not be editable in Revoke Pending Statu
 	When I assign the application to myself
 	Then I move the application to Revoke Pending status
 	And I cannot edit 'Pet Owner' Details
-	And I cannot edit 'Pet' Details
+	And I cannot edit 'REVOKE PENDING Pet' Details
 	And I cannot edit 'Applicant details' Details
 
 Scenario: Verify the Unique features field is empty in offline PTD application and authorise it and verify the status in CP
