@@ -46,7 +46,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             foreach (var element in lblErrorMessages)
             {
-                if (element.Text.Contains(errorMessage))
+                if (element.Text.Equals(errorMessage))
                 {
                     return true;
                 }

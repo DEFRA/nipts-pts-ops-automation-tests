@@ -17,7 +17,9 @@ namespace Defra.UI.Tests.Steps.AP
         private IApplicationSubmissionPageWelsh? applicationSubmissionPageWelsh => _objectContainer.IsRegistered<IApplicationSubmissionPageWelsh>() ? _objectContainer.Resolve<IApplicationSubmissionPageWelsh>() : null;
         private IPetOwnerNamePageWelsh? petOwnerNamePage => _objectContainer.IsRegistered<IPetOwnerNamePageWelsh>() ? _objectContainer.Resolve<IPetOwnerNamePageWelsh>() : null;
         private IPetOwnerAddressPage? petOwnerAddressPage => _objectContainer.IsRegistered<IPetOwnerAddressPage>() ? _objectContainer.Resolve<IPetOwnerAddressPage>() : null;
+        private IPetOwnerAddressPageWelsh? petOwnerAddressPageWelsh => _objectContainer.IsRegistered<IPetOwnerAddressPageWelsh>() ? _objectContainer.Resolve<IPetOwnerAddressPageWelsh>() : null;
         private IPetOwnerPhoneNumberPage? petOwnerPhoneNumberPage => _objectContainer.IsRegistered<IPetOwnerPhoneNumberPage>() ? _objectContainer.Resolve<IPetOwnerPhoneNumberPage>() : null;
+        private IPetOwnerPhoneNumberPageWelsh? petOwnerPhoneNumberPageWelsh => _objectContainer.IsRegistered<IPetOwnerPhoneNumberPageWelsh>() ? _objectContainer.Resolve<IPetOwnerPhoneNumberPageWelsh>() : null;
 
         public PetOwnerDetailsWelshSteps(ScenarioContext context, IObjectContainer container)
         {
@@ -28,7 +30,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I should redirected to the What is your full name page in Welsh")]
         public void ThenIShouldRedirectedToTheWhatIsYourFullNamePage()
         {
-            Assert.True(petOwnerNamePage?.IsNextPageLoaded("What is your full name?"), "Application page not loaded");
+            Assert.True(petOwnerNamePage?.IsNextPageLoaded("Beth yw’ch enw llawn?"), "Application page not loaded");
         }
 
         [Then(@"I provided the full name of the pet keeper as '(.*)' in Welsh")]
@@ -47,7 +49,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I should redirected to What is your postcode page in Welsh")]
         public void ThenIShouldRedirectedToWhatIsYourPostcodePage()
         {
-            Assert.True(petOwnerAddressPage?.IsNextPageLoaded("What is your postcode?"), "Application page not loaded");
+            Assert.True(petOwnerAddressPage?.IsNextPageLoaded("Beth yw’ch cod post?"), "Application page not loaded");
         }
 
         [Then(@"I should redirected to What is the pet keeper's postcode? in Welsh")]
@@ -62,14 +64,14 @@ namespace Defra.UI.Tests.Steps.AP
             petOwnerAddressPage?.ClickContinueButton();
         }
 
-        [Then(@"I provided the postcode '([^']*)' in Welsh")]
+        /*[Then(@"I provided the postcode '([^']*)' in Welsh")]
         public void ThenIProvidedThePostcode(string postCode)
         {
             petOwnerAddressPage?.EnterPostCode(postCode);
             _scenarioContext.Add("Postcode", postCode);
-        }
+        }*/
 
-        [When(@"I click Search button in Welsh")]
+        /*[When(@"I click Search button in Welsh")]
         public void WhenIClickSearchButton()
         {
             petOwnerAddressPage?.ClickSearchButton();
@@ -86,12 +88,12 @@ namespace Defra.UI.Tests.Steps.AP
         {
             var addressLines = petOwnerAddressPage?.SelectAnAddress(addressIndex);
             _scenarioContext.Add("Address", addressLines);
-        }
+        }*/
 
         [When(@"I click Continue button from What is your postcode page in Welsh")]
         public void WhenIClickContinueButtonFromWhatIsYourPostcodePage()
         {
-            petOwnerAddressPage?.ClickContinueButton();
+            petOwnerAddressPageWelsh?.ClickContinueButton();
         }
 
         [When(@"I click Find Address button from What is your postcode page in Welsh")]
@@ -103,7 +105,7 @@ namespace Defra.UI.Tests.Steps.AP
         [When(@"I click the link Enter the address manually in Welsh")]
         public void WhenIClickTheLinkEnterTheAddressManually()
         {
-            petOwnerAddressPage?.ClickICannotFindTheAddressInTheListLink();
+            petOwnerAddressPageWelsh?.ClickICannotFindTheAddressInTheListLink();
         }
 
         [When(@"I provided address details with postcode '([^']*)' in Welsh")]
@@ -118,20 +120,20 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I should redirected to What is your phone number page in Welsh")]
         public void ThenIShouldRedirectedToWhatIsYourPhoneNumberPage()
         {
-            Assert.True(petOwnerPhoneNumberPage?.IsNextPageLoaded("What is your phone number?"), "Application page not loaded");
+            Assert.True(petOwnerPhoneNumberPage?.IsNextPageLoaded("Beth yw’ch rhif ffôn?"), "Application page not loaded");
         }
 
-        [Then(@"I provided the phone number '([^']*)' in Welsh")]
-        public void ThenIProvidedThePhoneNumber(string phoneNumber)
-        {
-            petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
-            _scenarioContext.Add("PhoneNumber", phoneNumber);
-        }
+        //[Then(@"I provided the phone number '([^']*)' in Welsh")]
+        //public void ThenIProvidedThePhoneNumber(string phoneNumber)
+        //{
+        //    petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
+        //    _scenarioContext.Add("PhoneNumber", phoneNumber);
+        //}
 
         [When(@"I click Continue button from What is your phone number page in Welsh")]
         public void WhenIClickContinueButtonFromWhatIsYourPhoneNumberPage()
         {
-            petOwnerPhoneNumberPage?.ClickContinueButton();
+            petOwnerPhoneNumberPageWelsh?.ClickContinueButton();
         }
 
         [Then(@"I should redirected to the Application submitted page in Welsh")]

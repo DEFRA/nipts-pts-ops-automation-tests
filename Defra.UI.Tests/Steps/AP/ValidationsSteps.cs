@@ -294,7 +294,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I should see an error message '(.*)' in What is your address page")]
         public void ThenIShouldSeeAnErrorMessageInWhatIsYourAddressPage(string errorMessage)
         {
-            var errorMessages = errorMessage.Split(',');
+            var errorMessages = errorMessage.Split('$');
             foreach (var error in errorMessages)
             {
                 Assert.True(petOwnerAddressPage?.IsError(error), $"There is no error message found with - {error}");
