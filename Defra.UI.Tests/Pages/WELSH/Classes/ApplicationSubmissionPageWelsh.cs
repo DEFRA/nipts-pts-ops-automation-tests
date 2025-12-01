@@ -20,7 +20,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public IWebElement PageHeading => _driver.WaitForElement(By.ClassName("govuk-panel__title"), true);
         private IWebElement lblUniqueReferenceNumber => _driver.WaitForElement(By.XPath("//div[@class='govuk-panel__body']/strong"));
         private IWebElement lnkApplyForAnother => _driver.WaitForElement(By.XPath("//a[contains(text(),'Apply for another')]"));
-        private IWebElement lnkViewAllSubmittedApplications => _driver.WaitForElement(By.XPath("//a[contains(text(),'View all your lifelong')]"));
+        private IWebElement lnkViewAllSubmittedApplications => _driver.WaitForElement(By.XPath("//a[contains(text(),'Gweld eich holl ddogfennau teithio gydol oes i anifeiliaid anwes')]"));
         #endregion
 
         #region Methods

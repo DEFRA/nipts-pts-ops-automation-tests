@@ -42,10 +42,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> tableActionRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/td[2]//a"), true);
         private IWebElement lnkManageAccount => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Manage account']"));
         private IWebElement lnkSignOut => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Sign out')]"));
-        private IWebElement lnkInvalidDocuments => _driver.WaitForElement(By.XPath("//a[contains(text() ,'View invalid documents')]"));
+        private IWebElement lnkInvalidDocuments => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Gweld dogfennau annilys')]"));
         private IWebElement InvalidDocHeader => _driver.WaitForElement(By.XPath("//*[@class='govuk-heading-xl govuk-!-margin-bottom-4']"));
-        private IWebElement lblPetName => _driver.WaitForElement(By.XPath("//th[text() = 'Pet name']"));
-        private IWebElement lblStatus => _driver.WaitForElement(By.XPath("//th[text() = 'Status']"));
+        private IWebElement lblPetName => _driver.WaitForElement(By.XPath("//th[text() = \"Enw’r anifail anwes\"]"));
+        private IWebElement lblStatus => _driver.WaitForElement(By.XPath("//th[text() = 'Statws']"));
         private IReadOnlyCollection<IWebElement> txtStausValues => _driver.WaitForElements(By.XPath("//*[@class = 'govuk-table__row']/td[1]"));
         private IReadOnlyCollection<IWebElement> txtViewLinks => _driver.WaitForElements(By.XPath("//*[@class = 'govuk-table__row']/td[2]"));
         private IReadOnlyCollection<IWebElement> lnksManageAccAndSingOut => _driver.FindElements(By.XPath("//div[@class = 'login-nav govuk-!-display-none-print']"));
@@ -53,9 +53,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> btnApplyForDocumentCheck => _driver.FindElements(By.XPath("//button[normalize-space(text())='Gwneud cais am ddogfen']"));
         private IReadOnlyCollection<IWebElement> lblSusStatusInDashboard => _driver.FindElements(By.XPath("//*[@class='govuk-table__cell status-column']/strong"));
         private IWebElement lblCookiesBanner => _driver.WaitForElement(By.XPath("//h2[@class = 'govuk-cookie-banner__heading govuk-heading-m']"));
-        private IWebElement btnAcceptAdditionalCookies => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Accept additional cookies']"));
-        private IWebElement btnRejectAdditionalCookies => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Reject additional cookies']"));
-        private IWebElement lnkViewCookies => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='View cookies']"));
+        private IWebElement btnAcceptAdditionalCookies => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Derbyn cwcis ychwanegol']"));
+        private IWebElement btnRejectAdditionalCookies => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Gwrthod cwcis ychwanegol']"));
+        private IWebElement lnkViewCookies => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Gweld cwcis']"));
         private IWebElement lblAcceptedCookies => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-accepted']//p"));
         private IWebElement lblRejectedCookies => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-rejected']//p"));
         private IWebElement lnkChangeCookieSettingsAccepted => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-accepted']//a"));
@@ -246,7 +246,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyInvalidDocumentsLink()
         {
-            return lnkInvalidDocuments.Text.Equals("View invalid documents");
+            return lnkInvalidDocuments.Text.Equals("Gweld dogfennau annilys");
         }
 
         public void ClickInvalidDocumentsLink()
@@ -263,10 +263,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             foreach (var element in txtStausValues)
             {
-                if (element.Text.Contains("Unsuccessful") || element.Text.Contains("Cancelled"))
+                if (element.Text.Contains("Yn aflwyddiannus") || element.Text.Contains("Wedi’u canslo"))
                     return true;
-                else if (element.Text.Contains("Pending") || element.Text.Contains("Approved"))
-                    return false;
+                else if (element.Text.Contains("Yn aros") || element.Text.Contains("Wedi’u cymeradwyo"))
+                    return false;                
             }
             return false;
         }
@@ -275,10 +275,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             foreach (var element in txtViewLinks)
             {
-                if (element.Text.Contains("View"))
-                    return true;
+                if (!element.Text.Contains("Gweld"))
+                    return false;
             }
-            return false;
+            return true;
         }
 
         public void CloseCurrentTabAndSwitchBack()
@@ -322,14 +322,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyCookiesBanner()
         {
-            return lblCookiesBanner.Text.Trim().Contains("Cookies on Taking a pet from Great Britain to Northern Ireland");
+            return lblCookiesBanner.Text.Trim().Contains("Cwcis ar fynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon");
         }
 
         public bool VerifyCookiesBannerButtons()
         {
-            return btnAcceptAdditionalCookies.Text.Trim().Contains("Accept additional cookies")
-                && btnRejectAdditionalCookies.Text.Trim().Contains("Reject additional cookies")
-                && lnkViewCookies.Text.Trim().Contains("View cookies");
+            return btnAcceptAdditionalCookies.Text.Trim().Contains("Derbyn cwcis ychwanegol")
+                && btnRejectAdditionalCookies.Text.Trim().Contains("Gwrthod cwcis ychwanegol")
+                && lnkViewCookies.Text.Trim().Contains("Gweld cwcis");
         }
 
         public void ClickAcceptAdditionalCookies()
@@ -339,7 +339,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyAcceptedCookiesConfirmation()
         {
-            return lblAcceptedCookies.Text.Trim().Contains("You've accepted additional cookies.");
+            return lblAcceptedCookies.Text.Trim().Contains("Rydych chi wedi derbyn cwcis ychwanegol. Gallwch chi newid eich gosodiadau cwcis unrhyw bryd.");
         }
 
         public void ClickRejectAdditionalCookies()
@@ -349,7 +349,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyRejectedCookiesConfirmation()
         {
-            return lblRejectedCookies.Text.Trim().Contains("You've rejected additional cookies.");
+            return lblRejectedCookies.Text.Trim().Contains("Rydych chi wedi gwrthod cwcis ychwanegol. Gallwch chi newid eich gosodiadau cwcis unrhyw bryd.");
         }
 
         public void ClickHideCookiesButton(string option)
@@ -362,8 +362,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyCookiesRadioButtons()
         {
-            return btnCookiesOptionYes.Text.Trim().Contains("Yes")
-                && btnCookiesOptionNo.Text.Trim().Contains("No");
+            return btnCookiesOptionYes.Text.Trim().Contains("Oes")
+                && btnCookiesOptionNo.Text.Trim().Contains("Nac oes");
         }
 
         public bool VerifyCookiesDefaultSelection()
@@ -387,8 +387,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyCookiesSuccessMessage()
         {
-            return txtSuccessMsgHeader.Text.Trim().Contains("Success")
-                && txtSuccessMsg.Text.Trim().Contains("You’ve set your cookie preferences.");
+            return txtSuccessMsgHeader.Text.Trim().Contains("Llwyddiant")
+                && txtSuccessMsg.Text.Trim().Contains("Rydych chi wedi gosod eich dewisiadau cwci");
         }
 
         public void ClickChangeYourCookieSettings(string option)

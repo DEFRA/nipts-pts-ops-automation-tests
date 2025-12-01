@@ -60,10 +60,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             {
                 Thread.Sleep(1000);
                 SignificantFeaturesRadioButtonNo.Click();
-                return "No";
+                return "Nac oes";
             }
 
-            return "No";
+            return "Nac oes";
         }
 
         public void ClickParhauButton()

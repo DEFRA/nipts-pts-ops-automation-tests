@@ -14,7 +14,7 @@ namespace Defra.UI.Tests.Steps.AP
         private readonly ScenarioContext _scenarioContext;
 
         private ISummaryPageWelsh? summaryPageWelsh => _objectContainer.IsRegistered<ISummaryPageWelsh>() ? _objectContainer.Resolve<ISummaryPageWelsh>() : null;
-      //  private IApplicationDeclarationPage? declarationPage => _objectContainer.IsRegistered<IApplicationDeclarationPage>() ? _objectContainer.Resolve<IApplicationDeclarationPage>() : null;
+        private IApplicationDeclarationPageWelsh? declarationPageWelsh => _objectContainer.IsRegistered<IApplicationDeclarationPage>() ? _objectContainer.Resolve<IApplicationDeclarationPageWelsh>() : null;
         private IChangeDetailsPageWelsh? changeDetailsPageWelsh => _objectContainer.IsRegistered<IChangeDetailsPageWelsh>() ? _objectContainer.Resolve<IChangeDetailsPageWelsh>() : null;
       //  private IHomePage? homePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
         public SummaryAndDeclarationWelshSteps(ScenarioContext context, IObjectContainer container)
@@ -23,12 +23,25 @@ namespace Defra.UI.Tests.Steps.AP
             _objectContainer = container;
         }
 
-        /*[Then(@"The submitted application should be displayed in summary view")]
+        [Then(@"I click on Back button on the Pets Application in Welsh")]
+        public void ThenIClickOnBackButton()
+        {
+            summaryPageWelsh?.ClickBackButton();
+        }
+
+        [Then(@"I should redirected to the Check your answers and sign the declaration page in Welsh")]
+        public void ThenIShouldRedirectedToTheCheckYourAnswersAndSignTheDeclarationPage()
+        {
+            var pageTitle = "Gwiriwch eich atebion a llofnodwch y datganiad";
+            Assert.IsTrue(declarationPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }
+
+        [Then(@"The submitted application should be displayed in summary view in Welsh")]
         public void ThenTheSubmittedApplicationShouldBeDisplayedInSummaryView()
         {
-            var pageTitle = "Your application summary";
-            Assert.IsTrue(declarationPage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }
+            var pageTitle = "Crynodeb o’ch cais";
+            Assert.IsTrue(declarationPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }/*
 
         [Then(@"I have verified microchip details in declaration page")]
         public void ThenIHaveVerifiedMicrochipDetailsInDeclarationPage()
@@ -53,13 +66,15 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIHaveVerifiedMicrochipDetailsInSummaryPage()
         {
             VerifyMicrodhipInformation();
-        }
+        }*/
 
-        [Then(@"I have verified pet details in summary page")]
+        [Then(@"I have verified pet details in summary page in Welsh")]
         public void ThenIHaveVerifiedPetDetailsInSummaryPage()
         {
-            VerifyPetsDetails();
+            VerifyPetsDetailsWelsh();
         }
+        
+        /*
 
         [Then(@"I click download link in summary page")]
         public void ThenIClickDownloadLinkInSummaryPage()
@@ -118,21 +133,21 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.AreEqual("Under the skin", summary?.ImplantLocation, $"Implant location is not matching in {pageName} page!");
             Assert.AreEqual(microchippedDate, summary?.ImplantOrScanDate, $"Implant or scan date is not matchin in {pageName} page!");
         }
-
-        private void VerifyPetsDetails(bool isSummaryPage = true)
+        */
+        private void VerifyPetsDetailsWelsh(bool isSummaryPage = true)
         {
-            var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
+            var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
 
-            var petName = _scenarioContext.Get<string>("PetName");
-            var petType = _scenarioContext.Get<string>("PetType");
+            var petName = _scenarioContext.Get<string>("Enw");
+            var petType = _scenarioContext.Get<string>("Rhywogaeth");
 
-            var breed = petType.ToLower().Equals("ferret") ? null : _scenarioContext.Get<string>("Breed");
+            var breed = petType.ToLower().Equals("Ffured") ? null : _scenarioContext.Get<string>("Brid");
 
-            var sex = _scenarioContext.Get<string>("Sex");
-            var dateOfBirth = _scenarioContext.Get<string>("DateOfBirth");
-            var color = _scenarioContext.Get<string>("Color");
-            var significantFeatures = _scenarioContext.Get<string>("SignificantFeatures");
+            var sex = _scenarioContext.Get<string>("Rhyw");
+            var dateOfBirth = _scenarioContext.Get<string>("Dyddiad geni");
+            var color = _scenarioContext.Get<string>("Lliw");
+            var significantFeatures = _scenarioContext.Get<string>("Nodweddion arwyddocaol");
 
             if (color.Equals("Other"))
             {
@@ -147,7 +162,7 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.AreEqual(color, summary?.Colour, $"Color is not matching in {pageName} page!");
             Assert.AreEqual(significantFeatures, summary?.SignificantFeatures, $"Significant feature is not matching in {pageName} page!");
         }
-
+        /*
         private void VerifyPetOwnerDetails(bool isSummaryPage = true)
         {
             var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
@@ -200,24 +215,25 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(homePage?.VerifyTheApplicationIsNotAvailable(petName), $"The application is available in Dashboard!");
         }
 
-        [Then(@"I should see a table named '(.*)' with a column '(.*)' in approved document")]
+        */
+        [Then(@"I should see a table named '(.*)' with a column '(.*)' in approved document in Welsh")]
         public void ThenIShouldSeeATableNamedWithAColumnInApprovedDocument(string tableName, string columnName)
         {
-            Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityTable(tableName, columnName));
+            Assert.IsTrue(summaryPageWelsh?.VerifyIssuingAuthorityTable(tableName, columnName));
         }
-
-        [Then(@"the address of authority should be '(.*)' '(.*)'")]
+        
+        [Then(@"the address of authority should be '(.*)' '(.*)' in Welsh")]
         public void ThenTheAddressOfAuthorityShouldBe(string addressLine1, string addressLine2)
         {
-            Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityAddress(addressLine1, addressLine2));
+            Assert.IsTrue(summaryPageWelsh?.VerifyIssuingAuthorityAddress(addressLine1, addressLine2));
         }
-
-        [Then(@"I should see '(.*)' column with signed person name and designation")]
+        
+        [Then(@"I should see '(.*)' column with signed person name and designation in Welsh")]
         public void ThenIShouldSeeColumnWithSignedPersonNameAndDesignation(string signatureColName)
         {
-            Assert.IsTrue(summaryPage?.VerifyIssuingAuthoritySignatureRow(signatureColName));
+            Assert.IsTrue(summaryPageWelsh?.VerifyIssuingAuthoritySignatureRow(signatureColName));
         }
-
+        /*
         [Then(@"I verify the application status '(.*)'")]
         public void ThenIVerifyTheApplicationStatus(string status)
         {
