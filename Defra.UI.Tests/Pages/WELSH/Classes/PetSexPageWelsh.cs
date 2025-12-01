@@ -36,7 +36,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void SelectPetsSexOption(string sex)
         {
-            if (sex.ToLower().Equals("male"))
+            if (sex.ToLower().Equals("gwryw"))
             {
                 rdoMale.Click();
             }

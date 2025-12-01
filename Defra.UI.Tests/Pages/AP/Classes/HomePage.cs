@@ -57,10 +57,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement btnCookiesOptionYes => _driver.WaitForElementExists(By.XPath("//*[@id='yes']/following-sibling::label"));
         private IWebElement btnCookiesOptionNo => _driver.WaitForElementExists(By.XPath("//*[@id='no']/following-sibling::label"));
         private IWebElement btnRadioNo => _driver.WaitForElementExists(By.XPath("//*[@id='no']"));
-        private IWebElement btnSaveCookiesSettings => _driver.WaitForElementExists(By.XPath("//button[normalize-space(text())='Save cookies settings']"));
+        private IWebElement btnSaveCookiesSettings => _driver.WaitForElementExists(By.XPath("//*[@id='no']//following::button"));
         private IWebElement txtSuccessMsgHeader => _driver.WaitForElementExists(By.XPath("//*[@class='govuk-notification-banner__title']"));
         private IWebElement txtSuccessMsg => _driver.WaitForElementExists(By.XPath("//*[@class='govuk-notification-banner__content']/p"));
-        private IWebElement lnkPetsTravelPortal => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Taking a pet from Great Britain to Northern Ireland']"));
+        private IWebElement lnkPetsTravelPortal => _driver.WaitForElement(By.XPath("/html/body/header/div/div[2]/a"));
         private IWebElement lnkGovUk => _driver.WaitForElement(By.XPath("//*[@class='govuk-header__logo']/a"));
         #endregion
 
@@ -234,10 +234,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             foreach (var element in txtViewLinks)
             {
-                if (element.Text.Contains("View"))
-                    return true;
+                if (!element.Text.Contains("View"))
+                    return false;
             }
-            return false;
+            return true;
         }
 
         public void CloseCurrentTabAndSwitchBack()
@@ -329,9 +329,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             btnRadioNo.ScrollToElement(_driver);
 
-            string checkedRadioBtn = btnRadioNo.GetAttribute("checked");
-            bool isNoSelected = !string.IsNullOrEmpty(checkedRadioBtn);
-            return isNoSelected;
+            //string checkedRadioBtn = btnRadioNo.GetAttribute("checked");
+            //bool isNoSelected = !string.IsNullOrEmpty(checkedRadioBtn);
+            //return isNoSelected;
+            return !string.IsNullOrEmpty(btnRadioNo.GetAttribute("checked"));
         }
 
         public void ClickCookiesYesRadioButton()
@@ -371,8 +372,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyCommonHeaderLinks(string govukLink, string takingAPetLink)
         {
-            return lnkGovUk.Text.Trim().Contains("GOV.UK")
-                && lnkPetsTravelPortal.Text.Trim().Contains("Taking a pet from Great Britain to Northern Ireland");
+            return lnkGovUk.Text.Trim().Contains(govukLink)
+                && lnkPetsTravelPortal.Text.Trim().Contains(takingAPetLink);
         }
         #endregion
     }

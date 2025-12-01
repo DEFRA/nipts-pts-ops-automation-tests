@@ -26,16 +26,18 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> divPetOwnerDetails => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div"));
         private IWebElement lnkPDFDownload => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Download your application' or normalize-space(text())='Download your document']"));
         private IWebElement lnkPrint => _driver.WaitForElement(By.Id("print-this-page"));
-        private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Issuing authority']"));
-        private IWebElement lblNameAndAddressOfAuthority => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Name and address of competent authority']"));
+        private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Awdurdod dyroddi']"));
+        private IWebElement lblNameAndAddressOfAuthority => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Enw a chyfeiriad yr awdurdod cymwys']"));
         private IWebElement lblAuthorityAddress => _driver.WaitForElement(By.XPath("//dd[contains(normalize-space(.),'Woodham Lane')]"));
-        private IWebElement lblSignedColumn => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Signed on behalf of the competent authority (APHA)']"));
+        private IWebElement lblSignedColumn => _driver.WaitForElement(By.XPath("//div[@id='document-authority-card']/div[2]/dl/div[2]/dt"));
         private IWebElement lblSignedName => _driver.WaitForElement(By.XPath("//p[contains(normalize-space(.),'Irene Cristofaro')]"));
-        private IWebElement lblDesignation => _driver.WaitForElement(By.XPath("//p[contains(normalize-space(.),'Veterinary Head of International Trade')]"));
+        private IWebElement lblDesignation => _driver.WaitForElement(By.XPath("//div[@id='document-authority-card']/div[2]/dl/div[2]/dd/p[2]"));
         private IWebElement lblStatusValue => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']/following-sibling::dd"));
         private IWebElement lblStatusValueWelsh => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Statws']/following-sibling::dd"));
         private IReadOnlyCollection<IWebElement> IssuingAuthorityTable => _driver.FindElements(By.XPath("//div[@id='document-authority-card']"));
         private IWebElement lnkFirstViewLink => _driver.WaitForElement(By.XPath("//tr[@class='govuk-table__row'][1]//li"));
+        private IWebElement btnBack => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Yn ôl']"));
+
         private IReadOnlyCollection<IWebElement> lblFerretBreedRow => _driver.FindElements(By.XPath("//dt[normalize-space()='Breed']"));
         #endregion
 
@@ -70,7 +72,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
                         case "PET TRAVEL DOCUMENT NUMBER":
                             summary.PTDNumber = elementValue;
                             break;
-                        case "DATE":
+                        case "Dyddiad":
                             summary.Date = elementValue;
                             break;
                     }
@@ -84,15 +86,15 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             foreach (var element in divDocumentIssueDetails)
             {
-                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
+                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim();
                 var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", string.Empty).Trim();
 
                 switch (elementTitle)
                 {
-                    case "REFERENCE NUMBER":
+                    case "Rhif cyfeirnod":
                         summary.ReferenceNumber = elementValue;
                         break;
-                    case "DATE":
+                    case "Dyddiad":
                         summary.Date = elementValue;
                         break;
                 }
@@ -100,15 +102,15 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             foreach (var element in divMicrochipInformation)
             {
-                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
+                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim();
                 var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", string.Empty).Trim();
 
                 switch (elementTitle)
                 {
-                    case "MICROCHIP NUMBER":
+                    case "Rhif y microsglodyn":
                         summary.MicrochipNumber = elementValue;
                         break;
-                    case "IMPLANT OR SCAN DATE":
+                    case "Dyddiad mewnblannu neu sganio":
                         summary.ImplantOrScanDate = elementValue;
                         break;
                 }
@@ -116,30 +118,30 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             foreach (var element in divPetDetails)
             {
-                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
+                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim();
                 var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", string.Empty).Trim();
 
                 switch (elementTitle)
                 {
-                    case "NAME":
+                    case "Enw":
                         summary.PetName = elementValue;
                         break;
-                    case "SPECIES":
+                    case "Rhywogaeth":
                         summary.Species = elementValue;
                         break;
-                    case "BREED":
+                    case "Brid":
                         summary.Breed = elementValue;
                         break;
-                    case "SEX":
+                    case "Rhyw":
                         summary.Sex = elementValue;
                         break;
-                    case "DATE OF BIRTH":
+                    case "Dyddiad geni":
                         summary.DateOfBirth = elementValue;
                         break;
-                    case "COLOUR":
+                    case "Lliw":
                         summary.Colour = elementValue;
                         break;
-                    case "SIGNIFICANT FEATURES":
+                    case "Nodweddion arwyddocaol":
                         summary.SignificantFeatures = elementValue;
                         break;
                 }
@@ -147,21 +149,21 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             foreach (var element in divPetOwnerDetails)
             {
-                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
+                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim();
                 var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", string.Empty).Trim();
 
                 switch (elementTitle)
                 {
-                    case "NAME":
+                    case "Enw":
                         summary.Name = elementValue;
                         break;
-                    case "ADDRESS":
+                    case "Cyfeiriad":                        
                         summary.Address = elementValue;
                         break;
-                    case "PHONE NUMBER":
+                    case "Rhif ffôn":
                         summary.PhoneNumber = elementValue;
                         break;
-                    case "EMAIL":
+                    case "Ebost":
                         summary.Email = elementValue;
                         break;
                 }
@@ -188,7 +190,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public bool VerifyIssuingAuthoritySignatureRow(string signatureColName)
         {
             return lblSignedColumn.Text.Contains(signatureColName) && lblSignedName.Text.Contains("Irene Cristofaro")
-                && lblDesignation.Text.Contains("Veterinary Head of International Trade");
+                && lblDesignation.Text.Contains("Pennaeth Milfeddygol Masnach Ryngwladol");
+        }
+
+        public void ClickBackButton()
+        {
+            btnBack.Click();
         }
 
         public bool VerifyApplicationStatus(string status)
