@@ -66,7 +66,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIHaveVerifiedMicrochipDetailsInSummaryPage()
         {
             VerifyMicrodhipInformation();
-        }*/
+        }
 
         [Then(@"I have verified pet details in summary page in Welsh")]
         public void ThenIHaveVerifiedPetDetailsInSummaryPage()
