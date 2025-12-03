@@ -78,5 +78,18 @@ namespace Defra.UI.Tests.Steps.AP
             petMicrochipDatePageWelsh?.ClickParhauButton();
             Thread.Sleep(2000);
         }
+
+        [When(@"provided microchip number as (.*) in Welsh")]
+        public void ThenProvidedMicrochipNumberAs(string microchipNumber)
+        {
+            _scenarioContext.Add("Rhif y microsglodyn", petMicrochipPageWelsh?.EnterMicrochipNumber());
+        }
+
+        [Then(@"I have provided date of PETS microchipped in Welsh")]
+        public void ThenIHaveProvidedDateOfPETSMicrochipped()
+        {
+            var microchippedDate = petMicrochipDatePageWelsh?.EnterDateMonthYear(DateTime.Now.AddYears(-3));
+            _scenarioContext.Add("Dyddiad mewnblannu neu sganio", microchippedDate);
+        }
     }
 }

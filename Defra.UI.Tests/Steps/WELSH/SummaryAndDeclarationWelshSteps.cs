@@ -41,14 +41,14 @@ namespace Defra.UI.Tests.Steps.AP
         {
             var pageTitle = "Crynodeb o’ch cais";
             Assert.IsTrue(declarationPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
-        }/*
+        }
 
-        [Then(@"I have verified microchip details in declaration page")]
+        [Then(@"I have verified microchip details in declaration page in Welsh")]
         public void ThenIHaveVerifiedMicrochipDetailsInDeclarationPage()
         {
             VerifyMicrodhipInformation(false);
         }
-
+        /*
         [Then(@"I have verified pet details in declaration page")]
         public void ThenIHaveVerifiedPetDetailsInDeclarationPage()
         {
@@ -60,13 +60,13 @@ namespace Defra.UI.Tests.Steps.AP
         {
             VerifyPetOwnerDetails(false);
         }
+        */
 
-
-        [Then(@"I have verified microchip details in summary page")]
+        [Then(@"I have verified microchip details in summary page in Welsh")]
         public void ThenIHaveVerifiedMicrochipDetailsInSummaryPage()
         {
             VerifyMicrodhipInformation();
-        }*/
+        }
 
         [Then(@"I have verified pet details in summary page in Welsh")]
         public void ThenIHaveVerifiedPetDetailsInSummaryPage()
@@ -120,20 +120,20 @@ namespace Defra.UI.Tests.Steps.AP
             var summary = summaryPage?.GetSummaryDetails();
             _scenarioContext.Add("PTDNumber", summary.PTDNumber);
         }
-
+        */
         private void VerifyMicrodhipInformation(bool isSummaryPage = true)
         {
-            var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
+            var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
 
-            var microchipNumber = _scenarioContext.Get<string>("MicrochipNumber");
-            var microchippedDate = _scenarioContext.Get<string>("MicrochippedDate");
+            var microchipNumber = _scenarioContext.Get<string>("Rhif y microsglodyn");
+            var microchippedDate = _scenarioContext.Get<string>("Dyddiad mewnblannu neu sganio");
 
             Assert.AreEqual(microchipNumber, summary?.MicrochipNumber, $"Microchip number is not matching in {pageName} page!");
-            Assert.AreEqual("Under the skin", summary?.ImplantLocation, $"Implant location is not matching in {pageName} page!");
+            //Assert.AreEqual("O dan y croen", summary?.ImplantLocation, $"Implant location is not matching in {pageName} page!");
             Assert.AreEqual(microchippedDate, summary?.ImplantOrScanDate, $"Implant or scan date is not matchin in {pageName} page!");
         }
-        */
+        
         private void VerifyPetsDetailsWelsh(bool isSummaryPage = true)
         {
             var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
