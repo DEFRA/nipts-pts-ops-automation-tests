@@ -339,12 +339,12 @@ namespace Defra.UI.Tests.Steps.AP
                     case "PET NAME":
                         FormSteps.ThenICanNotEditTheField("nipts_petname");
                         break;
-                    //case "SPECIES":
-                    //    FormSteps.ThenICanNotEditTheField("nipts_pettype");
-                    //    break;
-                    //case "BREED":
-                    //    FormSteps.ThenICanNotEditTheField("nipts_petbreed");
-                    //    break;
+                    case "SPECIES":
+                        FormSteps.ThenICanNotEditTheField("nipts_petspecies");
+                        break;
+                    case "BREED":
+                        FormSteps.ThenICanNotEditTheField("nipts_petbreed");
+                        break;
                     case "ADDITIONAL BREED DETAILS":
                         FormSteps.ThenICanNotEditTheField("nipts_petbreeddetails");
                         break;
@@ -757,11 +757,11 @@ namespace Defra.UI.Tests.Steps.AP
             }
             else if (field.ToUpper().Equals("APPLICANT DETAILS"))
             {
-                ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant Town:Applicant Postcode:Applicant County:Applicant Country:Applicant Phone");
+                ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant Town:Applicant Postcode:Applicant County:Applicant Phone");
             }
             else if (field.ToUpper().Equals("PET OWNER CONTACT"))
             {
-                ThenICannotEditTheField("First Name:Middle Name:Last Name:Principal Email Address:Principal Phone:Preferred Method of Contact:Title/Salutation:Building Number:Building Name:Street:CONTACT Town:CONTACT County:CONTACT PostCode:CONTACT Country");
+                ThenICannotEditTheField("First Name:Middle Name:Last Name:Principal Email Address:Principal Phone:Preferred Method of Contact:Title/Salutation:Building Number:Building Name:Street:CONTACT Town:CONTACT County:CONTACT PostCode");
             }
         }
 
@@ -786,6 +786,10 @@ namespace Defra.UI.Tests.Steps.AP
             {
                 ThenICannotEditTheField("Pet Name:Species:Breed:Sex:Date of Birth:Approx Age:Colour:Unique Features:Microchip Number:Microchipped Date");
 
+            }else if (field.ToUpper().Equals("REVOKE PENDING PET"))
+            {
+                ThenICannotEditTheField("Pet Name:Breed:Sex:Date of Birth:Approx Age:Colour:Unique Features:Microchip Number:Microchipped Date");
+
             }
             else if (field.ToUpper().Equals("PET OWNER"))
             {
@@ -794,7 +798,7 @@ namespace Defra.UI.Tests.Steps.AP
             }
             else if (field.ToUpper().Equals("APPLICANT DETAILS"))
             {
-                ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant address line 3:Applicant Town:Applicant Postcode:Applicant County:Applicant Country:Applicant Phone");
+                ThenICannotEditTheField("Applicant Name:Applicant Email:Applicant address line 1:Applicant address line 2:Applicant address line 3:Applicant Town:Applicant Postcode:Applicant County:Applicant Phone");
             }
         }
 
