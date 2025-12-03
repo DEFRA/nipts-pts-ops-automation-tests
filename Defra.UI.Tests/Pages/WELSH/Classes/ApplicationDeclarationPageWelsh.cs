@@ -61,15 +61,15 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             for (int i = 0; i < divMicrochipInformationTitleList.Count; i++)
             {
-                var elementTitle = divMicrochipInformationTitleList.ElementAt(i)?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
+                var elementTitle = divMicrochipInformationTitleList.ElementAt(i)?.Text?.Replace("\r\n", string.Empty).Trim();
                 var elementValue = divMicrochipInformationValueList.ElementAt(i).Text?.Replace("\r\n", string.Empty).Trim();
 
                 switch (elementTitle)
                 {
-                    case "MICROCHIP NUMBER":
+                    case "Rhif y microsglodyn":
                         summary.MicrochipNumber = elementValue;
                         break;
-                    case "IMPLANT OR SCAN DATE":
+                    case "Dyddiad mewnblannu neu sganio":
                         summary.ImplantOrScanDate = elementValue;
                         break;
                 }
@@ -77,30 +77,30 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             for (int i = 0; i < divPetDetailsTitleList.Count; i++)
             {
-                var elementTitle = divPetDetailsTitleList.ElementAt(i)?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
+                var elementTitle = divPetDetailsTitleList.ElementAt(i)?.Text?.Replace("\r\n", string.Empty).Trim();
                 var elementValue = divPetDetailsValueList.ElementAt(i).Text?.Replace("\r\n", string.Empty).Trim();
 
                 switch (elementTitle)
                 {
-                    case "NAME":
+                    case "Enw":
                         summary.PetName = elementValue;
                         break;
-                    case "SPECIES":
+                    case "Rhywogaeth":
                         summary.Species = elementValue;
                         break;
-                    case "BREED":
+                    case "Brid":
                         summary.Breed = elementValue;
                         break;
-                    case "SEX":
+                    case "Rhyw":
                         summary.Sex = elementValue;
                         break;
-                    case "DATE OF BIRTH":
+                    case "Dyddiad geni":
                         summary.DateOfBirth = elementValue;
                         break;
-                    case "COLOUR":
+                    case "Lliw":
                         summary.Colour = elementValue;
                         break;
-                    case "SIGNIFICANT FEATURES":
+                    case "Nodweddion arwyddocaol":
                         summary.SignificantFeatures = elementValue;
                         break;
                 }
@@ -109,21 +109,21 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             for (int i = 0; i < divPetOwnerDetailsTitleList.Count; i++)
             {
-                var elementTitle = divPetOwnerDetailsTitleList.ElementAt(i)?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
+                var elementTitle = divPetOwnerDetailsTitleList.ElementAt(i)?.Text?.Replace("\r\n", string.Empty).Trim();
                 var elementValue = divPetOwnerDetailsValueList.ElementAt(i).Text?.Replace("\r\n", string.Empty).Trim();
 
                 switch (elementTitle)
                 {
-                    case "NAME":
+                    case "Enw":
                         summary.Name = elementValue;
                         break;
-                    case "ADDRESS":
+                    case "Cyfeiriad":
                         summary.Address = elementValue;
                         break;
-                    case "PHONE NUMBER":
+                    case "Rhif ffôn":
                         summary.PhoneNumber = elementValue;
                         break;
-                    case "EMAIL":
+                    case "Ebost":
                         summary.Email = elementValue;
                         break;
                 }

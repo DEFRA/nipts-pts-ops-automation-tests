@@ -81,7 +81,7 @@ Examples:
 	| FullName | Are your details correct | MicrochipOption | MicrochipNumber | Pet  | PetName | Gender |
 	| PetCat's | Yes                      | Yes             | 123456789654321 | Cath | Cat     | Female |
 
-Scenario Outline: Verify pets date of birth text boxes should not allow invalid date in Welsh
+Scenario: Verify pets date of birth text boxes should not allow invalid date in Welsh
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
@@ -109,7 +109,7 @@ Scenario Outline: Verify pets date of birth text boxes should not allow invalid 
 	Then I should not be redirected to the What is the main colour of your 'Ci' page in Welsh
 	And I should see an error message "Rhowch ddyddiad geni eich anifail anwes yn y fformat cywir, er enghraifft, 11 04 2021" in pets date of birth page
 
-Scenario Outline: Verify the error message for no pets date of birth provided in Welsh
+Scenario: Verify the error message for no pets date of birth provided in Welsh
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
@@ -137,7 +137,7 @@ Scenario Outline: Verify the error message for no pets date of birth provided in
 	Then I should not be redirected to the What is the main colour of your 'Dog' page in Welsh
 	And I should see an error message "Rhowch ddyddiad geni eich anifail anwes yn y fformat cywir, er enghraifft, 11 04 2021" in pets date of birth page
 
-Scenario Outline: Verify if the pet type is not selected then should not move to next page in Welsh
+Scenario: Verify if the pet type is not selected then should not move to next page in Welsh
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
