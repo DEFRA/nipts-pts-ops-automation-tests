@@ -78,7 +78,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             petNamePage?.EnterPetsName(petFullName);
             _scenarioContext.Add("Enw", petFullName);
         }
-        
+
         [Then(@"I have modified the species type as '(.*)' in Welsh")]
         public void ThenIHaveModifiedTheSpeciesTypeAs(string speciesType)
         {
@@ -86,7 +86,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             petsCategoryPageWelsh?.SelectSpecies(speciesType);
             _scenarioContext.Add("Rhywogaeth", speciesType);
         }
-        
+
         [When(@"I click continue button from Is your pet a dog, cat or ferret page till reaching declaration page along with modification of color '(.*)' and breed (.*) in Welsh")]
         public void WhenIClickContinueButtonFromIsYourPetADogCatOrFerretPageTillReachingDeclarationPageAlongWithModificationOfColourAndBreedInWelsh(string color, int breedIndex)
         {
@@ -104,7 +104,7 @@ namespace Defra.UI.Tests.Steps.WELSH
 
             petColourPageWelsh?.ClickParhauButton();
         }
-        
+
         [Then("I have modified the pets breed with the index value of {string} in Welsh")]
         public void ThenIHaveModifiedThePetsBreedWithTheIndexValueOf(int breedIndex)
         {
@@ -112,7 +112,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             var breed = breedPageWelsh?.SelectPetsBreed(breedIndex, true);
             _scenarioContext.Add("Brid", breed);
         }
-        
+
         [Then(@"I have modified the pets sex as '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetSexAs(string sex)
         {
@@ -120,7 +120,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             petSexPageWelsh?.SelectPetsSexOption(sex);
             _scenarioContext.Add("Rhyw", sex);
         }
-        
+
         [Then(@"I have modified the pets date of birth by adding '(.*)' days in Welsh")]
         public void ThenIHaveModifiedThePetsDateOfBirthByAddingDays(int daysToAdd)
         {
@@ -131,7 +131,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             var dateOfBirthDate = petsDOBPageWelsh?.EnterDateMonthYear(date);
             _scenarioContext.Add("Dyddiad geni", dateOfBirthDate);
         }
-        
+
         [Then(@"I have modified the pets colour as '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetsColourAs(string color)
         {
@@ -139,7 +139,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             petColourPageWelsh?.SelectColorOption(color);
             _scenarioContext.Add("Lliw", color);
         }
-        
+
         [Then(@"I have modified the pets significant feature as {string} in Welsh")]
         public void ThenIHaveModifiedThePetsSignificantFeatureAsInWelsh(string hasUniqueFeatures)
         {
