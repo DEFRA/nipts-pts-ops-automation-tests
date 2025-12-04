@@ -48,13 +48,13 @@ namespace Defra.UI.Tests.Steps.AP
         {
             VerifyMicrodhipInformation(false);
         }
-        /*
-        [Then(@"I have verified pet details in declaration page")]
+        
+        [Then(@"I have verified pet details in declaration page in Welsh")]
         public void ThenIHaveVerifiedPetDetailsInDeclarationPage()
         {
-            VerifyPetsDetails(false);
+            VerifyPetsDetailsWelsh(false);
         }
-
+        /*
         [Then(@"I have verified pet owner details in declaration page")]
         public void ThenIHaveVerifiedPetOwnerDetailsInDeclarationPage()
         {
@@ -142,7 +142,7 @@ namespace Defra.UI.Tests.Steps.AP
             var petName = _scenarioContext.Get<string>("Enw");
             var petType = _scenarioContext.Get<string>("Rhywogaeth");
 
-            var breed = petType.ToLower().Equals("Ffured") ? null : _scenarioContext.Get<string>("Brid");
+            var breed = petType.ToLower().Equals("ffured") ? null : _scenarioContext.Get<string>("Brid");
 
             var sex = _scenarioContext.Get<string>("Rhyw");
             var dateOfBirth = _scenarioContext.Get<string>("Dyddiad geni");

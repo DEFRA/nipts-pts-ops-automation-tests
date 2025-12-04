@@ -14,13 +14,13 @@ namespace Defra.UI.Tests.Steps.WELSH
 
         private IPetMicrochipPageWelsh? petMicrochipPageWelsh => _objectContainer.IsRegistered<IPetMicrochipPageWelsh>() ? _objectContainer.Resolve<IPetMicrochipPageWelsh>() : null;
         private IPetMicrochipDatePageWelsh? petMicrochipDatePageWelsh => _objectContainer.IsRegistered<IPetMicrochipDatePageWelsh>() ? _objectContainer.Resolve<IPetMicrochipDatePageWelsh>() : null;
-        private IPetSpeciesPage? petsCategoryPage => _objectContainer.IsRegistered<IPetSpeciesPage>() ? _objectContainer.Resolve<IPetSpeciesPage>() : null;
-        private IPetBreedPage? breedPage => _objectContainer.IsRegistered<IPetBreedPage>() ? _objectContainer.Resolve<IPetBreedPage>() : null;
+        private IPetSpeciesPageWelsh? petsCategoryPageWelsh => _objectContainer.IsRegistered<IPetSpeciesPageWelsh>() ? _objectContainer.Resolve<IPetSpeciesPageWelsh>() : null;
+        private IPetBreedPageWelsh? breedPageWelsh => _objectContainer.IsRegistered<IPetBreedPageWelsh>() ? _objectContainer.Resolve<IPetBreedPageWelsh>() : null;
         private IPetNamePage? petNamePage => _objectContainer.IsRegistered<IPetNamePage>() ? _objectContainer.Resolve<IPetNamePage>() : null;
-        private IPetSexPage? petSexPage => _objectContainer.IsRegistered<IPetSexPage>() ? _objectContainer.Resolve<IPetSexPage>() : null;
-        private IPetDOBPage? petsDOBPage => _objectContainer.IsRegistered<IPetDOBPage>() ? _objectContainer.Resolve<IPetDOBPage>() : null;
-        private IPetColourPage? petColourPage => _objectContainer.IsRegistered<IPetColourPage>() ? _objectContainer.Resolve<IPetColourPage>() : null;
-        private ISignificantFeaturesPage? significantFeaturesPage => _objectContainer.IsRegistered<ISignificantFeaturesPage>() ? _objectContainer.Resolve<ISignificantFeaturesPage>() : null;
+        private IPetSexPageWelsh? petSexPageWelsh => _objectContainer.IsRegistered<IPetSexPageWelsh>() ? _objectContainer.Resolve<IPetSexPageWelsh>() : null;
+        private IPetDOBPageWelsh? petsDOBPageWelsh => _objectContainer.IsRegistered<IPetDOBPageWelsh>() ? _objectContainer.Resolve<IPetDOBPageWelsh>() : null;
+        private IPetColourPageWelsh? petColourPageWelsh => _objectContainer.IsRegistered<IPetColourPageWelsh>() ? _objectContainer.Resolve<IPetColourPageWelsh>() : null;
+        private ISignificantFeaturesPageWelsh? significantFeaturesPageWelsh => _objectContainer.IsRegistered<ISignificantFeaturesPageWelsh>() ? _objectContainer.Resolve<ISignificantFeaturesPageWelsh>() : null;
         private IPetOwnerNamePage? petOwnerNamePage => _objectContainer.IsRegistered<IPetOwnerNamePage>() ? _objectContainer.Resolve<IPetOwnerNamePage>() : null;
         private IPetOwnerAddressPage? petOwnerAddressPage => _objectContainer.IsRegistered<IPetOwnerAddressPage>() ? _objectContainer.Resolve<IPetOwnerAddressPage>() : null;
         private IPetOwnerPhoneNumberPage? petOwnerPhoneNumberPage => _objectContainer.IsRegistered<IPetOwnerPhoneNumberPage>() ? _objectContainer.Resolve<IPetOwnerPhoneNumberPage>() : null;
@@ -69,85 +69,85 @@ namespace Defra.UI.Tests.Steps.WELSH
             declarationPage?.ClickPetDetailsChangeForFerretLink(fieldName);
         }
 
-
-        [Then(@"I have modified the pet name as '(.*)'")]
+        */
+        [Then(@"I have modified the pet name as '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetNameAs(string petName)
         {
-            _scenarioContext.Remove("PetName");
+            _scenarioContext.Remove("Enw");
             var petFullName = $"{petName} {Utils.GenerateRandomName()}";
             petNamePage?.EnterPetsName(petFullName);
-            _scenarioContext.Add("PetName", petFullName);
+            _scenarioContext.Add("Enw", petFullName);
         }
-
-        [Then(@"I have modified the species type as '(.*)'")]
+        
+        [Then(@"I have modified the species type as '(.*)' in Welsh")]
         public void ThenIHaveModifiedTheSpeciesTypeAs(string speciesType)
         {
-            _scenarioContext.Remove("PetType");
-            petsCategoryPage?.SelectSpecies(speciesType);
-            _scenarioContext.Add("PetType", speciesType);
+            _scenarioContext.Remove("Rhywogaeth");
+            petsCategoryPageWelsh?.SelectSpecies(speciesType);
+            _scenarioContext.Add("Rhywogaeth", speciesType);
         }
-
-        [When(@"I click continue button from Is your pet a dog, cat or ferret page till reaching declaration page along with modification of colour '(.*)' and breed (.*)")]
-        public void WhenIClickContinueButtonFromIsYourPetADogCatOrFerretPageTillReachingDeclarationPageAlongWithModificationOfColourAndBreed(string color, int breedIndex)
+        
+        [When(@"I click continue button from Is your pet a dog, cat or ferret page till reaching declaration page along with modification of color '(.*)' and breed (.*) in Welsh")]
+        public void WhenIClickContinueButtonFromIsYourPetADogCatOrFerretPageTillReachingDeclarationPageAlongWithModificationOfColourAndBreedInWelsh(string color, int breedIndex)
         {
-            petsCategoryPage?.ClickContinueButton();
+            petsCategoryPageWelsh?.ClickParhauButton();
 
-            _scenarioContext.Remove("Breed");
-            var breed = breedPage?.SelectPetsBreed(breedIndex);
-            _scenarioContext.Add("Breed", breed);
+            _scenarioContext.Remove("Brid");
+            var breed = breedPageWelsh?.SelectPetsBreed(breedIndex);
+            _scenarioContext.Add("Brid", breed);
 
-            breedPage?.ClickContinueButton();
+            breedPageWelsh?.ClickParhauButton();
 
-            _scenarioContext.Remove("Color");
-            petColourPage?.SelectColorOption(color);
-            _scenarioContext.Add("Color", color);
+            _scenarioContext.Remove("Lliw");
+            petColourPageWelsh?.SelectColorOption(color);
+            _scenarioContext.Add("Lliw", color);
 
-            petColourPage?.ClickContinueButton();
+            petColourPageWelsh?.ClickParhauButton();
         }
-
-        [Then("I have modified the pets breed with the index value of {string}")]
+        
+        [Then("I have modified the pets breed with the index value of {string} in Welsh")]
         public void ThenIHaveModifiedThePetsBreedWithTheIndexValueOf(int breedIndex)
         {
-            _scenarioContext.Remove("Breed");
-            var breed = breedPage?.SelectPetsBreed(breedIndex, true);
-            _scenarioContext.Add("Breed", breed);
+            _scenarioContext.Remove("Brid");
+            var breed = breedPageWelsh?.SelectPetsBreed(breedIndex, true);
+            _scenarioContext.Add("Brid", breed);
         }
-
-        [Then(@"I have modified the pets sex as '(.*)'")]
+        
+        [Then(@"I have modified the pets sex as '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetSexAs(string sex)
         {
-            _scenarioContext.Remove("Sex");
-            petSexPage?.SelectPetsSexOption(sex);
-            _scenarioContext.Add("Sex", sex);
+            _scenarioContext.Remove("Rhyw");
+            petSexPageWelsh?.SelectPetsSexOption(sex);
+            _scenarioContext.Add("Rhyw", sex);
         }
-
-        [Then(@"I have modified the pets date of birth by adding '(.*)' days")]
+        
+        [Then(@"I have modified the pets date of birth by adding '(.*)' days in Welsh")]
         public void ThenIHaveModifiedThePetsDateOfBirthByAddingDays(int daysToAdd)
         {
-            var dateOfBirth = _scenarioContext.Get<string>("DateOfBirth");
+            var dateOfBirth = _scenarioContext.Get<string>("Dyddiad geni");
             var date = Utils.ConvertToDate(dateOfBirth).AddDays(daysToAdd);
-            _scenarioContext.Remove("DateOfBirth");
+            _scenarioContext.Remove("Dyddiad geni");
 
-            var dateOfBirthDate = petsDOBPage?.EnterDateMonthYear(date);
-            _scenarioContext.Add("DateOfBirth", dateOfBirthDate);
+            var dateOfBirthDate = petsDOBPageWelsh?.EnterDateMonthYear(date);
+            _scenarioContext.Add("Dyddiad geni", dateOfBirthDate);
         }
-
-        [Then(@"I have modified the pets colour as '(.*)'")]
+        
+        [Then(@"I have modified the pets colour as '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetsColourAs(string color)
         {
-            _scenarioContext.Remove("Color");
-            petColourPage?.SelectColorOption(color);
-            _scenarioContext.Add("Color", color);
+            _scenarioContext.Remove("Lliw");
+            petColourPageWelsh?.SelectColorOption(color);
+            _scenarioContext.Add("Lliw", color);
         }
-
-        [Then(@"I have modified the pets significant feature as '(.*)'")]
-        public void ThenIHaveModifiedTheSignificantFeaturesAs(string hasUniqueFeatures)
+        
+        [Then(@"I have modified the pets significant feature as {string} in Welsh")]
+        public void ThenIHaveModifiedThePetsSignificantFeatureAsInWelsh(string hasUniqueFeatures)
         {
-            _scenarioContext.Remove("SignificantFeatures");
-            var significantFeature = significantFeaturesPage?.SelectSignificantFeaturesOption(hasUniqueFeatures);
-            _scenarioContext.Add("SignificantFeatures", significantFeature);
+            _scenarioContext.Remove("Nodweddion arwyddocaol");
+            var significantFeature = significantFeaturesPageWelsh?.SelectSignificantFeaturesOption(hasUniqueFeatures);
+            _scenarioContext.Add("Nodweddion arwyddocaol", significantFeature);
         }
-
+        /*
         [Then(@"I have clicked the change option for the '(.*)' from Pet owner details section")]
         public void ThenIHaveClickedTheChangeOptionForTheFromPetOwnerDetailsSection(string fieldName)
         {
