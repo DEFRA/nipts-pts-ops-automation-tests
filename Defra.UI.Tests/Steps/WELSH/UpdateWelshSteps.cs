@@ -1,4 +1,5 @@
 ﻿using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
 using Reqnroll.BoDi;
 using Reqnroll;
@@ -21,8 +22,8 @@ namespace Defra.UI.Tests.Steps.WELSH
         private IPetDOBPageWelsh? petsDOBPageWelsh => _objectContainer.IsRegistered<IPetDOBPageWelsh>() ? _objectContainer.Resolve<IPetDOBPageWelsh>() : null;
         private IPetColourPageWelsh? petColourPageWelsh => _objectContainer.IsRegistered<IPetColourPageWelsh>() ? _objectContainer.Resolve<IPetColourPageWelsh>() : null;
         private ISignificantFeaturesPageWelsh? significantFeaturesPageWelsh => _objectContainer.IsRegistered<ISignificantFeaturesPageWelsh>() ? _objectContainer.Resolve<ISignificantFeaturesPageWelsh>() : null;
-        private IPetOwnerNamePage? petOwnerNamePage => _objectContainer.IsRegistered<IPetOwnerNamePage>() ? _objectContainer.Resolve<IPetOwnerNamePage>() : null;
-        private IPetOwnerAddressPage? petOwnerAddressPage => _objectContainer.IsRegistered<IPetOwnerAddressPage>() ? _objectContainer.Resolve<IPetOwnerAddressPage>() : null;
+        private IPetOwnerNamePageWelsh? petOwnerNamePageWelsh => _objectContainer.IsRegistered<IPetOwnerNamePageWelsh>() ? _objectContainer.Resolve<IPetOwnerNamePageWelsh>() : null;
+        private IPetOwnerAddressPageWelsh? petOwnerAddressPageWelsh => _objectContainer.IsRegistered<IPetOwnerAddressPageWelsh>() ? _objectContainer.Resolve<IPetOwnerAddressPageWelsh>() : null;
         private IPetOwnerPhoneNumberPage? petOwnerPhoneNumberPage => _objectContainer.IsRegistered<IPetOwnerPhoneNumberPage>() ? _objectContainer.Resolve<IPetOwnerPhoneNumberPage>() : null;
         private IApplicationDeclarationPage? declarationPage => _objectContainer.IsRegistered<IApplicationDeclarationPage>() ? _objectContainer.Resolve<IApplicationDeclarationPage>() : null;
 
@@ -153,51 +154,44 @@ namespace Defra.UI.Tests.Steps.WELSH
         {
             declarationPage?.ClickPetOwnerChangeLink(fieldName);
         }
-
-        [Then(@"I have modified the pet owner name with the value of '(.*)'")]
+        */
+        [Then(@"I have modified the pet owner name with the value of '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetOwnerNameWithTheValueOf(string petOwnerName)
         {
-            _scenarioContext.Remove("FullName");
-            petOwnerNamePage?.EnterPetOwnerName(petOwnerName);
-            _scenarioContext.Add("FullName", petOwnerName);
+            _scenarioContext.Remove("enw llawn");
+            petOwnerNamePageWelsh?.EnterPetOwnerName(petOwnerName);
+            _scenarioContext.Add("enw llawn", petOwnerName);
         }
-
-        [When(@"I click continue button from pet owner name page")]
+        
+        [When(@"I click continue button from pet owner name page in Welsh")]
         public void WhenIClickContinueButtonFromPetOwnerNamePage()
         {
-            petOwnerNamePage?.ClickContinueButton();
+            petOwnerNamePageWelsh?.ClickContinueButton();
         }
-
-        [Then(@"I have modified the pet owner phone number with the value of '(.*)'")]
+        
+        [Then(@"I have modified the pet owner phone number with the value of '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetOwnerPhoneNumberWithTheValueOf(string phoneNumber)
         {
-            _scenarioContext.Remove("PhoneNumber");
+            _scenarioContext.Remove("Rhif ffôn");
             petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
-            _scenarioContext.Add("PhoneNumber", phoneNumber);
+            _scenarioContext.Add("Rhif ffôn", phoneNumber);
         }
-
-        [When(@"I click continue button from postcode search page")]
+        
+        [When(@"I click continue button from postcode search page in Welsh")]
         public void WhenIClickContinueButtonFromPostCodeSearchPage()
         {
-            petOwnerAddressPage?.ClickContinueButton();
+            petOwnerAddressPageWelsh?.ClickContinueButton();
         }
-
-        [Then(@"I have modified the pet owner postcode and address with the value of '(.*)' and phone number '(.*)'")]
-        public void ThenIHaveModifiedThePetOwnerPostcodeWithAddressWithTheValueOf(string postCode, string phoneNumber)
+        
+        [Then(@"I have modified the pet owner postcode and address with the value of '(.*)' in Welsh")]
+        public void ThenIHaveModifiedThePetOwnerPostcodeWithAddressWithTheValueOf(string postCode)
         {
-            _scenarioContext.Remove("Postcode");
-            _scenarioContext.Remove("Address");
-            petOwnerAddressPage?.EnterPostCode(postCode);
-            _scenarioContext.Add("Postcode", postCode);
-
-            if (_scenarioContext.ContainsKey("PhoneNumber"))
-            {
-                _scenarioContext.Remove("PhoneNumber");
-            }
-
-            _scenarioContext.Add("PhoneNumber", phoneNumber);
+            _scenarioContext.Remove("Cod post");
+            _scenarioContext.Remove("Cyfeiriad");
+            petOwnerAddressPageWelsh?.EnterPostCode(postCode);
+            _scenarioContext.Add("Cod post", postCode);
         }
-
+        /*
         [When(@"I click continue button from What is your phone number page")]
         public void WhenIClickContinueButtonFromWhatIsYourPhoneNumberPage()
         {

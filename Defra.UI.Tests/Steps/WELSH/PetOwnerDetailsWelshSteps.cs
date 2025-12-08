@@ -82,13 +82,17 @@ namespace Defra.UI.Tests.Steps.AP
         {
             Assert.True(petOwnerAddressPage?.IsAddressListFound());
         }
-
+        */
         [Then(@"I select the index (.*) from address list in Welsh")]
         public void ThenISelectTheIndexFromAddressList(int addressIndex)
         {
             var addressLines = petOwnerAddressPage?.SelectAnAddress(addressIndex);
-            _scenarioContext.Add("Address", addressLines);
-        }*/
+            if (_scenarioContext.ContainsKey("Cyfeiriad"))
+            {
+                _scenarioContext.Remove("Cyfeiriad");
+            }
+            _scenarioContext.Add("Cyfeiriad", addressLines);
+        }
 
         [When(@"I click Continue button from What is your postcode page in Welsh")]
         public void WhenIClickContinueButtonFromWhatIsYourPostcodePage()

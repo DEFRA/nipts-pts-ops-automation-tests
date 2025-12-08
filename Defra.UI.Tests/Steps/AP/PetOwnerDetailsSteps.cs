@@ -84,6 +84,10 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenISelectTheIndexFromAddressList(int addressIndex)
         {
             var addressLines = petOwnerAddressPage?.SelectAnAddress(addressIndex);
+            if (_scenarioContext.ContainsKey("Address"))
+            {
+                _scenarioContext.Remove("Address");
+            }
             _scenarioContext.Add("Address", addressLines);
         }
 

@@ -165,6 +165,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             var petFullName = $"{petName} {Utils.GenerateRandomName()}";
             petNamePageWelsh?.EnterPetsName(petFullName);
+            _scenarioContext.Remove("Enw");
             _scenarioContext.Add("Enw", petFullName);
         }
 

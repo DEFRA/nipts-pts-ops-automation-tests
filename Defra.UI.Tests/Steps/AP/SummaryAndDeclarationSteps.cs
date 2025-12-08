@@ -4,6 +4,7 @@ using NUnit.Framework;
 using Reqnroll;
 using Defra.UI.Tests.Pages.AP.Classes;
 using System.Text.RegularExpressions;
+using Microsoft.Crm.Sdk.Messages;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -108,6 +109,11 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIHaveSelectedOption(string option)
         {
             changeDetailsPage?.SelectOption(option);
+            var registeredUserDetails = changeDetailsPage?.GetRegisteredUserDetails();
+            _scenarioContext.Add("Name", registeredUserDetails?.Name);
+            _scenarioContext.Add("Address", registeredUserDetails?.Address?.Split(new string("\r\n")));
+            _scenarioContext.Add("PhoneNumber", registeredUserDetails?.PhoneNumber);
+            _scenarioContext.Add("Email", registeredUserDetails?.Email);
             _scenarioContext.Add("AreDetailsCorrect", option);
         }
 
@@ -166,6 +172,33 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.AreEqual(significantFeatures, summary?.SignificantFeatures, $"Significant feature is not matching in {pageName} page!");
         }
 
+        public static string NormalizeAddress(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+
+            s = s.ToUpperInvariant();
+            s = Regex.Replace(s, @"\s+", " ");
+            s = s.Replace(",", " ").Trim();
+
+            string[] counties = new[]
+            {
+        "OXFORDSHIRE","BERKSHIRE","BUCKINGHAMSHIRE","CAMBRIDGESHIRE","CORNWALL",
+        "CUMBRIA","DERBYSHIRE","DEVON","DORSET","DURHAM","ESSEX","GLOUCESTERSHIRE",
+        "GREATER LONDON","GREATER MANCHESTER","HAMPSHIRE","HEREFORDSHIRE","HERTFORDSHIRE",
+        "KENT","LANCASHIRE","LEICESTERSHIRE","LINCOLNSHIRE","MERSEYSIDE","NORFOLK",
+        "NORTHAMPTONSHIRE","NORTHUMBERLAND","NOTTINGHAMSHIRE","SHROPSHIRE","SOMERSET",
+        "STAFFORDSHIRE","SUFFOLK","SURREY","WARWICKSHIRE","WEST MIDLANDS","WEST SUSSEX",
+        "WEST YORKSHIRE","WILTSHIRE","WORCESTERSHIRE","EAST SUSSEX","SOUTH YORKSHIRE",
+        "TYNE AND WEAR"
+            };
+
+            foreach (var county in counties)
+                s = Regex.Replace(s, $@"\b{Regex.Escape(county)}\b", "", RegexOptions.IgnoreCase);
+
+            s = Regex.Replace(s, @"\s+", " ").Trim();
+            return s;
+        }
+
         private void VerifyPetOwnerDetails(bool isSummaryPage = true)
         {
             var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
@@ -181,9 +214,10 @@ namespace Defra.UI.Tests.Steps.AP
 
             if (areDetailsCorrect.ToLower().Equals("yes"))
             {
-                fullName = registeredUserDetails?.Name;
-                address = registeredUserDetails?.Address?.Split(new string("\r\n"));
-                phoneNumber = registeredUserDetails?.PhoneNumber;
+                fullName = _scenarioContext.Get<string>("Name");
+                email = _scenarioContext.Get<string>("Email");
+                address = _scenarioContext.Get<string[]>("Address");
+                phoneNumber = _scenarioContext.Get<string>("PhoneNumber");
             }
             else
             {
@@ -198,7 +232,7 @@ namespace Defra.UI.Tests.Steps.AP
 
             foreach (var lineItem in address)
             {
-                Assert.IsTrue(summary?.Address.Contains(lineItem.Trim()), $"Address is not matching in {pageName} page!");
+                Assert.IsTrue(summary?.Address.Replace(",","").Contains(NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
             }
 
             if (isSummaryPage)

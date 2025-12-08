@@ -150,7 +150,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             foreach (var element in divPetOwnerDetails)
             {
                 var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim();
-                var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", string.Empty).Trim();
+                var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", ", ").Trim();
 
                 switch (elementTitle)
                 {

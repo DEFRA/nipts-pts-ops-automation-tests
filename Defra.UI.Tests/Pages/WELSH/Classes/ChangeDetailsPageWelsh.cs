@@ -57,21 +57,21 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             foreach (var element in divPetOwnerDetailsList)
             {
-                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
-                var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", string.Empty).Trim();
+                var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim();
+                var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", ", ").Trim();
 
                 switch (elementTitle)
                 {
-                    case "NAME":
+                    case "Enw":
                         summary.Name = elementValue;
                         break;
-                    case "EMAIL":
+                    case "Ebost":
                         summary.Email = elementValue;
                         break;
-                    case "ADDRESS":
+                    case "Cyfeiriad":
                         summary.Address = elementValue;
                         break;
-                    case "PHONE NUMBER":
+                    case "Rhif ffôn":
                         summary.PhoneNumber = elementValue;
                         break;
 

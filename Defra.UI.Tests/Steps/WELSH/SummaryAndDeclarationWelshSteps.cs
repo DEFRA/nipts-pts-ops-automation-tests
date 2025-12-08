@@ -54,13 +54,13 @@ namespace Defra.UI.Tests.Steps.AP
         {
             VerifyPetsDetailsWelsh(false);
         }
-        /*
-        [Then(@"I have verified pet owner details in declaration page")]
+        
+        [Then(@"I have verified pet owner details in declaration page in Welsh")]
         public void ThenIHaveVerifiedPetOwnerDetailsInDeclarationPage()
         {
-            VerifyPetOwnerDetails(false);
+            VerifyPetOwnerDetailsWelsh(false);
         }
-        */
+        
 
         [Then(@"I have verified microchip details in summary page in Welsh")]
         public void ThenIHaveVerifiedMicrochipDetailsInSummaryPage()
@@ -87,12 +87,12 @@ namespace Defra.UI.Tests.Steps.AP
         {
             Assert.IsTrue(summaryPage?.ClickPrintdLink(), "Print window not opened successfully");
         }
-
-        [Then(@"I have verified pet owner details in summary page")]
+        */
+        [Then(@"I have verified pet owner details in summary page in Welsh")]
         public void ThenIHaveVerifiedPetOwnerDetailsInSummaryPage()
         {
-            VerifyPetOwnerDetails();
-        }*/
+            VerifyPetOwnerDetailsWelsh();
+        }
 
         [Then(@"I should redirected to the Are your details correct page in Welsh")]
         public void ThenIShouldRedirectedToTheAreYourDetailsCorrectPageInWelsh()
@@ -101,12 +101,17 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(changeDetailsPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-/*        [Then(@"I have selected '([^']*)' option")]
+        [Then(@"I have selected '([^']*)' option in Welsh")]
         public void ThenIHaveSelectedOption(string option)
         {
             changeDetailsPageWelsh?.SelectOption(option);
             _scenarioContext.Add("AreDetailsCorrect", option);
-        }*/
+            var registeredUserDetails = changeDetailsPageWelsh?.GetRegisteredUserDetails();
+            _scenarioContext.Add("enw llawn", registeredUserDetails?.Name);
+            _scenarioContext.Add("Cyfeiriad", registeredUserDetails?.Address?.Split(new string("\r\n")));
+            _scenarioContext.Add("Rhif ffôn", registeredUserDetails?.PhoneNumber);
+            _scenarioContext.Add("Ebost", registeredUserDetails?.Email);
+        }
 
         [When(@"I click on continue button from Are your details correct page in Welsh")]
         public void WhenIClickOnContinueButtonFromAreYourDetailsCorrectPageInWelsh()
@@ -162,11 +167,11 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.AreEqual(color, summary?.Colour, $"Color is not matching in {pageName} page!");
             Assert.AreEqual(significantFeatures, summary?.SignificantFeatures, $"Significant feature is not matching in {pageName} page!");
         }
-        /*
-        private void VerifyPetOwnerDetails(bool isSummaryPage = true)
+        
+        private void VerifyPetOwnerDetailsWelsh(bool isSummaryPage = true)
         {
-            var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
-            var registeredUserDetails = changeDetailsPage?.GetRegisteredUserDetails();
+            var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
+            var registeredUserDetails = changeDetailsPageWelsh?.GetRegisteredUserDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
             string[] address;
             var email = registeredUserDetails?.Email;
@@ -178,15 +183,16 @@ namespace Defra.UI.Tests.Steps.AP
 
             if (areDetailsCorrect.ToLower().Equals("yes"))
             {
-                fullName = registeredUserDetails?.Name;
-                address = registeredUserDetails?.Address?.Split(new string("\r\n"));
-                phoneNumber = registeredUserDetails?.PhoneNumber;
+                fullName = _scenarioContext.Get<string>("enw llawn");
+                email = _scenarioContext.Get<string>("Ebost");
+                address = _scenarioContext.Get<string[]>("Cyfeiriad");
+                phoneNumber = _scenarioContext.Get<string>("Rhif ffôn");
             }
             else
             {
-                fullName = _scenarioContext.Get<string>("FullName");
-                address = _scenarioContext.Get<string[]>("Address");
-                phoneNumber = _scenarioContext.Get<string>("PhoneNumber");
+                fullName = _scenarioContext.Get<string>("enw llawn");
+                address = _scenarioContext.Get<string[]>("Cyfeiriad");
+                phoneNumber = _scenarioContext.Get<string>("Rhif ffôn");
             }
 
             Assert.AreEqual(email, summary?.Email, $"Email is not matching in {pageName} page!");
@@ -195,7 +201,7 @@ namespace Defra.UI.Tests.Steps.AP
 
             foreach (var lineItem in address)
             {
-                Assert.IsTrue(summary?.Address.Contains(lineItem.Trim()), $"Address is not matching in {pageName} page!");
+                Assert.IsTrue(summary?.Address.Replace(",","").Contains(NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
             }
 
             if (isSummaryPage)
@@ -208,6 +214,33 @@ namespace Defra.UI.Tests.Steps.AP
             }
         }
 
+        public static string NormalizeAddress(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+
+            s = s.ToUpperInvariant();
+            s = Regex.Replace(s, @"\s+", " ");
+            s = s.Replace(",", " ").Trim();
+
+            string[] counties = new[]
+            {
+        "OXFORDSHIRE","BERKSHIRE","BUCKINGHAMSHIRE","CAMBRIDGESHIRE","CORNWALL",
+        "CUMBRIA","DERBYSHIRE","DEVON","DORSET","DURHAM","ESSEX","GLOUCESTERSHIRE",
+        "GREATER LONDON","GREATER MANCHESTER","HAMPSHIRE","HEREFORDSHIRE","HERTFORDSHIRE",
+        "KENT","LANCASHIRE","LEICESTERSHIRE","LINCOLNSHIRE","MERSEYSIDE","NORFOLK",
+        "NORTHAMPTONSHIRE","NORTHUMBERLAND","NOTTINGHAMSHIRE","SHROPSHIRE","SOMERSET",
+        "STAFFORDSHIRE","SUFFOLK","SURREY","WARWICKSHIRE","WEST MIDLANDS","WEST SUSSEX",
+        "WEST YORKSHIRE","WILTSHIRE","WORCESTERSHIRE","EAST SUSSEX","SOUTH YORKSHIRE",
+        "TYNE AND WEAR"
+            };
+
+            foreach (var county in counties)
+                s = Regex.Replace(s, $@"\b{Regex.Escape(county)}\b", "", RegexOptions.IgnoreCase);
+
+            s = Regex.Replace(s, @"\s+", " ").Trim();
+            return s;
+        }
+        /*
         [Then(@"I should not see the application in the Dashboard")]
         public void ThenIShouldNotSeeTheApplicationInTheDashboard()
         {
