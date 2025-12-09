@@ -61,6 +61,7 @@ namespace Defra.UI.Tests.Steps.AP
         }
 
         [Then(@"I click on welsh Back button")]
+        [Then(@"I click on Back button in Welsh")]
         public void ThenIClickOnWelshBackButton()
         {
             HomePageWelsh?.ClickWelshBackButton();
@@ -140,14 +141,13 @@ namespace Defra.UI.Tests.Steps.AP
              string currentURL = DriverCommand.GetCurrentUrl;
              currentURL.Contains("https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/");
          }
-
-         [Then(@"I should navigate to Manage account")]
+        */
+         [Then(@"I should navigate to Manage account in Welsh")]
          public void ThenIShouldNavigateToManageAccount()
          {
-             HomePage?.ClickOnManageAccountLink();
+             HomePageWelsh?.ClickOnManageAccountLink();
          }
 
-         */
         [When(@"I have clicked the View hyperlink from home page in Welsh")]
          public void WhenIHaveClickedTheViewHyperlinkFromHomePage()
          {
