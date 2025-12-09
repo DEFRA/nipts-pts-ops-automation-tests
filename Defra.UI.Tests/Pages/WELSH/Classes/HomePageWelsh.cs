@@ -40,7 +40,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> tableRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr"), true);
         private IReadOnlyCollection<IWebElement> tableHeaderRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/th"), true);
         private IReadOnlyCollection<IWebElement> tableActionRows => _driver.WaitForElements(By.XPath("//table/tbody/descendant::tr/td[2]//a"), true);
-        private IWebElement lnkManageAccount => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Manage account']"));
+        private IWebElement lnkManageAccount => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Rheoli’r cyfrif']"));
         private IWebElement lnkSignOut => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Sign out')]"));
         private IWebElement lnkInvalidDocuments => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Gweld dogfennau annilys')]"));
         private IWebElement InvalidDocHeader => _driver.WaitForElement(By.XPath("//*[@class='govuk-heading-xl govuk-!-margin-bottom-4']"));
