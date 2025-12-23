@@ -16,7 +16,7 @@ namespace Defra.UI.Tests.Steps.AP
         private ISummaryPageWelsh? summaryPageWelsh => _objectContainer.IsRegistered<ISummaryPageWelsh>() ? _objectContainer.Resolve<ISummaryPageWelsh>() : null;
         private IApplicationDeclarationPageWelsh? declarationPageWelsh => _objectContainer.IsRegistered<IApplicationDeclarationPage>() ? _objectContainer.Resolve<IApplicationDeclarationPageWelsh>() : null;
         private IChangeDetailsPageWelsh? changeDetailsPageWelsh => _objectContainer.IsRegistered<IChangeDetailsPageWelsh>() ? _objectContainer.Resolve<IChangeDetailsPageWelsh>() : null;
-      //  private IHomePage? homePage => _objectContainer.IsRegistered<IHomePage>() ? _objectContainer.Resolve<IHomePage>() : null;
+        private IHomePageWelsh? homePageWelsh => _objectContainer.IsRegistered<IHomePageWelsh>() ? _objectContainer.Resolve<IHomePageWelsh>() : null;
         public SummaryAndDeclarationWelshSteps(ScenarioContext context, IObjectContainer container)
         {
             _scenarioContext = context;
@@ -73,21 +73,19 @@ namespace Defra.UI.Tests.Steps.AP
         {
             VerifyPetsDetailsWelsh();
         }
-        
-        /*
 
-        [Then(@"I click download link in summary page")]
+        [Then(@"I click download link in summary page in Welsh")]
         public void ThenIClickDownloadLinkInSummaryPage()
         {
-            summaryPage?.ClickPDFDownloadLink();
+            summaryPageWelsh?.ClickPDFDownloadLink();
         }
-
-        [Then(@"I click print link in summary page")]
+        
+        [Then(@"I click print link in summary page in Welsh")]
         public void ThenIClickPrintLinkInSummaryPage()
         {
-            Assert.IsTrue(summaryPage?.ClickPrintdLink(), "Print window not opened successfully");
+            Assert.IsTrue(summaryPageWelsh?.ClickPrintdLink(), "Print window not opened successfully");
         }
-        */
+        
         [Then(@"I have verified pet owner details in summary page in Welsh")]
         public void ThenIHaveVerifiedPetOwnerDetailsInSummaryPage()
         {
@@ -131,7 +129,7 @@ namespace Defra.UI.Tests.Steps.AP
             var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
 
-            var microchipNumber = _scenarioContext.Get<string>("Rhif y microsglodyn");
+            var microchipNumber = _scenarioContext.Get<string>("MicrochipNumber");
             var microchippedDate = _scenarioContext.Get<string>("Dyddiad mewnblannu neu sganio");
 
             Assert.AreEqual(microchipNumber, summary?.MicrochipNumber, $"Microchip number is not matching in {pageName} page!");
@@ -201,7 +199,7 @@ namespace Defra.UI.Tests.Steps.AP
 
             foreach (var lineItem in address)
             {
-                Assert.IsTrue(summary?.Address.Replace(",","").Contains(NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
+                Assert.IsTrue(summary?.Address.Replace(",","").ToUpper().Contains(NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
             }
 
             if (isSummaryPage)
@@ -240,15 +238,15 @@ namespace Defra.UI.Tests.Steps.AP
             s = Regex.Replace(s, @"\s+", " ").Trim();
             return s;
         }
-        /*
-        [Then(@"I should not see the application in the Dashboard")]
+        
+        [Then(@"I should not see the application in the Dashboard in Welsh")]
         public void ThenIShouldNotSeeTheApplicationInTheDashboard()
         {
-            var petName = _scenarioContext.Get<string>("PetName");
-            Assert.IsTrue(homePage?.VerifyTheApplicationIsNotAvailable(petName), $"The application is available in Dashboard!");
+            var petName = _scenarioContext.Get<string>("Enw");
+            Assert.IsTrue(homePageWelsh?.VerifyTheApplicationIsNotAvailable(petName), $"The application is available in Dashboard!");
         }
 
-        */
+        
         [Then(@"I should see a table named '(.*)' with a column '(.*)' in approved document in Welsh")]
         public void ThenIShouldSeeATableNamedWithAColumnInApprovedDocument(string tableName, string columnName)
         {
@@ -266,49 +264,49 @@ namespace Defra.UI.Tests.Steps.AP
         {
             Assert.IsTrue(summaryPageWelsh?.VerifyIssuingAuthoritySignatureRow(signatureColName));
         }
-        /*
-        [Then(@"I verify the application status '(.*)'")]
+        
+        [Then(@"I verify the application status '(.*)' in Welsh")]
         public void ThenIVerifyTheApplicationStatus(string status)
         {
-            Assert.IsTrue(summaryPage?.VerifyApplicationStatus(status), "The status of the pet travel document is not correct");
+            Assert.IsTrue(summaryPageWelsh?.VerifyApplicationStatus(status), "The status of the pet travel document is not correct");
         }
-
-        [Then(@"I should not see print and download your application options")]
+        
+        [Then(@"I should not see print and download your application options in Welsh")]
         public void ThenIShouldNotSeePrintAndDownloadYourApplicationOptions()
         {
-            Assert.IsTrue(summaryPage?.VerifyPrintAndDownloadLinks(), "Print and Download links are visible");
+            Assert.IsTrue(summaryPageWelsh?.VerifyPrintAndDownloadLinks(), "Print and Download links are visible");
         }
-
-        [Then(@"I verify all the details in the summary page for pending or unsuccessful PTD '(.*)'")]
+        
+        [Then(@"I verify all the details in the summary page for pending or unsuccessful PTD '(.*)' in Welsh")]
         public void ThenIVerifyAllTheDetailsInTheSummaryPageForPendingOrUnsuccessfulPTD(string status)
         {
             VerifyMicrodhipInformation(true);
-            VerifyPetsDetails();
-            VerifyPetOwnerDetails(true);
-            Assert.IsTrue(summaryPage?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
+            VerifyPetsDetailsWelsh();
+            VerifyPetOwnerDetailsWelsh(true);
+            Assert.IsTrue(summaryPageWelsh?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
         }
-
-        [Then(@"I verify all the details in the declaration page for cancelled PTD '(.*)'")]
+        
+        [Then(@"I verify all the details in the declaration page for cancelled PTD '(.*)' in Welsh")]
         public void ThenIVerifyAllTheDetailsInTheDeclarationPageForCancelledPTD(string status)
         {
             VerifyMicrodhipInformation(true);
-            VerifyPetsDetails();
-            VerifyIssuedTable(true);
-            Assert.IsTrue(summaryPage?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
+            VerifyPetsDetailsWelsh();
+            VerifyIssuedTableWelsh(true);
+            Assert.IsTrue(summaryPageWelsh?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
         }
-
-        [Then(@"I verify all the details in the declaration page for approved PTD '(.*)'")]
+        
+        [Then(@"I verify all the details in the declaration page for approved PTD '(.*)' in Welsh")]
         public void ThenIVerifyAllTheDetailsInTheDeclarationPageForApprovedPTD(string status)
         {
             VerifyMicrodhipInformation(true);
-            VerifyPetsDetails();
-            VerifyIssuedTable(true);
+            VerifyPetsDetailsWelsh();
+            VerifyIssuedTableWelsh(true);
         }
-
-        private void VerifyIssuedTable(bool isSummaryPage = true)
+        
+        private void VerifyIssuedTableWelsh(bool isSummaryPage = true)
         {
-            var summary = isSummaryPage ? summaryPage?.GetSummaryDetails() : declarationPage?.GetSummaryDetails();
-            var registeredUserDetails = changeDetailsPage?.GetRegisteredUserDetails();
+            var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
+            var registeredUserDetails = changeDetailsPageWelsh?.GetRegisteredUserDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
 
             if (isSummaryPage)
@@ -325,12 +323,12 @@ namespace Defra.UI.Tests.Steps.AP
                 Assert.AreEqual(date, summary?.Date, $"Date is not matching in {pageName} page!");
             }
         }
-
-        [Then(@"I should not see issuing authority table")]
+        
+        [Then(@"I should not see issuing authority table in Welsh")]
         public void ThenIShouldNotSeeIssuingAuthorityTable()
         {
-            Assert.IsTrue(summaryPage?.VerifyIssuingAuthorityTableIsNotVisible());
-        }*/
+            Assert.IsTrue(summaryPageWelsh?.VerifyIssuingAuthorityTableIsNotVisible());
+        }
 
         [Then(@"I verify the status of the application '(.*)' in Welsh")]
         public void ThenIVerifyTheStatusOfTheApplicationInWelsh(string status)

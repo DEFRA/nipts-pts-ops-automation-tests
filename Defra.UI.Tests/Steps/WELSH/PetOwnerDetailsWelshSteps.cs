@@ -4,6 +4,7 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using System.Reactive.Joins;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -37,7 +38,8 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIProvidedTheFullNameOfThePetKeeperAs(string fullName)
         {
             petOwnerNamePage?.EnterPetOwnerName(fullName);
-            _scenarioContext.Add("FullName", fullName);
+             _scenarioContext.Remove("enw llawn");
+            _scenarioContext.Add("enw llawn", fullName);
         }
 
         [When(@"I click Continue button from What is your full name page in Welsh")]
@@ -87,11 +89,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenISelectTheIndexFromAddressList(int addressIndex)
         {
             var addressLines = petOwnerAddressPage?.SelectAnAddress(addressIndex);
-            if (_scenarioContext.ContainsKey("Cyfeiriad"))
-            {
-                _scenarioContext.Remove("Cyfeiriad");
-            }
-            _scenarioContext.Add("Cyfeiriad", addressLines);
+            _scenarioContext["Cyfeiriad"] = addressLines;
         }
 
         [When(@"I click Continue button from What is your postcode page in Welsh")]
@@ -118,7 +116,7 @@ namespace Defra.UI.Tests.Steps.AP
             petOwnerAddressPage?.EnterAddressManually("5 AddressLine1", string.Empty, "Coventry", string.Empty, postCode);
 
             var addressLines = new string[] { "5 AddressLine1", "Coventry", "Coventry", postCode };
-            _scenarioContext.Add("Address", addressLines);
+            _scenarioContext["Cyfeiriad"] = addressLines;
         }
 
         [Then(@"I should redirected to What is your phone number page in Welsh")]
@@ -127,12 +125,13 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.True(petOwnerPhoneNumberPage?.IsNextPageLoaded("Beth yw’ch rhif ffôn?"), "Application page not loaded");
         }
 
-        //[Then(@"I provided the phone number '([^']*)' in Welsh")]
-        //public void ThenIProvidedThePhoneNumber(string phoneNumber)
-        //{
-        //    petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
-        //    _scenarioContext.Add("PhoneNumber", phoneNumber);
-        //}
+        [Then(@"I provided the phone number '([^']*)' in Welsh")]
+        public void ThenIProvidedThePhoneNumber(string phoneNumber)
+        {
+            petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
+            _scenarioContext.Remove("Rhif ffôn");
+            _scenarioContext.Add("Rhif ffôn", phoneNumber);
+        }
 
         [When(@"I click Continue button from What is your phone number page in Welsh")]
         public void WhenIClickContinueButtonFromWhatIsYourPhoneNumberPage()
