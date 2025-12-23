@@ -66,12 +66,12 @@ namespace Defra.UI.Tests.Steps.AP
             breedPageWelsh?.ClickParhauButton();
         }
 
-        /*        [Then(@"I have provided freetext breed as '([^']*)'")]
+               [Then(@"I have provided freetext breed as '([^']*)' in Welsh")]
                 public void ThenIHaveProvidedFreetextBreedAs(string breed)
                 {
-                    breedPage?.EnterFreeTextBreed(breed);
-                    _scenarioContext.Add("Breed", breed);
-                }*/
+                    breedPageWelsh?.EnterFreeTextBreed(breed);
+                    _scenarioContext.Add("Brid", breed);
+                }
 
 
         [Then(@"I should redirected to the What is your pet's name page in Welsh")]
@@ -127,12 +127,12 @@ namespace Defra.UI.Tests.Steps.AP
             _scenarioContext.Add("Lliw", color);
         }
 
-/*        [Then(@"I provided other color of the pet as ""([^""]*)""")]
+        [Then(@"I provided other color of the pet as ""([^""]*)"" in Welsh")]
         public void ThenIProvidedOtherColorOfThePetAs(string otherColor)
         {
             petColourPag?.SelectOtherColorOption(otherColor);
-            _scenarioContext.Add("OtherColor", otherColor);
-        }*/
+            _scenarioContext["Lliw"] = otherColor;
+        }
 
         [When(@"I click on continue button from What is the main colour of your pet page in Welsh")]
         public void WhenIClickOnContinueButtonFromWhatIsTheMainColourOfYourPetPageInWelsh()
