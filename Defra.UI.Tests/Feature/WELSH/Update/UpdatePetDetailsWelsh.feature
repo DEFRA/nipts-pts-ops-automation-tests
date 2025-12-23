@@ -1,4 +1,4 @@
-﻿@WelshChangeDetails
+﻿@WelshPETS
 Feature: Update Pet Details Welsh
 
 Modify the Pet details before submitting the application in Welsh

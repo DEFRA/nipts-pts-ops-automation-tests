@@ -1,4 +1,4 @@
-﻿@ChangeDetailsWelsh
+﻿@WelshPETS
 Feature: Update Microchip Information Welsh
 
 Modify the Microchiped details before submitting the application in Welsh

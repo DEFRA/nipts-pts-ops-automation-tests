@@ -1,4 +1,4 @@
-﻿@WelshValidations
+﻿@WelshPETS
 Feature: View pet travel document Validations Welsh
 
 Background:

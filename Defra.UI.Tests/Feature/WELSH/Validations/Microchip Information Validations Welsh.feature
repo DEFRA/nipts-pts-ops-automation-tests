@@ -1,4 +1,4 @@
-﻿@WelshValidations
+﻿@WelshPETS
 Feature: Microchip Information Validations Welsh
 
 Validating the negative scenarios for Microchip Information in Welsh
