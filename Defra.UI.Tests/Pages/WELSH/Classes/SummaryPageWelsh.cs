@@ -24,7 +24,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> divMicrochipInformation => _driver.WaitForElements(By.XPath("//div[@id='document-microchip-card']//dl/div"));
         private IReadOnlyCollection<IWebElement> divPetDetails => _driver.WaitForElements(By.XPath("//div[@id='document-pet-card']//dl/div"));
         private IReadOnlyCollection<IWebElement> divPetOwnerDetails => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div"));
-        private IWebElement lnkPDFDownload => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Download your application' or normalize-space(text())='Download your document']"));
+        private IWebElement lnkPDFDownload => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Lawrlwytho’ch dogfen']"));
         private IWebElement lnkPrint => _driver.WaitForElement(By.Id("print-this-page"));
         private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Awdurdod dyroddi']"));
         private IWebElement lblNameAndAddressOfAuthority => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Enw a chyfeiriad yr awdurdod cymwys']"));
@@ -32,7 +32,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement lblSignedColumn => _driver.WaitForElement(By.XPath("//div[@id='document-authority-card']/div[2]/dl/div[2]/dt"));
         private IWebElement lblSignedName => _driver.WaitForElement(By.XPath("//p[contains(normalize-space(.),'Irene Cristofaro')]"));
         private IWebElement lblDesignation => _driver.WaitForElement(By.XPath("//div[@id='document-authority-card']/div[2]/dl/div[2]/dd/p[2]"));
-        private IWebElement lblStatusValue => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']/following-sibling::dd"));
+        private IWebElement lblStatusValue => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Statws']/following-sibling::dd"));
         private IWebElement lblStatusValueWelsh => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Statws']/following-sibling::dd"));
         private IReadOnlyCollection<IWebElement> IssuingAuthorityTable => _driver.FindElements(By.XPath("//div[@id='document-authority-card']"));
         private IWebElement lnkFirstViewLink => _driver.WaitForElement(By.XPath("//tr[@class='govuk-table__row'][1]//li"));
@@ -64,12 +64,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             {
                 foreach (var element in divDocumentIssue)
                 {
-                    var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
+                    var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim();
                     var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", string.Empty).Trim();
 
                     switch (elementTitle)
                     {
-                        case "PET TRAVEL DOCUMENT NUMBER":
+                        case "Rhif y ddogfen deithio i anifail anwes":
                             summary.PTDNumber = elementValue;
                             break;
                         case "Dyddiad":

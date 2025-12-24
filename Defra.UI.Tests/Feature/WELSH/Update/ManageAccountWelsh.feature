@@ -1,4 +1,4 @@
-﻿@WelshChangeDetails
+﻿@WelshPETS
 Feature: ManageAccount Welsh
 
 Background: 

@@ -1,4 +1,4 @@
-﻿@WelshValidations
+﻿@WelshPETS
 Feature: Pet Details Validations Welsh
 
 Validating the negative scenarios for Pet Details in Welsh

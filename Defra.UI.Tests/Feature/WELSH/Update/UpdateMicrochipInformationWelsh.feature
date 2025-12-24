@@ -1,4 +1,4 @@
-﻿@ChangeDetailsWelsh
+﻿@WelshPETS
 Feature: Update Microchip Information Welsh
 
 Modify the Microchiped details before submitting the application in Welsh
@@ -121,7 +121,7 @@ Examples:
 	| PetCats's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cath | Cat     | Benyw  | Du    | Oes                   |
 	| PetDog's  | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ci   | Dog     | Benyw  | Coch  | Oes                   |
 
-Scenario Outline: Modify PETS Microchip scanned date By Registered User with details correct - Ferret in Welsh
+Scenario Outline: Modify PETS Microchip scanned date By Registered User with details correct in Welsh - Ferret
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
@@ -169,7 +169,7 @@ Examples:
 	| FullName  | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color   | IsSignificantFeatures |
 	| PetFerret | Yes, I am the registered keeper | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ffured | Ffured  | Benyw  | Sinamon | Oes                   |
 
-Scenario Outline: Modify PETS Microchip number By Registered User with details correct - Ferret in Welsh
+Scenario Outline: Modify PETS Microchip number By Registered User with details correct in Welsh - Ferret
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
