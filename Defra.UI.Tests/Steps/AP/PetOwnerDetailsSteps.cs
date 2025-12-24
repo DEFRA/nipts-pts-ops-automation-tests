@@ -115,6 +115,12 @@ namespace Defra.UI.Tests.Steps.AP
             petOwnerAddressPage?.EnterAddressManually("5 AddressLine1", string.Empty, "Coventry", string.Empty, postCode);
 
             var addressLines = new string[] { "5 AddressLine1", "Coventry", "Coventry", postCode };
+
+            if (_scenarioContext.ContainsKey("Address"))
+            {
+                _scenarioContext.Remove("Address");
+            }
+
             _scenarioContext.Add("Address", addressLines);
         }
 
@@ -128,6 +134,12 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIProvidedThePhoneNumber(string phoneNumber)
         {
             petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
+            
+            if (_scenarioContext.ContainsKey("PhoneNumber"))
+            {
+                _scenarioContext.Remove("PhoneNumber");
+            }
+
             _scenarioContext.Add("PhoneNumber", phoneNumber);
         }
 
