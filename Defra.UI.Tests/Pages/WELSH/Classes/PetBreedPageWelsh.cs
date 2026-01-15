@@ -23,6 +23,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement drpBreedsListBox => _driver.WaitForElement(By.Id("BreedId__listbox"));
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[@class='govuk-button']"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
+        private IWebElement txtHintBreed => _driver.WaitForElement(By.CssSelector("#BreedId__assistiveHint"));
         #endregion
 
         #region Methods
@@ -137,6 +138,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
                 }
             }
             return true;
+        }
+
+        public bool VerifyHintText()
+        {
+            return txtHintBreed.Text.Contains("Teipiwch frîd eich cath neu dewiswch o'r opsiynau a awgrymir.");
         }
         #endregion
     }

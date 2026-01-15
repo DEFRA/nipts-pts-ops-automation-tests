@@ -24,7 +24,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> divMicrochipInformation => _driver.WaitForElements(By.XPath("//div[@id='document-microchip-card']//dl/div"));
         private IReadOnlyCollection<IWebElement> divPetDetails => _driver.WaitForElements(By.XPath("//div[@id='document-pet-card']//dl/div"));
         private IReadOnlyCollection<IWebElement> divPetOwnerDetails => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div"));
-        private IWebElement lnkPDFDownload => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Lawrlwytho’ch dogfen']"));
+        private IWebElement lnkPDFDownload => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Lawrlwytho’ch dogfen' or normalize-space(text())='Lawrlwytho’ch cais']"));
         private IWebElement lnkPrint => _driver.WaitForElement(By.Id("print-this-page"));
         private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Awdurdod dyroddi']"));
         private IWebElement lblNameAndAddressOfAuthority => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Enw a chyfeiriad yr awdurdod cymwys']"));
