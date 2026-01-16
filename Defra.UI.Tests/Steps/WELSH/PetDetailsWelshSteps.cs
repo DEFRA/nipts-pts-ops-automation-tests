@@ -182,5 +182,11 @@ namespace Defra.UI.Tests.Steps.AP
             petSexPageWelsh?.SelectPetsSexOption(sex);
             _scenarioContext.Add("Rhyw", sex);
         }
+
+        [Then(@"I Verify the hint in Breed Page")]
+        public void ThenIVerifyTheHintInBreedPage()
+        {
+            Assert.IsTrue(breedPageWelsh.VerifyHintText());
+        }
     }
 }
