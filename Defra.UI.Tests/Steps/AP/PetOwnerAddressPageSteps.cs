@@ -23,5 +23,11 @@ namespace Defra.UI.Tests.Steps.AP
             PetOwnerAddressPage?.SelectAnAddress(3);
             PetOwnerAddressPage?.ClickContinueButton();
         }
+
+        [Then(@"I should navigate to Pets Owner address page '(.*)'")]
+        public void ThenIShouldNavigateToPetOwnerAddressPage(string title)
+        {
+            Assert.IsTrue(PetOwnerAddressPage?.IsAddressPageHeaderDisplayed(title), $"The page {title} not loaded!");
+        }
     }
 }

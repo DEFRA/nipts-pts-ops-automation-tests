@@ -50,6 +50,7 @@ namespace Defra.UI.Tests.Steps.AP
             petSpeciesPageWelsh?.ClickParhauButton();
         }
 
+        [Then(@"I Verify the header of the breed page for {string} in Welsh")]
         [Then(@"I should redirected to the What breed is your {string}? page in Welsh")]
         public void ThenIShouldRedirectedToTheWhatBreedIsYourPageInWelsh(string petType)
         {
@@ -66,12 +67,12 @@ namespace Defra.UI.Tests.Steps.AP
             breedPageWelsh?.ClickParhauButton();
         }
 
-               [Then(@"I have provided freetext breed as '([^']*)' in Welsh")]
-                public void ThenIHaveProvidedFreetextBreedAs(string breed)
-                {
-                    breedPageWelsh?.EnterFreeTextBreed(breed);
-                    _scenarioContext.Add("Brid", breed);
-                }
+        [Then(@"I have provided freetext breed as '([^']*)' in Welsh")]
+        public void ThenIHaveProvidedFreetextBreedAs(string breed)
+        {
+            breedPageWelsh?.EnterFreeTextBreed(breed);
+            _scenarioContext.Add("Brid", breed);
+        }
 
 
         [Then(@"I should redirected to the What is your pet's name page in Welsh")]
