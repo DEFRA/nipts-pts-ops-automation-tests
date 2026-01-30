@@ -341,11 +341,11 @@ namespace Defra.UI.Tests.Steps.AP
         {
             summaryPage?.ClickFirstViewHyperLink();
         }
-
-        [Then(@"I have verified breed row for ferret is not displayed")]
+       */
+        [Then(@"I have verified breed row for ferret is not displayed in Welsh")]
         public void ThenIHaveVerifiedBreedRowForFerretIsNotDisplayed()
         {
-            Assert.IsTrue(summaryPage?.VerifyBreedForFerret());
-        }*/
+            Assert.IsTrue(summaryPageWelsh?.VerifyBreedForFerret());
+        }
     }
 }

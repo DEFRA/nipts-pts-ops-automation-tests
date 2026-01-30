@@ -508,6 +508,23 @@ Examples:
 	| Yes                      | Yes             | 123456789123456 | Ci   | DogBreed |
 	| Yes                      | Yes             | 123456789123456 | Cath | CatBreed |
 
+Scenario: Verify the hint in breed page for cat
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
+	And I selected the 'Yes' option
+	And provided microchip number as 121122334565432
+	When I click Continue button from microchipped page in Welsh
+	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page in Welsh
+	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
+	And I have selected an option as 'Cath' for pet in Welsh
+	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
+	Then I should redirected to the What breed is your 'Cath'? page in Welsh
+	And I Verify the hint in Breed Page
+	| Yes                      | Yes             | 123456789123456 | Cath | CatBreed |
+
 Scenario Outline: Verify the Welsh language version of each page on selection of Welsh language till the declaration page
 	When I click 'English' link to change the language
 	Then I should navigate to the Pets Owner details correct page
