@@ -523,7 +523,6 @@ Scenario: Verify the hint in breed page for cat
 	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
 	Then I should redirected to the What breed is your 'Cath'? page in Welsh
 	And I Verify the hint in Breed Page
-	| Yes                      | Yes             | 123456789123456 | Cath | CatBreed |
 
 Scenario Outline: Verify the Welsh language version of each page on selection of Welsh language till the declaration page
 	When I click 'English' link to change the language
