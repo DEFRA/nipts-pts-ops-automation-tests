@@ -321,5 +321,11 @@ namespace Defra.UI.Tests.Steps.AP
         {
             HomePage?.VerifyCommonHeaderLinks(govukLink, takingAPetLink);
         }
+
+        [Then("I Should not see the invalid documents link")]
+        public void ThenIShouldNotSeeTheInvalidDocumentsLink()
+        {
+            Assert.IsTrue(HomePage.VerifyNoInvalidDocumentsLink());
+        }
     }
 }
