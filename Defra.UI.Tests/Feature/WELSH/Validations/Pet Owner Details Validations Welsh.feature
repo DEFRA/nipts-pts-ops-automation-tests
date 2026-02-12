@@ -21,7 +21,7 @@ Scenario: Verify pet owner details page validations in Welsh and should not move
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should see an error message 'Dewiswch a ydych chi’n cytuno â’r datganiad' in pet owner details page
 
-Scenario Outline: Verify full name should not allows exceed limits in Welsh
+Scenario Outline: Verify full name should not be invalid in Welsh
 	When I selected the radio button '<Are your details correct>' option and continue in Welsh
 	Then I should navigate to Pets Owner full name page in Welsh
 	When I provided '<FullName>' and continue in Welsh
