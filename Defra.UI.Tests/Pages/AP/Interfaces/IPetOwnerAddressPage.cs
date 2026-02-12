@@ -13,5 +13,6 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         void ClickICannotFindTheAddressInTheListLink();
         void EnterAddressManually(string addressLine1, string addressLine2, string town, string county, string postCode);
         bool IsError(string errorMessage);
+        bool IsAddressPageHeaderDisplayed(string title);
     }
 }

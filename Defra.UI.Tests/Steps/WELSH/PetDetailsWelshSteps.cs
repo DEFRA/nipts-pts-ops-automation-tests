@@ -51,6 +51,7 @@ namespace Defra.UI.Tests.Steps.AP
             petSpeciesPageWelsh?.ClickParhauButton();
         }
 
+        [Then(@"I Verify the header of the breed page for {string} in Welsh")]
         [Then(@"I should redirected to the What breed is your {string}? page in Welsh")]
         public void ThenIShouldRedirectedToTheWhatBreedIsYourPageInWelsh(string petType)
         {
@@ -191,6 +192,11 @@ namespace Defra.UI.Tests.Steps.AP
         }
 
 
+        [Then(@"I Verify the hint in Breed Page")]
+        public void ThenIVerifyTheHintInBreedPage()
+        {
+            Assert.IsTrue(breedPageWelsh.VerifyHintText());
+        }
     }
 
 }

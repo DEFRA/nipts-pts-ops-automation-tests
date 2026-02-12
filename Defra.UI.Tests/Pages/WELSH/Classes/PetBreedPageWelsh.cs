@@ -27,6 +27,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement footerLinkcookiesinWelsh => _driver.WaitForElement(By.XPath("// a [contains(text(),'Cwcis')]"));
         private IWebElement footerLinkPrivacynoticeinWelsh => _driver.WaitForElement(By.XPath("//a[contains(text(),'Hysbysiad preifatrwydd (yn agor mewn tab newydd)')]"));
         private IWebElement footerLinkTermsandconditionsinWelsh => _driver.WaitForElement(By.XPath("//a[contains(text(),'Telerau ac amodau')]"));
+        private IWebElement txtHintBreed => _driver.WaitForElement(By.CssSelector("#BreedId__assistiveHint"));
         #endregion
 
 
@@ -143,6 +144,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             }
             return true;
         }
+ 
         public bool VerifyFooterLinksinWelsh()
         {
 
@@ -153,6 +155,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         }
 
-    }
+    
+
+        public bool VerifyHintText()
+        {
+            return txtHintBreed.Text.Contains("Teipiwch frîd eich cath neu dewiswch o'r opsiynau a awgrymir.");
+        }
+     
         #endregion
-    }
+         }
+                         
+        }

@@ -18,6 +18,7 @@ namespace Defra.UI.Tests.Steps.AP
             _objectContainer = container;
         }
 
+        [Then(@"I Verify the header of the breed page for {string}")]
         [Then(@"I should navigate to What breed is your '([^']*)' page")]
         public void ThenIShouldNavigateToWhatBreedIsYourPage(string petType)
         {
