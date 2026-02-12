@@ -1,8 +1,9 @@
-﻿using Reqnroll.BoDi;
+﻿using Defra.UI.Tests.Pages.AP.Classes;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -30,5 +31,12 @@ namespace Defra.UI.Tests.Steps.AP
             PetBreedPage?.EnterFreeTextBreed(petBreed);
             PetBreedPage?.ClickContinueButton();
         }
+        [Then(@"I Verify the footer links changes to English")]
+        public void ThenIVerifyTheFooterLinksChangesToEnglish()
+        {
+            Assert.IsTrue(PetBreedPage?.VerifyFooterLinksinEnglish(), "Footer links are not displayed correctly in english page.");
+
+        }
     }
-}
+    
+    }

@@ -8,5 +8,6 @@
         void EnterFreeTextBreed(string breed);
         bool IsError(string errorMessage);
         bool VerifyBreedsListInWelsh(string species);
+        bool VerifyFooterLinksinWelsh();
     }
 }
