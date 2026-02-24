@@ -23,6 +23,7 @@ namespace Defra.UI.Tests.Steps.AP
         private IPetColourPage? petColourPag => _objectContainer.IsRegistered<IPetColourPage>() ? _objectContainer.Resolve<IPetColourPage>() : null;
         private IPetColourPageWelsh? petColourPageWelsh => _objectContainer.IsRegistered<IPetColourPageWelsh>() ? _objectContainer.Resolve<IPetColourPageWelsh>() : null;
         private ISignificantFeaturesPageWelsh? significantFeaturesPageWelsh => _objectContainer.IsRegistered<ISignificantFeaturesPageWelsh>() ? _objectContainer.Resolve<ISignificantFeaturesPageWelsh>() : null;
+       
 
         public PetDetailsWelshSteps(ScenarioContext context, IObjectContainer container)
         {
@@ -184,10 +185,22 @@ namespace Defra.UI.Tests.Steps.AP
             _scenarioContext.Add("Rhyw", sex);
         }
 
+          [Then(@"I Verify the footer links changes to Welsh")]
+        public void ThenIVerifyTheFooterLinksChangesToWelsh()
+        {
+         Assert.IsTrue(breedPageWelsh?.VerifyFooterLinksinWelsh(), "Footer links are not displayed correctly in welsh page.");
+        }
+
+
         [Then(@"I Verify the hint in Breed Page")]
         public void ThenIVerifyTheHintInBreedPage()
         {
             Assert.IsTrue(breedPageWelsh.VerifyHintText());
         }
     }
+
 }
+
+
+    
+
