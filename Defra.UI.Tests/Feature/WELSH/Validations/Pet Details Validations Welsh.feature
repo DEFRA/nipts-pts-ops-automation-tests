@@ -508,6 +508,9 @@ Examples:
 	| Yes                      | Yes             | 123456789123456 | Ci   | DogBreed |
 	| Yes                      | Yes             | 123456789123456 | Cath | CatBreed |
 
+Scenario Outline: Verify footer links changes to Welsh
+	Then I Verify the footer links changes to Welsh
+
 Scenario: Verify the hint in breed page for cat
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
@@ -673,5 +676,3 @@ Scenario Outline: Verify the Welsh language version of each page on selection of
 	Then I should redirected to the Is your pet microchipped page
 	When I click 'Cymraeg' link to change the language
 	Then I should redirected to the Is your pet microchipped page in Welsh
-	
-	
