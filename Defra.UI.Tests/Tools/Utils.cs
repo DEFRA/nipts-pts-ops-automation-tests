@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Defra.UI.Tests.Tools
 {
@@ -17,6 +18,33 @@ namespace Defra.UI.Tests.Tools
                 chars[i] = alphabets[random.Next(alphabets.Length)];
             }
             return new string(chars);
+        }
+
+        public static string NormalizeAddress(string s)
+        {
+            if (string.IsNullOrWhiteSpace(s)) return string.Empty;
+
+            s = s.ToUpperInvariant();
+            s = Regex.Replace(s, @"\s+", " ");
+            s = s.Replace(",", " ").Trim();
+
+            string[] counties = new[]
+            {
+        "OXFORDSHIRE","BERKSHIRE","BUCKINGHAMSHIRE","CAMBRIDGESHIRE","CORNWALL",
+        "CUMBRIA","DERBYSHIRE","DEVON","DORSET","DURHAM","ESSEX","GLOUCESTERSHIRE",
+        "GREATER LONDON","GREATER MANCHESTER","HAMPSHIRE","HEREFORDSHIRE","HERTFORDSHIRE",
+        "KENT","LANCASHIRE","LEICESTERSHIRE","LINCOLNSHIRE","MERSEYSIDE","NORFOLK",
+        "NORTHAMPTONSHIRE","NORTHUMBERLAND","NOTTINGHAMSHIRE","SHROPSHIRE","SOMERSET",
+        "STAFFORDSHIRE","SUFFOLK","SURREY","WARWICKSHIRE","WEST MIDLANDS","WEST SUSSEX",
+        "WEST YORKSHIRE","WILTSHIRE","WORCESTERSHIRE","EAST SUSSEX","SOUTH YORKSHIRE",
+        "TYNE AND WEAR"
+            };
+
+            foreach (var county in counties)
+                s = Regex.Replace(s, $@"\b{Regex.Escape(county)}\b", "", RegexOptions.IgnoreCase);
+
+            s = Regex.Replace(s, @"\s+", " ").Trim();
+            return s;
         }
 
         public static DateTime ConvertToDate(string dateTime)

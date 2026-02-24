@@ -20,11 +20,10 @@
         bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName);
         bool VerifyGBCheckboxesAreNotChecked();
         bool VerifySPSCheckboxesAreNotChecked();
-        bool VerifyAnyRelavantCommentsTextarea(string heading, string hint, string maxLength);
+        bool VerifyAnyRelavantCommentsSection();
         bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName);
         bool VerifyVCAndPetOwnerDetailSubheading(string subHeading);
         bool VerifyPetDetailsFromPTDLink(string linkName);
-        bool VerifyPetDoesNotMatchThePTDCheckBox(string checkboxValue);
         bool VerifyVCAndPetOwnerAndPetDetailTableName(string tableName);
         bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature);
         bool VerifyOtherIssuesSubheading(string subHeading);
@@ -44,8 +43,9 @@
         void ClickSPSOutcomeCheckbox(string sPSOutcome);
         bool VerifyMicrochipCheckboxesAreChecked();
         void ClickVisualCheckReason(string visualCheckReason);
-        void AnyRelevantComments(string comments);
         void EnterDetailsOfOutcome(string details);
         bool VerifyTypeOfPassengerSubheadingISNotPresent();
+        bool VerifyVisualCheckCheckBox();
+        bool VerifyMicrochipDoesNotMatchPTDCheckbox();
     }
 }

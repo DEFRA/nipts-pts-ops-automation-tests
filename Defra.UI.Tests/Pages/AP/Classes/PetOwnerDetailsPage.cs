@@ -57,7 +57,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         }
         public bool VerifyUpdatedPetOwnerAddress(string petOwnerAddress)
         {
-            var updatedAddress = updatedPetOwnerAddress.Text.Replace("\r\n", "").Replace(" ", string.Empty);
+            var updatedAddress = Utils.NormalizeAddress(updatedPetOwnerAddress.Text).Replace("\r\n", "").Replace(" ", string.Empty);
             return updatedAddress.Equals(petOwnerAddress.Replace(",", string.Empty).Replace(" ", string.Empty));
         }
 

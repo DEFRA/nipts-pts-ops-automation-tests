@@ -408,10 +408,9 @@ Scenario Outline: Verify the duplicate MC number message banner and reject the a
 	Then I get the PTD Reference Number and Store it
 	When I assign the application to myself
 	Then I 'do' see Duplicate Microchip Notification
-	When I assign the application to myself
-	And I 'Fail' the Microchip check
+	When I 'Fail' the Microchip check
 	And I go back
-	And I 'Reject' the application with reason 'Invalid MC number'
+	And I 'Reject' the application with reason 'Duplicate Microchip number'
 
 Examples:
 	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
@@ -583,7 +582,8 @@ Scenario Outline: Verify if a user can Submit an application in AP and the Casew
 	And I go back
 	And I 'Authorise' the application
 	Then I verify the copy of the 'APPROVED' Email in Timeline
-	When I Log decision in SNC as '<Decision>'
+	When I create a New Suspect Non Compliance
+	And I Log decision in SNC as '<Decision>'
 	Then The 'Decision date' is set to Current date
 	Then The 'Close date' is set to Current date
 	And the status is changed to 'Closed'

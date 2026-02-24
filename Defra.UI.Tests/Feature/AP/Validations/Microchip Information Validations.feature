@@ -89,9 +89,9 @@ Scenario Outline: Verify microchipped page validations and should not moves to n
 	Then I should see an error message '<ErrorMessage>' in microchipped page
 	And I should not be redirected to When was your pet microchipped or last scanned? page
 Examples:
-	| FullName | Are your details correct | MicrochipOption | MicrochipNumber | ErrorMessage                               |
-	| Pet Dog  | Yes                      | Yes             |                 | Enter your pet’s 15-digit microchip number |
-	| Pet Dog  | Yes                      | Yes             | abc123def456fgh |                                            |
+	| FullName | Are your details correct | MicrochipOption | MicrochipNumber | ErrorMessage                                                   |
+	| Pet Dog  | Yes                      | Yes             |                 | Enter your pet’s 15-digit microchip number                     |
+	| Pet Dog  | Yes                      | Yes             | abc123def456fgh | Enter your pet's 15-digit microchip number, using only numbers |
 
 Scenario Outline: Verify microchip number should not allows less or more than 15 digits
 	Then I have selected '<Are your details correct>' option
@@ -181,7 +181,7 @@ Scenario Outline: Verify the survey link in get your pet microchipped before app
 	And I selected the 'No' option
 	When I click Continue button from microchipped page
 	Then I should redirected to the Get your pet microchipped before applying page
-	When  I click the survey link 'What did you think of this service? (takes 30 seconds)'
+	When I click the survey link 'What did you think of this service? (takes 30 seconds)'
 	Then I should navigate to the feedback page in new tab
 
 Scenario Outline: Verify the survey link in application submitted page
@@ -218,7 +218,7 @@ Scenario Outline: Verify the survey link in application submitted page
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
 	And I can see the unique application reference number
-	When  I click the survey link 'What did you think of this service? (takes 30 seconds)'
+	When I click the survey link 'What did you think of this service? (takes 30 seconds)'
 	Then I should navigate to the feedback page in new tab
 
 Scenario: Verify the input hyphen only to microchip number text box navigates to 403 error page and validate the back button

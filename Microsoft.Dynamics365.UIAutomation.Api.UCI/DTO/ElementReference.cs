@@ -133,7 +133,7 @@ public static class Elements
         { "Timeline_Post_Cancel",              "id(\"create_post_cancel_btn\")" },
 
         { "Timeline_Note_Title",               "id(\"create_note_medium_titlenotescontrol\")" },
-        { "Timeline_Note_Text",                "//div[contains(@aria-label, \"nipts_ptdapplication notetext\")]" },
+        { "Timeline_Note_Text",                "//div[contains(@aria-label, \"Rich Text Editor\")]" },
         //{ "Timeline_Note_Text",                "//iframe[contains(@class, \"fullPageContentEditorFrame\")]" },
         { "Timeline_Note_TextBody",            "//body[contains(@class, 'cke_wysiwyg_frame')]" },
         { "Timeline_Note_Add",                 "//button[contains(@id,'save_button') or @id = 'splitsave-button']" },
@@ -141,6 +141,9 @@ public static class Elements
         { "Timeline_Open_Record",              "//div[contains(@id,\"timeline_record_container\")]//button[@title=\"Open Record\"]" },
         { "Timeline_Latest_Email_Subject",     "//h1[contains(@title,'Pet Travel Document')]" },
         { "Timeline_Email_Subject_Frame",      "//iframe[@id='EmailPopupIframe_0' or @id='EmailPopupIframe_2']" },
+        {"Timeline_Notes_Added_Title",          "//div[contains(@id,'timeline_record_title')]" }, 
+        {"Timeline_Notes_Added_Body",           "//div[contains(@id,'notescontrol-timeline_record_content_preview')]" }, 
+        {"Timeline_Container",                 "//div[contains(@id,'timeline_record_container')]" }, 
 
         { "Timeline_record_title",              "//*[contains(@id,\"timeline_record_title\")]" },
 
@@ -613,6 +616,9 @@ public static class Reference
         public static string NoteTextBody = "Timeline_Note_TextBody";
         public static string NoteAdd = "Timeline_Note_Add";
         public static string NoteCancel = "Timeline_Note_Cancel";
+        public static string NotesAddedTitle = "Timeline_Notes_Added_Title";
+        public static string NotesAddedBody = "Timeline_Notes_Added_Body";
+        public static string NotesTimelineContainer = "Timeline_Container";
 
         public static string RecordTitle = "Timeline_record_title";
 

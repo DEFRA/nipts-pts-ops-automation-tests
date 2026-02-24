@@ -5,6 +5,8 @@ using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using System;
 using Reqnroll;
+using Microsoft.Dynamics365.UIAutomation.Api.UCI;
+using OpenQA.Selenium;
 
 /// <summary>
 /// Step bindings related to grids.
@@ -154,5 +156,10 @@ public class GridSteps : PowerAppsStepDefiner
         XrmApp.Grid.VerifyAdvancedSearch(filterName, operators, value);
 
         Driver.WaitForTransaction();
+    }
+
+    public static void VerifyNoDataAvailableMessage(string value)
+    {
+        Driver.FindElement(By.XPath(AppElements.Xpath[AppReference.Grid.NoDataMessage])).Text.Should().Be(value);
     }
 }

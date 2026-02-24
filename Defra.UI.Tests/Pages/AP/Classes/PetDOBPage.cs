@@ -59,8 +59,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool IsError(string errorMessage)
         {
+            Thread.Sleep(1000);
             foreach (var element in lblErrorMessages)
-            { 
+            {
+                Console.WriteLine("element.Text: " + element.Text);
                 if (element.Text.Contains(errorMessage))
                 {
                     return true;

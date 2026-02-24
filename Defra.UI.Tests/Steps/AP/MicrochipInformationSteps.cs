@@ -93,6 +93,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenIClickContinueButtonFromWhenWasYourPetMicrochippedPage()
         {
             petMicrochipDatePage?.ClickContinueButton();
+            Thread.Sleep(2000);
         }
 
         [Then(@"I should redirected to the Get your pet microchipped before applying page")]

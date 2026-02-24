@@ -197,6 +197,11 @@ public class Timeline : Element
         _client.ClickButton(Elements.Xpath[Reference.Timeline.NoteAdd]);
     }
 
+    public bool VerifyRecentlyAddedNotes(string title, string note)
+    {
+        return _client.VerifyTimelinePost(title, note);
+    }
+
     /// <summary>
     /// Open Record
     /// </summary>

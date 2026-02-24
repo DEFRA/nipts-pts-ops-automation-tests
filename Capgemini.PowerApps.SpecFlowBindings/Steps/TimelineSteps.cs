@@ -39,6 +39,12 @@ public class TimelineSteps : PowerAppsStepDefiner
     {
         XrmApp.Timeline.AddNote(title, body);
     }
+    
+    [Then("I verify the recently added notes with title '(.*)' and preview '(.*)'")]
+    public static bool ThenIVerifyTheNotesAdded(string title, string body)
+    {
+        return XrmApp.Timeline.VerifyRecentlyAddedNotes(title, body);
+    }
 
     /// <summary>
     /// Adds a phone call to the timeline. TODO: Improve duration regex.
@@ -171,28 +177,24 @@ public class TimelineSteps : PowerAppsStepDefiner
 
     public static bool GetTimelineRecordBody(string expectedTitle)
     {
-        ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//button[contains(@id,'tlr_footer_chevron')]/label[text()='View more']"));
+        bool isSuccess = false;
+        ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//button[contains(@id,'tlr_footer_chevron_button')]"));
         foreach (IWebElement item in TimelineRecordViewMore)
         {
-            item.Click();
-            Thread.Sleep(2000);
+            var element = item.FindElements(By.TagName("label"));
+            element.FirstOrDefault()?.Click();
 
-            if (Driver.IsVisible(By.XPath("//iframe[contains(@title,'text')]")))
-            {
-                var iframeElement = Driver.FindElement(By.XPath("//iframe[contains(@title,'text')]"));
-
-                Driver.SwitchTo().Frame(iframeElement);
-            }
-            
+            Driver.WaitForTransaction();
             var descriptionElement = Driver.FindElement(By.XPath("//div[contains(@id,'timeline_field_description')]"));
 
             if (descriptionElement.Text.Contains(expectedTitle))
             {
-                Driver.SwitchTo().DefaultContent();
-
-                return true;
+                element.FirstOrDefault()?.Click();
+                isSuccess = true;
+                break;
             }
         }
-        return false;
+
+        return isSuccess;
     }
 }

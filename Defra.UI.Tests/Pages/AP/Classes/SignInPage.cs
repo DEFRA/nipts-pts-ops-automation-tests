@@ -28,6 +28,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement Signin => _driver.WaitForElement(By.XPath("//*[normalize-space(text()) ='Sign In']"));
         public IWebElement PageHeaderHomePage => _driver.WaitForElement(By.XPath("//h1[normalize-space( text()='Your Defra account')]"), true);
         public IWebElement lnkPetsTravelPortal => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Taking a pet from Great Britain to Northern Ireland']"), true);
+        private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
+        private IWebElement signOut => _driver.WaitForElement(By.Id("link-sign-out"));
         #endregion
 
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
@@ -61,6 +63,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public bool IsSignedOut()
         {
             ClickSignedOut();
+            return PageHeading.Text.Contains("You have signed out") || PageHeading.Text.Contains("Your Defra account");
+        }
+
+        public bool IsSignedOutFromYourDefraAccountPage()
+        {
+            signOut.Click();
             return PageHeading.Text.Contains("You have signed out") || PageHeading.Text.Contains("Your Defra account");
         }
 
@@ -99,6 +107,24 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public void ClickPetsTravelApplicationPortalLink()
         {
             lnkPetsTravelPortal.Click();
+        }
+        public void ClickSignInButton()
+        {
+            SignIn.Click();
+        }
+
+        public bool IsError(string errorMessage)
+        {
+            string[] error = errorMessage.Split('&');
+
+            foreach (var element in lblErrorMessages)
+            {
+                if (element.Text.Contains(error[0]) || element.Text.Contains(error[1]))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }

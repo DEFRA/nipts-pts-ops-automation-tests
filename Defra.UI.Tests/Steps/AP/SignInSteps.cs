@@ -57,6 +57,12 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.True(Signin?.IsSignedOut(), "Not able to sign out");
         }
 
+        [Then(@"I click on signout button from your defra account page and verify the signout message")]
+        public void ThenIClickOnSignoutButtonFromYourDefraAccountPageAndVerifyTheSignoutMessage()
+        {
+            Assert.True(Signin?.IsSignedOutFromYourDefraAccountPage(), "Not able to sign out");
+        }
+
         [When(@"I Login to Dynamics application")]
         public void GivenThatINavigateToTheDynamicspplication()
         {
@@ -69,6 +75,18 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIClickOnTakingAPetFromGreatBritainToNorthernIrelandLink()
         {
             Signin?.ClickPetsTravelApplicationPortalLink();
+        }
+
+        [Then("I click sign in button")]
+        public void ThenIClickSignInButton()
+        {
+            Signin?.ClickSignInButton();
+        }
+
+        [Then(@"I should see an error message ""(.*)"" in Government Gateway page")]
+        public void ThenIShouldSeeAnErrorMessageInGovernmentGatewayPage(string errorMessage)
+        {
+            Assert.True(Signin?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }
     }
 }

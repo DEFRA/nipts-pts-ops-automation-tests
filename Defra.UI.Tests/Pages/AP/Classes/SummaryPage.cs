@@ -29,6 +29,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement lblIssuingAuthority => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Issuing authority']"));
         private IWebElement lblNameAndAddressOfAuthority => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Name and address of competent authority']"));
         private IWebElement lblAuthorityAddress => _driver.WaitForElement(By.XPath("//dd[contains(normalize-space(.),'Woodham Lane')]"));
+        private IWebElement lblSignedColumn => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Signed on behalf of the competent authority (APHA)']"));
+        private IWebElement lblSignedName => _driver.WaitForElement(By.XPath("//p[contains(normalize-space(.),'Irene Cristofaro')]"));
+        private IWebElement lblDesignation => _driver.WaitForElement(By.XPath("//p[contains(normalize-space(.),'Veterinary Head of International Trade')]"));
         private IWebElement lblStatusValue => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']/following-sibling::dd"));
         private IReadOnlyCollection<IWebElement> IssuingAuthorityTable => _driver.FindElements(By.XPath("//div[@id='document-authority-card']"));
         private IWebElement lnkFirstViewLink => _driver.WaitForElement(By.XPath("//tr[@class='govuk-table__row'][1]//li"));
@@ -181,6 +184,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return firstAddressLine.Equals(addressLine1) && secondAddressLine.Equals(addressLine2);
         }
 
+        public bool VerifyIssuingAuthoritySignatureRow(string signatureColName)
+        {
+            return lblSignedColumn.Text.Contains(signatureColName) && lblSignedName.Text.Contains("Irene Cristofaro")
+                && lblDesignation.Text.Contains("Veterinary Head of International Trade");
+        }
+
         public bool VerifyApplicationStatus(string status)
         {
             return lblStatusValue.Text.Contains(status);
@@ -190,7 +199,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             _driver.WaitForPageToLoad();
             var printLink = _driver.FindElements(By.Id("print-this-page")).Count;
-            var downloadLink = _driver.FindElements(By.XPath("//a[normalize-space(text())='Download your application' or normalize-space(text())='Download your document']")).Count;
+            var downloadLink = _driver.FindElements(By.XPath("//a[normalize-space(text())='Download your application'" +
+                " or normalize-space(text())='Download your document' or normalize-space(text())='Lawrlwytho’ch dogfen']")).Count;
 
             if (printLink.Equals(0) && downloadLink.Equals(0))
             {

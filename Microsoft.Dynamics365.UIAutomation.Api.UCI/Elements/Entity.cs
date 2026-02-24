@@ -521,6 +521,11 @@ where T : Element
     {
         _client.SetValueButtonList(field, value,FormContextType.Entity);
     }
+    
+    public List<string> GetDropdownValues(string field)
+    {
+        return _client.GetAllOptions(_client.Browser.Driver, field, FormContextType.Entity);
+    }
 
     /// <summary>
     /// Sets the value of a Boolean Item.
