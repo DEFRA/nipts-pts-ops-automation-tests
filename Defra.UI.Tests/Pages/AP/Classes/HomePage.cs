@@ -62,6 +62,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement txtSuccessMsg => _driver.WaitForElementExists(By.XPath("//*[@class='govuk-notification-banner__content']/p"));
         private IWebElement lnkPetsTravelPortal => _driver.WaitForElement(By.XPath("/html/body/header/div/div[2]/a"));
         private IWebElement lnkGovUk => _driver.WaitForElement(By.XPath("//*[@class='govuk-header__logo']/a"));
+        private IReadOnlyCollection<IWebElement> lnkInvalidDocuments1 => _driver.WaitForElements(By.XPath("//a[contains(text() ,'View invalid documents')]"));
         #endregion
 
         #region Methods
@@ -374,6 +375,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             return lnkGovUk.Text.Trim().Contains(govukLink)
                 && lnkPetsTravelPortal.Text.Trim().Contains(takingAPetLink);
+        }
+
+        public bool VerifyNoInvalidDocumentsLink()
+        {
+             return lnkInvalidDocuments1.Count == 0;
         }
         #endregion
     }

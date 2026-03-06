@@ -74,6 +74,14 @@ namespace Defra.UI.Tests.Steps.AP
             signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret);
         }
 
+        [When(@"I have provided the user credentials without any Invalid document and signin")]
+        public void WhenIHaveProvidedTheCredentialsWithoutInvalidDocumentLinkAndSignin()
+        {
+            var userDetails = GovernmentGateway.Instance.GetUserDetailsFromFile("NOLINK");
+
+            signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret);
+        }
+
         [When(@"I have provided invalid CP credentials and signin")]
         public void WhenIHaveProvidedInvalidCPCredentialsAndSignin()
         {

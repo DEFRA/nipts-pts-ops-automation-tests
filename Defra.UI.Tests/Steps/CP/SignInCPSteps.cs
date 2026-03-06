@@ -56,7 +56,7 @@ namespace Defra.UI.Tests.Steps.CP
         [When(@"I have provided the password for prototype research page")]
         public void WhenIHaveProvidedThePasswordForPrototypeResearchPage()
         {
-            //_signInCPPage?.EnterPassword();
+            _signInCPPage?.EnterPassword();
         }
 
         [When(@"I have provided the CP credentials and signin")]

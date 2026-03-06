@@ -45,5 +45,6 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         void ClickChangeYourCookieSettings(string option);
         bool VerifyCookiesBannerNotDisplayed();
         bool VerifyCommonHeaderLinks(string govukLink, string takingAPetLink);
+        bool VerifyNoInvalidDocumentsLink();
     }
 }
