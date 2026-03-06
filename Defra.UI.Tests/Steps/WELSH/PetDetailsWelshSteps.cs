@@ -23,6 +23,7 @@ namespace Defra.UI.Tests.Steps.AP
         private IPetColourPage? petColourPag => _objectContainer.IsRegistered<IPetColourPage>() ? _objectContainer.Resolve<IPetColourPage>() : null;
         private IPetColourPageWelsh? petColourPageWelsh => _objectContainer.IsRegistered<IPetColourPageWelsh>() ? _objectContainer.Resolve<IPetColourPageWelsh>() : null;
         private ISignificantFeaturesPageWelsh? significantFeaturesPageWelsh => _objectContainer.IsRegistered<ISignificantFeaturesPageWelsh>() ? _objectContainer.Resolve<ISignificantFeaturesPageWelsh>() : null;
+       
 
         public PetDetailsWelshSteps(ScenarioContext context, IObjectContainer container)
         {
@@ -50,6 +51,7 @@ namespace Defra.UI.Tests.Steps.AP
             petSpeciesPageWelsh?.ClickParhauButton();
         }
 
+        [Then(@"I Verify the header of the breed page for {string} in Welsh")]
         [Then(@"I should redirected to the What breed is your {string}? page in Welsh")]
         public void ThenIShouldRedirectedToTheWhatBreedIsYourPageInWelsh(string petType)
         {
@@ -66,12 +68,12 @@ namespace Defra.UI.Tests.Steps.AP
             breedPageWelsh?.ClickParhauButton();
         }
 
-               [Then(@"I have provided freetext breed as '([^']*)' in Welsh")]
-                public void ThenIHaveProvidedFreetextBreedAs(string breed)
-                {
-                    breedPageWelsh?.EnterFreeTextBreed(breed);
-                    _scenarioContext.Add("Brid", breed);
-                }
+        [Then(@"I have provided freetext breed as '([^']*)' in Welsh")]
+        public void ThenIHaveProvidedFreetextBreedAs(string breed)
+        {
+            breedPageWelsh?.EnterFreeTextBreed(breed);
+            _scenarioContext.Add("Brid", breed);
+        }
 
 
         [Then(@"I should redirected to the What is your pet's name page in Welsh")]
@@ -183,10 +185,22 @@ namespace Defra.UI.Tests.Steps.AP
             _scenarioContext.Add("Rhyw", sex);
         }
 
+          [Then(@"I Verify the footer links changes to Welsh")]
+        public void ThenIVerifyTheFooterLinksChangesToWelsh()
+        {
+         Assert.IsTrue(breedPageWelsh?.VerifyFooterLinksinWelsh(), "Footer links are not displayed correctly in welsh page.");
+        }
+
+
         [Then(@"I Verify the hint in Breed Page")]
         public void ThenIVerifyTheHintInBreedPage()
         {
             Assert.IsTrue(breedPageWelsh.VerifyHintText());
         }
     }
+
 }
+
+
+    
+
