@@ -745,7 +745,7 @@ Scenario: Verify the readonly fields in a suspension record
 Scenario: Verify the partially successful option is hidden in appeal decision dropdown for 6 month suspension - Offline PTD
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1104' application
+	And I open the 'SNC-1391' application
 	And I assign the application to myself
 	Then the status is 'On Appeal' and readonly	
 	And I Verify 'Appeal partially successful' is not available and 'Appeal successful:Appeal unsuccessful' is available in Appeal decision
