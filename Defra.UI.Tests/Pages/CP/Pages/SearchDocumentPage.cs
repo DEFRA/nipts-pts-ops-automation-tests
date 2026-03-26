@@ -35,7 +35,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement lblPageHeading => _driver.WaitForElement(By.XPath("//h1"));
         private IWebElement lnkGobackToPrevPage => _driver.WaitForElement(By.XPath("//a[contains(.,'go back to the previous page')]"));
         private IWebElement lblHeaderTitle => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-!-margin-bottom-4')]"));
-        private IWebElement lblWarningText=> _driver.WaitForElement(By.XPath("//strong[@class='govuk-warning-text__text']"));
+        private IWebElement lblWarningText => _driver.WaitForElement(By.XPath("//strong[@class='govuk-warning-text__text']"));
         private IList<IWebElement> lblErrorPageContentList => _driver.FindElements(By.XPath("//*[@id='main-content']//p"));
         private IReadOnlyCollection<IWebElement> btnSignout => _driver.FindElements(By.XPath("//a[normalize-space()='Sign out']"));
         private IReadOnlyCollection<IWebElement> btnAccount => _driver.FindElements(By.XPath("//a[normalize-space()='Account']"));
@@ -168,7 +168,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyAccountAndSignoutIcons()
         {
-            if (btnAccount.Count>0 && btnSignout.Count>0)
+            if (btnAccount.Count > 0 && btnSignout.Count > 0)
                 return true;
             else
                 return false;

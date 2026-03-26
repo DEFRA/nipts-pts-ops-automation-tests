@@ -1,9 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -22,9 +22,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public IWebElement lnkUpdateDetails => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Update details']"));
         public IWebElement lnkChangePersonalInformation => _driver.WaitForElement(By.XPath("//*[normalize-space(text()) ='Personal information']/following::a[1]"));
         public IWebElement txtboxPhoneNumber => _driver.WaitForElement(By.Id("telephoneNumber"));
-        public IWebElement lnkNameChange=> _driver.WaitForElement(By.Id("change-personal-information-name-link"));
+        public IWebElement lnkNameChange => _driver.WaitForElement(By.Id("change-personal-information-name-link"));
         public IWebElement lnkPhoneNumberChange => _driver.WaitForElement(By.Id("change-personal-information-phone-link"));
-        public IWebElement lnkAddressChange=> _driver.WaitForElement(By.Id("change-personal-address-link"));
+        public IWebElement lnkAddressChange => _driver.WaitForElement(By.Id("change-personal-address-link"));
         public IWebElement btnContine => _driver.WaitForElement(By.XPath("//button[normalize-space(text()) ='Continue']"));
         public IWebElement btnBack => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Back']"));
         public IWebElement lnkTakinaAPetFromBritainToNorthernIreland => _driver.WaitForElement(By.XPath("//*[@id='link-taking-a-pet-from-great-britain-to-northern-ireland']"), true);

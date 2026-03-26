@@ -1,10 +1,10 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Data.Users;
+﻿using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -62,7 +62,7 @@ namespace Defra.UI.Tests.Steps.CP
         [When(@"I have provided the CP credentials and signin")]
         public void WhenIHaveProvidedTheCPCredentialsAndSignin()
         {
-            var jsonData = UserObject?.GetUser("CP","GB");
+            var jsonData = UserObject?.GetUser("CP", "GB");
             var userObject = new User
             {
                 UserName = jsonData.UserName,
@@ -75,7 +75,7 @@ namespace Defra.UI.Tests.Steps.CP
         [When(@"I have provided the CP SPS credentials and signin")]
         public void WhenIHaveProvidedTheCPSPSCredentialsAndSignin()
         {
-            var jsonData = UserObject?.GetUser("CP","SPS");
+            var jsonData = UserObject?.GetUser("CP", "SPS");
             var userObject = new User
             {
                 UserName = jsonData.UserName,

@@ -1,5 +1,4 @@
-﻿using Defra.UI.Framework.Driver;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
@@ -115,12 +114,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                                          "Preparation of this accessibility statement" };
 
             var h3Titles = new[] { "Compliance status",
-                                     //    "Non-accessible content",
                                          "Usability"};
 
-           // var h4Title = "Non-compliance with the accessibility regulations";
 
-            var h2ElementCount=0;
+            var h2ElementCount = 0;
             var h3ElementCount = 0;
 
             foreach (var h2Subheading in lblH2SubHeadings)
@@ -133,7 +130,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     continue;
                 }
             }
-          
+
             foreach (var h3Subheading in lblH3SubHeadings)
             {
                 if (h3Titles.Contains(h3Subheading.Text.Trim()))
@@ -145,7 +142,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
             return h2ElementCount.Equals(h2Titles.Length)
                 && h3ElementCount.Equals(h3Titles.Length);
-               // && lblH4SubHeading.Text.Trim().Equals(h4Title);
         }
 
         public bool VerifyLinks()

@@ -1,4 +1,4 @@
-﻿namespace Defra.UI.Tests.Pages.AP.Interfaces
+﻿namespace Defra.UI.Tests.Pages.WELSH.Interfaces
 {
     public interface IPetBreedPageWelsh
     {

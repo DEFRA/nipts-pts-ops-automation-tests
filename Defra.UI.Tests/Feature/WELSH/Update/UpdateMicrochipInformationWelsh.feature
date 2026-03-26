@@ -23,7 +23,7 @@ Scenario Outline: Modify PETS Microchip number By Registered User with details c
 	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the '<MicrochipOption>' option
 	When provided microchip number as <MicrochipNumber> in Welsh
-	When I click Continue button from microchipped page in Welsh
+	And I click Continue button from microchipped page in Welsh
 	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I have provided date of PETS microchipped in Welsh
 	When I click Continue button from When was your pet microchipped page in Welsh
@@ -250,7 +250,7 @@ Scenario Outline: Modify PETS Microchip scanned date before to date of birth and
 	When I click on continue button from Does your pet have any significant features page in Welsh
 	Then I should redirected to the Check your answers and sign the declaration page in Welsh
 	And I have clicked the change option for the 'Implant or scan date' from Microchip information section
-	Then I have modified the microchip scanned date before to the date of birth in Welsh
+	And I have modified the microchip scanned date before to the date of birth in Welsh
 	When I click Continue button from When was your pet microchipped page in Welsh
 	Then I should see an error message "Rhowch ddyddiad sydd ar ôl dyddiad geni'r anifail anwes" in pets microchipped or last scanned page
 
@@ -289,7 +289,7 @@ Scenario Outline: Modify PETS Microchip scanned date before to date of birth and
 	When I click on continue button from Does your pet have any significant features page in Welsh
 	Then I should redirected to the Check your answers and sign the declaration page in Welsh
 	And I have clicked the change option for the 'Implant or scan date' from Microchip information section
-	Then I have modified the microchip scanned date before to the date of birth in Welsh
+	And I have modified the microchip scanned date before to the date of birth in Welsh
 	When I click Continue button from When was your pet microchipped page in Welsh
 	Then I should see an error message "Rhowch ddyddiad sydd ar ôl dyddiad geni'r anifail anwes" in pets microchipped or last scanned page
 

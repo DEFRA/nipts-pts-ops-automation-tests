@@ -3,7 +3,6 @@ using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -253,7 +252,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             txtScheduleDepartureYear.Clear();
             txtScheduleDepartureYear.SendKeys(departureYear);
             txtScheduledDepartureHour.SendKeys(departureHour);
-          
+
             if (timeCheck.Equals("48HoursAgo"))
             {
                 txtScheduledDepartureMinute.Clear();

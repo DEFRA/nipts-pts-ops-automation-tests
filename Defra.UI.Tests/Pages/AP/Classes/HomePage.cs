@@ -1,9 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -69,7 +69,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool IsPageLoaded()
         {
-            if(ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
             {
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             }
@@ -105,7 +105,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             ((IJavaScriptExecutor)_driver).ExecuteScript("window.scrollBy(0,5000)", "");
             Thread.Sleep(1000);
             ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", PrivacyNoticeLink);
-            //PrivacyNoticeLink.Click();
         }
 
         public void ClickTermsAndConditionsLink()
@@ -168,7 +167,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             IWebElement? lnkview = null;
 
-            var rowCount = tableRows.Count-1;
+            var rowCount = tableRows.Count - 1;
 
             for (var elementIndex = rowCount; elementIndex >= 0; elementIndex--)
             {
@@ -245,7 +244,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             var allWindows = _driver.WindowHandles;
             _driver.Close();
-            _driver.SwitchTo().Window(allWindows[0]);   
+            _driver.SwitchTo().Window(allWindows[0]);
         }
 
         public bool IsInvalidDocumentsPageLoaded(string pageTitle)
@@ -314,7 +313,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void ClickHideCookiesButton(string option)
         {
-            if(option.Equals("Accepted"))
+            if (option.Equals("Accepted"))
                 btnHideCookieAcceptedMsg.Click();
             else if (option.Equals("Rejected"))
                 btnHideCookieRejectedMsg.Click();
@@ -329,10 +328,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public bool VerifyCookiesDefaultSelection()
         {
             btnRadioNo.ScrollToElement(_driver);
-
-            //string checkedRadioBtn = btnRadioNo.GetAttribute("checked");
-            //bool isNoSelected = !string.IsNullOrEmpty(checkedRadioBtn);
-            //return isNoSelected;
             return !string.IsNullOrEmpty(btnRadioNo.GetAttribute("checked"));
         }
 
@@ -379,7 +374,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyNoInvalidDocumentsLink()
         {
-             return lnkInvalidDocuments1.Count == 0;
+            return lnkInvalidDocuments1.Count == 0;
         }
         #endregion
     }

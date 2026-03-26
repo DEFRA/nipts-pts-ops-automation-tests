@@ -62,7 +62,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	And I have verified pet details in summary page in Welsh
 	And I have verified pet owner details in summary page in Welsh
 	When I Login to Dynamics application
-	When I opens the application
+	And I opens the application
 	Then I get the PTD Reference Number and Store it
 	When I assign the application to myself
 	And I 'Pass' the Microchip check
@@ -140,13 +140,13 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
-	Then the status is changed to 'Rejected'	
+	Then the status is changed to 'Rejected'
 	And I click on Back button in Welsh
 	And I should not see the application in the Dashboard in Welsh
 
 Examples:
 	| FullName    | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
-	| PetFerret's | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ffured | Ffured  | Benyw | Sabl  | Nac oes               |
+	| PetFerret's | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ffured | Ffured  | Benyw  | Sabl  | Nac oes               |
 
 Scenario Outline: Create PETS Travel Document By Registered User with pet is not microchipped in Welsh
 	Then I have selected '<Are your details correct>' option in Welsh
@@ -169,7 +169,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter addr
 	Then I should redirected to What is your postcode page in Welsh
 	When I click the link Enter the address manually in Welsh
 	And I provided address details with postcode '<PostCode>' in Welsh
-	When I click Continue button from What is your postcode page in Welsh
+	And I click Continue button from What is your postcode page in Welsh
 	Then I should redirected to What is your phone number page in Welsh
 	And I provided the phone number '<PhoneNumber>' in Welsh
 	When I click Continue button from What is your phone number page in Welsh
@@ -264,7 +264,7 @@ Scenario Outline: Verify the breed row for ferret not appears in summary and dec
 	And I have verified microchip details in declaration page in Welsh
 	And I have verified pet details in declaration page in Welsh
 	And I have verified pet owner details in declaration page in Welsh
-	Then I have verified breed row for ferret is not displayed
+	And I have verified breed row for ferret is not displayed
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page in Welsh
@@ -276,10 +276,10 @@ Scenario Outline: Verify the breed row for ferret not appears in summary and dec
 	Then The submitted application should be displayed in summary view in Welsh
 	And I have verified microchip details in summary page in Welsh
 	And I have verified pet details in summary page in Welsh
-	Then I have verified breed row for ferret is not displayed
+	And I have verified breed row for ferret is not displayed
 	And I have verified pet owner details in summary page in Welsh
 	When I Login to Dynamics application
-	When I opens the application
+	And I opens the application
 	Then I get the PTD Reference Number and Store it
 	When I assign the application to myself
 	And I 'Pass' the Microchip check

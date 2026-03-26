@@ -1,12 +1,11 @@
-﻿using Reqnroll.BoDi;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.WELSH.Interfaces;
-using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
-using System.Reactive.Joins;
+using Reqnroll.BoDi;
 
-namespace Defra.UI.Tests.Steps.AP
+namespace Defra.UI.Tests.Steps.WELSH
 {
     [Binding]
     public class PetOwnerDetailsWelshSteps
@@ -38,7 +37,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIProvidedTheFullNameOfThePetKeeperAs(string fullName)
         {
             petOwnerNamePage?.EnterPetOwnerName(fullName);
-             _scenarioContext.Remove("enw llawn");
+            _scenarioContext.Remove("enw llawn");
             _scenarioContext.Add("enw llawn", fullName);
         }
 
@@ -66,25 +65,6 @@ namespace Defra.UI.Tests.Steps.AP
             petOwnerAddressPage?.ClickContinueButton();
         }
 
-        /*[Then(@"I provided the postcode '([^']*)' in Welsh")]
-        public void ThenIProvidedThePostcode(string postCode)
-        {
-            petOwnerAddressPage?.EnterPostCode(postCode);
-            _scenarioContext.Add("Postcode", postCode);
-        }*/
-
-        /*[When(@"I click Search button in Welsh")]
-        public void WhenIClickSearchButton()
-        {
-            petOwnerAddressPage?.ClickSearchButton();
-        }
-
-        [Then(@"I should see a list of address in dropdownlist in Welsh")]
-        public void ThenIShouldSeeAListOfAddressInDropdownlist()
-        {
-            Assert.True(petOwnerAddressPage?.IsAddressListFound());
-        }
-        */
         [Then(@"I select the index (.*) from address list in Welsh")]
         public void ThenISelectTheIndexFromAddressList(int addressIndex)
         {

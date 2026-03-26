@@ -1,12 +1,11 @@
 ﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Contracts;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
-using Reqnroll;
 using Reqnroll.BoDi;
 
-namespace Defra.UI.Tests.Pages.AP.Classes
+namespace Defra.UI.Tests.Pages.WELSH.Classes
 {
     public class ApplicationDeclarationPageWelsh : IApplicationDeclarationPageWelsh
     {

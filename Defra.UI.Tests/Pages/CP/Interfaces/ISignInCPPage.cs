@@ -1,6 +1,4 @@
-﻿using Microsoft.Crm.Sdk.Messages;
-
-namespace Defra.UI.Tests.Pages.CP.Interfaces
+﻿namespace Defra.UI.Tests.Pages.CP.Interfaces
 {
     public interface ISignInCPPage
     {

@@ -1,9 +1,9 @@
-﻿using mailinator_csharp_client.Models.Messages.Entities;
+﻿using Defra.UI.Framework.Object;
+using mailinator_csharp_client;
+using mailinator_csharp_client.Models.Messages.Entities;
 using mailinator_csharp_client.Models.Messages.Requests;
 using mailinator_csharp_client.Models.Responses;
-using mailinator_csharp_client;
 using Reqnroll;
-using Defra.UI.Framework.Object;
 
 namespace Defra.UI.Tests.HelperMethods
 {

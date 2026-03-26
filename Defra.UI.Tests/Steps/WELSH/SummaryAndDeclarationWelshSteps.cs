@@ -1,11 +1,10 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using Reqnroll;
-using Defra.UI.Tests.Pages.AP.Classes;
+using Reqnroll.BoDi;
 using System.Text.RegularExpressions;
 
-namespace Defra.UI.Tests.Steps.AP
+namespace Defra.UI.Tests.Steps.WELSH
 {
     [Binding]
     public class SummaryAndDeclarationWelshSteps
@@ -48,19 +47,19 @@ namespace Defra.UI.Tests.Steps.AP
         {
             VerifyMicrodhipInformation(false);
         }
-        
+
         [Then(@"I have verified pet details in declaration page in Welsh")]
         public void ThenIHaveVerifiedPetDetailsInDeclarationPage()
         {
             VerifyPetsDetailsWelsh(false);
         }
-        
+
         [Then(@"I have verified pet owner details in declaration page in Welsh")]
         public void ThenIHaveVerifiedPetOwnerDetailsInDeclarationPage()
         {
             VerifyPetOwnerDetailsWelsh(false);
         }
-        
+
 
         [Then(@"I have verified microchip details in summary page in Welsh")]
         public void ThenIHaveVerifiedMicrochipDetailsInSummaryPage()
@@ -79,13 +78,13 @@ namespace Defra.UI.Tests.Steps.AP
         {
             summaryPageWelsh?.ClickPDFDownloadLink();
         }
-        
+
         [Then(@"I click print link in summary page in Welsh")]
         public void ThenIClickPrintLinkInSummaryPage()
         {
             Assert.IsTrue(summaryPageWelsh?.ClickPrintdLink(), "Print window not opened successfully");
         }
-        
+
         [Then(@"I have verified pet owner details in summary page in Welsh")]
         public void ThenIHaveVerifiedPetOwnerDetailsInSummaryPage()
         {
@@ -117,13 +116,6 @@ namespace Defra.UI.Tests.Steps.AP
             changeDetailsPageWelsh?.ClickParhauButton();
         }
 
-        /*[When(@"I captured Application PTD number")]
-        public void WhenICapturedApplicationPTDNumber()
-        {
-            var summary = summaryPage?.GetSummaryDetails();
-            _scenarioContext.Add("PTDNumber", summary.PTDNumber);
-        }
-        */
         private void VerifyMicrodhipInformation(bool isSummaryPage = true)
         {
             var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
@@ -136,7 +128,7 @@ namespace Defra.UI.Tests.Steps.AP
             //Assert.AreEqual("O dan y croen", summary?.ImplantLocation, $"Implant location is not matching in {pageName} page!");
             Assert.AreEqual(microchippedDate, summary?.ImplantOrScanDate, $"Implant or scan date is not matchin in {pageName} page!");
         }
-        
+
         private void VerifyPetsDetailsWelsh(bool isSummaryPage = true)
         {
             var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
@@ -165,7 +157,7 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.AreEqual(color, summary?.Colour, $"Color is not matching in {pageName} page!");
             Assert.AreEqual(significantFeatures, summary?.SignificantFeatures, $"Significant feature is not matching in {pageName} page!");
         }
-        
+
         private void VerifyPetOwnerDetailsWelsh(bool isSummaryPage = true)
         {
             var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
@@ -199,7 +191,7 @@ namespace Defra.UI.Tests.Steps.AP
 
             foreach (var lineItem in address)
             {
-                Assert.IsTrue(summary?.Address.Replace(",","").ToUpper().Contains(NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
+                Assert.IsTrue(summary?.Address.Replace(",", "").ToUpper().Contains(NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
             }
 
             if (isSummaryPage)
@@ -238,7 +230,7 @@ namespace Defra.UI.Tests.Steps.AP
             s = Regex.Replace(s, @"\s+", " ").Trim();
             return s;
         }
-        
+
         [Then(@"I should not see the application in the Dashboard in Welsh")]
         public void ThenIShouldNotSeeTheApplicationInTheDashboard()
         {
@@ -246,37 +238,37 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(homePageWelsh?.VerifyTheApplicationIsNotAvailable(petName), $"The application is available in Dashboard!");
         }
 
-        
+
         [Then(@"I should see a table named '(.*)' with a column '(.*)' in approved document in Welsh")]
         public void ThenIShouldSeeATableNamedWithAColumnInApprovedDocument(string tableName, string columnName)
         {
             Assert.IsTrue(summaryPageWelsh?.VerifyIssuingAuthorityTable(tableName, columnName));
         }
-        
+
         [Then(@"the address of authority should be '(.*)' '(.*)' in Welsh")]
         public void ThenTheAddressOfAuthorityShouldBe(string addressLine1, string addressLine2)
         {
             Assert.IsTrue(summaryPageWelsh?.VerifyIssuingAuthorityAddress(addressLine1, addressLine2));
         }
-        
+
         [Then(@"I should see '(.*)' column with signed person name and designation in Welsh")]
         public void ThenIShouldSeeColumnWithSignedPersonNameAndDesignation(string signatureColName)
         {
             Assert.IsTrue(summaryPageWelsh?.VerifyIssuingAuthoritySignatureRow(signatureColName));
         }
-        
+
         [Then(@"I verify the application status '(.*)' in Welsh")]
         public void ThenIVerifyTheApplicationStatus(string status)
         {
             Assert.IsTrue(summaryPageWelsh?.VerifyApplicationStatus(status), "The status of the pet travel document is not correct");
         }
-        
+
         [Then(@"I should not see print and download your application options in Welsh")]
         public void ThenIShouldNotSeePrintAndDownloadYourApplicationOptions()
         {
             Assert.IsTrue(summaryPageWelsh?.VerifyPrintAndDownloadLinks(), "Print and Download links are visible");
         }
-        
+
         [Then(@"I verify all the details in the summary page for pending or unsuccessful PTD '(.*)' in Welsh")]
         public void ThenIVerifyAllTheDetailsInTheSummaryPageForPendingOrUnsuccessfulPTD(string status)
         {
@@ -285,7 +277,7 @@ namespace Defra.UI.Tests.Steps.AP
             VerifyPetOwnerDetailsWelsh(true);
             Assert.IsTrue(summaryPageWelsh?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
         }
-        
+
         [Then(@"I verify all the details in the declaration page for cancelled PTD '(.*)' in Welsh")]
         public void ThenIVerifyAllTheDetailsInTheDeclarationPageForCancelledPTD(string status)
         {
@@ -294,7 +286,7 @@ namespace Defra.UI.Tests.Steps.AP
             VerifyIssuedTableWelsh(true);
             Assert.IsTrue(summaryPageWelsh?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
         }
-        
+
         [Then(@"I verify all the details in the declaration page for approved PTD '(.*)' in Welsh")]
         public void ThenIVerifyAllTheDetailsInTheDeclarationPageForApprovedPTD(string status)
         {
@@ -302,7 +294,7 @@ namespace Defra.UI.Tests.Steps.AP
             VerifyPetsDetailsWelsh();
             VerifyIssuedTableWelsh(true);
         }
-        
+
         private void VerifyIssuedTableWelsh(bool isSummaryPage = true)
         {
             var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
@@ -317,13 +309,13 @@ namespace Defra.UI.Tests.Steps.AP
 
                 Assert.AreEqual(3, parts.Length);
                 Assert.AreEqual(5, parts[0].Length);
-                Assert.AreEqual(3, parts [1].Length);
-                Assert.AreEqual (3, parts [2].Length);
+                Assert.AreEqual(3, parts[1].Length);
+                Assert.AreEqual(3, parts[2].Length);
                 Assert.AreEqual(Regex.Replace(ptdNumber, @"\s+", ""), Regex.Replace(summary?.PTDNumber, @"\s+", ""), $"PTD number is not matching in {pageName} page!");
                 Assert.AreEqual(date, summary?.Date, $"Date is not matching in {pageName} page!");
             }
         }
-        
+
         [Then(@"I should not see issuing authority table in Welsh")]
         public void ThenIShouldNotSeeIssuingAuthorityTable()
         {
@@ -336,12 +328,6 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(summaryPageWelsh?.VerifyApplicationDetails(status), "The status of the PTD is not correct");
         }
 
-       /* [When(@"I have clicked the first ptd view hyperlink from dashboard")]
-        public void WhenIHaveClickedTheFirstPtdViewHyperlinkFromDashboard()
-        {
-            summaryPage?.ClickFirstViewHyperLink();
-        }
-       */
         [Then(@"I have verified breed row for ferret is not displayed in Welsh")]
         public void ThenIHaveVerifiedBreedRowForFerretIsNotDisplayed()
         {

@@ -1,11 +1,11 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Configuration;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Configuration;
+using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
-namespace Defra.UI.Tests.Pages.AP.Classes
+namespace Defra.UI.Tests.Pages.WELSH.Classes
 {
     public class HomePageWelsh : IHomePageWelsh
     {
@@ -18,7 +18,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        
+
         public IWebElement lnkFeedback => _driver.WaitForElement(By.XPath("//a[contains(text() ,'adborth (yn agor mewn tab newydd)')]"));
         public IWebElement lnkPrivacyNotice => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Hysbysiad preifatrwydd (yn agor mewn tab newydd)')]"));
         public IWebElement lnkAccessibilityStatement => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Datganiad hygyrchedd')]"));
@@ -87,7 +87,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void ClickLanguageLnk(string language)
         {
-            if (language.Equals("English")) 
+            if (language.Equals("English"))
                 lnkEnglish.Click();
             else if (language.Equals("Cymraeg"))
                 lnkWelsh.Click();
@@ -266,7 +266,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
                 if (element.Text.Contains("Yn aflwyddiannus") || element.Text.Contains("Wedi’u canslo"))
                     return true;
                 else if (element.Text.Contains("Yn aros") || element.Text.Contains("Wedi’u cymeradwyo"))
-                    return false;                
+                    return false;
             }
             return false;
         }

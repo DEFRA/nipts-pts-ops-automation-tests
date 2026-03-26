@@ -57,6 +57,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <UpToDateCheckInput Remove="Feature\WELSH\PrintDownload\PrintTravelDocumentWelsh.feature" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Data\Users\AP\DEV\Users.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -91,7 +95,7 @@
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
     <PackageReference Include="Reqnroll" Version="2.2.1" />
     <PackageReference Include="Reqnroll.NUnit" Version="2.2.1" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="*" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="140.0.7339.18500" />
     <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />

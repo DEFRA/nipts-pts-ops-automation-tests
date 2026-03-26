@@ -5,7 +5,7 @@ Modify the Pet owner details before submitting the application
 
 Background:
 	Given I navigate to PETS a travel document URL
-	When  I have provided the password for Landing page
+	When I have provided the password for Landing page
 	Then I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type
 	When I click Continue button from How do you want to sign in page
@@ -63,9 +63,9 @@ Scenario Outline: Modify Name of the pet owner By Registered User with details c
 	And I have verified pet owner details in summary page
 
 Examples:
-	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedFullName | UpdatedPostCode |
-	| PetCats's |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | NewPetCat       | CV1 4PY         |
-	| PetDogs's |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Male   | Red   | Yes                   | NewPetDog       | CV1 4PY         |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedFullName | UpdatedPostCode |
+	| PetCats's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | NewPetCat       | CV1 4PY         |
+	| PetDogs's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Male   | Red   | Yes                   | NewPetDog       | CV1 4PY         |
 
 Scenario Outline: Modify Address of the pet owner By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
@@ -118,9 +118,9 @@ Scenario Outline: Modify Address of the pet owner By Registered User with detail
 	And I have verified pet owner details in summary page
 
 Examples:
-	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedPostCode |
-	| PetCats's |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | CV2 4NZ         |
-	| PetDogs's |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Male   | Red   | Yes                   | OX1 1AF         |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedPostCode |
+	| PetCats's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | CV2 4NZ         |
+	| PetDogs's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Male   | Red   | Yes                   | OX1 1AF         |
 
 Scenario Outline: Modify Phone number of the pet owner By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
@@ -170,9 +170,9 @@ Scenario Outline: Modify Phone number of the pet owner By Registered User with d
 	And I have verified pet owner details in summary page
 
 Examples:
-	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedPhoneNumber |
-	| PetCats's |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | 02012345679        |
-	| PetDogs's |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   | 02012345679        |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedPhoneNumber |
+	| PetCats's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   |        02012345679 |
+	| PetDogs's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   |        02012345679 |
 
 Scenario Outline: Modify Name of the pet owner By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
@@ -219,8 +219,8 @@ Scenario Outline: Modify Name of the pet owner By Registered User with details c
 	And I have verified pet owner details in summary page
 
 Examples:
-	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedFullName | UpdatedPostCode |
-	| PetFerret |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ferret | Ferret  | Female | Chocolate | Yes                   | NewPetFerret    | CV1 4PY         |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedFullName | UpdatedPostCode |
+	| PetFerret | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ferret | Ferret  | Female | Chocolate | Yes                   | NewPetFerret    | CV1 4PY         |
 
 Scenario Outline: Modify Phone number of the pet owner By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
@@ -267,5 +267,5 @@ Scenario Outline: Modify Phone number of the pet owner By Registered User with d
 	And I have verified pet owner details in summary page
 
 Examples:
-	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedPhoneNumber |
-	| PetFerret |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ferret | Ferret  | Female | Chocolate | Yes                   | 02012345679        |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedPhoneNumber |
+	| PetFerret | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ferret | Ferret  | Female | Chocolate | Yes                   |        02012345679 |

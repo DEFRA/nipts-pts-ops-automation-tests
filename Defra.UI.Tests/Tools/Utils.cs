@@ -49,7 +49,7 @@ namespace Defra.UI.Tests.Tools
 
         public static DateTime ConvertToDate(string dateTime)
         {
-           return DateTime.ParseExact(dateTime, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(dateTime, "dd/MM/yyyy", CultureInfo.InvariantCulture);
         }
 
         public static string GenerateRandomUKPhonenumber()
@@ -61,7 +61,7 @@ namespace Defra.UI.Tests.Tools
 
         public static string GenerateMicrochipNumber()
         {
-           return DateTime.Now.ToString("ddMMyyHHmmssfff");
+            return DateTime.Now.ToString("ddMMyyHHmmssfff");
         }
 
         public static string GenerateRandomNumber()

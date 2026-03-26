@@ -3,7 +3,7 @@ Feature: PTSignificantFeatures
 
 Create a PETS travel document providing PETS Significante Features to travel from Great Britain to Northern Ireland
 
-Background: 
+Background:
 	Given that I navigate to the DEFRA application
 	When I have provided the password for Landing page
 	Then I should see type of Gateway login page
@@ -20,15 +20,15 @@ Scenario Outline: Create PETS Travel Document for PETS with or without Significa
 	Then I should navigate to the Is your pet microchipped page
 	And I selected the radio button '<MicroChipNumberOn>' option
 	And provided microchip number as'<MicroChipNumber>' and continue
-	Then I should navigate to When was your pet microchipped page
+	And I should navigate to When was your pet microchipped page
 	When I have provided the date of PETS microchipped and continue
 	Then I should navigate to the Is your pet a cat, dog or ferret page
 	And I have selected radio button as '<Pet>' and continue
-	Then I should navigate to What breed is your '<Pet>' page
+	And I should navigate to What breed is your '<Pet>' page
 	And I have selected from the dropdown as '<Breed>' for pet's and continue
-	Then I should navigate to the What is your pet's name page
+	And I should navigate to the What is your pet's name page
 	And I have provided the Pets name as '<PetName>' and continue
-	Then I should navigate to the What sex is your pet page
+	And I should navigate to the What sex is your pet page
 	When I have selected the radio button as '<Gender>' for sex option and continue
 	Then I should navigate to the Do you know your pet's date of birth page
 	When I have provided date of birth for pet and continue
@@ -43,6 +43,6 @@ Scenario Outline: Create PETS Travel Document for PETS with or without Significa
 	And I can see the application reference number
 
 Examples:
-	| PetsOwnerDetails |  MicroChipNumberOn | MicroChipNumber | Pet		|	Breed		 |  PetName	   | Gender	| PetColor	| IsSignificanteFeatures|
-	|  Yes             |  Yes			    | 123456789123456 | Dog		| Afghan Hound   |  The Dog	   | Male	| Black 	| Yes				    |
-	|  Yes             |  Yes			    | 123456789123456 | Cat		| Bengal	     |  The Cat	   | Female	| White		| No				    |
+	| PetsOwnerDetails | MicroChipNumberOn | MicroChipNumber | Pet | Breed        | PetName | Gender | PetColor | IsSignificanteFeatures |
+	| Yes              | Yes               | 123456789123456 | Dog | Afghan Hound | The Dog | Male   | Black    | Yes                    |
+	| Yes              | Yes               | 123456789123456 | Cat | Bengal       | The Cat | Female | White    | No                     |
