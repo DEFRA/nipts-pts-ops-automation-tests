@@ -74,7 +74,7 @@ stages:
         isEmulationEnabled: ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
-        filterTestCases: 'TestCategory=WelshPETS'
+        filterTestCases: 'TestCategory=WelshPETS&TestCategory!=E2E'
         application: 'AP'
         dependsOn: ''
 

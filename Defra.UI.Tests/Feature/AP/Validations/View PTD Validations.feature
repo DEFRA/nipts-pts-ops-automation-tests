@@ -11,6 +11,7 @@ Background:
 	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
 
+@E2E
 Scenario: Verify name address and signature details in Issuing authority table of approved document
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page
@@ -113,6 +114,7 @@ Scenario: Verify back button functionality from are your details correct page an
 	And I click on Back button
 	And I should redirected to the What is the main colour of your 'Dog' page
 
+@E2E
 Scenario: Verify invalid documents link and table
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page

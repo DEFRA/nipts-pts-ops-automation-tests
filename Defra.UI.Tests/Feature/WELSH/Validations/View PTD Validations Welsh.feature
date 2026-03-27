@@ -13,6 +13,7 @@ Background:
 	When I click 'Cymraeg' link to change the language
 	Then I should see the heading of dashboard page changed to Welsh
 
+@E2E
 Scenario: Verify name address and signature details in Issuing authority table of approved document in Welsh
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
@@ -115,6 +116,7 @@ Scenario: Verify back button functionality from are your details correct page an
 	And I click on Back button on the Pets Application in Welsh
 	And I should redirected to the What is the main colour of your 'Ci' page in Welsh
 
+@E2E
 Scenario: Verify invalid documents link and table in Welsh
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
