@@ -7,7 +7,7 @@ Scenario: Verify if a Caseworker can assign an already assigned case to themselv
 	When I Login to Dynamics application
 	And I Switch to 'All PTD Applications'
 	And I open the first application
-	And I assign the application to 'Shukla Vishal' another user
+	And I assign the application to 'Vishal Shukla' another user
 	And I assign the application to myself
 
 Scenario: Verify if the Pet owner details are not editable
@@ -305,6 +305,8 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Microchip Number' as '564789098987654'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	Then the status is 'Open'
 	And I see the Application Reference number generated
@@ -327,6 +329,8 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I enter 'Date of Birth' as '09/08/2022'
 	And I Click on Save
 	Then the status is 'Open'
 	And I see the Application Reference number generated
@@ -377,7 +381,7 @@ Scenario: Offline PTD Application should not be editable in Revoke Pending Statu
 	When I assign the application to myself
 	Then I move the application to Revoke Pending status
 	And I cannot edit 'Pet Owner' Details
-	And I cannot edit 'Pet' Details
+	And I cannot edit 'REVOKE PENDING Pet' Details
 	And I cannot edit 'Applicant details' Details
 
 Scenario: Verify the Unique features field is empty in offline PTD application and authorise it and verify the status in CP
@@ -593,7 +597,7 @@ Scenario: Verify Activate/Deactivate button is not present in suspension view an
 Scenario: Verify End Suspension button and backing off it
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1071' application
+	And I open the 'SUS-1069' application
 	And I assign the application to myself
 	When I click on 'End Suspension' Command
 	Then I verify the dialog message 'Do you want to end this suspension? The suspension will end immediately.'
@@ -602,14 +606,14 @@ Scenario: Verify End Suspension button and backing off it
 Scenario: Verify the Suspended pet owner notification
 	When I Login to Dynamics application
 	And I open 'Contacts' under 'Application'
-	And I open the 'petsautomation20250909002322@team947193.testinator.com' application
+	And I open the 'Auto061025173012 user' application
 	Then I See the error 'This pet owner is currently suspended.' notification
 
 Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter to be sent and notification text and Letter sent button is visible in offline application
 	When I Login to Dynamics application
 	And I open 'Suspect Non Compliances' under 'Application'
 	And I Switch to 'All Suspect Non-Compliances'
-	And I open the 'SNC-1212' application
+	And I open the 'SNC-1391' application
 	Then I 'can' see 'Letter Sent' button
 	And I See the 'Letter to be sent' value in 'nipts_intenttosuspendletter' field
 	And I See the 'Letter to be sent' value in 'nipts_closeletter' field
@@ -638,14 +642,14 @@ Examples:
 Scenario: Verify the Status Reason and Owner of the Suspended Record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1071' application
+	And I open the 'SUS-1047' application
 	Then the status is 'Open' and readonly
 	Then the Owner is 'Brindha Mathanaguru' and readonly
 
 Scenario: Verify automatic rejection of new PTD offline application for a suspended pet owner and verify the rejection reason and date
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Applicant Name' as 'petsautomation20250909002322@team947193.testinator.com'
+	And I enter 'Applicant Name' as 'Auto061025173012 user'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
@@ -664,7 +668,7 @@ Scenario: Verify automatic rejection of new PTD offline application for a suspen
 Scenario: Verify the Appeal Decision Button in On Appeal Suspension record and error message for not selecting the Appeal decision
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1035' application
+	And I open the 'SUS-1047' application
 	And I assign the application to myself
 	Then the status is 'On Appeal' and readonly	
 	When I click on 'Appeal Decision' Command
@@ -736,7 +740,7 @@ Scenario: Verify the No Data available message
 Scenario: Verify the readonly fields in a suspension record
 	When I Login to Dynamics application	
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1071' application
+	And I open the 'SUS-1047' application
 	Then I cannot edit the field 'nipts_name'
 	Then I cannot edit the field 'nipts_petowner'
 	Then I cannot edit the field 'nipts_ptd'
@@ -745,7 +749,7 @@ Scenario: Verify the readonly fields in a suspension record
 Scenario: Verify the partially successful option is hidden in appeal decision dropdown for 6 month suspension - Offline PTD
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1104' application
+	And I open the 'SUS-1196' application
 	And I assign the application to myself
 	Then the status is 'On Appeal' and readonly	
 	And I Verify 'Appeal partially successful' is not available and 'Appeal successful:Appeal unsuccessful' is available in Appeal decision

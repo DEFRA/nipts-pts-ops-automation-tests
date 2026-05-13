@@ -21,13 +21,13 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
         private IWebElement btnFindAddress => _driver.WaitForElement(By.XPath("//button[@type='submit']"));
         private IWebElement txtPostCode => _driver.WaitForElement(By.Id("Postcode"), true);
         private IWebElement drpAddress => _driver.WaitForElement(By.CssSelector("#Address"));
-        private IWebElement lnkEnterAddress => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Enter the address manually']"));
+        private IWebElement lnkEnterAddress => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Rhowch y cyfeiriad eich hunan']"));
         private IWebElement txtAddressLineOne => _driver.WaitForElement(By.Id("AddressLineOne"));
         private IWebElement txtAddressLineTwo => _driver.WaitForElement(By.Id("AddressLineTwo"));
         private IWebElement txtTownOrCity => _driver.WaitForElement(By.Id("TownOrCity"));
         private IWebElement txtCounty => _driver.WaitForElement(By.Id("County"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
-
+        
         #endregion
 
         #region Methods

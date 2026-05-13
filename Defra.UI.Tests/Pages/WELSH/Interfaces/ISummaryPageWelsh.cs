@@ -17,5 +17,6 @@ namespace Defra.UI.Tests.Pages.AP.Interfaces
         void ClickFirstViewHyperLink();
         bool VerifyBreedForFerret();
         bool VerifyIssuingAuthoritySignatureRow(string signatureColName);
+        void ClickBackButton();
     }
 }

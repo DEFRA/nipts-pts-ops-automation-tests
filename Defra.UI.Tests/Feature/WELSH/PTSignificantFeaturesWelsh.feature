@@ -12,7 +12,7 @@ Background:
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
 	
-Scenario Outline: Create PTD for PETS with or without Significant Features and verify the hint for yes option in Welsh
+Scenario Outline: Create PTD with or without Significant Features and verify the hint for yes option in Welsh
 	Then I should redirected to Apply for a pet travel document page
 	When I click 'Cymraeg' link to change the language
 	Then I should see the heading of dashboard page changed to Welsh

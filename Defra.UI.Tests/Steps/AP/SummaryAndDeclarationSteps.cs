@@ -4,6 +4,8 @@ using NUnit.Framework;
 using Reqnroll;
 using Defra.UI.Tests.Pages.AP.Classes;
 using System.Text.RegularExpressions;
+using Microsoft.Crm.Sdk.Messages;
+using Defra.UI.Tests.Tools;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -108,6 +110,11 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIHaveSelectedOption(string option)
         {
             changeDetailsPage?.SelectOption(option);
+            var registeredUserDetails = changeDetailsPage?.GetRegisteredUserDetails();
+            _scenarioContext.Add("Name", registeredUserDetails?.Name);
+            _scenarioContext.Add("Address", registeredUserDetails?.Address?.Split(new string("\r\n")));
+            _scenarioContext.Add("PhoneNumber", registeredUserDetails?.PhoneNumber);
+            _scenarioContext.Add("Email", registeredUserDetails?.Email);
             _scenarioContext.Add("AreDetailsCorrect", option);
         }
 
@@ -164,7 +171,7 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.AreEqual(dateOfBirth, summary?.DateOfBirth, $"Date of birth is not matching in {pageName} page!");
             Assert.AreEqual(color, summary?.Colour, $"Color is not matching in {pageName} page!");
             Assert.AreEqual(significantFeatures, summary?.SignificantFeatures, $"Significant feature is not matching in {pageName} page!");
-        }
+        }        
 
         private void VerifyPetOwnerDetails(bool isSummaryPage = true)
         {
@@ -181,9 +188,10 @@ namespace Defra.UI.Tests.Steps.AP
 
             if (areDetailsCorrect.ToLower().Equals("yes"))
             {
-                fullName = registeredUserDetails?.Name;
-                address = registeredUserDetails?.Address?.Split(new string("\r\n"));
-                phoneNumber = registeredUserDetails?.PhoneNumber;
+                fullName = _scenarioContext.Get<string>("Name");
+                email = _scenarioContext.Get<string>("Email");
+                address = _scenarioContext.Get<string[]>("Address");
+                phoneNumber = _scenarioContext.Get<string>("PhoneNumber");
             }
             else
             {
@@ -198,7 +206,7 @@ namespace Defra.UI.Tests.Steps.AP
 
             foreach (var lineItem in address)
             {
-                Assert.IsTrue(summary?.Address.Contains(lineItem.Trim()), $"Address is not matching in {pageName} page!");
+                Assert.IsTrue(summary?.Address.ToUpper()?.Replace(",","")?.Contains(Utils.NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
             }
 
             if (isSummaryPage)

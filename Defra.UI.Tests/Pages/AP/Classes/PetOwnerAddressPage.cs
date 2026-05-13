@@ -29,7 +29,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement txtTownOrCity => _driver.WaitForElement(By.Id("TownOrCity"));
         private IWebElement txtCounty => _driver.WaitForElement(By.Id("County"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
-
+        private IWebElement addressPageHeader => _driver.WaitForElement(By.XPath("//h1/label"));
         #endregion
 
         #region Methods
@@ -85,7 +85,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             foreach (var element in lblErrorMessages)
             {
-                if (element.Text.Contains(errorMessage))
+                if (element.Text.Equals(errorMessage))
                 {
                     return true;
                 }
@@ -94,6 +94,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return false;
         }
 
+        public bool IsAddressPageHeaderDisplayed(string title)
+        {
+            return addressPageHeader.Text.Contains(title);
+        }
         #endregion
     }
 }

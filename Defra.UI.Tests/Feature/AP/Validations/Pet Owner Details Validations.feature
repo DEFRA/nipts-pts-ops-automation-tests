@@ -52,7 +52,7 @@ Scenario Outline: Verify pet owner phone number page validations and should not 
 	And I should not be redirected to the Is your pet microchipped page
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber                                                        | ErrorMessage                                                 |
-	| PetCat's | No                       | CV2 4NZ  |                                                                    | Enter your phone number                                      |
+	| PetCat's | No                       | CV2 4NZ  |                                                                    | Enter your phone number, like 01632 960 001 or 07700 900 982                                      |
 	| PetDog's | No                       | CV1 4PY  | ABCDEFGHAD                                                         | Enter your phone number, like 01632 960 001 or 07700 900 982 |
 	| PetDog's | No                       | CV1 4PY  | 075515528680755155286807551552868075515528680755155286807551552868 | Enter your phone number, like 01632 960 001 or 07700 900 982 |
 	| PetDog's | No                       | CV1 4PY  | **************                                                     | Enter your phone number, like 01632 960 001 or 07700 900 982 |
@@ -103,7 +103,7 @@ Scenario Outline: Verify enter address manually validations with all fields blan
 	Then I should see an error message '<ErrorMessages>' in What is your address page
 Examples:
 	| FullName | Are your details correct | Address | ErrorMessages                                                                    |
-	| PetDog's | No                       |         | Enter address line 1 of your address,Enter your town or city,Enter your postcode |
+	| PetDog's | No                       |         | Enter address line 1 of your address$Enter your town or city$Enter your postcode |
 	
 Scenario Outline: Verify enter address manually validations with maximum limit characters for each fields
 	Then I have selected '<Are your details correct>' option
@@ -118,7 +118,7 @@ Scenario Outline: Verify enter address manually validations with maximum limit c
 	Then I should see an error message '<ErrorMessages>' in What is your address page
 Examples:
 	| FullName | Are your details correct | Address                                                                                                                                                                                                                                                            | ErrorMessages                                                                                                                                                                                                                                                                                         |
-	| PetDog's | No                       | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWX | Enter line 1 of your address using 250 characters or less,Enter line 2 of your address using 250 characters or less,Enter your town or city using 250 characters or less,Enter your county using 100 characters or less,Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
+	| PetDog's | No                       | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWX | Enter line 1 of your address using 250 characters or less$Enter line 2 of your address using 250 characters or less$Enter your town or city using 250 characters or less$Enter your county using 100 characters or less$Enter your full postcode in the correct format, for example TF7 5AY or TF75AY |
 
 Scenario Outline: Verify enter address manually validations with invalid postcode, special characters and exceed limits
 	Then I have selected '<Are your details correct>' option

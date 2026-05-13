@@ -1,4 +1,4 @@
-﻿@WelshValidations
+﻿@WelshPETS
 Feature: Microchip Information Validations Welsh
 
 Validating the negative scenarios for Microchip Information in Welsh
@@ -143,7 +143,7 @@ Examples:
 	| PetDog's | Yes                      | 02012345671 | Yes             | 123456789123458 | Ci   | Dog     | Male   | Black         |
 	| PetCat's | Yes                      | 07440345672 | Yes             | 123456789654322 | Cath | Cat     | Female | Tortoiseshell |
 
-Scenario Outline: Verify declaration page validation and should not moves to application completion in Welsh
+Scenario: Verify declaration page validation and should not moves to application completion in Welsh
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
@@ -176,7 +176,7 @@ Scenario Outline: Verify declaration page validation and should not moves to app
 	When I click Send Application button in Declaration page
 	Then I should see an error message "Cytuno â'r datganiad" in declaration page in Welsh
 
-Scenario Outline: Verify the survey link in get your pet microchipped before applying page in Welsh
+Scenario: Verify the survey link in get your pet microchipped before applying page in Welsh
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
@@ -186,7 +186,7 @@ Scenario Outline: Verify the survey link in get your pet microchipped before app
 	When I click the survey link "Rhowch eich barn (mae'n cymryd 30 eiliad)" in Welsh
 	Then I should navigate to the feedback page in new tab
 
-Scenario Outline: Verify the survey link in application submitted page in Welsh
+Scenario: Verify the survey link in application submitted page in Welsh
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh

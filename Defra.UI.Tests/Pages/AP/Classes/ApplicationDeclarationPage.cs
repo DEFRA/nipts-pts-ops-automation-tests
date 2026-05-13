@@ -111,7 +111,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             for (int i = 0; i < divPetOwnerDetailsTitleList.Count; i++)
             {
                 var elementTitle = divPetOwnerDetailsTitleList.ElementAt(i)?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
-                var elementValue = divPetOwnerDetailsValueList.ElementAt(i).Text?.Replace("\r\n", string.Empty).Trim();
+                var elementValue = divPetOwnerDetailsValueList.ElementAt(i).Text?.Replace("\r\n", ", ").Trim();
 
                 switch (elementTitle)
                 {

@@ -1,4 +1,4 @@
-﻿@WelshValidations
+﻿@WelshPETS
 Feature: Suspension related Validations in Welsh
 
 

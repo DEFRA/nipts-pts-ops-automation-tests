@@ -1,7 +1,6 @@
 ﻿@Validations @Regression
 Feature: View pet travel document Validations
 
-
 Background:
 	Given I navigate to PETS a travel document URL
 	When I have provided the password for Landing page

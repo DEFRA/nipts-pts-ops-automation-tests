@@ -19,9 +19,9 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
         private IWebElement PetOwnerDetailsPageHeading => _driver.WaitForElement(By.ClassName("govuk-fieldset__heading"), true);
         private IWebElement DetailsRadioButtonYes => _driver.WaitForElementExists(By.CssSelector("#Yes"));
         private IWebElement DetailsRadioButtonNo => _driver.WaitForElementExists(By.CssSelector("#No"));
-        public IWebElement petOwnersPhoneNumber => _driver.WaitForElement(By.XPath("//*[normalize-space(text())='Phone number']/following-sibling::dd"), true);
-        public IWebElement petOwnerName => _driver.WaitForElement(By.XPath("//*[normalize-space(text())='Name']/following-sibling::dd"));
-        public IWebElement updatedPetOwnerAddress => _driver.WaitForElement(By.XPath("//*[normalize-space(text())='Address']//following-sibling::dd"), true);
+        public IWebElement petOwnersPhoneNumber => _driver.WaitForElement(By.XPath("//*[normalize-space(text())='Rhif ffôn']/following-sibling::dd"), true);
+        public IWebElement petOwnerName => _driver.WaitForElement(By.XPath("//*[normalize-space(text())='Enw']/following-sibling::dd"));
+        public IWebElement updatedPetOwnerAddress => _driver.WaitForElement(By.XPath("//*[normalize-space(text())='Cyfeiriad']//following-sibling::dd"), true);
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         #endregion
 
@@ -56,7 +56,7 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
         }
         public bool VerifyUpdatedPetOwnerAddress(string petOwnerAddress)
         {
-            var updatedAddress = updatedPetOwnerAddress.Text.Replace("\r\n", "").Replace(" ", string.Empty);
+            var updatedAddress = Utils.NormalizeAddress(updatedPetOwnerAddress.Text).Replace("\r\n", "").Replace(" ", string.Empty);
             return updatedAddress.Equals(petOwnerAddress.Replace(",", string.Empty).Replace(" ", string.Empty));
         }
 

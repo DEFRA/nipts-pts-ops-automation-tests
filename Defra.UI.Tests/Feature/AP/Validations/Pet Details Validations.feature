@@ -505,3 +505,6 @@ Examples:
 	| Are your details correct | MicrochipOption | MicrochipNumber | Pet | Breed    |
 	| Yes                      | Yes             | 123456789123456 | Dog | DogBreed |
 	| Yes                      | Yes             | 123456789123456 | Cat | CatBreed |
+
+Scenario Outline: Verify the footer links changes to English  
+	Then I Verify the footer links changes to English

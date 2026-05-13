@@ -50,7 +50,7 @@ Scenario Outline: Modify Name of the pet owner By Registered User with details c
 	And I have clicked the change option for the 'Name' from Pet owner details section
 	And I have modified the pet owner name with the value of '<UpdatedFullName>'
 	When I click continue button from pet owner name page
-	Then I have verified microchip details in declaration page
+	Then I have verified pet owner details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -60,7 +60,7 @@ Scenario Outline: Modify Name of the pet owner By Registered User with details c
 	And I should see the application in 'Pending' status
 	When I have clicked the View hyperlink from home page
 	Then The submitted application should be displayed in summary view
-	And I have verified microchip details in summary page
+	And I have verified pet owner details in summary page
 
 Examples:
 	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedFullName | UpdatedPostCode |
@@ -105,7 +105,7 @@ Scenario Outline: Modify Address of the pet owner By Registered User with detail
 	Then I should see a list of address in dropdownlist
 	And I select the index 2 from address list
 	When I click continue button from postcode search page
-	Then I have verified microchip details in declaration page
+	Then I have verified pet owner details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -115,11 +115,12 @@ Scenario Outline: Modify Address of the pet owner By Registered User with detail
 	And I should see the application in 'Pending' status
 	When I have clicked the View hyperlink from home page
 	Then The submitted application should be displayed in summary view
-	And I have verified microchip details in summary page
+	And I have verified pet owner details in summary page
 
 Examples:
 	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedPostCode |
 	| PetCats's |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | CV2 4NZ         |
+	| PetDogs's |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Male   | Red   | Yes                   | OX1 1AF         |
 
 Scenario Outline: Modify Phone number of the pet owner By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
@@ -156,7 +157,7 @@ Scenario Outline: Modify Phone number of the pet owner By Registered User with d
 	And I have clicked the change option for the 'Phone number' from Pet owner details section
 	And I have modified the pet owner phone number with the value of '<UpdatedPhoneNumber>'
 	When I click continue button from What is your phone number page
-	Then I have verified microchip details in declaration page
+	Then I have verified pet owner details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -166,7 +167,7 @@ Scenario Outline: Modify Phone number of the pet owner By Registered User with d
 	And I should see the application in 'Pending' status
 	When I have clicked the View hyperlink from home page
 	Then The submitted application should be displayed in summary view
-	And I have verified microchip details in summary page
+	And I have verified pet owner details in summary page
 
 Examples:
 	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedPhoneNumber |
@@ -205,7 +206,7 @@ Scenario Outline: Modify Name of the pet owner By Registered User with details c
 	And I have clicked the change option for the 'Name' from Pet owner details section
 	And I have modified the pet owner name with the value of '<UpdatedFullName>'
 	When I click continue button from pet owner name page
-	Then I have verified microchip details in declaration page
+	Then I have verified pet owner details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -215,7 +216,7 @@ Scenario Outline: Modify Name of the pet owner By Registered User with details c
 	And I should see the application in 'Pending' status
 	When I have clicked the View hyperlink from home page
 	Then The submitted application should be displayed in summary view
-	And I have verified microchip details in summary page
+	And I have verified pet owner details in summary page
 
 Examples:
 	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedFullName | UpdatedPostCode |
@@ -253,7 +254,7 @@ Scenario Outline: Modify Phone number of the pet owner By Registered User with d
 	And I have clicked the change option for the 'Phone number' from Pet owner details section
 	And I have modified the pet owner phone number with the value of '<UpdatedPhoneNumber>'
 	When I click continue button from What is your phone number page
-	Then I have verified microchip details in declaration page
+	Then I have verified pet owner details in declaration page
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -263,7 +264,7 @@ Scenario Outline: Modify Phone number of the pet owner By Registered User with d
 	And I should see the application in 'Pending' status
 	When I have clicked the View hyperlink from home page
 	Then The submitted application should be displayed in summary view
-	And I have verified microchip details in summary page
+	And I have verified pet owner details in summary page
 
 Examples:
 	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedPhoneNumber |

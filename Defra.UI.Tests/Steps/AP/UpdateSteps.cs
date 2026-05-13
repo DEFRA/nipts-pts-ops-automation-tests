@@ -156,9 +156,9 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I have modified the pet owner name with the value of '(.*)'")]
         public void ThenIHaveModifiedThePetOwnerNameWithTheValueOf(string petOwnerName)
         {
-            _scenarioContext.Remove("FullName");
+            _scenarioContext.Remove("Name");
             petOwnerNamePage?.EnterPetOwnerName(petOwnerName);
-            _scenarioContext.Add("FullName", petOwnerName);
+            _scenarioContext.Add("Name", petOwnerName);
         }
 
         [When(@"I click continue button from pet owner name page")]
@@ -189,12 +189,6 @@ namespace Defra.UI.Tests.Steps.AP
             petOwnerAddressPage?.EnterPostCode(postCode);
             _scenarioContext.Add("Postcode", postCode);
 
-            if (_scenarioContext.ContainsKey("PhoneNumber"))
-            {
-                _scenarioContext.Remove("PhoneNumber");
-            }
-
-            _scenarioContext.Add("PhoneNumber", phoneNumber);
         }
 
         [When(@"I click continue button from What is your phone number page")]

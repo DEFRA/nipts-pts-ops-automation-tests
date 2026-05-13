@@ -23,8 +23,10 @@ Scenario: Change Phone Number in Manage account
 	And I go back to Pets application
 	When signed out from PETS portal	
 	Then I click on Taking a pet from Great Britain to Northern Ireland link
-	#And I should redirected to Your Defra account page
-	And I should redirected to the AP Sign in using Government Gateway page
+	And I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
+	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 	And I should redirected to Apply for a pet travel document page
 	When I click Create a new pet travel document button
@@ -45,7 +47,10 @@ Scenario: Change Name in Manage account
 	And I go back to Pets application
 	When signed out from PETS portal	
 	Then I click on Taking a pet from Great Britain to Northern Ireland link
-	And I should redirected to the AP Sign in using Government Gateway page
+	And I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
+	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 	And I should redirected to Apply for a pet travel document page
 	When I click Create a new pet travel document button
@@ -75,7 +80,10 @@ Scenario Outline: Change Address in Manage account
 	And I go back to Pets application
 	When signed out from PETS portal	
 	Then I click on Taking a pet from Great Britain to Northern Ireland link
-	And I should redirected to the AP Sign in using Government Gateway page
+	And I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
+	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 	And I should redirected to Apply for a pet travel document page
 	When I click Create a new pet travel document button
