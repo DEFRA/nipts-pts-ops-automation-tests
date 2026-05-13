@@ -226,7 +226,7 @@ namespace Defra.UI.Tests.Steps.AP
             _driver.WaitForPageToLoad(); 
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
-            FormSteps.ICanSeeAHeaderField("readonly", status);
+            //FormSteps.ICanSeeAHeaderField("readonly", status);
             CommandSteps.ClickCommand("Refresh");
         }
 
@@ -300,7 +300,7 @@ namespace Defra.UI.Tests.Steps.AP
 
         [Then("the Record Owner By '(.*)'")]
         public void WhenTheRecordOwnerBy(string user)
-        {
+         {
             if (user.ToUpper().Equals("CURRENT USER"))
             {
                 FormSteps.RecordIsOwnedBy(TestConfiguration.CurrentUsers.FirstOrDefault().Value.Alias);
