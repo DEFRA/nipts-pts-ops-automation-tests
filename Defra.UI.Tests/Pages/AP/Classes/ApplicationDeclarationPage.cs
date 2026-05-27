@@ -29,7 +29,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> divPetDetailsActionList => _driver.WaitForElements(By.XPath("//div[@id='document-pet-card']//dl/div/descendant::dd[2]/a"));
         private IReadOnlyCollection<IWebElement> divPetOwnerDetailsTitleList => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div/descendant::dt"));
         private IReadOnlyCollection<IWebElement> divPetOwnerDetailsValueList => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div/descendant::dd[1]"));
-        private IReadOnlyCollection<IWebElement> divPetOwnerDetailsActionList => _driver.WaitForElements(By.XPath("//div[@id='document-owner-card']//dl/div/descendant::dd[2]/a"));
+        private IReadOnlyCollection<IWebElement> divPetOwnerDetailsActionList => _driver.WaitForElementExists(By.XPath("//div[@id='document-owner-card']//dl/div/descendant::dd[2]/a"));
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         #endregion
 
