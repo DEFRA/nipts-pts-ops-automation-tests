@@ -24,7 +24,7 @@ namespace Defra.UI.Tests.Steps.WELSH
         [Then(@"I should navigate to the Pets Owner details correct page in Welsh")]
         public void ThenIShouldNavigateToThePetsOwnerDetailsCorrectPage()
         {
-            var pageTitle = "Are your details correct?";
+            var pageTitle = "Ydy’ch manylion chi’n gywir?";
             Assert.IsTrue(PetOwnerDetailsPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 

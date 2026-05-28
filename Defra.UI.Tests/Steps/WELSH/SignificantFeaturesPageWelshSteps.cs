@@ -10,6 +10,7 @@ namespace Defra.UI.Tests.Steps.AP
     public class SignificantFeaturesPageWelshSteps
     {
         private readonly IObjectContainer _objectContainer;
+        private readonly ScenarioContext _scenarioContext;
         private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
         private ISignificantFeaturesPageWelsh? SignificantFeaturesPageWelsh => _objectContainer.IsRegistered<ISignificantFeaturesPageWelsh>() ? _objectContainer.Resolve<ISignificantFeaturesPageWelsh>() : null;
         public SignificantFeaturesPageWelshSteps(IObjectContainer container)
@@ -29,6 +30,6 @@ namespace Defra.UI.Tests.Steps.AP
         {
             SignificantFeaturesPageWelsh?.SelectSignificantFeaturesOption(featuresType);
             SignificantFeaturesPageWelsh?.ClickParhauButton();
-        }
+        }        
     }
 }

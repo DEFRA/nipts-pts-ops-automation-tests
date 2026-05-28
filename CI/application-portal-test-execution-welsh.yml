@@ -48,7 +48,7 @@ resources:
       type: github
       name: DEFRA/nipts-pts-ops-automation-tests
       ref: $(Build.SourceBranch)
-      endpoint: Defra_v2
+      endpoint: DEFRA
 
 stages:
   
@@ -74,6 +74,7 @@ stages:
         isEmulationEnabled: ${{parameters.isEmulationEnabled}}
         emulateDeviceInfo: ${{parameters.emulateDeviceInfo}}
         isAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
+        filterTestCases: 'TestCategory=WelshPETS'
         application: 'AP'
         dependsOn: ''
 

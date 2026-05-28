@@ -1,4 +1,4 @@
-﻿@WelshValidations
+﻿@WelshPETS
 Feature: Pet Details Validations Welsh
 
 Validating the negative scenarios for Pet Details in Welsh
@@ -81,7 +81,7 @@ Examples:
 	| FullName | Are your details correct | MicrochipOption | MicrochipNumber | Pet  | PetName | Gender |
 	| PetCat's | Yes                      | Yes             | 123456789654321 | Cath | Cat     | Female |
 
-Scenario Outline: Verify pets date of birth text boxes should not allow invalid date in Welsh
+Scenario: Verify pets date of birth text boxes should not allow invalid date in Welsh
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
@@ -109,7 +109,7 @@ Scenario Outline: Verify pets date of birth text boxes should not allow invalid 
 	Then I should not be redirected to the What is the main colour of your 'Ci' page in Welsh
 	And I should see an error message "Rhowch ddyddiad geni eich anifail anwes yn y fformat cywir, er enghraifft, 11 04 2021" in pets date of birth page
 
-Scenario Outline: Verify the error message for no pets date of birth provided in Welsh
+Scenario: Verify the error message for no pets date of birth provided in Welsh
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
@@ -137,7 +137,7 @@ Scenario Outline: Verify the error message for no pets date of birth provided in
 	Then I should not be redirected to the What is the main colour of your 'Dog' page in Welsh
 	And I should see an error message "Rhowch ddyddiad geni eich anifail anwes yn y fformat cywir, er enghraifft, 11 04 2021" in pets date of birth page
 
-Scenario Outline: Verify if the pet type is not selected then should not move to next page in Welsh
+Scenario: Verify if the pet type is not selected then should not move to next page in Welsh
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
@@ -507,3 +507,172 @@ Examples:
 	| Are your details correct | MicrochipOption | MicrochipNumber | Pet  | Breed    |
 	| Yes                      | Yes             | 123456789123456 | Ci   | DogBreed |
 	| Yes                      | Yes             | 123456789123456 | Cath | CatBreed |
+
+Scenario Outline: Verify footer links changes to Welsh
+	Then I Verify the footer links changes to Welsh
+
+Scenario: Verify the hint in breed page for cat
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
+	And I selected the 'Yes' option
+	And provided microchip number as 121122334565432
+	When I click Continue button from microchipped page in Welsh
+	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page in Welsh
+	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
+	And I have selected an option as 'Cath' for pet in Welsh
+	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
+	Then I should redirected to the What breed is your 'Cath'? page in Welsh
+	And I Verify the hint in Breed Page
+
+Scenario Outline: Verify the Welsh language version of each page on selection of Welsh language till the declaration page
+	When I click 'English' link to change the language
+	Then I should navigate to the Pets Owner details correct page
+	When I click 'Cymraeg' link to change the language
+	Then I should navigate to the Pets Owner details correct page in Welsh
+	Then I have selected 'Yes' option
+	When I click on continue button from Are your details correct page in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the Is your pet microchipped page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the Is your pet microchipped page in Welsh
+	And I selected the 'No' option
+	When I click Continue button from microchipped page in Welsh
+	Then I should redirected to the Get your pet microchipped before applying page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the Get your pet microchipped before applying page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the Get your pet microchipped before applying page in Welsh
+	And I click on welsh Back button
+	Then I should redirected to the Is your pet microchipped page in Welsh
+	Then I selected the 'Yes' option
+	And provided microchip number as 121212121212442
+	When I click Continue button from microchipped page in Welsh
+	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to When was your pet microchipped or last scanned? page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
+	And I have provided date of PETS microchipped
+	When I click Continue button from When was your pet microchipped page in Welsh
+	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the Is your pet a cat, dog or ferret page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
+	And I have selected an option as 'Ci' for pet in Welsh
+	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
+	Then I should redirected to the What breed is your 'Ci'? page in Welsh
+	When I click 'English' link to change the language
+	Then I Verify the header of the breed page for 'Dog'
+	When I click 'Cymraeg' link to change the language
+	Then I Verify the header of the breed page for 'Ci' in Welsh
+	And I have provided freetext breed as 'MukuSK' in Welsh
+	When I click on continue button from What is your pet's breed page in Welsh
+	Then I should redirected to the What is your pet's name page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the What is your pet's name page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the What is your pet's name page in Welsh
+	And I provided the Pets name as 'Ci' in Welsh
+	When I click on continue button from What is your pet's name page in Welsh
+	Then I should redirected to the What sex is your pet page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the What sex is your pet page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the What sex is your pet page in Welsh
+	And I have selected the option as 'Male' for sex in Welsh
+	When I click on continue button from What sex is your pet page in Welsh
+	Then I should redirected to the Do you know your pet's date of birth page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the Do you know your pet's date of birth page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the Do you know your pet's date of birth page in Welsh
+	And I have provided date of birth in Welsh
+	When I click on continue button from Do you know your pet's date of birth? page in Welsh
+	Then I should redirected to the What is the main colour of your 'Ci' page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the What is the main colour of your 'Dog' page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the What is the main colour of your 'Ci' page in Welsh
+	And I have selected the option as 'Du' for color in Welsh
+	When I click on continue button from What is the main colour of your pet page in Welsh
+	Then I should redirected to the Does your pet have any significant features page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the Does your pet have any significant features page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the Does your pet have any significant features page in Welsh
+	And I have selected an option as 'Nac oes' for significant features in Welsh
+	When I click on continue button from Does your pet have any significant features page in Welsh
+	Then I should redirected to the Check your answers and sign the declaration page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the Check your answers and sign the declaration page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the Check your answers and sign the declaration page in Welsh
+	And I have ticked the I agree to the declaration checkbox
+	When I click Accept and Send button from Declaration page
+	Then I should redirected to the Application submitted page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the Application submitted page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the Application submitted page in Welsh
+	And I can see the unique application reference number
+	When I have clicked the View all your lifelong pet travel documents link in Welsh
+	Then I should see the heading of dashboard page changed to Welsh
+	And I should see the application in 'Yn aros' status in Welsh
+	When I have clicked the View hyperlink from home page in Welsh
+	Then The submitted application should be displayed in summary view in Welsh
+	When I click 'English' link to change the language
+	Then The submitted application should be displayed in summary view
+	When I click 'Cymraeg' link to change the language
+	Then The submitted application should be displayed in summary view in Welsh
+
+Scenario Outline: Verify the Welsh language version of each page on selection of Welsh language using Manual Address
+	When I click 'English' link to change the language
+	Then I should navigate to the Pets Owner details correct page
+	When I click 'Cymraeg' link to change the language
+	Then I should navigate to the Pets Owner details correct page in Welsh
+	Then I have selected 'No' option
+	When I click on continue button from Are your details correct page in Welsh
+	Then I should redirected to the What is your full name page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the What is your full name page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the What is your full name page in Welsh
+	And I provided the full name of the pet keeper as 'Shishui SK' in Welsh
+	When I click Continue button from What is your full name page in Welsh
+	Then I should navigate to Pets Owner address postcode page in Welsh
+	When I click 'English' link to change the language
+	Then I should navigate to Pets Owner address postcode page
+	When I click 'Cymraeg' link to change the language
+	Then I should navigate to Pets Owner address postcode page in Welsh
+	And I provided the postcode 'CV1 4PY'
+	When I click Search button
+	Then I should navigate to Pets Owner address page 'Beth yw’ch cyfeiriad?'
+	When I click 'English' link to change the language
+	Then I should navigate to Pets Owner address page 'What is your address?'
+	When I click 'Cymraeg' link to change the language
+	Then I should navigate to Pets Owner address page 'Beth yw’ch cyfeiriad?'
+	And I click on welsh Back button
+	And I should navigate to Pets Owner address postcode page in Welsh
+	When I click on Enter the address manually link from postcode page in Welsh
+	Then I should navigate to Pets Owner manually address page in Welsh
+	When I click 'English' link to change the language
+	Then I should navigate to Pets Owner manually address page
+	When I click 'Cymraeg' link to change the language
+	Then I should navigate to Pets Owner manually address page in Welsh
+	When I fill in 'House 5', 'Uchhiha Road', 'Konoha', 'Zathura', 'RG16BU'and continue in Welsh
+	Then I should navigate to Pets Owner phone number page in Welsh
+	When I click 'English' link to change the language
+	Then I should navigate to Pets Owner phone number page
+	When I click 'Cymraeg' link to change the language
+	Then I should navigate to Pets Owner phone number page in Welsh
+	When I provide Pets Owner '07401659856' and continue in Welsh
+	Then I should redirected to the Is your pet microchipped page in Welsh
+	When I click 'English' link to change the language
+	Then I should redirected to the Is your pet microchipped page
+	When I click 'Cymraeg' link to change the language
+	Then I should redirected to the Is your pet microchipped page in Welsh

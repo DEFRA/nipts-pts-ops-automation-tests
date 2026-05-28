@@ -21,6 +21,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-fieldset__heading']"), true);
         private IWebElement rdoYes => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[@for='Yes']"));
         private IWebElement rdoNo => _driver.WaitForElement(By.XPath("//div[@class='govuk-radios__item']/label[@for='No']"));
+        private IWebElement petOwnerName => _driver.WaitForElement(By.XPath("//div[@class='govuk-summary-list__row'][1]//dd"));
+        private IWebElement petOwnerEmail => _driver.WaitForElement(By.XPath("//div[@class='govuk-summary-list__row'][2]//dd"));
+        private IWebElement petOwnerAddress => _driver.WaitForElement(By.XPath("//div[@class='govuk-summary-list__row'][3]//dd"));
+        private IWebElement petOwnerPhoneNumber => _driver.WaitForElement(By.XPath("//div[@class='govuk-summary-list__row'][4]//dd"));
         private IReadOnlyCollection<IWebElement> divPetOwnerDetailsList => _driver.WaitForElements(By.XPath("//dl/div"));
 
 
@@ -50,7 +54,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
                 rdoNo.Click();
             }
         }
-
+        
         public Summary GetRegisteredUserDetails()
         {
             var summary = new Summary();
@@ -58,7 +62,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             foreach (var element in divPetOwnerDetailsList)
             {
                 var elementTitle = element.FindElement(By.TagName("dt"))?.Text?.Replace("\r\n", string.Empty).Trim()?.ToUpper();
-                var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", string.Empty).Trim();
+                var elementValue = element.FindElements(By.TagName("dd"))?[0].Text?.Replace("\r\n", ", ").Trim();
 
                 switch (elementTitle)
                 {

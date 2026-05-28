@@ -23,6 +23,7 @@ namespace Defra.UI.Tests.Steps.AP
         private IPetColourPage? petColourPag => _objectContainer.IsRegistered<IPetColourPage>() ? _objectContainer.Resolve<IPetColourPage>() : null;
         private IPetColourPageWelsh? petColourPageWelsh => _objectContainer.IsRegistered<IPetColourPageWelsh>() ? _objectContainer.Resolve<IPetColourPageWelsh>() : null;
         private ISignificantFeaturesPageWelsh? significantFeaturesPageWelsh => _objectContainer.IsRegistered<ISignificantFeaturesPageWelsh>() ? _objectContainer.Resolve<ISignificantFeaturesPageWelsh>() : null;
+       
 
         public PetDetailsWelshSteps(ScenarioContext context, IObjectContainer container)
         {
@@ -41,7 +42,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIHaveSelectedAnOptionAsForPetinWelsh(string petType)
         {
             petSpeciesPageWelsh?.SelectSpecies(petType);
-            _scenarioContext.Add("PetType", petType);
+            _scenarioContext.Add("Rhywogaeth", petType);
         }
 
         [When(@"I click on continue button from Is your pet a cat, dog or ferret page in Welsh")]
@@ -50,6 +51,7 @@ namespace Defra.UI.Tests.Steps.AP
             petSpeciesPageWelsh?.ClickParhauButton();
         }
 
+        [Then(@"I Verify the header of the breed page for {string} in Welsh")]
         [Then(@"I should redirected to the What breed is your {string}? page in Welsh")]
         public void ThenIShouldRedirectedToTheWhatBreedIsYourPageInWelsh(string petType)
         {
@@ -66,12 +68,12 @@ namespace Defra.UI.Tests.Steps.AP
             breedPageWelsh?.ClickParhauButton();
         }
 
-        /*        [Then(@"I have provided freetext breed as '([^']*)'")]
-                public void ThenIHaveProvidedFreetextBreedAs(string breed)
-                {
-                    breedPage?.EnterFreeTextBreed(breed);
-                    _scenarioContext.Add("Breed", breed);
-                }*/
+        [Then(@"I have provided freetext breed as '([^']*)' in Welsh")]
+        public void ThenIHaveProvidedFreetextBreedAs(string breed)
+        {
+            breedPageWelsh?.EnterFreeTextBreed(breed);
+            _scenarioContext.Add("Brid", breed);
+        }
 
 
         [Then(@"I should redirected to the What is your pet's name page in Welsh")]
@@ -124,15 +126,15 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIHaveSelectedTheOptionAsForColorInWelsh(string color)
         {
             petColourPageWelsh?.SelectColorOption(color);
-            _scenarioContext.Add("Color", color);
+            _scenarioContext.Add("Lliw", color);
         }
 
-/*        [Then(@"I provided other color of the pet as ""([^""]*)""")]
+        [Then(@"I provided other color of the pet as ""([^""]*)"" in Welsh")]
         public void ThenIProvidedOtherColorOfThePetAs(string otherColor)
         {
             petColourPag?.SelectOtherColorOption(otherColor);
-            _scenarioContext.Add("OtherColor", otherColor);
-        }*/
+            _scenarioContext["Lliw"] = otherColor;
+        }
 
         [When(@"I click on continue button from What is the main colour of your pet page in Welsh")]
         public void WhenIClickOnContinueButtonFromWhatIsTheMainColourOfYourPetPageInWelsh()
@@ -147,23 +149,58 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.IsTrue(significantFeaturesPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
 
-        /*        [Then(@"I have selected an option as '([^']*)' for significant features")]
-                public void ThenIHaveSelectedAnOptionAsForSignificantFeatures(string hasSignificantFeatures)
-                {
-                    var significantFeature = significantFeaturesPage?.SelectSignificantFeaturesOption(hasSignificantFeatures);
-                    _scenarioContext.Add("SignificantFeatures", significantFeature);
-                }*/
+        [Then(@"I have selected an option as '([^']*)' for significant features in Welsh")]
+        public void ThenIHaveSelectedAnOptionAsForSignificantFeatures(string hasSignificantFeatures)
+        {
+            var significantFeature = significantFeaturesPageWelsh?.SelectSignificantFeaturesOption(hasSignificantFeatures);
+            _scenarioContext.Add("Nodweddion arwyddocaol", significantFeature);
+        }
 
-                [When(@"I click on continue button from Does your pet have any significant features page in Welsh")]
-                public void WhenIClickOnContinueButtonFromDoesYourPetHaveAnySignificantFeaturesPageInWelsh()
-                {
-                    significantFeaturesPageWelsh?.ClickParhauButton();
-                }
+        [When(@"I click on continue button from Does your pet have any significant features page in Welsh")]
+        public void WhenIClickOnContinueButtonFromDoesYourPetHaveAnySignificantFeaturesPageInWelsh()
+        {
+            significantFeaturesPageWelsh?.ClickParhauButton();
+        }
 
-    /*            [Then(@"I have provided date of birth as '(.*)''(.*)''(.*)'")]
-                public void ThenIHaveProvidedDateOfBirthAs(string day, string month, string year)
-                {
-                    petDOBPage?.EnterPetDateOfBirth(day, month, year);
-                }*/
+        [Then(@"I provided the Pets name as '([^']*)' in Welsh")]
+        public void ThenIProvidedThePetsNameAs(string petName)
+        {
+            var petFullName = $"{petName} {Utils.GenerateRandomName()}";
+            petNamePageWelsh?.EnterPetsName(petFullName);
+            _scenarioContext.Remove("Enw");
+            _scenarioContext.Add("Enw", petFullName);
+        }
+
+        [Then(@"I have selected {int} as breed index from breed dropdownlist in Welsh")]
+        public void ThenIHaveSelectedAsBreedIndexFromBreedDropdownlist(int breedIndex)
+        {
+            var breed = breedPageWelsh?.SelectPetsBreed(breedIndex);
+            _scenarioContext.Add("Brid", breed);
+        }
+
+        [Then(@"I have selected the option as '([^']*)' for sex in Welsh")]
+        public void ThenIHaveSelectedTheOptionAsForSex(string sex)
+        {
+            petSexPageWelsh?.SelectPetsSexOption(sex);
+            _scenarioContext.Add("Rhyw", sex);
+        }
+
+          [Then(@"I Verify the footer links changes to Welsh")]
+        public void ThenIVerifyTheFooterLinksChangesToWelsh()
+        {
+         Assert.IsTrue(breedPageWelsh?.VerifyFooterLinksinWelsh(), "Footer links are not displayed correctly in welsh page.");
+        }
+
+
+        [Then(@"I Verify the hint in Breed Page")]
+        public void ThenIVerifyTheHintInBreedPage()
+        {
+            Assert.IsTrue(breedPageWelsh.VerifyHintText());
+        }
     }
+
 }
+
+
+    
+

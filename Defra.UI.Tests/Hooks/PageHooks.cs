@@ -100,6 +100,7 @@ namespace Defra.UI.Tests.Hooks
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetOwnerAddressPageWelsh, IPetOwnerAddressPageWelsh>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetOwnerPhoneNumberPageWelsh, IPetOwnerPhoneNumberPageWelsh>());
             _objectContainer.RegisterInstanceAs(GetBaseWithContainer<PetOwnerAddressManuallyPageWelsh, IPetOwnerAddressManuallyPageWelsh>());
+            _objectContainer.RegisterInstanceAs(GetBaseWithContainer<ManageAccountPageWelsh, IManageAccountPageWelsh>());
         }
 
 
