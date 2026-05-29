@@ -63,6 +63,8 @@ public class HeaderHelper
 
         TryExpandHeaderFlyout(driver);
 
+        Thread.Sleep(1000);
+
         var xpathToFlyout = AppElements.Xpath[AppReference.Entity.Header.Flyout];
         driver.WaitUntilVisible(By.XPath(xpathToFlyout), TimeSpan.FromSeconds(10),
             flyout =>

@@ -94,7 +94,7 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
-            //FormSteps.ICanSeeAHeaderField("readonly", MicrochipStatus);
+            FormSteps.ICanSeeAHeaderField("readonly", MicrochipStatus);
         }
 
         [When("I {string} the Evidence check")]
@@ -112,7 +112,7 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
-            //FormSteps.ICanSeeAHeaderField("readonly", Status);
+            FormSteps.ICanSeeAHeaderField("readonly", Status);
         }
 
         [When("I {string} the Microchip check with {string} reason")]
@@ -226,7 +226,7 @@ namespace Defra.UI.Tests.Steps.AP
             _driver.WaitForPageToLoad(); 
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
-            //FormSteps.ICanSeeAHeaderField("readonly", status);
+            FormSteps.ICanSeeAHeaderField("readonly", status);
             CommandSteps.ClickCommand("Refresh");
         }
 
