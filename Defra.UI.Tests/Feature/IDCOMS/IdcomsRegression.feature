@@ -7,7 +7,7 @@ Scenario: Verify if a Caseworker can assign an already assigned case to themselv
 	When I Login to Dynamics application
 	And I Switch to 'All PTD Applications'
 	And I open the first application
-	And I assign the application to 'Vishal Shukla' another user
+	And I assign the application to 'Vinotha Thiyagarajan' another user
 	And I assign the application to myself
 
 Scenario: Verify if the Pet owner details are not editable
@@ -329,8 +329,8 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Microchip Number' as 'auto'
-	And I enter 'Microchipped Date' as '09/08/2023'
 	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Microchipped Date' as '09/08/2023'
 	And I Click on Save
 	Then the status is 'Open'
 	And I see the Application Reference number generated
@@ -341,13 +341,15 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
-	And I enter 'Breed' as 'Beagle'
+	And I Click on Save
+	Then the status is 'Pending'
+	When I enter 'Breed' as 'Beagle'
 	And I enter 'Sex' as 'Male'
-	And I enter 'Date of Birth' as '09/08/2022'
-	And I enter 'Age' as '12'
+	And I enter 'Date of Birth' as '09/08/2023'
 	And I enter 'Colour' as 'Brown, tan or chocolate'
-	And I enter 'Unique feature' as 'As fast as Cheetah'
-	And I enter 'Microchipped Date' as '09/08/2023'
+	And I enter 'Age' as '12'
+	#And I enter 'Unique feature' as 'Heart shape mole on the head'
+	And I enter 'Microchipped Date' as '09/08/2024'
 	And I Click on Save
 	When I 'Pass' the Microchip check
 	And I go back
@@ -706,6 +708,7 @@ Scenario: Verify if the Pet owner details are editable for an offline Contact
 	When I Login to Dynamics application
 	And I open 'Contacts' under 'Application'
 	And I open the 'Auto141125131624' application
+	And I assign the application to myself
 	Then I can edit 'Pet Owner Contact' Details
 
 Scenario: Verify Offline PTD Reference is assigned to Application Reference and searchable

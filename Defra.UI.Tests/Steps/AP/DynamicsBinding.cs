@@ -226,7 +226,7 @@ namespace Defra.UI.Tests.Steps.AP
             _driver.WaitForPageToLoad(); 
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
-            //FormSteps.ICanSeeAHeaderField("readonly", status);
+            FormSteps.ICanSeeAHeaderField("readonly", status);
             CommandSteps.ClickCommand("Refresh");
         }
 
@@ -1072,7 +1072,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             EntitySteps.ISelectTab("SNCs");
             SharedSteps.WaitForScriptProcessing();
-            CommandSteps.WhenISelectTheCommand("New Suspect Non Compliance", "SNCs_subgrid");
+            CommandSteps.WhenISelectTheCommand("Add New Suspect Non Compliance", "nipts_suspectnoncompliance");
             EntitySteps.WhenIEnterInTheField("Berkenhead", "nipts_portoforigin", "text", "field", 1);
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm("Berkenhead", "nipts_portoforigin", "text", "field", "");
             EntitySteps.WhenIEnterInTheField("Belfast", "nipts_destination", "text", "field", 1);
