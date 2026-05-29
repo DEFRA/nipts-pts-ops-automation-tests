@@ -1141,12 +1141,12 @@ public class WebClient : BrowserPage, IDisposable
                 var input = userOrTeamField.ClickWhenAvailable(By.TagName("input"), "User field unavailable");
                 input.SendKeys(userOrTeamName, true);
 
-                ThinkTime(5000);
+                ThinkTime(3000);
 
                 input.SendKeys(Keys.ArrowDown);
                 input.SendKeys(Keys.Enter);
 
-                ThinkTime(2000);
+                ThinkTime(1000);
 
                 //Pick the User from the list
                 //var container = driver.WaitUntilVisible(By.XPath(AppElements.Xpath[AppReference.Dialogs.AssignDialogUserTeamLookupResults]));

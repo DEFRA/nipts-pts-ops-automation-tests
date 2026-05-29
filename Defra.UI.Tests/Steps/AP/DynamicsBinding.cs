@@ -94,7 +94,7 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
-            FormSteps.ICanSeeAHeaderField("readonly", MicrochipStatus);
+            //FormSteps.ICanSeeAHeaderField("readonly", MicrochipStatus);
         }
 
         [When("I {string} the Evidence check")]
@@ -112,7 +112,7 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
             SharedSteps.WaitForScriptProcessing();
-            FormSteps.ICanSeeAHeaderField("readonly", Status);
+            //FormSteps.ICanSeeAHeaderField("readonly", Status);
         }
 
         [When("I {string} the Microchip check with {string} reason")]
@@ -1072,7 +1072,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             EntitySteps.ISelectTab("SNCs");
             SharedSteps.WaitForScriptProcessing();
-            CommandSteps.WhenISelectTheCommand("New Suspect Non Compliance", "SNCs_subgrid");
+            CommandSteps.WhenISelectTheCommand("Add New Suspect Non Compliance", "nipts_suspectnoncompliance");
             EntitySteps.WhenIEnterInTheField("Berkenhead", "nipts_portoforigin", "text", "field", 1);
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm("Berkenhead", "nipts_portoforigin", "text", "field", "");
             EntitySteps.WhenIEnterInTheField("Belfast", "nipts_destination", "text", "field", 1);

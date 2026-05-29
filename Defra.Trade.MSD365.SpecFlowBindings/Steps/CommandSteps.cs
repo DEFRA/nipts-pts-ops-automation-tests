@@ -127,7 +127,7 @@ public class CommandSteps : PowerAppsStepDefiner
                         }
                         else
                         {
-                            var buttons = Driver.FindElements(By.XPath($"//button[(@aria-label='{commandName}' or starts-with(@aria-label, '{commandName}.')) and starts-with(@data-id, '{entity}|')]"));
+                            var buttons = Driver.FindElements(By.XPath($"//button[(@aria-label='{commandName}' or starts-with(@aria-label, '{commandName}')) and starts-with(@data-id, '{entity}|')]"));
 
                             if (buttons.Any())
                             {
