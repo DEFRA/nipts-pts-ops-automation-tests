@@ -691,7 +691,7 @@ Scenario: Verify the Confirm Appeal message in a Suspension record
 Scenario: Verify the Appeal Outcome letter field and Letter action needed Notification for the suspended record - offline
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1087' application
+	And I open the 'SUS-1211' application
 	Then I See the 'Letter to be sent' value in 'nipts_appealoutcomeletter' field
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
 
@@ -757,7 +757,7 @@ Scenario: Verify the partially successful option is hidden in appeal decision dr
 Scenario: Verify the partially successful option is hidden in appeal decision dropdown for 6 month suspension - Online PTD
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1105' application
+	And I open the 'SUS-1209' application
 	And I assign the application to myself
 	Then the status is 'On Appeal' and readonly	
 	And I Verify 'Appeal partially successful' is not available and 'Appeal successful:Appeal unsuccessful' is available in Appeal decision
