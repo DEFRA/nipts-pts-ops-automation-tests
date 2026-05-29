@@ -1,4 +1,4 @@
-﻿@Validations @Regression
+﻿@Validations
 Feature: View pet travel document Validations
 
 Background:
