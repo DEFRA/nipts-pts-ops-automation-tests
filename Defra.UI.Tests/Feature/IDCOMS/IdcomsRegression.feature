@@ -708,6 +708,7 @@ Scenario: Verify if the Pet owner details are editable for an offline Contact
 	When I Login to Dynamics application
 	And I open 'Contacts' under 'Application'
 	And I open the 'Auto141125131624' application
+	And I assign the application to myself
 	Then I can edit 'Pet Owner Contact' Details
 
 Scenario: Verify Offline PTD Reference is assigned to Application Reference and searchable

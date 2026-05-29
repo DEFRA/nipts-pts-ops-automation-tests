@@ -648,7 +648,7 @@ public class FormSteps : PowerAppsStepDefiner
 
     public static void ThenICanEditTheField(string fieldName)
     {
-        XrmApp.Entity.GetField(fieldName).IsReadOnly(Driver).Should().BeTrue(because: "the field should not be editable");
+        XrmApp.Entity.GetField(fieldName).IsReadOnly(Driver).Should().BeFalse(because: "the field should not be editable");
     }
 
     // TODO: Variables are refering to the test implementation, not documenting system behaviour. Needs replaced.
