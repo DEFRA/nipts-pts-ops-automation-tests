@@ -1,5 +1,5 @@
 ﻿@Validations
-Feature: Pet Owner Details Validations
+Feature: Pet Ownder Details Validations
 
 Validating the negative scenarios for Pet Owner Details
 

@@ -147,7 +147,7 @@ namespace Defra.UI.Tests.Steps.AP
         }
 
         [When(@"I have clicked the View all your lifelong pet travel documents link in Welsh")]
-        public void WhenIHaveClickedTheViewAllYourLifelongPetTravelDocumentsLink()
+        public void WhenIHaveClickedTheViewAllYourLifelongPetTravelDocumentsLinkInWelsh()
         {
             applicationSubmissionPageWelsh?.ClickViewAllSubmittedPetTravelDocument();
         }
