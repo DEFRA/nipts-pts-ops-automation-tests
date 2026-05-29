@@ -341,12 +341,14 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
-	And I enter 'Breed' as 'Beagle'
+	And I Click on Save
+	Then the status is 'Pending'
+	When I enter 'Breed' as 'Beagle'
 	And I enter 'Sex' as 'Male'
 	And I enter 'Date of Birth' as '09/08/2023'
-	And I enter 'Age' as '12'
 	And I enter 'Colour' as 'Brown, tan or chocolate'
-	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Age' as '12'
+	#And I enter 'Unique feature' as 'Heart shape mole on the head'
 	And I enter 'Microchipped Date' as '09/08/2024'
 	And I Click on Save
 	When I 'Pass' the Microchip check
@@ -690,8 +692,8 @@ Scenario: Verify the Confirm Appeal message in a Suspension record
 
 Scenario: Verify the Appeal Outcome letter field and Letter action needed Notification for the suspended record - offline
 	When I Login to Dynamics application
-	And I open 'Suspect Non Compliance' under 'Application'
-	And I open the 'SNC-1493' application
+	And I open 'Suspensions' under 'Application'
+	And I open the 'SUS-1211' application
 	Then I See the 'Letter to be sent' value in 'nipts_appealoutcomeletter' field
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
 
