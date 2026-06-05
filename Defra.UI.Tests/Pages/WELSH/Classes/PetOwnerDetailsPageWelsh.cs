@@ -51,7 +51,6 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
         }
         public bool VerifyUpdatedName(string name)
         {
-            //_driver.WaitForPageToLoad();
             return petOwnerName.Text.Equals(name);
         }
         public bool VerifyUpdatedPetOwnerAddress(string petOwnerAddress)

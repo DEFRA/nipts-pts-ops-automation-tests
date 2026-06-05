@@ -1,20 +1,15 @@
 ﻿using Capgemini.PowerApps.SpecFlowBindings.Configuration;
 using Capgemini.PowerApps.SpecFlowBindings.Steps;
 using Defra.Trade.Plants.SpecFlowBindings.Steps;
-using Defra.UI.Framework.Driver;
 using Defra.UI.Tests.Tools;
-using DocumentFormat.OpenXml.Bibliography;
-using DocumentFormat.OpenXml.Wordprocessing;
 using FluentAssertions;
 using Microsoft.Dynamics365.UIAutomation.Browser;
-using Microsoft.Xrm.Sdk.Metadata;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
 using Reqnroll.BoDi;
 using System.ServiceModel.Channels;
 using GridSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.GridSteps;
-using NavigationSteps = Capgemini.PowerApps.SpecFlowBindings.Steps.NavigationSteps;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -223,7 +218,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             Thread.Sleep(5000);
             CommandSteps.ClickCommand("Refresh");
-            _driver.WaitForPageToLoad(); 
+            _driver.WaitForPageToLoad();
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
             FormSteps.ICanSeeAHeaderField("readonly", status);
@@ -241,8 +236,8 @@ namespace Defra.UI.Tests.Steps.AP
             ThenTheStatusIsChangedTo("Revoke Pending");
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
-            ThenICanOrCannotSeeButton("Cannot","Authorise");
-            ThenICanOrCannotSeeButton("Cannot","Reject");
+            ThenICanOrCannotSeeButton("Cannot", "Authorise");
+            ThenICanOrCannotSeeButton("Cannot", "Reject");
             if (reason.ToUpper().StartsWith("OTHER"))
             {
                 string[] OtherReason = reason.Split(':');
@@ -325,7 +320,7 @@ namespace Defra.UI.Tests.Steps.AP
                 CommandBarSteps.ThenICanSeeTheCommand(commandName);
             }
         }
-                
+
         [Then("I cannot edit the field '(.*)'")]
         public void ThenICannotEditTheField(string fieldNames)
         {
@@ -592,7 +587,7 @@ namespace Defra.UI.Tests.Steps.AP
             GridSteps.WhenIOpenTheRecordAtPositionInTheGrid(0);
         }
 
-        [When(@"I filter with '(.*)' is '(.*)' to '(.*)'") ]
+        [When(@"I filter with '(.*)' is '(.*)' to '(.*)'")]
         [When(@"I filter with '(.*)' is '(.*)' to '(.*)' in PTS Application")]
         public void WhenISearchWithFilters(string filterName, string Operator, string Value)
         {
@@ -629,8 +624,8 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIVerifyIfColoumnIsAvailable(string columnName)
         {
             Trade.Plants.SpecFlowBindings.Steps.GridSteps.CheckColumnExists(columnName, "Duplicates_subgrid");
-        }  
-        
+        }
+
         [Then("I Verify the '(.*)' coloumns are present")]
         public void ThenIVerifyColoumnsArePresent(string columnNames)
         {
@@ -667,7 +662,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then("I verify the copy of the '([^']*)' Email in Timeline")]
         public void ThenIVerifyTheCopyOfEmail(string timelineCopy)
         {
-            CommandSteps.ClickCommand("Refresh"); 
+            CommandSteps.ClickCommand("Refresh");
             SharedSteps.WaitSeconds(30);
             CommandSteps.ClickCommand("Refresh");
             SharedSteps.WaitForScriptProcessing();
@@ -786,7 +781,8 @@ namespace Defra.UI.Tests.Steps.AP
             {
                 ThenICannotEditTheField("Pet Name:Species:Breed:Sex:Date of Birth:Approx Age:Colour:Unique Features:Microchip Number:Microchipped Date");
 
-            }else if (field.ToUpper().Equals("REVOKE PENDING PET"))
+            }
+            else if (field.ToUpper().Equals("REVOKE PENDING PET"))
             {
                 ThenICannotEditTheField("Pet Name:Breed:Sex:Date of Birth:Approx Age:Colour:Unique Features:Microchip Number:Microchipped Date");
 
@@ -993,7 +989,7 @@ namespace Defra.UI.Tests.Steps.AP
             string PTD_Reference = EntitySteps.ThenIGetTheHeaderTitle();
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(PTD_Reference, "nipts_applicationreference", "text", "field", "");
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(PTD_Reference, "nipts_documentreference", "text", "field", "");
-            
+
         }
 
         [Then(@"I can see the submission date and time")]
@@ -1051,7 +1047,7 @@ namespace Defra.UI.Tests.Steps.AP
             SharedSteps.WaitForScriptProcessing();
             LookupSteps.WhenIClickTheNewButtonInTheLookup("nipts_applicantid");
             SharedSteps.WaitForScriptProcessing();
-            var firstName = "Auto"+Utils.GenerateRandomNumber();
+            var firstName = "Auto" + Utils.GenerateRandomNumber();
             var phoneNumber = Utils.GenerateRandomUKPhonenumber();
             QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate(firstName, "firstname", "text");
             QuickCreateSteps.WhenIEnterInTheFieldOnTheQuickCreate("user", "lastname", "text");
@@ -1109,7 +1105,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"The '(.*)' is set to Current date")]
         public void ThenDecisionDateIsSetToCurrentDate(string fieldName)
         {
-            if(fieldName.ToUpper().Equals("DECISION DATE"))
+            if (fieldName.ToUpper().Equals("DECISION DATE"))
             {
                 ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentDate("dd/MM/yyyy"), "nipts_decisiondate", "inputdatetime", "field", "");
             }
@@ -1118,7 +1114,7 @@ namespace Defra.UI.Tests.Steps.AP
                 ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentDate("dd/MM/yyyy"), "nipts_closedate", "inputdatetime", "field", "");
             }
         }
-               
+
         [Then(@"I see '(.*)' in Intent to Suspend Letter field")]
         public void ThenISeeIntentToSuspendLetter(string value)
         {
@@ -1126,19 +1122,19 @@ namespace Defra.UI.Tests.Steps.AP
         }
 
         [Then(@"I Verify the Grid filter with '(.*)' '(.*)' '(.*)'")]
-        public void ThenIVerifyTheGridFilter(string fieldName , string Operator, string value)
+        public void ThenIVerifyTheGridFilter(string fieldName, string Operator, string value)
         {
             GridSteps.WhenIVerifyAdvancedFilterInTheGrid(fieldName, Operator, value);
         }
 
         [Then(@"I verify the column '(.*)' is sorted by '(.*)'")]
-        public void ThenIVerifyTheColumnIsSorted(string columnName , string sortOption) 
+        public void ThenIVerifyTheColumnIsSorted(string columnName, string sortOption)
         {
             GridSteps.VerifyTheColumnIsSorted(columnName, sortOption);
         }
-        
+
         [When(@"I open '(.*)' under '(.*)'")]
-        public void ThenIOpen(string subArea , string Area) 
+        public void ThenIOpen(string subArea, string Area)
         {
             Capgemini.PowerApps.SpecFlowBindings.Steps.NavigationSteps.WhenIOpenTheSubAreaUnderTheArea(subArea, Area);
         }
@@ -1214,7 +1210,7 @@ namespace Defra.UI.Tests.Steps.AP
         {
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterejected", "inputdatetime", "field", "");
         }
-        
+
         [Then(@"I Verify the button '(.*)' is present in Dialog box")]
         public void ThenIVerifyDialogButton(string dialogButton)
         {
@@ -1225,7 +1221,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIVerifyAppealDecisionOption(string value)
         {
             string[] appealDecision = value.Split(':');
-            foreach(string appeadDecisionValue in appealDecision)
+            foreach (string appeadDecisionValue in appealDecision)
             {
                 EntitySteps.WhenIEnterInTheField(appeadDecisionValue, "nipts_appealdecision", "buttonset", "field", 1);
             }

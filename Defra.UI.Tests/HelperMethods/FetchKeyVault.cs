@@ -1,6 +1,4 @@
-﻿
-using Azure.Identity;
-using Azure.Security.KeyVault.Secrets;
+﻿using Azure.Identity;
 using Defra.UI.Tests.Configuration;
 
 namespace Defra.UI.Tests.HelperMethods

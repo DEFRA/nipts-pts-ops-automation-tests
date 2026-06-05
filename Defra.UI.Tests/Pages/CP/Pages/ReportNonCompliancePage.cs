@@ -305,7 +305,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             lblPassengerDetails.ScrollToElement(_driver);
             return lblPassengerDetails.Text.Contains(sectionName) && lblTypeOfPassenger.Text.Contains(subHeading);
         }
-        
+
         public bool VerifyTypeOfPassengerSubheadingISNotPresent()
         {
             return lblTypeOfPassengerLabels.Count() == 0;
@@ -325,8 +325,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyVCAndPetOwnerAndPetDetailTableName(string tableName)
         {
-            return tableName.ToUpper().Equals("PET OWNER DETAILS") ? 
-                lblPetOwnerDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper()) : 
+            return tableName.ToUpper().Equals("PET OWNER DETAILS") ?
+                lblPetOwnerDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper()) :
                 lblPetDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper());
         }
 

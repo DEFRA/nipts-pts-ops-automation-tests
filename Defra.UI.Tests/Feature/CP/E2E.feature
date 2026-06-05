@@ -67,8 +67,8 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	And I should see the application in 'Approved' status
 	When I have clicked the View hyperlink from home page
 	And I captured Application PTD number
-	And  click on signout button and verify the signout message
-	When I navigate to the port checker application
+	And click on signout button and verify the signout message
+	And I navigate to the port checker application
 	And I click signin button on port checker application
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
@@ -144,7 +144,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I should see the application in 'Approved' status
 	When I have clicked the View hyperlink from home page
 	And click on signout button and verify the signout message
-	When I navigate to the port checker application
+	And I navigate to the port checker application
 	And I click signin button on port checker application
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
@@ -160,11 +160,11 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I click search by '<ApplicationRadio>' radio button
 	And I provided the Reference number of the application
 	When I click search button
-	And I should see the application status in 'Approved'	
+	And I should see the application status in 'Approved'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               |  ApplicationRadio             |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) |  Search by application number |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               | ApplicationRadio             |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) | Search by application number |
 
 Scenario Outline: Check PETS Travel Document details By Application number - status in Revoked
 	Then I have selected '<Are your details correct>' option
@@ -238,8 +238,8 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then I navigate to Find a document page
 
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               |  ApplicationRadio             |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) |  Search by application number |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               | ApplicationRadio             |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) | Search by application number |
 
 Scenario Outline: Check PETS Travel Document details By PTD number - status in Revoked
 	Then I have selected '<Are your details correct>' option
@@ -311,8 +311,8 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in R
 	And I should see the application status in 'Revoked'
 
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               |  ApplicationRadio             |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) |  Search by application number |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               | ApplicationRadio             |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) | Search by application number |
 
 Scenario Outline: Check PETS Travel Document details By Application number - status in Unsuccessful
 	Then I have selected '<Are your details correct>' option
@@ -381,8 +381,8 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I should see the application status in 'Unsuccessful'
 
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               |  ApplicationRadio             |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) |  Search by application number |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               | ApplicationRadio             |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) | Search by application number |
 
 Scenario Outline: Check PETS Travel Document details By PTD number - status in Unsuccessful
 	Then I have selected '<Are your details correct>' option
@@ -451,8 +451,8 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in U
 	And I should see the application status in 'Unsuccessful'
 
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               |  ApplicationRadio             |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) |  Search by application number |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               | ApplicationRadio             |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Cairnryan to Larne (P&O) | Search by application number |
 
 Scenario Outline: Check PETS Travel Document details By Microchip number - status in Approved
 	Then I have selected '<Are your details correct>' option
@@ -507,7 +507,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And I should see the application in 'Approved' status
 	When I have clicked the View hyperlink from home page
 	And click on signout button and verify the signout message
-	When I navigate to the port checker application
+	And I navigate to the port checker application
 	And I click signin button on port checker application
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
@@ -526,8 +526,8 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And I should see the application status in 'Approved'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio           |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Loch Ryan to Belfast (Stena)  | Search by microchip number |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                   | ApplicationRadio           |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Loch Ryan to Belfast (Stena) | Search by microchip number |
 
 Scenario Outline: Check PETS Travel Document details By Microchip number - status in Revoked
 	Then I have selected '<Are your details correct>' option
@@ -536,7 +536,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And I selected the '<MicrochipOption>' option
 	And provided microchip number as <MicrochipNumber>
 	When I click Continue button from microchipped page
-	When I click Continue button from microchipped page
+	And I click Continue button from microchipped page
 	Then I should redirected to When was your pet microchipped or last scanned? page
 	And I have provided date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page
@@ -600,17 +600,17 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And I should see the application status in 'Revoked'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio			  |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio           |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by microchip number |
 
-	Scenario Outline: Check PETS Travel Document details By Microchip number - status in Unsuccessful
+Scenario Outline: Check PETS Travel Document details By Microchip number - status in Unsuccessful
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the Is your pet microchipped page
 	And I selected the '<MicrochipOption>' option
 	And provided microchip number as <MicrochipNumber>
 	When I click Continue button from microchipped page
-	When I click Continue button from microchipped page
+	And I click Continue button from microchipped page
 	Then I should redirected to When was your pet microchipped or last scanned? page
 	And I have provided date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page
@@ -671,7 +671,7 @@ Examples:
 	And I should see the application status in 'Unsuccessful'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio			  |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio           |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by microchip number |
 
 @CPRegression
@@ -682,7 +682,7 @@ Scenario Outline: Check PETS Travel Document details By Reference number - statu
 	And I selected the '<MicrochipOption>' option
 	And provided microchip number as <MicrochipNumber>
 	When I click Continue button from microchipped page
-	When I click Continue button from microchipped page
+	And I click Continue button from microchipped page
 	Then I should redirected to When was your pet microchipped or last scanned? page
 	And I have provided date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page
@@ -715,7 +715,7 @@ Scenario Outline: Check PETS Travel Document details By Reference number - statu
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
 	And I can see the unique application reference number
-	Then click on signout button and verify the signout message
+	And click on signout button and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
 	Then I should see type of Gateway login page
@@ -738,7 +738,7 @@ Scenario Outline: Check PETS Travel Document details By Reference number - statu
 	And I should see the application status in 'Pending'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio			    |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio             |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number |
 
 Scenario Outline: Check PETS Travel Document details By PTD number - status in AWAITING VERIFICATION
@@ -748,7 +748,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	And I selected the '<MicrochipOption>' option
 	And provided microchip number as <MicrochipNumber>
 	When I click Continue button from microchipped page
-	When I click Continue button from microchipped page
+	And I click Continue button from microchipped page
 	Then I should redirected to When was your pet microchipped or last scanned? page
 	And I have provided date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page
@@ -781,7 +781,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
 	And I can see the unique application reference number
-	Then click on signout button and verify the signout message
+	And click on signout button and verify the signout message
 	When I Login to Dynamics application
 	And I opens the application
 	Then I get the PTD Reference Number and Store it
@@ -804,7 +804,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	And I should see the application status in 'Awaiting verification'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio			    |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio             |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number |
 
 
@@ -815,7 +815,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And I selected the '<MicrochipOption>' option
 	And provided microchip number as <MicrochipNumber>
 	When I click Continue button from microchipped page
-	When I click Continue button from microchipped page
+	And I click Continue button from microchipped page
 	Then I should redirected to When was your pet microchipped or last scanned? page
 	And I have provided date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page
@@ -848,7 +848,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
 	And I can see the unique application reference number
-	Then click on signout button and verify the signout message
+	And click on signout button and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
 	Then I should redirected to the CP Sign in using Government Gateway page
@@ -868,7 +868,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And I should see the application status in 'Awaiting verification'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio			  |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio           |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by microchip number |
 
 Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP and Allow/Deny travel as SPS Checker - status in pending
@@ -939,12 +939,12 @@ Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP an
 	Then I should navigate to Checks page
 	And click on signout button on CP and verify the signout message
 	Given that I navigate to the port checker application
-	And I click signin button on port checker application	
+	And I click signin button on port checker application
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
-	Then I have selected 'Ferry' radio option
+	And I have selected 'Ferry' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '23:59'
 	When I click save and continue button from route checker page
@@ -962,13 +962,13 @@ Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP an
 	And I click '<SPSOutcome>' in SPS Outcome
 	And I click Save outcome button from non-compliance page
 	And I click View link in Fail Referred to SPS row with departure time '23:59'
-	Then I should navigate to Referred to SPS page	
+	Then I should navigate to Referred to SPS page
 	And I verify the travel status for the 'Pending' application is '<SPSOutcome>'
 	And The Background colour of '<SPSOutcome>' in 'Pending' application is '<BGColour>'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color			| IsSignificantFeatures | Transportation | FerryRoute               | ApplicationRadio             | SPSOutcome  | BGColour |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black			| Yes                   | Ferry          | Cairnryan to Larne (P&O) | Search by application number | Allowed     | GREEN    |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Transportation | FerryRoute               | ApplicationRadio             | SPSOutcome  | BGColour |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | Ferry          | Cairnryan to Larne (P&O) | Search by application number | Allowed     | GREEN    |
 	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | Ferry          | Cairnryan to Larne (P&O) | Search by application number | Not Allowed | RED      |
 
 Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance as GB Checker in CP and Allow/Deny travel as SPS Checker - status in Approved
@@ -1048,12 +1048,12 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	Then I should navigate to Checks page
 	And click on signout button on CP and verify the signout message
 	Given that I navigate to the port checker application
-	And I click signin button on port checker application	
+	And I click signin button on port checker application
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
-	Then I have selected 'Ferry' radio option
+	And I have selected 'Ferry' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '23:59'
 	When I click save and continue button from route checker page
@@ -1072,14 +1072,14 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	And I click '<SPSOutcome>' in SPS Outcome
 	And I click Save outcome button from non-compliance page
 	And I click View link in Fail Referred to SPS row with departure time '23:59'
-	Then I should navigate to Referred to SPS page	
+	Then I should navigate to Referred to SPS page
 	And I verify the travel status for the 'Approved' application is '<SPSOutcome>'
 	And The Background colour of '<SPSOutcome>' in 'Approved' application is '<BGColour>'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color			| IsSignificantFeatures | Transportation | FerryRoute					 | ApplicationRadio             | SPSOutcome  | BGColour |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio             | SPSOutcome  | BGColour |
 	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Allowed     | GREEN    |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black			| Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      |
 
 Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as GB Checker in CP and Allow/Deny travel as SPS Checker - status in Cancelled
 	Then I have selected '<Are your details correct>' option
@@ -1160,12 +1160,12 @@ Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as G
 	Then I should navigate to Checks page
 	And click on signout button on CP and verify the signout message
 	Given that I navigate to the port checker application
-	And I click signin button on port checker application	
+	And I click signin button on port checker application
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
-	Then I have selected 'Ferry' radio option
+	And I have selected 'Ferry' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '23:59'
 	When I click save and continue button from route checker page
@@ -1183,14 +1183,14 @@ Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as G
 	And I click '<SPSOutcome>' in SPS Outcome
 	And I click Save outcome button from non-compliance page
 	And I click View link in Fail Referred to SPS row with departure time '23:59'
-	Then I should navigate to Referred to SPS page	
+	Then I should navigate to Referred to SPS page
 	And I verify the travel status for the 'Cancelled' application is '<SPSOutcome>'
 	And The Background colour of '<SPSOutcome>' in 'Cancelled' application is '<BGColour>'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color			| IsSignificantFeatures | Transportation | FerryRoute					 | ApplicationRadio             | SPSOutcome  | BGColour |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio             | SPSOutcome  | BGColour |
 	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Allowed     | GREEN    |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black			| Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      |
 
 Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as GB Checker in CP and Allow/Deny travel as SPS Checker - status in Unsuccessful
 	Then I have selected '<Are your details correct>' option
@@ -1268,12 +1268,12 @@ Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as G
 	Then I should navigate to Checks page
 	And click on signout button on CP and verify the signout message
 	Given that I navigate to the port checker application
-	And I click signin button on port checker application	
+	And I click signin button on port checker application
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
-	Then I have selected 'Ferry' radio option
+	And I have selected 'Ferry' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '23:59'
 	When I click save and continue button from route checker page
@@ -1291,11 +1291,11 @@ Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as G
 	And I click '<SPSOutcome>' in SPS Outcome
 	And I click Save outcome button from non-compliance page
 	And I click View link in Fail Referred to SPS row with departure time '23:59'
-	Then I should navigate to Referred to SPS page	
+	Then I should navigate to Referred to SPS page
 	And I verify the travel status for the 'Unsuccessful' application is '<SPSOutcome>'
 	And The Background colour of '<SPSOutcome>' in 'Unsuccessful' application is '<BGColour>'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color			| IsSignificantFeatures | Transportation | FerryRoute					 | ApplicationRadio             | SPSOutcome  | BGColour |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio             | SPSOutcome  | BGColour |
 	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Allowed     | GREEN    |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black			| Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      |

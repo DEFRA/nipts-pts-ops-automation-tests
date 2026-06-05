@@ -22,14 +22,14 @@ Scenario: Verify the error message if no selection of ferry or flight route
 
 Scenario: Verify the error message if no selection of ferry route
 	Then I have selected 'Ferry' radio option
-	Then I select the '' radio option
+	And I select the '' radio option
 	And I have provided Scheduled departure time '09:30'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Select the ferry you are checking" in route checking page
 
 Scenario: Verify the error message if no flight number provided in the flight route
 	Then I have selected 'Flight' radio option
-	Then I provide the '' in the box
+	And I provide the '' in the box
 	And I have provided Scheduled departure time '10:40'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the flight number. For example, RK 103" in route checking page
@@ -41,45 +41,45 @@ Scenario Outline: Verify home page for flight Number text box with special chara
 	And I have provided Scheduled departure time '10:50'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the flight number using up to 8 letters and numbers (for example, RK 103)" in route checking page
-	Examples:
+Examples:
 	| FlightNumber |
 	| a-z$&*       |
-	| 1234 5678    |
+	|    1234 5678 |
 
 Scenario: Verify error message for no scheduled departure date details provided
 	Then I have selected 'Flight' radio option
-	Then I provide the 'AF296Q' in the box
-	Then I have selected ''''''Date option
+	And I provide the 'AF296Q' in the box
+	And I have selected ''''''Date option
 	And I have provided Scheduled departure time '11:30'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the scheduled departure date, for example 27 3 2024" in route checking page
 
 Scenario: Verify error message for scheduled departure date with special character
 	Then I have selected 'Flight' radio option
-	Then I provide the 'AF296Q' in the box
-	Then I have selected '£$''*&''%^'Date option
+	And I provide the 'AF296Q' in the box
+	And I have selected '£$''*&''%^'Date option
 	And I have provided Scheduled departure time '12:30'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the date in the correct format, for example 27 3 2024" in route checking page
 
 Scenario: Verify error message for any one empty box in scheduled departure date
 	Then I have selected 'Flight' radio option
-	Then I provide the 'AF296Q' in the box
-	Then I have selected '07''''19992'Date option
+	And I provide the 'AF296Q' in the box
+	And I have selected '07''''19992'Date option
 	And I have provided Scheduled departure time '15:30'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the date in the correct format, for example 27 3 2024" in route checking page
 
 Scenario: Verify the error message if no selection of scheduled departure time details
 	Then I have selected 'Flight' radio option
-	Then I provide the 'AF296Q' in the box
-	Then I have selected '27''02''2025'Date option
+	And I provide the 'AF296Q' in the box
+	And I have selected '27''02''2025'Date option
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the scheduled departure time in the correct 24-hour clock format, for example 06:04 or 18:00" in route checking page
 
 Scenario: Verify the error message if only hour details provided in the scheduled departure time
 	Then I have selected 'Flight' radio option
-	Then I provide the 'AF296Q' in the box
+	And I provide the 'AF296Q' in the box
 	And I have provided Scheduled departure hour '11' in hours field only
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the scheduled departure time in the correct 24-hour clock format, for example 06:04 or 18:00" in route checking page
@@ -95,7 +95,7 @@ Scenario: Verify the Ferry route subheading and no route options selected under 
 
 Scenario: Verify footer and back link in route checking page
 	Then I should not see the footer of the page
-	Then I should see back link in the top left of route checking page
+	And I should see back link in the top left of route checking page
 	And I click back link
 	And I should navigate to test environment prototype page
 
@@ -110,14 +110,14 @@ Scenario: Verify the scheduled departure time and time hint
 Scenario: Verify the error message if scheduled departure date and time is more than 48 hours ago
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	Then I have selected departure date as current date '-2' and departure time as current time to check '48HoursAgo'
+	And I have selected departure date as current date '-2' and departure time as current time to check '48HoursAgo'
 	When I click save and continue button from route checker page
 	Then I should see an error message "The flight or ferry must have departed in the past 48 hours or departs within the next 24 hours" in route checking page
 
 Scenario: Verify the error message if scheduled departure date and time is after 24 hours from now
 	Then I have selected 'Ferry' radio option
 	And I select the 'Birkenhead to Belfast (Stena)' radio option
-	Then I have selected departure date as current date '1' and departure time as current time to check 'After24Hours'
+	And I have selected departure date as current date '1' and departure time as current time to check 'After24Hours'
 	When I click save and continue button from route checker page
 	Then I should see an error message "Enter the scheduled departure time in the correct 24-hour clock format, for example 06:04 or 18:00" in route checking page
 
@@ -126,5 +126,5 @@ Scenario: Verify 404 error page by entering the invalid URL and check the conten
 	Then I should navigate to 'Page not found' error page
 	And I should see 'If you typed the web address, check it is correct.|If you pasted the web address, check you copied the entire address.|If the web address is correct or you selected a link or button, contact APHA:' text under the main heading of error page
 	And I should not see the footer of the page
-	Then I should not see the header of the page
+	And I should not see the header of the page
 	And I should not see account and signout icons

@@ -57,6 +57,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <UpToDateCheckInput Remove="Feature\WELSH\PrintDownload\PrintTravelDocumentWelsh.feature" />
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="Data\Users\AP\DEV\Users.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

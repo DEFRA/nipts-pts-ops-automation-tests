@@ -1,6 +1,6 @@
-﻿using OpenQA.Selenium.Support.UI;
+﻿using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
-using Defra.UI.Tests.Tools;
+using OpenQA.Selenium.Support.UI;
 
 namespace Defra.UI.Tests.HelperMethods
 {

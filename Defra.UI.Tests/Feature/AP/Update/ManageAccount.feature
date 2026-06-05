@@ -1,7 +1,7 @@
 ﻿@ChangeDetails
 Feature: ManageAccount
 
-Background: 
+Background:
 	Given that I navigate to the DEFRA application
 	When I have provided the password for Landing page
 	Then I should see type of Gateway login page
@@ -21,7 +21,7 @@ Scenario: Change Phone Number in Manage account
 	And I click on Back button
 	And I click on Back button
 	And I go back to Pets application
-	When signed out from PETS portal	
+	When signed out from PETS portal
 	Then I click on Taking a pet from Great Britain to Northern Ireland link
 	And I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type
@@ -45,7 +45,7 @@ Scenario: Change Name in Manage account
 	And I click on Back button
 	And I click on Back button
 	And I go back to Pets application
-	When signed out from PETS portal	
+	When signed out from PETS portal
 	Then I click on Taking a pet from Great Britain to Northern Ireland link
 	And I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type
@@ -78,7 +78,7 @@ Scenario Outline: Change Address in Manage account
 	And I click on Back button
 	And I click on Back button
 	And I go back to Pets application
-	When signed out from PETS portal	
+	When signed out from PETS portal
 	Then I click on Taking a pet from Great Britain to Northern Ireland link
 	And I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type
@@ -91,5 +91,5 @@ Scenario Outline: Change Address in Manage account
 	And I verify the updated Pet Owner Address
 	
 Examples:
-	| postcode         |
-	| CV1 4PY,RG1 3JN  |
+	| postcode        |
+	| CV1 4PY,RG1 3JN |

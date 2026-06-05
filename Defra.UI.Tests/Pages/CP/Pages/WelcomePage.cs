@@ -1,9 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
 {

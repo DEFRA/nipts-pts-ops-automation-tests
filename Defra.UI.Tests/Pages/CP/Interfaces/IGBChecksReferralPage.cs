@@ -1,7 +1,4 @@
-﻿using Microsoft.Crm.Sdk.Messages;
-using Reqnroll;
-
-namespace Defra.UI.Tests.Pages.CP.Interfaces
+﻿namespace Defra.UI.Tests.Pages.CP.Interfaces
 {
     public interface IGBChecksReferralPage
     {

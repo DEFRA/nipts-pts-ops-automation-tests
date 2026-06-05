@@ -748,7 +748,7 @@ Scenario Outline: Modify Species of the pet By Registered User with details corr
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the '<MicrochipOption>' option
-	When  provided microchip number as <MicrochipNumber> in Welsh
+	When provided microchip number as <MicrochipNumber> in Welsh
 	And I click Continue button from microchipped page in Welsh
 	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I have provided date of PETS microchipped in Welsh
@@ -787,5 +787,5 @@ Scenario Outline: Modify Species of the pet By Registered User with details corr
 	Then The submitted application should be displayed in summary view in Welsh
 	And I have verified microchip details in summary page in Welsh
 Examples:
-	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedSpecies | UpdatedColor   | UpdatedBreedIndex |
-	| PetFerret |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ffured | Ffured  | Gwryw | Sinamon | Oes                   | Ci            | Du | 3                 |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color   | IsSignificantFeatures | UpdatedSpecies | UpdatedColor | UpdatedBreedIndex |
+	| PetFerret | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ffured | Ffured  | Gwryw  | Sinamon | Oes                   | Ci             | Du           |                 3 |

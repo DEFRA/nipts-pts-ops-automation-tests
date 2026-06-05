@@ -111,7 +111,7 @@ namespace Defra.UI.Tests.Tools
             emailSignUpPage?.EnterEmailAddress(emailAddress);
             Thread.Sleep(3000);
             emailSignUpPage?.ClickContinueButton();
-            
+
             var code = Task.Run(async () => await fetchCodeFromEmail?.GetCodeFromEmail(emailText)).Result;
 
             emailSignUpPage?.EnterConfirmationCode(code);
@@ -124,7 +124,7 @@ namespace Defra.UI.Tests.Tools
 
             emailSignUpPage?.EnterThePassword(secret);
             emailSignUpPage?.ClickContinueButton();
-         
+
             var ggid = emailSignUpPage?.GetGGID();
             Assert.IsNotEmpty(ggid);
 

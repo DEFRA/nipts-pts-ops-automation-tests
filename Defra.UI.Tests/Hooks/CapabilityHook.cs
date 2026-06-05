@@ -1,7 +1,7 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Capabilities;
+﻿using Defra.UI.Tests.Capabilities;
 using Defra.UI.Tests.Configuration;
 using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Hooks
 {

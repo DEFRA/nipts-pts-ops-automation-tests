@@ -1,7 +1,7 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -96,7 +96,7 @@ namespace Defra.UI.Tests.Steps.AP
             _scenarioContext.Add("Breed", breed);
 
             breedPage?.ClickContinueButton();
-            
+
             _scenarioContext.Remove("Color");
             petColourPage?.SelectColorOption(color);
             _scenarioContext.Add("Color", color);
@@ -108,7 +108,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenIHaveModifiedThePetsBreedWithTheIndexValueOf(int breedIndex)
         {
             _scenarioContext.Remove("Breed");
-            var breed = breedPage?.SelectPetsBreed(breedIndex,true);
+            var breed = breedPage?.SelectPetsBreed(breedIndex, true);
             _scenarioContext.Add("Breed", breed);
         }
 

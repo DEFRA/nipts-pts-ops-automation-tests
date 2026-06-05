@@ -10,7 +10,7 @@ Background:
 	And I have selected "Sign in with Government Gateway" as login type
 	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
-    When I have provided the credentials and signin
+	When I have provided the credentials and signin
 	Then I should redirected to Apply for a pet travel document page
 	When I click 'Cymraeg' link to change the language
 	Then I should see the heading of dashboard page changed to Welsh
@@ -120,7 +120,7 @@ Scenario Outline: Verify enter address manually validations with maximum limit c
 	Then I should see an error message '<ErrorMessages>' in What is your address page
 Examples:
 
-	| FullName | Are your details correct | Address                                                                                                                                                                                                                                                            | ErrorMessages                                                                                                                                                                                                                                                   |
+	| FullName | Are your details correct | Address                                                                                                                                                                                                                                                            | ErrorMessages                                                                                                                                                                                                                                                                                                                              |
 	| PetDog's | Nac ydyn                 | ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWX | Rhowch linell 1 eich cyfeiriad gan ddefnyddio 250 o gymeriadau neu lai$Rhowch linell 2 eich cyfeiriad gan ddefnyddio 250 o gymeriadau neu lai$Rhowch dref neu ddinas gan ddefnyddio 250 o gymeriadau neu lai$Rhowch sir gan ddefnyddio 100 o gymeriadau neu lai$Rhowch god post llawn yn y fformat cywir, er enghraifft TF7 5AY neu TF75AY |
 
 Scenario Outline: Verify enter address manually validations with invalid postcode, special characters and exceed limits in Welsh

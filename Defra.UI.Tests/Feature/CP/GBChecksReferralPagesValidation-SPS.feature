@@ -16,7 +16,7 @@ Background:
 
 Scenario Outline: Verify the Checks home page filter and display only the selected ferry route - SPS
 	Then I have selected 'Ferry' radio option
-	Then I select the '<Route>' radio option
+	And I select the '<Route>' radio option
 	And I have provided Scheduled departure time '<DepatureTime>'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page

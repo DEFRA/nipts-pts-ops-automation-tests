@@ -1,7 +1,7 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {

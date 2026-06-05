@@ -3,7 +3,7 @@ Feature: Checks Page Validations
 
 Port checker validates Checks home page tables and details in it
 
-Background: 
+Background:
 	Given that I navigate to the port checker application
 	And I click signin button on port checker application
 	Then I should see type of Gateway login page
@@ -16,15 +16,15 @@ Background:
 
 Scenario: Verify selected departure time displays in home page
 	Then I have selected 'Flight' radio option
-	Then I provide the 'AF296Q' in the box
-	Then I have selected current date '-1' Date option
+	And I provide the 'AF296Q' in the box
+	And I have selected current date '-1' Date option
 	And I have provided Scheduled departure time '18:30'
 	When I click save and continue button from route checker page
 	Then I should see departure date current date '-1' and time '18:30' on top of the home page
 
 Scenario: Verify the home page content for flight route selection
 	Then I have selected 'Flight' radio option
-	Then I provide the 'AF296Q' in the box
+	And I provide the 'AF296Q' in the box
 	And I have provided Scheduled departure time '10:40'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -32,7 +32,7 @@ Scenario: Verify the home page content for flight route selection
 
 Scenario Outline: Verify the Checks home page filter and display only the selected ferry route
 	Then I have selected 'Ferry' radio option
-	Then I select the '<Route>' radio option
+	And I select the '<Route>' radio option
 	And I have provided Scheduled departure time '<DepatureTime>'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -45,16 +45,16 @@ Examples:
 
 Scenario: Verify the Checks home page tables display sailing route departure date and time
 	Then I have selected 'Ferry' radio option
-	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '09:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
 	And I should see route displayed in all the tables of Checks page should be 'Birkenhead to Belfast (Stena)'
-	Then I should see departure date and time displayed in all tables of Checks page
+	And I should see departure date and time displayed in all tables of Checks page
 
 Scenario: Verify the existing login and sailing details are saved in new tab of same browser
 	Then I have selected 'Ferry' radio option
-	Then I select the 'Cairnryan to Larne (P&O)' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
 	And I have provided Scheduled departure time '15:30'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page

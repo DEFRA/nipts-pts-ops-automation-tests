@@ -61,7 +61,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	And I have verified pet details in summary page
 	And I have verified pet owner details in summary page
 	When I Login to Dynamics application
-	When I opens the application
+	And I opens the application
 	Then I get the PTD Reference Number and Store it
 	When I assign the application to myself
 	And I 'Pass' the Microchip check
@@ -73,8 +73,8 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	And I click on Back button in Pets Application
 	And I should see the application in 'APPROVED' status
 Examples:
-	| FullName    |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
-	| PetFerret's |  Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |
+	| FullName    | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
+	| PetFerret's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |
 
 Scenario Outline: Create PETS Travel Document By Registered User with details not correct - Ferret - Rejected in Dynamics
 	Then I have selected '<Are your details correct>' option
@@ -131,7 +131,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	Then The submitted application should be displayed in summary view
 	And I have verified microchip details in summary page
 	And I have verified pet details in summary page
-	And I have verified pet owner details in summary page	
+	And I have verified pet owner details in summary page
 	When I Login to Dynamics application
 	And I opens the application
 	Then I get the PTD Reference Number and Store it
@@ -144,8 +144,8 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	And I should not see the application in the Dashboard
 
 Examples:
-	| FullName    |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
-	| PetFerret's |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
+	| FullName    | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
+	| PetFerret's | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
 
 Scenario Outline: Create PETS Travel Document By Registered User with pet is not microchipped
 	Then I have selected '<Are your details correct>' option
@@ -168,7 +168,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter addr
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -263,7 +263,7 @@ Scenario Outline: Verify the breed row for ferret not appears in summary and dec
 	And I have verified microchip details in declaration page
 	And I have verified pet details in declaration page
 	And I have verified pet owner details in declaration page
-	Then I have verified breed row for ferret is not displayed
+	And I have verified breed row for ferret is not displayed
 	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page
@@ -275,10 +275,10 @@ Scenario Outline: Verify the breed row for ferret not appears in summary and dec
 	Then The submitted application should be displayed in summary view
 	And I have verified microchip details in summary page
 	And I have verified pet details in summary page
-	Then I have verified breed row for ferret is not displayed
+	And I have verified breed row for ferret is not displayed
 	And I have verified pet owner details in summary page
 	When I Login to Dynamics application
-	When I opens the application
+	And I opens the application
 	Then I get the PTD Reference Number and Store it
 	When I assign the application to myself
 	And I 'Pass' the Microchip check
@@ -294,8 +294,8 @@ Scenario Outline: Verify the breed row for ferret not appears in summary and dec
 	And I have verified breed row for ferret is not displayed
 
 Examples:
-	|  Are your details correct | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
-	|  Yes                      | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |
+	| Are your details correct | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
+	| Yes                      | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |
 
 Scenario Outline: Download PETS Travel Document Ferret - Approved
 	Then I have selected '<Are your details correct>' option
@@ -355,8 +355,8 @@ Scenario Outline: Download PETS Travel Document Ferret - Approved
 	Then I click download link in summary page
 	
 Examples:
-	| FullName    |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
-	| PetFerret's |  Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |
+	| FullName    | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
+	| PetFerret's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |
 
 Scenario Outline: Print PETS Travel Document Ferret - Approved
 	Then I have selected '<Are your details correct>' option
@@ -416,5 +416,5 @@ Scenario Outline: Print PETS Travel Document Ferret - Approved
 	Then I click print link in summary page
 	
 Examples:
-	| FullName    |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
-	| PetFerret's |  Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |
+	| FullName    | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
+	| PetFerret's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |

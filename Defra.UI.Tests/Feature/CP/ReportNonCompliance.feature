@@ -71,7 +71,7 @@ Scenario: Verify Pet Travel Document section in Report non compliance page - App
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click Pet Travel Document details link dropdown
-	Then I Verify status with label 'Status' and value 'Approved' on Report non-compliance page
+	And I Verify status with label 'Status' and value 'Approved' on Report non-compliance page
 	And I should not see the Pet Travel Document section for 'Approved' status
 
 Scenario: Verify Reasons heading with hint in Report non compliance page
@@ -107,7 +107,7 @@ Scenario Outline: Verify the Record Outcome and Any Relevant comments section in
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I should not see any relevant comments section
-	Then I verify the Record Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes under 'Record outcome'
+	And I verify the Record Outcome 'Passenger referred to DAERA/SPS at NI port|Passenger advised not to travel|Passenger says they will not travel' checkboxes under 'Record outcome'
 	And I verify the Details of Outcome label
 	And I Verify the Record Outcome check boxes are not selected
 Examples:
@@ -180,7 +180,7 @@ Scenario: Verify Other issues check boxes in Report non compliance page
 	And I should see the 'Other issues' subheading in visual check section
 	And I verify the other issues 'Authorised person but no confirmation|Refused to sign declaration' checkboxes
 	And I should see no checkboxes are selected in other issues section
-	Then I should not see visual check heading and pet does not match the ptd checkbox
+	And I should not see visual check heading and pet does not match the ptd checkbox
 
 Scenario: Verify Pet owner details section in Report non compliance page
 	Then I have selected 'Ferry' radio option
@@ -218,7 +218,7 @@ Scenario: Verify the Microchip section in Report non compliance page
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I Verify the Microchip section
-	Then I expand and verify Microchip details '240125100121131|24/01/2022' from PTD table
+	And I expand and verify Microchip details '240125100121131|24/01/2022' from PTD table
 	And I should not see Microchip number does not match the PTD checkbox
 
 @CPCrossBrowser
@@ -305,7 +305,7 @@ Scenario: Verify the error message for no selection in reason section in Report 
 
 Scenario: Verify the Report non compliance page content for flight route selection
 	Then I have selected 'Flight' radio option
-	Then I provide the 'RK 29Q' in the box
+	And I provide the 'RK 29Q' in the box
 	And I have provided Scheduled departure time '18:49'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page

@@ -241,9 +241,9 @@ Scenario Outline: Verify pet colour page validations by not selecting any color
 	And I should not be redirected to the Does your pet have any significant features page
 
 Examples:
-	| FullName    | Are your details correct | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | ErrorMessage                          |
-	| PetCat's    | Yes                      | Yes             | 123456789654321 | Cat    | Cat     | Female |       | Select the main colour of your cat    |
-	| PetDog's    | Yes                      | Yes             | 123456789654322 | Dog    | Dog     | Female |       | Select the main colour of your dog    |
+	| FullName | Are your details correct | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | ErrorMessage                       |
+	| PetCat's | Yes                      | Yes             | 123456789654321 | Cat | Cat     | Female |       | Select the main colour of your cat |
+	| PetDog's | Yes                      | Yes             | 123456789654322 | Dog | Dog     | Female |       | Select the main colour of your dog |
 
 Scenario Outline: Verify pet colour page validations by not selecting any color - Ferret
 	Then I have selected '<Are your details correct>' option
@@ -474,7 +474,7 @@ Scenario Outline: Verify pet's breed are displayed in dropdown based on the sele
 	When I click on continue button from Is your pet a cat, dog or ferret page
 	Then I should redirected to the What breed is your '<Pet>'? page
 	And I verify the breeds displayed in the breed dropdownlist for '<Pet>' species
-	Then I have selected 1 as breed index from breed dropdownlist
+	And I have selected 1 as breed index from breed dropdownlist
 	When I click on continue button from What is your pet's breed page
 	Then I should redirected to the What is your pet's name page
 
@@ -506,5 +506,5 @@ Examples:
 	| Yes                      | Yes             | 123456789123456 | Dog | DogBreed |
 	| Yes                      | Yes             | 123456789123456 | Cat | CatBreed |
 
-Scenario Outline: Verify the footer links changes to English  
+Scenario Outline: Verify the footer links changes to English
 	Then I Verify the footer links changes to English

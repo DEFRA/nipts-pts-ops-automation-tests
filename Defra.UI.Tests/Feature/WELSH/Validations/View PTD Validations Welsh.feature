@@ -9,10 +9,11 @@ Background:
 	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
-	Then I should redirected to Apply for a pet travel document page	
+	Then I should redirected to Apply for a pet travel document page
 	When I click 'Cymraeg' link to change the language
 	Then I should see the heading of dashboard page changed to Welsh
 
+@E2E
 Scenario: Verify name address and signature details in Issuing authority table of approved document in Welsh
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
@@ -44,7 +45,7 @@ Scenario: Verify name address and signature details in Issuing authority table o
 	And I have selected the option as 'Aur neu felyn' for color in Welsh
 	When I click on continue button from What is the main colour of your pet page in Welsh
 	Then I should redirected to the Does your pet have any significant features page in Welsh
-	Then I have selected an option as 'Nac oes' for significant features in Welsh
+	And I have selected an option as 'Nac oes' for significant features in Welsh
 	When I click on continue button from Does your pet have any significant features page in Welsh
 	Then I navigate to the Check your answers and sign the declaration page in Welsh
 	And I have ticked the I agree to the declaration checkbox
@@ -70,7 +71,7 @@ Scenario: Verify name address and signature details in Issuing authority table o
 	When I have clicked the View hyperlink from home page in Welsh
 	Then I should see a table named 'Awdurdod dyroddi' with a column 'Enw a chyfeiriad yr awdurdod cymwys' in approved document in Welsh
 	And the address of authority should be 'Asiantaeth Iechyd Anifeiliaid a Phlanhigion' 'Woodham Lane, New Haw, Addlestone, Surrey KT15 3NB' in Welsh
-	Then I should see 'Wedi'i llofnodi ar ran yr awdurdod cymwys (APHA)' column with signed person name and designation in Welsh
+	And I should see 'Wedi'i llofnodi ar ran yr awdurdod cymwys (APHA)' column with signed person name and designation in Welsh
 
 Scenario: Verify back button functionality from are your details correct page and from declaration page in Welsh
 	When I click apply for a document button in Welsh
@@ -79,7 +80,7 @@ Scenario: Verify back button functionality from are your details correct page an
 	And I should see the heading of dashboard page changed to Welsh
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
-	Then I have selected 'Yes' option
+	And I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the 'Yes' option
@@ -111,10 +112,11 @@ Scenario: Verify back button functionality from are your details correct page an
 	When I click on continue button from Does your pet have any significant features page in Welsh
 	Then I should redirected to the Check your answers and sign the declaration page in Welsh
 	And I click on Back button on the Pets Application in Welsh
-	Then I should redirected to the Does your pet have any significant features page in Welsh
+	And I should redirected to the Does your pet have any significant features page in Welsh
 	And I click on Back button on the Pets Application in Welsh
-	Then I should redirected to the What is the main colour of your 'Ci' page in Welsh
+	And I should redirected to the What is the main colour of your 'Ci' page in Welsh
 
+@E2E
 Scenario: Verify invalid documents link and table in Welsh
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
@@ -169,13 +171,13 @@ Scenario: Verify invalid documents link and table in Welsh
 	Then the status is changed to 'Rejected'
 	And I click on Back button on the Pets Application in Welsh
 	And I should see the heading of dashboard page changed to Welsh
-	Then I should see invalid documents link in Welsh
+	And I should see invalid documents link in Welsh
 	When I click invalid documents link in Welsh
 	Then I should be navigated to invalid documents page in Welsh
 	And invalid documents table column names should be 'Enw’r anifail anwes' 'Statws' in Welsh
-	Then the status column should display only unsuccessful and cancelled records in Welsh
+	And the status column should display only unsuccessful and cancelled records in Welsh
 	And I can see the view link in all records of the table in Welsh
-	Then I click on Back button on the Pets Application in Welsh
+	And I click on Back button on the Pets Application in Welsh
 	And I should see the heading of dashboard page changed to Welsh
 
 Scenario: Verify the accept additional cookies in cookies banner and hide cookie message in Welsh
@@ -199,10 +201,10 @@ Scenario: Verify Cookies page radio buttons and default option selection in Wels
 	Then I should see the No option is selected as default option
 
 Scenario: Verify the applicant can change the cookie preference and save it in cookies page in Welsh
-	And  I click the Cookies Link
+	And I click the Cookies Link
 	Then I should navigate to the Cookies details correct page opens in same tab in Welsh
 	And I should see the No option is selected as default option
-	Then I select the Yes option
+	And I select the Yes option
 	When I click the save cookies settings button
 	Then I should see success message at the top of the page in Welsh
 
@@ -228,52 +230,52 @@ Scenario: Verify the cookies banner is not visible on any page of the applicatio
 	When I click Reject additional cookies button in the cookies banner in Welsh
 	Then I should see additional cookies rejected confirmation message in Welsh
 	And I click Hide cookie message should hide the 'Rejected' cookie banner in Welsh
-	Then I should not see cookies banner at the top of the page
+	And I should not see cookies banner at the top of the page
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I have selected '<Are your details correct>' option
+	And I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I selected the '<MicrochipOption>' option
+	And I selected the '<MicrochipOption>' option
 	And provided microchip number through auto-generated
 	When I click Continue button from microchipped page in Welsh
 	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I have provided date of PETS microchipped
+	And I have provided date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page in Welsh
 	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I have selected an option as '<Pet>' for pet in Welsh
+	And I have selected an option as '<Pet>' for pet in Welsh
 	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
 	Then I should redirected to the What breed is your '<Pet>'? page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I have selected 1 as breed index from breed dropdownlist in Welsh
+	And I have selected 1 as breed index from breed dropdownlist in Welsh
 	When I click on continue button from What is your pet's breed page in Welsh
 	Then I should redirected to the What is your pet's name page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I provided the Pets name as '<PetName>' in Welsh
+	And I provided the Pets name as '<PetName>' in Welsh
 	When I click on continue button from What is your pet's name page in Welsh
 	Then I should redirected to the What sex is your pet page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I have selected the option as '<Gender>' for sex in Welsh
+	And I have selected the option as '<Gender>' for sex in Welsh
 	When I click on continue button from What sex is your pet page in Welsh
 	Then I should redirected to the Do you know your pet's date of birth page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I have provided date of birth in Welsh
+	And I have provided date of birth in Welsh
 	When I click on continue button from Do you know your pet's date of birth? page in Welsh
 	Then I should redirected to the What is the main colour of your '<Pet>' page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I have selected the option as '<Color>' for color in Welsh
+	And I have selected the option as '<Color>' for color in Welsh
 	When I click on continue button from What is the main colour of your pet page in Welsh
 	Then I should redirected to the Does your pet have any significant features page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I have selected an option as '<IsSignificantFeatures>' for significant features in Welsh
+	And I have selected an option as '<IsSignificantFeatures>' for significant features in Welsh
 	When I click on continue button from Does your pet have any significant features page in Welsh
 	Then I should redirected to the Check your answers and sign the declaration page in Welsh
 	And I should not see cookies banner at the top of the page
-	Then I have ticked the I agree to the declaration checkbox
+	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page in Welsh
 	And I should not see cookies banner at the top of the page
@@ -291,7 +293,7 @@ Examples:
 Scenario: Verify the back and forward navigation after navigating upto significant feature page in Welsh
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
-	Then I have selected 'Yes' option
+	And I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the 'Yes' option
@@ -320,13 +322,13 @@ Scenario: Verify the back and forward navigation after navigating upto significa
 	When I click on continue button from What is the main colour of your pet page in Welsh
 	Then I should redirected to the Does your pet have any significant features page in Welsh
 	And I click on Back button on the Pets Application in Welsh
-	Then I should redirected to the What is the main colour of your 'Ci' page in Welsh
+	And I should redirected to the What is the main colour of your 'Ci' page in Welsh
 	And I click on Back button on the Pets Application in Welsh
-	Then I should redirected to the Do you know your pet's date of birth page in Welsh
+	And I should redirected to the Do you know your pet's date of birth page in Welsh
 	And I click on Back button on the Pets Application in Welsh
-	Then I should redirected to the What sex is your pet page in Welsh
+	And I should redirected to the What sex is your pet page in Welsh
 	And I click on Back button on the Pets Application in Welsh
-	Then I should redirected to the What is your pet's name page in Welsh
+	And I should redirected to the What is your pet's name page in Welsh
 	When I click on continue button from What is your pet's name page in Welsh
 	Then I should redirected to the What sex is your pet page in Welsh
 
@@ -335,73 +337,73 @@ Scenario: Verify GOV.UK and the title Taking a pet from Great Britain to Norther
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I have selected 'No' option
+	And I have selected 'No' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the What is your full name page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I provided the full name of the pet keeper as 'PetOwner Welsh' in Welsh
+	And I provided the full name of the pet keeper as 'PetOwner Welsh' in Welsh
 	When I click Continue button from What is your full name page in Welsh
 	Then I should redirected to What is your postcode page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I provided the postcode 'CV1 4PY'
+	And I provided the postcode 'CV1 4PY'
 	When I click Search button
 	Then I should see a list of address in dropdownlist
 	And I select the index 1 from address list
 	When I click Continue button from What is your postcode page in Welsh
 	Then I should redirected to What is your phone number page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I provided the phone number '02012345678'
+	And I provided the phone number '02012345678'
 	When I click Continue button from What is your phone number page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I selected the 'No' option
+	And I selected the 'No' option
 	When I click Continue button from microchipped page in Welsh
 	Then I should redirected to the Get your pet microchipped before applying page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
 	And I click on Back button on the Pets Application in Welsh
-	Then I should redirected to the Is your pet microchipped page in Welsh
-	Then I selected the 'Yes' option
+	And I should redirected to the Is your pet microchipped page in Welsh
+	And I selected the 'Yes' option
 	And provided microchip number through auto-generated
 	When I click Continue button from microchipped page in Welsh
 	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I have provided date of PETS microchipped
+	And I have provided date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page in Welsh
 	Then I should redirected to the Is your pet a cat, dog or ferret page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I have selected an option as 'Ci' for pet in Welsh
+	And I have selected an option as 'Ci' for pet in Welsh
 	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
 	Then I should redirected to the What breed is your 'Ci'? page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I have selected 1 as breed index from breed dropdownlist in Welsh
+	And I have selected 1 as breed index from breed dropdownlist in Welsh
 	When I click on continue button from What is your pet's breed page in Welsh
 	Then I should redirected to the What is your pet's name page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I provided the Pets name as 'Ci' in Welsh
+	And I provided the Pets name as 'Ci' in Welsh
 	When I click on continue button from What is your pet's name page in Welsh
 	Then I should redirected to the What sex is your pet page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I have selected the option as 'Gwryw' for sex in Welsh
+	And I have selected the option as 'Gwryw' for sex in Welsh
 	When I click on continue button from What sex is your pet page in Welsh
 	Then I should redirected to the Do you know your pet's date of birth page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I have provided date of birth in Welsh
+	And I have provided date of birth in Welsh
 	When I click on continue button from Do you know your pet's date of birth? page in Welsh
 	Then I should redirected to the What is the main colour of your 'Ci' page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I have selected the option as 'Du' for color in Welsh
+	And I have selected the option as 'Du' for color in Welsh
 	When I click on continue button from What is the main colour of your pet page in Welsh
 	Then I should redirected to the Does your pet have any significant features page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I have selected an option as 'Nac oes' for significant features in Welsh
+	And I have selected an option as 'Nac oes' for significant features in Welsh
 	When I click on continue button from Does your pet have any significant features page in Welsh
 	Then I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
 	And I should redirected to the Check your answers and sign the declaration page in Welsh
-	Then I have ticked the I agree to the declaration checkbox
+	And I have ticked the I agree to the declaration checkbox
 	When I click Accept and Send button from Declaration page
 	Then I should redirected to the Application submitted page in Welsh
 	And I should see 'GOV.UK' 'Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon' links in the header
-	Then I can see the unique application reference number
+	And I can see the unique application reference number
 	When I have clicked the View all your lifelong pet travel documents link in Welsh
 	Then I should see the heading of dashboard page changed to Welsh
 	And I should see the application in 'Yn aros' status in Welsh
@@ -445,7 +447,7 @@ Scenario: Verify the user not able to enter the previous session after PTD submi
 	Then I should redirected to the Application submitted page in Welsh
 	When I have clicked the View all your lifelong pet travel documents link in Welsh
 	Then I should see the heading of dashboard page changed to Welsh
-	And  click on signout button and verify the signout message
+	And click on signout button and verify the signout message
 	When I click browser back button
 	Then I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type

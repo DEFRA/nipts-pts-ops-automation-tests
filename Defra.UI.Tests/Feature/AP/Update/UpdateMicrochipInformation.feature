@@ -63,9 +63,9 @@ Scenario Outline: Modify PETS Microchip number By Registered User with details c
 	And I have verified microchip details in summary page
 
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | UpdatedMicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
-	| PetDog's |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | 132456789123451        | Dog | Dog     | Male   | Black | Yes                   |
-	| PetCat's |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | 132456789123451        | Cat | Cat     | Male   | Black | Yes                   |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | UpdatedMicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 |        132456789123451 | Dog | Dog     | Male   | Black | Yes                   |
+	| PetCat's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 |        132456789123451 | Cat | Cat     | Male   | Black | Yes                   |
 
 @APCrossBrowser
 Scenario Outline: Modify PETS Microchip scanned date By Registered User with details correct
@@ -116,9 +116,9 @@ Scenario Outline: Modify PETS Microchip scanned date By Registered User with det
 	And I have verified microchip details in summary page
 
 Examples:
-	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
-	| PetCats's |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   |
-	| PetDog's  |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetCats's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   |
+	| PetDog's  | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   |
 
 Scenario Outline: Modify PETS Microchip scanned date By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
@@ -213,8 +213,8 @@ Scenario Outline: Modify PETS Microchip number By Registered User with details c
 	And I have verified microchip details in summary page
 
 Examples:
-	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | UpdatedMicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
-	| PetFerret |  Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | 132456789123451        | Ferret | Ferret  | Male   | Chocolate | Yes                   |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | UpdatedMicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
+	| PetFerret | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 |        132456789123451 | Ferret | Ferret  | Male   | Chocolate | Yes                   |
 
 Scenario Outline: Modify PETS Microchip scanned date before to date of birth and verify the error message
 	Then I have selected '<Are your details correct>' option
@@ -249,14 +249,14 @@ Scenario Outline: Modify PETS Microchip scanned date before to date of birth and
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Implant or scan date' from Microchip information section
-	Then I have modified the microchip scanned date before to the date of birth
+	And I have modified the microchip scanned date before to the date of birth
 	When I click Continue button from When was your pet microchipped page
 	Then I should see an error message "Enter a date that is after the pet’s date of birth" in pets microchipped or last scanned page
 
 Examples:
-	|  Are your details correct | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
-	|  Yes                      | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   |
-	|  Yes                      | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   |
+	| Are your details correct | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| Yes                      | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   |
+	| Yes                      | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   |
 
 Scenario Outline: Modify PETS Microchip scanned date before to date of birth and verify the error message - Ferret
 	Then I have selected '<Are your details correct>' option
@@ -288,7 +288,7 @@ Scenario Outline: Modify PETS Microchip scanned date before to date of birth and
 	When I click on continue button from Does your pet have any significant features page
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have clicked the change option for the 'Implant or scan date' from Microchip information section
-	Then I have modified the microchip scanned date before to the date of birth
+	And I have modified the microchip scanned date before to the date of birth
 	When I click Continue button from When was your pet microchipped page
 	Then I should see an error message "Enter a date that is after the pet’s date of birth" in pets microchipped or last scanned page
 

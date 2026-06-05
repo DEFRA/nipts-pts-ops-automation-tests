@@ -5,7 +5,7 @@ using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
-    public class GovernmentGatewayTypePage: IGovernmentGatewayTypePage
+    public class GovernmentGatewayTypePage : IGovernmentGatewayTypePage
     {
         private IObjectContainer _objectContainer;
 

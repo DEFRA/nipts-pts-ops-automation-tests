@@ -1,11 +1,10 @@
-﻿using Reqnroll.BoDi;
+﻿using AventStack.ExtentReports.Gherkin.Model;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
-using AventStack.ExtentReports.Gherkin.Model;
-using static System.Net.Mime.MediaTypeNames;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -22,7 +21,7 @@ namespace Defra.UI.Tests.Steps.CP
         private ISearchDocumentPage? _searchDocumentPage => _objectContainer.IsRegistered<ISearchDocumentPage>() ? _objectContainer.Resolve<ISearchDocumentPage>() : null;
         private IReportNonCompliancePage? _reportNonCompliancePage => _objectContainer.IsRegistered<IReportNonCompliancePage>() ? _objectContainer.Resolve<IReportNonCompliancePage>() : null;
 
-        public SearchDocumentPageSteps (ScenarioContext context, IObjectContainer container)
+        public SearchDocumentPageSteps(ScenarioContext context, IObjectContainer container)
         {
             _scenarioContext = context;
             _objectContainer = container;
@@ -38,14 +37,14 @@ namespace Defra.UI.Tests.Steps.CP
         public void ThenIProvidedThePTDNumberOfTheApplication()
         {
             var ptdNumber = _scenarioContext.Get<string>("PTDReferenceNumber");
-            var ptdNumber1= ptdNumber.Substring(5);
+            var ptdNumber1 = ptdNumber.Substring(5);
             _searchDocumentPage?.EnterPTDNumber(ptdNumber1);
         }
 
         [Then(@"I provided the Reference number of the application")]
         public void ThenIProvidedTheReferenceNumberOfTheApplication()
         {
-            var referenceNumber = _scenarioContext.Get<string>("ReferenceNumber");   
+            var referenceNumber = _scenarioContext.Get<string>("ReferenceNumber");
             _searchDocumentPage?.EnterApplicationNumber(referenceNumber);
         }
 
@@ -151,7 +150,7 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _searchDocumentPage?.VerifyGoBackToPreviousPageLink();
         }
-        
+
         [When(@"I click browser back button")]
         public void WhenIClickOnBrowserBackButton()
         {

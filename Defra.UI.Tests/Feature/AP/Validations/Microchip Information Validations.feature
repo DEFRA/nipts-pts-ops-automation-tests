@@ -62,8 +62,8 @@ Scenario Outline: Verify microchipped date text boxes should not allow invalid d
 	And I should see an error message "Enter the date your pet was microchipped or the date it was last scanned. For example, 11 4 2021" in pets microchipped or last scanned page
 Examples:
 	| Are your details correct | MicrochipOption | MicrochipNumber | MicrochippedDay | MicrochippedMonth | MicrochippedYear |
-	| Yes                      | Yes             | 123456789123485 | 34              | 12                | 2002             |
-	| Yes                      | Yes             | 123456789123485 | 21              | 14                | 2002             |
+	| Yes                      | Yes             | 123456789123485 |              34 |                12 |             2002 |
+	| Yes                      | Yes             | 123456789123485 |              21 |                14 |             2002 |
 	| Yes                      | Yes             | 123456789123485 | £$              | %^                | 200$             |
 	| Yes                      | Yes             | 123456789123485 | dd              | mm                | 20yy             |
 
@@ -105,7 +105,7 @@ Scenario Outline: Verify microchip number should not allows less or more than 15
 
 Examples:
 	| FullName | Are your details correct | MicrochipOption | MicrochipNumber  |
-	| PetDog's | Yes                      | Yes             | 1234567891       |
+	| PetDog's | Yes                      | Yes             |       1234567891 |
 	| PetDog's | Yes                      | Yes             | 1234567891234567 |
 
 Scenario Outline: The date on the microchip should be a future date relative to the pets date of birth
@@ -234,5 +234,5 @@ Scenario: Verify the input hyphen only to microchip number text box navigates to
 	When I click Continue button from microchipped page
 	Then I should navigate to 'You cannot access this page or perform this action' error page
 	And I click go back to the previous page link
-	Then I should redirected to the Is your pet microchipped page
+	And I should redirected to the Is your pet microchipped page
 	And I should see the already entered hyphen '-' in the microchip number text box
