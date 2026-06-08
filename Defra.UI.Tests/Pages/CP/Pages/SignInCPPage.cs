@@ -158,7 +158,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 _driver.SwitchTo().Window(newTab);
 
                 string currentUrl = _driver.Url;
-                var urls = new[] { "https://mcmw.abilitynet.org.uk/", "https://www.equalityadvisoryservice.com/", "https://www.equalityni.org/Home", "https://www.legislation.gov.uk/uksi/2018/952/contents", "https://www.w3.org/TR/WCAG21/" };
+                var urls = new[] { "https://mcmw.abilitynet.org.uk/", "https://www.equalityadvisoryservice.com/", "https://equalityni.org/", "https://www.legislation.gov.uk/uksi/2018/952/contents", "https://www.w3.org/TR/WCAG21/" };
                 if (urls.Contains(currentUrl))
                 {
                     _driver.Close();
