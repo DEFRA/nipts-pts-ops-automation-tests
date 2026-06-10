@@ -179,17 +179,18 @@ public class TimelineSteps : PowerAppsStepDefiner
     {
         bool isSuccess = false;
         ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//button[contains(@id,'tlr_footer_chevron_button')]"));
+                
         foreach (IWebElement item in TimelineRecordViewMore)
         {
-            var element = item.FindElements(By.TagName("label"));
+            var element = item.FindElements(By.XPath("//button[contains(@id,'tlr_footer_chevron_button')]"));
             element.FirstOrDefault()?.Click();
 
             Driver.WaitForTransaction();
-            var descriptionElement = Driver.FindElement(By.XPath("//div[contains(@id,'timeline_field_description')]"));
+            var descriptionElement = Driver.FindElement(By.XPath("//div[contains(@id,'timeline_record_container')]"));
 
             if (descriptionElement.Text.Contains(expectedTitle))
             {
-                element.FirstOrDefault()?.Click();
+                //element.FirstOrDefault()?.Click();
                 isSuccess = true;
                 break;
             }

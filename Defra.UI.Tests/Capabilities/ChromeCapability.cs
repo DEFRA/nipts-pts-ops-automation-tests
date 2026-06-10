@@ -22,6 +22,7 @@ namespace Defra.UI.Tests.Capabilities
             chromeOptions.AddArgument("--start-maximized");
             chromeOptions.AddArgument("--no-sandbox");
             chromeOptions.AcceptInsecureCertificates = true;
+            chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.notifications", 1);
 
 
             if (ConfigSetup.BaseConfiguration.TestConfiguration.Headless)
@@ -46,6 +47,7 @@ namespace Defra.UI.Tests.Capabilities
                 SetChromiumDevice(chromeOptions);
             }
 
+            SetAllowNotificationToUserProfile(chromeOptions);
             return chromeOptions;
 
         }
@@ -75,6 +77,37 @@ namespace Defra.UI.Tests.Capabilities
             overrideCapDict.Remove(BrowserConfigurationValue.BrowserArguments);
 
             return args;
+        }
+
+        //this is wip 
+        private static void SetAllowNotificationToUserProfile(ChromeOptions chromeOptions)
+        {
+            chromeOptions.AddArgument("--disable-features=BlockInsecurePrivateNetworkRequests");
+            chromeOptions.AddArgument("--allow-running-insecure-content");
+            // Auto-allow local network for all origins
+
+            chromeOptions.AddArgument("--disable-features=PrivateNetworkAccessPermissionPrompt");
+            chromeOptions.AddArgument("--enable-features=PrivateNetworkAccessRespectPreflightResults");
+
+            chromeOptions.AddArgument("--private-network-access-respect-preflight-results"); 
+            chromeOptions.AddArgument("--ip-protection-proxy-opt-out");
+            chromeOptions.AddArgument("--disable-notifications");
+            chromeOptions.AddArgument("--disable-infobars");
+            chromeOptions.AddArguments("--disable-geolocation");
+            chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.notifications", 1);
+            chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.geolocation", 1);
+            chromeOptions.AddUserProfilePreference(
+                "profile.content_settings.exceptions.local_network_access",
+                new Dictionary<string, object>
+                {
+        {
+            "*", new Dictionary<string, object>
+            {
+                { "setting", 1 }
+            }
+        }
+                }
+            );
         }
     }    
 }
