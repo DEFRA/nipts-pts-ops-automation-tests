@@ -22,7 +22,7 @@ namespace Defra.UI.Tests.Capabilities
             chromeOptions.AddArgument("--start-maximized");
             chromeOptions.AddArgument("--no-sandbox");
             chromeOptions.AcceptInsecureCertificates = true;
-            chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.notifications", 1);
+            //chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.notifications", 1);
 
 
             if (ConfigSetup.BaseConfiguration.TestConfiguration.Headless)
