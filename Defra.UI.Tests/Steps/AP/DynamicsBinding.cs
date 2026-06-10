@@ -699,7 +699,7 @@ namespace Defra.UI.Tests.Steps.AP
             else if (timelineCopy.ToUpper().Equals("SUSPENSION WRITTEN WARNING"))
             {
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Suspension written warning: Non-attendance at SPS inspection facilities in Northern Ireland"));
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("we are issuing you with a written warning"));
+               Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("we are issuing you with a written warning"));
             }
 
         }
