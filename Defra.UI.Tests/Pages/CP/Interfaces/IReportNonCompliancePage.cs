@@ -1,0 +1,51 @@
+﻿namespace Defra.UI.Tests.Pages.CP.Interfaces
+{
+    public interface IReportNonCompliancePage
+    {
+        bool IsPageLoaded();
+        void SelectReportNonComplianceButton();
+        void ClickPetTravelDocumentDetailsLnk();
+        bool VerifyTheExpectedStatus(string statusLabel, string status);
+        void SelectTypeOfPassenger(string radioButtonValue);
+        bool IsError(string errorMessage);
+        bool CheckPetTravelDocumentDetailsSection(string status);
+        bool VerifyTheTableNameInPTDLink(string tableName);
+        bool VerifyReasonsHeadingWithHint(string reasons, string hint);
+        bool VerifyGBOutcomeCheckboxes(string checkboxValues, string subHeading);
+        bool VerifySPSOutcomeCheckboxes(string checkboxValues, string subHeading);
+        bool VerifyDetailsOfOutcome();
+        bool VerifyThePTDNumber(string ptdNumberLabel, string ptdNumber);
+        bool VerifyTheDateOfIssuance(string dateLabel, string dateOfIssuance);
+        bool VerifyTheReferenceNumber(string refNumberLabel, string refereneNumber);
+        bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName);
+        bool VerifyGBCheckboxesAreNotChecked();
+        bool VerifySPSCheckboxesAreNotChecked();
+        bool VerifyAnyRelavantCommentsSection();
+        bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName);
+        bool VerifyVCAndPetOwnerDetailSubheading(string subHeading);
+        bool VerifyPetDetailsFromPTDLink(string linkName);
+        bool VerifyVCAndPetOwnerAndPetDetailTableName(string tableName);
+        bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature);
+        bool VerifyOtherIssuesSubheading(string subHeading);
+        bool VerifyOtherIssuesCheckboxes(string checkboxOptions);
+        bool VerifyOtherReasonOptionHint(string hint);
+        bool VerifyOtherIssuesCheckboxesAreNotChecked();
+        bool VerifyMicrochipSection();
+        bool VerifyMCDetailsPTDTableWithValues(string MCDetails);
+        void ClickOnMCCheckbox(string MCCheckbox);
+        void EnterMCNumber(string mCNumber);
+        void ClickGBOutcomeCheckbox(string gBOutcome);
+        bool VerifyNameAndEmailOfPetOwner(string name, string email);
+        bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber);
+        bool VerifyInfoSubmittedMessage(string submittedMessage);
+        void ClickSaveOutComeButton();
+        bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry);
+        void ClickSPSOutcomeCheckbox(string sPSOutcome);
+        bool VerifyMicrochipCheckboxesAreChecked();
+        void ClickVisualCheckReason(string visualCheckReason);
+        void EnterDetailsOfOutcome(string details);
+        bool VerifyTypeOfPassengerSubheadingISNotPresent();
+        bool VerifyVisualCheckCheckBox();
+        bool VerifyMicrochipDoesNotMatchPTDCheckbox();
+    }
+}

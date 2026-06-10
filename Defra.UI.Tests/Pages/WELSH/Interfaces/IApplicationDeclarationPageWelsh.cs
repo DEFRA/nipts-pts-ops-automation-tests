@@ -1,0 +1,17 @@
+﻿using Defra.UI.Tests.Contracts;
+
+namespace Defra.UI.Tests.Pages.WELSH.Interfaces
+{
+    public interface IApplicationDeclarationPageWelsh
+    {
+        bool IsNextPageLoaded(string pageTitle);
+        void TickAgreedToDeclaration();
+        void ClickSendApplicationButton();
+        Summary GetSummaryDetails();
+        void ClickMicrochipChangeLink(string fieldName);
+        void ClickPetDetailsChangeLink(string fieldName);
+        void ClickPetOwnerChangeLink(string fieldName);
+        void ClickPetDetailsChangeForFerretLink(string fieldName);
+        public bool IsError(string errorMessage);
+    }
+}

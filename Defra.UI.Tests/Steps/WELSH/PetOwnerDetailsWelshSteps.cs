@@ -1,0 +1,142 @@
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Pages.WELSH.Interfaces;
+using NUnit.Framework;
+using OpenQA.Selenium;
+using Reqnroll;
+using Reqnroll.BoDi;
+
+namespace Defra.UI.Tests.Steps.WELSH
+{
+    [Binding]
+    public class PetOwnerDetailsWelshSteps
+    {
+        private readonly IObjectContainer _objectContainer;
+        private readonly ScenarioContext _scenarioContext;
+
+        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        private IApplicationSubmissionPageWelsh? applicationSubmissionPageWelsh => _objectContainer.IsRegistered<IApplicationSubmissionPageWelsh>() ? _objectContainer.Resolve<IApplicationSubmissionPageWelsh>() : null;
+        private IPetOwnerNamePageWelsh? petOwnerNamePage => _objectContainer.IsRegistered<IPetOwnerNamePageWelsh>() ? _objectContainer.Resolve<IPetOwnerNamePageWelsh>() : null;
+        private IPetOwnerAddressPage? petOwnerAddressPage => _objectContainer.IsRegistered<IPetOwnerAddressPage>() ? _objectContainer.Resolve<IPetOwnerAddressPage>() : null;
+        private IPetOwnerAddressPageWelsh? petOwnerAddressPageWelsh => _objectContainer.IsRegistered<IPetOwnerAddressPageWelsh>() ? _objectContainer.Resolve<IPetOwnerAddressPageWelsh>() : null;
+        private IPetOwnerPhoneNumberPage? petOwnerPhoneNumberPage => _objectContainer.IsRegistered<IPetOwnerPhoneNumberPage>() ? _objectContainer.Resolve<IPetOwnerPhoneNumberPage>() : null;
+        private IPetOwnerPhoneNumberPageWelsh? petOwnerPhoneNumberPageWelsh => _objectContainer.IsRegistered<IPetOwnerPhoneNumberPageWelsh>() ? _objectContainer.Resolve<IPetOwnerPhoneNumberPageWelsh>() : null;
+
+        public PetOwnerDetailsWelshSteps(ScenarioContext context, IObjectContainer container)
+        {
+            _scenarioContext = context;
+            _objectContainer = container;
+        }
+
+        [Then(@"I should redirected to the What is your full name page in Welsh")]
+        public void ThenIShouldRedirectedToTheWhatIsYourFullNamePage()
+        {
+            Assert.True(petOwnerNamePage?.IsNextPageLoaded("Beth yw’ch enw llawn?"), "Application page not loaded");
+        }
+
+        [Then(@"I provided the full name of the pet keeper as '(.*)' in Welsh")]
+        public void ThenIProvidedTheFullNameOfThePetKeeperAs(string fullName)
+        {
+            petOwnerNamePage?.EnterPetOwnerName(fullName);
+            _scenarioContext.Remove("enw llawn");
+            _scenarioContext.Add("enw llawn", fullName);
+        }
+
+        [When(@"I click Continue button from What is your full name page in Welsh")]
+        public void WhenIClickContinueButtonFromWhatIsYourFullNamePage()
+        {
+            petOwnerNamePage?.ClickContinueButton();
+        }
+
+        [Then(@"I should redirected to What is your postcode page in Welsh")]
+        public void ThenIShouldRedirectedToWhatIsYourPostcodePage()
+        {
+            Assert.True(petOwnerAddressPage?.IsNextPageLoaded("Beth yw’ch cod post?"), "Application page not loaded");
+        }
+
+        [Then(@"I should redirected to What is the pet keeper's postcode? in Welsh")]
+        public void ThenIShouldRedirectedToWhatIsThePetKeepersPostcode()
+        {
+            Assert.True(petOwnerAddressPage?.IsNextPageLoaded("What is the pet keeper's postcode?"), "Application page not loaded");
+        }
+
+        [When(@"I click Continue button from What is the pet keeper's postcode? in Welsh")]
+        public void WhenIClickContinueButtonFromWhatIsThePetKeepersPostcode()
+        {
+            petOwnerAddressPage?.ClickContinueButton();
+        }
+
+        [Then(@"I select the index (.*) from address list in Welsh")]
+        public void ThenISelectTheIndexFromAddressList(int addressIndex)
+        {
+            var addressLines = petOwnerAddressPage?.SelectAnAddress(addressIndex);
+            _scenarioContext["Cyfeiriad"] = addressLines;
+        }
+
+        [When(@"I click Continue button from What is your postcode page in Welsh")]
+        public void WhenIClickContinueButtonFromWhatIsYourPostcodePage()
+        {
+            petOwnerAddressPageWelsh?.ClickContinueButton();
+        }
+
+        [When(@"I click Find Address button from What is your postcode page in Welsh")]
+        public void WhenIClickFindAddressButtonFromWhatIsYourPostcodePage()
+        {
+            petOwnerAddressPage?.ClickSearchButton();
+        }
+
+        [When(@"I click the link Enter the address manually in Welsh")]
+        public void WhenIClickTheLinkEnterTheAddressManually()
+        {
+            petOwnerAddressPageWelsh?.ClickICannotFindTheAddressInTheListLink();
+        }
+
+        [When(@"I provided address details with postcode '([^']*)' in Welsh")]
+        public void WhenIProvidedAddressDetailsWithPostcode(string postCode)
+        {
+            petOwnerAddressPage?.EnterAddressManually("5 AddressLine1", string.Empty, "Coventry", string.Empty, postCode);
+
+            var addressLines = new string[] { "5 AddressLine1", "Coventry", "Coventry", postCode };
+            _scenarioContext["Cyfeiriad"] = addressLines;
+        }
+
+        [Then(@"I should redirected to What is your phone number page in Welsh")]
+        public void ThenIShouldRedirectedToWhatIsYourPhoneNumberPage()
+        {
+            Assert.True(petOwnerPhoneNumberPage?.IsNextPageLoaded("Beth yw’ch rhif ffôn?"), "Application page not loaded");
+        }
+
+        [Then(@"I provided the phone number '([^']*)' in Welsh")]
+        public void ThenIProvidedThePhoneNumber(string phoneNumber)
+        {
+            petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
+            _scenarioContext.Remove("Rhif ffôn");
+            _scenarioContext.Add("Rhif ffôn", phoneNumber);
+        }
+
+        [When(@"I click Continue button from What is your phone number page in Welsh")]
+        public void WhenIClickContinueButtonFromWhatIsYourPhoneNumberPage()
+        {
+            petOwnerPhoneNumberPageWelsh?.ClickContinueButton();
+        }
+
+        [Then(@"I should redirected to the Application submitted page in Welsh")]
+        public void ThenIShouldRedirectedToTheApplicationSubmittedPageInWelsh()
+        {
+            var pageTitle = "Cais wedi’i gyflwyno";
+            Assert.IsTrue(applicationSubmissionPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
+        }
+
+        [When(@"I have clicked the View all your lifelong pet travel documents link in Welsh")]
+        public void WhenIHaveClickedTheViewAllYourLifelongPetTravelDocumentsLinkInWelsh()
+        {
+            applicationSubmissionPageWelsh?.ClickViewAllSubmittedPetTravelDocument();
+        }
+
+        [When(@"I click Apply for another lifelong pet travel document link in Welsh")]
+        public void ThenIClickApplyForAnotherLifelongPetTravelDocumentLink()
+        {
+            applicationSubmissionPageWelsh?.ClickApplyForAnotherPetTravelDocument();
+        }
+
+    }
+}

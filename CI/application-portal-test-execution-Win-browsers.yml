@@ -1,0 +1,86 @@
+trigger: none
+
+parameters:
+  - name: environment
+    displayName: Environment
+    type: string
+    default: 'pre'
+  - name: isAccessibilityEnabled
+    displayName: Is Accessibility Run Enabled
+    type: boolean
+    default: false
+  - name: seleniumGrid
+    displayName: Selenium Grid or Browserstack endpoint
+    type: string
+    default: 'http://localhost:4444'
+
+resources:
+  repositories:
+    - repository: niptsopsprovingrepo
+      type: github
+      name: DEFRA/nipts-pts-ops-automation-tests
+      ref: $(Build.SourceBranch)
+      endpoint: DEFRA
+
+variables:
+  - template: 'variables/AP/${{ parameters.environment }}.yml'
+  - name: pool
+    value: 'DEFRA-COMMON-ubuntu2004-SSV3'
+
+stages:
+  
+  - stage: ParallelBrowserTests
+    displayName: Parallel Browser Tests
+    condition: always()  
+  
+    jobs:
+    - template: run-test-template.yml
+      parameters:
+        jobName: 'Windows_Chrome'
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: ${{ parameters.seleniumGrid }}
+        deviceName: 'Windows'
+        bsOSVersion: '11'
+        workers:  '10'
+        bsBrowserVersion: 'latest'
+        target: 'Chrome'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
+        application: 'AP'
+        dependsOn: ''
+        filterTestCases: 'TestCategory=APCrossBrowser'
+
+    - template: run-test-template.yml
+      parameters:
+        jobName: 'Windows_Edge'
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: ${{ parameters.seleniumGrid }}
+        deviceName: 'Windows'
+        bsOSVersion: '11'
+        workers:  '10'
+        bsBrowserVersion: 'latest'
+        target: 'Edge'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
+        application: 'AP'
+        dependsOn: ''
+        filterTestCases: 'TestCategory=APCrossBrowser'
+
+    - template: run-test-template.yml
+      parameters:
+        jobName: 'Windows_Firefox'
+        environment: ${{ parameters.environment}}
+        branchName: $(Build.SourceBranch)
+        seleniumGrid: ${{ parameters.seleniumGrid }}
+        deviceName: 'Windows'
+        bsOSVersion: '11'
+        workers:  '10'
+        bsBrowserVersion: 'latest'
+        target: 'Firefox'
+        isEmulationEnabled: 'false'
+        emulateDeviceInfo: 'iPhone 12 Pro'
+        application: 'AP'
+        dependsOn: ''
+        filterTestCases: 'TestCategory=APCrossBrowser'

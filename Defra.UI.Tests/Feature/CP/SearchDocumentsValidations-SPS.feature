@@ -1,0 +1,177 @@
+﻿@CPRegression
+Feature: Search Documents Validations - SPS
+
+SPS Port checker validates Search documents and Change Route details
+
+Background:
+	Given that I navigate to the port checker application
+	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
+	Then I should redirected to the CP Sign in using Government Gateway page
+	When I have provided the CP SPS credentials and signin
+	And I have provided the password for prototype research page
+	Then I should redirected to port route checker page
+
+Scenario: Verify the navigation for change link click in header from search page
+	And I have selected 'Ferry' radio option
+	And I select the 'Cairnryan to Larne (P&O)' radio option
+	And I have provided Scheduled departure time '14:20'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click change link from headers
+	And I should redirected to port route checker page
+
+Scenario: Verify the data entered remains in the text box of Find a document page - SPS Checker
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '23:50'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '4574B2' of the application
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number 'ZRWD8KG6' of the application
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '987659898798764' of the application
+	And I click search by 'Search by PTD number' radio button
+	And I should see the already entered PTD number '4574B2' in the text box
+	And I click search by 'Search by application number' radio button
+	And I should see the already entered application number 'ZRWD8KG6' in the text box
+	And I click search by 'Search by microchip number' radio button
+	And I should see the already entered microchip number '987659898798764' in the text box
+
+Scenario: Verify the Clear search and no radio button auto selected functionalities in Find a Document page - SPS Checker
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '08:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I should see no radio button is auto selected by default
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '12345' of the application
+	When I click clear search button
+	Then I see the values are deleted
+
+Scenario Outline: Verify the SPS User is able to search by PTD Number
+	Then I have selected '<Transportation>' radio option
+	And I select the '<FerryRoute>' radio option
+	And I have provided Scheduled departure time '14:00'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '<PTDNumber>' of the application
+	When I click search button
+	And I should see the application status in '<Status>'
+
+Examples:
+	| Transportation | FerryRoute                    | PTDNumber | Status       | Species |
+	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful | Ferret  |
+	| Ferry          | Birkenhead to Belfast (Stena) | D6BE7C    | Approved     | Cat     |
+
+Scenario: Verify the SPS User is able to search by Microchip Number
+	And I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '12:20'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by microchip number' radio button
+	And I provided the Microchip number '561365613656136' of the application
+	When I click search button
+	And I should see the application status in 'Approved'
+
+Scenario: Verify the SPS User is able to search by Application Reference Number
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '14:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by application number' radio button
+	And I provided the Application Number 'JIGJ43N8' of the application
+	When I click search button
+	And I should see the application status in 'Pending'
+
+Scenario: Verify account and sign out icons in search page as SPS user
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '05:45'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I should see account and signout icons
+
+Scenario: Verify the error message if no search options selected in find a document page as SPS Checker
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '14:50'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	When I click search button
+	Then I should see an error message "Select if you are searching for a PTD, application or microchip number" in Find a document page
+
+Scenario: Verify the Checks home page filter and display only the selected ferry route - SPS Checker
+	Then I have selected 'Ferry' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I have provided Scheduled departure time '09:30'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	And I should see route displayed in all the tables of Checks page should be 'Birkenhead to Belfast (Stena)'
+
+Scenario Outline: Verify the Warning text ad Checks section in Suspended PTD Search result page - SPS
+	Then I have selected '<Transportation>' radio option
+	And I select the '<FerryRoute>' radio option
+	And I have provided Scheduled departure time '14:00'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '<PTDNumber>' of the application
+	When I click search button
+	And I should see the application status in '<Status>'
+	Then I verify the '<WarningText>' warning text
+	And I verify Checks section is not present
+	And I verify Save and Continue button is not present
+Examples:
+	| Transportation | FerryRoute                    | PTDNumber | Status       | WarningText                                                                                                                 |
+	| Ferry          | Birkenhead to Belfast (Stena) | E9C42C    | Unsuccessful | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script. |
+	| Ferry          | Birkenhead to Belfast (Stena) | FA188D    | Cancelled    | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script. |
+	| Ferry          | Birkenhead to Belfast (Stena) | C1778C    | Suspended    | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script. |
+
+Scenario Outline: Verify the Checks section is not present in PTD Search result page - SPS
+	Then I have selected '<Transportation>' radio option
+	And I select the '<FerryRoute>' radio option
+	And I have provided Scheduled departure time '14:00'
+	When I click save and continue button from route checker page
+	Then I should navigate to Checks page
+	When I click search button from footer
+	Then I navigate to Find a document page
+	And I click search by 'Search by PTD number' radio button
+	And I provided the '<PTDNumber>' of the application
+	When I click search button
+	And I should see the application status in '<Status>'
+	Then I verify Checks section is not present
+	And I verify Save and Continue button is not present
+	And I verify Checks section is not present
+	And I verify Save and Continue button is not present
+Examples:
+	| Transportation | FerryRoute                    | PTDNumber | Status       |
+	| Ferry          | Birkenhead to Belfast (Stena) | 7D2F63    | Unsuccessful |
+	| Ferry          | Birkenhead to Belfast (Stena) |    412576 | Cancelled    |
+	| Ferry          | Birkenhead to Belfast (Stena) | 95D9C3    | Pending      |

@@ -1,0 +1,468 @@
+﻿using Defra.UI.Tests.Configuration;
+using Defra.UI.Tests.Pages.CP.Interfaces;
+using Defra.UI.Tests.Tools;
+using Microsoft.Dynamics365.UIAutomation.Browser;
+using OpenQA.Selenium;
+using Reqnroll.BoDi;
+using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
+
+
+namespace Defra.UI.Tests.Pages.CP.Pages
+{
+    public class ReportNonCompliancePage : IReportNonCompliancePage
+    {
+        private readonly IObjectContainer _objectContainer;
+
+        public ReportNonCompliancePage(IObjectContainer container)
+        {
+            _objectContainer = container;
+        }
+
+        #region Page objects
+        private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Report non-compliance']"), true);
+        private IWebElement btnReportNonCompliance => _driver.WaitForElement(By.XPath("//button[normalize-space()='Save outcome']"));
+        private IWebElement lnkPetTravelDocumentDetails => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet Travel Document details']"));
+        private IWebElement btnFootPassengerRadio => _driver.WaitForElementExists(By.XPath("//*[@id='passengerType']/following-sibling::label"));
+        private IWebElement btnVehicleRadio => _driver.WaitForElementExists(By.XPath("//*[@id='vehiclePassenger']/following-sibling::label"));
+        private IWebElement btnAirlineRadio => _driver.WaitForElementExists(By.XPath("//*[@id='airlinePassenger']/following-sibling::label"));
+        private ReadOnlyCollection<IWebElement> btnAirlinesButton => _driver.FindElements(By.XPath("//*[@id='airlinePassenger']/following-sibling::label"));
+        private IWebElement lblReportOutcome => _driver.WaitForElementExists(By.XPath("//h2[normalize-space(.)='Record outcome']"));
+        private IWebElement chkGBOutcome1 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger referred to DAERA/SPS at NI port']"));
+        private IWebElement chkGBOutcome2 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger advised not to travel']"));
+        private IWebElement chkGBOutcome3 => _driver.WaitForElementExists(By.XPath("//label[normalize-space()='Passenger says they will not travel']"));
+        private IWebElement chkSPSOutcome1 => _driver.WaitForElementExists(By.XPath("//h2[text()='Record outcome']//following::label[1]"));
+        private IWebElement chkSPSOutcome2 => _driver.WaitForElementExists(By.XPath("//h2[text()='Record outcome']//following::label[2]"));
+        private IWebElement txtareaSPSOutcome => _driver.WaitForElementExists(By.Id("spsOutcomeDetails"));
+        private IWebElement lblDetailsOfOutcome => _driver.WaitForElementExists(By.XPath("//b[text()='Details of outcome (optional)']"));
+        private IReadOnlyCollection<IWebElement> lblAnyRelavantComments => _driver.FindElements(By.XPath("//label[normalize-space()='Any relevant comments']"));
+        private IReadOnlyCollection<IWebElement> lblAnyRelavantCommentsHint => _driver.FindElements(By.XPath("//label[normalize-space()='Any relevant comments']/following::div[1]"));
+        private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
+        private IReadOnlyCollection<IWebElement> lblPetTravelDocumentDetails => _driver.FindElements(By.XPath("//div[@class='govuk-section-break--l'][2]"));
+        private IWebElement lblPTDStatus => _driver.WaitForElementExists(By.XPath("//p[@class='govuk-body govuk-!-margin-bottom-0 pts-checker-check']"));
+        private IWebElement lblReasonsHeading => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Reasons']"));
+        private IWebElement lblReasonsHint => _driver.WaitForElementExists(By.Id("event-name-hint"));
+        private IWebElement lblTableNamePTD => _driver.WaitForElement(By.XPath("//*[@id='document-microchip-card']//h2[normalize-space()='Pet Travel Document (PTD)']"));
+        private IWebElement lblTableNameApplicationDetails => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet Travel Document details']"));
+        private IWebElement lblApplicationReferenceNumber => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Application reference number']"));
+        private IWebElement txtValueReferenceNumber => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Application reference number']/following-sibling::dd"));
+        private IWebElement lblDate => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Date']"));
+        private IWebElement txtValueDate => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Date']/following-sibling::dd"));
+        private IWebElement lblStatus => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']"));
+        private IWebElement txtValueStatus => _driver.WaitForElement(By.XPath("//dt[normalize-space()='Status']/following-sibling::dd/strong"));
+        private IWebElement lblPTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]"));
+        private IWebElement txtValuePTDNumber => _driver.WaitForElement(By.XPath("//*[contains(text(),'PTD number')]/following-sibling::dd"));
+        private IWebElement lblPassengerDetails => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h2[text()='Passenger details']"));
+        private IWebElement lblTypeOfPassenger => _driver.WaitForElement(By.XPath("//*[@id='nonComplianceForm']//h3[text()='Type of passenger']"));
+        private ReadOnlyCollection<IWebElement> lblTypeOfPassengerLabels => _driver.FindElements(By.XPath("//*[@id='nonComplianceForm']//h3[text()='Type of passenger']"));
+        private ReadOnlyCollection<IWebElement> lblVisualCheck => _driver.FindElements(By.XPath("//*[normalize-space()='Visual check']"));
+        private IWebElement lnkPetDetailsFromPTD => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet details']"));
+        private ReadOnlyCollection<IWebElement> lblVisualCheckCheckBox => _driver.FindElements(By.XPath("//label[normalize-space()='Pet does not match the PTD']"));
+        private IWebElement lblVisualCheckTableName => _driver.WaitForElement(By.XPath("//*[@id='document-pet-card']//h2"));
+        private IWebElement lblVisualCheckTableSpecies => _driver.WaitForElement(By.XPath("//*[contains(text(),'Species')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableBreed => _driver.WaitForElement(By.XPath("//*[contains(text(),'Breed')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableSex => _driver.WaitForElement(By.XPath("//*[contains(text(),'Sex')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableDateOfBirth => _driver.WaitForElement(By.XPath("//*[contains(text(),'Date of birth')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableColour => _driver.WaitForElement(By.XPath("//*[contains(text(),'Colour')]/following-sibling::dd"));
+        private IWebElement lblVisualCheckTableSignificantFeature => _driver.WaitForElement(By.XPath("//*[contains(text(),'Significant feature')]/following-sibling::dd"));
+        private IWebElement lblOtherIssues => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']"));
+        private IWebElement lblOtherIssuesOption1 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[1]"));
+        private IWebElement lblOtherIssuesOption2 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[2]"));
+        private IWebElement lblOtherIssuesOption3 => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Other issues']//following::label[3]"));
+        private IWebElement lblOtherReasonHint => _driver.WaitForElement(By.Id("somethingRadio-item-hint"));
+        private IWebElement lblMCHeader => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Microchip']"));
+        private IWebElement lblMCTableHeading => _driver.WaitForElement(By.XPath("//h3[normalize-space()='Microchip']"));
+        private IWebElement lblMCDetailsLink => _driver.WaitForElement(By.XPath("//span[normalize-space()='Microchip details']"));
+        private IWebElement lblMCCheckbox1 => _driver.WaitForElement(By.XPath("//label[@for='missingReason']"));
+        private ReadOnlyCollection<IWebElement> lblMCCheckbox2 => _driver.FindElements(By.XPath("//label[@for='mcNotFound']"));
+        private IWebElement lblMCNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Microchip number')]"));
+        private IWebElement lblMCNumberValue => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Microchip number')]/following-sibling::dd"));
+        private IWebElement lblMCImplantOrScanDate => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Implant or scan date')]"));
+        private IWebElement lblMCImplantOrScanDateValue => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Implant or scan date')]/following-sibling::dd"));
+        private IWebElement lblMCNumberNotFoundInScan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Microchip number found in scan']"));
+        private IWebElement txtMCNumberNotFoundInScan => _driver.WaitForElement(By.XPath("//label[normalize-space()='Microchip number found in scan']/following::input[1]"));
+        private IWebElement lblPetOwnerDetailsSubHeading => _driver.WaitForElement(By.XPath("//h2[normalize-space()='Passenger details']"));
+        private IWebElement lblPetOwnerDetailsTableName => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet owner details']"));
+        private IWebElement lblPetOwnerName => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Name')]/following-sibling::dd"));
+        private IWebElement lblPetOwnerEmail => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Email')]/following-sibling::dd"));
+        private IWebElement lblPetOwnerAddress => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Address')]/following-sibling::dd"));
+        private IWebElement lblPetOwnerPhoneNumber => _driver.WaitForElement(By.XPath("//dt[contains(text(),'Phone number')]/following-sibling::dd"));
+        private IWebElement lblInfoSubmittedMessage => _driver.WaitForElement(By.XPath("//*[@id='success-id']"), true);
+        private IWebElement btnSaveOutCome => _driver.WaitForElementExists(By.XPath("//button[normalize-space()='Save outcome']"));
+        private IWebElement lblMicrochipOption1 => _driver.WaitForElement(By.XPath("//*[@id='missingReason']"));
+        private IWebElement lblMicrochipOption2 => _driver.WaitForElement(By.XPath("//*[@id='mcNotFound']"));
+        private ReadOnlyCollection<IWebElement> txtareaRelevantComments => _driver.FindElements(By.Id("relevantComments"));
+        private IWebElement txtareaDetailsOfOutcome => _driver.WaitForElementExists(By.Id("spsOutcomeDetails"));
+        private IWebElement lblPetDetailsTableName => _driver.WaitForElement(By.XPath("//span[normalize-space()='Pet details']"));
+        #endregion
+
+        #region Methods
+        public bool IsPageLoaded()
+        {
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver, true);
+            }
+
+            return pageHeading.Text.Contains("Report non-compliance");
+        }
+
+        public void SelectReportNonComplianceButton()
+        {
+            btnReportNonCompliance.Click(_driver);
+        }
+
+        public void ClickPetTravelDocumentDetailsLnk()
+        {
+            lnkPetTravelDocumentDetails.Click(_driver);
+        }
+
+        public bool CheckPetTravelDocumentDetailsSection(string status)
+        {
+            var cnt = lblPetTravelDocumentDetails.Count;
+            if (cnt > 0)
+            {
+                lblPTDStatus.ScrollToElement(_driver);
+                return lblPTDStatus.Text.Contains(status);
+            }
+            return false;
+        }
+
+        public bool VerifyTheTableNameInPTDLink(string tableName)
+        {
+            lblTableNameApplicationDetails.ScrollToElement(_driver);
+            return lblTableNameApplicationDetails.Text.Trim().Equals(tableName);
+        }
+
+        public bool VerifyTableNameForApprovedAndRevokedInPTDLink(string tableName)
+        {
+            lblTableNameApplicationDetails.ScrollToElement(_driver);
+            return lblTableNameApplicationDetails.Text.Trim().Equals(tableName);
+        }
+
+        public bool VerifyTheExpectedStatus(string statusLabel, string applicationStatus)
+        {
+            var bgColor = txtValueStatus.GetCssValue("background-color");
+
+            MatchCollection matches = Regex.Matches(bgColor, @"\d+");
+
+            var red = int.Parse(matches[0].Value);
+            var green = int.Parse(matches[1].Value);
+            var blue = int.Parse(matches[2].Value);
+
+            var hexColor = "#" + red.ToString("X2") + green.ToString("X2") + blue.ToString("X2");
+
+            var expectedColor = string.Empty;
+
+            switch (applicationStatus)
+            {
+                case "Approved":
+                    expectedColor = "#CCE2D8";
+                    break;
+                case "Pending":
+                    expectedColor = "#BBD4EA";
+                    break;
+                case "Cancelled":
+                case "Unsuccessful":
+                    expectedColor = "#F4CDC6";
+                    break;
+            }
+
+            return lblStatus.Text.Trim().Equals(statusLabel) && txtValueStatus.Text.Trim().Equals(applicationStatus) && expectedColor.Equals(hexColor);
+        }
+
+        public bool VerifyThePTDNumber(string ptdNumberLabel, string ptdNumber)
+        {
+            txtValuePTDNumber.ScrollToElement(_driver);
+            return lblPTDNumber.Text.Trim().Equals(ptdNumberLabel) && txtValuePTDNumber.Text.Trim().Equals($"GB826 {ptdNumber}");
+        }
+
+        public bool VerifyTheDateOfIssuance(string datelabel, string dateOfIssuance)
+        {
+            txtValueDate.ScrollToElement(_driver);
+            return lblDate.Text.Trim().Equals(datelabel) && txtValueDate.Text.Trim().Equals(dateOfIssuance);
+        }
+
+        public bool VerifyTheReferenceNumber(string refNumberLabel, string referenceNumber)
+        {
+            txtValueReferenceNumber.ScrollToElement(_driver);
+            return lblApplicationReferenceNumber.Text.Trim().Equals(refNumberLabel) && txtValueReferenceNumber.Text.Trim().Equals(referenceNumber);
+        }
+
+        public bool VerifyReasonsHeadingWithHint(string reasons, string hint)
+        {
+            string reasonsHeading = lblReasonsHeading.Text;
+            return reasonsHeading.Equals(reasons) && lblReasonsHint.Text.Trim().Equals(hint);
+        }
+
+        public void SelectTypeOfPassenger(string radioButtonValue)
+        {
+
+            if (radioButtonValue.Equals("Ferry foot passenger"))
+            {
+                btnFootPassengerRadio.ScrollAndClick(_driver);
+            }
+            else if (radioButtonValue.Equals("Vehicle on ferry"))
+            {
+                try
+                {
+                    btnVehicleRadio.ScrollAndClick(_driver);
+                }
+                catch
+                {
+                    btnVehicleRadio.ScrollAndClick(_driver);
+                }
+            }
+            else
+            {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView()", btnAirlineRadio);
+                btnAirlineRadio.Click();
+            }
+        }
+
+        public bool IsError(string errorMessage)
+        {
+            foreach (var element in lblErrorMessages)
+            {
+                if (element.Text.Contains(errorMessage))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool VerifyGBOutcomeCheckboxes(string checkboxValues, string subHeading)
+        {
+            var gbOutcomeCheckbox = checkboxValues.Split('|');
+            chkGBOutcome1.ScrollToElement(_driver);
+            return (gbOutcomeCheckbox[0].Equals(chkGBOutcome1.Text.Replace("\r\n", string.Empty).Trim())
+                && gbOutcomeCheckbox[1].Equals(chkGBOutcome2.Text.Replace("\r\n", string.Empty).Trim())
+                && gbOutcomeCheckbox[2].Equals(chkGBOutcome3.Text.Replace("\r\n", string.Empty).Trim())
+                && lblReportOutcome.Text.Replace("\r\n", string.Empty).Trim().Equals(subHeading));
+        }
+
+        public void ClickGBOutcomeCheckbox(string RecordOutcome)
+        {
+            if (RecordOutcome.Equals("Passenger referred to DAERA/SPS at NI port"))
+            {
+                chkGBOutcome1.ScrollAndClick(_driver);
+            }
+            else if (RecordOutcome.Equals("Passenger advised not to travel"))
+            {
+                chkGBOutcome2.ScrollAndClick(_driver);
+            }
+            else if (RecordOutcome.Equals("Passenger says they will not travel"))
+            {
+                chkGBOutcome3.ScrollAndClick(_driver);
+            }
+        }
+
+        public void ClickSPSOutcomeCheckbox(string SPSOutcome)
+        {
+            if (SPSOutcome.ToUpper().Equals("ALLOWED"))
+            {
+                chkSPSOutcome1.ScrollAndClick(_driver);
+            }
+            else if (SPSOutcome.ToUpper().Equals("NOT ALLOWED"))
+            {
+                chkSPSOutcome2.ScrollAndClick(_driver);
+            }
+        }
+
+        public bool VerifySPSOutcomeCheckboxes(string checkboxValues, string subHeading)
+        {
+            var spsOutcomeCheckbox = checkboxValues.Split('|');
+            chkSPSOutcome1.ScrollToElement(_driver);
+            return (spsOutcomeCheckbox[0].Equals(chkSPSOutcome1.Text) && spsOutcomeCheckbox[1].Equals(chkSPSOutcome2.Text) && lblReportOutcome.Text.Equals(subHeading));
+        }
+
+        public bool VerifySPSCheckboxesAreNotChecked()
+        {
+            chkSPSOutcome2.ScrollToElement(_driver);
+            return (chkSPSOutcome2.HasAttribute("Checked") && chkSPSOutcome1.HasAttribute("Checked"));
+        }
+        public bool VerifyGBCheckboxesAreNotChecked()
+        {
+            chkGBOutcome1.ScrollToElement(_driver);
+            return (chkGBOutcome1.HasAttribute("Checked") && chkGBOutcome2.HasAttribute("Checked") && chkGBOutcome3.HasAttribute("Checked"));
+        }
+        public bool VerifyDetailsOfOutcome()
+        {
+            lblDetailsOfOutcome.ScrollToElement(_driver);
+            return lblDetailsOfOutcome.Text.Contains("Details of outcome (optional)");
+        }
+
+        public bool VerifyAnyRelavantCommentsSection()
+        {
+            return lblAnyRelavantComments.Count == 0 && lblAnyRelavantCommentsHint.Count == 0
+                 && txtareaRelevantComments.Count == 0;
+        }
+
+        public bool VerifyTypeOfPassengerSubheading(string subHeading, string sectionName)
+        {
+            lblPassengerDetails.ScrollToElement(_driver);
+            return lblPassengerDetails.Text.Contains(sectionName) && lblTypeOfPassenger.Text.Contains(subHeading);
+        }
+
+        public bool VerifyTypeOfPassengerSubheadingISNotPresent()
+        {
+            return lblTypeOfPassengerLabels.Count() == 0;
+        }
+
+        public bool VerifyVCAndPetOwnerDetailSubheading(string subHeading)
+        {
+            lblPetOwnerDetailsSubHeading.ScrollToElement(_driver);
+            return lblPetOwnerDetailsSubHeading.Text.Contains(subHeading);
+        }
+
+        public bool VerifyPetDetailsFromPTDLink(string linkName)
+        {
+            lnkPetDetailsFromPTD.Click(_driver);
+            return lnkPetDetailsFromPTD.Text.Contains(linkName);
+        }
+
+        public bool VerifyVCAndPetOwnerAndPetDetailTableName(string tableName)
+        {
+            return tableName.ToUpper().Equals("PET OWNER DETAILS") ?
+                lblPetOwnerDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper()) :
+                lblPetDetailsTableName.Text.ToUpper().Contains(tableName.ToUpper());
+        }
+
+        public bool VerifyVisualCheckTableFields(string species, string breed, string sex, string dob, string colour, string significantFeature)
+        {
+            return lblVisualCheckTableSpecies.Text.Contains(species) && lblVisualCheckTableBreed.Text.Contains(breed)
+                && lblVisualCheckTableSex.Text.Contains(sex) && lblVisualCheckTableDateOfBirth.Text.Contains(dob)
+                && lblVisualCheckTableColour.Text.Contains(colour) && lblVisualCheckTableSignificantFeature.Text.Contains(significantFeature);
+        }
+
+        public bool VerifyOtherIssuesSubheading(string subHeading)
+        {
+            return lblOtherIssues.Text.Contains(subHeading);
+        }
+
+        public bool VerifyOtherIssuesCheckboxes(string checkboxOptions)
+        {
+            var otherIssuesCheckbox = checkboxOptions.Split('|');
+            return otherIssuesCheckbox[0].Equals(lblOtherIssuesOption1.Text)
+                && otherIssuesCheckbox[1].Equals(lblOtherIssuesOption2.Text);
+        }
+
+        public bool VerifyOtherReasonOptionHint(string hint)
+        {
+            lblOtherReasonHint.ScrollToElement(_driver);
+            return lblOtherReasonHint.Text.ToLower().Contains(hint.ToLower());
+        }
+
+        public bool VerifyOtherIssuesCheckboxesAreNotChecked()
+        {
+            lblOtherIssuesOption1.ScrollToElement(_driver);
+            return lblOtherIssuesOption1.HasAttribute("Checked")
+                && lblOtherIssuesOption2.HasAttribute("Checked");
+        }
+
+        public bool VerifyMicrochipSection()
+        {
+            lblMCHeader.ScrollToElement(_driver);
+            return lblMCHeader.Text.Contains("Microchip")
+                   && lblMCCheckbox1.Text.Contains("Cannot find microchip")
+                   && !lblMCCheckbox1.Selected;
+        }
+
+        public bool VerifyMCDetailsPTDTableWithValues(string MCDetails)
+        {
+            lblMCDetailsLink.Click(_driver);
+            string[] MCNumberAndDate = MCDetails.Split('|');
+            return lblMCTableHeading.Text.Equals("Microchip")
+                && lblMCNumber.Text.Equals("Microchip number")
+                && lblMCImplantOrScanDate.Text.Equals("Implant or scan date")
+                && lblMCNumberValue.Text.Equals(MCNumberAndDate[0])
+                && lblMCImplantOrScanDateValue.Text.Equals(MCNumberAndDate[1]);
+        }
+
+        public void ClickOnMCCheckbox(string mcCheckbox)
+        {
+            if (mcCheckbox.Equals("Cannot find microchip"))
+            {
+                lblMCCheckbox1.ScrollAndClick(_driver);
+            }
+        }
+
+        public void EnterMCNumber(string MCNumber)
+        {
+            lblMCNumberNotFoundInScan.ScrollToElement(_driver);
+            lblMCNumberNotFoundInScan.Text.Equals("Microchip number found in scan");
+            txtMCNumberNotFoundInScan.Clear();
+            txtMCNumberNotFoundInScan.SendKeys(MCNumber);
+        }
+        public bool VerifyNameAndEmailOfPetOwner(string name, string email)
+        {
+            lblPetOwnerDetailsTableName.Click();
+
+            lblPetOwnerName.ScrollToElement(_driver);
+            return lblPetOwnerName.Text.Contains(name)
+                && lblPetOwnerEmail.Text.Contains(email);
+        }
+
+        public bool VerifyAddressAndPhoneNumberOfPetOwner(string address, string phoneNumber)
+        {
+            lblPetOwnerAddress.ScrollToElement(_driver);
+            var addressReplaceNewLine = lblPetOwnerAddress.Text.ReplaceLineEndings("\n");
+            var addressDetail = addressReplaceNewLine.Replace('\n', ',');
+
+            return addressDetail.Contains(address)
+                && lblPetOwnerPhoneNumber.Text.Contains(phoneNumber);
+        }
+
+        public bool VerifyInfoSubmittedMessage(string submittedMessage)
+        {
+            lblInfoSubmittedMessage.ScrollToElement(_driver);
+            return lblInfoSubmittedMessage.Text.Contains(submittedMessage);
+        }
+
+        public void ClickSaveOutComeButton()
+        {
+            btnSaveOutCome.ScrollAndClick(_driver);
+        }
+
+        public bool VerifyTypeOfPassengerRadioButtons(string ferryFootPassenger, string vehicleOnFerry)
+        {
+            btnFootPassengerRadio.ScrollToElement(_driver);
+
+            return btnFootPassengerRadio.Text.Contains(ferryFootPassenger)
+                && btnVehicleRadio.Text.Contains(vehicleOnFerry) && btnAirlinesButton.Count() == 0
+                && !btnFootPassengerRadio.Selected && !btnVehicleRadio.Selected;
+        }
+
+        public bool VerifyMicrochipCheckboxesAreChecked()
+        {
+            lblMicrochipOption1.ScrollToElement(_driver);
+            return lblMicrochipOption1.HasAttribute("Checked");
+        }
+
+        public void ClickVisualCheckReason(string visualCheckReason)
+        {
+            if (lblOtherIssuesOption1.Text.Trim().Equals(visualCheckReason))
+                lblOtherIssuesOption1.ScrollAndClick(_driver);
+            else if (lblOtherIssuesOption2.Text.Trim().Equals(visualCheckReason))
+                lblOtherIssuesOption2.ScrollAndClick(_driver);
+        }
+
+        public void EnterDetailsOfOutcome(string details)
+        {
+            txtareaDetailsOfOutcome.SendKeys(details);
+        }
+
+        public bool VerifyVisualCheckCheckBox()
+        {
+            return lblVisualCheck.Count() == 0 && lblVisualCheckCheckBox.Count() == 0;
+        }
+
+        public bool VerifyMicrochipDoesNotMatchPTDCheckbox()
+        {
+            return lblMCCheckbox2.Count() == 0;
+        }
+        #endregion
+    }
+}

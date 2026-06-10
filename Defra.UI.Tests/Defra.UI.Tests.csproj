@@ -1,0 +1,332 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Feature\CP\E2E\**" />
+    <Compile Remove="Feature\Regression\**" />
+    <EmbeddedResource Remove="Feature\CP\E2E\**" />
+    <EmbeddedResource Remove="Feature\Regression\**" />
+    <None Remove="Feature\CP\E2E\**" />
+    <None Remove="Feature\Regression\**" />
+    <ReqnrollFeatureFiles Remove="Feature\CP\E2E\**" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\E2E\**" />
+    <SpecFlowFeatureFiles Remove="Feature\Regression\**" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\Regression\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data\Users\AP\DEV\Users.json" />
+    <None Remove="Data\Users\AP\PRE\Users.json" />
+    <None Remove="Data\Users\AP\TST\Users.json" />
+    <None Remove="Data\Users\CP\DEV\Users.json" />
+    <None Remove="Data\Users\CP\PRE\Users.json" />
+    <None Remove="Data\Users\CP\TST\Users.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Microchip Information Validations - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\AP\Validations\View PTD Validations - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\Check-OutCome - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\GBChecksReferralPagesValidation - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\ReportNonCompliance - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\CP\SearchDocumentsValidations - Copy.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\PetsHomePage.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\PTSignificantFeatures.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\SignIn.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\Validations\Microchip Information Validations.feature.cs" />
+    <ReqnrollObsoleteCodeBehindFiles Remove="Feature\WELSH\Validations\Pet Details Validations.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Accessibility\DogAndCat.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\E2E\DogAndCat - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\CP\Accessibility\Check-OutCome.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\IDCOMS\IdcomsRegression - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\UAT\SUS\CompleteRegistration.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\Update Microchip Information - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Update\Update Pet Details - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Validations - Copy (2).feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Validations - Copy (3).feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Validations - Copy.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Feature\WELSH\PrintDownload\PrintTravelDocumentWelsh.feature" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Data\Users\AP\DEV\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\AP\PRE\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\AP\TST\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\CP\DEV\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\CP\PRE\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Users\CP\TST\Users.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
+    <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.5.0" />
+    <PackageReference Include="Cognizant.WCAG.Compliance.Checker" Version="1.2.313" />
+    <PackageReference Include="Defra.Ui.Automation.Framework" Version="2.0.7" />
+    <PackageReference Include="Dynamitey" Version="3.0.3" />
+    <PackageReference Include="ExtentReports" Version="5.0.4" />
+    <PackageReference Include="MailinatorApiClient" Version="1.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+    <PackageReference Include="Reqnroll" Version="2.2.1" />
+    <PackageReference Include="Reqnroll.NUnit" Version="2.2.1" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="*" />
+    <PackageReference Include="SeleniumExtras.WaitHelpers" Version="1.0.2" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+	<PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Capgemini.PowerApps.SpecFlowBindings\Capgemini.PowerApps.SpecFlowBindings.csproj" />
+    <ProjectReference Include="..\Defra.Trade.MSD365.SpecFlowBindings\Defra.Trade.MSD365.SpecFlowBindings.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="CI_appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="driver.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="power-apps-bindings.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Update="docker-compose-grid.yml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Update="power-apps-bindings.yml">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+	<None Update="TestExecution.json">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</None>
+    <None Update="testrun_30.runsettings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="testrun_3.runsettings">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Update="testrun_10.runsettings">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+	<None Update="testrun.runsettings">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Feature\AP\Accessibility\APAccessibility.feature.cs">
+      <DependentUpon>APAccessibility.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\E2E\Ferret.feature.cs">
+      <DependentUpon>Ferret.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Validations\View PTD Validations.feature.cs">
+      <DependentUpon>View PTD Validations.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Validations\Suspension Validations.feature.cs">
+      <DependentUpon>Suspension Validations.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\Check-OutCome-SPS.feature.cs">
+      <DependentUpon>Check-OutCome-SPS.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\GBChecksReferralPagesValidation-SPS.feature.cs">
+      <DependentUpon>GBChecksReferralPagesValidation-SPS.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\GBChecksReferralPagesValidation.feature.cs">
+      <DependentUpon>GBChecksReferralPagesValidation.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\Check-OutCome.feature.cs">
+      <DependentUpon>Check-Outcome.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\ReportNonCompliance-SPS.feature.cs">
+      <DependentUpon>ReportNonCompliance-SPS.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\ChecksPageValidations.feature.cs">
+      <DependentUpon>ChecksPageValidations.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\CP\SearchDocumentsValidations-SPS.feature.cs">
+      <DependentUpon>SearchDocumentsValidations-SPS.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\IDCOMS\IdcomsRegressionE2E.feature.cs">
+      <DependentUpon>IdcomsRegressionE2E.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\UAT\SUS\DataPreparation.feature.cs">
+      <DependentUpon>DataPreparation.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Update\UpdatePetOwnerDetails.feature.cs">
+      <DependentUpon>UpdatePetOwnerDetails.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Update\UpdatePetDetails.feature.cs">
+      <DependentUpon>UpdatePetDetails.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Update\UpdateMicrochipInformation.feature.cs">
+      <Visible>true</Visible>
+      <DependentUpon>UpdateMicrochipInformation.feature</DependentUpon>
+      <DesignTime>true</DesignTime>
+      <AutoGen>true</AutoGen>
+    </Compile>
+    <Compile Update="Feature\AP\Validations\Pet Details Validations.feature.cs">
+      <DependentUpon>Pet Details Validations.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Validations\Pet Owner Details Validations.feature.cs">
+      <DependentUpon>Pet Owner Details Validations.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\AP\Validations\Microchip Information Validations.feature.cs">
+      <DependentUpon>Microchip Information Validations.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\WELSH\PetsHomePageWelsh.feature.cs">
+      <DependentUpon>PetsHomePageWelsh.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\WELSH\PTSignificantFeaturesWelsh.feature.cs">
+      <DependentUpon>PTSignificantFeaturesWelsh.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\WELSH\Validations\Microchip Information Validations Welsh.feature.cs">
+      <DependentUpon>Microchip Information Validations Welsh.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\WELSH\Validations\Pet Details Validations Welsh.feature.cs">
+      <DependentUpon>Pet Details Validations Welsh.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Feature\WELSH\Validations\Suspension Validations Welsh.feature.cs">
+      <Visible>true</Visible>
+      <DependentUpon>Suspension Validations Welsh.feature</DependentUpon>
+      <DesignTime>true</DesignTime>
+      <AutoGen>true</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ReqnrollFeatureFiles Update="Feature\AP\Validations\View PTD Validations.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\AP\Validations\Suspension Validations.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\Check-OutCome-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\GBChecksReferralPagesValidation-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\GBChecksReferralPagesValidation.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\ReportNonCompliance-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\ChecksPageValidations.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\CP\SearchDocumentsValidations-SPS.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\WELSH\PetsHomePageWelsh.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\WELSH\PTSignificantFeaturesWelsh.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\WELSH\Validations\Microchip Information Validations Welsh.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\WELSH\Validations\Pet Details Validations Welsh.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+    <ReqnrollFeatureFiles Update="Feature\WELSH\Validations\Suspension Validations Welsh.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </ReqnrollFeatureFiles>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Feature\AP\Accessibility\APAccessibility.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\E2E\Ferret.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\CP\Accessibility\CPAccessibility.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\IDCOMS\IdcomsRegressionE2E.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\UAT\SUS\DataPreparation.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Update\Update Pet Owner Details.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Update\Update Pet Details.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Update\Update Microchip Information.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Validations\Pet Details Validations.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Validations\Pet Owner Details Validations.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Feature\AP\Validations\Microchip Information Validations.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+  </ItemGroup>
+	
+
+
+</Project>

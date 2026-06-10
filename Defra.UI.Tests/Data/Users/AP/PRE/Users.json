@@ -1,0 +1,25 @@
+{
+  "Users": [
+    {
+      "username": "58 85 55 79 68 96",
+      "Environment": "PRE",
+      "HomePage": true,
+      "Credential": "G0vernmen+",
+      "Checker": ""
+    },
+    {
+      "username": "46 43 10 33 79 83",
+      "Environment": "PRE",
+      "HomePage": true,
+      "Credential": "G0vernmen+",
+      "Checker": "SUS"
+    },
+    {
+      "username": "76 62 17 84 67 95",
+      "Environment": "PRE",
+      "HomePage": true,
+      "Credential": "G0vernmen+",
+      "Checker": "NOLINK"
+    }
+  ]
+}
