@@ -72,7 +72,7 @@ Scenario: Verify the duplicate subgrid - Revoked Application
 Scenario: Verify the duplicate subgrid - Authorised Application
 	When I Login to Dynamics application
 	And I Switch to 'All PTD Applications'
-	And I open the 'JUBBQB3A' application
+	And I open the '5XZKV5YD' application
 	And I go to the tab 'Duplicates'
 	Then I Verify if 'Application Reference' coloumn is available in Duplicate subgrid
 	And I Verify if 'PTD Reference' coloumn is available in Duplicate subgrid
@@ -81,7 +81,7 @@ Scenario: Verify the duplicate subgrid - Authorised Application
 Scenario: Verify the duplicate subgrid - Open Application
 	When I Login to Dynamics application
 	And I Switch to 'All PTD Applications'
-	And I open the 'BSSOBCSA' application
+	And I open the '8B1CNKV5' application
 	And I go to the tab 'Duplicates'
 	Then I Verify if 'Application Reference' coloumn is available in Duplicate subgrid
 	And I Verify if 'PTD Reference' coloumn is available in Duplicate subgrid
