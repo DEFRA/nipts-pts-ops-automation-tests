@@ -465,7 +465,7 @@ Scenario Outline: Verify if the caseworker can add notes to the case
 	When I Login to Dynamics application
 	And I opens the application
 	Then I get the PTD Reference Number and Store it
-	When I assign the application to 'Shukla Vishal' another user
+	When I assign the application to 'Rasiya Pareeth' another user
 	And I assign the application to myself
 	Then I verify the copy of the 'CONFIRMATION' Email in Timeline
 	When I add notes as 'Notes Title' and 'Notes Body'
