@@ -189,7 +189,7 @@ public class TimelineSteps : PowerAppsStepDefiner
 
             if (descriptionElement.Text.Contains(expectedTitle))
             {
-                element.FirstOrDefault()?.Click();
+               // element.FirstOrDefault()?.Click();
                 isSuccess = true;
                 break;
             }
