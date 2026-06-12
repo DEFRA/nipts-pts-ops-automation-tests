@@ -21,8 +21,6 @@ namespace Defra.UI.Tests.Capabilities
             chromeOptions.AddArgument("--diable-inforbars");
             chromeOptions.AddArgument("--start-maximized");
             chromeOptions.AddArgument("--no-sandbox");
-            chromeOptions.AddArgument("--disable-notifications");
-            chromeOptions.AddUserProfilePreference("profile.default_content_setting_values.notifications", 1);
             chromeOptions.AcceptInsecureCertificates = true;
 
 
