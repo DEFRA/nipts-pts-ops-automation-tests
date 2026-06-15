@@ -12,5 +12,6 @@ Background:
 	When I have provided the user credentials without any Invalid document and signin
 	Then I should redirected to Apply for a pet travel document page
 
+@PipelineFailure
 Scenario: Verify the No Invalid link is not present
 	Then I Should not see the invalid documents link

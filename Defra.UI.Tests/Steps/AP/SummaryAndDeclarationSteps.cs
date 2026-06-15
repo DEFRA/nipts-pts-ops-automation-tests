@@ -204,7 +204,13 @@ namespace Defra.UI.Tests.Steps.AP
 
             foreach (var lineItem in address)
             {
-                Assert.IsTrue(summary?.Address.ToUpper()?.Replace(",", "")?.Contains(Utils.NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
+                var normalizedSummary = Utils.NormalizeAddress(summary?.Address ?? string.Empty);
+                var normalizedLine = Utils.NormalizeAddress(lineItem ?? string.Empty);
+
+                Assert.IsTrue(
+                    normalizedSummary.Contains(normalizedLine),
+                    $"Address is not matching in {pageName} page!"
+                );
             }
 
             if (isSummaryPage)
