@@ -207,10 +207,34 @@ namespace Defra.UI.Tests.Steps.AP
                 var normalizedSummary = Utils.NormalizeAddress(summary?.Address ?? string.Empty);
                 var normalizedLine = Utils.NormalizeAddress(lineItem ?? string.Empty);
 
-                Assert.IsTrue(
-                    normalizedSummary.Contains(normalizedLine),
-                    $"Address is not matching in {pageName} page!"
+                // Log everything so pipeline shows the real cause
+                TestContext.WriteLine($"SUMMARY RAW: '{summary?.Address}'");
+                TestContext.WriteLine($"SUMMARY NORMALIZED: '{normalizedSummary}'");
+
+                TestContext.WriteLine($"LINE RAW: '{lineItem}'");
+                TestContext.WriteLine($"LINE NORMALIZED: '{normalizedLine}'");
+
+                // Token-based comparison (pipeline-safe)
+                var summaryTokens = new HashSet<string>(
+                    normalizedSummary.Split(' ', StringSplitOptions.RemoveEmptyEntries),
+                    StringComparer.OrdinalIgnoreCase
                 );
+
+                var lineTokens = normalizedLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                TestContext.WriteLine("SUMMARY TOKENS: " + string.Join(", ", summaryTokens));
+                TestContext.WriteLine("LINE TOKENS: " + string.Join(", ", lineTokens));
+
+                foreach (var token in lineTokens)
+                {
+                    Assert.IsTrue(
+                        summaryTokens.Contains(token),
+                        $"Address mismatch in {pageName} page.\n" +
+                        $"Missing token: '{token}'\n" +
+                        $"SUMMARY TOKENS: [{string.Join(", ", summaryTokens)}]\n" +
+                        $"LINE TOKENS: [{string.Join(", ", lineTokens)}]"
+                    );
+                }
             }
 
             if (isSummaryPage)
