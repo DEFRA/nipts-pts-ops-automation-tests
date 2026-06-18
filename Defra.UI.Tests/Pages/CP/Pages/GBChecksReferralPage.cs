@@ -17,8 +17,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             _objectContainer = container;
         }
 
-
-
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Referred to SPS']"));
@@ -92,11 +90,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return pageHeading.Text.Contains("Referred to SPS");
         }
 
-
         public bool IsGBCheckReportPageLoaded()
         {
-
-
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
             {
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);

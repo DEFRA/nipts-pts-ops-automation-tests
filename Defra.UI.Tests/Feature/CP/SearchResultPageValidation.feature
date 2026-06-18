@@ -107,7 +107,7 @@ Examples:
 	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Pending      | Because the PTD is ‘Pending’, you should check whether you can issue a SUPTD      |
 	| Ferry          | Birkenhead to Belfast (Stena) | D8C1CE    | Cancelled    | Because the PTD is ‘Cancelled’, you should check whether you can issue a SUPTD    |
 
-Scenario Outline: Verify the Warning text and Checks section in Suspended PTD Search result page
+Scenario Outline: Verify the Warning text and Checks section in Suspended PTD Search result page -GB
 	Then I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '14:00'
