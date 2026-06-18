@@ -17,6 +17,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             _objectContainer = container;
         }
 
+
+
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[normalize-space()='Referred to SPS']"));
@@ -90,8 +92,11 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return pageHeading.Text.Contains("Referred to SPS");
         }
 
+
         public bool IsGBCheckReportPageLoaded()
         {
+
+
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
             {
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
@@ -148,8 +153,21 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool ReasonForReferral(string referralReason)
         {
-            return lblReasonForReferral.Text.Trim().Equals("Reason for referral")
-            && (lblReasonForReferralValue.Text.Trim().Equals(referralReason) || lblReasonForReferralMultipleValues.Text.Trim().Replace("\r\n", ", ").Equals(referralReason));
+            // verify label first
+            if (!string.Equals(lblReasonForReferral.Text?.Trim(), "Reason for referral", StringComparison.Ordinal))
+                return false;
+
+            // exact single value match
+            if (string.Equals(lblReasonForReferralValue.Text?.Trim(), referralReason, StringComparison.Ordinal))
+                return true;
+
+            // normalize any line endings and whitespace for multip
+            // le values
+            var multipleRaw = lblReasonForReferralMultipleValues.Text ?? string.Empty;
+            var normalized = System.Text.RegularExpressions.Regex.Replace(multipleRaw.Trim(), @"\r\n?|\n", ", ");
+            normalized = System.Text.RegularExpressions.Regex.Replace(normalized, @"\s{2,}", " "); // collapse repeated spaces
+
+            return string.Equals(normalized, referralReason, StringComparison.Ordinal);
         }
 
         public bool MCNumberFoundInScan(string mcNumber)

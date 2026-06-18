@@ -40,12 +40,21 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #endregion
 
         #region Methods
-        public bool VerifyHeadings(string heading, string subHeading)
-        {
-            _driver.Wait(10);
-            var applicationTitle = lblTitle.Text.Replace("\r\n", " ").ToUpper();
-            return applicationTitle.Contains(subHeading.ToUpper()) && applicationTitle.Contains(heading.ToUpper());
-        }
+   public bool VerifyHeadings(string heading, string subHeading)
+{
+    // Ensure the heading element is present
+    _driver.WaitForElement(By.XPath("//h1"));
+
+    var raw = lblTitle?.Text ?? string.Empty;
+
+    // Normalize all line endings and collapse whitespace
+    raw = raw.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
+    raw = System.Text.RegularExpressions.Regex.Replace(raw, @"\s+", " ").Trim();
+
+    // Case-insensitive contains checks
+    return raw.IndexOf(subHeading ?? string.Empty, StringComparison.OrdinalIgnoreCase) >= 0
+        && raw.IndexOf(heading ?? string.Empty, StringComparison.OrdinalIgnoreCase) >= 0;
+}
 
         public bool IsPageLoaded()
         {
