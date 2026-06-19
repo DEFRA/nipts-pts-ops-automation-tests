@@ -1,7 +1,7 @@
 variables:
  Environment: 'pre'
  EnvAPLogin: 'TeZvzAsx8usMhsCVqGG203Iity63qjaT'
- FilterTestCategory : 'TestCategory=PipelineFailure' 
+ FilterTestCategory : '(TestCategory=Regression|TestCategory=ChangeDetails|TestCategory=Validations)&TestCategory!=E2E' 
  IDCOMSUrl: 'https://defra-trade-plants-preprod.crm4.dynamics.com'
  IDCOMSUser: 'nagarajan.subbiah@defra.gov.uk'
  IDOMSUserAlias: 'Nagarajan Subbiah'
