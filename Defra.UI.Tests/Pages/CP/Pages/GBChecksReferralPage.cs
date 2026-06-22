@@ -152,6 +152,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             if (!string.Equals(lblReasonForReferral.Text?.Trim(), "Reason for referral", StringComparison.Ordinal))
                 return false;
 
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
             // exact single value match
             if (string.Equals(lblReasonForReferralValue.Text?.Trim(), referralReason, StringComparison.Ordinal))
                 return true;

@@ -44,7 +44,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 {
     // Ensure the heading element is present
     _driver.WaitForElement(By.XPath("//h1"));
-
+    Thread.Sleep(TimeSpan.FromSeconds(2));
     var raw = lblTitle?.Text ?? string.Empty;
 
     // Normalize all line endings and collapse whitespace
