@@ -33,6 +33,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void EnterPetOwnerPNumber(string phoneNumber)
         {
+            Thread.Sleep(1000);
             txtPhoneNumber.Clear();
             txtPhoneNumber.SendKeys(phoneNumber);
         }
