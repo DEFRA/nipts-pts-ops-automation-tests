@@ -50,6 +50,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void EnterPostCode(string postCode)
         {
+            Thread.Sleep(1000);
             txtPostCode.Clear();
             txtPostCode.SendKeys(postCode);
         }

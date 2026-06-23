@@ -28,6 +28,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         }
         public void EnterPetOwnerName(string onwerName)
         {
+            Thread.Sleep(1000);
             txtPetOwnerName.Clear();
             txtPetOwnerName.SendKeys(onwerName);
         }
