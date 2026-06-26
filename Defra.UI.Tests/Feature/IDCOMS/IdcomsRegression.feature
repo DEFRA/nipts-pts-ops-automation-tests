@@ -615,7 +615,7 @@ Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter 
 	When I Login to Dynamics application
 	And I open 'Suspect Non Compliances' under 'Application'
 	And I Switch to 'All Suspect Non-Compliances'
-	And I open the 'SNC-1391' application
+	And I open the 'SNC-1560' application
 	Then I 'can' see 'Letter Sent' button
 	And I See the 'Letter to be sent' value in 'nipts_intenttosuspendletter' field
 	And I See the 'Letter to be sent' value in 'nipts_closeletter' field
@@ -644,7 +644,7 @@ Examples:
 Scenario: Verify the Status Reason and Owner of the Suspended Record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1047' application
+	And I open the 'SUS-1075' application
 	Then the status is 'Open' and readonly
 	And the Owner is 'Brindha Mathanaguru' and readonly
 
