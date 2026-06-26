@@ -23,7 +23,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         private IWebElement rdoPass => _driver.WaitForElement(By.XPath("//label[normalize-space()='Pass']"));
         private IReadOnlyCollection<IWebElement> rdoPassButtons => _driver.FindElements(By.XPath("//label[normalize-space()='Pass']"));
         private IWebElement rdoSUPTD => _driver.WaitForElement(By.XPath("//label[normalize-space()='Issue SUPTD']"));
-        private IReadOnlyCollection<IWebElement> rdoSUPTDButtons  => _driver.FindElements(By.XPath("//label[normalize-space()='Issue SUPTD']"));
+        private IReadOnlyCollection<IWebElement> rdoSUPTDButtons => _driver.FindElements(By.XPath("//label[normalize-space()='Issue SUPTD']"));
         private IWebElement rdobtnPass => _driver.WaitForElement(By.XPath("//input[@value='Pass']"));
         private IWebElement rdoFail => _driver.WaitForElement(By.XPath("//label[normalize-space()='Fail']"));
         private IReadOnlyCollection<IWebElement> rdoFailButtons => _driver.FindElements(By.XPath("//label[normalize-space()='Fail']"));
@@ -79,7 +79,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             rdoReferToSPS.Click(_driver);
         }
-        
+
         public void SelectIssueSUPTDRadioButton()
         {
             rdoIssueSUPTD.Click(_driver);
@@ -354,9 +354,9 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var hintLabel = hint.Split('|');
 
             return radiobuttonsLabel[0].Equals(rdoPass.Text) && radiobuttonsLabel[1].Equals(rdoSUPTD.Text) && radiobuttonsLabel[2].Equals(rdoFail.Text);
-                //&& hintLabel[0].Equals(lblPassRadioButtonHint.Text) && hintLabel[1].Equals(lblFailRadioButtonHint.Text);
+            //&& hintLabel[0].Equals(lblPassRadioButtonHint.Text) && hintLabel[1].Equals(lblFailRadioButtonHint.Text);
         }
-        
+
         public bool VerifyChecksSectionRadioButtonsWithHintsGB(string radiobuttons, string hint)
         {
             lblChecks.ScrollToElement(_driver);
@@ -367,12 +367,12 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyChecksSectionIsNotPresent()
         {
-            return rdoPassButtons.Count() ==0 && rdoSUPTDButtons.Count() == 0 && rdoReferToSPSButtons.Count() == 0 && rdoFailButtons.Count() == 0;
+            return rdoPassButtons.Count() == 0 && rdoSUPTDButtons.Count() == 0 && rdoReferToSPSButtons.Count() == 0 && rdoFailButtons.Count() == 0;
         }
-        
+
         public bool VerifyContinueIsNotPresent()
         {
-            return btnSaveAndContinueButtons.Count() ==0 ;
+            return btnSaveAndContinueButtons.Count() == 0;
         }
         #endregion
     }

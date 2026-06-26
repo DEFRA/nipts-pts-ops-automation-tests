@@ -1,9 +1,9 @@
 ﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.WELSH.Interfaces;
-using OpenQA.Selenium.Support.UI;
-using OpenQA.Selenium;
-using Reqnroll.BoDi;
 using Defra.UI.Tests.Tools;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.WELSH.Classes
 {
@@ -47,7 +47,7 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
         {
             lnkManageYourAccount.Click();
         }
-        
+
         public void ClickOnManageAccountLink()
         {
             lnkManageAccount.Click();

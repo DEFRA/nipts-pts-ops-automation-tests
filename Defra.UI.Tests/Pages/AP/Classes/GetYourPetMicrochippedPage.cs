@@ -1,7 +1,7 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -27,7 +27,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void ClickSurveyLink(string surveyLink)
         {
-            if(SurveyLinkMicrochipPage.Count > 0 && SurveyLinkTextMicrochipPage.Text.Equals(surveyLink))
+            if (SurveyLinkMicrochipPage.Count > 0 && SurveyLinkTextMicrochipPage.Text.Equals(surveyLink))
             {
                 SurveyLink.ScrollAndClick(_driver);
             }

@@ -1,5 +1,4 @@
-﻿using Defra.UI.Tests.Pages.WELSH.Classes;
-using Defra.UI.Tests.Pages.WELSH.Interfaces;
+﻿using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;

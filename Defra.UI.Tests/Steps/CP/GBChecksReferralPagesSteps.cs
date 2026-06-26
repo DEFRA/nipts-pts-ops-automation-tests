@@ -1,7 +1,6 @@
 ﻿using AventStack.ExtentReports.Gherkin.Model;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.CP.Interfaces;
-using Defra.UI.Tests.Pages.CP.Pages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;

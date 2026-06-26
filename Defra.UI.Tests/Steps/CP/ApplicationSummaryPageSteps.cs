@@ -44,7 +44,7 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _applicationSummaryPage?.SelectReferToSPSRadioButton();
         }
-        
+
         [When(@"I select Issue SUPTD radio button")]
         public void WhenISelectIssueSUPTDRadioButton()
         {
@@ -97,7 +97,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then("I verify the Reference number table values {string} for {string} application")]
         public void ThenIVerifyTheReferenceNumberTableValuesForApplication(string values, string status)
         {
-            Assert.True(_applicationSummaryPage?.VerifyRefNumTableValues(values, status),$"The Reference number table values are not matching");
+            Assert.True(_applicationSummaryPage?.VerifyRefNumTableValues(values, status), $"The Reference number table values are not matching");
         }
 
         [Then("I verify the Microchip table values {string} for {string} application")]
@@ -109,7 +109,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then("I verify the Pet Details table values {string} for the species {string}")]
         public void ThenIVerifyThePetDetailsTableValuesForTheSpecies(string values, string species)
         {
-            Assert.True(_applicationSummaryPage?.VerifyPetDetailsValues(values, species),$"The Pet Details table values are not matching");
+            Assert.True(_applicationSummaryPage?.VerifyPetDetailsValues(values, species), $"The Pet Details table values are not matching");
         }
 
         [Then(@"I verify the Pet Owner Details table values '([^']*)' for the application")]
@@ -143,19 +143,19 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtonsWithHints(radiobuttons, hint));
         }
-        
+
         [Then(@"I verify Checks section with radio buttons '([^']*)' and hint '([^']*)' for GB Checker")]
         public void ThenIverifyChecksSectionWithRadioButtonsAndHintGB(string radiobuttons, string hint)
         {
             Assert.True(_applicationSummaryPage?.VerifyChecksSectionRadioButtonsWithHintsGB(radiobuttons, hint));
         }
-        
+
         [Then(@"I verify Checks section is not present")]
         public void ThenIverifyChecksSectionWithRadioButtonsIsNotPresent()
         {
             Assert.True(_applicationSummaryPage?.VerifyChecksSectionIsNotPresent());
         }
-        
+
         [Then(@"I verify Save and Continue button is not present")]
         public void VerifySaveAndContinueIsNotPresent()
         {

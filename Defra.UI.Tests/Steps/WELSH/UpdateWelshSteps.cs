@@ -1,8 +1,8 @@
 ﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
-using Reqnroll.BoDi;
 using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.WELSH
 {
@@ -46,7 +46,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             _scenarioContext.Remove("Rhif y microsglodyn");
             _scenarioContext.Add("Rhif y microsglodyn", updatedMicrochipNumber);
         }
-        
+
         [Then(@"I have modified the microchip scanned date by adding '(.*)' days in Welsh")]
         public void ThenIHaveModifiedTheMicrochipScannedDateByAddingDays(int daysToAdd)
         {
@@ -57,20 +57,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             var microchippedDate = petMicrochipDatePageWelsh?.EnterDateMonthYear(date);
             _scenarioContext.Add("Dyddiad mewnblannu neu sganio", microchippedDate);
         }
-        /*
-        [Then(@"I have clicked the change option for the '(.*)' from Pet details section")]
-        public void ThenIHaveClickedTheChangeOptionForTheFromPetDetailsSection(string fieldName)
-        {
-            declarationPage?.ClickPetDetailsChangeLink(fieldName);
-        }
 
-        [Then(@"I have clicked the change option for Ferret '(.*)' from Pet details section")]
-        public void ThenIHaveClickedTheChangeOptionForFerrerFromPetDetailsSection(string fieldName)
-        {
-            declarationPage?.ClickPetDetailsChangeForFerretLink(fieldName);
-        }
-
-        */
         [Then(@"I have modified the pet name as '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetNameAs(string petName)
         {
@@ -148,13 +135,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             var significantFeature = significantFeaturesPageWelsh?.SelectSignificantFeaturesOption(hasUniqueFeatures);
             _scenarioContext.Add("Nodweddion arwyddocaol", significantFeature);
         }
-        /*
-        [Then(@"I have clicked the change option for the '(.*)' from Pet owner details section")]
-        public void ThenIHaveClickedTheChangeOptionForTheFromPetOwnerDetailsSection(string fieldName)
-        {
-            declarationPage?.ClickPetOwnerChangeLink(fieldName);
-        }
-        */
+
         [Then(@"I have modified the pet owner name with the value of '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetOwnerNameWithTheValueOf(string petOwnerName)
         {
@@ -162,13 +143,13 @@ namespace Defra.UI.Tests.Steps.WELSH
             petOwnerNamePageWelsh?.EnterPetOwnerName(petOwnerName);
             _scenarioContext.Add("enw llawn", petOwnerName);
         }
-        
+
         [When(@"I click continue button from pet owner name page in Welsh")]
         public void WhenIClickContinueButtonFromPetOwnerNamePage()
         {
             petOwnerNamePageWelsh?.ClickContinueButton();
         }
-        
+
         [Then(@"I have modified the pet owner phone number with the value of '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetOwnerPhoneNumberWithTheValueOf(string phoneNumber)
         {
@@ -176,13 +157,13 @@ namespace Defra.UI.Tests.Steps.WELSH
             petOwnerPhoneNumberPage?.EnterPetOwnerPNumber(phoneNumber);
             _scenarioContext.Add("Rhif ffôn", phoneNumber);
         }
-        
+
         [When(@"I click continue button from postcode search page in Welsh")]
         public void WhenIClickContinueButtonFromPostCodeSearchPage()
         {
             petOwnerAddressPageWelsh?.ClickContinueButton();
         }
-        
+
         [Then(@"I have modified the pet owner postcode and address with the value of '(.*)' in Welsh")]
         public void ThenIHaveModifiedThePetOwnerPostcodeWithAddressWithTheValueOf(string postCode)
         {
@@ -191,23 +172,7 @@ namespace Defra.UI.Tests.Steps.WELSH
             petOwnerAddressPageWelsh?.EnterPostCode(postCode);
             _scenarioContext.Add("Cod post", postCode);
         }
-        /*
-        [When(@"I click continue button from What is your phone number page")]
-        public void WhenIClickContinueButtonFromWhatIsYourPhoneNumberPage()
-        {
-            petOwnerPhoneNumberPage?.ClickContinueButton();
-        }
 
-        private void ClickContinueButtonBreedPage()
-        {
-            var petsSelected = _scenarioContext.Get<string>("PetType");
-
-            if (!petsSelected.ToUpper().Equals("FERRET"))
-            {
-                breedPage?.ClickContinueButton();
-            }
-        }
-        */
         [Then(@"I have modified the microchip scanned date before to the date of birth in Welsh")]
         public void ThenIHaveModifiedTheMicrochipScannedDateBeforeToTheDateOfBirth()
         {

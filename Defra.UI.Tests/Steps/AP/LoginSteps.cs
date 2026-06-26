@@ -85,7 +85,7 @@ namespace Defra.UI.Tests.Steps.AP
         [When(@"I have provided invalid CP credentials and signin")]
         public void WhenIHaveProvidedInvalidCPCredentialsAndSignin()
         {
-            var jsonData = UserObject?.GetUser("AP");
+            var jsonData = UserObject?.GetUser("AP", "SUS");
             signin?.CPSignIn(jsonData.UserName, jsonData.Credential);
         }
     }

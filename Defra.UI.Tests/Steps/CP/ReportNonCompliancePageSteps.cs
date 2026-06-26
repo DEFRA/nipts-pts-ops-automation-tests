@@ -1,13 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using System.Runtime.Intrinsics.X86;
 using Reqnroll;
-using static Microsoft.Dynamics365.UIAutomation.Api.Pages.ActivityFeed;
-using static System.Net.Mime.MediaTypeNames;
-using Defra.UI.Tests.Pages.CP.Pages;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -115,15 +111,15 @@ namespace Defra.UI.Tests.Steps.CP
         }
 
         [Then(@"I should see the '([^']*)' heading with hint '([^']*)'")]
-        public void ThenIShouldSeeTheHeadingWithHint(string reasons,string hint)
+        public void ThenIShouldSeeTheHeadingWithHint(string reasons, string hint)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons,hint), "Reasons Heading and Hint does not exists as expected");
+            Assert.True(_reportNonCompliancePage?.VerifyReasonsHeadingWithHint(reasons, hint), "Reasons Heading and Hint does not exists as expected");
         }
 
         [Then(@"I verify the Record Outcome '(.*)' checkboxes under '(.*)'")]
         public void ThenIVerifyTheRecordOutcomeCheckboxes(string checkboxValues, string subHeading)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues,subHeading), "The Record Outcome checkbox values are not correct");
+            Assert.True(_reportNonCompliancePage?.VerifyGBOutcomeCheckboxes(checkboxValues, subHeading), "The Record Outcome checkbox values are not correct");
         }
 
         [Then(@"I Verify the Record Outcome check boxes are not selected")]
@@ -132,23 +128,23 @@ namespace Defra.UI.Tests.Steps.CP
             Assert.False(_reportNonCompliancePage?.VerifyGBCheckboxesAreNotChecked());
             //Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
         }
-        
+
         [Then(@"I Verify the SPS Outcomes are not selected")]
         public void ThenIVerifySPSOutcomesAreNotSelected()
         {
             Assert.False(_reportNonCompliancePage?.VerifySPSCheckboxesAreNotChecked());
         }
-        
+
         [Then(@"I verify the SPS Outcome '(.*)' options under '(.*)'")]
-        public void ThenIVerifyTheSPSOutcomeOptions(string checkboxValues , string subHeading)
+        public void ThenIVerifyTheSPSOutcomeOptions(string checkboxValues, string subHeading)
         {
-            Assert.True(_reportNonCompliancePage?.VerifySPSOutcomeCheckboxes(checkboxValues, subHeading),"The SPS Outcome checkbox values are not correct");
+            Assert.True(_reportNonCompliancePage?.VerifySPSOutcomeCheckboxes(checkboxValues, subHeading), "The SPS Outcome checkbox values are not correct");
         }
-        
+
         [Then(@"I verify the Details of Outcome label")]
         public void ThenIVerifyTheDetailsOfOutcome()
         {
-            Assert.True(_reportNonCompliancePage?.VerifyDetailsOfOutcome(),"The Details of Outcome label is incorrect");
+            Assert.True(_reportNonCompliancePage?.VerifyDetailsOfOutcome(), "The Details of Outcome label is incorrect");
         }
 
         [Then(@"I should not see any relevant comments section")]
@@ -240,14 +236,14 @@ namespace Defra.UI.Tests.Steps.CP
         public void WhenISelectTheMCCheckbox(string MCCheckbox)
         {
             _reportNonCompliancePage?.ClickOnMCCheckbox(MCCheckbox);
-        } 
-        
+        }
+
         [When(@"I click '(.*)' Record Outcome")]
         public void WhenISelectGBOutcome(string RecordOutcome)
         {
             _reportNonCompliancePage?.ClickGBOutcomeCheckbox(RecordOutcome);
         }
-        
+
         [When(@"I click '(.*)' in SPS Outcome")]
         public void WhenISelectSPSOutcome(string SPSOutcome)
         {
@@ -257,7 +253,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should see Name '([^']*)' and Email '([^']*)' of Pet owner")]
         public void ThenIShouldSeeNameAndEmailOfPetOwner(string name, string email)
         {
-            Assert.True(_reportNonCompliancePage?.VerifyNameAndEmailOfPetOwner(name,email));
+            Assert.True(_reportNonCompliancePage?.VerifyNameAndEmailOfPetOwner(name, email));
         }
 
         [Then(@"I should see Address '([^']*)' and Phone number '([^']*)' of Pet owner")]

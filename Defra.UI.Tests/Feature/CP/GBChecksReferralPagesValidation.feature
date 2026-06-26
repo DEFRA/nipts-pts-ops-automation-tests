@@ -75,7 +75,7 @@ Scenario: Verify Outcome table in GB check report page - SPS User
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
 	And I have selected 'Ferry' radio option
-	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '20:20'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -84,7 +84,7 @@ Scenario: Verify Outcome table in GB check report page - SPS User
 	When I click the reference number 'GB8264574B2' link
 	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
-	Then I should see 'Passenger says they will not travel' as Check outcome
+	And I should see 'Passenger says they will not travel' as Check outcome
 	And I should see '<DetailsOFOutcomeInGBCheckReport>' as Details of outcome
 	And I should see 'Cannot find microchip, Authorised person but no confirmation' as Reason for referral
 
@@ -124,7 +124,7 @@ Scenario: Verify Check details table in GB check report page - SPS User
 	And I have provided the password for prototype research page
 	Then I should redirected to port route checker page
 	And I have selected 'Ferry' radio option
-	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '20:20'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -133,11 +133,11 @@ Scenario: Verify Check details table in GB check report page - SPS User
 	When I click first link in PTD or Reference number
 	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
-	Then I should see 'PREPROD Automation' as GB checker name
+	And I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Birkenhead to Belfast (Stena)' as Route
-	Then I should see current date as Scheduled departure date
+	And I should see current date as Scheduled departure date
 	And I should see '23:50' as Scheduled departure time
-	Then I should see current date and current time as Date and time checked
+	And I should see current date and current time as Date and time checked
 
 Scenario: Verify the route details and PTD Number format in Referred to SPS page
 	Then I have selected 'Ferry' radio option
@@ -233,14 +233,14 @@ Scenario: Verify for no duplicate referrals and latest details updated in GB che
 	When I click the reference number 'GB826AD0D63' link
 	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
-	Then I should see 'Passenger advised not to travel' as Check outcome
+	And I should see 'Passenger advised not to travel' as Check outcome
 	And I should see 'None' as Details of outcome
 	And I should see 'Cannot find microchip, Authorised person but no confirmation' as Reason for referral
-	Then I should see 'PREPROD Automation' as GB checker name
+	And I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Birkenhead to Belfast (Stena)' as Route
-	Then I should see current date as Scheduled departure date
+	And I should see current date as Scheduled departure date
 	And I should see '23:53' as Scheduled departure time
-	Then I should see current date and current time as Date and time checked
+	And I should see current date and current time as Date and time checked
 
 Scenario: Verify referral count on updating approved document pass to fail check outcome
 	Then I have selected 'Ferry' radio option
@@ -258,7 +258,7 @@ Scenario: Verify referral count on updating approved document pass to fail check
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
 	And I should see a message 'Information has been successfully submitted' in Checks page
-	Then I should see the count next to Pass as '1' in the table contains departure time '02:45'
+	And I should see the count next to Pass as '1' in the table contains departure time '02:45'
 	When I click search button from footer
 	Then I navigate to Find a document page
 	And I click search by 'Search by PTD number' radio button
@@ -274,7 +274,7 @@ Scenario: Verify referral count on updating approved document pass to fail check
 	Then I click 'Ferry foot passenger' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
-	Then I should see the count next to Pass as '0' in the table contains departure time '02:45'
+	And I should see the count next to Pass as '0' in the table contains departure time '02:45'
 	And I should see the count next to Fail Referred to SPS as '1' in the table contains departure time '02:45'
 	When I click View link in Fail Referred to SPS row with departure time '02:45'
 	Then I should navigate to Referred to SPS page
@@ -282,14 +282,14 @@ Scenario: Verify referral count on updating approved document pass to fail check
 	When I click the reference number 'GB82687FDFA' link
 	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
-	Then I should see 'Passenger advised not to travel' as Check outcome
+	And I should see 'Passenger advised not to travel' as Check outcome
 	And I should see 'None' as Details of outcome
 	And I should see 'Cannot find microchip, Authorised person but no confirmation' as Reason for referral
-	Then I should see 'PREPROD Automation' as GB checker name
+	And I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Cairnryan to Larne (P&O)' as Route
-	Then I should see current date as Scheduled departure date
+	And I should see current date as Scheduled departure date
 	And I should see '02:45' as Scheduled departure time
-	Then I should see current date and current time as Date and time checked
+	And I should see current date and current time as Date and time checked
 
 Scenario: Verify referral count on updating approved document fail to fail check outcome
 	Then I have selected 'Ferry' radio option
@@ -326,7 +326,7 @@ Scenario: Verify referral count on updating approved document fail to fail check
 	Then I click 'Vehicle on ferry' in Passenger details
 	When I click Save outcome button from non-compliance page
 	Then I should see a message 'Information has been successfully submitted' in Checks page
-	Then I should see the count next to Pass as '0' in the table contains departure time '02:45'
+	And I should see the count next to Pass as '0' in the table contains departure time '02:45'
 	And I should see the count next to Fail Referred to SPS as '1' in the table contains departure time '02:45'
 	When I click View link in Fail Referred to SPS row with departure time '02:45'
 	Then I should navigate to Referred to SPS page
@@ -334,14 +334,14 @@ Scenario: Verify referral count on updating approved document fail to fail check
 	When I click the reference number 'GB82686FD9E' link
 	Then I should navigate to GB check report page
 	And I should see 'Outcome' and 'Check details' subheadings
-	Then I should see 'Passenger says they will not travel' as Check outcome
+	And I should see 'Passenger says they will not travel' as Check outcome
 	And I should see 'None' as Details of outcome
 	And I should see 'Cannot find microchip' as Reason for referral
-	Then I should see 'PREPROD Automation' as GB checker name
+	And I should see 'PREPROD Automation' as GB checker name
 	And I should see 'Loch Ryan to Belfast (Stena)' as Route
-	Then I should see current date as Scheduled departure date
+	And I should see current date as Scheduled departure date
 	And I should see '02:45' as Scheduled departure time
-	Then I should see current date and current time as Date and time checked	
+	And I should see current date and current time as Date and time checked
 
 Scenario: Verify the pagination of referrals details list in Referred to SPS page
 	Then I add records in referrals list in Referred to SPS page 'Ferry' 'Cairnryan to Larne (P&O)' '15:10' 'Cannot find microchip' 'Passenger says they will not travel' 'Vehicle on ferry' 'Information has been successfully submitted'
@@ -363,6 +363,6 @@ Scenario: Verify if the View link should be hidden for GB referral count is 0
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
 	And I should see a message 'Information has been successfully submitted' in Checks page
-	Then I should see the count next to Pass as '1' in the table contains departure time '17:45'
+	And I should see the count next to Pass as '1' in the table contains departure time '17:45'
 	And I should see the count next to Fail Referred to SPS as '0' in the table contains departure time '17:45'
 	And I Should not see the View link in the table contains departure time '17.45'

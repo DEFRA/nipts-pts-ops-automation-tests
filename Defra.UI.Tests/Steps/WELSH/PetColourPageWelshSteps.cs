@@ -1,10 +1,10 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Reqnroll.BoDi;
 
-namespace Defra.UI.Tests.Steps.AP
+namespace Defra.UI.Tests.Steps.WELSH
 {
     [Binding]
     public class PetColourPageWelshSteps
@@ -23,12 +23,6 @@ namespace Defra.UI.Tests.Steps.AP
             var pageTitle = $"Beth yw prif liw eich {petType.ToLower()}?";
             Assert.IsTrue(PetColourPageWelsh?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
         }
-
-        /*        [When(@"I have selected the radio button as '([^']*)' for pet's")]
-                public void WhenIHaveSelectedTheRadioButtonAsForPets(string colourOption)
-                {
-                    PetColourPage?.SelectColorOption(colourOption);
-                }*/
 
         [When(@"I have selected the radio button as '(.*)' for pet's and continue in Welsh")]
         public void WhenIHaveSelectedTheRadioButtonAsForPetsAndContinueInWelsh(string colourOption)

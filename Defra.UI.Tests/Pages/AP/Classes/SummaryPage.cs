@@ -1,9 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Contracts;
+﻿using Defra.UI.Tests.Contracts;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -177,7 +177,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public bool VerifyIssuingAuthorityAddress(string addressLine1, string addressLine2)
         {
             var address = lblAuthorityAddress.Text;
-            string[] separateLines = address.Split(new String[] {"\r\n", "\n", "\r"}, StringSplitOptions.RemoveEmptyEntries);
+            string[] separateLines = address.Split(new String[] { "\r\n", "\n", "\r" }, StringSplitOptions.RemoveEmptyEntries);
             string firstAddressLine = separateLines[0];
             string secondAddressLine = separateLines[1];
 
@@ -206,7 +206,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             {
                 return true;
             }
-            return false;       
+            return false;
         }
 
         public bool VerifyApplicationDetails(string status)

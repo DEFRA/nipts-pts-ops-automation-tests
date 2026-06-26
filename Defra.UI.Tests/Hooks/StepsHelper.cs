@@ -1,5 +1,4 @@
-﻿using Dynamitey;
-using Reqnroll;
+﻿using Reqnroll;
 
 namespace Defra.UI.Tests.Hooks
 {

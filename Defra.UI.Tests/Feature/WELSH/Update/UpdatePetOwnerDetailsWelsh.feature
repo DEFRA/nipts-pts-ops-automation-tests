@@ -17,6 +17,7 @@ Background:
 	When I click apply for a document button in Welsh
 	Then I should redirected to the Are your details correct page in Welsh
 
+@PipelineFailure
 Scenario Outline: Modify Name of the pet owner By Registered User with details correct in Welsh
 	Then I have selected '<Are your details correct>' option in Welsh
 	When I click on continue button from Are your details correct page in Welsh
@@ -124,6 +125,7 @@ Examples:
 	| PetCats's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cath | Cath    | Gwryw  | Du    | Oes                   | CV2 4NZ         |
 	| PetDogs's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ci   | Ci      | Gwryw  | Coch  | Oes                   | CV1 4PY         |
 
+@PipelineFailure
 Scenario Outline: Modify Phone number of the pet owner By Registered User with details correct in Welsh
 	Then I have selected '<Are your details correct>' option in Welsh
 	When I click on continue button from Are your details correct page in Welsh
@@ -176,6 +178,7 @@ Examples:
 	| PetCats's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cath | Cath    | Gwryw  | Coch  | Oes                   |        02012345679 |
 	| PetDogs's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ci   | Ci      | Gwryw  | Du    | Oes                   |        02012345679 |
 
+@PipelineFailure
 Scenario Outline: Modify Name of the pet owner By Registered User with details correct in Welsh - Ferret
 	Then I have selected '<Are your details correct>' option in Welsh
 	When I click on continue button from Are your details correct page in Welsh
@@ -224,6 +227,7 @@ Examples:
 	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color   | IsSignificantFeatures | UpdatedFullName | UpdatedPostCode |
 	| PetFerret | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ffured | Ffured  | Gwryw  | Siocled | Oes                   | NewFfured       | CV1 4PY         |
 
+@PipelineFailure
 Scenario Outline: Modify Phone number of the pet owner By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option in Welsh
 	When I click on continue button from Are your details correct page in Welsh

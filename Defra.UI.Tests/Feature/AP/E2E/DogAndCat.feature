@@ -76,7 +76,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	When I have clicked the View hyperlink from home page
 	Then I verify all the details in the declaration page for approved PTD 'Approved'
 	And I should see a table named 'Issuing authority' with a column 'Name and address of competent authority' in approved document
-	Then the address of authority should be 'Animal and Plant Health Agency' 'Woodham Lane, New Haw, Addlestone, Surrey KT15 3NB'
+	And the address of authority should be 'Animal and Plant Health Agency' 'Woodham Lane, New Haw, Addlestone, Surrey KT15 3NB'
 
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
@@ -160,7 +160,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
 	| PetCat's | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
-	| PetDog's | No                       | CV1 4PY  | 123         | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
+	| PetDog's | No                       | CV1 4PY  |         123 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
 
 Scenario Outline: Create PETS Travel Document By Registered User with enter address manually - Reject in Dynamics
 	Then I have selected '<Are your details correct>' option
@@ -171,7 +171,7 @@ Scenario Outline: Create PETS Travel Document By Registered User with enter addr
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -467,9 +467,9 @@ Scenario Outline: Download PETS Travel Document Dog and Cat - Approved
 	Then I click download link in summary page
 
 Examples:
-	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
-	| PetDog's  | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
-	| PetCat's  | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |
 
 Scenario Outline: Verify the view document for status and print download option - Unsuccessful
 	Then I have selected '<Are your details correct>' option
@@ -518,7 +518,7 @@ Scenario Outline: Verify the view document for status and print download option 
 	And I have verified microchip details in summary page
 	And I have verified pet details in summary page
 	And I have verified pet owner details in summary page
-	Then I verify the application status 'Pending'
+	And I verify the application status 'Pending'
 	When I Login to Dynamics application
 	And I opens the application
 	Then I get the PTD Reference Number and Store it
@@ -529,7 +529,7 @@ Scenario Outline: Verify the view document for status and print download option 
 	Then the status is changed to 'Rejected'
 	And I click on Back button in Pets Application
 	And I should not see the application in the Dashboard
-	Then I should see invalid documents link
+	And I should see invalid documents link
 	When I click invalid documents link
 	Then I should be navigated to invalid documents page
 	When I have clicked the View hyperlink from home page
@@ -537,8 +537,8 @@ Scenario Outline: Verify the view document for status and print download option 
 	And I should not see print and download your application options
 
 Examples:
-	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
-	| PetDog's  | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
 	
 Scenario Outline: Verify the view document for status and print download option - Cancelled
 	Then I have selected '<Are your details correct>' option
@@ -587,7 +587,7 @@ Scenario Outline: Verify the view document for status and print download option 
 	And I have verified microchip details in summary page
 	And I have verified pet details in summary page
 	And I have verified pet owner details in summary page
-	Then I verify the application status 'Pending'
+	And I verify the application status 'Pending'
 	When I Login to Dynamics application
 	And I opens the application
 	Then I get the PTD Reference Number and Store it
@@ -601,17 +601,17 @@ Scenario Outline: Verify the view document for status and print download option 
 	Then the status is changed to 'Revoked'
 	And I click on Back button in Pets Application
 	And I should not see the application in the Dashboard
-	Then I should see invalid documents link
+	And I should see invalid documents link
 	When I click invalid documents link
 	Then I should be navigated to invalid documents page
 	When I have clicked the View hyperlink from home page
 	Then I verify all the details in the declaration page for cancelled PTD 'Cancelled'
 	And I should not see issuing authority table
-	Then I should not see print and download your application options
+	And I should not see print and download your application options
 
 Examples:
-	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
-	| PetDog's  | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
 
 Scenario Outline: Print PETS Travel Document Dog and Cat - Approved
 	Then I have selected '<Are your details correct>' option
@@ -674,6 +674,6 @@ Scenario Outline: Print PETS Travel Document Dog and Cat - Approved
 	Then I click print link in summary page
 
 Examples:
-	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
-	| PetDog's  | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
-	| PetCat's  | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |

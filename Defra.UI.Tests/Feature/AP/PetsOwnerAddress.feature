@@ -28,15 +28,15 @@ Scenario Outline: Create PETS Travel Document By PostCode Address User
 	Then I should navigate to the Is your pet microchipped page
 	And I selected the radio button '<MicroChipNumberOn>' option
 	And provided microchip number as'<MicroChipNumber>' and continue
-	Then I should navigate to When was your pet microchipped page
+	And I should navigate to When was your pet microchipped page
 	When I have provided the date of PETS microchipped and continue
 	Then I should navigate to the Is your pet a cat, dog or ferret page
 	And I have selected radio button as '<Pet>' and continue
-	Then I should navigate to What breed is your '<Pet>' page
+	And I should navigate to What breed is your '<Pet>' page
 	And I have selected from the dropdown as '<Breed>' for pet's and continue
-	Then I should navigate to the What is your pet's name page
+	And I should navigate to the What is your pet's name page
 	And I have provided the Pets name as '<PetName>' and continue
-	Then I should navigate to the What sex is your pet page
+	And I should navigate to the What sex is your pet page
 	When I have selected the radio button as '<Gender>' for sex option and continue
 	Then I should navigate to the Do you know your pet's date of birth page
 	When I have provided date of birth for pet and continue
@@ -70,15 +70,15 @@ Scenario Outline: Create PETS Travel Document By Manually Address User
 	Then I should navigate to the Is your pet microchipped page
 	And I selected the radio button '<MicroChipNumberOn>' option
 	And provided microchip number as'<MicroChipNumber>' and continue
-	Then I should navigate to When was your pet microchipped page
+	And I should navigate to When was your pet microchipped page
 	When I have provided the date of PETS microchipped and continue
 	Then I should navigate to the Is your pet a cat, dog or ferret page
 	And I have selected radio button as '<Pet>' and continue
-	Then I should navigate to What breed is your '<Pet>' page
+	And I should navigate to What breed is your '<Pet>' page
 	And I have selected from the dropdown as '<Breed>' for pet's and continue
-	Then I should navigate to the What is your pet's name page
+	And I should navigate to the What is your pet's name page
 	And I have provided the Pets name as '<PetName>' and continue
-	Then I should navigate to the What sex is your pet page
+	And I should navigate to the What sex is your pet page
 	When I have selected the radio button as '<Gender>' for sex option and continue
 	Then I should navigate to the Do you know your pet's date of birth page
 	When I have provided date of birth for pet and continue

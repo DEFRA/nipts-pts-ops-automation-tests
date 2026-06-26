@@ -20,8 +20,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl'] | //h1[@class='govuk-heading-l'] | //h1[@class='govuk-fieldset__heading']"), true);
         private IWebElement btnContinue => _driver.WaitForElement(By.XPath("//button[@id='button-continue']|//button[@id='continue']|//*[normalize-space(text())='Continue']"));
         private IWebElement txtEmailAddressPage => _driver.WaitForElement(By.XPath("//h1[text() = 'Enter your email address']"));
-        private IWebElement txtboxEmail => _driver.WaitForElement(By.XPath("//input[@id='emailAddress']"),true);
-        private IWebElement txtConfirmEmail => _driver.WaitForElement(By.XPath("//h1[text()='Enter code to confirm your email address']"),true);
+        private IWebElement txtboxEmail => _driver.WaitForElement(By.XPath("//input[@id='emailAddress']"), true);
+        private IWebElement txtConfirmEmail => _driver.WaitForElement(By.XPath("//h1[text()='Enter code to confirm your email address']"), true);
         private IWebElement txtboxConfirmCode => _driver.WaitForElement(By.XPath("//input[@id='code']"));
         private IWebElement lblFullname => _driver.WaitForElement(By.XPath("//label[text()=' What is your full name? ']"), true);
         private IWebElement txtboxName => _driver.WaitForElement(By.XPath("//input[@id='name']"));
@@ -35,7 +35,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement txtboxTelephoneNumber => _driver.WaitForElement(By.XPath("//input[@id='telephoneNumber']"), true);
         private IWebElement txtboxPostcode => _driver.WaitForElement(By.XPath("//input[@id='postcode']"), true);
         private IWebElement DrpdownSelectAddress => _driver.WaitForElement(By.XPath("//select[@id='address']"));
-        private IWebElement txtboxSecurityWord => _driver.WaitForElement(By.XPath("//input[@id='securityWord']"),true);
+        private IWebElement txtboxSecurityWord => _driver.WaitForElement(By.XPath("//input[@id='securityWord']"), true);
         private IWebElement txtAreaSecurityHint => _driver.WaitForElement(By.XPath("//textarea[@id='securityHint']"));
 
         #endregion
@@ -50,13 +50,13 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public bool IsPageLoaded()
         {
             return PageHeading.Text.Contains("Enter your email address");
-        } 
-        
+        }
+
         public void EnterEmailAddress(String emailAddress)
         {
             txtboxEmail.SendKeys(emailAddress);
         }
-        
+
         public void ClickContinueButton()
         {
             btnContinue.Click();
@@ -73,7 +73,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             lblFullname.Text.Contains("What is your full name?");
             txtboxName.SendKeys(Name);
         }
-        
+
         public void EnterThePassword(string Password)
         {
             lblPassword.Text.Contains("Create a password");
@@ -96,23 +96,23 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             txtboxFirstName.SendKeys(firstName);
             txtboxLastName.SendKeys(lastName);
         }
-        
+
         public void EnterTelephoneNumber(string telephoneNumber)
         {
             txtboxTelephoneNumber.SendKeys(telephoneNumber);
         }
-        
+
         public void EnterPostCode(string postCode)
         {
             txtboxPostcode.SendKeys(postCode);
         }
-        
+
         public void SelectAddress()
         {
-           SelectElement select = new SelectElement(DrpdownSelectAddress);
-           select.SelectByIndex(1);
+            SelectElement select = new SelectElement(DrpdownSelectAddress);
+            select.SelectByIndex(1);
         }
-        
+
         public void EnterMemorableWordAndHint(string securityWord, string hint)
         {
             txtboxSecurityWord.SendKeys(securityWord);

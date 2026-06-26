@@ -14,14 +14,15 @@ Background:
 	When I click 'Cymraeg' link to change the language
 	Then I should see the heading of dashboard page changed to Welsh
 
+@PipelineFailure
 Scenario: Verify the status and warning message and apply for a document button in suspended account in Welsh
 	Then I should see a suspension warning message in Welsh
 	And I should not see apply for a document green button in Welsh
-	Then I should verify the status of all records in the dashboard as 'Suspended' in Welsh
+	And I should verify the status of all records in the dashboard as 'Suspended' in Welsh
 
 Scenario: Verify the view document and print download option in Welsh - Suspended
 	Then I should see a suspension warning message in Welsh
 	When I have clicked the first ptd view hyperlink from dashboard
 	Then I verify the status of the application 'Wedi’i atal' in Welsh
 	And I should not see issuing authority table
-	Then I should not see print and download your application options
+	And I should not see print and download your application options

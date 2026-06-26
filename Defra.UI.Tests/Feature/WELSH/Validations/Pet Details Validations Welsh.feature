@@ -476,7 +476,7 @@ Scenario Outline: Verify pet's breed are displayed in dropdown based on the sele
 	When I click on continue button from Is your pet a cat, dog or ferret page in Welsh
 	Then I should redirected to the What breed is your '<Pet>'? page in Welsh
 	And I verify the breeds displayed in the breed dropdownlist for '<Pet>' species in Welsh
-	Then I have selected 1 as breed index from breed dropdownlist
+	And I have selected 1 as breed index from breed dropdownlist
 	When I click on continue button from What is your pet's breed page in Welsh
 	Then I should redirected to the What is your pet's name page in Welsh
 
@@ -532,7 +532,7 @@ Scenario Outline: Verify the Welsh language version of each page on selection of
 	Then I should navigate to the Pets Owner details correct page
 	When I click 'Cymraeg' link to change the language
 	Then I should navigate to the Pets Owner details correct page in Welsh
-	Then I have selected 'Yes' option
+	And I have selected 'Yes' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
 	When I click 'English' link to change the language
@@ -547,8 +547,8 @@ Scenario Outline: Verify the Welsh language version of each page on selection of
 	When I click 'Cymraeg' link to change the language
 	Then I should redirected to the Get your pet microchipped before applying page in Welsh
 	And I click on welsh Back button
-	Then I should redirected to the Is your pet microchipped page in Welsh
-	Then I selected the 'Yes' option
+	And I should redirected to the Is your pet microchipped page in Welsh
+	And I selected the 'Yes' option
 	And provided microchip number as 121212121212442
 	When I click Continue button from microchipped page in Welsh
 	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
@@ -635,7 +635,7 @@ Scenario Outline: Verify the Welsh language version of each page on selection of
 	Then I should navigate to the Pets Owner details correct page
 	When I click 'Cymraeg' link to change the language
 	Then I should navigate to the Pets Owner details correct page in Welsh
-	Then I have selected 'No' option
+	And I have selected 'No' option
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the What is your full name page in Welsh
 	When I click 'English' link to change the language

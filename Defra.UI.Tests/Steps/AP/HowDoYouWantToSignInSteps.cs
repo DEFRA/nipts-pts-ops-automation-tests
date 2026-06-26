@@ -1,5 +1,4 @@
-﻿using Defra.UI.Tests.Pages.AP.Classes;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;

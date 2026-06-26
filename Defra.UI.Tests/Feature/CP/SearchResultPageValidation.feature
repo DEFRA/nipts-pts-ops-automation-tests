@@ -32,7 +32,7 @@ Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       | Species |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful | Ferret  |
 	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Pending      | Dog     |
-	| Ferry          | Birkenhead to Belfast (Stena) | 457380    | Cancelled    | Dog     |
+	| Ferry          | Birkenhead to Belfast (Stena) |    457380 | Cancelled    | Dog     |
 	| Ferry          | Birkenhead to Belfast (Stena) | D6BE7C    | Approved     | Cat     |
 
 Scenario Outline: Verify the application summary tables values in search result page
@@ -52,15 +52,15 @@ Scenario Outline: Verify the application summary tables values in search result 
 	And I verify the Pet Details table values '<PetDetailsTableValues>' for the species '<Species>'
 	And I verify the Pet Owner Details table values '<PetOwnerDetailsTableValues>' for the application
 Examples:
-	| Transportation | FerryRoute                    | PTDNumber | Status       | Species | RefNumberTableValues | MCTableValues              | PetDetailsTableValues                                                                                 | PetOwnerDetailsTableValues                                                                                           |
-	| Ferry          | Birkenhead to Belfast (Stena) | CA7BED    | Unsuccessful | Ferret  | MHZCLZYG^13/01/2025  | 123231234123210^30/12/2022 | Pet user^Ferret^Male^11/02/2003^Champagne^No                                                          | Brinda ipad^brindha.mathanaguru@cognizant.com^20 ORTS ROAD\\r\nREADING\\r\nRG1 3JN^07688833333                       |
+	| Transportation | FerryRoute                    | PTDNumber | Status       | Species | RefNumberTableValues | MCTableValues              | PetDetailsTableValues                                                                               | PetOwnerDetailsTableValues                                                                                           |
+	| Ferry          | Birkenhead to Belfast (Stena) | CA7BED    | Unsuccessful | Ferret  | MHZCLZYG^13/01/2025  | 123231234123210^30/12/2022 | Pet user^Ferret^Male^11/02/2003^Champagne^No                                                        | Brinda ipad^brindha.mathanaguru@cognizant.com^20 ORTS ROAD\\r\nREADING\\r\nRG1 3JN^07688833333                       |
 	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Pending      | Dog     | 1PROD005^14/01/2025  | 140125171525917^14/01/2022 | Dog dfAXqmTYIWJUMJfkjxtWlnGNp^Dog^Unique Unknown Breed^Male^14/01/2017^Black^Black Mark on Shoulder | Nagarajan Subbiah^PETS.TestAutomation008@nagarajansubbiah.33mail.com^4 ORTS ROAD\\r\nREADING\\r\nRG1 3JN^07590087678 |
-	| Ferry          | Birkenhead to Belfast (Stena) | 59D435    | Approved     | Ferret  | 59D 435^15/04/2025   | 131313131313139^12/11/2020 | Lucy^Ferret^Female^12/12/2012^Sable^No																  | Mo Testesr^MOPerf013@sunnykumar.33mail.com^12 AVELEY HOUSE ILIFFE CLOSE\\r\nREADING\\r\nRG1 2QF^07878787878			 |
-	| Ferry          | Birkenhead to Belfast (Stena) | D8C1CE    | Cancelled    | Cat     | D8C 1CE^23/04/2025   | 872347623412348^12/03/2024 | ren^Cat^rteyrty^Male^09/09/2003^Calico^No															  | Brin Pre^brindha.mathanaguru+123212@cognizant.com^30 ORTS ROAD\\r\nREADING\\r\nRG1 3JN^07541126612					 |
+	| Ferry          | Birkenhead to Belfast (Stena) | 59D435    | Approved     | Ferret  | 59D 435^15/04/2025   | 131313131313139^12/11/2020 | Lucy^Ferret^Female^12/12/2012^Sable^No                                                              | Mo Testesr^MOPerf013@sunnykumar.33mail.com^12 AVELEY HOUSE ILIFFE CLOSE\\r\nREADING\\r\nRG1 2QF^07878787878          |
+	| Ferry          | Birkenhead to Belfast (Stena) | D8C1CE    | Cancelled    | Cat     | D8C 1CE^23/04/2025   | 872347623412348^12/03/2024 | ren^Cat^rteyrty^Male^09/09/2003^Calico^No                                                           | Brin Pre^brindha.mathanaguru+123212@cognizant.com^30 ORTS ROAD\\r\nREADING\\r\nRG1 3JN^07541126612                   |
 
-Scenario: Verify the back link navigation for search result through Search icon route 
+Scenario: Verify the back link navigation for search result through Search icon route
 	Then I have selected 'Ferry' radio option
-	Then I select the 'Birkenhead to Belfast (Stena)' radio option
+	And I select the 'Birkenhead to Belfast (Stena)' radio option
 	And I have provided Scheduled departure time '05:45'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page
@@ -98,16 +98,16 @@ Scenario Outline: Verify the Warning text and Checks section in PTD Search resul
 	And I provided the '<PTDNumber>' of the application
 	When I click search button
 	And I should see the application status in '<Status>'
-	Then I verify the '<WarningText>' warning text	
+	Then I verify the '<WarningText>' warning text
 	And I verify Checks section is not present
 	And I verify Save and Continue button is not present
 Examples:
-	| Transportation | FerryRoute                    | PTDNumber | Status       | WarningText                                                                                 |
+	| Transportation | FerryRoute                    | PTDNumber | Status       | WarningText                                                                       |
 	| Ferry          | Birkenhead to Belfast (Stena) | CA7BED    | Unsuccessful | Because the PTD is ‘Unsuccessful’, you should check whether you can issue a SUPTD |
-	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Pending      | Because the PTD is ‘Pending’, you should check whether you can issue a SUPTD |
-	| Ferry          | Birkenhead to Belfast (Stena) | D8C1CE    | Cancelled    | Because the PTD is ‘Cancelled’, you should check whether you can issue a SUPTD |
+	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Pending      | Because the PTD is ‘Pending’, you should check whether you can issue a SUPTD      |
+	| Ferry          | Birkenhead to Belfast (Stena) | D8C1CE    | Cancelled    | Because the PTD is ‘Cancelled’, you should check whether you can issue a SUPTD    |
 
-Scenario Outline: Verify the Warning text and Checks section in Suspended PTD Search result page
+Scenario Outline: Verify the Warning text and Checks section in Suspended PTD Search result page -GB
 	Then I have selected '<Transportation>' radio option
 	And I select the '<FerryRoute>' radio option
 	And I have provided Scheduled departure time '14:00'
@@ -123,7 +123,7 @@ Scenario Outline: Verify the Warning text and Checks section in Suspended PTD Se
 	And I verify Checks section is not present
 	And I verify Save and Continue button is not present
 Examples:
-	| Transportation | FerryRoute                    | PTDNumber | Status       | WarningText |
-	| Ferry          | Birkenhead to Belfast (Stena) | E9C42C    | Unsuccessful | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script.            |
-	| Ferry          | Birkenhead to Belfast (Stena) | FA188D    | Cancelled    | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script.            |
-	| Ferry          | Birkenhead to Belfast (Stena) | C1778C    | Suspended    | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script.            |
+	| Transportation | FerryRoute                    | PTDNumber | Status       | WarningText                                                                                                                 |
+	| Ferry          | Birkenhead to Belfast (Stena) | E9C42C    | Unsuccessful | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script. |
+	| Ferry          | Birkenhead to Belfast (Stena) | FA188D    | Cancelled    | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script. |
+	| Ferry          | Birkenhead to Belfast (Stena) | C1778C    | Suspended    | This person cannot travel under the Northern Ireland Pet Travel Scheme – you should read them the suspended failure script. |

@@ -1,9 +1,8 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -53,7 +52,7 @@ namespace Defra.UI.Tests.Steps.AP
             ManageAccountPage?.ClickTelePhoneNmmnerChange();
         }
 
-        
+
         [Then("I clicked Change link for Name")]
         public void ThenIClickedChangeLinkForName()
         {

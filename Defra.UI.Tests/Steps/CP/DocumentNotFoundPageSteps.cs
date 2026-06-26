@@ -1,8 +1,8 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.CP.Interfaces;
+﻿using Defra.UI.Tests.Pages.CP.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -13,7 +13,7 @@ namespace Defra.UI.Tests.Steps.CP
         private readonly ScenarioContext _scenarioContext;
         private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
         private IDocumentNotFoundPage? _documentNotFoundPage => _objectContainer.IsRegistered<IDocumentNotFoundPage>() ? _objectContainer.Resolve<IDocumentNotFoundPage>() : null;
-       
+
 
         public DocumentNotFoundPageSteps(ScenarioContext context, IObjectContainer container)
         {

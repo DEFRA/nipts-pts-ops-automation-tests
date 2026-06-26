@@ -1,11 +1,11 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using Reqnroll;
-using Defra.UI.Tests.Pages.AP.Classes;
+using Reqnroll.BoDi;
 
-namespace Defra.UI.Tests.Steps.AP
+namespace Defra.UI.Tests.Steps.WELSH
 {
     [Binding]
     public class PetDetailsWelshSteps
@@ -23,7 +23,7 @@ namespace Defra.UI.Tests.Steps.AP
         private IPetColourPage? petColourPag => _objectContainer.IsRegistered<IPetColourPage>() ? _objectContainer.Resolve<IPetColourPage>() : null;
         private IPetColourPageWelsh? petColourPageWelsh => _objectContainer.IsRegistered<IPetColourPageWelsh>() ? _objectContainer.Resolve<IPetColourPageWelsh>() : null;
         private ISignificantFeaturesPageWelsh? significantFeaturesPageWelsh => _objectContainer.IsRegistered<ISignificantFeaturesPageWelsh>() ? _objectContainer.Resolve<ISignificantFeaturesPageWelsh>() : null;
-       
+
 
         public PetDetailsWelshSteps(ScenarioContext context, IObjectContainer container)
         {
@@ -185,10 +185,10 @@ namespace Defra.UI.Tests.Steps.AP
             _scenarioContext.Add("Rhyw", sex);
         }
 
-          [Then(@"I Verify the footer links changes to Welsh")]
+        [Then(@"I Verify the footer links changes to Welsh")]
         public void ThenIVerifyTheFooterLinksChangesToWelsh()
         {
-         Assert.IsTrue(breedPageWelsh?.VerifyFooterLinksinWelsh(), "Footer links are not displayed correctly in welsh page.");
+            Assert.IsTrue(breedPageWelsh?.VerifyFooterLinksinWelsh(), "Footer links are not displayed correctly in welsh page.");
         }
 
 
@@ -202,5 +202,5 @@ namespace Defra.UI.Tests.Steps.AP
 }
 
 
-    
+
 

@@ -70,7 +70,7 @@ Scenario: Verify the error message for no selection in reason section in Report 
 
 Scenario: Verify the Report non compliance page content for flight route selection - SPS
 	Then I have selected 'Flight' radio option
-	Then I provide the 'RK 29Q' in the box
+	And I provide the 'RK 29Q' in the box
 	And I have provided Scheduled departure time '18:49'
 	When I click save and continue button from route checker page
 	Then I should navigate to Checks page

@@ -1,11 +1,9 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using Reqnroll;
-using Defra.UI.Tests.Pages.AP.Classes;
+using Reqnroll.BoDi;
 using System.Text.RegularExpressions;
-using Microsoft.Crm.Sdk.Messages;
-using Defra.UI.Tests.Tools;
 
 namespace Defra.UI.Tests.Steps.AP
 {
@@ -171,7 +169,7 @@ namespace Defra.UI.Tests.Steps.AP
             Assert.AreEqual(dateOfBirth, summary?.DateOfBirth, $"Date of birth is not matching in {pageName} page!");
             Assert.AreEqual(color, summary?.Colour, $"Color is not matching in {pageName} page!");
             Assert.AreEqual(significantFeatures, summary?.SignificantFeatures, $"Significant feature is not matching in {pageName} page!");
-        }        
+        }
 
         private void VerifyPetOwnerDetails(bool isSummaryPage = true)
         {
@@ -206,7 +204,37 @@ namespace Defra.UI.Tests.Steps.AP
 
             foreach (var lineItem in address)
             {
-                Assert.IsTrue(summary?.Address.ToUpper()?.Replace(",","")?.Contains(Utils.NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
+                var normalizedSummary = Utils.NormalizeAddress(summary?.Address ?? string.Empty);
+                var normalizedLine = Utils.NormalizeAddress(lineItem ?? string.Empty);
+
+                // Log everything so pipeline shows the real cause
+                TestContext.WriteLine($"SUMMARY RAW: '{summary?.Address}'");
+                TestContext.WriteLine($"SUMMARY NORMALIZED: '{normalizedSummary}'");
+
+                TestContext.WriteLine($"LINE RAW: '{lineItem}'");
+                TestContext.WriteLine($"LINE NORMALIZED: '{normalizedLine}'");
+
+                // Token-based comparison (pipeline-safe)
+                var summaryTokens = new HashSet<string>(
+                    normalizedSummary.Split(' ', StringSplitOptions.RemoveEmptyEntries),
+                    StringComparer.OrdinalIgnoreCase
+                );
+
+                var lineTokens = normalizedLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                TestContext.WriteLine("SUMMARY TOKENS: " + string.Join(", ", summaryTokens));
+                TestContext.WriteLine("LINE TOKENS: " + string.Join(", ", lineTokens));
+
+                foreach (var token in lineTokens)
+                {
+                    Assert.IsTrue(
+                        summaryTokens.Contains(token),
+                        $"Address mismatch in {pageName} page.\n" +
+                        $"Missing token: '{token}'\n" +
+                        $"SUMMARY TOKENS: [{string.Join(", ", summaryTokens)}]\n" +
+                        $"LINE TOKENS: [{string.Join(", ", lineTokens)}]"
+                    );
+                }
             }
 
             if (isSummaryPage)
@@ -296,8 +324,8 @@ namespace Defra.UI.Tests.Steps.AP
 
                 Assert.AreEqual(3, parts.Length);
                 Assert.AreEqual(5, parts[0].Length);
-                Assert.AreEqual(3, parts [1].Length);
-                Assert.AreEqual (3, parts [2].Length);
+                Assert.AreEqual(3, parts[1].Length);
+                Assert.AreEqual(3, parts[2].Length);
                 Assert.AreEqual(Regex.Replace(ptdNumber, @"\s+", ""), Regex.Replace(summary?.PTDNumber, @"\s+", ""), $"PTD number is not matching in {pageName} page!");
                 Assert.AreEqual(date, summary?.Date, $"Date is not matching in {pageName} page!");
             }

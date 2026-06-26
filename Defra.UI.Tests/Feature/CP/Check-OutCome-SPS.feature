@@ -30,7 +30,7 @@ Scenario: Verify the radio buttons label, hint and Pass outcome with in applicat
 	When I select Pass radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
-	Then The Confirmation box is displayed in Checks page
+	And The Confirmation box is displayed in Checks page
 
 Scenario: Verify the error message for no selection of radio button and select Issue SUPTD in application status page as SPS Checker
 	Then I have selected 'Ferry' radio option

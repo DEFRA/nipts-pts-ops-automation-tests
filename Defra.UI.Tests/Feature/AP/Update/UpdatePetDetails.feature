@@ -72,8 +72,8 @@ Scenario Outline: Modify PETS Name By Registered User with details correct - Fer
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | UpdatedName | Gender | Color     | IsSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | NewFerret   | Female | Chocolate | No                    |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | UpdatedName | Gender | Color     | IsSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | NewFerret   | Female | Chocolate | No                    |
 
 Scenario Outline: Modify Species of the pet By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
@@ -123,9 +123,9 @@ Scenario Outline: Modify Species of the pet By Registered User with details corr
 	And I have verified microchip details in summary page
 
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedSpecies | UpdatedColor   | UpdatedBreedIndex |
-	| PetDog   |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | Dog            | Gold or yellow | 3                 |
-	| PetCat   |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   | Cat            | White          | 3                 |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedSpecies | UpdatedColor   | UpdatedBreedIndex |
+	| PetDog   | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | Dog            | Gold or yellow |                 3 |
+	| PetCat   | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   | Cat            | White          |                 3 |
 
 Scenario Outline: Modify breed of the pet By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
@@ -175,15 +175,15 @@ Scenario Outline: Modify breed of the pet By Registered User with details correc
 	And I have verified microchip details in summary page
 
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedBreedIndex |
-	| PetCat   |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | 3                 |
-	| PetDog   |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   | 3                 |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedBreedIndex |
+	| PetCat   | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   |                 3 |
+	| PetDog   | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   |                 3 |
 
 Scenario Outline: Modify PETS Sex By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the What is your full name page
-	And I provided the full name of the pet keeper as '<FullName>' 
+	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
 	And I provided the postcode '<PostCode>'
@@ -236,8 +236,8 @@ Scenario Outline: Modify PETS Sex By Registered User with details correct - Ferr
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | UpdatedSex | Color    | IsSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Male   | Female     | Cinnamon | No                    |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | UpdatedSex | Color    | IsSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Male   | Female     | Cinnamon | No                    |
 
 Scenario Outline: Modify PETS date of birth By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
@@ -296,8 +296,8 @@ Scenario Outline: Modify PETS date of birth By Registered User with details corr
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | UpdatedSex | Color     | IsSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Male   | Female     | Champagne | No                    |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | UpdatedSex | Color     | IsSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Male   | Female     | Champagne | No                    |
 
 Scenario Outline: Modify PETS colour By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
@@ -356,8 +356,8 @@ Scenario Outline: Modify PETS colour By Registered User with details correct - F
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | UpdatedColor | IsSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Male   | Sable | Silver       | No                    |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | UpdatedColor | IsSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Male   | Sable | Silver       | No                    |
 
 Scenario Outline: Modify PETS significant features By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
@@ -417,8 +417,8 @@ Scenario Outline: Modify PETS significant features By Registered User with detai
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures | UpdatedSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Male   | Black | No                    | Yes                        |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures | UpdatedSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Male   | Black | No                    | Yes                        |
 
 Scenario Outline: Modify PETS colour By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
@@ -480,9 +480,9 @@ Scenario Outline: Modify PETS colour By Registered User with details correct
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | UpdatedColor | IsSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog    | Dog     | Male   | Black | Red          | No                    |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat    | Cat     | Male   | Black | Ginger       | No                    |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | UpdatedColor | IsSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog | Dog     | Male   | Black | Red          | No                    |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Male   | Black | Ginger       | No                    |
 	
 Scenario Outline: Modify PETS date of birth By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
@@ -544,15 +544,15 @@ Scenario Outline: Modify PETS date of birth By Registered User with details corr
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | UpdatedSex | Color     | IsSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog    | Dog     | Male   | Female     | Black     | No                    |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat    | Cat     | Female | Male       | Black     | No                    |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | UpdatedSex | Color | IsSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog | Dog     | Male   | Female     | Black | No                    |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Male       | Black | No                    |
 
 Scenario Outline: Modify PETS Sex By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the What is your full name page
-	And I provided the full name of the pet keeper as '<FullName>' 
+	And I provided the full name of the pet keeper as '<FullName>'
 	When I click Continue button from What is your full name page
 	Then I should redirected to What is your postcode page
 	And I provided the postcode '<PostCode>'
@@ -608,9 +608,9 @@ Scenario Outline: Modify PETS Sex By Registered User with details correct
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | UpdatedSex | Color    | IsSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog    | Dog     | Male   | Female     | Black    | No                    |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat    | Cat     | Female | Male       | Black    | No                    |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | UpdatedSex | Color | IsSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog | Dog     | Male   | Female     | Black | No                    |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Male       | Black | No                    |
 
 Scenario Outline: Modify PETS Name By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
@@ -672,9 +672,9 @@ Scenario Outline: Modify PETS Name By Registered User with details correct
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | UpdatedName | Gender | Color     | IsSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog    | Dog     | NewDog      | Female | Red       | No                    |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat    | Cat     | NewCat      | Male   | Black     | No                    |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | UpdatedName | Gender | Color | IsSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog | Dog     | NewDog      | Female | Red   | No                    |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | NewCat      | Male   | Black | No                    |
 
 Scenario Outline: Modify PETS significant features By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
@@ -737,9 +737,9 @@ Scenario Outline: Modify PETS significant features By Registered User with detai
 	And I have verified pet details in summary page
 
 Examples:
-	| FullName       |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures | UpdatedSignificantFeatures |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog    | Dog     | Male   | Black | No                    | Yes                        |
-	| PET-Owner-Name |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat    | Cat     | Male   | Black | Yes                   | No                         |
+	| FullName       | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | UpdatedSignificantFeatures |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Dog | Dog     | Male   | Black | No                    | Yes                        |
+	| PET-Owner-Name | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Male   | Black | Yes                   | No                         |
 
 Scenario Outline: Modify Species of the pet By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
@@ -785,5 +785,5 @@ Scenario Outline: Modify Species of the pet By Registered User with details corr
 	Then The submitted application should be displayed in summary view
 	And I have verified microchip details in summary page
 Examples:
-	| FullName  |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedSpecies | UpdatedColor   | UpdatedBreedIndex |
-	| PetFerret |  Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ferret | Ferret  | Female | Chocolate | Yes                   | Dog            | Gold or yellow | 3                 |
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedSpecies | UpdatedColor   | UpdatedBreedIndex |
+	| PetFerret | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ferret | Ferret  | Female | Chocolate | Yes                   | Dog            | Gold or yellow |                 3 |

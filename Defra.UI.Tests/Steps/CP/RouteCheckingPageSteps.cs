@@ -1,10 +1,10 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Data.Users;
+﻿using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.CP
 {
@@ -19,7 +19,7 @@ namespace Defra.UI.Tests.Steps.CP
         private IRouteCheckingPage? _routeCheckingPage => _objectContainer.IsRegistered<IRouteCheckingPage>() ? _objectContainer.Resolve<IRouteCheckingPage>() : null;
         private IUserObject? UserObject => _objectContainer.IsRegistered<IUserObject>() ? _objectContainer.Resolve<IUserObject>() : null;
         private IWelcomePage? _welcomePage => _objectContainer.IsRegistered<IWelcomePage>() ? _objectContainer.Resolve<IWelcomePage>() : null;
-        public RouteCheckingPageSteps (ScenarioContext context, IObjectContainer container)
+        public RouteCheckingPageSteps(ScenarioContext context, IObjectContainer container)
         {
             _scenarioContext = context;
             _objectContainer = container;
@@ -64,7 +64,7 @@ namespace Defra.UI.Tests.Steps.CP
         {
             _routeCheckingPage?.SetScheduledDepartureTime(departTime);
         }
-        
+
         [When(@"I have provided Scheduled departure date '([^']*)'")]
         public void ThenIHaveProvidedScheduledDepartureDate(string departDay)
         {
@@ -97,7 +97,7 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_routeCheckingPage?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }
-        
+
         [Then(@"I have provided Scheduled departure hour '(.*)' in hours field only")]
         public void ThenIHaveProvidedScheduledDepartureHourInHoursFieldOnly(string hour)
         {
@@ -107,7 +107,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I have selected '(.*)''(.*)''(.*)'Date option")]
         public void ThenIHaveSelectedDateOption(string departureDay, string departureMonth, string departureYear)
         {
-            _routeCheckingPage?.SelectScheduledDepartureDate(departureDay,departureMonth,departureYear);
+            _routeCheckingPage?.SelectScheduledDepartureDate(departureDay, departureMonth, departureYear);
         }
 
         [Then("I have selected current date '(.*)' Date option")]
@@ -126,7 +126,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then(@"I should see no ferry route options selected by default")]
         public void ThenIShouldSeeNoFerryRouteOptionsSelectedByDefault()
         {
-            Assert.True(_routeCheckingPage?.CheckFerryRouteOptionsSelection(),"Ferry route options selected by default");
+            Assert.True(_routeCheckingPage?.CheckFerryRouteOptionsSelection(), "Ferry route options selected by default");
         }
 
         [Then(@"I should not see the footer of the page")]
@@ -147,12 +147,12 @@ namespace Defra.UI.Tests.Steps.CP
             var currentDate = DateTime.Now;
             Assert.True(_routeCheckingPage?.CheckRouteDetailOnHomePageHeader(route), "Given route is not displayed properly on the header");
             Assert.True(_routeCheckingPage?.CheckDepartureTimeOnHomePage(currentDate.Day.ToString(), currentDate.Month.ToString(), currentDate.Year.ToString(), departureTime), "Departure date and time are not displayed properly on the header");
-            Assert.True(_welcomePage?.IsHeaderChangeLinkDisplayed(),"Change link is not displayed on the header");
+            Assert.True(_welcomePage?.IsHeaderChangeLinkDisplayed(), "Change link is not displayed on the header");
         }
 
         [Then("I should see the header of the page with route '([^']*)' date current date '([^']*)' time '([^']*)' and change link")]
         public void ThenIShouldSeeTheHeaderOfThePageWithRouteDateCurrentDateTimeAndChangeLink(string route, int pastDay, string departureTime)
-        { 
+        {
             var pastDate = DateTime.Now.AddDays(pastDay);
 
             Assert.True(_routeCheckingPage?.CheckRouteDetailOnHomePageHeader(route), "Given route is not displayed properly on the header");
@@ -246,7 +246,7 @@ namespace Defra.UI.Tests.Steps.CP
             var dateTimeTwoDaysAgo = DateTime.UtcNow.AddDays(departuredate);
             _routeCheckingPage?.CheckDepartBefore48OrAfter24Hrs(dateTimeTwoDaysAgo.Day.ToString(), dateTimeTwoDaysAgo.Month.ToString(), dateTimeTwoDaysAgo.Year.ToString(), dateTimeTwoDaysAgo.Hour.ToString("D2"), dateTimeTwoDaysAgo.Minute.ToString("D2"), timeCheck);
         }
-        
+
         [When("I have entered an invalid URL")]
         public void WhenIhaveEnteredAnInvalidURL()
         {

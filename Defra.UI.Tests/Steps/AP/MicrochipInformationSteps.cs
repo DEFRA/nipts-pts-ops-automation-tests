@@ -1,8 +1,7 @@
-﻿using Reqnroll.BoDi;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using NUnit.Framework;
 using Reqnroll;
-using Defra.UI.Tests.Pages.AP.Classes;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Steps.AP
 {

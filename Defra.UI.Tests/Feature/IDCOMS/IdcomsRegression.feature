@@ -23,7 +23,7 @@ Scenario: Verify if the Pet details are not editable and no pending button visib
 	Then I cannot edit 'Pet' Details for Pending Application
 	And I cannot see 'Pending' command
 
-Scenario: Verify Revoke Pending System View	
+Scenario: Verify Revoke Pending System View
 	When I Login to Dynamics application
 	And I Switch to 'Revoke Pending PTD Applications'
 	And I open the first application
@@ -112,7 +112,7 @@ Scenario: Verify Microchip - Failed Verification Check Error Message
 	Then I Verify the 'Microchip' Failed Verification Check Error Message
 
 Scenario: Verify Revoke application messages
-	When I Login to Dynamics application	
+	When I Login to Dynamics application
 	And I Switch to 'Authorised PTD Applications'
 	And I open the first application
 	And I assign the application to myself
@@ -120,7 +120,7 @@ Scenario: Verify Revoke application messages
 	Then I verify the revocation error message
 	
 Scenario: Verify Reject application messages
-	When I Login to Dynamics application	
+	When I Login to Dynamics application
 	And I Switch to 'All PTD Applications'
 	And I filter with 'Status Reason' is 'Equals' to 'Pending' in PTS Application
 	And I open the first application
@@ -128,7 +128,7 @@ Scenario: Verify Reject application messages
 	Then I Verify the Rejection messages
 
 Scenario: Verify the Other Revocation Reason is mandatory
-	When I Login to Dynamics application	
+	When I Login to Dynamics application
 	And I Switch to 'Authorised PTD Applications'
 	And I open the first application
 	And I assign the application to myself
@@ -149,17 +149,17 @@ Scenario: Verify Microchip Check: Clear and hide Other Reason field when not use
 	Then I verify Other Fail reason is not populated
 
 Scenario Outline: Revoke date & Reason is not available
-	When I Login to Dynamics application	
+	When I Login to Dynamics application
 	And I Switch to '<Application Type>'
 	And I open the first application
 	Then I verify revoke date and reason is not populated
 
 Examples:
-| Application Type                   |
-| Open - Unassigned PTD Applications |
-| Pending PTD Applications           |
-| Authorised PTD Applications        |
-| Rejected PTD Applications          |
+	| Application Type                   |
+	| Open - Unassigned PTD Applications |
+	| Pending PTD Applications           |
+	| Authorised PTD Applications        |
+	| Rejected PTD Applications          |
 
 Scenario: Verify the Microchip Check ‘Other Reason’ field mandatory
 	When I Login to Dynamics application
@@ -192,13 +192,13 @@ Scenario: Verify the caseworker can search by pet owner
 	When I Login to Dynamics application
 	And I filter with 'Name' is 'Equals' to 'Brinda CTS' in PTS Application
 	And I open the first application
-	Then the value of 'Name' is 'Brinda CTS' in the PTD application	
+	Then the value of 'Name' is 'Brinda CTS' in the PTD application
 
 Scenario: Verify if Caseworker  clears caseworker filter - Dog
 	When I Login to Dynamics application
 	And I filter with 'Species' is 'Equals' to 'Dog' in PTS Application
 	And I open the first application
-	Then the value of 'Species' is 'Dog' in the PTD application	
+	Then the value of 'Species' is 'Dog' in the PTD application
 
 Scenario: Verify if Caseworker  clears caseworker filter - Cat
 	When I Login to Dynamics application
@@ -210,7 +210,7 @@ Scenario: Verify if Caseworker  clears caseworker filter - Ferret
 	When I Login to Dynamics application
 	And I filter with 'Species' is 'Equals' to 'Ferret' in PTS Application
 	And I open the first application
-	Then the value of 'Species' is 'Ferret' in the PTD application	
+	Then the value of 'Species' is 'Ferret' in the PTD application
 
 Scenario: Verify the Assisted Digital PTD Applications System Views
 	When I Login to Dynamics application
@@ -268,7 +268,7 @@ Scenario: Verify if the caseworker can create a new offline PTD application, Aut
 	When I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
-	Then the status is changed to 'Authorised'	
+	Then the status is changed to 'Authorised'
 	And I cannot see 'Pending' command
 	When I assign the application to myself
 	And I 'Revoke' the application with reason 'Pet Deceased'
@@ -351,7 +351,7 @@ Scenario: Verify if the caseworker can update the offline PTD application multip
 	#And I enter 'Unique feature' as 'Heart shape mole on the head'
 	And I enter 'Microchipped Date' as '09/08/2024'
 	And I Click on Save
-	When I 'Pass' the Microchip check
+	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
@@ -496,9 +496,9 @@ Scenario: Create a New applicant Contact is and create a offline application and
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
 	When I add notes as 'Notes Title-Automation' and 'Notes Body-Automation'
-	When I switch to 'SNCs' tab
+	And I switch to 'SNCs' tab
 	Then I 'Cannot' see the 'Activate' button in the form
-	Then I 'Cannot' see the 'Deactivate' button in the form
+	And I 'Cannot' see the 'Deactivate' button in the form
 	When I create a New Suspect Non Compliance
 	And I click on 'Log Decision' Command
 	Then I verify the dialog message 'You must provide a decision.'
@@ -528,7 +528,7 @@ Scenario: Verify the caseworker can add notes in a Suspension record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
 	And I open the first application
-	When I add notes as 'Notes Title Automation' and 'notes Body Automation'
+	And I add notes as 'Notes Title Automation' and 'notes Body Automation'
 	Then I Verify the notes added in the Timeline with Title 'Notes Title Automation' and body 'notes Body Automation'
 
 Scenario: Verify Contacts in the sitemap and Activate/Deactivate button is not present
@@ -563,15 +563,15 @@ Scenario: Create SNC in authorised PTD with warning; verify closure date.
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
-	When I create a New Suspect Non Compliance
+	And I create a New Suspect Non Compliance
 	And I Log decision in SNC as 'Warning'
 	Then The 'Decision date' is set to Current date
-	Then The 'Close date' is set to Current date
+	And The 'Close date' is set to Current date
 	And the status is changed to 'Closed'
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
 	And I 'can' see 'Letter Sent' button
 
-Scenario: Verify Activate/Deactivate button is not present in suspension view and verify all the views and columns in Suspensions 
+Scenario: Verify Activate/Deactivate button is not present in suspension view and verify all the views and columns in Suspensions
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
 	Then I cannot see 'Activate' command
@@ -582,17 +582,17 @@ Scenario: Verify Activate/Deactivate button is not present in suspension view an
 	And I cannot see 'Deactivate' command
 	When I go back
 	And I Switch to 'All Suspensions'
-	Then I Verify the 'Name|Status Reason|Pet Owner|Suspension End Date|Created On' coloumns are present	
+	Then I Verify the 'Name|Status Reason|Pet Owner|Suspension End Date|Created On' coloumns are present
 	When I Switch to 'Inactive Suspensions'
 	Then I Verify the 'Name|Status Reason|Pet Owner|Suspension End Date|Created On' coloumns are present
 	When I Switch to 'Suspensions Appealed - Successful'
 	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present
 	When I Switch to 'Suspensions Appealed - Partially Successful'
-	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present	
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present
 	When I Switch to 'Suspensions Appealed - Unsuccessful'
-	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present	
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present
 	When I Switch to 'Suspensions On Appeal'
-	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present	
+	Then I Verify the 'Name|Pet Owner|Suspension End Date|Created On' coloumns are present
 	When I Switch to 'Correspondence Required - Suspensions'
 	Then I Verify the 'Name|Pet Owner|Suspension End Date|Status Reason|Application Language (PTD)|Close letter|Appeal Outcome Letter' coloumns are present
 
@@ -601,7 +601,7 @@ Scenario: Verify End Suspension button and backing off it
 	And I open 'Suspensions' under 'Application'
 	And I open the 'SUS-1069' application
 	And I assign the application to myself
-	When I click on 'End Suspension' Command
+	And I click on 'End Suspension' Command
 	Then I verify the dialog message 'Do you want to end this suspension? The suspension will end immediately.'
 	When I click on 'Cancel' button in Dialog
 
@@ -633,20 +633,20 @@ Scenario Outline: Verify ability to search from different data fields from the v
 	And I open the '<FieldValue>' application
 	Then I verify the field '<FieldName>' value is '<FieldValue>'
 Examples:
-| FieldName             | FieldValue      |
-| Application Reference | GVEYQOZ9        |
-| PTD Reference         | GB826AD28F9     |
-| Microchip Number      | 101125125838926 |
-| Pet Name              | Deera           |
-| Pet Owner Name        | Pets Automation |
-| Pet Owner Postcode    | OX1 1AF         |
+	| FieldName             | FieldValue      |
+	| Application Reference | GVEYQOZ9        |
+	| PTD Reference         | GB826AD28F9     |
+	| Microchip Number      | 101125125838926 |
+	| Pet Name              | Deera           |
+	| Pet Owner Name        | Pets Automation |
+	| Pet Owner Postcode    | OX1 1AF         |
 
 Scenario: Verify the Status Reason and Owner of the Suspended Record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
 	And I open the 'SUS-1047' application
 	Then the status is 'Open' and readonly
-	Then the Owner is 'Brindha Mathanaguru' and readonly
+	And the Owner is 'Brindha Mathanaguru' and readonly
 
 Scenario: Verify automatic rejection of new PTD offline application for a suspended pet owner and verify the rejection reason and date
 	When I Login to Dynamics application
@@ -672,7 +672,7 @@ Scenario: Verify the Appeal Decision Button in On Appeal Suspension record and e
 	And I open 'Suspensions' under 'Application'
 	And I open the 'SUS-1047' application
 	And I assign the application to myself
-	Then the status is 'On Appeal' and readonly	
+	Then the status is 'On Appeal' and readonly
 	When I click on 'Appeal Decision' Command
 	Then I verify the dialog message 'You must log an Appeal Decision before completing the appeal process.'
 	When I click on 'OK' button in Dialog
@@ -697,10 +697,10 @@ Scenario: Verify the Appeal Outcome letter field and Letter action needed Notifi
 	Then I See the 'Letter to be sent' value in 'nipts_appealoutcomeletter' field
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
 
-Scenario: Verify all the views and columns in Contacts 
+Scenario: Verify all the views and columns in Contacts
 	When I Login to Dynamics application
 	And I open 'Contacts' under 'Application'
-	Then I Verify the 'Full Name|Principal Email Address|Principal Phone|Suspended|Applicant Type' coloumns are present	
+	Then I Verify the 'Full Name|Principal Email Address|Principal Phone|Suspended|Applicant Type' coloumns are present
 	When I Switch to 'Inactive Contacts'
 	Then I Verify the 'Full Name|Principal Email Address|Principal Phone|Applicant Type' coloumns are present
 
@@ -735,26 +735,26 @@ Scenario: Verify Offline PTD Reference is assigned to Application Reference and 
 	And I open the previously saved application
 
 Scenario: Verify the No Data available message
-	When I Login to Dynamics application	
+	When I Login to Dynamics application
 	And I Switch to 'All PTD Applications'
 	And I search the 'Kylo' application
 	Then I Verify the No data available 'We didn't find anything to show here' messsage
 	
 Scenario: Verify the readonly fields in a suspension record
-	When I Login to Dynamics application	
+	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
 	And I open the 'SUS-1047' application
 	Then I cannot edit the field 'nipts_name'
-	Then I cannot edit the field 'nipts_petowner'
-	Then I cannot edit the field 'nipts_ptd'
-	Then I cannot edit the field 'nipts_suspensionenddate'
+	And I cannot edit the field 'nipts_petowner'
+	And I cannot edit the field 'nipts_ptd'
+	And I cannot edit the field 'nipts_suspensionenddate'
 
 Scenario: Verify the partially successful option is hidden in appeal decision dropdown for 6 month suspension - Offline PTD
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
 	And I open the 'SUS-1196' application
 	And I assign the application to myself
-	Then the status is 'On Appeal' and readonly	
+	Then the status is 'On Appeal' and readonly
 	And I Verify 'Appeal partially successful' is not available and 'Appeal successful:Appeal unsuccessful' is available in Appeal decision
 
 Scenario: Verify the partially successful option is hidden in appeal decision dropdown for 6 month suspension - Online PTD
@@ -762,7 +762,7 @@ Scenario: Verify the partially successful option is hidden in appeal decision dr
 	And I open 'Suspensions' under 'Application'
 	And I open the 'SUS-1209' application
 	And I assign the application to myself
-	Then the status is 'On Appeal' and readonly	
+	Then the status is 'On Appeal' and readonly
 	And I Verify 'Appeal partially successful' is not available and 'Appeal successful:Appeal unsuccessful' is available in Appeal decision
 
 Scenario: Verify Partial value search based on the start of the value
@@ -771,10 +771,10 @@ Scenario: Verify Partial value search based on the start of the value
 	And I open the '<FieldValue>' application
 	Then I verify the parital field '<FieldName>' value is '<FieldValue>'
 Examples:
-| FieldName             | FieldValue      |
-| Application Reference | GVEY	          |
-| PTD Reference         | GB826AD28	      |
-| Microchip Number      | 1011251258389   |
-| Pet Name              | Deer            |
-| Pet Owner Name        | Pets Automati   |
-| Pet Owner Postcode    | OX1 1           |
+	| FieldName             | FieldValue    |
+	| Application Reference | GVEY          |
+	| PTD Reference         | GB826AD28     |
+	| Microchip Number      | 1011251258389 |
+	| Pet Name              | Deer          |
+	| Pet Owner Name        | Pets Automati |
+	| Pet Owner Postcode    | OX1 1         |

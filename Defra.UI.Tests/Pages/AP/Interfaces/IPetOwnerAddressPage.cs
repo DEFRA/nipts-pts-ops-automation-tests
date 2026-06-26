@@ -1,6 +1,4 @@
-﻿using OpenQA.Selenium;
-
-namespace Defra.UI.Tests.Pages.AP.Interfaces
+﻿namespace Defra.UI.Tests.Pages.AP.Interfaces
 {
     public interface IPetOwnerAddressPage
     {

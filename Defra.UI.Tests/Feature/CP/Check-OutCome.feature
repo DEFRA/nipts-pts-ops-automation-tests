@@ -29,7 +29,7 @@ Scenario: Validate pass outcome for approved application found by PTD number
 	And I select Pass radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Checks page
-	Then The Confirmation box is displayed in Checks page
+	And The Confirmation box is displayed in Checks page
 
 Scenario: Validate pass outcome for approved application found by application number
 	Then I have selected 'Ferry' radio option
@@ -114,7 +114,7 @@ Examples:
 	| Transportation | FerryRoute                    | PTDNumber | Status       |
 	| Ferry          | Birkenhead to Belfast (Stena) | 9EFC9F    | Unsuccessful |
 	| Ferry          | Birkenhead to Belfast (Stena) | C196CD    | Pending      |
-	| Ferry          | Birkenhead to Belfast (Stena) | 457380    | Cancelled    |
+	| Ferry          | Birkenhead to Belfast (Stena) |    457380 | Cancelled    |
 	| Ferry          | Birkenhead to Belfast (Stena) | 586B06    | Approved     |
 
 Scenario: Verify the Checks section and radio buttons in application summary page

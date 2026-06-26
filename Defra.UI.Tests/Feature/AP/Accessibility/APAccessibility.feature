@@ -63,8 +63,8 @@ Scenario Outline: Create PETS Travel Document By Registered User with details co
 	And I have verified pet details in summary page
 	And I have verified pet owner details in summary page
 Examples:
-	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
-	| PetDog's  | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   |
 
 Scenario Outline: Create PETS Travel Document By Registered User with details not correct
 	Then I have selected '<Are your details correct>' option
@@ -126,5 +126,5 @@ Scenario Outline: Create PETS Travel Document By Registered User with details no
 	And I have verified pet details in summary page
 	And I have verified pet owner details in summary page
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
-	| PetCat's |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetCat's | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |

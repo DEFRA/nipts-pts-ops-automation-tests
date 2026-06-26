@@ -1,9 +1,9 @@
-﻿using Reqnroll.BoDi;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
-using Defra.UI.Tests.Configuration;
+using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -68,7 +68,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             drpBreedType.Click();
 
             txtBreed.SendKeys(breed);
-              txtBreed.SendKeys(Keys.Tab);
+            txtBreed.SendKeys(Keys.Tab);
         }
 
         public bool IsError(string errorMessage)
@@ -143,14 +143,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         }
         public bool VerifyFooterLinksinEnglish()
         {
-
             return footerLinkAccessibility.Text.Equals("Accessibility statement")
                 && footerLinkCookies.Text.Equals("Cookies")
                 && footerLinkPrivacynotice.Text.Equals("Privacy notice (opens in new tab)")
                 && footerLinkTermsandConditions.Text.Equals("Terms and conditions");
-
         }
     }
-
 }
 #endregion

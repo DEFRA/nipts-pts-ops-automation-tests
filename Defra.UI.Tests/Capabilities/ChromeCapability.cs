@@ -1,5 +1,4 @@
-﻿
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using Reqnroll;
@@ -46,8 +45,7 @@ namespace Defra.UI.Tests.Capabilities
             {
                 SetChromiumDevice(chromeOptions);
             }
-
-            return chromeOptions;
+              return chromeOptions;
 
         }
         private static void SetChromiumDevice(ChromeOptions chromeOptions)
@@ -77,5 +75,5 @@ namespace Defra.UI.Tests.Capabilities
 
             return args;
         }
-    }    
+    }
 }

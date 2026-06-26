@@ -583,7 +583,7 @@ Scenario Outline: Verify the view document for status and print download option 
 	And I can see the unique application reference number
 	When I have clicked the View all your lifelong pet travel documents link in Welsh
 	Then I should see the heading of dashboard page changed to Welsh
-    And I should see the application in 'Yn aros' status in Welsh
+	And I should see the application in 'Yn aros' status in Welsh
 	When I have clicked the View hyperlink from home page in Welsh
 	Then The submitted application should be displayed in summary view in Welsh
 	And I have verified microchip details in summary page in Welsh

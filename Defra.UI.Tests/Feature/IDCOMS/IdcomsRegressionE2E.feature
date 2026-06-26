@@ -73,7 +73,7 @@ Scenario Outline: Verify if a Caseworker can change the status of the case from 
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -117,9 +117,9 @@ Scenario Outline: Verify if a Caseworker can change the status of the case from 
 	And I opens the application
 	Then I get the PTD Reference Number and Store it
 	When I assign the application to myself
-	When I add notes as 'Notes Title' and 'Notes Body'
+	And I add notes as 'Notes Title' and 'Notes Body'
 	Then I 'dont' see Duplicate Microchip Notification
-	Then the status is 'Open'
+	And the status is 'Open'
 	When I mark the application to 'Pending'
 	Then the status is 'Pending'
 	And I cannot edit the field 'Town'
@@ -138,7 +138,7 @@ Scenario Outline: Verify the email subject for Rejection email - Ferret
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -194,7 +194,7 @@ Scenario Outline: Verify the email subject for revoked email
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -252,7 +252,7 @@ Scenario Outline: Verify the email subject for approved email and create SNC for
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -298,7 +298,7 @@ Scenario Outline: Verify the email subject for approved email and create SNC for
 	And I Log decision in SNC as 'First Offence (Warning)'
 	Then I verify the copy of the 'SUSPENSION WRITTEN WARNING' Email in Timeline
 	And The 'Decision date' is set to Current date
-	Then The 'Close date' is set to Current date
+	And The 'Close date' is set to Current date
 	And the status is changed to 'Closed'
 Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
@@ -313,7 +313,7 @@ Scenario Outline: Verify the email subject of the confirmation email
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -366,7 +366,7 @@ Scenario Outline: Verify the duplicate MC number message banner and reject the a
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -413,8 +413,8 @@ Scenario Outline: Verify the duplicate MC number message banner and reject the a
 	And I 'Reject' the application with reason 'Duplicate Microchip number'
 
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
-	| PetCat's |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetCat's | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
 
 Scenario Outline: Verify if the caseworker can add notes to the case
 	Then I have selected '<Are your details correct>' option
@@ -425,7 +425,7 @@ Scenario Outline: Verify if the caseworker can add notes to the case
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -465,15 +465,15 @@ Scenario Outline: Verify if the caseworker can add notes to the case
 	When I Login to Dynamics application
 	And I opens the application
 	Then I get the PTD Reference Number and Store it
-	When I assign the application to 'Shukla Vishal' another user
+	When I assign the application to 'Rasiya Pareeth' another user
 	And I assign the application to myself
 	Then I verify the copy of the 'CONFIRMATION' Email in Timeline
 	When I add notes as 'Notes Title' and 'Notes Body'
 
 Examples:
-	| FullName |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
-	| PetCat's |  No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
-	| PetDog's |  No                       | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | No                   |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures |
+	| PetCat's | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | White | No                    |
+	| PetDog's | No                       | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | No                    |
 
 
 Scenario Outline: Verify the error message when the caseworker Authorises an application with a duplicate MC number
@@ -485,7 +485,7 @@ Scenario Outline: Verify the error message when the caseworker Authorises an app
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -538,7 +538,7 @@ Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
 	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
 
-Scenario Outline: Verify if a user can Submit an application in AP and the Caseworker can Approved the application 	
+Scenario Outline: Verify if a user can Submit an application in AP and the Caseworker can Approved the application
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the Is your pet microchipped page
@@ -585,13 +585,13 @@ Scenario Outline: Verify if a user can Submit an application in AP and the Casew
 	When I create a New Suspect Non Compliance
 	And I Log decision in SNC as '<Decision>'
 	Then The 'Decision date' is set to Current date
-	Then The 'Close date' is set to Current date
+	And The 'Close date' is set to Current date
 	And the status is changed to 'Closed'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Decision					|
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | No Action					|
-	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | First Offence (Warning)   |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Decision                |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | No Action               |
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | First Offence (Warning) |
 
 Scenario Outline: Verify if a user can Submit an application in AP and the Caseworker can Reject the application in Dynamics and verify the Rejection email
 	Then I have selected '<Are your details correct>' option
@@ -636,7 +636,7 @@ Scenario Outline: Verify if a user can Submit an application in AP and the Casew
 	And I 'Fail' the Microchip check
 	And I go back
 	And I 'Reject' the application with reason 'Invalid MC number'
-	Then I verify the copy of the 'REJECTION' Email in Timeline	
+	Then I verify the copy of the 'REJECTION' Email in Timeline
 
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
@@ -681,7 +681,7 @@ Scenario Outline: Verify if a user can Submit an application in AP and the Casew
 	And I can see the unique application reference number
 	When I Login to Dynamics application
 	And I opens the application
-	And I assign the application to myself	
+	And I assign the application to myself
 	Then I verify the copy of the 'CONFIRMATION' Email in Timeline
 	When I 'Pass' the Microchip check
 	And I go back
@@ -705,7 +705,7 @@ Scenario Outline: Create a PTD, generate 6 and 12 month SNCs, and verify status 
 	Then I should redirected to What is your postcode page
 	When I click the link Enter the address manually
 	And I provided address details with postcode '<PostCode>'
-	When I click Continue button from What is your postcode page
+	And I click Continue button from What is your postcode page
 	Then I should redirected to What is your phone number page
 	And I provided the phone number '<PhoneNumber>'
 	When I click Continue button from What is your phone number page
@@ -746,7 +746,7 @@ Scenario Outline: Create a PTD, generate 6 and 12 month SNCs, and verify status 
 	And I 'Pass' the Microchip check
 	And I go back
 	And I 'Authorise' the application
-	When I create a New Suspect Non Compliance
+	And I create a New Suspect Non Compliance
 	And I Log decision in SNC as '<Decision>'
 	Then I verify the copy of the 'SUSPENSION' Email in Timeline
 	And The 'Decision date' is set to Current date

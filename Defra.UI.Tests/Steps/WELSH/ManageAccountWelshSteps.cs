@@ -1,21 +1,15 @@
 ﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.WELSH.Interfaces;
-using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using Reqnroll;
 using Reqnroll.BoDi;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Defra.UI.Tests.Steps.WELSH
 {
     [Binding]
     public class ManageAccountWelshSteps
     {
-        
+
         private readonly IObjectContainer _objectContainer;
         private readonly ScenarioContext _scenarioContext;
         private IWebDriver? _driver => _objectContainer.IsRegistered<IWebDriver>() ? _objectContainer.Resolve<IWebDriver>() : null;
@@ -40,7 +34,7 @@ namespace Defra.UI.Tests.Steps.WELSH
         {
             ManageAccountPageWelsh?.VerifyPageContent();
         }
-        
+
         [When(@"I click on Manage account in Welsh")]
         public void ThenIClickOnManageAccount()
         {

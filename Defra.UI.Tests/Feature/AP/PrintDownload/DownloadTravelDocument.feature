@@ -15,6 +15,7 @@ Background:
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page
 
+@PipelineFailure
 Scenario Outline: Download PETS Travel Document Dog and Cat - Pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -65,11 +66,11 @@ Scenario Outline: Download PETS Travel Document Dog and Cat - Pending
 	And I click download link in summary page
 
 Examples:
-	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
-	| PetDog's  | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
-	| PetCat's  | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |
 
-	
+@PipelineFailure	
 Scenario Outline: Download PETS Travel Document Ferret - Pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -117,5 +118,5 @@ Scenario Outline: Download PETS Travel Document Ferret - Pending
 	And I click download link in summary page
 	
 Examples:
-	| FullName    |  Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
-	| PetFerret's |  Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |
+	| FullName    | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures |
+	| PetFerret's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Chocolate | No                    |

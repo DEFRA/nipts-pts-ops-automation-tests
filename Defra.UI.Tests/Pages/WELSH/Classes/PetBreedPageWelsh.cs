@@ -1,11 +1,11 @@
 ﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.HelperMethods;
-using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
 
-namespace Defra.UI.Tests.Pages.AP.Classes
+namespace Defra.UI.Tests.Pages.WELSH.Classes
 {
     public class PetBreedPageWelsh : IPetBreedPageWelsh
     {
@@ -144,7 +144,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             }
             return true;
         }
- 
+
         public bool VerifyFooterLinksinWelsh()
         {
 
@@ -155,14 +155,14 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         }
 
-    
+
 
         public bool VerifyHintText()
         {
             return txtHintBreed.Text.Contains("Teipiwch frîd eich cath neu dewiswch o'r opsiynau a awgrymir.");
         }
-     
+
         #endregion
-         }
-                         
-        }
+    }
+
+}

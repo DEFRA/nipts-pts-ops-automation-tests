@@ -1,5 +1,4 @@
-﻿using Defra.UI.Framework.Driver;
-using Defra.UI.Tests.Configuration;
+﻿using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
@@ -41,12 +40,21 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         #endregion
 
         #region Methods
-        public bool VerifyHeadings(string heading, string subHeading)
-        {
-            _driver.Wait(10);
-            var applicationTitle = lblTitle.Text.Replace("\r\n", " ").ToUpper();
-            return applicationTitle.Contains(subHeading.ToUpper()) && applicationTitle.Contains(heading.ToUpper());
-        }
+   public bool VerifyHeadings(string heading, string subHeading)
+{
+    // Ensure the heading element is present
+    _driver.WaitForElement(By.XPath("//h1"));
+    Thread.Sleep(TimeSpan.FromSeconds(2));
+    var raw = lblTitle?.Text ?? string.Empty;
+
+    // Normalize all line endings and collapse whitespace
+    raw = raw.Replace("\r\n", " ").Replace("\r", " ").Replace("\n", " ");
+    raw = System.Text.RegularExpressions.Regex.Replace(raw, @"\s+", " ").Trim();
+
+    // Case-insensitive contains checks
+    return raw.IndexOf(subHeading ?? string.Empty, StringComparison.OrdinalIgnoreCase) >= 0
+        && raw.IndexOf(heading ?? string.Empty, StringComparison.OrdinalIgnoreCase) >= 0;
+}
 
         public bool IsPageLoaded()
         {
@@ -115,12 +123,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                                          "Preparation of this accessibility statement" };
 
             var h3Titles = new[] { "Compliance status",
-                                     //    "Non-accessible content",
                                          "Usability"};
 
-           // var h4Title = "Non-compliance with the accessibility regulations";
 
-            var h2ElementCount=0;
+            var h2ElementCount = 0;
             var h3ElementCount = 0;
 
             foreach (var h2Subheading in lblH2SubHeadings)
@@ -133,7 +139,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                     continue;
                 }
             }
-          
+
             foreach (var h3Subheading in lblH3SubHeadings)
             {
                 if (h3Titles.Contains(h3Subheading.Text.Trim()))
@@ -145,7 +151,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
             return h2ElementCount.Equals(h2Titles.Length)
                 && h3ElementCount.Equals(h3Titles.Length);
-               // && lblH4SubHeading.Text.Trim().Equals(h4Title);
         }
 
         public bool VerifyLinks()
@@ -162,7 +167,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 _driver.SwitchTo().Window(newTab);
 
                 string currentUrl = _driver.Url;
-                var urls = new[] { "https://mcmw.abilitynet.org.uk/", "https://www.equalityadvisoryservice.com/", "https://www.equalityni.org/Home", "https://www.legislation.gov.uk/uksi/2018/952/contents", "https://www.w3.org/TR/WCAG21/" };
+                var urls = new[] { "https://mcmw.abilitynet.org.uk/", "https://www.equalityadvisoryservice.com/", "https://equalityni.org/", "https://www.legislation.gov.uk/uksi/2018/952/contents", "https://www.w3.org/TR/WCAG21/" };
                 if (urls.Contains(currentUrl))
                 {
                     _driver.Close();
