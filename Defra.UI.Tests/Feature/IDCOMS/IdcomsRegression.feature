@@ -72,7 +72,7 @@ Scenario: Verify the duplicate subgrid - Revoked Application
 Scenario: Verify the duplicate subgrid - Authorised Application
 	When I Login to Dynamics application
 	And I Switch to 'All PTD Applications'
-	And I open the 'JUBBQB3A' application
+	And I open the '5XZKV5YD' application
 	And I go to the tab 'Duplicates'
 	Then I Verify if 'Application Reference' coloumn is available in Duplicate subgrid
 	And I Verify if 'PTD Reference' coloumn is available in Duplicate subgrid
@@ -81,7 +81,7 @@ Scenario: Verify the duplicate subgrid - Authorised Application
 Scenario: Verify the duplicate subgrid - Open Application
 	When I Login to Dynamics application
 	And I Switch to 'All PTD Applications'
-	And I open the 'BSSOBCSA' application
+	And I open the '8B1CNKV5' application
 	And I go to the tab 'Duplicates'
 	Then I Verify if 'Application Reference' coloumn is available in Duplicate subgrid
 	And I Verify if 'PTD Reference' coloumn is available in Duplicate subgrid
@@ -615,7 +615,7 @@ Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter 
 	When I Login to Dynamics application
 	And I open 'Suspect Non Compliances' under 'Application'
 	And I Switch to 'All Suspect Non-Compliances'
-	And I open the 'SNC-1391' application
+	And I open the 'SNC-1560' application
 	Then I 'can' see 'Letter Sent' button
 	And I See the 'Letter to be sent' value in 'nipts_intenttosuspendletter' field
 	And I See the 'Letter to be sent' value in 'nipts_closeletter' field
@@ -644,7 +644,7 @@ Examples:
 Scenario: Verify the Status Reason and Owner of the Suspended Record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1047' application
+	And I open the 'SUS-1075' application
 	Then the status is 'Open' and readonly
 	And the Owner is 'Brindha Mathanaguru' and readonly
 
