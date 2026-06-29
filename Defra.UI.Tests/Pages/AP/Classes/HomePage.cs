@@ -40,7 +40,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> txtStausValues => _driver.WaitForElements(By.XPath("//*[@class = 'govuk-table__row']/td[1]"));
         private IReadOnlyCollection<IWebElement> txtViewLinks => _driver.WaitForElements(By.XPath("//*[@class = 'govuk-table__row']/td[2]"));
         private IReadOnlyCollection<IWebElement> lnksManageAccAndSingOut => _driver.FindElements(By.XPath("//div[@class = 'login-nav govuk-!-display-none-print']"));
-        private IWebElement lblSusWarning => _driver.WaitForElement(By.XPath("//div[@class = 'govuk-warning-text']/strong/text()[2]"));
+        private IWebElement lblSusWarning => _driver.WaitForElement(By.XPath("//div[@class = 'govuk-warning-text']/strong"));
         private IReadOnlyCollection<IWebElement> btnApplyForDocumentCheck => _driver.FindElements(By.XPath("//button[normalize-space(text())='Apply for a document']"));
         private IReadOnlyCollection<IWebElement> lblSusStatusInDashboard => _driver.FindElements(By.XPath("//*[@class='govuk-table__cell status-column']/strong"));
         private IWebElement lblCookiesBanner => _driver.WaitForElement(By.XPath("//h2[@class = 'govuk-cookie-banner__heading govuk-heading-m']"));
@@ -262,7 +262,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifySuspensionWarning()
         {
-            return lblSusWarning.Text.Trim().Contains("You have been suspended from this scheme and cannot use your pet travel documents or apply for new ones until your suspension is lifted. Check your email for more information, including how to appeal.");
+            var element = lblSusWarning;
+            var text = element.Text.Trim(); // Gets all text content from the <strong> element
+            return text.Contains("You have been suspended from this scheme and cannot use your pet travel documents or apply for new ones until your suspension is lifted. Check your email for more information, including how to appeal.");
         }
 
         public bool VerifyApplyButtonNotVisible()
