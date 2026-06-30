@@ -70,7 +70,7 @@ Examples:
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   |
 	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    |
 
-@PipelineFailure @Test
+@Test
 Scenario Outline: Print PETS Travel Document Ferret - Pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page

@@ -12,13 +12,11 @@ Background:
 	When I have provided the suspension credentials and signin
 	Then I should redirected to Apply for a pet travel document page
 
-@PipelineFailure
 Scenario: Verify the status and warning message and apply for a document button in suspended account
 	Then I should see a suspension warning message
 	And I should not see apply for a document green button
 	And I should verify the status of all records in the dashboard as 'Suspended'
 
-@PipelineFailure
 Scenario: Verify the view document and print download option - Suspended
 	Then I should see a suspension warning message
 	When I have clicked the first ptd view hyperlink from dashboard

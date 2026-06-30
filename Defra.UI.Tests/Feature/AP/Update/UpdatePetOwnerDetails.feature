@@ -174,7 +174,6 @@ Examples:
 	| PetCats's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   |        02012345679 |
 	| PetDogs's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Female | Red   | Yes                   |        02012345679 |
 
-@PipelineFailure
 Scenario Outline: Modify Name of the pet owner By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page

@@ -14,7 +14,6 @@ Background:
 	When I click 'Cymraeg' link to change the language
 	Then I should see the heading of dashboard page changed to Welsh
 
-@PipelineFailure
 Scenario: Verify the status and warning message and apply for a document button in suspended account in Welsh
 	Then I should see a suspension warning message in Welsh
 	And I should not see apply for a document green button in Welsh
