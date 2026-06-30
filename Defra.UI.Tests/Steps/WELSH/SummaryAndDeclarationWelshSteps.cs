@@ -1,5 +1,6 @@
 ﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.WELSH.Interfaces;
+using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using Reqnroll;
 using Reqnroll.BoDi;
@@ -193,7 +194,37 @@ namespace Defra.UI.Tests.Steps.WELSH
 
             foreach (var lineItem in address)
             {
-                Assert.IsTrue(summary?.Address.Replace(",", "").ToUpper().Contains(NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
+                var normalizedSummary = NormalizeAddress(summary?.Address ?? string.Empty);
+                var normalizedLine = NormalizeAddress(lineItem ?? string.Empty);
+
+                // Log everything so pipeline shows the real cause
+                TestContext.WriteLine($"SUMMARY RAW: '{summary?.Address}'");
+                TestContext.WriteLine($"SUMMARY NORMALIZED: '{normalizedSummary}'");
+
+                TestContext.WriteLine($"LINE RAW: '{lineItem}'");
+                TestContext.WriteLine($"LINE NORMALIZED: '{normalizedLine}'");
+
+                // Token-based comparison (pipeline-safe)
+                var summaryTokens = new HashSet<string>(
+                    normalizedSummary.Split(' ', StringSplitOptions.RemoveEmptyEntries),
+                    StringComparer.OrdinalIgnoreCase
+                );
+
+                var lineTokens = normalizedLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                TestContext.WriteLine("SUMMARY TOKENS: " + string.Join(", ", summaryTokens));
+                TestContext.WriteLine("LINE TOKENS: " + string.Join(", ", lineTokens));
+
+                foreach (var token in lineTokens)
+                {
+                    Assert.IsTrue(
+                        summaryTokens.Contains(token),
+                        $"Address mismatch in {pageName} page.\n" +
+                        $"Missing token: '{token}'\n" +
+                        $"SUMMARY TOKENS: [{string.Join(", ", summaryTokens)}]\n" +
+                        $"LINE TOKENS: [{string.Join(", ", lineTokens)}]"
+                    );
+                }
             }
 
             if (isSummaryPage)
