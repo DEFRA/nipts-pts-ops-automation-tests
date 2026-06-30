@@ -161,6 +161,7 @@ namespace Defra.UI.Tests.Steps.WELSH
 
         private void VerifyPetOwnerDetailsWelsh(bool isSummaryPage = true)
         {
+            Thread.Sleep(TimeSpan.FromSeconds(2));
             var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
             var registeredUserDetails = changeDetailsPageWelsh?.GetRegisteredUserDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
