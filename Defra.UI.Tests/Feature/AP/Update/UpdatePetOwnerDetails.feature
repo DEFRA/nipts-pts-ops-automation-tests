@@ -15,7 +15,6 @@ Background:
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page
 
-@PipelineFailure
 Scenario Outline: Modify Name of the pet owner By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -123,7 +122,6 @@ Examples:
 	| PetCats's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Cat | Cat     | Female | White | Yes                   | CV2 4NZ         |
 	| PetDogs's | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Dog | Dog     | Male   | Red   | Yes                   | OX1 1AF         |
 
-@PipelineFailure
 Scenario Outline: Modify Phone number of the pet owner By Registered User with details correct
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -225,7 +223,6 @@ Examples:
 	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color     | IsSignificantFeatures | UpdatedFullName | UpdatedPostCode |
 	| PetFerret | Yes                      | CV1 4PY  | 02012345671 | Yes             | 123456789123452 | Ferret | Ferret  | Female | Chocolate | Yes                   | NewPetFerret    | CV1 4PY         |
 
-@PipelineFailure
 Scenario Outline: Modify Phone number of the pet owner By Registered User with details correct - Ferret
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
