@@ -15,7 +15,7 @@ Background:
 	When I click Create a new pet travel document button
 	Then I should redirected to the Are your details correct page
 
-@PTSTest @PipelineFailure
+@PTSTest
 Scenario Outline: Print PETS Travel Document Dog and Cat - Pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page

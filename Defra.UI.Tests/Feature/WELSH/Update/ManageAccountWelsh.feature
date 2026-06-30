@@ -12,7 +12,6 @@ Background:
 	When I click 'Cymraeg' link to change the language
 	Then I should see the heading of dashboard page changed to Welsh
 
-@PipelineFailure
 Scenario: Change Phone Number in Manage account in Welsh
 	Then I should navigate to Manage account in Welsh
 	And I verify the Manage your account page content in Welsh

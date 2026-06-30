@@ -10,7 +10,6 @@ Background:
 	Then I should redirected to the AP Sign in using Government Gateway page
 	And sign in with valid credentials with logininfo
 
-@PipelineFailure
 Scenario: Change Phone Number in Manage account
 	Then I should navigate to Manage account
 	And I click on Manage your account
