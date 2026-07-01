@@ -3,6 +3,7 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
@@ -40,7 +41,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> txtStausValues => _driver.WaitForElements(By.XPath("//*[@class = 'govuk-table__row']/td[1]"));
         private IReadOnlyCollection<IWebElement> txtViewLinks => _driver.WaitForElements(By.XPath("//*[@class = 'govuk-table__row']/td[2]"));
         private IReadOnlyCollection<IWebElement> lnksManageAccAndSingOut => _driver.FindElements(By.XPath("//div[@class = 'login-nav govuk-!-display-none-print']"));
-        private IWebElement lblSusWarning => _driver.WaitForElement(By.XPath("//div[@class = 'govuk-warning-text']/strong"));
+        private IWebElement lblSusWarning => _driver.FindElement(By.XPath("//div[contains(@class, 'govuk-warning-text')]//strong"));
         private IReadOnlyCollection<IWebElement> btnApplyForDocumentCheck => _driver.FindElements(By.XPath("//button[normalize-space(text())='Apply for a document']"));
         private IReadOnlyCollection<IWebElement> lblSusStatusInDashboard => _driver.FindElements(By.XPath("//*[@class='govuk-table__cell status-column']/strong"));
         private IWebElement lblCookiesBanner => _driver.WaitForElement(By.XPath("//h2[@class = 'govuk-cookie-banner__heading govuk-heading-m']"));
@@ -62,7 +63,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement txtSuccessMsg => _driver.WaitForElementExists(By.XPath("//*[@class='govuk-notification-banner__content']/p"));
         private IWebElement lnkPetsTravelPortal => _driver.WaitForElement(By.XPath("/html/body/header/div/div[2]/a"));
         private IWebElement lnkGovUk => _driver.WaitForElement(By.XPath("//*[@class='govuk-header__logo']/a"));
-        private IReadOnlyCollection<IWebElement> lnkInvalidDocuments1 => _driver.WaitForElements(By.XPath("//a[contains(text() ,'View invalid documents')]"));
+        private IReadOnlyCollection<IWebElement> lnkInvalidDocuments1 => _driver.FindElements(By.XPath("//a[contains(text() ,'View invalid documents')]"));
         #endregion
 
         #region Methods
@@ -262,9 +263,19 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifySuspensionWarning()
         {
-            var element = lblSusWarning;
-            var text = element.Text.Trim(); // Gets all text content from the <strong> element
-            return text.Contains("You have been suspended from this scheme and cannot use your pet travel documents or apply for new ones until your suspension is lifted. Check your email for more information, including how to appeal.");
+            try
+            {
+                var element = lblSusWarning;
+                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
+                wait.Until(d => !string.IsNullOrWhiteSpace(element.Text));
+                var text = element.Text.Trim();
+                var expectedText = "You have been suspended from this scheme and cannot use your pet travel documents or apply for new ones until your suspension is lifted. Check your email for more information, including how to appeal.";
+                return text.Contains(expectedText);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool VerifyApplyButtonNotVisible()

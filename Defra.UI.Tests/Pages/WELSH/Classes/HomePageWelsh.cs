@@ -302,6 +302,7 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
 
         public bool VerifySuspensionWarningInWelsh()
         {
+            Thread.Sleep(2000);
             var element = lblSusWarning;
             var text = element.Text.Trim(); // Gets all text content from the <strong> element
             return text.Contains("Rydych chi wedi cael eich atal o'r cynllun yma a chewch chi ddim defnyddio’ch dogfennau teithio anifeiliaid anwes na gwneud cais am rai newydd nes bod eich ataliad wedi’i godi. Gwiriwch eich ebost am ragor o wybodaeth, gan gynnwys sut i apelio.");           
