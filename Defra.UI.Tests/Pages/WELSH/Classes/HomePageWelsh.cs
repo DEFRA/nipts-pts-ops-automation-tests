@@ -3,6 +3,7 @@ using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.WELSH.Classes
@@ -52,7 +53,7 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
         private IWebElement lblSusWarning => _driver.WaitForElement(By.XPath("//div[@class = 'govuk-warning-text']/strong"));
         private IReadOnlyCollection<IWebElement> btnApplyForDocumentCheck => _driver.FindElements(By.XPath("//button[normalize-space(text())='Gwneud cais am ddogfen']"));
         private IReadOnlyCollection<IWebElement> lblSusStatusInDashboard => _driver.FindElements(By.XPath("//*[@class='govuk-table__cell status-column']/strong"));
-        private IWebElement lblCookiesBanner => _driver.WaitForElement(By.XPath("//h2[@class = 'govuk-cookie-banner__heading govuk-heading-m']"));
+        private IWebElement lblCookiesBanner => _driver.FindElement(By.XPath("//h2[@class = 'govuk-cookie-banner__heading govuk-heading-m']"));
         private IWebElement btnAcceptAdditionalCookies => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Derbyn cwcis ychwanegol']"));
         private IWebElement btnRejectAdditionalCookies => _driver.WaitForElement(By.XPath("//button[normalize-space(text())='Gwrthod cwcis ychwanegol']"));
         private IWebElement lnkViewCookies => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Gweld cwcis']"));
@@ -302,10 +303,19 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
 
         public bool VerifySuspensionWarningInWelsh()
         {
-            Thread.Sleep(2000);
-            var element = lblSusWarning;
-            var text = element.Text.Trim(); // Gets all text content from the <strong> element
-            return text.Contains("Rydych chi wedi cael eich atal o'r cynllun yma a chewch chi ddim defnyddio’ch dogfennau teithio anifeiliaid anwes na gwneud cais am rai newydd nes bod eich ataliad wedi’i godi. Gwiriwch eich ebost am ragor o wybodaeth, gan gynnwys sut i apelio.");           
+            try
+            {
+                var element = lblSusWarning;
+                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
+                wait.Until(d => !string.IsNullOrWhiteSpace(element.Text));
+                var text = element.Text.Trim();
+                var expectedSubstring = "Rydych chi wedi cael eich atal o'r cynllun yma a chewch chi ddim defnyddio’ch dogfennau teithio anifeiliaid anwes na gwneud cais am rai newydd nes bod eich ataliad wedi’i godi. Gwiriwch eich ebost am ragor o wybodaeth, gan gynnwys sut i apelio.";
+                return text.Contains(expectedSubstring);
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public bool VerifyWelshApplyButtonNotVisible()
