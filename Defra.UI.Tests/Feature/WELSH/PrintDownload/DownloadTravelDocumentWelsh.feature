@@ -22,8 +22,8 @@ Scenario Outline: Download PETS Travel Document Dog and Cat in Welsh - Pending
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the '<MicrochipOption>' option
-	And provided microchip number as <MicrochipNumber> in Welsh
-	When I click Continue button from microchipped page in Welsh
+	When provided microchip number as <MicrochipNumber> in Welsh
+	And I click Continue button from microchipped page in Welsh
 	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I have provided date of PETS microchipped in Welsh
 	When I click Continue button from When was your pet microchipped page in Welsh
@@ -77,8 +77,8 @@ Scenario Outline: Download PETS Travel Document Ferret in Welsh - Pending
 	When I click on continue button from Are your details correct page in Welsh
 	Then I should redirected to the Is your pet microchipped page in Welsh
 	And I selected the '<MicrochipOption>' option
-	And provided microchip number as <MicrochipNumber> in Welsh
-	When I click Continue button from microchipped page in Welsh
+	When provided microchip number as <MicrochipNumber> in Welsh
+	And I click Continue button from microchipped page in Welsh
 	Then I should redirected to When was your pet microchipped or last scanned? page in Welsh
 	And I have provided date of PETS microchipped in Welsh
 	When I click Continue button from When was your pet microchipped page in Welsh
