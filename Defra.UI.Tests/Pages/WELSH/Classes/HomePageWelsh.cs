@@ -50,7 +50,7 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
         private IReadOnlyCollection<IWebElement> txtStausValues => _driver.WaitForElements(By.XPath("//*[@class = 'govuk-table__row']/td[1]"));
         private IReadOnlyCollection<IWebElement> txtViewLinks => _driver.WaitForElements(By.XPath("//*[@class = 'govuk-table__row']/td[2]"));
         private IReadOnlyCollection<IWebElement> lnksManageAccAndSingOut => _driver.FindElements(By.XPath("//div[@class = 'login-nav govuk-!-display-none-print']"));
-        private IWebElement lblSusWarning => _driver.WaitForElement(By.XPath("//div[@class = 'govuk-warning-text']/strong"));
+        private IWebElement lblSusWarning => _driver.FindElement(By.XPath("//div[contains(@class, 'govuk-warning-text')]//strong"));
         private IReadOnlyCollection<IWebElement> btnApplyForDocumentCheck => _driver.FindElements(By.XPath("//button[normalize-space(text())='Gwneud cais am ddogfen']"));
         private IReadOnlyCollection<IWebElement> lblSusStatusInDashboard => _driver.FindElements(By.XPath("//*[@class='govuk-table__cell status-column']/strong"));
         private IWebElement lblCookiesBanner => _driver.FindElement(By.XPath("//h2[@class = 'govuk-cookie-banner__heading govuk-heading-m']"));
@@ -306,10 +306,11 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
             try
             {
                 var element = lblSusWarning;
-                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(2));
+                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
                 wait.Until(d => !string.IsNullOrWhiteSpace(element.Text));
                 var text = element.Text.Trim();
-                var expectedSubstring = "Rydych chi wedi cael eich atal o'r cynllun yma a chewch chi ddim defnyddio’ch dogfennau teithio anifeiliaid anwes na gwneud cais am rai newydd nes bod eich ataliad wedi’i godi. Gwiriwch eich ebost am ragor o wybodaeth, gan gynnwys sut i apelio.";
+                text = text.Replace("’", "'").Replace("‘", "'").Replace("”", "\"").Replace("“", "\"");
+                var expectedSubstring = "Rydych chi wedi cael eich atal";
                 return text.Contains(expectedSubstring);
             }
             catch

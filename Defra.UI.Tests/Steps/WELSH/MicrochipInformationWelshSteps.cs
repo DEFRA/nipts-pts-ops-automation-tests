@@ -80,7 +80,10 @@ namespace Defra.UI.Tests.Steps.WELSH
         [When(@"provided microchip number as (.*) in Welsh")]
         public void ThenProvidedMicrochipNumberAs(string microchipNumber)
         {
-            _scenarioContext.Add("Rhif y microsglodyn", petMicrochipPageWelsh?.EnterMicrochipNumber());
+            var value = petMicrochipPageWelsh?.EnterMicrochipNumber();
+            _scenarioContext.Add("Rhif y microsglodyn", value);
+            _scenarioContext.Add("MicrochipNumber", value);
+           // _scenarioContext.Add("Rhif y microsglodyn", petMicrochipPageWelsh?.EnterMicrochipNumber());
         }
 
         [Then(@"I have provided date of PETS microchipped in Welsh")]
