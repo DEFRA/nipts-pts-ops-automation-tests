@@ -193,7 +193,6 @@ namespace Defra.UI.Tests.Pages.CP.Pages
                 string Normalize(string s) => System.Text.RegularExpressions.Regex.Replace(
                     s.Replace('\u2018', '\'').Replace('\u2019', '\'').Replace('\u201C', '"').Replace('\u201D', '"'),
                     "\\s+", " ").Trim();
-
                 var normalizedActual = Normalize(actualWarningText);
                 var normalizedExpected = Normalize(warningText ?? string.Empty);
 
