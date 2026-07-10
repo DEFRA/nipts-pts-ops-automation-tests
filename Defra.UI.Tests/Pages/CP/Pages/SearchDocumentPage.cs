@@ -84,7 +84,8 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SearchButton()
         {
-            btnSearch.Click(_driver);
+            ((IJavaScriptExecutor)_driver)
+                    .ExecuteScript("arguments[0].click();", btnSearch);
         }
 
         public void ClearSearchButton()
