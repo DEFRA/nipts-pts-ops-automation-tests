@@ -114,7 +114,10 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             Console.WriteLine($"Before click URL: {_driver.Url}");
 
-            btnSaveAndContinue.Click(_driver);
+            //btnSaveAndContinue.Click(_driver);
+
+            ((IJavaScriptExecutor)_driver)
+                .ExecuteScript("arguments[0].click();", btnSaveAndContinue);
 
             Thread.Sleep(3000);
 
