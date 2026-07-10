@@ -112,7 +112,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public void SelectSaveAndContinue()
         {
+            Console.WriteLine($"Before click URL: {_driver.Url}");
+
             btnSaveAndContinue.Click(_driver);
+
+            Thread.Sleep(3000);
+
+            Console.WriteLine($"After click URL: {_driver.Url}");
         }
 
         public bool FlightNumberSection(string routeFlight)
