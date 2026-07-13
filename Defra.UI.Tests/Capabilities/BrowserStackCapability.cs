@@ -12,9 +12,9 @@ namespace Defra.UI.Tests.Capabilities
     {
         private BaseConfiguration _configuration => ConfigSetup.BaseConfiguration;
         private readonly ScenarioContext _scenarioContext;
-        private readonly Dictionary<string, object> _capDictionary = [];
-        private readonly Dictionary<string, object> _browserstackOptions = [];
-        private static readonly string[] _osList = ["WINDOWS", "OS X"];
+        private readonly Dictionary<string, object> _capDictionary = new Dictionary<string, object>();
+        private readonly Dictionary<string, object> _browserstackOptions = new Dictionary<string, object>();
+        private static readonly string[] _osList = new[] { "WINDOWS", "OS X" };
 
         private readonly string _target;
         private readonly string _deviceName;
@@ -56,7 +56,9 @@ namespace Defra.UI.Tests.Capabilities
                 // Use SafariOptions for iOS runs and set top-level W3C capabilities
                 var opts = new SafariOptions();
                 AddDictionaryValuesInDriverOptions(opts, _capDictionary);
+                // set the browserName as an additional option (setter is inaccessible on DriverOptions)
                 opts.AddAdditionalOption("browserName", "Safari");
+                // platformName is a W3C capability; keep as additional option if needed
                 opts.AddAdditionalOption("platformName", "iOS");
                 // also keep browserstack-specific options nested
                 opts.AddAdditionalOption("bstack:options", _browserstackOptions);
@@ -80,6 +82,7 @@ namespace Defra.UI.Tests.Capabilities
 
             var chromeOpts = new ChromeOptions();
             AddDictionaryValuesInDriverOptions(chromeOpts, _capDictionary);
+            // set the browserName as an additional option (setter is inaccessible on DriverOptions)
             chromeOpts.AddAdditionalOption("browserName", browserName);
             chromeOpts.AddAdditionalOption("bstack:options", _browserstackOptions);
             return chromeOpts;
@@ -121,6 +124,10 @@ namespace Defra.UI.Tests.Capabilities
             {
                 foreach (var androidDictionary in capDictionary)
                 {
+                    // avoid adding browserName as an additional option; use DriverOptions.BrowserName instead
+                    if (string.Equals(androidDictionary.Key?.ToString(), "browserName", StringComparison.OrdinalIgnoreCase))
+                        continue;
+
                     driverOptions.AddAdditionalOption(androidDictionary.Key.ToString(), androidDictionary.Value);
                 }
             }
