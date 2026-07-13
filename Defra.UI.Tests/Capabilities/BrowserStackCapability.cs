@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Safari;
+using System.Globalization;
 using Reqnroll;
 
 namespace Defra.UI.Tests.Capabilities
@@ -30,28 +32,35 @@ namespace Defra.UI.Tests.Capabilities
 
         public DriverOptions GetDriverOptions(Dictionary<string, string> capDictionary = null)
         {
+            // populate common BrowserStack options
             GetBrowserStackConfig();
             GetProjectDriverOptions();
             GetTestNameDriverOptions();
 
-            _browserstackOptions.Add("acceptInsecureCerts", true);
+            _browserstackOptions["acceptInsecureCerts"] = true;
+            _capDictionary["autoGrantPermission"] = true;
 
-            _capDictionary.Add("autoGrantPermission:", true);
-            _capDictionary.Add("osVersion", _bs_os_version);
+            var deviceUpper = _deviceName?.ToUpperInvariant() ?? string.Empty;
+            var browserName = string.IsNullOrWhiteSpace(_target)
+                ? "Chrome"
+                : CultureInfo.InvariantCulture.TextInfo.ToTitleCase(_target.ToLowerInvariant());
 
-            if (_osList.Contains(_deviceName.ToUpper()))
+            // Mobile device configuration
+            if (deviceUpper.Contains("IPAD") || deviceUpper.Contains("IPHONE"))
             {
-                _capDictionary.Add("os", _deviceName);
-                _browserstackOptions.Add("os", _deviceName);
-                _browserstackOptions.Add("browser", _target);
-                _browserstackOptions.Add("browserVersion", _bs_browser_version);
-            }
-            else
-            {
-                _capDictionary.Add("deviceName", _deviceName);
-                _browserstackOptions.Add("deviceName", _deviceName);
-                _browserstackOptions.Add("browserName", _target);
-                _browserstackOptions.Add("deviceOrientation", "portrait"); 
+                // BrowserStack expects device info in bstack:options but top-level W3C keys should also be set
+                _browserstackOptions["deviceName"] = _deviceName;
+                if (!string.IsNullOrEmpty(_bs_os_version)) _browserstackOptions["osVersion"] = _bs_os_version;
+                _browserstackOptions["realMobile"] = true;
+
+                // Use SafariOptions for iOS runs and set top-level W3C capabilities
+                var opts = new SafariOptions();
+                AddDictionaryValuesInDriverOptions(opts, _capDictionary);
+                opts.AddAdditionalOption("browserName", "Safari");
+                opts.AddAdditionalOption("platformName", "iOS");
+                // also keep browserstack-specific options nested
+                opts.AddAdditionalOption("bstack:options", _browserstackOptions);
+                return opts;
             }
 
             _browserstackOptions.Add("local", "false");
@@ -69,7 +78,11 @@ namespace Defra.UI.Tests.Capabilities
             AddDictionaryValuesInDriverOptions(driverOptions, _capDictionary);
             driverOptions.AddAdditionalOption("bstack:options", _browserstackOptions);
 
-            return driverOptions;
+            var chromeOpts = new ChromeOptions();
+            AddDictionaryValuesInDriverOptions(chromeOpts, _capDictionary);
+            chromeOpts.AddAdditionalOption("browserName", browserName);
+            chromeOpts.AddAdditionalOption("bstack:options", _browserstackOptions);
+            return chromeOpts;
         }
 
         private void GetBrowserStackConfig()
