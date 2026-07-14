@@ -18,7 +18,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement UserId => _driver.FindElement(By.Id("user_id"));
         private IWebElement Password => _driver.FindElement(By.Id("password"));
         private IWebElement SignIn => _driver.WaitForElement(By.Id("continue"));
-        private By SignInConfirmBy => By.CssSelector("[href='/User/OSignOut']");
+        //private By SignInConfirmBy => By.CssSelector("[href='/User/OSignOut']");
+        private By SignInConfirmBy => By.CssSelector("a[href*='OSignOut']");
         private IWebElement CreateSignInDetails => _driver.WaitForElement(By.XPath("//a[contains(text(),'Create sign in')]"));
         private IWebElement SignOutGCConfirmMessage => _driver.WaitForElement(By.CssSelector("h1.govuk-heading-xl"));
         private IWebElement DynamicsUserId => _driver.WaitForElement(By.XPath("//*[normalize-space(text())='Sign in']/following::input[1]"));
@@ -50,7 +51,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             UserId.SendKeys(userName);
             Password.SendKeys(password);
             _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn)).Click();
-            return _driver.WaitForElement(SignInConfirmBy).Enabled;
+
+            var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
+            return wait.Until(driver =>
+                driver.FindElements(SignInConfirmBy).Count > 0);
+
+            //return _driver.WaitForElement(SignInConfirmBy).Enabled;
         }
 
         public void ClickCreateSignInDetailsLink() => CreateSignInDetails.Click();
