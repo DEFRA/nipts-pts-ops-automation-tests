@@ -51,12 +51,21 @@ namespace Defra.UI.Tests.Capabilities
                 _capDictionary.Add("deviceName", _deviceName);
                 _browserstackOptions.Add("deviceName", _deviceName);
                 _browserstackOptions.Add("browserName", _target);
-                _browserstackOptions.Add("deviceOrientation", "portrait"); 
+                _browserstackOptions.Add("deviceOrientation", "portrait");
             }
 
             _browserstackOptions.Add("local", "false");
 
-            var driverOptions = new ChromeOptions();
+            // choose options based on mobile/desktop target
+            DriverOptions driverOptions;
+            if (_deviceName.ToUpper().Contains("IPAD") || _deviceName.ToUpper().Contains("IPHONE"))
+            {
+                driverOptions = new OpenQA.Selenium.Safari.SafariOptions();
+            }
+            else
+            {
+                driverOptions = new OpenQA.Selenium.Chrome.ChromeOptions();
+            }
             AddDictionaryValuesInDriverOptions(driverOptions, _capDictionary);
             driverOptions.AddAdditionalOption("bstack:options", _browserstackOptions);
 
