@@ -65,6 +65,18 @@ public class LoginSteps : PowerAppsStepDefiner
 
         CloseTeachingBubbles();
     }
+    public static void SigninPopup()
+    {
+        try
+        {
+            Driver.WaitUntilAvailable(By.XPath("//h1[text() = 'Sign in to continue']"), 30.Seconds());
+            Driver.WaitUntilAvailable(By.XPath("//*[normalize-space(text()) ='Sign in']")).Click();
+        }
+        catch 
+        {
+            //no action
+        }
+    }
 
     private static void CloseTeachingBubbles()
     {

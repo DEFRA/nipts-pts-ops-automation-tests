@@ -68,6 +68,7 @@ namespace Defra.UI.Tests.Steps.AP
             var user = PowerAppsStepDefiner.TestConfig.Users.FirstOrDefault();
 
             Trade.Plants.SpecFlowBindings.Steps.LoginSteps.GivenIAmLoggedInToTheAppAs1("Defra Trade - NIPTS", user?.Alias);
+            Trade.Plants.SpecFlowBindings.Steps.LoginSteps.SigninPopup();
         }
 
         [Then("I click on Taking a pet from Great Britain to Northern Ireland link")]
