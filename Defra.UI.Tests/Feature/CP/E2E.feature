@@ -70,6 +70,9 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	And click on signout button and verify the signout message
 	And I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -146,6 +149,9 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And click on signout button and verify the signout message
 	And I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -219,6 +225,9 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then the status is changed to 'Revoked'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -294,6 +303,9 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in R
 	Then the status is changed to 'Revoked'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -364,6 +376,9 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	Then the status is changed to 'Rejected'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -434,6 +449,9 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in U
 	Then the status is changed to 'Rejected'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -509,6 +527,9 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And click on signout button and verify the signout message
 	And I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -583,6 +604,9 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then the status is changed to 'Revoked'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -654,6 +678,9 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	Then the status is changed to 'Rejected'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -787,6 +814,9 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	Then I get the PTD Reference Number and Store it
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -851,6 +881,9 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And click on signout button and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -915,6 +948,9 @@ Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP an
 	And click on signout button and verify the signout message
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -940,6 +976,9 @@ Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP an
 	And click on signout button on CP and verify the signout message
 	Given that I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
@@ -1023,6 +1062,9 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	Then the status is changed to 'Authorised'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -1038,7 +1080,7 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	And I provided the Reference number of the application
 	When I click search button
 	And I should see the application status in 'Approved'
-	And I select Fail radio button
+	And I select Refer to SPS radio button
 	And I click save and continue button from application status page
 	Then I should navigate to Report non-compliance page
 	And I click 'Vehicle on ferry' in Passenger details
@@ -1049,6 +1091,9 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	And click on signout button on CP and verify the signout message
 	Given that I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
@@ -1063,23 +1108,20 @@ Scenario Outline: Submit PTD in AP, Authorise in IDCOMS, Report non compliance a
 	And The Background colour of 'Checks Needed' in 'Approved' application is 'Blue'
 	When I click on the 'Approved' application that is in checks Needed SPS Outcome
 	And I click Update referral outcome button
-	And I should see the application status in 'Approved'
-	And I select Fail radio button
-	And I click save and continue button from application status page
-	Then I should navigate to Report non-compliance page
-	And I click 'Vehicle on ferry' in Passenger details
-	When I Select the 'Cannot find microchip' Microchip Checkbox
-	And I click '<SPSOutcome>' in SPS Outcome
-	And I click Save outcome button from non-compliance page
-	And I click View link in Fail Referred to SPS row with departure time '23:59'
+	Then I should see Update referral outcome page
+	When I select "<SPSOutcome>" in Update Referral Outcome page
+	And I enter details of outcome <OutcomeMessage> in Update referral outcome page
+	And I Click Save in Update referral outcome page
+	Then I should navigate to Checks page
+	When I click View link in Fail Referred to SPS row with departure time '23:59'
 	Then I should navigate to Referred to SPS page
 	And I verify the travel status for the 'Approved' application is '<SPSOutcome>'
 	And The Background colour of '<SPSOutcome>' in 'Approved' application is '<BGColour>'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio             | SPSOutcome  | BGColour |
-	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Allowed     | GREEN    |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio             | SPSOutcome  | BGColour | OutcomeMessage		|
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Allowed     | GREEN    | Allowed to Travel    |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      | Not Allowed to Travel|
 
 Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as GB Checker in CP and Allow/Deny travel as SPS Checker - status in Cancelled
 	Then I have selected '<Are your details correct>' option
@@ -1136,6 +1178,9 @@ Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as G
 	Then the status is changed to 'Revoked'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -1161,6 +1206,9 @@ Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as G
 	And click on signout button on CP and verify the signout message
 	Given that I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
@@ -1244,6 +1292,9 @@ Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as G
 	Then the status is changed to 'Rejected'
 	When I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP credentials and signin
 	And I have provided the password for prototype research page
@@ -1269,6 +1320,9 @@ Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as G
 	And click on signout button on CP and verify the signout message
 	Given that I navigate to the port checker application
 	And I click signin button on port checker application
+	Then I should see type of Gateway login page
+	And I have selected "Sign in with Government Gateway" as login type
+	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided the CP SPS credentials and signin
 	And I have provided the password for prototype research page
