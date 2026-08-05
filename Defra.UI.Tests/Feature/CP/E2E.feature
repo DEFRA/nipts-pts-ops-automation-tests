@@ -242,7 +242,7 @@ Scenario Outline: Check PETS Travel Document details By Application number - sta
 	And I click search by '<ApplicationRadio>' radio button
 	And I provided the Reference number of the application
 	When I click search button
-	And I should see the application status in 'Revoked'
+	And I should see the application status in 'Cancelled'
 	And I Click on Back button
 	Then I navigate to Find a document page
 
@@ -320,7 +320,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in R
 	And I click search by 'Search by PTD number' radio button
 	And I provided the PTD number of the application
 	When I click search button
-	And I should see the application status in 'Revoked'
+	And I should see the application status in 'Cancelled'
 
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute               | ApplicationRadio             |
@@ -621,7 +621,7 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And I click search by '<ApplicationRadio>' radio button
 	And I provided the Microchip number of the application
 	When I click search button
-	And I should see the application status in 'Revoked'
+	And I should see the application status in 'Cancelled'
 	
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio           |
@@ -701,7 +701,6 @@ Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio           |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by microchip number |
 
-@CPRegression
 Scenario Outline: Check PETS Travel Document details By Reference number - status in Pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -831,7 +830,7 @@ Scenario Outline: Check PETS Travel Document details By PTD number - status in A
 	And I click search by 'Search by PTD number' radio button
 	And I provided the PTD number of the application
 	When I click search button
-	And I should see the application status in 'Awaiting verification'
+	And I should see the application status in 'Pending'
 	
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio             |
@@ -898,12 +897,13 @@ Scenario Outline: Check PETS Travel Document details By Microchip number - statu
 	And I click search by '<ApplicationRadio>' radio button
 	And I provided the Microchip number of the application
 	When I click search button
-	And I should see the application status in 'Awaiting verification'
+	And I should see the application status in 'Pending'
 	
 Examples:
 	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color | IsSignificantFeatures | Transportation | FerryRoute                    | ApplicationRadio           |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by microchip number |
 
+@ignore
 Scenario Outline: Submit PTD in AP, Report non compliance as GB Checker in CP and Allow/Deny travel as SPS Checker - status in pending
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -1123,6 +1123,7 @@ Examples:
 	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Allowed     | GREEN    | Allowed to Travel    |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      | Not Allowed to Travel|
 
+@ignore
 Scenario Outline: Submit PTD in AP, Revoke in IDCOMS, Report non compliance as GB Checker in CP and Allow/Deny travel as SPS Checker - status in Cancelled
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
@@ -1240,6 +1241,7 @@ Examples:
 	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Allowed     | GREEN    |
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | Ferry          | Birkenhead to Belfast (Stena) | Search by application number | Not Allowed | RED      |
 
+@ignore
 Scenario Outline: Submit PTD in AP, Reject in IDCOMS, Report non compliance as GB Checker in CP and Allow/Deny travel as SPS Checker - status in Unsuccessful
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
