@@ -19,7 +19,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
         public IWebElement lnkManageYourAccount => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='manage your account']"), true);
-        public IWebElement lnkUpdateDetails => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Update details']"));
+        public IWebElement lnkUpdateDetails => _driver.WaitForElement(By.XPath("//a[normalize-space(text()) ='Change details']"));
         public IWebElement lnkChangePersonalInformation => _driver.WaitForElement(By.XPath("//*[normalize-space(text()) ='Personal information']/following::a[1]"));
         public IWebElement txtboxPhoneNumber => _driver.WaitForElement(By.Id("telephoneNumber"));
         public IWebElement lnkNameChange => _driver.WaitForElement(By.Id("change-personal-information-name-link"));
