@@ -34,7 +34,7 @@ namespace Defra.UI.Tests.Steps.AP
             ManageAccountPage?.ClickOnManageAccountLink();
         }
 
-        [Then(@"I click on Update Details link")]
+        [Then(@"I click on Change Details link")]
         public void ThenIClickOnUpdateDetails()
         {
             ManageAccountPage?.ClickOnUpdatedetailsLink();
