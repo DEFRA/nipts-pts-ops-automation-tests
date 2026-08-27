@@ -4,7 +4,8 @@
       "username": "17 99 33 58 34 41",
       "Environment": "dev",
       "HomePage": true,
-      "Credential": "Automation123$"
+      "Credential": "Automation123$",
+      "Checkers": ""
     }
   ]
 }
