@@ -462,14 +462,14 @@ Scenario: Verify the error message when the future date is entered in Microchip 
 	And I Click on New to create an offline application
 	And I enter 'Microchipped Date' as 'CurrentDate+4'
 	And I enter 'Pet Name' as 'Aurora'
-	Then I See the error 'The date for Microchipped Date must be in the past.' notification
+	Then I See the error 'The date for Microchipped Date cannot be in the future.' notification
 
 Scenario: Verify the error message when the future date is entered in Date of birth field
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Date of Birth' as 'CurrentDate+4'
 	And I enter 'Pet Name' as 'Aurora'
-	Then I See the error 'The date for Date of Birth must be in the past.' notification
+	Then I See the error 'The date for Date of Birth cannot be in the future.' notification
 
 Scenario: Create a New applicant Contact is and create a offline application and authorise it and check activate/Deactivate buttons is not present in SNC Subgrid and verify the error message for log decision and create a SNC for 12 Months
 	When I Login to Dynamics application
@@ -611,6 +611,7 @@ Scenario: Verify the Suspended pet owner notification
 	And I open the 'Auto061025173012 user' application
 	Then I See the error 'This pet owner is currently suspended.' notification
 
+#make sure the SNC is assigned to your name before you run this test
 Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter to be sent and notification text and Letter sent button is visible in offline application
 	When I Login to Dynamics application
 	And I open 'Suspect Non Compliances' under 'Application'
@@ -749,6 +750,8 @@ Scenario: Verify the readonly fields in a suspension record
 	And I cannot edit the field 'nipts_ptd'
 	And I cannot edit the field 'nipts_suspensionenddate'
 
+#6 months SNC was redundant in R7.33
+@ignore
 Scenario: Verify the partially successful option is hidden in appeal decision dropdown for 6 month suspension - Offline PTD
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
@@ -757,6 +760,8 @@ Scenario: Verify the partially successful option is hidden in appeal decision dr
 	Then the status is 'On Appeal' and readonly
 	And I Verify 'Appeal partially successful' is not available and 'Appeal successful:Appeal unsuccessful' is available in Appeal decision
 
+#6 months SNC was redundant in R7.33
+@ignore
 Scenario: Verify the partially successful option is hidden in appeal decision dropdown for 6 month suspension - Online PTD
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
