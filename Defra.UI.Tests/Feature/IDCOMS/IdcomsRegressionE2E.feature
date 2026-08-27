@@ -243,7 +243,10 @@ Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures |
 	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    |
 
-Scenario Outline: Verify the email subject for approved email and create SNC for First Offence and verify suspension written warning email in Timeline
+
+	#First Offence (Warning) option is redundant in R7.33
+
+Scenario Outline: Verify the email subject for approved email and create SNC for Warning and verify suspension written warning email in Timeline
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the What is your full name page
@@ -295,7 +298,7 @@ Scenario Outline: Verify the email subject for approved email and create SNC for
 	And I 'Authorise' the application
 	Then I verify the copy of the 'APPROVED' Email in Timeline
 	When I create a New Suspect Non Compliance
-	And I Log decision in SNC as 'First Offence (Warning)'
+	And I Log decision in SNC as 'Warning'
 	Then I verify the copy of the 'SUSPENSION WRITTEN WARNING' Email in Timeline
 	And The 'Decision date' is set to Current date
 	And The 'Close date' is set to Current date
@@ -589,9 +592,9 @@ Scenario Outline: Verify if a user can Submit an application in AP and the Casew
 	And the status is changed to 'Closed'
 	
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Decision                |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | No Action               |
-	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | First Offence (Warning) |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Decision  |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | Yes                   | No Action |
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cat | Cat     | Female | Tortoiseshell | No                    | Warning	|
 
 Scenario Outline: Verify if a user can Submit an application in AP and the Caseworker can Reject the application in Dynamics and verify the Rejection email
 	Then I have selected '<Are your details correct>' option
@@ -695,8 +698,10 @@ Examples:
 	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123423 | Dog | Dog     | Male   | Black         | Yes                   |
 	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | Tortoiseshell | No                    |
 
+#Do not run this in automation as it suspends automation user
+#6 months SNC made redundant in R7.33
 @ignore
-Scenario Outline: Create a PTD, generate 6 and 12 month SNCs, and verify status and suspension email.
+Scenario Outline: Create a PTD, generate 12 month SNCs, and verify status and suspension email.
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the What is your full name page
@@ -753,5 +758,4 @@ Scenario Outline: Create a PTD, generate 6 and 12 month SNCs, and verify status 
 	And the status is changed to 'Intent to Suspend'
 Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures | Decision  |
-	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    | 6 Months  |
 	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    | 12 Months |
