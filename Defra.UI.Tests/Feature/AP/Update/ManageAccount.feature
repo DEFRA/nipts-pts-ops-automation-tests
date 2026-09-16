@@ -13,7 +13,7 @@ Background:
 Scenario: Change Phone Number in Manage account
 	Then I should navigate to Manage account
 	And I click on Manage your account
-	And I click on Update Details link
+	And I click on Change Details link
 	And I click on Change Personal Information link
 	And I clicked Change link for Telephone number
 	And I enter updated Phone number
@@ -36,7 +36,7 @@ Scenario: Change Phone Number in Manage account
 Scenario: Change Name in Manage account
 	Then I should navigate to Manage account
 	And I click on Manage your account
-	And I click on Update Details link
+	And I click on Change Details link
 	And I click on Change Personal Information link
 	And I clicked Change link for Name
 	And I enter updated First Name
@@ -59,7 +59,7 @@ Scenario: Change Name in Manage account
 	When I click on Manage account
 	Then I should navigate to Manage account
 	And I click on Manage your account
-	And I click on Update Details link
+	And I click on Change Details link
 	And I click on Change Personal Information link
 	And I clicked Change link for Name
 	And I revert the Pet Owner Name to the Original Name
@@ -67,7 +67,7 @@ Scenario: Change Name in Manage account
 Scenario Outline: Change Address in Manage account
 	Then I should navigate to Manage account
 	And I click on Manage your account
-	And I click on Update Details link
+	And I click on Change Details link
 	And I click on Change Personal Information link
 	And I clicked Change link for Address
 	And I click on Search for my address by UK Postcode link

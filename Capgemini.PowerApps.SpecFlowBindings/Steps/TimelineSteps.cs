@@ -163,6 +163,7 @@ public class TimelineSteps : PowerAppsStepDefiner
 
     public static bool GetTimelineRecordTitle(string expectedTitle)
     {
+        Driver.WaitUntilAvailable(By.XPath("//*[contains(@id,\"timeline_record_title\")]"));
         ReadOnlyCollection<IWebElement> TimelineRecordTitles = Driver.FindElements(By.XPath("//*[contains(@id,\"timeline_record_title\")]"));
         foreach (IWebElement item in TimelineRecordTitles)
         {
@@ -177,24 +178,53 @@ public class TimelineSteps : PowerAppsStepDefiner
 
     public static bool GetTimelineRecordBody(string expectedTitle)
     {
+        Driver.WaitUntilAvailable(By.XPath("//button[contains(@id,'tlr_footer_chevron_button')]"));
         bool isSuccess = false;
         ReadOnlyCollection<IWebElement> TimelineRecordViewMore = Driver.FindElements(By.XPath("//button[contains(@id,'tlr_footer_chevron_button')]"));
         foreach (IWebElement item in TimelineRecordViewMore)
         {
-            var element = item.FindElements(By.TagName("label"));
-            element.FirstOrDefault()?.Click();
-
-            Driver.WaitForTransaction();
-            var descriptionElement = Driver.FindElement(By.XPath("//div[contains(@id,'timeline_field_description')]"));
-
-            if (descriptionElement.Text.Contains(expectedTitle))
+            try
             {
-               // element.FirstOrDefault()?.Click();
-                isSuccess = true;
-                break;
+                var element = item.FindElements(By.TagName("label"));
+                element.FirstOrDefault()?.Click();
+                Driver.WaitForTransaction();
+                string bodyText = string.Empty;
+                for (int retry = 0; retry < 3; retry++)
+                {
+                    try
+                    {
+                        IWebElement descriptionElement = Driver.FindElement(
+                            By.XPath("//div[contains(@id,'timeline_field_description')]"));
+
+                        bodyText = descriptionElement.Text;
+
+                        if (!string.IsNullOrWhiteSpace(bodyText))
+                        {
+                            Console.WriteLine(bodyText);
+                            break;
+                        }
+
+                    }
+                    catch (StaleElementReferenceException)
+                    {
+                        Thread.Sleep(1000);
+                    }
+                }
+
+                if (bodyText.Contains(expectedTitle))
+                {
+                    // element.FirstOrDefault()?.Click();
+                    isSuccess = true;
+                    break;
+                }
+            }
+            catch (StaleElementReferenceException)
+            {
+                Console.WriteLine("Timeline item became stale. Continuing with next item.");
+
             }
         }
-
-        return isSuccess;
+            return isSuccess;
+    
     }
 }

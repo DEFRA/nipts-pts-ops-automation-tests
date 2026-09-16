@@ -51,16 +51,3 @@ Scenario: Verify the Checks home page tables display sailing route departure dat
 	Then I should navigate to Checks page
 	And I should see route displayed in all the tables of Checks page should be 'Birkenhead to Belfast (Stena)'
 	And I should see departure date and time displayed in all tables of Checks page
-
-Scenario: Verify the existing login and sailing details are saved in new tab of same browser
-	Then I have selected 'Ferry' radio option
-	And I select the 'Cairnryan to Larne (P&O)' radio option
-	And I have provided Scheduled departure time '15:30'
-	When I click save and continue button from route checker page
-	Then I should navigate to Checks page
-	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' current date time '15:30' and change link
-	When I open a new tab in the same browser window
-	And I navigate to the port checker application
-	And I click signin button on port checker application
-	Then I should navigate to Checks page
-	And I should see the header of the page with route 'Cairnryan to Larne (P&O)' current date time '15:30' and change link

@@ -26,6 +26,31 @@ public class BrowserOptionsWithProfileSupport : BrowserOptions, ICloneable
     public override ChromeOptions ToChrome()
     {
         var options = base.ToChrome();
+        
+        options.AddArgument("--disable-features=PrivateNetworkAccessPermissionPrompt,BlockInsecurePrivateNetworkRequests");
+
+        // Pre-grant local network access permission for all origins
+        // via Chrome content settings so the popup is never shown regardless of
+        // Chrome version behaviour on the feature flag above.// Setting value: 1 = Allow, 2 = Block
+
+        options.AddUserProfilePreference(
+
+            "profile.content_settings.exceptions.local_network_access",
+
+            new Dictionary<string, object>
+
+            {
+
+                ["https://defra-trade-plants-preprod.crm4.dynamics.com,*"] = new Dictionary<string, object>
+
+                {
+
+                    ["setting"] = 1,
+
+                },
+
+            });
+
 
         if (!string.IsNullOrEmpty(this.ProfileDirectory))
         {

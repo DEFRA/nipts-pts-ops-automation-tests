@@ -128,7 +128,13 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         public bool VerifyReferenceNumberTable(string status)
         {
-            var result = false;
+            // normalize helper to remove any newline/whitespace differences across browsers
+            string Normalize(string input)
+            {
+                if (string.IsNullOrEmpty(input)) return string.Empty;
+                // remove CR and LF, non-breaking spaces and trim
+                return input.Replace("\r", string.Empty).Replace("\n", string.Empty).Replace("\u00A0", " ").Trim();
+            }
 
             _driver.Wait(5);
 
@@ -136,16 +142,30 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             var title = RefNumberSection.FindElement(By.ClassName("govuk-summary-card__title"));
             var documentIssuedFields = RefNumberSection.FindElements(By.ClassName("govuk-summary-list__key"));
 
+            // ensure we have the expected number of key fields before accessing by index
+            if (documentIssuedFields == null || documentIssuedFields.Count < 2)
+            {
+                return false;
+            }
+
+            var titleText = Normalize(title.Text);
+            var refNumber = Normalize(documentIssuedFields[0].Text);
+            var date = Normalize(documentIssuedFields[1].Text);
+
             if (status.Equals("Unsuccessful") || status.Equals("Pending"))
             {
-                result = (title.Text.Replace("\r\n", string.Empty).Trim().Equals("Reference number") && documentIssuedFields[0].Text.Replace("\r\n", string.Empty).Trim().Equals("Application reference number") && documentIssuedFields[1].Text.Replace("\r\n", string.Empty).Equals("Date"));
+                return titleText.Equals("Reference number")
+                       && refNumber.Equals("Application reference number")
+                       && date.Equals("Date");
             }
             else if (status.Equals("Approved") || status.Equals("Cancelled"))
             {
-                result = (title.Text.Replace("\r\n", string.Empty).Trim().Equals("Issued") && documentIssuedFields[0].Text.Replace("\r\n", string.Empty).Trim().Equals("PTD number") && documentIssuedFields[1].Text.Replace("\r\n", string.Empty).Trim().Equals("Date"));
+                return titleText.Equals("Issued")
+                       && refNumber.Equals("PTD number")
+                       && date.Equals("Date");
             }
 
-            return result;
+            return false;
         }
 
         public bool VerifyIssuingAuthorityTable(string status)

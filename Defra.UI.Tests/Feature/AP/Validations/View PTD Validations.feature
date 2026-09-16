@@ -193,14 +193,14 @@ Scenario: Verify the reject additional cookies in cookies banner and hide cookie
 	And I click Hide cookie message should hide the 'Rejected' cookie banner
 
 Scenario: Verify Cookies page radio buttons and default option selection
-	And I click the Cookies Link
-	Then I should navigate to the Cookies details correct page opens in same tab
+	Then I click the Cookies Link
+	And I should navigate to the Cookies details correct page opens in same tab
 	When I see two radio buttons are visible at the end of the page
 	Then I should see the No option is selected as default option
 
 Scenario: Verify the applicant can change the cookie preference and save it in cookies page
-	And I click the Cookies Link
-	Then I should navigate to the Cookies details correct page opens in same tab
+	Then I click the Cookies Link
+	And I should navigate to the Cookies details correct page opens in same tab
 	And I should see the No option is selected as default option
 	And I select the Yes option
 	When I click the save cookies settings button

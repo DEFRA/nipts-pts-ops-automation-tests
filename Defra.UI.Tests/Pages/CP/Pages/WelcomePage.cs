@@ -3,6 +3,7 @@ using Defra.UI.Tests.Pages.CP.Interfaces;
 using Defra.UI.Tests.Tools;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.CP.Pages
@@ -19,7 +20,7 @@ namespace Defra.UI.Tests.Pages.CP.Pages
 
         #region Page objects
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
-        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(text(),'Checks')]"), true);
+        private IWebElement pageHeading => _driver.WaitForElement(By.XPath("//h1[contains(normalize-space(.),'Checks')]"), true);
         private IWebElement iconSearch => _driver.WaitForElement(By.XPath("//a[@href='/checker/document-search']//*[name()='svg']"));
         private IWebElement iconHome => _driver.WaitForElement(By.XPath("//span[normalize-space()='Home']"));
         private IWebElement iconScan => _driver.WaitForElement(By.XPath("//span[normalize-space()='Scan']"));

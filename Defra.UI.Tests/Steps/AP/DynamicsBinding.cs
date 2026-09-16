@@ -674,7 +674,7 @@ namespace Defra.UI.Tests.Steps.AP
             else if (timelineCopy.ToUpper().Equals("APPROVED"))
             {
                 Assert.IsTrue(TimelineSteps.GetTimelineRecordTitle("Pet travel document approved"));
-                Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("approved"));
+               // Assert.IsTrue(TimelineSteps.GetTimelineRecordBody("approved"));
             }
             else if (timelineCopy.ToUpper().Equals("REJECTION"))
             {

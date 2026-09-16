@@ -1,5 +1,6 @@
 ﻿using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Pages.WELSH.Interfaces;
+using Defra.UI.Tests.Tools;
 using NUnit.Framework;
 using Reqnroll;
 using Reqnroll.BoDi;
@@ -46,7 +47,7 @@ namespace Defra.UI.Tests.Steps.WELSH
         [Then(@"I have verified microchip details in declaration page in Welsh")]
         public void ThenIHaveVerifiedMicrochipDetailsInDeclarationPage()
         {
-            VerifyMicrodhipInformation(false);
+            VerifyMicrochipInformationWelsh(false);
         }
 
         [Then(@"I have verified pet details in declaration page in Welsh")]
@@ -65,7 +66,7 @@ namespace Defra.UI.Tests.Steps.WELSH
         [Then(@"I have verified microchip details in summary page in Welsh")]
         public void ThenIHaveVerifiedMicrochipDetailsInSummaryPage()
         {
-            VerifyMicrodhipInformation();
+            VerifyMicrochipInformationWelsh();
         }
 
         [Then(@"I have verified pet details in summary page in Welsh")]
@@ -117,12 +118,12 @@ namespace Defra.UI.Tests.Steps.WELSH
             changeDetailsPageWelsh?.ClickParhauButton();
         }
 
-        private void VerifyMicrodhipInformation(bool isSummaryPage = true)
+        private void VerifyMicrochipInformationWelsh(bool isSummaryPage = true)
         {
             var summary = isSummaryPage ? summaryPageWelsh?.GetSummaryDetails() : declarationPageWelsh?.GetSummaryDetails();
             var pageName = isSummaryPage ? "summary" : "declaration";
 
-            var microchipNumber = _scenarioContext.Get<string>("MicrochipNumber");
+            var microchipNumber = _scenarioContext.Get<string>("Rhif y microsglodyn");
             var microchippedDate = _scenarioContext.Get<string>("Dyddiad mewnblannu neu sganio");
 
             Assert.AreEqual(microchipNumber, summary?.MicrochipNumber, $"Microchip number is not matching in {pageName} page!");
@@ -193,7 +194,37 @@ namespace Defra.UI.Tests.Steps.WELSH
 
             foreach (var lineItem in address)
             {
-                Assert.IsTrue(summary?.Address.Replace(",", "").ToUpper().Contains(NormalizeAddress(lineItem).Trim()), $"Address is not matching in {pageName} page!");
+                var normalizedSummary = NormalizeAddress(summary?.Address ?? string.Empty);
+                var normalizedLine = NormalizeAddress(lineItem ?? string.Empty);
+
+                // Log everything so pipeline shows the real cause
+                TestContext.WriteLine($"SUMMARY RAW: '{summary?.Address}'");
+                TestContext.WriteLine($"SUMMARY NORMALIZED: '{normalizedSummary}'");
+
+                TestContext.WriteLine($"LINE RAW: '{lineItem}'");
+                TestContext.WriteLine($"LINE NORMALIZED: '{normalizedLine}'");
+
+                // Token-based comparison (pipeline-safe)
+                var summaryTokens = new HashSet<string>(
+                    normalizedSummary.Split(' ', StringSplitOptions.RemoveEmptyEntries),
+                    StringComparer.OrdinalIgnoreCase
+                );
+
+                var lineTokens = normalizedLine.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+
+                TestContext.WriteLine("SUMMARY TOKENS: " + string.Join(", ", summaryTokens));
+                TestContext.WriteLine("LINE TOKENS: " + string.Join(", ", lineTokens));
+
+                foreach (var token in lineTokens)
+                {
+                    Assert.IsTrue(
+                        summaryTokens.Contains(token),
+                        $"Address mismatch in {pageName} page.\n" +
+                        $"Missing token: '{token}'\n" +
+                        $"SUMMARY TOKENS: [{string.Join(", ", summaryTokens)}]\n" +
+                        $"LINE TOKENS: [{string.Join(", ", lineTokens)}]"
+                    );
+                }
             }
 
             if (isSummaryPage)
@@ -274,7 +305,7 @@ namespace Defra.UI.Tests.Steps.WELSH
         [Then(@"I verify all the details in the summary page for pending or unsuccessful PTD '(.*)' in Welsh")]
         public void ThenIVerifyAllTheDetailsInTheSummaryPageForPendingOrUnsuccessfulPTD(string status)
         {
-            VerifyMicrodhipInformation(true);
+            VerifyMicrochipInformationWelsh(true);
             VerifyPetsDetailsWelsh();
             VerifyPetOwnerDetailsWelsh(true);
             Assert.IsTrue(summaryPageWelsh?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
@@ -283,7 +314,7 @@ namespace Defra.UI.Tests.Steps.WELSH
         [Then(@"I verify all the details in the declaration page for cancelled PTD '(.*)' in Welsh")]
         public void ThenIVerifyAllTheDetailsInTheDeclarationPageForCancelledPTD(string status)
         {
-            VerifyMicrodhipInformation(true);
+            VerifyMicrochipInformationWelsh(true);
             VerifyPetsDetailsWelsh();
             VerifyIssuedTableWelsh(true);
             Assert.IsTrue(summaryPageWelsh?.VerifyApplicationDetails(status), "The pet travel document details are not correct");
@@ -292,7 +323,7 @@ namespace Defra.UI.Tests.Steps.WELSH
         [Then(@"I verify all the details in the declaration page for approved PTD '(.*)' in Welsh")]
         public void ThenIVerifyAllTheDetailsInTheDeclarationPageForApprovedPTD(string status)
         {
-            VerifyMicrodhipInformation(true);
+            VerifyMicrochipInformationWelsh(true);
             VerifyPetsDetailsWelsh();
             VerifyIssuedTableWelsh(true);
         }

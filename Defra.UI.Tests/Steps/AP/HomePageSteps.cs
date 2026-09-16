@@ -84,7 +84,7 @@ namespace Defra.UI.Tests.Steps.AP
         [Then(@"I should navigate to the PrivacyNotice details correct page opens in new tab")]
         public void ThenIShouldNavigateToThePrivacyNoticeDetailsCorrectPageOpensInNewTab()
         {
-            var pageTitle = "Pet travel scheme privacy notice";
+            var pageTitle = "Northern Ireland pet travel scheme privacy notice";
             Assert.IsTrue(HomePage?.IsNextPageLoaded(pageTitle), $"The page {pageTitle} not loaded!");
             Assert.IsFalse(HomePage?.VerifyTheLinkOpensInSameTab());
         }
