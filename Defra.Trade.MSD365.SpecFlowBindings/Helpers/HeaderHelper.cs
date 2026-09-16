@@ -30,10 +30,9 @@ public class HeaderHelper
     public IWebElement GetHeaderField(string controlName)
     {
         IWebElement webElement = null;
-        var xpathToContainer = $"//*[text()=\"{controlName}\"]";
-
+        var xpathToContainer = $"//input[contains(@value,\"{controlName}\")] | //div[contains(@title,\"{controlName}\")]";
         TryExpandHeaderFlyout(driver);
-
+        Thread.Sleep(1500);
         var xpathToFlyout = AppElements.Xpath[AppReference.Entity.Header.Flyout];
         driver.WaitUntilVisible(By.XPath(xpathToFlyout), TimeSpan.FromSeconds(5),
             flyout =>
