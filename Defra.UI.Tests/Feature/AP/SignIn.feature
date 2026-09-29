@@ -15,8 +15,7 @@ Scenario: Sign in button click validation
 	Then sign in with valid credentials with logininfo
 
 Scenario: Sign out button click validation
-	Then sign in with valid credentials with logininfo
-	And click on signout button and verify the signout message
+	Then click on signout button and verify the signout message
 
 Scenario: Verify the footer links access before signing in to the pets application
 	Then I click the TermsAndConditions Link

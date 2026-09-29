@@ -15,5 +15,7 @@
         public void EnterPostCode(string postCode);
         public void SelectAddress();
         public void EnterMemorableWordAndHint(string memorableWord, string hint);
+        public void EnterTheAddressManually();
+        public void ClickEnterTheAddressManually();
     }
 }
