@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Framework;
+using OpenQA.Selenium;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -111,6 +112,43 @@ namespace Defra.UI.Tests.Tools
         public static void ScrollToElement(this IWebElement element, IWebDriver driver)
         {
             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView()", element);
+        }
+               
+        public static void AppendToLoginLog(params (string Key, string Value)[] values)
+        {
+            var repositoryRoot = GetRepositoryRoot();
+            var logDirectory = Path.Combine(repositoryRoot, "TestLogs");
+            Directory.CreateDirectory(logDirectory);
+
+            var logFile = Path.Combine(logDirectory, $"LoginSteps_{DateTime.UtcNow:yyyyMMdd}.log");
+            var testName = TestContext.CurrentContext.Test?.Name ?? "UnknownTest";
+
+            var keyValueText = string.Join(" | ", values.Select(v => $"{v.Key}: {v.Value}"));
+            var line = $"{DateTime.UtcNow:O} | {testName} | {keyValueText}{Environment.NewLine}";
+
+            File.AppendAllText(logFile, line);
+        }
+
+        public static void WriteGovernmentGatewayIdToFile(string governmentGatewayId)
+        {
+            AppendToLoginLog(("GovernmentGatewayID", governmentGatewayId));
+        }
+
+        private static string GetRepositoryRoot()
+        {
+            var current = new DirectoryInfo(AppContext.BaseDirectory);
+
+            while (current != null)
+            {
+                if (Directory.Exists(Path.Combine(current.FullName, ".git")))
+                {
+                    return current.FullName;
+                }
+
+                current = current.Parent;
+            }
+
+            return TestContext.CurrentContext.WorkDirectory;
         }
     }
 }

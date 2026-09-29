@@ -43,8 +43,10 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenSignInWithValidCredentialsWithLogininfo()
         {
             var userDetails = ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount ?
-                                GovernmentGateway.Instance.GetUserDetails() :
-                                GovernmentGateway.Instance.GetUserDetailsFromFile();
+                GovernmentGateway.Instance.GetUserDetails() :
+                GovernmentGateway.Instance.GetUserDetailsFromFile();
+
+            Utils.AppendToLoginLog(("GovernmentGatewayID", userDetails.GovernmentGatewayID));
 
             Assert.True(Signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret), "Not able to sign in");
         }

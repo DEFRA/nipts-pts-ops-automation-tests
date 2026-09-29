@@ -63,6 +63,8 @@ namespace Defra.UI.Tests.Steps.AP
                 GovernmentGateway.Instance.GetUserDetails() :
                 GovernmentGateway.Instance.GetUserDetailsFromFile();
 
+            Utils.AppendToLoginLog(("GovernmentGatewayID", userDetails.GovernmentGatewayID));
+
             signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret);
         }
 
