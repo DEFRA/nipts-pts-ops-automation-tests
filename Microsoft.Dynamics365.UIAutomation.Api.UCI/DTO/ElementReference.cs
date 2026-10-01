@@ -142,7 +142,7 @@ public static class Elements
         { "Timeline_Latest_Email_Subject",     "//h1[contains(@title,'Pet Travel Document')]" },
         { "Timeline_Email_Subject_Frame",      "//iframe[@id='EmailPopupIframe_0' or @id='EmailPopupIframe_2']" },
         {"Timeline_Notes_Added_Title",          "//div[contains(@id,'timeline_record_title')]" }, 
-        {"Timeline_Notes_Added_Body",           "//div[contains(@id,'notescontrol-timeline_record_content_preview')]" }, 
+        {"Timeline_Notes_Added_Body",           "//div[contains(@id,'timeline_record_content_preview')]" }, 
         {"Timeline_Container",                 "//div[contains(@id,'timeline_record_container')]" }, 
 
         { "Timeline_record_title",              "//*[contains(@id,\"timeline_record_title\")]" },

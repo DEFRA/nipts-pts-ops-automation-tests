@@ -1096,7 +1096,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenILogDecisionInSNC(string value)
         {
             EntitySteps.WhenIEnterInTheField(value, "nipts_decision", "buttonset", "field", 4);
-            EntitySteps.WhenIEnterInTheField("Non compliant_Automation", "nipts_suspectednoncompliancereason", "text", "field", 1);
+            EntitySteps.WhenIEnterInTheField("Pet does not match the PTD", "nipts_sncreason", "buttonset", "field", 4);
             CommandSteps.ClickCommand("Log Decision");
             _driver.WaitForPageToLoad();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
