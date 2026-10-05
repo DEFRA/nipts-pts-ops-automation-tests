@@ -1,5 +1,5 @@
 ﻿@Idcoms
-Feature: Idcoms Regression
+Feature: Idcoms Suspension Testdata
 
 IDCOMS System Regression for NIPTS
 
