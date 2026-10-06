@@ -86,7 +86,6 @@ namespace Defra.UI.Tests.Hooks
 
                 if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount)
                 {
-                    //fetchCodeFromEmail.DeleteAllMessagesFromInbox();
                     isRunOnce = false;
 
                     GovernmentGateway.Instance.GetUserDetails();

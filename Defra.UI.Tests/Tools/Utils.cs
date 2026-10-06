@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using System.Globalization;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
 namespace Defra.UI.Tests.Tools
@@ -149,6 +150,19 @@ namespace Defra.UI.Tests.Tools
             }
 
             return TestContext.CurrentContext.WorkDirectory;
+        }
+
+        public static string GenerateRandomKey(int length)
+        {
+            const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*";
+            var buffer = new char[length];
+
+            for (var i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = chars[RandomNumberGenerator.GetInt32(chars.Length)];
+            }
+
+            return new string(buffer);
         }
     }
 }

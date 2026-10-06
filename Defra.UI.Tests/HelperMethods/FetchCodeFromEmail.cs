@@ -2,7 +2,6 @@
 using Defra.UI.Tests.Tools;
 using Reqnroll;
 using System.Net.Http.Headers;
-using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
@@ -12,61 +11,19 @@ namespace Defra.UI.Tests.HelperMethods
 {
     public interface IFetchCodeFromEmail
     {
-        public Task<string> GetCodeFromEmail(string inboxIdToReadCode);
-        //public Task DeleteMessageFromInbox(string inboxId);
-        //public Task DeleteAllMessagesFromInbox();
-        //public string DomainName { get; set; }
+        public Task<string> GetCodeFromEmail(string inboxIdToReadCode);        
         public Task<MailAccount> CreateAccount();
     }
 
     public class FetchCodeFromEmail : IFetchCodeFromEmail
     {
         private ScenarioContext ScenarioContext { get; set; }
-        //public string DomainName { get; set; } = "team553512.testinator.com";
-
-        //private MailinatorClient mailinatorClient = new MailinatorClient("af00c8254afc4c34b3f32ba44a040e73");
 
         public FetchCodeFromEmail(ScenarioContext _scenarioContext)
         {
             ScenarioContext = _scenarioContext;
         }
-
-        /*        public async Task DeleteMessageFromInbox(string inboxIdToReadCode)
-                {
-                    try
-                    {
-                        var code = inboxIdToReadCode.Substring(0, inboxIdToReadCode.IndexOf('-'));
-
-                        DeleteMessageRequest deleteMessageRequest = new DeleteMessageRequest()
-                        {
-                            Domain = DomainName,
-                            Inbox = "*",
-                            MessageId = code
-                        };
-
-                        DeleteMessageResponse deleteMessageResponse = await mailinatorClient.MessagesClient.DeleteMessageAsync(deleteMessageRequest);
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.LogMessage("While Deleteing the message from Inbox... " + ex.Message);
-                    }
-                }*/
-
-/*        public async Task DeleteAllMessagesFromInbox()
-        {
-            try
-            {
-                await mailinatorClient.MessagesClient.DeleteAllDomainMessagesAsync(new DeleteAllDomainMessagesRequest
-                {
-                    Domain = DomainName
-                });
-            }
-            catch (Exception ex)
-            {
-                Logger.LogMessage("While Deleteing the message from Inbox... " + ex.Message);
-            }
-        }
-*/
+        
         public async Task<MailAccount> CreateAccount()
         {
             using var client = new HttpClient();
@@ -90,18 +47,16 @@ namespace Defra.UI.Tests.HelperMethods
             }
 
             var username = $"pets{DateTime.UtcNow:HHmmssfff}";
-            var emailAddress = $"{username}@{domain}";
-
-            // Keep within typical provider limits and policy.
-            // 12 chars: strong + short enough for provider validation.
-            var emailPassword = GenerateMailTmPassword(12);
+            var emailAddress = $"{username}@{domain}";           
+            var emailKey = Utils.GenerateRandomKey(12);
 
             Utils.AppendToLoginLog(("Email ID", emailAddress));
+            Utils.AppendToLoginLog(("Email Key", emailKey));
 
             var accountRequest = new
             {
                 address = emailAddress,
-                password = emailPassword
+                password = emailKey
             };
 
             var accountContent = new StringContent(
@@ -121,7 +76,7 @@ namespace Defra.UI.Tests.HelperMethods
             var tokenRequest = new
             {
                 address = emailAddress,
-                password = emailPassword
+                password = emailKey
             };
 
             var tokenContent = new StringContent(
@@ -159,22 +114,9 @@ namespace Defra.UI.Tests.HelperMethods
             {
                 EmailAddress = emailAddress,
                 Token = token,
-                Password = emailPassword
+                Password = emailKey
             };
-        }
-
-        private static string GenerateMailTmPassword(int length)
-        {
-            const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*";
-            var buffer = new char[length];
-
-            for (var i = 0; i < buffer.Length; i++)
-            {
-                buffer[i] = chars[RandomNumberGenerator.GetInt32(chars.Length)];
-            }
-
-            return new string(buffer);
-        }
+        }       
 
         public async Task<string> GetCodeFromEmail(string token)
         {
@@ -195,7 +137,7 @@ namespace Defra.UI.Tests.HelperMethods
                     $"Mail.tm /me failed: {(int)meResponse.StatusCode} ({meResponse.ReasonPhrase}). Response: {meBody}");
             }
 
-            for (var attempt = 0; attempt < 24; attempt++) // 2 minutes
+            for (var attempt = 0; attempt < 24; attempt++) 
             {
                 var messagesResponse = await client.GetAsync("https://api.mail.tm/messages?page=1");
                 var messagesJson = await messagesResponse.Content.ReadAsStringAsync();

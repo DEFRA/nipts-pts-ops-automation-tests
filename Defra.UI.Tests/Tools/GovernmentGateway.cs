@@ -68,7 +68,6 @@ namespace Defra.UI.Tests.Tools
                 {
                     if (!_isMethodCalled)
                     {
-                        //_cachedValue = GenerateID();
                         _cachedValue = GenerateID().GetAwaiter().GetResult();
                         _isMethodCalled = true;
                     }
