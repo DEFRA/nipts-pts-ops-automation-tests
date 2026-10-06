@@ -99,8 +99,6 @@ namespace Defra.UI.Tests.Tools
             public string Password { get; set; }
         }
 
-
-
         private async Task<LoginDetails> GenerateID()
         {
             var url = urlBuilder?.Default().BuildApp();
