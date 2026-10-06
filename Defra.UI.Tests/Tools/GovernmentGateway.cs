@@ -68,7 +68,8 @@ namespace Defra.UI.Tests.Tools
                 {
                     if (!_isMethodCalled)
                     {
-                        _cachedValue = GenerateID();
+                        //_cachedValue = GenerateID();
+                        _cachedValue = GenerateID().GetAwaiter().GetResult();
                         _isMethodCalled = true;
                     }
                 }
@@ -92,7 +93,16 @@ namespace Defra.UI.Tests.Tools
             return _cachedValue;
         }
 
-        private LoginDetails GenerateID()
+        public class MailAccount
+        {
+            public string EmailAddress { get; set; }
+            public string Token { get; set; }
+            public string Password { get; set; }
+        }
+
+
+
+        private async Task<LoginDetails> GenerateID()
         {
             var url = urlBuilder?.Default().BuildApp();
             _driver?.Navigate().GoToUrl(url);
@@ -104,15 +114,17 @@ namespace Defra.UI.Tests.Tools
 
             signin?.ClickCreateSignInDetailsLink();
 
-            var emailText = $"petsautomation{DateTime.Now.ToString("yyyyMMddHHmmss")}";
-            var emailAddress = $"{emailText}@{fetchCodeFromEmail?.DomainName}";
-            var secret = "G0vernmen+";
+            var mailAccount = await fetchCodeFromEmail.CreateAccount();
+
+            var emailText = mailAccount.EmailAddress.Split('@')[0];
+            var emailAddress = mailAccount.EmailAddress;
+            var emailKey = "G0vernmen+";
 
             emailSignUpPage?.EnterEmailAddress(emailAddress);
             Thread.Sleep(3000);
             emailSignUpPage?.ClickContinueButton();
 
-            var code = Task.Run(async () => await fetchCodeFromEmail?.GetCodeFromEmail(emailText)).Result;
+            var code = await fetchCodeFromEmail.GetCodeFromEmail(mailAccount.Token);
 
             emailSignUpPage?.EnterConfirmationCode(code);
             emailSignUpPage?.ClickContinueButton();
@@ -122,7 +134,7 @@ namespace Defra.UI.Tests.Tools
             emailSignUpPage?.EnterFullName("Pets Automation");
             emailSignUpPage?.ClickContinueButton();
 
-            emailSignUpPage?.EnterThePassword(secret);
+            emailSignUpPage?.EnterThePassword(emailKey);
             emailSignUpPage?.ClickContinueButton();
 
             var ggid = emailSignUpPage?.GetGGID();
@@ -169,9 +181,10 @@ namespace Defra.UI.Tests.Tools
             {
                 EmailText = emailText,
                 EmailAddress = emailAddress,
+                MailToken = mailAccount.Token,
                 ConfirmationCode = code,
                 GovernmentGatewayID = ggid,
-                Secret = secret
+                Secret = emailKey
             };
         }
     }

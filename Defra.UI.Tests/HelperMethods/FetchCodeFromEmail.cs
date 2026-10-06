@@ -1,87 +1,58 @@
 ﻿using Defra.UI.Framework.Object;
-using mailinator_csharp_client;
-using mailinator_csharp_client.Models.Messages.Entities;
-using mailinator_csharp_client.Models.Messages.Requests;
-using mailinator_csharp_client.Models.Responses;
+using Defra.UI.Tests.Tools;
 using Reqnroll;
+using System.Net.Http.Headers;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json;
+using System.Text.RegularExpressions;
+using static Defra.UI.Tests.Tools.GovernmentGateway;
 
 namespace Defra.UI.Tests.HelperMethods
 {
     public interface IFetchCodeFromEmail
     {
         public Task<string> GetCodeFromEmail(string inboxIdToReadCode);
-        public Task DeleteMessageFromInbox(string inboxId);
-        public Task DeleteAllMessagesFromInbox();
-        public string DomainName { get; set; }
+        //public Task DeleteMessageFromInbox(string inboxId);
+        //public Task DeleteAllMessagesFromInbox();
+        //public string DomainName { get; set; }
+        public Task<MailAccount> CreateAccount();
     }
 
     public class FetchCodeFromEmail : IFetchCodeFromEmail
     {
         private ScenarioContext ScenarioContext { get; set; }
-        public string DomainName { get; set; } = "team553512.testinator.com";
+        //public string DomainName { get; set; } = "team553512.testinator.com";
 
-        private MailinatorClient mailinatorClient = new MailinatorClient("af00c8254afc4c34b3f32ba44a040e73");
+        //private MailinatorClient mailinatorClient = new MailinatorClient("af00c8254afc4c34b3f32ba44a040e73");
 
         public FetchCodeFromEmail(ScenarioContext _scenarioContext)
         {
             ScenarioContext = _scenarioContext;
         }
 
-        public async Task<string> GetCodeFromEmail(string inboxIdToReadCode)
-        {
-            string code = "";
-            try
-            {
-                //Fetch Inbox
-                Thread.Sleep(5000);
-                FetchInboxRequest fetchInboxRequest = new FetchInboxRequest() { Domain = DomainName, Inbox = "*", Skip = 0, Limit = 30, Sort = Sort.asc };
-                FetchInboxResponse fetchInboxResponse = await mailinatorClient.MessagesClient.FetchInboxAsync(fetchInboxRequest);
-                
-                var inBoxMessage = fetchInboxResponse.Messages.SingleOrDefault(t => t.To.Equals(inboxIdToReadCode));
-
-                //Fetch Message
-                FetchMessageRequest fetchMessageRequest = new FetchMessageRequest() { Domain = DomainName, Inbox = inBoxMessage?.To, MessageId = inBoxMessage?.Id };
-                FetchMessageResponse fetchMessageResponse = await mailinatorClient.MessagesClient.FetchMessageAsync(fetchMessageRequest);
-
-                var message = fetchMessageResponse.Parts[0];
-
-                string body = message.Body;
-                int pFrom = body.IndexOf("Your confirmation code is:") + "Your confirmation code is:".Length; ;
-                int pTo = body.LastIndexOf("This code will expire in 30 minutes");
-
-                code = body.Substring(pFrom, pTo - pFrom).Replace("\r", "").Replace("\n", "");
-
-            }
-            catch (Exception ex)
-            {
-                Logger.LogMessage("While trying to read the message from Inbox... " + ex.Message);
-            }
-
-            return code;
-        }
-
-        public async Task DeleteMessageFromInbox(string inboxIdToReadCode)
-        {
-            try
-            {
-                var code = inboxIdToReadCode.Substring(0, inboxIdToReadCode.IndexOf('-'));
-                
-                DeleteMessageRequest deleteMessageRequest = new DeleteMessageRequest()
+        /*        public async Task DeleteMessageFromInbox(string inboxIdToReadCode)
                 {
-                    Domain = DomainName,
-                    Inbox = "*",
-                    MessageId = code
-                };
+                    try
+                    {
+                        var code = inboxIdToReadCode.Substring(0, inboxIdToReadCode.IndexOf('-'));
 
-                DeleteMessageResponse deleteMessageResponse = await mailinatorClient.MessagesClient.DeleteMessageAsync(deleteMessageRequest);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogMessage("While Deleteing the message from Inbox... " + ex.Message);
-            }
-        }
+                        DeleteMessageRequest deleteMessageRequest = new DeleteMessageRequest()
+                        {
+                            Domain = DomainName,
+                            Inbox = "*",
+                            MessageId = code
+                        };
 
-        public async Task DeleteAllMessagesFromInbox()
+                        DeleteMessageResponse deleteMessageResponse = await mailinatorClient.MessagesClient.DeleteMessageAsync(deleteMessageRequest);
+                    }
+                    catch (Exception ex)
+                    {
+                        Logger.LogMessage("While Deleteing the message from Inbox... " + ex.Message);
+                    }
+                }*/
+
+/*        public async Task DeleteAllMessagesFromInbox()
         {
             try
             {
@@ -93,6 +64,248 @@ namespace Defra.UI.Tests.HelperMethods
             catch (Exception ex)
             {
                 Logger.LogMessage("While Deleteing the message from Inbox... " + ex.Message);
+            }
+        }
+*/
+        public async Task<MailAccount> CreateAccount()
+        {
+            using var client = new HttpClient();
+
+            var domainResponse = await client.GetAsync("https://api.mail.tm/domains");
+            domainResponse.EnsureSuccessStatusCode();
+
+            var domainJson = await domainResponse.Content.ReadAsStringAsync();
+            using var domainDocument = JsonDocument.Parse(domainJson);
+
+            var domains = domainDocument.RootElement.GetProperty("hydra:member");
+            if (domains.GetArrayLength() == 0)
+            {
+                throw new InvalidOperationException("Mail.tm returned no available domains.");
+            }
+
+            var domain = domains[0].GetProperty("domain").GetString();
+            if (string.IsNullOrWhiteSpace(domain))
+            {
+                throw new InvalidOperationException("Mail.tm returned an invalid domain.");
+            }
+
+            var username = $"pets{DateTime.UtcNow:HHmmssfff}";
+            var emailAddress = $"{username}@{domain}";
+
+            // Keep within typical provider limits and policy.
+            // 12 chars: strong + short enough for provider validation.
+            var emailPassword = GenerateMailTmPassword(12);
+
+            Utils.AppendToLoginLog(("Email ID", emailAddress));
+
+            var accountRequest = new
+            {
+                address = emailAddress,
+                password = emailPassword
+            };
+
+            var accountContent = new StringContent(
+                JsonSerializer.Serialize(accountRequest),
+                Encoding.UTF8,
+                "application/json");
+
+            var accountResponse = await client.PostAsync("https://api.mail.tm/accounts", accountContent);
+            var accountResponseBody = await accountResponse.Content.ReadAsStringAsync();
+
+            if (!accountResponse.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(
+                    $"Mail.tm account creation failed: {(int)accountResponse.StatusCode} ({accountResponse.ReasonPhrase}). Response: {accountResponseBody}");
+            }
+
+            var tokenRequest = new
+            {
+                address = emailAddress,
+                password = emailPassword
+            };
+
+            var tokenContent = new StringContent(
+                JsonSerializer.Serialize(tokenRequest),
+                Encoding.UTF8,
+                "application/json");
+
+            var tokenResponse = await client.PostAsync("https://api.mail.tm/token", tokenContent);
+            var tokenResponseBody = await tokenResponse.Content.ReadAsStringAsync();
+
+            if (!tokenResponse.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(
+                    $"Mail.tm token request failed: {(int)tokenResponse.StatusCode} ({tokenResponse.ReasonPhrase}). Response: {tokenResponseBody}");
+            }
+
+            using var tokenDocument = JsonDocument.Parse(tokenResponseBody);
+            var token = tokenDocument.RootElement.GetProperty("token").GetString();
+
+            using var verifyClient = new HttpClient();
+            verifyClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var meResponse = await verifyClient.GetAsync("https://api.mail.tm/me");
+            var meBody = await meResponse.Content.ReadAsStringAsync();
+
+            if (!meResponse.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(
+                    $"Mail.tm /me verification failed: {(int)meResponse.StatusCode} ({meResponse.ReasonPhrase}). Response: {meBody}");
+            }
+
+            Logger.LogMessage($"Mail.tm account created: {emailAddress}");
+
+            return new MailAccount
+            {
+                EmailAddress = emailAddress,
+                Token = token,
+                Password = emailPassword
+            };
+        }
+
+        private static string GenerateMailTmPassword(int length)
+        {
+            const string chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789!@#$%^&*";
+            var buffer = new char[length];
+
+            for (var i = 0; i < buffer.Length; i++)
+            {
+                buffer[i] = chars[RandomNumberGenerator.GetInt32(chars.Length)];
+            }
+
+            return new string(buffer);
+        }
+
+        public async Task<string> GetCodeFromEmail(string token)
+        {
+            if (string.IsNullOrWhiteSpace(token))
+            {
+                throw new ArgumentException("Mail.tm token is empty.", nameof(token));
+            }
+
+            using var client = new HttpClient();
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var meResponse = await client.GetAsync("https://api.mail.tm/me");
+            var meBody = await meResponse.Content.ReadAsStringAsync();
+
+            if (!meResponse.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException(
+                    $"Mail.tm /me failed: {(int)meResponse.StatusCode} ({meResponse.ReasonPhrase}). Response: {meBody}");
+            }
+
+            for (var attempt = 0; attempt < 24; attempt++) // 2 minutes
+            {
+                var messagesResponse = await client.GetAsync("https://api.mail.tm/messages?page=1");
+                var messagesJson = await messagesResponse.Content.ReadAsStringAsync();
+
+                if (!messagesResponse.IsSuccessStatusCode)
+                {
+                    Logger.LogMessage($"Mail.tm messages failed: {(int)messagesResponse.StatusCode} {messagesResponse.ReasonPhrase} - {messagesJson}");
+                    await Task.Delay(5000);
+                    continue;
+                }
+
+                using var messagesDoc = JsonDocument.Parse(messagesJson);
+                var members = messagesDoc.RootElement.GetProperty("hydra:member");
+
+                for (var i = 0; i < members.GetArrayLength(); i++)
+                {
+                    var messageId = members[i].GetProperty("id").GetString();
+                    if (string.IsNullOrWhiteSpace(messageId))
+                    {
+                        continue;
+                    }
+
+                    var messageResponse = await client.GetAsync($"https://api.mail.tm/messages/{messageId}");
+                    var messageJson = await messageResponse.Content.ReadAsStringAsync();
+
+                    if (!messageResponse.IsSuccessStatusCode)
+                    {
+                        continue;
+                    }
+
+                    using var messageDoc = JsonDocument.Parse(messageJson);
+                    var root = messageDoc.RootElement;
+
+                    var intro = root.TryGetProperty("intro", out var introNode) && introNode.ValueKind == JsonValueKind.String
+                        ? introNode.GetString()
+                        : string.Empty;
+
+                    var text = root.TryGetProperty("text", out var textNode) && textNode.ValueKind == JsonValueKind.String
+                        ? textNode.GetString()
+                        : string.Empty;
+
+                    var html = string.Empty;
+                    if (root.TryGetProperty("html", out var htmlNode))
+                    {
+                        if (htmlNode.ValueKind == JsonValueKind.Array)
+                        {
+                            foreach (var item in htmlNode.EnumerateArray())
+                            {
+                                if (item.ValueKind == JsonValueKind.String)
+                                {
+                                    html += item.GetString();
+                                }
+                            }
+                        }
+                        else if (htmlNode.ValueKind == JsonValueKind.String)
+                        {
+                            html = htmlNode.GetString();
+                        }
+                    }
+
+                    var content = $"{intro}\n{text}\n{html}";
+                    if (TryExtractCode(content, out var code))
+                    {
+                        return code;
+                    }
+                }
+
+                await Task.Delay(5000);
+            }
+
+            throw new InvalidOperationException("Confirmation code email was not found in Mail.tm within timeout.");
+
+            static bool TryExtractCode(string? content, out string code)
+            {
+                code = string.Empty;
+
+                if (string.IsNullOrWhiteSpace(content))
+                {
+                    return false;
+                }
+
+                var targeted = Regex.Match(
+                    content,
+                    @"(?i)confirmation\s*code(?:\s*is)?\s*:\s*([A-Z0-9]{4,12}(?: [A-Z0-9]{2,12}){0,2})");
+
+                if (targeted.Success)
+                {
+                    var candidate = targeted.Groups[1].Value.Trim();
+
+                    if (Regex.IsMatch(candidate, @"^[A-Z0-9]+(?: [A-Z0-9]+)*$"))
+                    {
+                        code = candidate;
+                        return true;
+                    }
+                }
+
+                var lines = content.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+                foreach (var rawLine in lines)
+                {
+                    var line = rawLine.Trim();
+
+                    if (Regex.IsMatch(line, @"^[A-Z0-9]{4,12}(?: [A-Z0-9]{2,12}){0,2}$"))
+                    {
+                        code = line;
+                        return true;
+                    }
+                }
+
+                return false;
             }
         }
     }

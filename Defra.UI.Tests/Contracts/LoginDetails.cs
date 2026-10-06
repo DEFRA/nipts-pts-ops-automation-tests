@@ -7,5 +7,6 @@
         public string ConfirmationCode { get; set; }
         public string GovernmentGatewayID { get; set; }
         public string Secret { get; set; }
+        public string MailToken { get; set; }
     }
 }
