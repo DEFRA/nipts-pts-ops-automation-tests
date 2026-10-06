@@ -617,6 +617,7 @@ Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter 
 	And I open 'Suspect Non Compliances' under 'Application'
 	And I Switch to 'All Suspect Non-Compliances'
 	And I open the 'SNC-1560' application
+	And I assign the application to myself
 	Then I 'can' see 'Letter Sent' button
 	And I See the 'Letter to be sent' value in 'nipts_intenttosuspendletter' field
 	And I See the 'Letter to be sent' value in 'nipts_closeletter' field

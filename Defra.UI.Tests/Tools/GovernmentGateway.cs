@@ -146,11 +146,15 @@ namespace Defra.UI.Tests.Tools
             emailSignUpPage?.EnterTelephoneNumber("07539928765");
             emailSignUpPage?.ClickContinueButton();
 
-            emailSignUpPage?.EnterPostCode("OX1 1AF");
-            emailSignUpPage?.ClickContinueButton();
+            //Commented because there is a existing open bug for postcode lookup
+            //emailSignUpPage?.EnterPostCode("OX1 1AF");
+            //emailSignUpPage?.ClickContinueButton();
+            //emailSignUpPage?.SelectAddress();
+            //emailSignUpPage?.ClickContinueButton();
 
-            emailSignUpPage?.SelectAddress();
-            emailSignUpPage?.ClickContinueButton();
+            //Added the below 2 lines to enter the address manaually when postcode lookup doesn't fetch results
+            emailSignUpPage?.ClickEnterTheAddressManually();
+            emailSignUpPage?.EnterTheAddressManually();
 
             emailSignUpPage?.EnterMemorableWordAndHint("OpsPetsTesting", "OpsPetsTesting");
             emailSignUpPage?.ClickContinueButton();

@@ -864,6 +864,9 @@ namespace Defra.UI.Tests.Steps.AP
                 case "EMAIL":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlineemail", "text", "field", 1);
                     break;
+                case "APPLICATION TYPE":
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_applicationlanguage", "text", "field", 1);
+                    break;
                 case "ADDRESS LINE 1":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlineaddressline1", "text", "field", 1);
                     ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(value, "nipts_offlineaddressline1", "text", "field", "");
@@ -1093,7 +1096,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenILogDecisionInSNC(string value)
         {
             EntitySteps.WhenIEnterInTheField(value, "nipts_decision", "buttonset", "field", 4);
-            EntitySteps.WhenIEnterInTheField("Non compliant_Automation", "nipts_suspectednoncompliancereason", "text", "field", 1);
+            EntitySteps.WhenIEnterInTheField("Pet does not match the PTD", "nipts_sncreason", "buttonset", "field", 4);
             CommandSteps.ClickCommand("Log Decision");
             _driver.WaitForPageToLoad();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");

@@ -1,4 +1,6 @@
 ﻿using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Tools;
+using Microsoft.Crm.Sdk.Messages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -28,6 +30,7 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenICanSeeTheApplicationReferenceNumber()
         {
             Assert.IsTrue(!string.IsNullOrEmpty(ApplicationSubmittedPage?.GetApplicationReferenceNumber()), "There is an issue with application submission");
+            Utils.AppendToLoginLog(("ApplicationReferenceNumber", ApplicationSubmittedPage?.GetApplicationReferenceNumber()));
         }
     }
 }

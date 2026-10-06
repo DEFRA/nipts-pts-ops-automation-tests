@@ -34,9 +34,22 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement txtboxLastName => _driver.WaitForElement(By.XPath("//input[@id='lastName']"));
         private IWebElement txtboxTelephoneNumber => _driver.WaitForElement(By.XPath("//input[@id='telephoneNumber']"), true);
         private IWebElement txtboxPostcode => _driver.WaitForElement(By.XPath("//input[@id='postcode']"), true);
+        private IWebElement lnkEnterTheAddressManually => _driver.WaitForElement(By.XPath("//a[text()='Enter the address manually']"), true);
         private IWebElement DrpdownSelectAddress => _driver.WaitForElement(By.XPath("//select[@id='address']"));
         private IWebElement txtboxSecurityWord => _driver.WaitForElement(By.XPath("//input[@id='securityWord']"), true);
         private IWebElement txtAreaSecurityHint => _driver.WaitForElement(By.XPath("//textarea[@id='securityHint']"));
+        private IWebElement lblEnterTheAddressManually => _driver.WaitForElement(By.XPath("//h1[normalize-space(text())='What is your address?']"), true);
+        private IWebElement txtboxSubBuildingName => _driver.WaitForElement(By.CssSelector("#subBuildingName"));
+        private IWebElement txtboxBuildingNumber => _driver.WaitForElement(By.CssSelector("#buildingNumber"));
+        private IWebElement txtboxBuildingName => _driver.WaitForElement(By.CssSelector("#buildingName"));
+        private IWebElement txtboxStreet => _driver.WaitForElement(By.CssSelector("#street"));
+        private IWebElement txtboxTown => _driver.WaitForElement(By.CssSelector("#town"));
+        private IWebElement txtboxCounty => _driver.WaitForElement(By.CssSelector("#county"));
+        private IWebElement txtboxPostcode1 => _driver.WaitForElement(By.CssSelector("#postcode"));
+        private IWebElement txtboxCountry => _driver.WaitForElement(By.CssSelector("#country"));
+        private IWebElement BtnContinue => _driver.WaitForElement(By.CssSelector("#button-continue"));
+
+        //value = GBR
 
         #endregion
 
@@ -105,6 +118,25 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public void EnterPostCode(string postCode)
         {
             txtboxPostcode.SendKeys(postCode);
+        }
+
+        public void ClickEnterTheAddressManually()
+        {
+            lnkEnterTheAddressManually.Click();
+        }
+
+        public void EnterTheAddressManually()
+        {
+            txtboxSubBuildingName.SendKeys("Goldwell apt");
+            txtboxBuildingNumber.SendKeys("123");
+            txtboxBuildingName.SendKeys("Goldwell");
+            txtboxStreet.SendKeys("Bath Street");
+            txtboxTown.SendKeys("Oxford");
+            txtboxCounty.SendKeys("Oxfordshire");
+            txtboxPostcode1.SendKeys("OX1 1AA");
+            SelectElement select = new SelectElement(txtboxCountry);
+            select.SelectByValue("GBR");
+            btnContinue.Click();
         }
 
         public void SelectAddress()
