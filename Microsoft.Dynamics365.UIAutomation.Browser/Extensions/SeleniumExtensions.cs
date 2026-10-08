@@ -30,6 +30,42 @@ public static class SeleniumExtensions
             if (!ignoreStaleElementException)
                 throw;
         }
+        catch (ElementClickInterceptedException)
+        {
+            // Occasionally a tooltip or other transient overlay intercepts the click point.
+            // Retry a few times, falling back to a JavaScript click which bypasses the hit-test.
+            const int maxAttempts = 3;
+            for (var attempt = 1; attempt <= maxAttempts; attempt++)
+            {
+                try
+                {
+                    System.Threading.Thread.Sleep(250);
+                    element.Click();
+                    return;
+                }
+                catch (ElementClickInterceptedException) when (attempt < maxAttempts)
+                {
+                    continue;
+                }
+                catch (ElementClickInterceptedException)
+                {
+                    if (element is IWrapsDriver wrapsDriver && wrapsDriver.WrappedDriver is IJavaScriptExecutor jsExecutor)
+                    {
+                        jsExecutor.ExecuteScript("arguments[0].click();", element);
+                        return;
+                    }
+
+                    throw;
+                }
+                catch (StaleElementReferenceException)
+                {
+                    if (!ignoreStaleElementException)
+                        throw;
+
+                    return;
+                }
+            }
+        }
     }
 
     public static IWebElement ClickIfVisible(this ISearchContext driver, By by, TimeSpan? timeout = null)

@@ -865,7 +865,7 @@ namespace Defra.UI.Tests.Steps.AP
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlineemail", "text", "field", 1);
                     break;
                 case "APPLICATION TYPE":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_applicationlanguage", "text", "field", 1);
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_applicationlanguage", "buttonset", "field", 1);
                     break;
                 case "ADDRESS LINE 1":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlineaddressline1", "text", "field", 1);
