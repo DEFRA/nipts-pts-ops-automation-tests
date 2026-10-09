@@ -325,9 +325,11 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	When I click on continue button from Are your details correct page
 	Then I selected the 'Yes' option
 	And provided microchip number as 123456789654323
+	When I click Continue button from microchipped page
 	Then I have provided date of PETS microchipped
 	When I click Continue button from When was your pet microchipped page
 	Then I have selected an option as 'Cat' for pet
+	When I click on continue button from Is your pet a cat, dog or ferret page
 	Then I have selected 1 as breed index from breed dropdownlist
 	When I click on continue button from What is your pet's breed page
 	Then I provided the Pets name as 'Cat'

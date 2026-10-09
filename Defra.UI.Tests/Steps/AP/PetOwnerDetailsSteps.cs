@@ -1,4 +1,6 @@
 ﻿using Defra.UI.Tests.Pages.AP.Interfaces;
+using Defra.UI.Tests.Tools;
+using Microsoft.Crm.Sdk.Messages;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using Reqnroll;
@@ -150,6 +152,8 @@ namespace Defra.UI.Tests.Steps.AP
             var applicationReferenceNumber = applicationSubmissionPage?.GetApplicationReferenceNumber();
 
             _scenarioContext.Add("ReferenceNumber", applicationReferenceNumber);
+
+            Utils.AppendToLoginLog(("ApplicationReferenceNumber", applicationReferenceNumber));
 
             var windowHandles = _driver.WindowHandles.ToList();
 
