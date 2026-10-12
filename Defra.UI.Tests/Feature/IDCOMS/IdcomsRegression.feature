@@ -784,3 +784,25 @@ Examples:
 	| Pet Name              | Deer          |
 	| Pet Owner Name        | Pets Automati |
 	| Pet Owner Postcode    | OX1 1         |
+
+Scenario: Verify Microchipped Date and Date of Birth can be set to today
+	When I Login to Dynamics application
+	And I Switch to 'All PTD Applications'
+	And I Click on New to create an offline application
+	And I create a new applicant in IDCOMS
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as 'Today'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Microchipped Date' as 'Today'
+	And I enter 'Microchip Number' as 'auto'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+	And I can see the submission date and time
