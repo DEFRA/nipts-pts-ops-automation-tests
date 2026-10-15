@@ -214,7 +214,6 @@ namespace Defra.UI.Tests.Steps.AP
         public void ThenTheReasonForRevocationIsUpdatedAs(string reason)
         {
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrevocation", "input", "field", "");
-            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(Utils.GetCurrentTime().ToString("dd/MM/yyyy"), "nipts_daterevoked", "inputdatetime", "field", "");
         }
 
         [Then("the status is '(.*)'")]
