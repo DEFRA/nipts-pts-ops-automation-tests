@@ -213,6 +213,7 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	Then I can see the unique application reference number
 	When the user deletes all the stored values
 	And I have clicked the View all your lifelong pet travel documents link
+	And "1st" PTD is successfully created
 	                   #2.Authorised PTD
 	When I click Create a new pet travel document button
 	Then I have selected 'Yes' option
@@ -248,6 +249,7 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	And I 'Authorise' the application
 	Then the status is changed to 'Authorised'
 	When the user deletes all the stored values
+	And "2nd" PTD is successfully created
 	                   #3.Rejected PTD
 	When I click Apply for another lifelong pet travel document link
 	Then I have selected 'Yes' option
@@ -283,6 +285,7 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	And I 'Reject' the application with reason 'Invalid MC number'
 	Then the status is changed to 'Rejected'
 	When the user deletes all the stored values
+	And "3rd" PTD is successfully created
 	            #4Revoked PTD
 	When I click Apply for another lifelong pet travel document link
 	Then I have selected 'Yes' option
@@ -319,6 +322,7 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	And I 'Revoke' the application with reason 'Pet Deceased'
 	Then the status is changed to 'Revoked'
 	When the user deletes all the stored values
+	And "4th" PTD is successfully created
 	                #5.Authorised and created SNC
 	When I click Apply for another lifelong pet travel document link
 	Then I have selected 'Yes' option
@@ -359,4 +363,5 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	Then The 'Decision date' is set to Current date
 	And the status is changed to 'Intent to Suspend'
 	When the user deletes all the stored values
+	And "5th" PTD is successfully created
 	

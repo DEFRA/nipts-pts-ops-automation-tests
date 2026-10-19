@@ -354,5 +354,14 @@ namespace Defra.UI.Tests.Steps.AP
         {
             Assert.IsTrue(summaryPage?.VerifyBreedForFerret());
         }
+
+        [When("{string} PTD is successfully created")]
+        public void WhenPTDIsSuccessfullyCreated(string p0)
+        {
+            Console.WriteLine(p0 + " PTD created");
+        }
+
     }
+
+
 }
