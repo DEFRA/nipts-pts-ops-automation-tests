@@ -3,21 +3,21 @@ Feature: Idcoms Suspension Testdata
 
 IDCOMS System Regression for NIPTS
 
-Scenario: Offline English PTD and SNC
+Scenario Outline: Offline English PTD and SNC
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I create a new applicant in IDCOMS
-	And I enter 'Owner Type' as 'Self'
-	And I enter 'Pet Name' as 'Teddy'
-	And I enter 'Species' as 'Dog'
-	And I enter 'Breed' as 'Beagle'
-	And I enter 'Sex' as 'Male'
-	And I enter 'Date of Birth' as '09/08/2022'
-	And I enter 'Age' as '12'
-	And I enter 'Colour' as 'Brown, tan or chocolate'
-	And I enter 'Unique feature' as 'As fast as Cheetah'
-	And I enter 'Microchipped Date' as '09/08/2023'
-	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Owner Type' as '<OwnerType>'
+	And I enter 'Pet Name' as '<PetName>'
+	And I enter 'Species' as '<Species>'
+	And I enter 'Breed' as '<Breed>'
+	And I enter 'Sex' as '<Sex>'
+	And I enter 'Date of Birth' as '<DateOfBirth>'
+	And I enter 'Age' as '<Age>'
+	And I enter 'Colour' as '<Colour>'
+	And I enter 'Unique feature' as '<UniqueFeature>'
+	And I enter 'Microchipped Date' as '<MicrochippedDate>'
+	And I enter 'Microchip Number' as '<MicrochipNumber>'
 	And I Click on Save
 	Then the status is 'Open'
 	And I see the Application Reference number generated
@@ -27,25 +27,32 @@ Scenario: Offline English PTD and SNC
 	Then the status is changed to 'Authorised'
 	When I switch to 'SNCs' tab
 	And I create a New Suspect Non Compliance
-	And I Log decision in SNC as '12 Months'
+	And I Log decision in SNC as '<Decision>'
 	Then The 'Decision date' is set to Current date
 	And the status is changed to 'Intent to Suspend'
 
-Scenario: Offline Welsh PTD and SNC
+Examples:
+	| OwnerType | PetName | Species | Breed     | Sex  | DateOfBirth | Age | Colour                  | UniqueFeature       | MicrochippedDate | MicrochipNumber | Decision  |
+	| Self      | Teddy   | Dog     | Beagle    | Male | 09/08/2022  | 12  | Brown, tan or chocolate | As fast as Cheetah  | 09/08/2023       | auto            | 12 Months |
+	| Self      | Tom     | Cat     | Bengal    | Male | 09/08/2021  | 12  | Ginger                  | None                | 09/08/2024       | auto            | 12 Months |
+	| Self      | Tim     | Cat     | Himalayan | Male | 09/09/2021  | 12  | Black                   | None                | 09/08/2025       | auto            | 12 Months |
+
+
+Scenario Outline: Offline Welsh PTD and SNC
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I create a new applicant in IDCOMS
-	And I enter 'Owner Type' as 'Self'
-	And I enter 'Pet Name' as 'Teddy'
-	And I enter 'Species' as 'Dog'
-	And I enter 'Breed' as 'Beagle'
-	And I enter 'Sex' as 'Male'
-	And I enter 'Date of Birth' as '09/08/2022'
-	And I enter 'Age' as '12'
-	And I enter 'Colour' as 'Brown, tan or chocolate'
-	And I enter 'Unique feature' as 'As fast as Cheetah'
-	And I enter 'Microchipped Date' as '09/08/2023'
-	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Owner Type' as '<OwnerType>'
+	And I enter 'Pet Name' as '<PetName>'
+	And I enter 'Species' as '<Species>'
+	And I enter 'Breed' as '<Breed>'
+	And I enter 'Sex' as '<Sex>'
+	And I enter 'Date of Birth' as '<DateOfBirth>'
+	And I enter 'Age' as '<Age>'
+	And I enter 'Colour' as '<Colour>'
+	And I enter 'Unique feature' as '<UniqueFeature>'
+	And I enter 'Microchipped Date' as '<MicrochippedDate>'
+	And I enter 'Microchip Number' as '<MicrochipNumber>'
 	And I enter 'APPLICATION TYPE' as 'CY'
 	And I Click on Save
 	Then the status is 'Open'
@@ -56,9 +63,14 @@ Scenario: Offline Welsh PTD and SNC
 	Then the status is changed to 'Authorised'
 	When I switch to 'SNCs' tab
 	And I create a New Suspect Non Compliance
-	And I Log decision in SNC as '12 Months'
+	And I Log decision in SNC as '<Decision>'
 	Then The 'Decision date' is set to Current date
 	And the status is changed to 'Intent to Suspend'
+
+Examples:
+	| OwnerType | PetName | Species | Breed  | Sex  | DateOfBirth | Age | Colour                  | UniqueFeature       | MicrochippedDate | MicrochipNumber | Decision  |
+	| Self      | Alpha   | Dog     | Beagle | Male | 09/08/2022  | 12  | Brown, tan or chocolate | As fast as Cheetah  | 09/08/2023       | auto            | 12 Months |
+	| Self      | Beta    | Cat     | Bengal | Male | 09/08/2021  | 12  | Ginger                  | None                | 09/08/2024       | auto            | 12 Months |
 
 Scenario: Online English PTD and SNC
 	Given that I navigate to the DEFRA application
