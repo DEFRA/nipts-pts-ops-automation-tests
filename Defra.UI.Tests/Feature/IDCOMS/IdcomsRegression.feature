@@ -806,3 +806,50 @@ Scenario: Verify Microchipped Date and Date of Birth can be set to today
 	And the Record Owner By 'current user'
 	And I see the Application Reference number generated
 	And I can see the submission date and time
+
+Scenario: Verify the error message for Microchip date cannot be earlier than Date of Birth
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I create a new applicant in IDCOMS
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '15/06/2022'
+	And I enter 'Age' as '4'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as '13/10/2020'
+	And I Click on Save
+	Then I See the error 'Microchipped Date : Microchipped Date cannot be earlier than Date of Birth. Please enter a valid date.' notification
+	When I enter 'Microchipped Date' as '27/10/2023'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+
+Scenario: Verify the other colour field is mandatory when Pet colour is selected as 'Other' in offline PTD application
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I create a new applicant in IDCOMS
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as 'Today'
+	And I enter 'Age' as '1'
+	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as 'Today'
+	And I enter 'Colour' as 'Other'
+	And I enter 'Other Colour' as ''
+	And I Click on Save
+	Then I See the error 'Other Colour : Required fields must be filled in.' notification
+	When I enter 'Other Colour' as 'Purple and Gold Stripes'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
