@@ -211,6 +211,12 @@ namespace Defra.UI.Tests.Steps.AP
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrejection", "text", "field", "");
         }
 
+        [Then("the reason for revocation is updated as '(.*)'")]
+        public void ThenTheReasonForRevocationIsUpdatedAs(string reason)
+        {
+            ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(reason, "nipts_reasonforrevocation", "input", "field", "");
+        }
+
         [Then("the status is '(.*)'")]
         [Then("the status is '(.*)' and readonly")]
         [Then("the Owner is '(.*)' and readonly")]
@@ -958,12 +964,20 @@ namespace Defra.UI.Tests.Steps.AP
                     {
                         value = Utils.GetFutureDate(int.Parse(value.Substring(12)));
                     }
+                    else if(value.Equals("Today"))
+                    {
+                        value = Utils.GetCurrentDate("dd/MM/yyyy");
+                    }
                     EntitySteps.WhenIEnterInTheField(value, "nipts_microchippeddate", "text", "field", 1);
                     break;
                 case "DATE OF BIRTH":
                     if (value.StartsWith("CurrentDate+"))
                     {
                         value = Utils.GetFutureDate(int.Parse(value.Substring(12)));
+                    }
+                    else if (value.Equals("Today"))
+                    {
+                        value = Utils.GetCurrentDate("dd/MM/yyyy");
                     }
                     EntitySteps.WhenIEnterInTheField(value, "nipts_petdob", "text", "field", 1);
                     break;
