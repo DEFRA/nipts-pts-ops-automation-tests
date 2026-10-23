@@ -3,6 +3,7 @@ using Capgemini.PowerApps.SpecFlowBindings.Steps;
 using Defra.Trade.Plants.SpecFlowBindings.Steps;
 using Defra.UI.Tests.Tools;
 using FluentAssertions;
+using FluentAssertions.Execution;
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -68,10 +69,10 @@ namespace Defra.UI.Tests.Steps.AP
             EntitySteps.ThenICanSeeAValueOfInTheField(_scenarioContext.Get<string>("MicrochipNumber"), "nipts_microchipnum", "numeric");
         }
 
-        [Then("I Verify the Application language for Welsh application")]
-        public void ThenIVerifyAppLanguageforWelsh()
+        [Then("I verify the Application Language is {string}")]
+        public void ThenIVerifyAppLanguageforWelsh(string applicationLanguage)
         {
-            EntitySteps.ThenICanSeeAValueOfInTheField("CY", "nipts_applicationlanguage", "text");
+            EntitySteps.ThenICanSeeAValueOfInTheField(applicationLanguage, "nipts_applicationlanguage", "text");
         }
 
         [When("I {string} the Microchip check")]
@@ -1069,6 +1070,8 @@ namespace Defra.UI.Tests.Steps.AP
         [When(@"I create a New Suspect Non Compliance")]
         public void WhenICreateSNC()
         {
+            CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad();
             EntitySteps.ISelectTab("SNCs");
             SharedSteps.WaitForScriptProcessing();
             CommandSteps.WhenISelectTheCommand("Add New Suspect Non Compliance", "nipts_suspectnoncompliance");
@@ -1096,7 +1099,8 @@ namespace Defra.UI.Tests.Steps.AP
         public void WhenILogDecisionInSNC(string value)
         {
             EntitySteps.WhenIEnterInTheField(value, "nipts_decision", "buttonset", "field", 4);
-            EntitySteps.WhenIEnterInTheField("Pet does not match the PTD", "nipts_sncreason", "buttonset", "field", 4);
+            //EntitySteps.WhenIEnterInTheField("Pet does not match the PTD", "nipts_sncreason", "buttonset", "field", 4);
+            EntitySteps.WhenIEnterInTheField("Pet does not match the PTD", "nipts_suspectednoncompliancereason", "text", "field");
             CommandSteps.ClickCommand("Log Decision");
             _driver.WaitForPageToLoad();
             PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
@@ -1279,6 +1283,12 @@ namespace Defra.UI.Tests.Steps.AP
                 default:
                     break;
             }
+        }
+
+        [Then(@"I Verify Close Letter field is updated as '(.*)'")]
+        public void ThenIVerifyCloseLetterFieldIsUpdatedAs(string IntentToSuspend)
+        {
+            EntitySteps.ThenICanSeeAValueOfInTheField(IntentToSuspend, "nipts_closeletter", "text");
         }
     }
 }

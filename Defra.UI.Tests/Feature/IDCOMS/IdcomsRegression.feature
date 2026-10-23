@@ -608,10 +608,9 @@ Scenario: Verify End Suspension button and backing off it
 Scenario: Verify the Suspended pet owner notification
 	When I Login to Dynamics application
 	And I open 'Contacts' under 'Application'
-	And I open the 'Auto061025173012 user' application
+	And I open the 'Auto190826091005 user' application
 	Then I See the error 'This pet owner is currently suspended.' notification
 
-#make sure the SNC is assigned to your name before you run this test
 Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter to be sent and notification text and Letter sent button is visible in offline application
 	When I Login to Dynamics application
 	And I open 'Suspect Non Compliances' under 'Application'
@@ -653,7 +652,7 @@ Scenario: Verify the Status Reason and Owner of the Suspended Record
 Scenario: Verify automatic rejection of new PTD offline application for a suspended pet owner and verify the rejection reason and date
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Applicant Name' as 'Auto061025173012 user'
+	And I enter 'Applicant Name' as 'Auto190826091005 user'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
@@ -672,7 +671,7 @@ Scenario: Verify automatic rejection of new PTD offline application for a suspen
 Scenario: Verify the Appeal Decision Button in On Appeal Suspension record and error message for not selecting the Appeal decision
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1047' application
+	And I open the 'SUS-1300' application
 	And I assign the application to myself
 	Then the status is 'On Appeal' and readonly
 	When I click on 'Appeal Decision' Command
@@ -745,7 +744,7 @@ Scenario: Verify the No Data available message
 Scenario: Verify the readonly fields in a suspension record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1047' application
+	And I open the 'SUS-1300' application
 	Then I cannot edit the field 'nipts_name'
 	And I cannot edit the field 'nipts_petowner'
 	And I cannot edit the field 'nipts_ptd'
