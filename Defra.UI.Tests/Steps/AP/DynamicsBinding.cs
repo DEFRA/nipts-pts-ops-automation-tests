@@ -1304,5 +1304,29 @@ namespace Defra.UI.Tests.Steps.AP
         {
             EntitySteps.ThenICanSeeAValueOfInTheField(IntentToSuspend, "nipts_closeletter", "text");
         }
+
+        [When(@"I Log decision in SNC creation as '(.*)'")]
+        public void WhenILogDecisionInSNCCreation(string value)
+        {
+            EntitySteps.WhenIEnterInTheField(value, "nipts_decision", "buttonset", "field", 4);
+        }
+
+        [When("I click on Log Decision button without selecting the SNC Reason")]
+        public void WhenIClickOnLogDecisionButtonWithoutSelectingTheSNCReason()
+        {
+            CommandSteps.ClickCommand("Log Decision");
+            _driver.WaitForPageToLoad();
+        }
+
+        [When("I click on confirm on the publish dialog")]
+        public void WhenIClickOnConfirmOnThePublishDialog()
+        {
+            _driver.WaitForPageToLoad();
+            PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
+            SharedSteps.WaitForScriptProcessing();
+            CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad();
+        }
+
     }
 }

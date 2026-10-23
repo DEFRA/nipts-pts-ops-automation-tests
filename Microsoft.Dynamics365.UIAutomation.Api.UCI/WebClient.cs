@@ -2845,22 +2845,33 @@ public class WebClient : BrowserPage, IDisposable
 
             for (int i = 0; i < maxAttempts; i++)
             {
-                actions.MoveToElement(input).Click().Perform();
-                actions.SendKeys(Keys.ArrowDown).Perform();
-                Thread.Sleep(300);
-                actions.SendKeys(Keys.Enter).Perform();
-
-                string? currentValue = input.GetAttribute("value").Trim();
+                string? currentValue = input.GetAttribute("value")?.Trim();
 
                 if (currentValue == value)
                 {
                     break;
                 }
+
+                // Re-open the dropdown and reset to the first option with Home before stepping forward,
+                // rather than continuing an ArrowDown press from wherever the list was last left. This
+                // guarantees every option is reachable deterministically (attempt i lands on option i+1)
+                // regardless of whether the control wraps around when ArrowDown is pressed on the last item,
+                // which previously caused the selection to get stuck when the current value was the last option.
+                actions.MoveToElement(input).Click().Perform();
+                Thread.Sleep(200);
+                actions.SendKeys(Keys.Home).Perform();
+                Thread.Sleep(200);
+
+                for (int step = 0; step < i; step++)
+                {
+                    actions.SendKeys(Keys.ArrowDown).Perform();
+                }
+
+                Thread.Sleep(300);
+                actions.SendKeys(Keys.Enter).Perform();
+                Thread.Sleep(300);
             }
 
-            //input.Click();
-            //input.SendKeys(value);
-            //input.SendKeys(Keys.Enter);
             driver.WaitForTransaction();
         },
             d => input.GetAttribute("value").IsValueEqualsTo(value),
