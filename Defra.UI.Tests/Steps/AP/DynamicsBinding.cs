@@ -1318,15 +1318,5 @@ namespace Defra.UI.Tests.Steps.AP
             _driver.WaitForPageToLoad();
         }
 
-        [When("I click on confirm on the publish dialog")]
-        public void WhenIClickOnConfirmOnThePublishDialog()
-        {
-            _driver.WaitForPageToLoad();
-            PopupSteps.WhenIClickTheButtonOnThePopupDialog("Confirm");
-            SharedSteps.WaitForScriptProcessing();
-            CommandSteps.ClickCommand("Refresh");
-            _driver.WaitForPageToLoad();
-        }
-
     }
 }
