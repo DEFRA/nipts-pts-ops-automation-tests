@@ -121,5 +121,11 @@ namespace Defra.UI.Tests.Steps.CP
         {
             Assert.True(_signInCPPage?.VerifyLinks(), "Links in the accessibility statement page and its navigation is not correct");
         }
+
+        [Then(@"I click on Confirm and continue button if available")]
+        public void ThenIClickOnConfirmAndContinueButtonIfAvailable()
+        {
+            _signInCPPage?.ClickConfirmAndContinueButtonIfAvailable();
+        }
     }
 }
