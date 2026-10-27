@@ -34,7 +34,8 @@ Scenario: Verify unauthouried signin in compliance portal
 	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the CP Sign in using Government Gateway page
 	When I have provided invalid CP credentials and signin
-	Then I should navigate to 'You cannot access this page or perform this action' error page
+	Then I click on Confirm and continue button if available
+	And I should navigate to 'You cannot access this page or perform this action' error page
 	And I should see 'Contact your team leader with any queries.' text under the main heading of error page
 	And I should not see the footer of the page
 	And I should not see the header of the page

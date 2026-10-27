@@ -98,6 +98,23 @@ namespace Defra.UI.Tests.Pages.CP.Pages
             return lnkAccessibilityStmt.IsVisible() && lnkAccessibilityStmt.Text.Trim().Equals(accessbilityLink);
         }
 
+        public void ClickConfirmAndContinueButtonIfAvailable()
+        {
+            try
+            {
+                var confirmAndContinueButton = _driver.FindElements(By.XPath("//button[text()='Confirm and continue']")).FirstOrDefault();
+                if (confirmAndContinueButton != null && confirmAndContinueButton.IsVisible())
+                {
+                    confirmAndContinueButton.Click();
+                    _driver.WaitForPageToLoad();
+                }
+            }
+            catch
+            {
+                // Button not present, nothing to do.
+            }
+        }
+
         public void ClickAccessibilityLink()
         {
             lnkAccessibilityStmt.Click();

@@ -13,5 +13,6 @@
         bool VerifyHeadingOfThePage(string mainHeading);
         bool VerifySubHeadingsOfThePage();
         bool VerifyLinks();
+        void ClickConfirmAndContinueButtonIfAvailable();
     }
 }
