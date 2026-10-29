@@ -537,7 +537,7 @@ Scenario: Verify Contacts in the sitemap and Activate/Deactivate button is not p
 	Then I cannot see 'Activate' command
 	And I cannot see 'Deactivate' command
 
-Scenario: Create SNC in authorised PTD with warning; verify closure date.
+Scenario: Create Suspect Non-Compliance for Offline application and verify the Letter sent
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I enter 'Applicant Name' as 'Pets Automation'
@@ -569,7 +569,13 @@ Scenario: Create SNC in authorised PTD with warning; verify closure date.
 	And The 'Close date' is set to Current date
 	And the status is changed to 'Closed'
 	And I See the 'Manual correspondence required: send a letter to the Pet Owner to communicate APHA's decision' notification
+	And I dont see the Email in timeline
+	And I Verify Close Letter field is updated as 'Letter to be sent'
 	And I 'can' see 'Letter Sent' button
+	When I click on 'Letter Sent' Command
+	Then I verify the dialog message 'You are about to send a letter for the pet owner. Do you want to continue with this action?'
+	When I click on 'Confirm' button in Dialog
+	Then I Verify Close Letter field is updated as 'Letter sent'
 
 Scenario: Verify Activate/Deactivate button is not present in suspension view and verify all the views and columns in Suspensions
 	When I Login to Dynamics application
@@ -599,7 +605,7 @@ Scenario: Verify Activate/Deactivate button is not present in suspension view an
 Scenario: Verify End Suspension button and backing off it
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1069' application
+	And I open the 'SUS-1386' application
 	And I assign the application to myself
 	And I click on 'End Suspension' Command
 	Then I verify the dialog message 'Do you want to end this suspension? The suspension will end immediately.'
@@ -608,10 +614,9 @@ Scenario: Verify End Suspension button and backing off it
 Scenario: Verify the Suspended pet owner notification
 	When I Login to Dynamics application
 	And I open 'Contacts' under 'Application'
-	And I open the 'Auto061025173012 user' application
+	And I open the 'Auto190826091005 user' application
 	Then I See the error 'This pet owner is currently suspended.' notification
 
-#make sure the SNC is assigned to your name before you run this test
 Scenario: Verify the Intent to Suspend, Close letter field is updated as Letter to be sent and notification text and Letter sent button is visible in offline application
 	When I Login to Dynamics application
 	And I open 'Suspect Non Compliances' under 'Application'
@@ -653,7 +658,7 @@ Scenario: Verify the Status Reason and Owner of the Suspended Record
 Scenario: Verify automatic rejection of new PTD offline application for a suspended pet owner and verify the rejection reason and date
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
-	And I enter 'Applicant Name' as 'Auto061025173012 user'
+	And I enter 'Applicant Name' as 'Auto190826091005 user'
 	And I enter 'Owner Type' as 'Self'
 	And I enter 'Pet Name' as 'Aurora'
 	And I enter 'Species' as 'Dog'
@@ -672,7 +677,7 @@ Scenario: Verify automatic rejection of new PTD offline application for a suspen
 Scenario: Verify the Appeal Decision Button in On Appeal Suspension record and error message for not selecting the Appeal decision
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1047' application
+	And I open the 'SUS-1300' application
 	And I assign the application to myself
 	Then the status is 'On Appeal' and readonly
 	When I click on 'Appeal Decision' Command
@@ -683,7 +688,7 @@ Scenario: Verify the Appeal Decision Button in On Appeal Suspension record and e
 Scenario: Verify the Confirm Appeal message in a Suspension record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1070' application
+	And I open the 'SUS-1221' application
 	And I assign the application to myself
 	Then the status is 'Open' and readonly
 	When I click on 'Appeal' Command
@@ -745,7 +750,7 @@ Scenario: Verify the No Data available message
 Scenario: Verify the readonly fields in a suspension record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1047' application
+	And I open the 'SUS-1300' application
 	Then I cannot edit the field 'nipts_name'
 	And I cannot edit the field 'nipts_petowner'
 	And I cannot edit the field 'nipts_ptd'
@@ -784,3 +789,112 @@ Examples:
 	| Pet Name              | Deer          |
 	| Pet Owner Name        | Pets Automati |
 	| Pet Owner Postcode    | OX1 1         |
+
+Scenario: Verify Microchipped Date and Date of Birth can be set to today
+	When I Login to Dynamics application
+	And I Switch to 'All PTD Applications'
+	And I Click on New to create an offline application
+	And I create a new applicant in IDCOMS
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as 'Today'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Microchipped Date' as 'Today'
+	And I enter 'Microchip Number' as 'auto'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+	And I can see the submission date and time
+
+Scenario: Verify the error message for Microchip date cannot be earlier than Date of Birth
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I create a new applicant in IDCOMS
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '15/06/2022'
+	And I enter 'Age' as '4'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as '13/10/2020'
+	And I Click on Save
+	Then I See the error 'Microchipped Date : Microchipped Date cannot be earlier than Date of Birth. Please enter a valid date.' notification
+	When I enter 'Microchipped Date' as '27/10/2023'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+
+Scenario: Verify the other colour field is mandatory when Pet colour is selected as 'Other' in offline PTD application
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I create a new applicant in IDCOMS
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as 'Today'
+	And I enter 'Age' as '1'
+	And I enter 'Unique feature' as 'As fast as Cheetah'
+	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as 'Today'
+	And I enter 'Colour' as 'Other'
+	And I enter 'Other Colour' as ''
+	And I Click on Save
+	Then I See the error 'Other Colour : Required fields must be filled in.' notification
+	When I enter 'Other Colour' as 'Purple and Gold Stripes'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+
+Scenario: Verify SNC Reason field is mandatory when attempting to Log Decision
+	When I Login to Dynamics application
+	And I Click on New to create an offline application
+	And I enter 'Applicant Name' as 'Pets Automation'
+	And I enter 'Owner Type' as 'Self'
+	And I enter 'Pet Name' as 'Aurora'
+	And I enter 'Species' as 'Dog'
+	And I enter 'Breed' as 'Beagle'
+	And I enter 'Sex' as 'Male'
+	And I enter 'Date of Birth' as '09/08/2022'
+	And I enter 'Age' as '12'
+	And I enter 'Colour' as 'Brown, tan or chocolate'
+	And I enter 'Unique feature' as ''
+	And I enter 'Microchip Number' as 'auto'
+	And I enter 'Microchipped Date' as '09/08/2023'
+	And I Click on Save
+	Then the status is 'Open'
+	And the Record Owner By 'current user'
+	And I see the Application Reference number generated
+	And I get the PTD Reference Number and Store it
+	And I can see the submission date and time
+	When I Verify the Microchip Number in Microchip Verification Check
+	And I go back
+	And I 'Pass' the Microchip check
+	And I go back
+	And I 'Authorise' the application
+	And I create a New Suspect Non Compliance
+	And I Log decision in SNC creation as 'Warning'
+	And I click on Log Decision button without selecting the SNC Reason
+	Then I verify the dialog message 'You must provide a suspected non-compliance reason before logging a decision.'
+	When I click on 'OK' button in Dialog
+	And I Log decision in SNC creation as '12 Months'
+	And I click on Log Decision button without selecting the SNC Reason
+	Then I verify the dialog message 'You must provide a suspected non-compliance reason before logging a decision.'
+	When I click on 'OK' button in Dialog
+	And I Log decision in SNC creation as 'No Action'
+	And I click on Log Decision button without selecting the SNC Reason
+	And I click on 'Confirm' button in Dialog
+	Then the status is changed to 'Closed'

@@ -243,7 +243,7 @@ namespace Defra.UI.Tests.Steps.CP
         [Then("I have selected departure date as current date '(.*)' and departure time as current time to check '(.*)'")]
         public void ThenIHaveSelectedDepartureDateAsCurrentDateAndDepartureTimeAsCurrentTime(int departuredate, string timeCheck)
         {
-            var dateTimeTwoDaysAgo = DateTime.UtcNow.AddDays(departuredate);
+            var dateTimeTwoDaysAgo = DateTime.UtcNow.AddDays(departuredate).AddMinutes(-1);
             _routeCheckingPage?.CheckDepartBefore48OrAfter24Hrs(dateTimeTwoDaysAgo.Day.ToString(), dateTimeTwoDaysAgo.Month.ToString(), dateTimeTwoDaysAgo.Year.ToString(), dateTimeTwoDaysAgo.Hour.ToString("D2"), dateTimeTwoDaysAgo.Minute.ToString("D2"), timeCheck);
         }
 

@@ -700,8 +700,9 @@ Examples:
 
 #Do not run this in automation as it suspends automation user
 #6 months SNC made redundant in R7.33
+#Added R7.36 test case for checking status of PTD and Reason for Revocation after SNC is created. Uncomment after mail.tm is sorted
 @ignore
-Scenario Outline: Create a PTD, generate 12 month SNCs, and verify status and suspension email.
+Scenario Outline: Create a PTD, generate 12 month SNCs, verify status of SNC, suspension email, status of the PTD and Reason for Revocation
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I should redirected to the What is your full name page
@@ -756,6 +757,10 @@ Scenario Outline: Create a PTD, generate 12 month SNCs, and verify status and su
 	Then I verify the copy of the 'SUSPENSION' Email in Timeline
 	And The 'Decision date' is set to Current date
 	And the status is changed to 'Intent to Suspend'
+	When I go back
+	Then the status is 'Revoked'
+	When I switch to 'General' tab
+	Then the reason for revocation is updated as 'Non-Compliance'
 Examples:
 	| FullName | IsRegisteredUser                | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet    | PetName | Gender | Color | IsSignificantFeatures | Decision  |
 	| Ferret's | Yes, I am the registered keeper | No                       | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Ferret | Ferret  | Female | Sable | No                    | 12 Months |

@@ -369,3 +369,4 @@ FodyWeavers.xsd
 *.feature.cs
 
 .vs/
+/.github/copilot-instructions.md
