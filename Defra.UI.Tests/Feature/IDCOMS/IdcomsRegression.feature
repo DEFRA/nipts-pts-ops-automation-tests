@@ -605,7 +605,7 @@ Scenario: Verify Activate/Deactivate button is not present in suspension view an
 Scenario: Verify End Suspension button and backing off it
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1069' application
+	And I open the 'SUS-1386' application
 	And I assign the application to myself
 	And I click on 'End Suspension' Command
 	Then I verify the dialog message 'Do you want to end this suspension? The suspension will end immediately.'
@@ -688,7 +688,7 @@ Scenario: Verify the Appeal Decision Button in On Appeal Suspension record and e
 Scenario: Verify the Confirm Appeal message in a Suspension record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1070' application
+	And I open the 'SUS-1221' application
 	And I assign the application to myself
 	Then the status is 'Open' and readonly
 	When I click on 'Appeal' Command
