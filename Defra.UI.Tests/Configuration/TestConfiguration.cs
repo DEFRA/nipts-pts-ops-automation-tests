@@ -20,6 +20,7 @@ namespace Defra.UI.Tests.Configuration
         public string EnvCPLogin { get; set; }
         public bool IsAccessibilityEnabled { get; set; }
         public bool IsLiveUserAccount { get; set; }
+        public bool IsUniqueGGIDPerTest { get; set; }
         public string IsPetsAPorCP { get; set; }
     }
 }

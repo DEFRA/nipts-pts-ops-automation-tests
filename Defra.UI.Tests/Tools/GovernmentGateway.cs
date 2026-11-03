@@ -1,4 +1,5 @@
 ﻿using Defra.UI.Tests.Contracts;
+using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.Data.Users;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
@@ -12,6 +13,7 @@ namespace Defra.UI.Tests.Tools
     public sealed class GovernmentGateway
     {
         private static GovernmentGateway _instance;
+        private static ScenarioContext _instanceScenarioContext;
         private static readonly object _lock = new object();
 
         private LoginDetails _cachedValue;
@@ -37,13 +39,36 @@ namespace Defra.UI.Tests.Tools
 
         public static void Initialize(IObjectContainer objectContainer)
         {
-            if (_instance == null)
+            var isUniqueGGIDPerTest = ConfigSetup.BaseConfiguration.TestConfiguration.IsUniqueGGIDPerTest;
+
+            if (isUniqueGGIDPerTest)
             {
-                lock (_lock)
+                // Create a new GovernmentGateway (and therefore a new GGID) once per scenario.
+                var scenarioContext = objectContainer.Resolve<ScenarioContext>();
+
+                if (_instance == null || !ReferenceEquals(_instanceScenarioContext, scenarioContext))
                 {
-                    if (_instance == null)
+                    lock (_lock)
                     {
-                        _instance = new GovernmentGateway(objectContainer);
+                        if (_instance == null || !ReferenceEquals(_instanceScenarioContext, scenarioContext))
+                        {
+                            _instance = new GovernmentGateway(objectContainer);
+                            _instanceScenarioContext = scenarioContext;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                // Create a single GovernmentGateway (and therefore a single GGID) for the entire run.
+                if (_instance == null)
+                {
+                    lock (_lock)
+                    {
+                        if (_instance == null)
+                        {
+                            _instance = new GovernmentGateway(objectContainer);
+                        }
                     }
                 }
             }

@@ -36,7 +36,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement txtboxPostcode => _driver.WaitForElement(By.XPath("//input[@id='postcode']"), true);
         private IWebElement lnkEnterTheAddressManually => _driver.WaitForElement(By.XPath("//a[text()='Enter the address manually']"), true);
         private IWebElement DrpdownSelectAddress => _driver.WaitForElement(By.XPath("//select[@id='address']"));
-        private IWebElement txtboxSecurityWord => _driver.WaitForElement(By.XPath("//input[@id='securityWord']"), true);
+        private IWebElement txtboxSecurityWord => _driver.WaitForElement(By.XPath("//input[@id='memorableWord']"), true);
         private IWebElement txtAreaSecurityHint => _driver.WaitForElement(By.XPath("//textarea[@id='securityHint']"));
         private IWebElement lblEnterTheAddressManually => _driver.WaitForElement(By.XPath("//h1[normalize-space(text())='What is your address?']"), true);
         private IWebElement txtboxSubBuildingName => _driver.WaitForElement(By.CssSelector("#subBuildingName"));

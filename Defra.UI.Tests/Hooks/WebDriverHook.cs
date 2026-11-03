@@ -7,6 +7,7 @@ using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Chromium;
 using OpenQA.Selenium.Remote;
 using Reqnroll;
 using Reqnroll.BoDi;
@@ -26,8 +27,6 @@ namespace Defra.UI.Tests.Hooks
 
         private IFetchCodeFromEmail fetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
 
-        private static bool isRunOnce = false;
-
         private static ExtentReports _extent;
         [ThreadStatic]
         private static ExtentTest _feature;
@@ -46,7 +45,6 @@ namespace Defra.UI.Tests.Hooks
         public static void BeforeTestRun()
         {
             _extent = ExtentReportManager.GetInstance();
-            isRunOnce = true;
         }
 
         [BeforeFeature]
@@ -80,16 +78,11 @@ namespace Defra.UI.Tests.Hooks
 
             _scenario = _feature.CreateNode<AventStack.ExtentReports.Gherkin.Model.Scenario>(_scenarioContext.ScenarioInfo.Title);
 
-            if (isRunOnce)
+            GovernmentGateway.Initialize(_objectContainer);
+
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount)
             {
-                GovernmentGateway.Initialize(_objectContainer);
-
-                if (ConfigSetup.BaseConfiguration.TestConfiguration.IsLiveUserAccount)
-                {
-                    isRunOnce = false;
-
-                    GovernmentGateway.Instance.GetUserDetails();
-                }
+                GovernmentGateway.Instance.GetUserDetails();
             }
         }
 
@@ -144,7 +137,8 @@ namespace Defra.UI.Tests.Hooks
             var fileTitle = _scenarioContext.ScenarioInfo.Title;
             var fileName = Path.Combine(filePath, $"{fileTitle}_TestFailures_{DateTime.Now:yyyyMMdd_hhss}" + ".png");
 
-            ((ITakesScreenshot)Driver).GetScreenshot().SaveAsFile(fileName);
+            //((ITakesScreenshot)Driver).GetScreenshot().SaveAsFile(fileName);
+            CaptureFullPageScreenshot(fileName);
 
             _reqnrollOutputHelper.AddAttachment(fileName);
             Logger.Debug($"SCREENSHOT {fileName} ");
@@ -211,6 +205,57 @@ namespace Defra.UI.Tests.Hooks
             var filePath = Path.Combine(screenshotsDir, $"{Guid.NewGuid()}.png");
             screenshot.SaveAsFile(filePath);
             return filePath;
+        }
+
+        private void CaptureFullPageScreenshot(string filePath)
+        {
+            try
+            {
+                var chromeDriver = Driver as ChromiumDriver;
+
+                if (chromeDriver != null)
+                {
+                    // Get full page dimensions via JS
+                    var jsExecutor = (IJavaScriptExecutor)Driver;
+                    var totalWidth = Convert.ToInt64(jsExecutor.ExecuteScript("return document.body.scrollWidth"));
+                    var totalHeight = Convert.ToInt64(jsExecutor.ExecuteScript("return document.body.scrollHeight"));
+
+                    // Set device metrics override to capture beyond the viewport
+                    var metrics = new Dictionary<string, object>
+                    {
+                        ["width"] = totalWidth,
+                        ["height"] = totalHeight,
+                        ["deviceScaleFactor"] = 1,
+                        ["mobile"] = false
+                    };
+                    chromeDriver.ExecuteCdpCommand("Emulation.setDeviceMetricsOverride", metrics);
+
+                    // Capture the screenshot using CDP
+                    var screenshotParams = new Dictionary<string, object>
+                    {
+                        ["format"] = "png",
+                        ["captureBeyondViewport"] = true
+                    };
+                    var result = chromeDriver.ExecuteCdpCommand("Page.captureScreenshot", screenshotParams);
+
+                    var base64 = ((Dictionary<string, object>)result)["data"].ToString();
+                    var screenshotBytes = Convert.FromBase64String(base64);
+                    File.WriteAllBytes(filePath, screenshotBytes);
+
+                    // Reset device metrics override
+                    chromeDriver.ExecuteCdpCommand("Emulation.clearDeviceMetricsOverride", new Dictionary<string, object>());
+                }
+                else
+                {
+                    // Fallback to standard viewport screenshot for non-Chromium drivers
+                    ((ITakesScreenshot)Driver).GetScreenshot().SaveAsFile(filePath);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Debug($"Full page screenshot failed, falling back to standard screenshot: {ex.Message}");
+                ((ITakesScreenshot)Driver).GetScreenshot().SaveAsFile(filePath);
+            }
         }
 
         private void CloseBrowsers()
