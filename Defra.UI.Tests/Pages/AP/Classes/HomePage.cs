@@ -336,7 +336,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyCookiesRadioButtons()
         {
-            return btnCookiesOptionYes.Text.Trim().Contains("Yes")
+            var cookiesYesOption = _driver.FindElements(By.XPath("//*[@id='yes']/following-sibling::label[@class='cookie-option']")).FirstOrDefault();
+
+            return cookiesYesOption.Text.Trim().Contains("Yes")
                 && btnCookiesOptionNo.Text.Trim().Contains("No");
         }
 
@@ -353,6 +355,17 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void ClickSaveCookiesSettings()
         {
+            ((IJavaScriptExecutor)_driver).ExecuteScript(
+                "var overlay = document.createElement('div');" +
+                "overlay.id = 'cookie-settings-save-overlay';" +
+                "overlay.style.position = 'fixed';" +
+                "overlay.style.top = '0';" +
+                "overlay.style.left = '0';" +
+                "overlay.style.width = '100%';" +
+                "overlay.style.height = '100%';" +
+                "overlay.style.zIndex = '9999';" +
+                "document.body.appendChild(overlay);");
+
             btnSaveCookiesSettings.Click();
         }
 

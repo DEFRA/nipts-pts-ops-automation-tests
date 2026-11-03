@@ -89,7 +89,7 @@ Scenario Outline: Verify postcode search page by not selecting an address from d
 
 Examples:
 	| FullName | Are your details correct | PostCode | ErrorMessage        |
-	| PetCat's | No                       | CV2 4NY  | Select your address |
+	| PetCat's | No                       | CV2 4NY  | Select address |
 
 Scenario Outline: Verify enter address manually validations with all fields blank
 	Then I have selected '<Are your details correct>' option
