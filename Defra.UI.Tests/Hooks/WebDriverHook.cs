@@ -99,6 +99,9 @@ namespace Defra.UI.Tests.Hooks
                     Logger.LogMessage("An error ocurred:" + error.Message);
                     Logger.Debug("It was of type:" + error.GetType().Name);
                 }
+
+                var testResult = _scenarioContext.TestError == null ? "PASSED" : "FAILED";
+                Utils.AppendToLoginLog(("*********************TestResult*********************", testResult));
             }
             catch (Exception ex)
             {

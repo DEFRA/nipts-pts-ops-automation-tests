@@ -1105,6 +1105,8 @@ namespace Defra.UI.Tests.Steps.AP
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
             ModalFormSteps.ThenICanSeeAValueTheModalForm("nipts_name", "text", "field", "");
+            string SNC = EntitySteps.ThenIGetTheHeaderTitle();
+            Utils.AppendToLoginLog(("SNC ", SNC));
         }
 
         [When(@"I switch to '(.*)' tab")]
