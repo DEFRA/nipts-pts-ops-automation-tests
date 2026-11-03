@@ -369,4 +369,5 @@ FodyWeavers.xsd
 *.feature.cs
 
 .vs/
-/.github/copilot-instructions.md
+/docs/failure-analysis
+/.github/agents
