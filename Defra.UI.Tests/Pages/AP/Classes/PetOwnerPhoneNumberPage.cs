@@ -3,6 +3,7 @@ using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using Reqnroll.BoDi;
+using SeleniumExtras.WaitHelpers;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -28,6 +29,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool IsNextPageLoaded(string pageTitle)
         {
+            _driver.WaitForElementCondition(ExpectedConditions.InvisibilityOfElementLocated(By.Id("Phone")));
             return PageHeading.Text.Contains(pageTitle);
         }
 

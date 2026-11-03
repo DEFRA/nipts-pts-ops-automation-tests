@@ -56,6 +56,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement btnHideCookieRejectedMsg => _driver.WaitForElement(By.XPath("//*[@id='govuk-cookie-banner-rejected']//div[2]/button"));
         private IReadOnlyCollection<IWebElement> txtEntireCookieBanner => _driver.FindElements(By.XPath("//*[@class='govuk-cookie-banner']"));
         private IWebElement btnCookiesOptionYes => _driver.WaitForElementExists(By.XPath("//*[@id='yes']/following-sibling::label"));
+
+        private IWebElement cookiesYesOption => _driver.WaitForElementExists(By.XPath("//*[@id='yes']/following-sibling::label[@class='cookie-option']"));
         private IWebElement btnCookiesOptionNo => _driver.WaitForElementExists(By.XPath("//*[@id='no']/following-sibling::label"));
         private IWebElement btnRadioNo => _driver.WaitForElementExists(By.XPath("//*[@id='no']"));
         private IWebElement btnSaveCookiesSettings => _driver.WaitForElementExists(By.XPath("//*[@id='no']//following::button"));
@@ -336,7 +338,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public bool VerifyCookiesRadioButtons()
         {
-            return btnCookiesOptionYes.Text.Trim().Contains("Yes")
+            return cookiesYesOption.Text.Trim().Contains("Yes")
                 && btnCookiesOptionNo.Text.Trim().Contains("No");
         }
 
@@ -353,6 +355,19 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void ClickSaveCookiesSettings()
         {
+            var js = (IJavaScriptExecutor)_driver;
+            js.ExecuteScript(@"
+                var overlay = document.createElement('div');
+                overlay.id = 'cookie-settings-save-overlay';
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.zIndex = '9999';
+                document.body.appendChild(overlay);
+            ");
+
             btnSaveCookiesSettings.Click();
         }
 

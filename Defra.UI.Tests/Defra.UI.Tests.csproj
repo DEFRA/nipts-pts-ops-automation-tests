@@ -50,7 +50,6 @@
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\IDCOMS\IdcomsRegression - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\UAT\SUS\CompleteRegistration.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\Update Microchip Information - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Update\Update Pet Details - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Validations - Copy (2).feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Validations - Copy (3).feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Feature\AP\Validations\Validations - Copy.feature.cs" />
@@ -184,18 +183,6 @@
     <Compile Update="Feature\UAT\SUS\DataPreparation.feature.cs">
       <DependentUpon>DataPreparation.feature</DependentUpon>
     </Compile>
-    <Compile Update="Feature\AP\Update\UpdatePetOwnerDetails.feature.cs">
-      <DependentUpon>UpdatePetOwnerDetails.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Feature\AP\Update\UpdatePetDetails.feature.cs">
-      <DependentUpon>UpdatePetDetails.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Feature\AP\Update\UpdateMicrochipInformation.feature.cs">
-      <Visible>true</Visible>
-      <DependentUpon>UpdateMicrochipInformation.feature</DependentUpon>
-      <DesignTime>true</DesignTime>
-      <AutoGen>true</AutoGen>
-    </Compile>
     <Compile Update="Feature\AP\Validations\Pet Details Validations.feature.cs">
       <DependentUpon>Pet Details Validations.feature</DependentUpon>
     </Compile>
@@ -298,18 +285,6 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Feature\UAT\SUS\DataPreparation.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Feature\AP\Update\Update Pet Owner Details.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Feature\AP\Update\Update Pet Details.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Feature\AP\Update\Update Microchip Information.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
