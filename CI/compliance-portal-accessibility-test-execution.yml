@@ -1,6 +1,17 @@
 trigger: none
 
 parameters:
+  - name: enableRetry
+    displayName: Retry Failed Tests
+    type: string
+    default: 'Yes'
+    values:
+      - 'Yes'
+      - 'No'
+  - name: maxRetryAttempts
+    displayName: Number of Retry Attempts
+    type: number
+    default: 3
   - name: environment
     type: string
     default: 'pre'
@@ -42,6 +53,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: ''
         dependsOn: ''
+        enableRetry: ${{ parameters.enableRetry }}
+        maxRetryAttempts: ${{ parameters.maxRetryAttempts }}
         application: 'CP'
         filterTestCases: 'TestCategory=CPAccessibility'
         isAccessibilityEnabled: true

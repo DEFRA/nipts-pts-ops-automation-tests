@@ -1,6 +1,17 @@
 trigger: none
 
 parameters:
+  - name: enableRetry
+    displayName: Retry Failed Tests
+    type: string
+    default: 'Yes'
+    values:
+      - 'Yes'
+      - 'No'
+  - name: maxRetryAttempts
+    displayName: Number of Retry Attempts
+    type: number
+    default: 3
   - name: environment
     type: string
     default: 'pre'
@@ -41,6 +52,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'Samsung Galaxy Tab S8'
         dependsOn: ''
+        enableRetry: ${{ parameters.enableRetry }}
+        maxRetryAttempts: ${{ parameters.maxRetryAttempts }}
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowser'
 
@@ -63,6 +76,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'Samsung Galaxy Tab S8'
         dependsOn: ''
+        enableRetry: ${{ parameters.enableRetry }}
+        maxRetryAttempts: ${{ parameters.maxRetryAttempts }}
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowser'
 
@@ -85,6 +100,8 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
+        enableRetry: ${{ parameters.enableRetry }}
+        maxRetryAttempts: ${{ parameters.maxRetryAttempts }}
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowser'
 
@@ -107,5 +124,7 @@ stages:
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
         dependsOn: ''
+        enableRetry: ${{ parameters.enableRetry }}
+        maxRetryAttempts: ${{ parameters.maxRetryAttempts }}
         application: 'CP'
         filterTestCases: 'TestCategory=CPCrossBrowser'

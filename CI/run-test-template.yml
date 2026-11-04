@@ -32,6 +32,17 @@
   - name: isAccessibilityEnabled
     type: boolean
     default: false
+  - name: enableRetry
+    displayName: Retry Failed Tests
+    type: string
+    default: 'Yes'
+    values:
+      - 'Yes'
+      - 'No'
+  - name: maxRetryAttempts
+    displayName: Number of Retry Attempts
+    type: number
+    default: 3
 
 jobs: 
 
@@ -159,11 +170,12 @@ jobs:
       ignoreLASTEXITCODE: true
       continueOnError: true
 
-    - powershell: |
-         
+    - ${{ if eq(parameters.enableRetry, 'Yes') }}:
+      - powershell: |
+
             $projectDllPath = "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll"
-            $maxRetries = 3
-  
+            $maxRetries = ${{ parameters.maxRetryAttempts }}
+
             $resultsDir = "TestResults"
             $attempt = 0
             $failedTests = @()
@@ -279,8 +291,8 @@ jobs:
             Write-Host "Merged .trx file saved to: $mergedTrxPath"
 
             exit 0
-      displayName: 'Retry Failed Tests'
-      failOnStderr: false
+        displayName: 'Retry Failed Tests'
+        failOnStderr: false
 
     - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
       - task: DockerCompose@0

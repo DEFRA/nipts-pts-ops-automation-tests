@@ -1,6 +1,17 @@
 trigger: none
 
 parameters:
+  - name: enableRetry
+    displayName: Retry Failed Tests
+    type: string
+    default: 'Yes'
+    values:
+      - 'Yes'
+      - 'No'
+  - name: maxRetryAttempts
+    displayName: Number of Retry Attempts
+    type: number
+    default: 3
   - name: environment
     displayName: Environment
     type: string
@@ -49,6 +60,8 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
         dependsOn: ''
+        enableRetry: ${{ parameters.enableRetry }}
+        maxRetryAttempts: ${{ parameters.maxRetryAttempts }}
         filterTestCases: 'TestCategory=APCrossBrowser'
 
     - template: run-test-template.yml
@@ -66,6 +79,8 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
         dependsOn: ''
+        enableRetry: ${{ parameters.enableRetry }}
+        maxRetryAttempts: ${{ parameters.maxRetryAttempts }}
         filterTestCases: 'TestCategory=APCrossBrowser'
 
     - template: run-test-template.yml
@@ -83,4 +98,6 @@ stages:
         emulateDeviceInfo: 'iPhone 12 Pro'
         application: 'AP'
         dependsOn: ''
+        enableRetry: ${{ parameters.enableRetry }}
+        maxRetryAttempts: ${{ parameters.maxRetryAttempts }}
         filterTestCases: 'TestCategory=APCrossBrowser'
