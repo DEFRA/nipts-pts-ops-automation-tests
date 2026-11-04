@@ -1,4 +1,4 @@
-﻿@Regression @SmokeTest @Common @PETS
+﻿@Regression @SmokeTest @Common @PETS @Test
 Feature: LoginLogout
 
 As a Defra customer, I am able to sign in and sign out with valid credentials

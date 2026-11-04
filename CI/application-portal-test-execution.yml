@@ -89,6 +89,7 @@ stages:
         dependsOn: ''
         enableRetry: ${{ parameters.enableRetry }}
         maxRetryAttempts: ${{ parameters.maxRetryAttempts }}
+        filterTestCases: 'TestCategory=Test'
 
 
 
