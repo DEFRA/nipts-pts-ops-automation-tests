@@ -140,7 +140,6 @@ namespace Defra.UI.Tests.Hooks
             var fileTitle = _scenarioContext.ScenarioInfo.Title;
             var fileName = Path.Combine(filePath, $"{fileTitle}_TestFailures_{DateTime.Now:yyyyMMdd_hhss}" + ".png");
 
-            //((ITakesScreenshot)Driver).GetScreenshot().SaveAsFile(fileName);
             CaptureFullPageScreenshot(fileName);
 
             _reqnrollOutputHelper.AddAttachment(fileName);
