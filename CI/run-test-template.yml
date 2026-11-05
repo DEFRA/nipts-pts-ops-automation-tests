@@ -337,14 +337,24 @@ jobs:
           artifactName: ${{ parameters.jobName }}_$(System.StageName)
           targetPath: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults/'
 
-    - task: PublishTestResults@2
-      displayName: 'Publish Test Results'
-      inputs:
-        testResultsFormat: VSTest
-        testResultsFiles: |
-          ${{ parameters.jobName }}_MergedResults.trx
-          ${{ parameters.jobName }}_results_0.trx
-        searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults'
-        testRunTitle: ${{ parameters.jobName }}
-        failTaskOnFailedTests: true
-        continueOnError: true
+    - ${{ if eq(parameters.enableRetry, 'Yes') }}:
+      - task: PublishTestResults@2
+        displayName: 'Publish Test Results'
+        inputs:
+          testResultsFormat: VSTest
+          testResultsFiles: '${{ parameters.jobName }}_MergedResults.trx'
+          searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults'
+          testRunTitle: ${{ parameters.jobName }}
+          failTaskOnFailedTests: true
+          continueOnError: true
+
+    - ${{ if ne(parameters.enableRetry, 'Yes') }}:
+      - task: PublishTestResults@2
+        displayName: 'Publish Test Results'
+        inputs:
+          testResultsFormat: VSTest
+          testResultsFiles: '${{ parameters.jobName }}_results_0.trx'
+          searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults'
+          testRunTitle: ${{ parameters.jobName }}
+          failTaskOnFailedTests: true
+          continueOnError: true
