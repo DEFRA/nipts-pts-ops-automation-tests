@@ -211,9 +211,12 @@ jobs:
                     # so that Scenario Outline test names containing parentheses/commas
                     # are treated as literal text and not as filter grouping operators.
                     # Values are also wrapped in single quotes since vstest filter
-                    # syntax requires quoting for values containing spaces.
+                    # syntax requires quoting for values containing spaces, so any
+                    # literal single quote in the test name (e.g. "PetFerret's") must
+                    # also be escaped, otherwise it prematurely closes the quoted value.
                     $escapedTests = $failedTests | ForEach-Object {
-                        $_ -replace '([\\&|=!~<>()])', '\$1'
+                        $escaped = $_ -replace '([\\&|=!~<>()])', '\$1'
+                        $escaped -replace "'", "\'"
                     }
 
                     # Use the "Name" property (trx's short/display test name) with exact
