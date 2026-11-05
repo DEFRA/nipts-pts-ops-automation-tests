@@ -199,18 +199,11 @@ jobs:
                 $failedTests = $trx.TestRun.Results.UnitTestResult |
                     Where-Object { $_.outcome -eq "Failed" } |
                     ForEach-Object {
-                        $name = $_.testName
-                        if ($name.Contains('(')) {
-                            $cleanName = $name.Substring(0, $name.IndexOf('('))
-                        } else {
-                            $cleanName = $name
-                        }
-
-                        $cleanName
+                        $_.testName
                      }| 
                      Sort-Object | 
                      Get-Unique
-                
+
                 if ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries) {
                     Write-Host "Found $($failedTests.Count) failed test(s). Preparing to rerun..."
 
