@@ -51,6 +51,8 @@ namespace Defra.UI.Tests.Steps.AP
         [When("I assign the application to myself")]
         public void WhenIAssignTheApplicationToHimself()
         {
+            _driver.WaitForPageToLoad();
+            _driver.WaitForTransaction();
             _driver.WaitUntilAvailable(By.Id("mainContent"));
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
@@ -230,6 +232,8 @@ namespace Defra.UI.Tests.Steps.AP
             _driver.WaitForPageToLoad();
             FormSteps.ICanSeeAHeaderField("readonly", status);
             CommandSteps.ClickCommand("Refresh");
+            _driver.WaitForPageToLoad();
+            _driver.WaitForTransaction();
         }
 
         public void RevokeApplication(string status, string reason)
@@ -872,7 +876,7 @@ namespace Defra.UI.Tests.Steps.AP
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlineemail", "text", "field", 1);
                     break;
                 case "APPLICATION TYPE":
-                    EntitySteps.WhenIEnterInTheField(value, "nipts_applicationlanguage", "text", "field", 1);
+                    EntitySteps.WhenIEnterInTheField(value, "nipts_applicationlanguage", "buttonset", "field", 1);
                     break;
                 case "ADDRESS LINE 1":
                     EntitySteps.WhenIEnterInTheField(value, "nipts_offlineaddressline1", "text", "field", 1);
@@ -1005,6 +1009,7 @@ namespace Defra.UI.Tests.Steps.AP
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
             string PTD_Reference = EntitySteps.ThenIGetTheHeaderTitle();
+            Utils.AppendToLoginLog(("ApplicationReferenceNumber", PTD_Reference));
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(PTD_Reference, "nipts_applicationreference", "text", "field", "");
             ModalFormSteps.ThenICanSeeAValueOfInTheFieldWithinTheModalForm(PTD_Reference, "nipts_documentreference", "text", "field", "");
 
@@ -1100,6 +1105,8 @@ namespace Defra.UI.Tests.Steps.AP
             CommandSteps.ClickCommand("Refresh");
             _driver.WaitForPageToLoad();
             ModalFormSteps.ThenICanSeeAValueTheModalForm("nipts_name", "text", "field", "");
+            string SNC = EntitySteps.ThenIGetTheHeaderTitle();
+            Utils.AppendToLoginLog(("SNC ", SNC));
         }
 
         [When(@"I switch to '(.*)' tab")]

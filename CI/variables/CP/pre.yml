@@ -8,4 +8,5 @@ variables:
  IDOMSUserAlias: 'Nagarajan Subbiah'
  SecretsFilter: 'PetsIDCOMSAutomation'
  IsLiveUserAccount: false
+ IsUniqueGGIDPerTest: false
  IsAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}

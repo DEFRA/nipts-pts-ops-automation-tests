@@ -2,6 +2,7 @@
 
 using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -46,12 +47,21 @@ public class CommandHelper
         wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
 
         webDriver.MoveToElement(commandButton);
+
+        if (!webDriver.HasElement(By.Id("__flyoutRootNode")))
+        {
+            SafeClick(webDriver, commandButton);
+            webDriver.WaitForTransaction();
+        }
+
         wait.Until(d =>
         {
             if (!d.HasElement(By.Id("__flyoutRootNode")))
             {
-                commandButton.Click();
+                // The flyout closed again (e.g. it was toggled shut) - reopen it once and keep waiting.
+                SafeClick(d, commandButton);
                 d.WaitForTransaction();
+                return false;
             }
 
             var flyout = d.FindElement(By.Id("__flyoutRootNode"));
@@ -128,6 +138,48 @@ public class CommandHelper
     }
 
     /// <summary>
+    /// Clicks an element, retrying with a JavaScript click if the click is intercepted
+    /// by a transient overlay such as a tooltip rendered on top of a ribbon button.
+    /// </summary>
+    /// <param name="webDriver">The IWebDriver instance on which the actions will be performed.</param>
+    /// <param name="element">The element to click.</param>
+    private static void SafeClick(IWebDriver webDriver, IWebElement element)
+    {
+        const int maxAttempts = 3;
+
+        for (var attempt = 1; attempt <= maxAttempts; attempt++)
+        {
+            try
+            {
+                element.Click();
+                return;
+            }
+            catch (ElementClickInterceptedException)
+            {
+                if (attempt == maxAttempts)
+                {
+                    // Last resort: bypass the native click's occlusion check entirely.
+                    ((IJavaScriptExecutor)webDriver).ExecuteScript("arguments[0].click();", element);
+                    return;
+                }
+
+                // Move the mouse away to dismiss any tooltip overlay and give the UI a moment to settle.
+                new Actions(webDriver).MoveByOffset(0, 0).Perform();
+                Thread.Sleep(300);
+            }
+            catch (StaleElementReferenceException)
+            {
+                if (attempt == maxAttempts)
+                {
+                    throw;
+                }
+
+                Thread.Sleep(300);
+            }
+        }
+    }
+
+    /// <summary>
     /// Clicks the specified command.
     /// </summary>
     /// <param name="webDriver">The IWebDriver instance on which the actions will be performed.</param>
@@ -140,7 +192,7 @@ public class CommandHelper
 
         if (commandButton != null)
         {
-            commandButton.Click();
+            SafeClick(webDriver, commandButton);
         }
         else if (commandButton == null && commandButtons.ContainsKey(MORECOMMANDS))
         {
@@ -171,7 +223,7 @@ public class CommandHelper
         else
         {
             var subCommand = subCommands.First(d => d.Key == commandName).Value;
-            subCommand.Click();
+            SafeClick(webDriver, subCommand);
             webDriver.WaitForTransaction();
         }
     }

@@ -90,5 +90,11 @@ namespace Defra.UI.Tests.Steps.AP
         {
             Assert.True(Signin?.IsError(errorMessage), $"There is no error message found with - {errorMessage}");
         }
+
+        [When("the user deletes all the stored values")]
+        public void WhenTheUserDeletesAllTheStoredValues()
+        {
+            _scenarioContext.Clear();
+        }
     }
 }
