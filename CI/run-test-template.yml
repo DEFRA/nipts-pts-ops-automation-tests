@@ -341,7 +341,9 @@ jobs:
       displayName: 'Publish Test Results'
       inputs:
         testResultsFormat: VSTest
-        testResultsFiles: '${{ parameters.jobName }}_MergedResults.trx'
+        testResultsFiles: |
+          ${{ parameters.jobName }}_MergedResults.trx
+          ${{ parameters.jobName }}_results_0.trx
         searchFolder: '$(System.DefaultWorkingDirectory)/Defra.UI.Tests/TestResults'
         testRunTitle: ${{ parameters.jobName }}
         failTaskOnFailedTests: true
