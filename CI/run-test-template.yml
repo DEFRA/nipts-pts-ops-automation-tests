@@ -207,11 +207,22 @@ jobs:
                 if ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries) {
                     Write-Host "Found $($failedTests.Count) failed test(s). Preparing to rerun..."
 
+                    # Escape vstest filter special characters: \ ( ) & | = ! ~ < >
+                    # so that Scenario Outline test names containing parentheses/commas
+                    # are treated as literal text and not as filter grouping operators.
+                    # Values are also wrapped in single quotes since vstest filter
+                    # syntax requires quoting for values containing spaces.
                     $escapedTests = $failedTests | ForEach-Object {
                         $_ -replace '([\\&|=!~<>()])', '\$1'
                     }
 
-                   $filterExpr = ($escapedTests | ForEach-Object { "FullyQualifiedName=$_" }) -join '|'
+                    # Use the "Name" property (trx's short/display test name) with exact
+                    # match (=) rather than "FullyQualifiedName", because the trx
+                    # testName attribute captured above does NOT include the
+                    # namespace/class prefix that FullyQualifiedName requires, and using
+                    # Contains (~) risks matching other Scenario Outline Examples rows
+                    # whose name is a substring/superstring of the failed test's name.
+                    $filterExpr = ($escapedTests | ForEach-Object { "Name='$_'" }) -join '|'
 
                     Write-Host "Rerunning failed tests with filter: $filterExpr"
 
