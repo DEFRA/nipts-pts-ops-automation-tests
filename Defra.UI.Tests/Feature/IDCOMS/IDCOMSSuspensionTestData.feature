@@ -4,6 +4,7 @@ Feature: Idcoms Suspension Testdata
 IDCOMS System Regression for NIPTS
 
 Scenario Outline: Offline English PTD and SNC
+	Given the test case is '<Manual TestCase>'
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I create a new applicant in IDCOMS
@@ -32,13 +33,14 @@ Scenario Outline: Offline English PTD and SNC
 	And the status is changed to 'Intent to Suspend'
 
 Examples:
-	| OwnerType | PetName | Species | Breed     | Sex  | DateOfBirth | Age | Colour                  | UniqueFeature       | MicrochippedDate | MicrochipNumber | Decision  |
-	| Self      | Teddy   | Dog     | Beagle    | Male | 09/08/2022  | 12  | Brown, tan or chocolate | As fast as Cheetah  | 09/08/2023       | auto            | 12 Months |
-	| Self      | Tom     | Cat     | Bengal    | Male | 09/08/2021  | 12  | Ginger                  | None                | 09/08/2024       | auto            | 12 Months |
-	| Self      | Tim     | Cat     | Himalayan | Male | 09/09/2021  | 12  | Black                   | None                | 09/08/2025       | auto            | 12 Months |
+	| OwnerType | PetName | Species | Breed     | Sex  | DateOfBirth | Age | Colour                  | UniqueFeature      | MicrochippedDate | MicrochipNumber | Decision  | Manual TestCase                                                                                      |
+	| Self      | Teddy   | Dog     | Beagle    | Male | 09/08/2022  |  12 | Brown, tan or chocolate | As fast as Cheetah | 09/08/2023       | auto            | 12 Months | Verify Close Letter field in SNC and Appeal outcome letter field in Suspension - Offline application |
+	| Self      | Tom     | Cat     | Bengal    | Male | 09/08/2021  |  12 | Ginger                  | None               | 09/08/2024       | auto            | 12 Months | Verify Close Letter field after flagging the suspension is over - Offline Application                |
+	| Self      | Tim     | Cat     | Himalayan | Male | 09/09/2021  |  12 | Black                   | None               | 09/08/2025       | auto            | 12 Months | Verify Mark Appeal Outcome Letter as Sent                                                            |
 
 
 Scenario Outline: Offline Welsh PTD and SNC
+	Given the test case is '<Manual TestCase>'
 	When I Login to Dynamics application
 	And I Click on New to create an offline application
 	And I create a new applicant in IDCOMS
@@ -68,19 +70,19 @@ Scenario Outline: Offline Welsh PTD and SNC
 	And the status is changed to 'Intent to Suspend'
 
 Examples:
-	| OwnerType | PetName | Species | Breed  | Sex  | DateOfBirth | Age | Colour                  | UniqueFeature       | MicrochippedDate | MicrochipNumber | Decision  |
-	| Self      | Alpha   | Dog     | Beagle | Male | 09/08/2022  | 12  | Brown, tan or chocolate | As fast as Cheetah  | 09/08/2023       | auto            | 12 Months |
-	| Self      | Beta    | Cat     | Bengal | Male | 09/08/2021  | 12  | Ginger                  | None                | 09/08/2024       | auto            | 12 Months |
+	| OwnerType | PetName | Species | Breed  | Sex  | DateOfBirth | Age | Colour                  | UniqueFeature      | MicrochippedDate | MicrochipNumber | Decision  | Manual TestCase                                                            |
+	| Self      | Alpha   | Dog     | Beagle | Male | 09/08/2022  |  12 | Brown, tan or chocolate | As fast as Cheetah | 09/08/2023       | auto            | 12 Months | Verify Close Letter field after end suspension - Welsh offline Application |
 
-Scenario: Online English PTD and SNC
-	Given that I navigate to the DEFRA application
+Scenario Outline: Online English PTD and SNC
+	Given the test case is '<Manual TestCase>'
+	And that I navigate to the DEFRA application
 	When I have provided the password for Landing page
 	Then I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type
 	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
-	When I click Create a new pet travel document button
+	And I click Create a new pet travel document button
 	Then I have selected '<Are your details correct>' option
 	When I click on continue button from Are your details correct page
 	Then I selected the '<MicrochipOption>' option
@@ -120,30 +122,28 @@ Scenario: Online English PTD and SNC
 	And the status is changed to 'Intent to Suspend'
 
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures |
-	| PetDog1's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | No                    |
-	| PetCat1's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | Tortoiseshell | No                    |
-	| PetDog2's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Red           | No                    |
-	| PetCat2's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | Ginger        | No                    |
-	| PetDog3's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Red           | No                    |
-	| PetCat3's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | White         | No                    |
-	| PetDog4's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | No                    |
-	| PetCat4's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | Tortoiseshell | No                    |
-	| PetDog5's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Red           | No                    |
-	| PetCat5's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | Ginger        | No                    |
-	| PetDog6's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Red           | No                    |
-	| PetCat6's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | White         | No                    |
-
-
-Scenario: Online Welsh PTD and SNC
-	Given that I navigate to the DEFRA application
+	| FullName  | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet | PetName | Gender | Color         | IsSignificantFeatures | Manual TestCase                                                                                       |
+	| PetDog1's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | No                    | Verify automated suspension issued email to the pet owner after suspension is created                 |
+	| PetCat1's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | Tortoiseshell | No                    | Create Suspension Record and adding attachment in notes                                               |
+	| PetDog2's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Red           | No                    | Mark Pet Owner as Suspended                                                                           |
+	| PetCat2's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | Ginger        | No                    | Verify status of the SNC as closed after suspension is created                                        |
+	| PetDog3's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Red           | No                    | Verify End Suspension, pet owner is unsuspended, adding attachment and suspension removal email       |
+	| PetCat3's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | White         | No                    | Successful Appeal-Verify Suspension End Date, Status ,Email and adding attachments in notes           |
+	| PetDog4's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Black         | No                    | Partially Successful Appeal-Verify Suspension End Date, Status ,Email and adding attachments in notes |
+	| PetCat4's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | Tortoiseshell | No                    | Change status of suspension to 'On Appeal' and adding attachment in notes                             |
+	| PetDog5's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Dog | Dog     | Male   | Red           | No                    | Unsuccessful Appeal-Verify Suspension End Date, Status ,Email and adding attachments in notes         |
+	| PetCat5's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654323 | Cat | Cat     | Female | Ginger        | No                    | Additional Data1                                                                                      |
+    
+Scenario Outline: Online Welsh PTD and SNC
+	Given the test case is '<Manual TestCase>'
+	And that I navigate to the DEFRA application
 	When I have provided the password for Landing page
 	Then I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type
 	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
-	When I click 'Cymraeg' link to change the language
+	And I click 'Cymraeg' link to change the language
 	Then I should see the heading of dashboard page changed to Welsh
 	When I click apply for a document button in Welsh
 	Then I have selected '<Are your details correct>' option in Welsh
@@ -185,20 +185,21 @@ Scenario: Online Welsh PTD and SNC
 	And the status is changed to 'Intent to Suspend'
 
 Examples:
-	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet  | PetName | Gender | Color | IsSignificantFeatures |
-	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Ci   | Ci      | Benyw  | Du    | Nac oes               |
-	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cath | Cath    | Gwryw  | Coch  | Nac oes               |
+	| FullName | Are your details correct | PostCode | PhoneNumber | MicrochipOption | MicrochipNumber | Pet  | PetName | Gender | Color | IsSignificantFeatures | Manual TestCase                                                                                           |
+	| PetDog's | Yes                      | CV1 4PY  | 02012345678 | Yes             | 123456789123456 | Ci   | Ci      | Benyw  | Du    | Nac oes               | Verify Close Letter field after end suspension - Welsh Online Application                                 |
+	| PetCat's | Yes                      | CV2 4NZ  | 07440345678 | Yes             | 123456789654321 | Cath | Cath    | Gwryw  | Coch  | Nac oes               | Verify Close Letter field in SNC and Appeal outcome letter field in Suspension - Welsh Online application |
 
 Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked and 5-SNC
-	Given that I navigate to the DEFRA application
+	Given the test case is 'Verify the status of PTDs after suspension and re-authorization of PTDs after end suspension'
+	And that I navigate to the DEFRA application
 	When I have provided the password for Landing page
 	Then I should see type of Gateway login page
 	And I have selected "Sign in with Government Gateway" as login type
 	When I click Continue button from How do you want to sign in page
 	Then I should redirected to the AP Sign in using Government Gateway page
 	When I have provided the credentials and signin
-	                     #1.Open PTD
-	When I click Create a new pet travel document button
+	#1.Open PTD
+	And I click Create a new pet travel document button
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page
 	Then I selected the 'Yes' option
@@ -226,8 +227,8 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	When the user deletes all the stored values
 	And I have clicked the View all your lifelong pet travel documents link
 	And "1st" PTD is successfully created
-	                   #2.Authorised PTD
-	When I click Create a new pet travel document button
+	#2.Authorised PTD
+	And I click Create a new pet travel document button
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page
 	Then I selected the 'Yes' option
@@ -262,8 +263,8 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	Then the status is changed to 'Authorised'
 	When the user deletes all the stored values
 	And "2nd" PTD is successfully created
-	                   #3.Rejected PTD
-	When I click Apply for another lifelong pet travel document link
+	#3.Rejected PTD
+	And I click Apply for another lifelong pet travel document link
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page
 	Then I selected the 'Yes' option
@@ -298,8 +299,8 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	Then the status is changed to 'Rejected'
 	When the user deletes all the stored values
 	And "3rd" PTD is successfully created
-	            #4Revoked PTD
-	When I click Apply for another lifelong pet travel document link
+    #4.Revoked PTD
+	And I click Apply for another lifelong pet travel document link
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page
 	Then I selected the 'Yes' option
@@ -335,8 +336,8 @@ Scenario: Multiple Online English PTDs,1-Open,2-Authorised,3-Rejected,4-Revoked 
 	Then the status is changed to 'Revoked'
 	When the user deletes all the stored values
 	And "4th" PTD is successfully created
-	                #5.Authorised and created SNC
-	When I click Apply for another lifelong pet travel document link
+	#5.Authorised and created SNC
+	And I click Apply for another lifelong pet travel document link
 	Then I have selected 'Yes' option
 	When I click on continue button from Are your details correct page
 	Then I selected the 'Yes' option

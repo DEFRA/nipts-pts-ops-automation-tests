@@ -39,6 +39,13 @@ namespace Defra.UI.Tests.Steps.AP
             _driver?.Navigate().GoToUrl(url);
         }
 
+        [Given(@"the test case is '(.*)'")]
+        [When(@"the test case is '(.*)'")]
+        public void GivenTheTestCaseIs(string testCase)
+        {
+            Utils.AppendToLoginLog(("Manual TestCase", testCase));
+        }
+
         [Then(@"sign in with valid credentials with logininfo")]
         public void ThenSignInWithValidCredentialsWithLogininfo()
         {
