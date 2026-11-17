@@ -56,6 +56,11 @@ namespace Defra.UI.Tests.Hooks
         [BeforeScenario(Order = (int)HookRunOrder.WebDriver)]
         public void BeforeTestScenario()
         {
+            // Marks the very start of this scenario's execution in the log, before any step
+            // (including login/email account creation) runs, so the CSV generator can reliably
+            // tell this run's data apart from any earlier run of the same scenario in the log file.
+            Utils.AppendToLoginLog(("ScenarioStart", DateTime.UtcNow.ToString("O")));
+
             Logger.Debug("Starting set Capability");
 
             var site = new Site();
@@ -112,6 +117,17 @@ namespace Defra.UI.Tests.Hooks
                 if (takeScreenShot)
                 {
                     AttachScreenShotToXmlReport();
+                }
+
+                // Regenerate the CSV after every scenario so the file is always up to date even if
+                // the run is stopped/cancelled, or individual tests are run/isolated from Test Explorer.
+                try
+                {
+                    Utils.GenerateCsvFromTodayLog();
+                }
+                catch (Exception ex)
+                {
+                    Logger.Debug("Not able to generate CSV from the test log " + ex.Message);
                 }
 
                 CloseBrowsers();

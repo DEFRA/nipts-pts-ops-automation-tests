@@ -370,3 +370,4 @@ FodyWeavers.xsd
 
 .vs/
 /.github/copilot-instructions.md
+/TestLogs
