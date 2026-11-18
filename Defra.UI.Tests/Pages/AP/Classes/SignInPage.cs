@@ -49,9 +49,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         {
             UserId.SendKeys(userName);
             Password.SendKeys(password);
-            _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn)).Click();
-            //return _driver.WaitForElement(SignInConfirmBy).Enabled;
-            return true;
+            var signInButton = _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn));
+            signInButton.Click();
+            return _driver.WaitForElementCondition(ExpectedConditions.StalenessOf(signInButton));
         }
 
         public void ClickCreateSignInDetailsLink() => CreateSignInDetails.Click();
