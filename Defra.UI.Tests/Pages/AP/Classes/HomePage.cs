@@ -5,6 +5,7 @@ using Microsoft.Dynamics365.UIAutomation.Browser;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Reqnroll.BoDi;
+using SeleniumExtras.WaitHelpers;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -75,7 +76,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
                 Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
             }
 
-            return PageHeading.Text.Contains("Lifelong pet travel documents");
+            return _driver.WaitForElementCondition(ExpectedConditions.TextToBePresentInElementLocated(
+            By.XPath("//h1[contains(@class,'govuk-heading-xl')]"),"Lifelong pet travel documents"));
+            //return PageHeading.Text.Contains("Lifelong pet travel documents");
         }
 
         public void ClickFeedbackLink()
