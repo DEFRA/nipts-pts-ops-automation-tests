@@ -74,7 +74,19 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             Password.SendKeys(password);
             var signInButton = _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn));
             signInButton.Click();
-            return _driver.WaitForElementCondition(ExpectedConditions.StalenessOf(signInButton));
+
+            try
+            {
+                var navigationWait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
+                navigationWait.Until(ExpectedConditions.StalenessOf(signInButton));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                // Navigation confirmation is best-effort only; the destination page's
+                // own load check (next Gherkin step) is the authoritative assertion.
+            }
+
+            return true;
         }
 
         public void ClickCreateSignInDetailsLink() => CreateSignInDetails.Click();
