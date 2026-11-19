@@ -69,7 +69,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         #region Methods
 
-        public bool IsPageLoaded()
+        /*public bool IsPageLoaded()
         {
             if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
             {
@@ -79,6 +79,41 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return _driver.WaitForElementCondition(ExpectedConditions.TextToBePresentInElementLocated(
             By.XPath("//h1[contains(@class,'govuk-heading-xl')]"),"Lifelong pet travel documents"));
             //return PageHeading.Text.Contains("Lifelong pet travel documents");
+        }*/
+
+        public bool IsPageLoaded()
+        {
+            if (ConfigSetup.BaseConfiguration.TestConfiguration.IsAccessibilityEnabled)
+            {
+                Cognizant.WCAG.Compliance.Checker.Analyzer.Execute(_driver);
+            }
+
+            try
+            {
+                return _driver.WaitForElementCondition(ExpectedConditions.TextToBePresentInElementLocated(
+                    By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), "Lifelong pet travel documents"));
+            }
+            catch (Exception ex)
+            {
+                var diagnostics = new System.Text.StringBuilder();
+                diagnostics.AppendLine($"Current URL: {_driver.Url}");
+
+                try
+                {
+                    var headings = _driver.FindElements(By.XPath("//h1"));
+                    diagnostics.AppendLine($"Found {headings.Count} <h1> element(s):");
+                    foreach (var h in headings)
+                    {
+                        diagnostics.AppendLine($"  class='{h.GetAttribute("class")}' text='{h.Text}'");
+                    }
+                }
+                catch (Exception innerEx)
+                {
+                    diagnostics.AppendLine($"Failed to inspect <h1> elements: {innerEx.Message}");
+                }
+
+                throw new Exception($"IsPageLoaded failed.\n{diagnostics}", ex);
+            }
         }
 
         public void ClickFeedbackLink()
