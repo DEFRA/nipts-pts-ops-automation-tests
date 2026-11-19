@@ -15,8 +15,13 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         #region Page Objects
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl']"), true);
-        private IWebElement UserId => _driver.FindElement(By.Id("user_id"));
-        private IWebElement Password => _driver.FindElement(By.Id("password"));
+        //private IWebElement UserId => _driver.FindElement(By.Id("user_id"));
+        //private IWebElement Password => _driver.FindElement(By.Id("password"));
+
+        private IWebElement UserId => _driver.WaitForElement(By.Id("user_id"));
+        private IWebElement Password => _driver.WaitForElement(By.Id("password"));
+
+
         private IWebElement SignIn => _driver.WaitForElement(By.Id("continue"));
         private By SignInConfirmBy => By.CssSelector("[href='/User/OSignOut']");
         private IWebElement CreateSignInDetails => _driver.WaitForElement(By.XPath("//a[contains(text(),'Create sign in')]"));
@@ -30,6 +35,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public IWebElement lnkPetsTravelPortal => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Taking a pet from Great Britain to Northern Ireland']"), true);
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         private IWebElement signOut => _driver.WaitForElement(By.Id("link-sign-out"));
+        private By CookieBannerRejectBy => By.XPath("//button[contains(text(),'Reject analytics cookies')]");
+       // private By HideCookieMessageBy => By.XPath("//button[contains(text(),'Hide cookie message')]");
         #endregion
 
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
@@ -45,8 +52,24 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             return PageHeading.Text.Contains("Sign in using Government Gateway");
         }
 
+        private void DismissCookieBannerIfPresent()
+        {
+            try
+            {
+                var shortWait = new WebDriverWait(_driver, TimeSpan.FromSeconds(3));
+                shortWait.Until(ExpectedConditions.ElementToBeClickable(CookieBannerRejectBy));
+                _driver.FindElement(CookieBannerRejectBy).Click();
+            }
+            catch (Exception)
+            {
+                // Cookie banner not shown, already dismissed, or confirmation banner
+                // layout differs - safe to continue either way, it's non-blocking.
+            }
+        }
+
         public bool IsSignedIn(string userName, string password)
         {
+            DismissCookieBannerIfPresent();
             UserId.SendKeys(userName);
             Password.SendKeys(password);
             var signInButton = _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn));
