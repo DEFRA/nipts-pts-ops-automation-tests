@@ -73,17 +73,19 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             UserId.SendKeys(userName);
             Password.SendKeys(password);
             var signInButton = _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn));
+
+            var urlBeforeClick = _driver.Url;
             signInButton.Click();
             Thread.Sleep(5000);
+            var urlAfterClick = _driver.Url;
 
-            var errors = _driver.FindElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
-            if (errors.Count > 0)
-            {
-                var messages = string.Join(" | ", errors.Select(e => e.Text));
-                throw new Exception($"Government Gateway rejected sign in. Error(s): {messages}");
-            }
+            var pageText = _driver.FindElement(By.TagName("body")).Text;
+            var snippet = pageText.Substring(0, Math.Min(500, pageText.Length));
 
-            return true;
+            throw new Exception(
+                $"DIAGNOSTIC - URL before click: {urlBeforeClick}\n" +
+                $"URL after click: {urlAfterClick}\n" +
+                $"Body snippet: {snippet}");
         }
 
         public void ClickCreateSignInDetailsLink() => CreateSignInDetails.Click();
