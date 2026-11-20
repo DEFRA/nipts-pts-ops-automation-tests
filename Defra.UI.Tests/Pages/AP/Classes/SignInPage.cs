@@ -70,6 +70,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public bool IsSignedIn(string userName, string password)
         {
             DismissCookieBannerIfPresent();
+            DismissCookieConfirmationIfPresent();
+
             UserId.SendKeys(userName);
             Password.SendKeys(password);
 
@@ -78,20 +80,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", signInButton);
             Thread.Sleep(500);
-
-            bool usedJsClickFallback = false;
-            Exception nativeClickException = null;
-
-            try
-            {
-                signInButton.Click();
-            }
-            catch (Exception ex)
-            {
-                nativeClickException = ex;
-                usedJsClickFallback = true;
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", signInButton);
-            }
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", signInButton);
 
             Thread.Sleep(5000);
             var urlAfterClick = _driver.Url;
@@ -100,17 +89,27 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             {
                 var pageText = _driver.FindElement(By.TagName("body")).Text;
                 var snippet = pageText.Substring(0, Math.Min(500, pageText.Length));
-
-                throw new Exception(
-                    $"DIAGNOSTIC - Click did not navigate.\n" +
-                    $"URL before: {urlBeforeClick}\n" +
-                    $"URL after: {urlAfterClick}\n" +
-                    $"Used JS click fallback: {usedJsClickFallback}\n" +
-                    $"Native click exception: {nativeClickException?.Message ?? "none"}\n" +
-                    $"Body snippet: {snippet}");
+                throw new Exception($"DIAGNOSTIC - Still stuck.\nURL: {urlAfterClick}\nBody: {snippet}");
             }
 
             return true;
+        }
+
+        private void DismissCookieConfirmationIfPresent()
+        {
+            try
+            {
+                var hideButtons = _driver.FindElements(By.XPath("//button[contains(text(),'Hide cookie message')]"));
+                if (hideButtons.Count > 0)
+                {
+                    ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", hideButtons[0]);
+                    Thread.Sleep(500);
+                }
+            }
+            catch (Exception)
+            {
+                // Confirmation banner not present or already dismissed - safe to continue.
+            }
         }
 
         public void ClickCreateSignInDetailsLink() => CreateSignInDetails.Click();
