@@ -72,20 +72,45 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             DismissCookieBannerIfPresent();
             UserId.SendKeys(userName);
             Password.SendKeys(password);
-            var signInButton = _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn));
 
+            var signInButton = _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn));
             var urlBeforeClick = _driver.Url;
-            signInButton.Click();
+
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", signInButton);
+            Thread.Sleep(500);
+
+            bool usedJsClickFallback = false;
+            Exception nativeClickException = null;
+
+            try
+            {
+                signInButton.Click();
+            }
+            catch (Exception ex)
+            {
+                nativeClickException = ex;
+                usedJsClickFallback = true;
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", signInButton);
+            }
+
             Thread.Sleep(5000);
             var urlAfterClick = _driver.Url;
 
-            var pageText = _driver.FindElement(By.TagName("body")).Text;
-            var snippet = pageText.Substring(0, Math.Min(500, pageText.Length));
+            if (urlBeforeClick == urlAfterClick)
+            {
+                var pageText = _driver.FindElement(By.TagName("body")).Text;
+                var snippet = pageText.Substring(0, Math.Min(500, pageText.Length));
 
-            throw new Exception(
-                $"DIAGNOSTIC - URL before click: {urlBeforeClick}\n" +
-                $"URL after click: {urlAfterClick}\n" +
-                $"Body snippet: {snippet}");
+                throw new Exception(
+                    $"DIAGNOSTIC - Click did not navigate.\n" +
+                    $"URL before: {urlBeforeClick}\n" +
+                    $"URL after: {urlAfterClick}\n" +
+                    $"Used JS click fallback: {usedJsClickFallback}\n" +
+                    $"Native click exception: {nativeClickException?.Message ?? "none"}\n" +
+                    $"Body snippet: {snippet}");
+            }
+
+            return true;
         }
 
         public void ClickCreateSignInDetailsLink() => CreateSignInDetails.Click();
