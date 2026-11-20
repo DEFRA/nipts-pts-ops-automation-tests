@@ -74,19 +74,13 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             Password.SendKeys(password);
             var signInButton = _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn));
             signInButton.Click();
-
             Thread.Sleep(5000);
-            Console.WriteLine("Sign in click done");
-                
-            try
+
+            var errors = _driver.FindElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
+            if (errors.Count > 0)
             {
-                var navigationWait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));
-                navigationWait.Until(ExpectedConditions.StalenessOf(signInButton));
-            }
-            catch (WebDriverTimeoutException)
-            {
-                // Navigation confirmation is best-effort only; the destination page's
-                // own load check (next Gherkin step) is the authoritative assertion.
+                var messages = string.Join(" | ", errors.Select(e => e.Text));
+                throw new Exception($"Government Gateway rejected sign in. Error(s): {messages}");
             }
 
             return true;
