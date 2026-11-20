@@ -99,10 +99,10 @@ stages:
         environment: ${{ parameters.environment}}
         branchName: $(Build.SourceBranch)
         seleniumGrid: 'https://hub.browserstack.com/wd/hub/' 
-        deviceName: 'iPad Air 13 2024'
-        bsOSVersion: '17'
+        deviceName: 'iPad Air 13 2025'
+        bsOSVersion: '18'
         workers:  '10'
-        bsBrowserVersion: '17.5'
+        bsBrowserVersion: '18.5'
         target: 'chromium'
         isEmulationEnabled: 'false'
         emulateDeviceInfo: 'iPhone 12 Pro'
