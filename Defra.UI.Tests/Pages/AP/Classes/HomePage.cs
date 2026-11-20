@@ -91,7 +91,7 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             try
             {
                 return _driver.WaitForElementCondition(ExpectedConditions.TextToBePresentInElementLocated(
-                    By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), "Lifelong pet travel documents"));
+                By.Id("documents"), "Lifelong pet travel documents"));
             }
             catch (Exception ex)
             {

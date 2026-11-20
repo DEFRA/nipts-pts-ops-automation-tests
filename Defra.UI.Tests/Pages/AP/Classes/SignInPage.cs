@@ -75,6 +75,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             var signInButton = _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn));
             signInButton.Click();
 
+            Thread.Sleep(5000);
+            Console.WriteLine("Sign in click done");
+                
             try
             {
                 var navigationWait = new WebDriverWait(_driver, TimeSpan.FromSeconds(60));

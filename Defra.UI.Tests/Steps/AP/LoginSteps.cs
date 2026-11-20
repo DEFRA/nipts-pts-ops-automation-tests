@@ -65,7 +65,7 @@ namespace Defra.UI.Tests.Steps.AP
 
             Utils.AppendToLoginLog(("GovernmentGatewayID", userDetails.GovernmentGatewayID));
 
-            Thread.Sleep(3000);
+            //Thread.Sleep(3000);
 
             signin?.IsSignedIn(userDetails.GovernmentGatewayID, userDetails.Secret);
         }
