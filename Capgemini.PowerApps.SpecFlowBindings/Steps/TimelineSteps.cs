@@ -163,7 +163,9 @@ public class TimelineSteps : PowerAppsStepDefiner
 
     public static bool GetTimelineRecordTitle(string expectedTitle)
     {
-        Driver.WaitUntilAvailable(By.XPath("//*[contains(@id,\"timeline_record_title\")]"));
+        var timelineRecordTitleElement = Driver.WaitUntilAvailable(By.XPath("//*[contains(@id,\"timeline_record_title\")]"));
+        ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView({block: 'center'});", timelineRecordTitleElement);
+                
         ReadOnlyCollection<IWebElement> TimelineRecordTitles = Driver.FindElements(By.XPath("//*[contains(@id,\"timeline_record_title\")]"));
         foreach (IWebElement item in TimelineRecordTitles)
         {

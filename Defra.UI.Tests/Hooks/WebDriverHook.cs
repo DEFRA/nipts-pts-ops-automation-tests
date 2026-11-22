@@ -1,5 +1,6 @@
 ﻿using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin;
+using Capgemini.PowerApps.SpecFlowBindings;
 using Capgemini.PowerApps.SpecFlowBindings.Hooks;
 using Defra.UI.Framework.Object;
 using Defra.UI.Tests.Capabilities;
@@ -24,6 +25,17 @@ namespace Defra.UI.Tests.Hooks
         private ScenarioContext _scenarioContext;
         private IObjectContainer _objectContainer;
         private IReqnrollOutputHelper _reqnrollOutputHelper;
+
+        /// <summary>
+        /// Tracks which browser is currently being driven by the scenario. Scenarios can move between
+        /// the AP/CP browser (<see cref="Driver"/>) and the separate Dynamics 365/EasyRepro browser
+        /// (<see cref="DynamicsBrowserAccessor"/>) multiple times (e.g. Idcoms steps followed by a
+        /// switch back to the Compliance Portal). Once the Dynamics browser has been launched it
+        /// stays initiated for the rest of the scenario, so we can't rely on
+        /// <see cref="DynamicsBrowserAccessor.IsBrowserInitiated"/> alone to know which browser is
+        /// actually in focus for the current step - we also track step text that indicates a switch.
+        /// </summary>
+        private bool _isDynamicsActive;
 
         private IFetchCodeFromEmail fetchCodeFromEmail => _objectContainer.IsRegistered<IFetchCodeFromEmail>() ? _objectContainer.Resolve<IFetchCodeFromEmail>() : null;
 
@@ -56,6 +68,8 @@ namespace Defra.UI.Tests.Hooks
         [BeforeScenario(Order = (int)HookRunOrder.WebDriver)]
         public void BeforeTestScenario()
         {
+            _isDynamicsActive = false;
+
             // Marks the very start of this scenario's execution in the log, before any step
             // (including login/email account creation) runs, so the CSV generator can reliably
             // tell this run's data apart from any earlier run of the same scenario in the log file.
@@ -153,7 +167,7 @@ namespace Defra.UI.Tests.Hooks
                 Logger.Debug($"{filePath} directory created....");
             }
 
-            var fileTitle = _scenarioContext.ScenarioInfo.Title;
+            var fileTitle = string.Concat(_scenarioContext.ScenarioInfo.Title.Split(Path.GetInvalidFileNameChars()));
             var fileName = Path.Combine(filePath, $"{fileTitle}_TestFailures_{DateTime.Now:yyyyMMdd_hhss}" + ".png");
 
             CaptureFullPageScreenshot(fileName);
@@ -194,6 +208,7 @@ namespace Defra.UI.Tests.Hooks
         {
             var stepType = _scenarioContext.StepContext.StepInfo.StepDefinitionType.ToString();
             var stepInfo = _scenarioContext.StepContext.StepInfo.Text;
+            UpdateActiveApplication(stepInfo);
             var screenshotPath = CaptureScreenshot();
 
             if (_scenarioContext.TestError == null)
@@ -219,22 +234,64 @@ namespace Defra.UI.Tests.Hooks
                 Directory.CreateDirectory(screenshotsDir);
             }
 
-            var screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
+            var screenshot = ((ITakesScreenshot)GetActiveDriver()).GetScreenshot();
             var filePath = Path.Combine(screenshotsDir, $"{Guid.NewGuid()}.png");
             screenshot.SaveAsFile(filePath);
             return filePath;
+        }
+
+        /// <summary>
+        /// Scenarios tagged with @Idcoms (or any scenario that drives Dynamics 365) run against a
+        /// separate EasyRepro/Dynamics browser instance (<see cref="DynamicsBrowserAccessor"/>),
+        /// distinct from the AP/CP browser created in <see cref="BeforeTestScenario"/>. Screenshots
+        /// must be taken from whichever browser is actually active for the current step, otherwise
+        /// they capture the wrong application (e.g. still the Dynamics browser after control has
+        /// switched back to AP/CP, since the Dynamics browser isn't disposed until the end of the
+        /// scenario).
+        /// </summary>
+        private IWebDriver GetActiveDriver()
+        {
+            return _isDynamicsActive && DynamicsBrowserAccessor.IsBrowserInitiated ? DynamicsBrowserAccessor.DynamicsDriver : Driver;
+        }
+
+        /// <summary>
+        /// Inspects the just-executed step's text for recognizable phrases that indicate the scenario
+        /// has navigated into (or logged in to) a particular application, and updates
+        /// <see cref="_isDynamicsActive"/> accordingly so screenshots are captured from the correct browser.
+        /// </summary>
+        private void UpdateActiveApplication(string stepInfo)
+        {
+            if (string.IsNullOrEmpty(stepInfo))
+            {
+                return;
+            }
+
+            var normalizedStep = stepInfo.ToLowerInvariant();
+
+            if (normalizedStep.Contains("dynamics application"))
+            {
+                _isDynamicsActive = true;
+            }
+            else if (normalizedStep.Contains("port checker application") ||
+                     normalizedStep.Contains("defra application") ||
+                     normalizedStep.Contains("pets a travel document url") ||
+                     normalizedStep.Contains("back button in pets application") ||
+                     normalizedStep.Contains("go back to pets application"))
+            {
+                _isDynamicsActive = false;
+            }
         }
 
         private void CaptureFullPageScreenshot(string filePath)
         {
             try
             {
-                var chromeDriver = Driver as ChromiumDriver;
+                var chromeDriver = GetActiveDriver() as ChromiumDriver;
 
                 if (chromeDriver != null)
                 {
                     // Get full page dimensions via JS
-                    var jsExecutor = (IJavaScriptExecutor)Driver;
+                    var jsExecutor = (IJavaScriptExecutor)chromeDriver;
                     var totalWidth = Convert.ToInt64(jsExecutor.ExecuteScript("return document.body.scrollWidth"));
                     var totalHeight = Convert.ToInt64(jsExecutor.ExecuteScript("return document.body.scrollHeight"));
 
@@ -266,13 +323,13 @@ namespace Defra.UI.Tests.Hooks
                 else
                 {
                     // Fallback to standard viewport screenshot for non-Chromium drivers
-                    ((ITakesScreenshot)Driver).GetScreenshot().SaveAsFile(filePath);
+                    ((ITakesScreenshot)GetActiveDriver()).GetScreenshot().SaveAsFile(filePath);
                 }
             }
             catch (Exception ex)
             {
                 Logger.Debug($"Full page screenshot failed, falling back to standard screenshot: {ex.Message}");
-                ((ITakesScreenshot)Driver).GetScreenshot().SaveAsFile(filePath);
+                ((ITakesScreenshot)GetActiveDriver()).GetScreenshot().SaveAsFile(filePath);
             }
         }
 
