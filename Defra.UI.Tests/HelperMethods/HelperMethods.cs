@@ -82,7 +82,22 @@ namespace Defra.UI.Tests.HelperMethods
                 continueLabel = driver.WaitForElement(By.XPath("//button[normalize-space(text())='Parhau']"), true);
             }
 
+             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", continueLabel);
+            Thread.Sleep(300);
+
+            var urlBeforeClick = driver.Url;
             continueLabel.Click();
+
+            try
+            {
+                new WebDriverWait(driver, TimeSpan.FromSeconds(5)).Until(d => d.Url != urlBeforeClick);
+            }
+            catch (WebDriverTimeoutException)
+            {
+                // URL unchanged after native click - retry via JS click as a fallback,
+                // matching the same real-device click issue seen on the sign-in page.
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", continueLabel);
+            }
         }
     }
 }
