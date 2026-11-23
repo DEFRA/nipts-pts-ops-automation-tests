@@ -1,6 +1,7 @@
 ﻿using Defra.UI.Tests.Pages.WELSH.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.WELSH.Classes
@@ -36,7 +37,20 @@ namespace Defra.UI.Tests.Pages.WELSH.Classes
 
         public void ClickFindAddressButton()
         {
+            var urlBeforeClick = _driver.Url;
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", FindAddressButton);
+            Thread.Sleep(300);
+
             FindAddressButton.Click();
+
+            try
+            {
+                new WebDriverWait(_driver, TimeSpan.FromSeconds(5)).Until(d => d.Url != urlBeforeClick);
+            }
+            catch (WebDriverTimeoutException)
+            {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", FindAddressButton);
+            }
         }
 
         public void ClickManuallyAddressLink()
