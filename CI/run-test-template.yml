@@ -202,7 +202,7 @@ jobs:
                 if ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries) {
                     Write-Host "Found $($failedTests.Count) failed test(s). Preparing to rerun..."
 
-                    $filterExpr = ($failedTests | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
+                    $filterExpr = ($failedTests | ForEach-Object { "FullyQualifiedName=$_" }) -join '|'
 
                     Write-Host "Rerunning failed tests with filter: $filterExpr"
 
