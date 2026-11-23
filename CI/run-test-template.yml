@@ -184,17 +184,29 @@ jobs:
 
                 [xml]$trx = Get-Content $trxFile
 
+                $testDefinitionsById = @{}
+                foreach ($unitTest in $trx.TestRun.TestDefinitions.UnitTest) {
+                    $testDefinitionsById[$unitTest.id] = $unitTest
+                }
+
                 $failedTests = $trx.TestRun.Results.UnitTestResult |
                     Where-Object { $_.outcome -eq "Failed" } |
                     ForEach-Object {
-                        $name = $_.testName
-                        if ($name.Contains('(')) {
-                            $cleanName = $name.Substring(0, $name.IndexOf('('))
+                        $definition = $testDefinitionsById[$_.testId]
+                        if ($definition -and $definition.TestMethod) {
+                            # Build the true fully qualified name (Namespace.Class.Method) from the test
+                            # definition rather than the display "testName" (which can be a short name
+                            # e.g. "MethodName" and is prone to unintended substring matches against
+                            # unrelated tests whose names share a common prefix, e.g. "...InWelsh" variants).
+                            "$($definition.TestMethod.className).$($definition.TestMethod.name)"
                         } else {
-                            $cleanName = $name
+                            $name = $_.testName
+                            if ($name.Contains('(')) {
+                                $name.Substring(0, $name.IndexOf('('))
+                            } else {
+                                $name
+                            }
                         }
-
-                        $cleanName
                      }| 
                      Sort-Object | 
                      Get-Unique
