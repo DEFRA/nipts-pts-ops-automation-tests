@@ -23,8 +23,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         public IWebElement btnApplyForDocumentButton => _driver.WaitForElement(By.XPath("//*[@id='main-content']//form/button"));
         public IWebElement FeedbackLink => _driver.WaitForElement(By.XPath("//a[contains(text() ,'give your feedback (opens in a new tab).')]"));
         private IWebElement GethelpHeader => _driver.WaitForElement(By.XPath("//*[@class='govuk-heading-l' or @class='govuk-heading-xl' or @class='gem-c-heading__text govuk-heading-xl']"));
-        public IWebElement AccessibilityStatementLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[1]/a"));
-        public IWebElement CookiesLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[1]/ul/li[2]/a"));
+        public IWebElement AccessibilityStatementLink => _driver.WaitForElement(By.LinkText("Accessibility statement"));
+        public IWebElement CookiesLink => _driver.WaitForElement(By.LinkText("Cookies"));
         public IWebElement PrivacyNoticeLink => _driver.WaitForElement(By.XPath("//a[contains(text() ,'Privacy notice (opens in new tab)')]"));
         public IWebElement TermsAndConditionsLink => _driver.WaitForElement(By.LinkText("Terms and conditions"));
         public IWebElement CrownCopyrightLink => _driver.WaitForElement(By.XPath("/html/body/footer/div/div/div[2]/a"));

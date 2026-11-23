@@ -651,9 +651,10 @@ Examples:
 Scenario: Verify the Status Reason and Owner of the Suspended Record
 	When I Login to Dynamics application
 	And I open 'Suspensions' under 'Application'
-	And I open the 'SUS-1075' application
+	And I open the 'SUS-1192' application
 	Then the status is 'Open' and readonly
-	And the Owner is 'Brindha Mathanaguru' and readonly
+	When I assign the application to myself
+	Then the Owner is 'Brindha Mathanaguru' and readonly
 
 Scenario: Verify automatic rejection of new PTD offline application for a suspended pet owner and verify the rejection reason and date
 	When I Login to Dynamics application

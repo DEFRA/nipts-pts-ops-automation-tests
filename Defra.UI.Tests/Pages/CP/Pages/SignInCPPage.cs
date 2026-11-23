@@ -102,14 +102,18 @@ namespace Defra.UI.Tests.Pages.CP.Pages
         {
             try
             {
-                var confirmAndContinueButton = _driver.FindElements(By.XPath("//button[text()='Confirm and continue']")).FirstOrDefault();
-                if (confirmAndContinueButton != null && confirmAndContinueButton.IsVisible())
+                var confirmAndContinueButtonBy = By.XPath("//button[text()='Confirm and continue']");
+                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                var confirmAndContinueButton = wait.Until(d =>
                 {
-                    confirmAndContinueButton.Click();
-                    _driver.WaitForPageToLoad();
-                }
+                    var button = d.FindElements(confirmAndContinueButtonBy).FirstOrDefault();
+                    return button != null && button.IsVisible() ? button : null;
+                });
+
+                confirmAndContinueButton.Click();
+                _driver.WaitForPageToLoad();
             }
-            catch
+            catch (WebDriverTimeoutException)
             {
                 // Button not present, nothing to do.
             }
