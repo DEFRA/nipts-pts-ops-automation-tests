@@ -15,13 +15,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         #region Page Objects
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[@class='govuk-heading-xl']"), true);
-        //private IWebElement UserId => _driver.FindElement(By.Id("user_id"));
-        //private IWebElement Password => _driver.FindElement(By.Id("password"));
-
         private IWebElement UserId => _driver.WaitForElement(By.Id("user_id"));
         private IWebElement Password => _driver.WaitForElement(By.Id("password"));
-
-
         private IWebElement SignIn => _driver.WaitForElement(By.Id("continue"));
         private By SignInConfirmBy => By.CssSelector("[href='/User/OSignOut']");
         private IWebElement CreateSignInDetails => _driver.WaitForElement(By.XPath("//a[contains(text(),'Create sign in')]"));
@@ -36,7 +31,6 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IReadOnlyCollection<IWebElement> lblErrorMessages => _driver.WaitForElements(By.XPath("//div[@class='govuk-error-summary__body']//a"));
         private IWebElement signOut => _driver.WaitForElement(By.Id("link-sign-out"));
         private By CookieBannerRejectBy => By.XPath("//button[contains(text(),'Reject analytics cookies')]");
-       // private By HideCookieMessageBy => By.XPath("//button[contains(text(),'Hide cookie message')]");
         #endregion
 
         private IWebDriver _driver => _objectContainer.Resolve<IWebDriver>();
@@ -76,21 +70,10 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             Password.SendKeys(password);
 
             var signInButton = _driver.WaitForElementCondition(ExpectedConditions.ElementToBeClickable(SignIn));
-            var urlBeforeClick = _driver.Url;
-
+            
             ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", signInButton);
             Thread.Sleep(500);
             ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", signInButton);
-
-            Thread.Sleep(5000);
-            var urlAfterClick = _driver.Url;
-
-            if (urlBeforeClick == urlAfterClick)
-            {
-                var pageText = _driver.FindElement(By.TagName("body")).Text;
-                var snippet = pageText.Substring(0, Math.Min(500, pageText.Length));
-                throw new Exception($"DIAGNOSTIC - Still stuck.\nURL: {urlAfterClick}\nBody: {snippet}");
-            }
 
             return true;
         }
