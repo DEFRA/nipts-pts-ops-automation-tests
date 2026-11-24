@@ -57,21 +57,18 @@ namespace Defra.UI.Tests.HelperMethods
 
         public static void ContinueButton(this IWebDriver driver)
         {
-            IWebElement? continueLabel = null;
+            By by = By.XPath("//button[normalize-space(text())='Continue']");
+            var element = driver.WaitForElement(by, true);
+            var urlBeforeClick = driver.Url;
+
             try
             {
-                continueLabel = driver.FindElement(By.XPath("//button[normalize-space(text())='Continue']"));
+                element.Click();
             }
-            catch
+            catch (StaleElementReferenceException)
             {
-                continueLabel = driver.WaitForElement(By.XPath("//button[normalize-space(text())='Continue']"), true);
+                driver.FindElement(by).Click();
             }
-
-            ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", continueLabel);
-            Thread.Sleep(300);
-
-            var urlBeforeClick = driver.Url;
-            continueLabel.Click();
 
             try
             {
@@ -79,28 +76,24 @@ namespace Defra.UI.Tests.HelperMethods
             }
             catch (WebDriverTimeoutException)
             {
-                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", continueLabel);
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", driver.FindElement(by));
             }
         }
 
-
         public static void ParhauButton(this IWebDriver driver)
         {
-            IWebElement? continueLabel = null;
+            By by = By.XPath("//button[normalize-space(text())='Parhau']");
+            var element = driver.WaitForElement(by, true);
+            var urlBeforeClick = driver.Url;
+
             try
             {
-                continueLabel = driver.FindElement(By.XPath("//button[normalize-space(text())='Parhau']"));
+                element.Click();
             }
-            catch
+            catch (StaleElementReferenceException)
             {
-                continueLabel = driver.WaitForElement(By.XPath("//button[normalize-space(text())='Parhau']"), true);
+                driver.FindElement(by).Click();
             }
-
-             ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].scrollIntoView(true);", continueLabel);
-            Thread.Sleep(300);
-
-            var urlBeforeClick = driver.Url;
-            continueLabel.Click();
 
             try
             {
@@ -108,7 +101,7 @@ namespace Defra.UI.Tests.HelperMethods
             }
             catch (WebDriverTimeoutException)
             {
-                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", continueLabel);
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", driver.FindElement(by));
             }
         }
     }
