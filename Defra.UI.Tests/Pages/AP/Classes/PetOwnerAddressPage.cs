@@ -22,7 +22,8 @@ namespace Defra.UI.Tests.Pages.AP.Classes
         private IWebElement PageHeading => _driver.WaitForElement(By.XPath("//h1[contains(@class,'govuk-heading-xl')]"), true);
         private IWebElement btnFindAddress => _driver.WaitForElement(By.XPath("//button[@type='submit']"));
         private IWebElement txtPostCode => _driver.WaitForElement(By.Id("Postcode"), true);
-        private IWebElement drpAddress => _driver.WaitForElement(By.CssSelector("#Address"));
+        private IWebElement drpAddress => new WebDriverWait(_driver, TimeSpan.FromSeconds(45))
+                                            .Until(d => d.FindElement(By.CssSelector("#Address")));
         private IWebElement lnkEnterAddress => _driver.WaitForElement(By.XPath("//a[normalize-space(text())='Enter the address manually']"));
         private IWebElement txtAddressLineOne => _driver.WaitForElement(By.Id("AddressLineOne"));
         private IWebElement txtAddressLineTwo => _driver.WaitForElement(By.Id("AddressLineTwo"));

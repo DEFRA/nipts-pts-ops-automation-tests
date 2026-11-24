@@ -3,6 +3,7 @@ using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Pages.AP.Interfaces;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using Reqnroll.BoDi;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
@@ -54,6 +55,9 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
             var selectedBread = selectedBreed.Text;
             selectedBreed.Click();
+
+            new WebDriverWait(_driver, TimeSpan.FromSeconds(5))
+                .Until(d => !string.IsNullOrWhiteSpace(drpBreedType.GetAttribute("value")));
 
             return selectedBread;
         }

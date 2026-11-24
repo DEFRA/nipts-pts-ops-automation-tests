@@ -50,6 +50,15 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             {
                 ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", FindAddressButton);
             }
+
+            try
+            {
+                new WebDriverWait(_driver, TimeSpan.FromSeconds(10)).Until(d => d.Url != urlBeforeClick);
+            }
+            catch (WebDriverTimeoutException)
+            {
+                throw new Exception("Find address button click did not navigate away from the postcode page.");
+            }
         }
 
         public void ClickManuallyAddressLink()
