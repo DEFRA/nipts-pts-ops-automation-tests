@@ -58,16 +58,16 @@ namespace Defra.UI.Tests.HelperMethods
         public static void ContinueButton(this IWebDriver driver)
         {
             By by = By.XPath("//button[normalize-space(text())='Continue']");
-            var element = driver.WaitForElement(by, true);
             var urlBeforeClick = driver.Url;
+            var element = driver.WaitForElement(by, true);
 
             try
             {
-                element.Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
             }
             catch (StaleElementReferenceException)
             {
-                driver.FindElement(by).Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", driver.FindElement(by));
             }
 
             try
@@ -83,16 +83,16 @@ namespace Defra.UI.Tests.HelperMethods
         public static void ParhauButton(this IWebDriver driver)
         {
             By by = By.XPath("//button[normalize-space(text())='Parhau']");
-            var element = driver.WaitForElement(by, true);
             var urlBeforeClick = driver.Url;
+            var element = driver.WaitForElement(by, true);
 
             try
             {
-                element.Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", element);
             }
             catch (StaleElementReferenceException)
             {
-                driver.FindElement(by).Click();
+                ((IJavaScriptExecutor)driver).ExecuteScript("arguments[0].click();", driver.FindElement(by));
             }
 
             try

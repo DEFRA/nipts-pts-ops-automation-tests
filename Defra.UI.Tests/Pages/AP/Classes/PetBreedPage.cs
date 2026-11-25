@@ -52,9 +52,18 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             }
 
             var selectedBreed = _driver.WaitForElement(By.Id($"BreedId__option--{breedIndex}"));
-
             var selectedBread = selectedBreed.Text;
-            selectedBreed.Click();
+
+            try
+            {
+                selectedBreed.Click();
+            }
+            catch (ElementNotInteractableException)
+            {
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", drpBreedType);
+                selectedBreed = _driver.WaitForElement(By.Id($"BreedId__option--{breedIndex}"));
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", selectedBreed);
+            }
 
             try
             {
