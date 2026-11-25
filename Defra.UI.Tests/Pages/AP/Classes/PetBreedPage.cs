@@ -5,6 +5,7 @@ using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using Reqnroll.BoDi;
+using SeleniumExtras.WaitHelpers;
 
 namespace Defra.UI.Tests.Pages.AP.Classes
 {
@@ -51,37 +52,11 @@ namespace Defra.UI.Tests.Pages.AP.Classes
                 drpBreedType.SendKeys(Keys.Backspace);
             }
 
-            var selectedBreed = _driver.WaitForElement(By.Id($"BreedId__option--{breedIndex}"));
+            var selectedBreed = _driver.WaitForElementCondition(
+                ExpectedConditions.ElementToBeClickable(By.Id($"BreedId__option--{breedIndex}")));
+
             var selectedBread = selectedBreed.Text;
-
-            try
-            {
-                selectedBreed.Click();
-            }
-            catch (ElementNotInteractableException)
-            {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", drpBreedType);
-                selectedBreed = _driver.WaitForElement(By.Id($"BreedId__option--{breedIndex}"));
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", selectedBreed);
-            }
-
-            try
-            {
-                new WebDriverWait(_driver, TimeSpan.FromSeconds(15))
-                    .Until(d => !string.IsNullOrWhiteSpace(drpBreedType.GetAttribute("value")));
-            }
-            catch (WebDriverTimeoutException)
-            {
-                // Fallback: re-click the option in case the first click didn't register,
-                // then give it one more short window to commit.
-                var retryOption = _driver.FindElements(By.Id($"BreedId__option--{breedIndex}"));
-                if (retryOption.Count > 0)
-                {
-                    retryOption[0].Click();
-                    new WebDriverWait(_driver, TimeSpan.FromSeconds(10))
-                        .Until(d => !string.IsNullOrWhiteSpace(drpBreedType.GetAttribute("value")));
-                }
-            }
+            selectedBreed.Click();
 
             return selectedBread;
         }
