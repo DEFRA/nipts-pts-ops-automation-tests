@@ -56,8 +56,23 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             var selectedBread = selectedBreed.Text;
             selectedBreed.Click();
 
-            new WebDriverWait(_driver, TimeSpan.FromSeconds(5))
-                .Until(d => !string.IsNullOrWhiteSpace(drpBreedType.GetAttribute("value")));
+            try
+            {
+                new WebDriverWait(_driver, TimeSpan.FromSeconds(15))
+                    .Until(d => !string.IsNullOrWhiteSpace(drpBreedType.GetAttribute("value")));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                // Fallback: re-click the option in case the first click didn't register,
+                // then give it one more short window to commit.
+                var retryOption = _driver.FindElements(By.Id($"BreedId__option--{breedIndex}"));
+                if (retryOption.Count > 0)
+                {
+                    retryOption[0].Click();
+                    new WebDriverWait(_driver, TimeSpan.FromSeconds(10))
+                        .Until(d => !string.IsNullOrWhiteSpace(drpBreedType.GetAttribute("value")));
+                }
+            }
 
             return selectedBread;
         }
