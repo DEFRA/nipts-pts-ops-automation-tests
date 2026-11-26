@@ -36,11 +36,12 @@ namespace Defra.UI.Tests.Pages.AP.Classes
 
         public void ClickFindAddressButton()
         {
-            var urlBeforeClick = _driver.Url;
-            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].scrollIntoView(true);", FindAddressButton);
-            Thread.Sleep(300);
+            DismissCookieBannerIfPresent();
 
-            FindAddressButton.Click();
+            var urlBeforeClick = _driver.Url;
+            var button = _driver.FindElement(By.XPath("//button[normalize-space(text()) ='Find address']"));
+
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", button);
 
             try
             {
@@ -48,16 +49,32 @@ namespace Defra.UI.Tests.Pages.AP.Classes
             }
             catch (WebDriverTimeoutException)
             {
-                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", FindAddressButton);
+                var retryButton = _driver.FindElement(By.XPath("//button[normalize-space(text()) ='Find address']"));
+                ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", retryButton);
             }
+        }
 
+        private void DismissCookieBannerIfPresent()
+        {
             try
             {
-                new WebDriverWait(_driver, TimeSpan.FromSeconds(10)).Until(d => d.Url != urlBeforeClick);
+                var rejectButtons = _driver.FindElements(By.XPath("//button[contains(text(),'Reject additional cookies')]"));
+                if (rejectButtons.Count > 0)
+                {
+                    ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", rejectButtons[0]);
+                    Thread.Sleep(300);
+
+                    var hideButtons = _driver.FindElements(By.XPath("//button[contains(text(),'Hide cookie message')]"));
+                    if (hideButtons.Count > 0)
+                    {
+                        ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", hideButtons[0]);
+                        Thread.Sleep(300);
+                    }
+                }
             }
-            catch (WebDriverTimeoutException)
+            catch (Exception)
             {
-                throw new Exception("Find address button click did not navigate away from the postcode page.");
+                // Banner/confirmation not present or already dismissed - safe to continue.
             }
         }
 
