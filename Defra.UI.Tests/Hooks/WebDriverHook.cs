@@ -8,10 +8,11 @@ using Defra.UI.Tests.Configuration;
 using Defra.UI.Tests.HelperMethods;
 using Defra.UI.Tests.Tools;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chromium;
 using OpenQA.Selenium.Remote;
 using Reqnroll;
 using Reqnroll.BoDi;
+using System.Diagnostics;
+using System.Drawing;
 using System.Net.Http.Headers;
 using System.Reflection;
 
@@ -225,6 +226,10 @@ namespace Defra.UI.Tests.Hooks
             }
         }
 
+        /// <summary>
+        /// Captures a full page screenshot of the currently active browser (<see cref="GetActiveDriver"/>)
+        /// into a new file in the Reports/Screenshots directory, for attaching to the Extent report.
+        /// </summary>
         private string CaptureScreenshot()
         {
             var screenshotsDir = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Reports", "Screenshots");
@@ -234,9 +239,8 @@ namespace Defra.UI.Tests.Hooks
                 Directory.CreateDirectory(screenshotsDir);
             }
 
-            var screenshot = ((ITakesScreenshot)GetActiveDriver()).GetScreenshot();
             var filePath = Path.Combine(screenshotsDir, $"{Guid.NewGuid()}.png");
-            screenshot.SaveAsFile(filePath);
+            CaptureFullPageScreenshot(filePath);
             return filePath;
         }
 
@@ -282,56 +286,195 @@ namespace Defra.UI.Tests.Hooks
             }
         }
 
+        /// <summary>
+        /// JavaScript used to measure the current page and viewport dimensions (in CSS pixels),
+        /// used to determine whether a full page screenshot requires scrolling/stitching.
+        /// </summary>
+        private const string PageDimensionsScript = @"
+            return {
+                pageWidth: Math.max(
+                    document.body.scrollWidth, document.documentElement.scrollWidth,
+                    document.body.offsetWidth, document.documentElement.offsetWidth),
+                pageHeight: Math.max(
+                    document.body.scrollHeight, document.documentElement.scrollHeight,
+                    document.body.offsetHeight, document.documentElement.offsetHeight),
+                viewportWidth: window.innerWidth,
+                viewportHeight: window.innerHeight
+            };";
+
+        /// <summary>
+        /// Maximum time to wait after scrolling for the page to settle (e.g. lazy-loaded images, sticky
+        /// headers repositioning) before taking a screenshot of the new scroll position. In practice
+        /// scrolling settles almost immediately, so <see cref="WaitForScrollSettle"/> usually returns
+        /// long before this timeout is reached - this is only a safety ceiling for slow pages.
+        /// </summary>
+        private static readonly TimeSpan ScrollSettleTimeout = TimeSpan.FromMilliseconds(200);
+
+        /// <summary>
+        /// How often to poll the current scroll position while waiting for it to settle.
+        /// </summary>
+        private static readonly TimeSpan ScrollSettlePollInterval = TimeSpan.FromMilliseconds(15);
+
+        /// <summary>
+        /// Holds the page and viewport dimensions (in CSS pixels) reported by <see cref="PageDimensionsScript"/>.
+        /// </summary>
+        private readonly record struct PageDimensions(int PageWidth, int PageHeight, int ViewportWidth, int ViewportHeight)
+        {
+            public bool PageFitsInViewport => PageHeight <= ViewportHeight && PageWidth <= ViewportWidth;
+        }
+
+        /// <summary>
+        /// Captures a screenshot of the full page (not just the visible viewport) of the currently
+        /// active browser (<see cref="GetActiveDriver"/>) and saves it to <paramref name="filePath"/>.
+        /// </summary>
         private void CaptureFullPageScreenshot(string filePath)
         {
+            var activeDriver = UnwrapDriver(GetActiveDriver());
+
             try
             {
-                var chromeDriver = GetActiveDriver() as ChromiumDriver;
-
-                if (chromeDriver != null)
+                if (activeDriver is not IJavaScriptExecutor jsExecutor)
                 {
-                    // Get full page dimensions via JS
-                    var jsExecutor = (IJavaScriptExecutor)chromeDriver;
-                    var totalWidth = Convert.ToInt64(jsExecutor.ExecuteScript("return document.body.scrollWidth"));
-                    var totalHeight = Convert.ToInt64(jsExecutor.ExecuteScript("return document.body.scrollHeight"));
-
-                    // Set device metrics override to capture beyond the viewport
-                    var metrics = new Dictionary<string, object>
-                    {
-                        ["width"] = totalWidth,
-                        ["height"] = totalHeight,
-                        ["deviceScaleFactor"] = 1,
-                        ["mobile"] = false
-                    };
-                    chromeDriver.ExecuteCdpCommand("Emulation.setDeviceMetricsOverride", metrics);
-
-                    // Capture the screenshot using CDP
-                    var screenshotParams = new Dictionary<string, object>
-                    {
-                        ["format"] = "png",
-                        ["captureBeyondViewport"] = true
-                    };
-                    var result = chromeDriver.ExecuteCdpCommand("Page.captureScreenshot", screenshotParams);
-
-                    var base64 = ((Dictionary<string, object>)result)["data"].ToString();
-                    var screenshotBytes = Convert.FromBase64String(base64);
-                    File.WriteAllBytes(filePath, screenshotBytes);
-
-                    // Reset device metrics override
-                    chromeDriver.ExecuteCdpCommand("Emulation.clearDeviceMetricsOverride", new Dictionary<string, object>());
+                    CaptureViewportScreenshot(activeDriver, filePath);
+                    return;
                 }
-                else
+
+                var dimensions = GetPageDimensions(jsExecutor);
+
+                if (dimensions.PageFitsInViewport)
                 {
-                    // Fallback to standard viewport screenshot for non-Chromium drivers
-                    ((ITakesScreenshot)GetActiveDriver()).GetScreenshot().SaveAsFile(filePath);
+                    // The whole page already fits in the viewport, no need to scroll/stitch.
+                    CaptureViewportScreenshot(activeDriver, filePath);
+                    return;
                 }
+
+                CaptureStitchedFullPageScreenshot(activeDriver, jsExecutor, dimensions, filePath);
             }
             catch (Exception ex)
             {
                 Logger.Debug($"Full page screenshot failed, falling back to standard screenshot: {ex.Message}");
-                ((ITakesScreenshot)GetActiveDriver()).GetScreenshot().SaveAsFile(filePath);
+                CaptureViewportScreenshot(activeDriver, filePath);
             }
         }
+
+        /// <summary>
+        /// Takes a single viewport-sized screenshot of <paramref name="driver"/> and saves it to <paramref name="filePath"/>.
+        /// </summary>
+        private static void CaptureViewportScreenshot(IWebDriver driver, string filePath)
+        {
+            ((ITakesScreenshot)driver).GetScreenshot().SaveAsFile(filePath);
+        }
+
+        /// <summary>
+        /// Reads the current page and viewport dimensions (in CSS pixels) from the browser via <see cref="PageDimensionsScript"/>.
+        /// </summary>
+        private static PageDimensions GetPageDimensions(IJavaScriptExecutor jsExecutor)
+        {
+            var dimensions = (Dictionary<string, object>)jsExecutor.ExecuteScript(PageDimensionsScript);
+
+            return new PageDimensions(
+                PageWidth: Convert.ToInt32(Convert.ToInt64(dimensions["pageWidth"])),
+                PageHeight: Convert.ToInt32(Convert.ToInt64(dimensions["pageHeight"])),
+                ViewportWidth: Convert.ToInt32(Convert.ToInt64(dimensions["viewportWidth"])),
+                ViewportHeight: Convert.ToInt32(Convert.ToInt64(dimensions["viewportHeight"])));
+        }
+
+        /// <summary>
+        /// Scrolls through the page in viewport-sized increments, screenshotting each segment and
+        /// stitching them together into a single full page image, which is saved to <paramref name="filePath"/>.
+        /// </summary>
+        private static void CaptureStitchedFullPageScreenshot(IWebDriver driver, IJavaScriptExecutor jsExecutor, PageDimensions dimensions, string filePath)
+        {
+            jsExecutor.ExecuteScript("window.scrollTo(0, 0);");
+            WaitForScrollSettle(jsExecutor);
+
+            // Take an initial screenshot to determine the actual device pixel size of a
+            // viewport-sized screenshot. The page dimensions above are reported in CSS pixels by
+            // JavaScript, but the screenshot image is captured in physical/device pixels, which
+            // differ whenever the OS display scaling (DPI) is not 100% - a very common setup on
+            // Windows laptops (e.g. 125%/150% scaling). Deriving the scale factor from the actual
+            // screenshot avoids misaligned/clipped stitching on such machines.
+            using var firstSegmentBitmap = TakeScreenshotBitmap(driver);
+            var scaleX = (double)firstSegmentBitmap.Width / dimensions.ViewportWidth;
+            var scaleY = (double)firstSegmentBitmap.Height / dimensions.ViewportHeight;
+
+            var fullBitmapWidth = (int)Math.Ceiling(dimensions.PageWidth * scaleX);
+            var fullBitmapHeight = (int)Math.Ceiling(dimensions.PageHeight * scaleY);
+
+            using var fullBitmap = new Bitmap(fullBitmapWidth, fullBitmapHeight);
+            using var graphics = Graphics.FromImage(fullBitmap);
+
+            graphics.DrawImage(firstSegmentBitmap, 0, 0);
+
+            var scrollPositionY = dimensions.ViewportHeight;
+            while (scrollPositionY < dimensions.PageHeight)
+            {
+                jsExecutor.ExecuteScript($"window.scrollTo(0, {scrollPositionY});");
+                var actualScrollY = WaitForScrollSettle(jsExecutor);
+
+                using var segmentBitmap = TakeScreenshotBitmap(driver);
+                graphics.DrawImage(segmentBitmap, 0, (int)Math.Round(actualScrollY * scaleY));
+
+                scrollPositionY += dimensions.ViewportHeight;
+            }
+
+            fullBitmap.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
+        }
+
+        /// <summary>
+        /// Takes a screenshot of <paramref name="driver"/> and returns it as a <see cref="Bitmap"/>.
+        /// </summary>
+        private static Bitmap TakeScreenshotBitmap(IWebDriver driver)
+        {
+            var screenshotBytes = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
+            return new Bitmap(new MemoryStream(screenshotBytes));
+        }
+
+        /// <summary>
+        /// Polls the current vertical scroll position until it stops changing between consecutive
+        /// reads (i.e. the scroll/any resulting layout shift has settled), or <see cref="ScrollSettleTimeout"/>
+        /// is reached, whichever comes first. This is significantly faster than a fixed delay in the
+        /// common case where scrolling settles almost immediately, while still tolerating slower pages.
+        /// </summary>
+        /// <returns>The last observed scroll position.</returns>
+        private static int WaitForScrollSettle(IJavaScriptExecutor jsExecutor)
+        {
+            const string readScrollYScript = "return window.pageYOffset || document.documentElement.scrollTop;";
+
+            var stopwatch = Stopwatch.StartNew();
+            var previousScrollY = Convert.ToInt32((long)jsExecutor.ExecuteScript(readScrollYScript));
+
+            while (stopwatch.Elapsed < ScrollSettleTimeout)
+            {
+                Thread.Sleep(ScrollSettlePollInterval);
+
+                var currentScrollY = Convert.ToInt32((long)jsExecutor.ExecuteScript(readScrollYScript));
+
+                if (currentScrollY == previousScrollY)
+                {
+                    return currentScrollY;
+                }
+
+                previousScrollY = currentScrollY;
+            }
+
+            return previousScrollY;
+        }
+
+        /// <summary>
+        /// Unwraps a driver that implements <see cref="IWrapsDriver"/> (e.g. <see cref="EventFiringWebDriver"/>)
+        /// to find the real underlying <see cref="IWebDriver"/> implementation.
+        /// </summary>
+        private static IWebDriver UnwrapDriver(IWebDriver driver)
+        {
+            while (driver is IWrapsDriver wrapsDriver && wrapsDriver.WrappedDriver != null && !ReferenceEquals(wrapsDriver.WrappedDriver, driver))
+            {
+                driver = wrapsDriver.WrappedDriver;
+            }
+
+            return driver;
+        }
+
 
         private void CloseBrowsers()
         {
