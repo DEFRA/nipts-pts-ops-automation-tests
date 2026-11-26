@@ -11,6 +11,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
 using Reqnroll;
 using Reqnroll.BoDi;
+using System.Diagnostics;
 using System.Drawing;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -302,10 +303,17 @@ namespace Defra.UI.Tests.Hooks
             };";
 
         /// <summary>
-        /// How long to wait after scrolling for the page to settle (e.g. lazy-loaded images, sticky
-        /// headers repositioning) before taking a screenshot of the new scroll position.
+        /// Maximum time to wait after scrolling for the page to settle (e.g. lazy-loaded images, sticky
+        /// headers repositioning) before taking a screenshot of the new scroll position. In practice
+        /// scrolling settles almost immediately, so <see cref="WaitForScrollSettle"/> usually returns
+        /// long before this timeout is reached - this is only a safety ceiling for slow pages.
         /// </summary>
-        private static readonly TimeSpan ScrollSettleDelay = TimeSpan.FromMilliseconds(200);
+        private static readonly TimeSpan ScrollSettleTimeout = TimeSpan.FromMilliseconds(200);
+
+        /// <summary>
+        /// How often to poll the current scroll position while waiting for it to settle.
+        /// </summary>
+        private static readonly TimeSpan ScrollSettlePollInterval = TimeSpan.FromMilliseconds(15);
 
         /// <summary>
         /// Holds the page and viewport dimensions (in CSS pixels) reported by <see cref="PageDimensionsScript"/>.
@@ -378,7 +386,7 @@ namespace Defra.UI.Tests.Hooks
         private static void CaptureStitchedFullPageScreenshot(IWebDriver driver, IJavaScriptExecutor jsExecutor, PageDimensions dimensions, string filePath)
         {
             jsExecutor.ExecuteScript("window.scrollTo(0, 0);");
-            Thread.Sleep(ScrollSettleDelay);
+            WaitForScrollSettle(jsExecutor);
 
             // Take an initial screenshot to determine the actual device pixel size of a
             // viewport-sized screenshot. The page dimensions above are reported in CSS pixels by
@@ -402,9 +410,7 @@ namespace Defra.UI.Tests.Hooks
             while (scrollPositionY < dimensions.PageHeight)
             {
                 jsExecutor.ExecuteScript($"window.scrollTo(0, {scrollPositionY});");
-                Thread.Sleep(ScrollSettleDelay);
-
-                var actualScrollY = Convert.ToInt32((long)jsExecutor.ExecuteScript("return window.pageYOffset || document.documentElement.scrollTop;"));
+                var actualScrollY = WaitForScrollSettle(jsExecutor);
 
                 using var segmentBitmap = TakeScreenshotBitmap(driver);
                 graphics.DrawImage(segmentBitmap, 0, (int)Math.Round(actualScrollY * scaleY));
@@ -422,6 +428,37 @@ namespace Defra.UI.Tests.Hooks
         {
             var screenshotBytes = ((ITakesScreenshot)driver).GetScreenshot().AsByteArray;
             return new Bitmap(new MemoryStream(screenshotBytes));
+        }
+
+        /// <summary>
+        /// Polls the current vertical scroll position until it stops changing between consecutive
+        /// reads (i.e. the scroll/any resulting layout shift has settled), or <see cref="ScrollSettleTimeout"/>
+        /// is reached, whichever comes first. This is significantly faster than a fixed delay in the
+        /// common case where scrolling settles almost immediately, while still tolerating slower pages.
+        /// </summary>
+        /// <returns>The last observed scroll position.</returns>
+        private static int WaitForScrollSettle(IJavaScriptExecutor jsExecutor)
+        {
+            const string readScrollYScript = "return window.pageYOffset || document.documentElement.scrollTop;";
+
+            var stopwatch = Stopwatch.StartNew();
+            var previousScrollY = Convert.ToInt32((long)jsExecutor.ExecuteScript(readScrollYScript));
+
+            while (stopwatch.Elapsed < ScrollSettleTimeout)
+            {
+                Thread.Sleep(ScrollSettlePollInterval);
+
+                var currentScrollY = Convert.ToInt32((long)jsExecutor.ExecuteScript(readScrollYScript));
+
+                if (currentScrollY == previousScrollY)
+                {
+                    return currentScrollY;
+                }
+
+                previousScrollY = currentScrollY;
+            }
+
+            return previousScrollY;
         }
 
         /// <summary>
