@@ -79,15 +79,35 @@ public abstract class PowerAppsStepDefiner
 
                 if (testConfig.BrowserOptions.DriversPath == Path.Combine(Directory.GetCurrentDirectory()))
                 {
-                    if (Directory.GetFiles(testConfig.BrowserOptions.DriversPath, "*driver.exe").Length == 0)
+                    var assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+
+                    if (!HasWebDriverBinary(testConfig.BrowserOptions.DriversPath) && HasWebDriverBinary(assemblyPath))
                     {
-                        testConfig.BrowserOptions.DriversPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                        testConfig.BrowserOptions.DriversPath = assemblyPath;
                     }
                 }
             }
 
             return testConfig;
         }
+    }
+
+    private static bool HasWebDriverBinary(string directoryPath)
+    {
+        if (string.IsNullOrWhiteSpace(directoryPath) || !Directory.Exists(directoryPath))
+        {
+            return false;
+        }
+
+        return Directory.EnumerateFiles(directoryPath)
+            .Select(Path.GetFileName)
+            .Any(fileName =>
+                string.Equals(fileName, "chromedriver", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(fileName, "chromedriver.exe", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(fileName, "geckodriver", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(fileName, "geckodriver.exe", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(fileName, "msedgedriver", StringComparison.OrdinalIgnoreCase)
+                || string.Equals(fileName, "msedgedriver.exe", StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>
