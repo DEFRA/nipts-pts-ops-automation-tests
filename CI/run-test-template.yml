@@ -184,25 +184,57 @@ jobs:
 
                 [xml]$trx = Get-Content $trxFile
 
+                $testDefinitionsById = @{}
+                foreach ($unitTest in $trx.TestRun.TestDefinitions.UnitTest) {
+                    $testDefinitionsById[$unitTest.id] = $unitTest
+                }
+
                 $failedTests = $trx.TestRun.Results.UnitTestResult |
                     Where-Object { $_.outcome -eq "Failed" } |
                     ForEach-Object {
-                        $name = $_.testName
-                        if ($name.Contains('(')) {
-                            $cleanName = $name.Substring(0, $name.IndexOf('('))
+                        $definition = $testDefinitionsById[$_.testId]
+                        if ($definition -and $definition.TestMethod) {
+                            # Build the true fully qualified name (Namespace.Class.Method) from the test
+                            # definition rather than the display "testName" (which can be a short name
+                            # e.g. "MethodName" and is prone to unintended substring matches against
+                            # unrelated tests whose names share a common prefix, e.g. "...InWelsh" variants).
+                            # className can be recorded as an assembly-qualified name
+                            # (e.g. "Namespace.Class, Assembly, Version=..., Culture=..., PublicKeyToken=...");
+                            # strip everything from the first comma onward to keep just the type name.
+                            $className = $definition.TestMethod.className
+                            if ($className.Contains(',')) {
+                                $className = $className.Substring(0, $className.IndexOf(','))
+                            }
+                            # For parameterized tests, the "name" attribute can include the example
+                            # row's arguments (e.g. "MethodName(""PetDog's"",""Yes"",...)"); strip
+                            # everything from the first '(' onward to keep just the bare method name.
+                            $methodName = $definition.TestMethod.name
+                            if ($methodName.Contains('(')) {
+                                $methodName = $methodName.Substring(0, $methodName.IndexOf('('))
+                            }
+                            "$className.$methodName"
                         } else {
-                            $cleanName = $name
+                            $name = $_.testName
+                            if ($name.Contains('(')) {
+                                $name.Substring(0, $name.IndexOf('('))
+                            } else {
+                                $name
+                            }
                         }
-
-                        $cleanName
-                     }| 
-                     Sort-Object | 
+                     }|
+                     Where-Object { -not [string]::IsNullOrWhiteSpace($_) } |
+                     Sort-Object |
                      Get-Unique
                 
                 if ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries) {
                     Write-Host "Found $($failedTests.Count) failed test(s). Preparing to rerun..."
 
-                    $filterExpr = ($failedTests | ForEach-Object { "FullyQualifiedName~$_" }) -join '|'
+                    # Escape VSTest filter special characters (\ ( ) & | = ! ~) in each name so that any
+                    # stray special character doesn't break the filter expression's own syntax.
+                    $filterExpr = ($failedTests | ForEach-Object {
+                        $esc = $_ -replace '([\\()&|=!~])','\$1'
+                        "FullyQualifiedName=$esc"
+                    }) -join '|'
 
                     Write-Host "Rerunning failed tests with filter: $filterExpr"
 
@@ -210,7 +242,11 @@ jobs:
 
                     $nextTrxFile = "${{ parameters.jobName }}_results_${attempt}.trx"
 
-                    dotnet test $projectDllPath --filter "$filterExpr" --logger:"trx;LogFileName=${nextTrxFile}"
+                    # Escape embedded double quotes so the argument survives PowerShell's native command
+                    # parsing (important under Windows PowerShell 5.1) before being passed to dotnet test.
+                    $filterArg = $filterExpr -replace '"','\"'
+
+                    dotnet test $projectDllPath --filter $filterArg --logger:"trx;LogFileName=${nextTrxFile}"
                 }
 
             } while ($failedTests.Count -gt 0 -and $attempt -lt $maxRetries)
