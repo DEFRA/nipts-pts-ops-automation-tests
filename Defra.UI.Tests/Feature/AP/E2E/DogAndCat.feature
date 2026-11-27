@@ -393,8 +393,6 @@ Scenario Outline: Create PETS Travel Document and navigate to Pets Owner details
 	And I have selected the option as '<Color>' for color
 	When I click on continue button from What is the main colour of your pet page
 	Then I should redirected to the Does your pet have any significant features page
-	#And I have selected an option as '<IsSignificantFeatures>' for significant features
-	#When I click on continue button from Does your pet have any significant features page
 	When I have selected '<IsSignificantFeatures>' for significant features and continue
 	Then I should redirected to the Check your answers and sign the declaration page
 	And I have ticked the I agree to the declaration checkbox
