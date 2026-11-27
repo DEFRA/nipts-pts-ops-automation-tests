@@ -35,5 +35,7 @@ variables:
   Target: ${{ parameters.target }}
   IsEmulationEnabled: ${{ parameters.isEmulationEnabled }}
   EmulateDeviceInfo: ${{ parameters.emulateDeviceInfo }}  
-  IDCOMSPassword: ${{ parameters.idcomsPassword }}
+  IDCOMSUser: ${{ IDCOMS_USERNAME }}
+  IDCOMSPassword: ${{ IDCOMS_PASSWORD }}
+  IDOMSUserAlias: ${{ IDCOMS_ALIAS }}
   IsAccessibilityEnabled: ${{ parameters.isAccessibilityEnabled }}
