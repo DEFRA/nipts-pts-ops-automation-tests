@@ -134,12 +134,12 @@ jobs:
         Write-Host $ymlString
       displayName: 'Display power-apps-bindings.yml'
 
-    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+    - ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
       - powershell:
           docker system prune -a --volumes --force
         displayName: 'Stop and Clean all containers'
 
-    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+    - ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
       - task: DockerCompose@0
         displayName: Run a Docker Compose command
         inputs:
@@ -151,7 +151,7 @@ jobs:
           dockerComposeCommand: up -d
           #arguments: '--exit-code-from selenium-hub'
 
-    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+    - ${{ if contains(parameters.seleniumGrid, 'localhost') }}:
       - bash: |
           set -e
 
