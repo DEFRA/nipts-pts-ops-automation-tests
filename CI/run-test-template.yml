@@ -151,6 +151,35 @@ jobs:
           dockerComposeCommand: up -d
           #arguments: '--exit-code-from selenium-hub'
 
+    - ${{ if contains(parameters.seleniumGrid, 'localhost:') }}:
+      - bash: |
+          set -e
+
+          TARGET_PATH="$(System.DefaultWorkingDirectory)/Defra.UI.Tests/chromedriver"
+
+          if [ -f "$TARGET_PATH" ]; then
+            echo "chromedriver already exists at $TARGET_PATH"
+            exit 0
+          fi
+
+          CHROMEDRIVER_BIN=""
+
+          if command -v chromedriver >/dev/null 2>&1; then
+            CHROMEDRIVER_BIN="$(command -v chromedriver)"
+          elif [ -f "/usr/bin/chromedriver" ]; then
+            CHROMEDRIVER_BIN="/usr/bin/chromedriver"
+          fi
+
+          if [ -z "$CHROMEDRIVER_BIN" ]; then
+            echo "chromedriver binary was not found on the agent"
+            exit 1
+          fi
+
+          cp "$CHROMEDRIVER_BIN" "$TARGET_PATH"
+          chmod +x "$TARGET_PATH"
+          echo "chromedriver copied to $TARGET_PATH"
+        displayName: 'Ensure chromedriver is available'
+
     - powershell: |
           Set-Location -Path "$(System.DefaultWorkingDirectory)/Defra.UI.Tests"
           dotnet test "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/Defra.UI.Tests.dll" --settings "$(System.DefaultWorkingDirectory)/Defra.UI.Tests/testrun_${{ parameters.workers }}.runsettings" --filter "$(FilterTestCases)" --logger:"trx;logfilename=${{ parameters.jobName }}_results_0.trx"
